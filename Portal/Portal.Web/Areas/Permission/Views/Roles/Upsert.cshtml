@@ -1,0 +1,146 @@
+﻿@using Microsoft.AspNetCore.Html
+@using Portal.Models
+@using Portal.Resources
+@using Portal.Constant
+@model RolesVM
+@{
+    String action = Model.RolesId == null ? LanguageResource.Create : LanguageResource.Edit;
+    ViewBag.Title = action + LanguageResource.Roles.ToLower();
+    string CurrentController = ConstController.Roles;
+    string CurrentArea = ConstArea.Permission;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+}
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header">
+        <div class="fs-16">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">@LanguageResource.Roles</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@action</li>
+            </ol>
+        </div>
+        <div>
+            @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
+            @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
+            @HtmlExtensions.BackButton(CurrentArea,CurrentController)
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <form method="post" asp-action="Upsert" id="frmUpsert">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header bg-primary br-te-3 br-ts-3">
+                        <h3 class="card-title text-white">Thông tin @LanguageResource.Roles.ToLower()</h3>
+                        <div class="card-options ">
+                            <a href="javascript:void(0)" class="card-options-collapse" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up text-white"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <input asp-for="RolesId" hidden />
+                            <div class="col-md-3">
+                                <label asp-for="RolesCode"></label>
+                                <input asp-for="RolesCode" class="form-control" />
+                                <span asp-validation-for="RolesCode" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="RolesName"></label>
+                                <input asp-for="RolesName" class="form-control" />
+                                <span asp-validation-for="RolesName" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="OrderIndex"></label>
+                                <input asp-for="OrderIndex" class="form-control" />
+                                <span asp-validation-for="OrderIndex" class="text-danger"></span>
+                            </div>
+                            @if (@Model.RolesId != null)
+                            {
+                                <div class="col-md-3 d-flex align-items-end">
+                                    <fieldset>
+                                        @Html.RadioButtonFor(p=>p.Actived,true) @LanguageResource.Actived_True
+                                        @Html.RadioButtonFor(p=>p.Actived,false) @LanguageResource.Actived_False
+                                    </fieldset>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                     <div class="card-header bg-primary br-te-3 br-ts-3">
+                        <h3 class="card-title text-white">Thông tin Menu và quyền</h3>
+                        <div class="card-options ">
+                            <a href="javascript:void(0)" class="card-options-collapse" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up text-white"></i></a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <table class="table border text-nowrap text-md-nowrap table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width:5%" ty>@LanguageResource.NumberIndex</th>
+                                        <th style="width:15%">@LanguageResource.MenuName</th>
+                                        <th style="width:80%">@LanguageResource.Roles</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int stt = 0;
+                                        for (var i = 0; i < Model.Pages.Count; i++)
+                                        {
+                                            stt++;
+                                            <tr>
+                                                <td>
+                                                    <input asp-for="@Model.Pages[i].MenuName" hidden>
+                                                    <input asp-for="@Model.Pages[i].MenuId" hidden>
+                                                    @stt.ToString()
+                                                </td>
+                                                <td>
+                                                    @Model.Pages[i].MenuName
+                                                </td>
+                                                <td>
+                                                    <div class="form-check">
+                                                        <div class="d-flex flex-row">
+                                                            @for (var y = 0; y < Model.Pages[i].Funtions.Count; y++)
+                                                            {
+                                                                <input asp-for="@Model.Pages[i].Funtions[y].FunctionId" hidden />
+                                                                <input asp-for="@Model.Pages[i].Funtions[y].FunctionName" hidden />
+                                                                <input asp-for="@Model.Pages[i].Funtions[y].MenuId" hidden />
+                                                                <input asp-for="@Model.Pages[i].Funtions[y].Selected" type="checkbox" id="@Model.Pages[i].Funtions[y].FunctionId">
+                                                                <label class="my-1 mx-1">@Model.Pages[i].Funtions[y].FunctionName |</label>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- /Row -->
+</div>
+@section Scripts{
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+    }
+    @section ScriptCustomized{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Portal.UpsertInitial("@CurrentUrl");
+        });
+    </script>
+}

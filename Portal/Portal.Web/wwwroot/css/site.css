@@ -1,0 +1,47 @@
+
+
+.splitter {
+    width: 100%;
+    margin-bottom:10px;
+    padding: 10px;
+    background-color:white;
+}
+
+.splitter-head {
+    overflow: hidden;
+    text-align: left;
+    font-weight: bold;
+    color: #003399;
+    cursor: pointer;
+}
+
+.splitter-head:after {
+        left: 0.5em;
+        margin-right: -50%;
+        width: 100%;
+}
+
+.splitter-head::before, .splitter-head:after {
+        content: "";
+        display: inline-block;
+        position: relative;
+        vertical-align: baseline;
+        border-bottom: 1px dashed #003399;
+        line-height: 0.1em;
+}
+.splitter-body{
+    padding: 10px;
+    height: 0px;
+    transition: all .1s ease-in-out;
+    width: 100%;
+    visibility: hidden;
+}
+.splitter-body.splitter-toggle {
+        height: 100%;
+        transition: all .2s ease-in-out;
+        visibility: visible;
+        /*animation: fade_in_show 2s inherit*/
+}
+.splitter-body p {
+        text-align: justify;
+}

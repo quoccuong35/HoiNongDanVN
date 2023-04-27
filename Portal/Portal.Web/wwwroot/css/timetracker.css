@@ -1,0 +1,23 @@
+﻿
+.todo-cart {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height:40px;
+    word-wrap: break-word;
+    background-color: #fefefe;
+    background-clip: border-box;
+    border: 1px solid #C6D2D9;
+    border-radius: 2px;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:10px;
+    
+}
+.recorder-project-wrapper {
+    max-width: 200px;
+}
+div[dropdownkeybutton] {
+    width:100px
+}

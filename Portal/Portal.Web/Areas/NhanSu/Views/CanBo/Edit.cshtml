@@ -1,0 +1,489 @@
+﻿@using Portal.Models
+@using Portal.Resources
+
+@model CanBoVMMT
+@{
+    ViewBag.Title = LanguageResource.Create + LanguageResource.CanBo;
+    string CurrentController = ConstController.CanBo;
+    string CurrentArea = ConstArea.NhanSu;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+}
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header d-flex my-1">
+        <div class="fs-16">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">@LanguageResource.NgachLuong</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@LanguageResource.Edit</li>
+            </ol>
+        </div>
+        <div>
+            @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
+            @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
+            @HtmlExtensions.BackButton(CurrentArea,CurrentController)
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <form method="post" asp-action="Create" id="frmEdit">
+          <input asp-for="IDCanBo" hidden />
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="expanel expanel-default border-top">
+                                <div class="expanel-heading">
+                                    <h3 class="expanel-title"><i class="fe fe-user me-1"></i>Thông tin cán bộ</h3>
+                                </div>
+                                <div class="expanel-body">
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <img src="@Model.HinhAnh" alt="User Image" id="avtImg" name="avtImg" ondblclick="UploadAV()" title="Click double để đổi hình">
+                                            <br />
+                                            <input type="file" id="avtFileInbox" name="avtFileInbox" class="fileAvatar1" hidden>
+                                            <script>
+                                                function UploadAV() {
+                                                    $("#avtFileInbox").trigger('click');
+                                                }
+                                                function handleFileSelect(evt) {
+                                                    var files = evt.target.files;
+                                                    for (var i = 0, f; f = files[i]; i++) {
+                                                        if (!f.type.match('image.*')) {
+                                                            continue;
+                                                        }
+                                                        var reader = new FileReader();
+                                                        reader.onload = (function (theFile) {
+                                                            return function (e) {
+                                                                var img = document.getElementById('avtImg');
+                                                                img.setAttribute("src", e.target.result);
+                                                            };
+                                                        })(f);
+                                                        reader.readAsDataURL(f);
+                                                    }
+                                                }
+                                                document.getElementById('avtFileInbox').addEventListener('change', handleFileSelect, false);
+                                            </script>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="MaCanBo"></label><span class="text-red">*</span>
+                                                        <input type="text" asp-for="MaCanBo" class="form-control" >
+                                                        <span asp-validation-for="MaCanBo" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="HoVaTen"></label><span class="text-red">*</span>
+                                                        <input type="text" asp-for="HoVaTen" class="form-control" >
+                                                        <span asp-validation-for="HoVaTen" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="GioiTinh"></label><span class="text-red">*</span>
+                                                        <select asp-for="GioiTinh" class="form-control" asp-items="@Html.GetEnumSelectList<GioiTinh>()">
+                                                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                        </select>
+                                                        <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <label asp-for="NgaySinh"></label><span class="text-red">*</span>
+                                                        <input asp-for="NgaySinh" class="form-control" >
+                                                        <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaTinhTrang"></label><span class="text-red">*</span>
+                                                <select asp-for="MaTinhTrang" asp-items="@ViewBag.MaTinhTrang" class="form-control select2-show-search form-select">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="MaTinhTrang" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="IdCoSo"></label><span class="text-red">*</span>
+                                                <select asp-for="IdCoSo" asp-items="@ViewBag.IdCoSo" class="form-control select2-show-search form-select">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="IdCoSo" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="IdDepartment"></label><span class="text-red">*</span>
+                                                <select asp-for="IdDepartment" asp-items="@ViewBag.IdDepartment" class="form-control select2-show-search form-select">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="IdDepartment" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaChucVu"></label><span class="text-red">*</span>
+                                                <select asp-for="MaChucVu" asp-items="@ViewBag.MaChucVu" class="form-control select2-show-search form-select">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="MaChucVu" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="SoCCCD"></label><span class="text-red">*</span>
+                                                <input asp-for="SoCCCD" class="form-control" >
+                                                <span asp-validation-for="SoCCCD" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="NgayCapCCCD"></label><span class="text-red">*</span>
+                                                <input asp-for="NgayCapCCCD" class="form-control" >
+                                                <span asp-validation-for="NgayCapCCCD" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="NgayThamGiaCongTac"></label>
+                                                <input asp-for="NgayThamGiaCongTac" class="form-control" >
+                                                <span asp-validation-for="NgayThamGiaCongTac" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="NgayVaoBienChe"></label>
+                                                <input asp-for="NgayVaoBienChe" class="form-control" >
+                                                <span asp-validation-for="NgayVaoBienChe" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label asp-for="SoBHXH"></label>
+                                                <input asp-for="SoBHXH" class="form-control">
+                                                <span asp-validation-for="SoBHXH" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label asp-for="SoBHYT"></label>
+                                                <input asp-for="SoBHYT" class="form-control" >
+                                                <span asp-validation-for="SoBHYT" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label asp-for="MaSoThue"></label>
+                                                <input asp-for="MaSoThue" class="form-control" >
+                                                <span asp-validation-for="MaSoThue" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="NgayvaoDangDuBi"></label>
+                                                <input asp-for="NgayvaoDangDuBi" class="form-control" >
+                                                <span asp-validation-for="NgayvaoDangDuBi" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="NgayVaoDangChinhThuc"></label>
+                                                <input asp-for="NgayVaoDangChinhThuc" class="form-control" >
+                                                <span asp-validation-for="NgayVaoDangChinhThuc" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaDanToc"></label><span class="text-red">*</span>
+                                                <select asp-for="MaDanToc" asp-items="@ViewBag.MaDanToc" class="form-control select2-show-search form-select">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="MaDanToc" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaTonGiao"></label><span class="text-red">*</span>
+                                                <select asp-for="MaTonGiao" asp-items="@ViewBag.MaTonGiao" class="form-control select2-show-search form-select">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="MaTonGiao" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="SoDienThoai"></label> <span class="text-red">*</span>
+                                                <input asp-for="SoDienThoai" class="form-control">
+                                                <span asp-validation-for="SoDienThoai" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="Email"></label>
+                                                <input asp-for="Email" class="form-control" >
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <label asp-for="ChoOHienNay"></label> <span class="text-red">*</span>
+                                            <textarea asp-for="ChoOHienNay" rows="3" class="form-control"></textarea>
+                                            <span asp-validation-for="ChoOHienNay" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label asp-for="NoiSinh"></label> <span class="text-red">*</span>
+                                            <textarea asp-for="NoiSinh" rows="3" class="form-control"></textarea>
+                                            <span asp-validation-for="NoiSinh" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="expanel expanel-default ">
+                                <div class="expanel-heading">
+                                    <h3 class="expanel-title"><i class="fa fa-money me-1"></i> Thông tin lương</h3>
+                                </div>
+                                <div class="expanel-body">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaPhanHe"></label><span class="text-red">*</span>
+                                                <select asp-for="MaPhanHe" asp-items="@ViewBag.MaPhanHe" class="form-control">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="MaPhanHe" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaNgachLuong"></label><span class="text-red">*</span>
+                                                <select asp-for="MaNgachLuong" asp-items="@ViewBag.MaNgachLuong" class="form-control select2-show-search form-select">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="MaNgachLuong" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaBacLuong"></label><span class="text-red">*</span>
+                                                <select asp-for="MaBacLuong" asp-items="@ViewBag.MaBacLuong" class="form-control select2-show-search form-select">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="MaBacLuong" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="HeSoLuong"></label><span class="text-red">*</span>
+                                                <div class="input-group">
+                                                    <input asp-for="HeSoLuong" class="form-control" readonly>
+                                                    <span class="input-group-text">.00</span>
+                                                </div>
+                                                <span asp-validation-for="HeSoLuong" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="NgayNangBacLuong"></label><span class="text-red">*</span>
+                                                <input asp-for="NgayNangBacLuong" class="form-control">
+                                                <span asp-validation-for="NgayNangBacLuong" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="PhuCapVuotKhung"></label>
+                                                <div class="input-group">
+                                                    <input asp-for="PhuCapVuotKhung" class="form-control">
+                                                    <span class="input-group-text">%</span>
+                                                </div>
+                                                <span asp-validation-for="PhuCapVuotKhung" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="PhuCapKiemNhiem"></label>
+                                                <div class="input-group">
+                                                    <input asp-for="PhuCapKiemNhiem" class="form-control">
+                                                    <span class="input-group-text">.00</span>
+                                                </div>
+                                                <span asp-validation-for="PhuCapKiemNhiem" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="PhuCapChucVu"></label>
+                                                <div class="input-group">
+                                                    <input asp-for="PhuCapChucVu" class="form-control">
+                                                    <span class="input-group-text">.00</span>
+                                                </div>
+                                                <span asp-validation-for="PhuCapChucVu" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="PhuCapKhuVuc"></label>
+                                                <div class="input-group">
+                                                    <input asp-for="PhuCapKhuVuc" class="form-control">
+                                                    <span class="input-group-text">.00</span>
+                                                </div>
+                                                <span asp-validation-for="NgayVaoBienChe" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="LuongKhoan"></label>
+                                                <div class="input-group">
+                                                    <input asp-for="LuongKhoan" class="form-control">
+                                                    <span class="input-group-text"><i class="fa fa-money me-1"></i></span>
+                                                </div>
+                                                <span asp-validation-for="LuongKhoan" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="KhoanTuNgay"></label>
+                                                <input asp-for="KhoanTuNgay" class="form-control">
+                                                <span asp-validation-for="KhoanTuNgay" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="KhoanDenNgay"></label>
+                                                <input asp-for="KhoanDenNgay" class="form-control">
+                                                <span asp-validation-for="KhoanDenNgay" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="expanel expanel-default">
+                                <div class="expanel-heading">
+                                    <h3 class="expanel-title"> <i class="fa fa-book"></i> Học vấn</h3>
+                                </div>
+                                <div class="expanel-body">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaHeDaoTao"></label><span class="text-red">*</span>
+                                                <select asp-for="MaHeDaoTao" asp-items="@ViewBag.MaHeDaoTao" class="form-control">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="MaHeDaoTao" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaTrinhDoHocVan"></label><span class="text-red">*</span>
+                                                <select asp-for="MaTrinhDoHocVan" asp-items="@ViewBag.MaTrinhDoHocVan" class="form-control select2-show-search form-select">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="MaTrinhDoHocVan" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="ChuyenNganh"></label><span class="text-red">*</span>
+                                                <input asp-for="ChuyenNganh" class="form-control">
+                                                <span asp-validation-for="ChuyenNganh" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaTrinhDoChinhTri"></label>
+                                                <select asp-for="MaTrinhDoChinhTri" asp-items="@ViewBag.MaTrinhDoChinhTri" class="form-control select2-show-search form-select">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="MaTrinhDoChinhTri" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaTrinhDoNgoaiNgu"></label>
+                                                <select asp-for="MaTrinhDoNgoaiNgu" asp-items="@ViewBag.MaTrinhDoNgoaiNgu" class="form-control select2-show-search form-select">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="MaTrinhDoNgoaiNgu" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaTrinhDoTinHoc"></label>
+                                                <select asp-for="MaTrinhDoTinHoc" asp-items="@ViewBag.MaTrinhDoTinHoc" class="form-control select2-show-search form-select">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="MaTrinhDoTinHoc" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6" id="cbxHocHam" style="display:none">
+                                            <div class="form-group">
+                                                <label asp-for="MaHocHam"></label>
+                                                <select asp-for="MaHocHam" asp-items="@ViewBag.MaHocHam" class="form-control">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="MaHocHam" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- /Row -->
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+@section ScriptCustomized{
+    <script src="~/js/canbo.js"></script>
+    <script type="text/javascript">
+       
+        $(document).ready(function () {
+            Portal.EditInitial("@CurrentUrl");
+        });
+    </script>
+}

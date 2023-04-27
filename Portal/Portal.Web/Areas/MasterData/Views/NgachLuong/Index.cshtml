@@ -1,0 +1,75 @@
+﻿@using Portal.Models
+@using Portal.Constant
+@model NgachLuongSearchVM
+@{
+    ViewBag.Title = LanguageResource.List + LanguageResource.NgachLuong.ToLower();
+    string CurrentController = ConstController.NgachLuong;
+    string CurrentArea = ConstArea.MasterData;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+}
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header">
+        <h1>@LanguageResource.List @LanguageResource.NgachLuong</h1>
+        <div>
+            @HtmlExtensions.CreateButton(CurrentArea, CurrentController,action:"Create")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="splitter rounded-3">
+                <div class="splitter-head">Thông tin tìm kiếm</div>
+                <div class="splitter-body">
+                    <form method="get" id="frmSearch" ,asp-action="_Search">
+                        <div class="row my-2">
+                            <div class="col-3">
+                                <label asp-for="TenNgachLuong"></label>
+                                <input class="form-control" asp-for="TenNgachLuong" />
+                            </div>
+                            <div class="col-3">
+                                <label asp-for="MaLoai"></label>
+                                <input class="form-control" asp-for="MaLoai" />
+                            </div>
+                            <div class="col-3">
+                                <label asp-for="Actived"></label>
+                                @Html.DropDownList("Actived", new List<SelectListItem>(){
+                                new SelectListItem(){Text = LanguageResource.Dropdownlist_All, Value = ""},
+                                new SelectListItem(){Text = LanguageResource.Actived_True, Value = "true", Selected = true},
+                                new SelectListItem(){Text = LanguageResource.Actived_False, Value = "false"}
+                                }, new { @class = "form-control" })
+                            </div>
+                            <div class="col-2 d-flex align-items-end">
+                                @HtmlExtensions.SearchButton()
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" id="divSearchResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+<!-- CONTAINER CLOSED -->
+@section ScriptCustomized {
+    <script>
+        //load default and set event
+        $(document).ready(function () {
+            Portal.SearchInitial("@CurrentUrl");
+            Portal.ShowMessage(window.location.href);
+        });
+    </script>
+}

@@ -1,0 +1,92 @@
+﻿@using Portal.Models
+@using Portal.Resources
+
+@model CoSoVM
+@{
+    ViewBag.Title =  LanguageResource.CoSo;
+    string CurrentController = ConstController.CoSo;
+    string CurrentArea = ConstArea.MasterData;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    String action = Model.IdCoSo == null ? LanguageResource.Create : LanguageResource.Edit;
+}
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header d-flex my-1">
+        <div class="fs-16">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">@LanguageResource.CoSo</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@action</li>
+            </ol>
+        </div>
+        <div>
+            @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
+            @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
+            @HtmlExtensions.BackButton(CurrentArea,CurrentController)
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary br-te-3 br-ts-3">
+                    <h3 class="card-title text-white">Thông tin chi tiết</h3>
+                    <div class="card-options ">
+                        <a href="javascript:void(0)" class="card-options-collapse" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up text-white"></i></a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-action="Upsert" id="frmUpsert">
+                        <input asp-for="IdCoSo" hidden />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label asp-for="TenCoSo"></label>
+                                <input asp-for="TenCoSo" class="form-control" />
+                                <span asp-validation-for="TenCoSo" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-4">
+                                <label asp-for="OrderIndex"></label>
+                                <input asp-for="OrderIndex" class="form-control" />
+                                <span asp-validation-for="OrderIndex" class="text-danger"></span>
+                            </div>
+                            @if (@Model.IdCoSo != null)
+                            {
+                                <div class="col-md-4 d-flex align-items-end">
+                                    <fieldset>
+                                        @Html.RadioButtonFor(p=>p.Actived,true) @LanguageResource.Actived_True
+                                        @Html.RadioButtonFor(p=>p.Actived,false) @LanguageResource.Actived_False
+                                    </fieldset>
+                                </div>
+                            }
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <label asp-for="Description"></label>
+                                <textarea rows="3" asp-for="Description" class="form-control"> </textarea>
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    }
+    @section ScriptCustomized{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            Portal.UpsertInitial("@CurrentUrl");
+        });
+    </script>
+}

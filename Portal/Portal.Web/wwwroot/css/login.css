@@ -1,0 +1,10 @@
+﻿
+#login-bg > img {
+    height: 100%;
+    width: 100%;
+}
+@media (max-width:768px) {
+    #login-bg {
+        display:none;
+    }
+}
