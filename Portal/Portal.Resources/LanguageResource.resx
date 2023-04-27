@@ -156,6 +156,9 @@
   <data name="BacLuong" xml:space="preserve">
     <value>Bậc lương</value>
   </data>
+  <data name="BoNhiem" xml:space="preserve">
+    <value>Bổ nhiệm cán bộ</value>
+  </data>
   <data name="Btn_Back" xml:space="preserve">
     <value>Quay lại</value>
   </data>
@@ -195,6 +198,9 @@
   <data name="ChuyenNganh" xml:space="preserve">
     <value>Chuyên ngành</value>
   </data>
+  <data name="CongTac" xml:space="preserve">
+    <value>Công tác</value>
+  </data>
   <data name="CoSo" xml:space="preserve">
     <value>Cơ sở</value>
   </data>
@@ -209,6 +215,9 @@
   </data>
   <data name="DanToc" xml:space="preserve">
     <value>Dân tộc</value>
+  </data>
+  <data name="DaoTaoBoiDuong" xml:space="preserve">
+    <value>Đào tạo bồi dưởng</value>
   </data>
   <data name="Department" xml:space="preserve">
     <value>Đơn vị</value>
@@ -258,17 +267,29 @@
   <data name="HoDem" xml:space="preserve">
     <value>Họ đệm</value>
   </data>
+  <data name="HoiVien" xml:space="preserve">
+    <value>Hội viên</value>
+  </data>
   <data name="Href" xml:space="preserve">
     <value>Link</value>
   </data>
+  <data name="HuuTri" xml:space="preserve">
+    <value>Hưu trí</value>
+  </data>
   <data name="Icon" xml:space="preserve">
     <value>Icon</value>
+  </data>
+  <data name="KhenThuong" xml:space="preserve">
+    <value>Khen thưởng</value>
   </data>
   <data name="KhoanDenNgay" xml:space="preserve">
     <value>Khoán đến ngày</value>
   </data>
   <data name="KhoanTuNgay" xml:space="preserve">
     <value>Khoán từ ngày</value>
+  </data>
+  <data name="KyLuat" xml:space="preserve">
+    <value>Kỷ luật</value>
   </data>
   <data name="LastModifyDate" xml:space="preserve">
     <value>Ngày cuối cùng chỉnh sửa</value>
@@ -278,6 +299,9 @@
   </data>
   <data name="List" xml:space="preserve">
     <value>Danh sách</value>
+  </data>
+  <data name="Luong" xml:space="preserve">
+    <value>Lương</value>
   </data>
   <data name="LuongKhoan" xml:space="preserve">
     <value>Lương khoán</value>
@@ -314,6 +338,9 @@
   </data>
   <data name="MenuType" xml:space="preserve">
     <value>Loại</value>
+  </data>
+  <data name="MienNhiem" xml:space="preserve">
+    <value>Miễn nhiệm cán bộ</value>
   </data>
   <data name="NamTangLuong" xml:space="preserve">
     <value>Số năm nâng bậc</value>
@@ -363,6 +390,9 @@
   <data name="PhanHe" xml:space="preserve">
     <value>Phân hệ</value>
   </data>
+  <data name="PhuCap" xml:space="preserve">
+    <value>Phụ cấp</value>
+  </data>
   <data name="PhuCapChucVu" xml:space="preserve">
     <value>Phụ cấp chức vụ</value>
   </data>
@@ -386,6 +416,12 @@
   </data>
   <data name="ProjectName" xml:space="preserve">
     <value>Tên dự án</value>
+  </data>
+  <data name="QuanHeGiaDinh" xml:space="preserve">
+    <value>Quan hệ gia đình</value>
+  </data>
+  <data name="QuanLyQuaTrinh" xml:space="preserve">
+    <value>Quá trình</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Nhớ mật khẩu</value>
@@ -429,6 +465,9 @@
   <data name="TenNgachLuong" xml:space="preserve">
     <value>Tên ngạch lương</value>
   </data>
+  <data name="ThuyenChuyenCanBo" xml:space="preserve">
+    <value>Thuyên chuyển cán bộ</value>
+  </data>
   <data name="TimeTracker" xml:space="preserve">
     <value>Time Tracker</value>
   </data>
@@ -440,6 +479,9 @@
   </data>
   <data name="TrinhDoChinhTri" xml:space="preserve">
     <value>Trình độ chính trị</value>
+  </data>
+  <data name="TrinhDoChuyenMon" xml:space="preserve">
+    <value>Trình độ chuyên môn</value>
   </data>
   <data name="TrinhDoHocVan" xml:space="preserve">
     <value>Trình độ học vấn</value>

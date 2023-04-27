@@ -9,8 +9,12 @@
         public const string NgachLuong = "NgachLuong";
         public const string BacLuong = "BacLuong";
         public const string TrinhDoTinHoc = "TrinhDoTinHoc";
-        public const string TrinhDoNgoaiNgu = "TrinhDoNgoaiNgu";
+        public const string TrinhDoNgoaiNgu = "TrinhDoNgoaiNgu"; 
+        public const string TrinhDoHocVan = "TrinhDoHocVan";
+        public const string TrinhDoChinhTri = "TrinhDoChinhTri";
         public const string NgonNgu = "NgonNgu";
+        public const string DanToc = "DanToc";
+        public const string TonGiao = "TonGiao";
         #endregion MasterData
         #region Permission
         public const string Menu = "Menu";
@@ -19,6 +23,21 @@
         #endregion Permission
         #region NhanSu
         public const string CanBo = "CanBo";
+        public const string HoiVien = "HoiVien";
+        public const string HuuTri = "HuuTri";
+        public const string QuanHeGiaDinh = "QuanHeGiaDinh";
+        public const string TrinhDoChuyenMon = "TrinhDoChuyenMon";
+        public const string DaoTaoBoiDuong = "DaoTaoBoiDuong";
+        public const string CongTac = "CongTac";
+        public const string Luong = "Luong";
+        public const string PhuCap = "PhuCap";
+        public const string KhenThuong = "KhenThuong";
+        public const string KyLuat = "KyLuat";
+        public const string ThuyenChuyenCanBo = "ThuyenChuyenCanBo";
+        public const string BoNhiem = "BoNhiem";
+        public const string MienNhiem = "MienNhiem";
+
+
         #endregion NhanSu
     }
     public static class ConstArea
