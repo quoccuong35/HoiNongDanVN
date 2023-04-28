@@ -426,6 +426,9 @@
   <data name="RememberMe" xml:space="preserve">
     <value>Nhớ mật khẩu</value>
   </data>
+  <data name="Report" xml:space="preserve">
+    <value>Báo cáo</value>
+  </data>
   <data name="Required" xml:space="preserve">
     <value>Vui lòng nhập thông tin "{0}"</value>
   </data>
