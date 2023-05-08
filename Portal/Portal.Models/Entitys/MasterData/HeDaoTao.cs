@@ -14,5 +14,9 @@ namespace Portal.Models
         public string MaHeDaoTao { get; set; }
         [MaxLength(250)]
         public string TenHeDaoTao { get; set; }
+        public ICollection<CanBo> CanBos { get; set; }
+        public HeDaoTao() {
+            CanBos = new List<CanBo>();
+        }
     }
 }

@@ -41,7 +41,29 @@
     <link rel="stylesheet" href="~/css/toastr.css" />
     <link rel="stylesheet" href="~/lib/sweetalert2/sweetalert2.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    
+    <style>
+        p,a,span,div
+        {
+           /*font-size: 1em !important;
+           color: #000 !important;*/
+           font-family: wf_segoe-ui_normal, "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
+           font-size:14px;
+        }
+        .main-sidemenu > span{
+            font-size:16px;
+        }
+         #avtImg {
+            vertical-align: middle;
+            width: 140px;
+            height: 140px;
+            border-radius: 10px;
+        }
+
+        .border-top {
+            border-top: 4px dotted blue;
+        }
+    </style>
+
 </head>
 
 <body class="app sidebar-mini ltr light-mode">
@@ -730,8 +752,8 @@
                 <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
                 <div class="app-sidebar">
                     <div class="side-header">
-                        <a class="header-brand1" href="index.html">
-                            <img src="~/Images/logo.png" class=""  alt="logo">
+                        <a class="header-brand1" href="@Url.Action("Index","Home")">
+                            <img src="~/Images/logo.png" class="" alt="logo">
                         </a>
                         <!-- LOGO -->
                     </div>
@@ -743,7 +765,9 @@
                             </li>
                            
                             <li class="slide">
-                                <a class="side-menu__item has-link" data-bs-toggle="slide" href="index.html"><i class="side-menu__icon fe fe-home"></i><span class="side-menu__label">Dashboard</span></a>
+                                <a class="side-menu__item" asp-controller="" asp-area="Home" asp-action="Index">
+                                    <i class="side-menu__icon fe fe-home"></i><span class="side-menu__label">Trang Chủ</span>
+                                </a>
                             </li>
                              <li class="sub-category">
                                 <h3>Hệ thống</h3>
@@ -825,25 +849,25 @@
                             </li>
                             <li class="slide">
                                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">@LanguageResource.NhanSu</span><i class="angle fe fe-chevron-right"></i></a>
-                                <ul class="slide-menu">
+                                <ul class="slide-menu mega-slide-menu">
                                     <li class="side-menu-label1"><a href="javascript:void(0)">@LanguageResource.NhanSu</a></li>
-                                    <li >
+                                    <li>
                                         <a class="slide-item" asp-controller="@ConstController.CanBo" asp-area="@ConstArea.NhanSu" asp-action="Index">
                                            @LanguageResource.CanBo
                                         </a>
                                     </li>
                                     <li >
-                                        <a class="slide-item" asp-controller="@ConstController.CanBo" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                        <a class="slide-item" href="#" @*asp-controller="@ConstController.HoiVien" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
                                            @LanguageResource.HoiVien
                                         </a>
                                     </li>
                                     <li >
-                                        <a class="slide-item" asp-controller="@ConstController.QuanHeGiaDinh" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                        <a class="slide-item"  asp-controller="@ConstController.QuanHeGiaDinh" asp-area="@ConstArea.NhanSu" asp-action="Index">
                                            @LanguageResource.QuanHeGiaDinh
                                         </a>
                                     </li>
                                      <li >
-                                        <a class="slide-item" asp-controller="@ConstController.CanBo" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                        <a class="slide-item" href="#" @* asp-controller="@ConstController.CanBo" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
                                            @LanguageResource.HuuTri
                                         </a>
                                     </li>
@@ -857,27 +881,27 @@
                                 <ul class="slide-menu">
                                     <li class="side-menu-label1"><a href="javascript:void(0)">@LanguageResource.QuanLyQuaTrinh</a></li>
                                     <li >
-                                        <a class="slide-item" asp-controller="@ConstController.TrinhDoChuyenMon" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                        <a class="slide-item"  href="#" @*asp-controller="@ConstController.TrinhDoChuyenMon" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
                                            @LanguageResource.TrinhDoChuyenMon
                                         </a>
                                     </li>
                                     <li >
-                                        <a class="slide-item" asp-controller="@ConstController.DaoTaoBoiDuong" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                        <a class="slide-item"  href="#" @* asp-controller="@ConstController.DaoTaoBoiDuong" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
                                            @LanguageResource.DaoTaoBoiDuong
                                         </a>
                                     </li>
                                      <li >
-                                        <a class="slide-item" asp-controller="@ConstController.CongTac" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                        <a class="slide-item"  href="#" @*asp-controller="@ConstController.CongTac" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
                                            @LanguageResource.CongTac
                                         </a>
                                     </li>
                                      <li >
-                                        <a class="slide-item" asp-controller="@ConstController.Luong" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                        <a class="slide-item"  href="#" @* asp-controller="@ConstController.Luong" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
                                            @LanguageResource.Luong
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="slide-item" asp-controller="@ConstController.PhuCap" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                        <a class="slide-item"  href="#" @* asp-controller="@ConstController.PhuCap" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
                                             @LanguageResource.PhuCap
                                         </a>
                                     </li>
@@ -887,22 +911,22 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="slide-item" asp-controller="@ConstController.KyLuat" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                        <a class="slide-item"   asp-controller="@ConstController.KyLuat" asp-area="@ConstArea.NhanSu" asp-action="Index">
                                             @LanguageResource.KyLuat
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="slide-item" asp-controller="@ConstController.ThuyenChuyenCanBo" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                        <a class="slide-item"  href="#" @*asp-controller="@ConstController.ThuyenChuyenCanBo" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
                                             @LanguageResource.ThuyenChuyenCanBo
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="slide-item" asp-controller="@ConstController.BoNhiem" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                        <a class="slide-item"  href="#" @*asp-controller="@ConstController.BoNhiem" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
                                             @LanguageResource.BoNhiem
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="slide-item" asp-controller="@ConstController.MienNhiem" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                        <a class="slide-item" href="#" @*asp-controller="@ConstController.MienNhiem" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
                                             @LanguageResource.MienNhiem
                                         </a>
                                     </li>
@@ -916,17 +940,17 @@
                                 <ul class="slide-menu">
                                     <li class="side-menu-label1"><a href="javascript:void(0)">Báo cáo cán bộ</a></li>
                                     <li >
-                                        <a class="slide-item" asp-controller="Menu" asp-area="@ConstArea.Permission" asp-action="Index">
+                                        <a class="slide-item"  href="#" @* asp-controller="Menu" asp-area="@ConstArea.Permission" asp-action="Index"*@>
                                            Cán bộ theo trình độ
                                         </a>
                                     </li>
                                     <li >
-                                        <a  class="slide-item" asp-controller="Roles" asp-area="@ConstArea.Permission" asp-action="Index">
+                                        <a  class="slide-item"  href="#" @* asp-controller="Roles" asp-area="@ConstArea.Permission" asp-action="Index"*@>
                                           Cán bộ theo độ tuổi
                                         </a>
                                     </li>
                                     <li >
-                                        <a  class="slide-item" asp-controller="Account" asp-area="@ConstArea.Permission" asp-action="Index" >
+                                        <a  class="slide-item" href="#" @*asp-controller="Account" asp-area="@ConstArea.Permission" asp-action="Index*@" >
                                             Chính trị - Ngoại ngữ - Tin học
                                         </a>
                                     </li>
@@ -1453,11 +1477,12 @@
             <div class="container">
                 <div class="row align-items-center flex-row-reverse">
                     <div class="col-md-12 col-sm-12 text-center">
-                        Copyright © <span id="year"></span> <a href="javascript:void(0)">Sash</a>. Designed with <span class="fa fa-heart text-danger"></span> by <a href="javascript:void(0)"> Spruko </a> All rights reserved.
+                        Copyright © <span id="year"></span> <a href="javascript:void(0)">Hội Nông Dân</a>. Designed with <span class="fa fa-heart text-danger"></span> by <a href="javascript:void(0)"> Nam Việt Solutions </a>
                     </div>
                 </div>
             </div>
         </footer>
+           <partial name="_ImportPartial" />
         <!-- FOOTER CLOSED -->
     </div>
 
@@ -1474,8 +1499,6 @@
      <!-- INPUT MASK JS-->
     <script src="~/assets/plugins/input-mask/jquery.mask.min.js"></script>
 
-    <!-- SIDE-MENU JS -->
-    <script src="~/assets/plugins/sidemenu/sidemenu.js"></script>
 
 	<!-- TypeHead js -->
 	<script src="~/assets/plugins/bootstrap5-typehead/autocomplete.js"></script>
@@ -1488,6 +1511,8 @@
 
     <!-- SIDEBAR JS -->
     <script src="~/assets/plugins/sidebar/sidebar.js"></script>
+     <!-- SIDE-MENU JS -->
+    <script src="~/assets/plugins/sidemenu/sidemenu.js"></script>
 
     <!-- Perfect SCROLLBAR JS-->
     <script src="~/assets/plugins/p-scroll/perfect-scrollbar.js"></script>
@@ -1520,3 +1545,26 @@
 </body>
 
 </html>
+<script>
+    $(document).ready(function () {
+        var activePage =  "/"+window.location.href.split('/')[3] +"/"+window.location.href.split('/')[4];
+        //console.log(activePage);
+        $(".app-sidebar li a").each(function () {
+            var $this = $(this);
+            var pageUrl = $this.attr("href");
+            if (activePage == pageUrl) {
+                    $(this).addClass("active");
+                    $(this).parent().addClass("is-expanded");
+                    $(this).parent().parent().prev().addClass("active");
+                    $(this).parent().parent().addClass("open");
+                    $(this).parent().parent().prev().addClass("is-expanded");
+                    $(this).parent().parent().parent().addClass("is-expanded");
+                    $(this).parent().parent().parent().parent().addClass("open");
+                    $(this).parent().parent().parent().parent().prev().addClass("active");
+                    $(this).parent().parent().parent().parent().parent().addClass("is-expanded");
+                    $(this).parent().parent().parent().parent().parent().prev().addClass("active");
+                    $(this).parent().parent().parent().parent().parent().prev().parent().addClass("is-expanded");
+            }
+        });
+    });
+</script>

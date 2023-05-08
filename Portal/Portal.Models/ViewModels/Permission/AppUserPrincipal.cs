@@ -12,6 +12,7 @@ namespace Portal.Models.ViewModels.Permission
         public AppUserPrincipal(ClaimsPrincipal principal)
            : base(principal)
         {
+
         }
         //ID người dùng đăng nhập
         public string AccountId
@@ -57,7 +58,7 @@ namespace Portal.Models.ViewModels.Permission
         {
             get
             {
-                return this.FindFirst("Roles")!.Value;
+                return this.UserName == null? "": this.FindFirst("Roles")!.Value;
             }
         }
     }

@@ -1,0 +1,68 @@
+﻿@model NhanSuThongTinVM
+
+<div class="col-md-3">
+    <img src="@Model.HinhAnh" alt="User Image" id="avtImg" name="avtImg">
+</div>
+<div class="col-md-9">
+    <input name="NhanSu.IdCanbo" hidden asp-for="IdCanbo" />
+    <input name="NhanSu.MaCanBo" hidden asp-for="MaCanBo" />
+    <input name="NhanSu.HoVaTen" hidden asp-for="HoVaTen"/>
+    <input name="NhanSu.TenCoSo" hidden asp-for="TenCoSo"/>
+    <input name="NhanSu.TenDonVi" hidden asp-for="TenDonVi" />
+    <input name="NhanSu.TenPhanHe" hidden asp-for="TenPhanHe" />
+    <input name="NhanSu.TenTinhTrang" hidden asp-for="TenTinhTrang" />
+    <input name="NhanSu.CanBo" hidden asp-for="CanBo" id="txt-CanBo"/>
+    <div class="row">
+         <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="MaCanBo"></label><span class="text-red">*</span>
+                <div class="input-group">
+                    <input type="text" asp-for="MaCanBo" id="txt-MaCanBo" class="form-control">
+                    @if (Model.Edit)
+                    {
+                        <button type="button" class="btn btn-primary" id="btn-search-nhansu">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    }
+                </div>
+                <span asp-validation-for="MaCanBo" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="HoVaTen"></label>
+                <input type="text" asp-for="HoVaTen" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="TenTinhTrang"></label>
+                <input type="text" asp-for="TenTinhTrang" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="TenPhanHe"></label>
+                <input type="text" asp-for="TenPhanHe" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="TenCoSo"></label>
+                <input type="text" asp-for="TenCoSo" class="form-control">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="TenDonVi"></label>
+                <input type="text" asp-for="TenDonVi" class="form-control">
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    if ("@Model.Error" != "")
+    {
+        toastr.error("@Model.Error");
+    }
+</script>

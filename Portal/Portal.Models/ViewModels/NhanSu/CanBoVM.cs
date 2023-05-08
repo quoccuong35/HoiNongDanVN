@@ -22,7 +22,6 @@ namespace Portal.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string HoVaTen { get; set; }
-
         
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgaySinh")]
@@ -33,24 +32,15 @@ namespace Portal.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GioiTinh")]
         public GioiTinh GioiTinh { get; set; }
 
-        [MaxLength(20)]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
-        public String SoCCCD { get; set; }
-        [DataType(DataType.Date)]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayCapCCCD")]
-        public DateTime NgayCapCCCD { get; set; }
-
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TinhTrang")]
         public string MaTinhTrang { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "PhanHe")]
-
         [MaxLength(50)]
         public string MaPhanHe { get; set; }
+
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "CoSo")]
@@ -63,6 +53,17 @@ namespace Portal.Models
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
         public Guid MaChucVu { get; set; }
+
+        [MaxLength(20)]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
+        public String SoCCCD { get; set; }
+        [DataType(DataType.Date)]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayCapCCCD")]
+        public DateTime NgayCapCCCD { get; set; }
+
+       
 
         [MaxLength(20)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoDienThoai")]
@@ -297,6 +298,10 @@ namespace Portal.Models
             edit.ChoOHienNay = item.ChoOHienNay;
             edit.MaPhanHe = item.MaPhanHe;
             edit.HinhAnh = item.HinhAnh;
+            if (item.HinhAnh == null || item.HinhAnh == "")
+            {
+                edit.HinhAnh = @"\images\login.png";
+            }
             return edit;
         }
 

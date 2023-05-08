@@ -1,5 +1,6 @@
 ﻿using Portal.Models.Entitys;
 using Portal.Models.Entitys.MasterData;
+using Portal.Models.Entitys.NhanSu;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -81,6 +82,7 @@ namespace Portal.Models
 
         [MaxLength(50)]
         public string MaHeDaoTao { get; set; }
+        public HeDaoTao? HeDaoTao { get; set; }
         [MaxLength(50)]
         public string MaTrinhDoHocVan { get; set; }
         public TrinhDoHocVan TrinhDoHocVan { get; set; }
@@ -100,6 +102,7 @@ namespace Portal.Models
 
         [MaxLength(50)]
         public string? MaHocHam { get; set; }
+        public HocHam? HocHam { get; set; }
 
         [MaxLength(50)]
         public string MaDanToc { get; set; }
@@ -131,6 +134,15 @@ namespace Portal.Models
         public DateTime? CreatedTime { get; set; } = DateTime.Now;
         public Guid? LastModifiedAccountId { get; set; }
         public DateTime? LastModifiedTime { get; set; }
+        public ICollection<QuanHeGiaDinh> QuanHeGiaDinhs { get; set; }
+        public ICollection<QuaTrinhKhenThuong> QuaTrinhKhenThuongs { get; set; }
+        public ICollection<QuaTrinhKyLuat> QuaTrinhKyLuats { get; set; }
+
+        public CanBo() {
+            QuanHeGiaDinhs = new List<QuanHeGiaDinh>();
+            QuaTrinhKhenThuongs = new List<QuaTrinhKhenThuong>();
+            QuaTrinhKyLuats = new List<QuaTrinhKyLuat>();
+        }
 
     }
 }

@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal.Models", "Portal.Mod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal.DataAccess", "Portal.DataAccess\Portal.DataAccess.csproj", "{2853B066-A312-42DF-8D49-0B6A6712E65C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal.Extensions", "Portal.Extensions\Portal.Extensions.csproj", "{9A17F1C9-FF7A-4274-956F-58CA632E358D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal.Extensions", "Portal.Extensions\Portal.Extensions.csproj", "{9A17F1C9-FF7A-4274-956F-58CA632E358D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

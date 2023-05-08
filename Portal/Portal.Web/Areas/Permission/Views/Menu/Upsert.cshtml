@@ -44,7 +44,14 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label asp-for="MenuCode"></label>
-                                <input asp-for="MenuCode" class="form-control" />
+                                @if (Model.MenuId != null)
+                                {
+                                    <input asp-for="MenuCode" class="form-control" readonly />
+                                }
+                                else
+                                {
+                                    <input asp-for="MenuCode" class="form-control" />
+                                }
                                 <span asp-validation-for="MenuCode" class="text-danger"></span>
                             </div>
                             <div class="col-md-3">

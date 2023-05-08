@@ -62,6 +62,7 @@ namespace Portal.Models
                 CreatedTime = DateTime.Now,
                 CreatedAccountId = accountId,
                 MenuType = this.MenuType,
+                MenuIdParent = this.MenuIdParent,
                 PageFunctionModels = pageFunctionModels()
 
             };

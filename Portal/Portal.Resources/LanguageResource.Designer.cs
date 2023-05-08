@@ -349,6 +349,15 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Danh hiệu khen thưởng.
+        /// </summary>
+        public static string DanhHieuKhenThuong {
+            get {
+                return ResourceManager.GetString("DanhHieuKhenThuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dân tộc.
         /// </summary>
         public static string DanToc {
@@ -363,6 +372,15 @@ namespace Portal.Resources {
         public static string DaoTaoBoiDuong {
             get {
                 return ResourceManager.GetString("DaoTaoBoiDuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vui lòng chọn từ danh sách.
+        /// </summary>
+        public static string DataValidationError {
+            get {
+                return ResourceManager.GetString("DataValidationError", resourceCulture);
             }
         }
         
@@ -399,6 +417,15 @@ namespace Portal.Resources {
         public static string Description {
             get {
                 return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Địa chỉ.
+        /// </summary>
+        public static string DiaChi {
+            get {
+                return ResourceManager.GetString("DiaChi", resourceCulture);
             }
         }
         
@@ -448,6 +475,42 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Danh sách {0}.
+        /// </summary>
+        public static string Export_ExcelHeader {
+            get {
+                return ResourceManager.GetString("Export_ExcelHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} (*).
+        /// </summary>
+        public static string Export_ExcelRequired {
+            get {
+                return ResourceManager.GetString("Export_ExcelRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lưu ý: Chỉ chỉnh sửa những ô màu vàng.
+        /// </summary>
+        public static string Export_ExcelWarning1 {
+            get {
+                return ResourceManager.GetString("Export_ExcelWarning1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bắt buộc nhập những cột có chứa dấu (*).
+        /// </summary>
+        public static string Export_ExcelWarning2 {
+            get {
+                return ResourceManager.GetString("Export_ExcelWarning2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Họ và tên.
         /// </summary>
         public static string FullName {
@@ -489,6 +552,24 @@ namespace Portal.Resources {
         public static string HeSo {
             get {
                 return ResourceManager.GetString("HeSo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hình thức khen thưởng.
+        /// </summary>
+        public static string HinhThucKhenThuong {
+            get {
+                return ResourceManager.GetString("HinhThucKhenThuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hình thức kỷ luật.
+        /// </summary>
+        public static string HinhThucKyLuat {
+            get {
+                return ResourceManager.GetString("HinhThucKyLuat", resourceCulture);
             }
         }
         
@@ -543,6 +624,24 @@ namespace Portal.Resources {
         public static string Icon {
             get {
                 return ResourceManager.GetString("Icon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import excel.
+        /// </summary>
+        public static string Import {
+            get {
+                return ResourceManager.GetString("Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import dữ liệu thành công!.
+        /// </summary>
+        public static string ImportSuccess {
+            get {
+                return ResourceManager.GetString("ImportSuccess", resourceCulture);
             }
         }
         
@@ -610,6 +709,15 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loại quan hệ.
+        /// </summary>
+        public static string LoaiQuanhe {
+            get {
+                return ResourceManager.GetString("LoaiQuanhe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lương.
         /// </summary>
         public static string Luong {
@@ -624,6 +732,15 @@ namespace Portal.Resources {
         public static string LuongKhoan {
             get {
                 return ResourceManager.GetString("LuongKhoan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lý do.
+        /// </summary>
+        public static string LyDo {
+            get {
+                return ResourceManager.GetString("LyDo", resourceCulture);
             }
         }
         
@@ -763,11 +880,29 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ngày ký.
+        /// </summary>
+        public static string NgayKy {
+            get {
+                return ResourceManager.GetString("NgayKy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ngày nâng bậc.
         /// </summary>
         public static string NgayNangBacLuong {
             get {
                 return ResourceManager.GetString("NgayNangBacLuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày Quyết Định.
+        /// </summary>
+        public static string NgayQuyetDinh {
+            get {
+                return ResourceManager.GetString("NgayQuyetDinh", resourceCulture);
             }
         }
         
@@ -817,11 +952,38 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nghề nghiệp.
+        /// </summary>
+        public static string NgheNghiep {
+            get {
+                return ResourceManager.GetString("NgheNghiep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Người ký.
+        /// </summary>
+        public static string NguoiKy {
+            get {
+                return ResourceManager.GetString("NguoiKy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nhân sự.
         /// </summary>
         public static string NhanSu {
             get {
                 return ResourceManager.GetString("NhanSu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nơi làm việc.
+        /// </summary>
+        public static string NoiLamVien {
+            get {
+                return ResourceManager.GetString("NoiLamVien", resourceCulture);
             }
         }
         
@@ -961,6 +1123,15 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quan Hệ Gia Đình.
+        /// </summary>
+        public static string QHGiaDinh {
+            get {
+                return ResourceManager.GetString("QHGiaDinh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quan hệ gia đình.
         /// </summary>
         public static string QuanHeGiaDinh {
@@ -975,6 +1146,15 @@ namespace Portal.Resources {
         public static string QuanLyQuaTrinh {
             get {
                 return ResourceManager.GetString("QuanLyQuaTrinh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Khen thưởng.
+        /// </summary>
+        public static string QuaTrinhKhenThuong {
+            get {
+                return ResourceManager.GetString("QuaTrinhKhenThuong", resourceCulture);
             }
         }
         
@@ -1074,6 +1254,15 @@ namespace Portal.Resources {
         public static string SoDienThoai {
             get {
                 return ResourceManager.GetString("SoDienThoai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số quyết định.
+        /// </summary>
+        public static string SoQuyetDinh {
+            get {
+                return ResourceManager.GetString("SoQuyetDinh", resourceCulture);
             }
         }
         
@@ -1209,6 +1398,42 @@ namespace Portal.Resources {
         public static string UserName {
             get {
                 return ResourceManager.GetString("UserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mẫu file excel không phù hợp với chức năng &quot;{0}&quot;!.
+        /// </summary>
+        public static string Validation_ImportCheckController {
+            get {
+                return ResourceManager.GetString("Validation_ImportCheckController", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vui lòng chọn một file excel!.
+        /// </summary>
+        public static string Validation_ImportExcelFile {
+            get {
+                return ResourceManager.GetString("Validation_ImportExcelFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: &quot;{1}&quot; không tồn tại trong &quot;{2}&quot;!.
+        /// </summary>
+        public static string Validation_ImportExcelIdNotExist {
+            get {
+                return ResourceManager.GetString("Validation_ImportExcelIdNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ở dòng số {1}!.
+        /// </summary>
+        public static string Validation_ImportRequired {
+            get {
+                return ResourceManager.GetString("Validation_ImportRequired", resourceCulture);
             }
         }
         

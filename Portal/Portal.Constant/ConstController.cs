@@ -15,6 +15,7 @@
         public const string NgonNgu = "NgonNgu";
         public const string DanToc = "DanToc";
         public const string TonGiao = "TonGiao";
+        public const string HinhThucKyLuat = "HinhThucKyLuat";
         #endregion MasterData
         #region Permission
         public const string Menu = "Menu";
@@ -25,7 +26,7 @@
         public const string CanBo = "CanBo";
         public const string HoiVien = "HoiVien";
         public const string HuuTri = "HuuTri";
-        public const string QuanHeGiaDinh = "QuanHeGiaDinh";
+        public const string QuanHeGiaDinh = "QHGiaDinh";
         public const string TrinhDoChuyenMon = "TrinhDoChuyenMon";
         public const string DaoTaoBoiDuong = "DaoTaoBoiDuong";
         public const string CongTac = "CongTac";

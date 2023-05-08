@@ -213,11 +213,17 @@
   <data name="CreatedUser" xml:space="preserve">
     <value>Người tạo</value>
   </data>
+  <data name="DanhHieuKhenThuong" xml:space="preserve">
+    <value>Danh hiệu khen thưởng</value>
+  </data>
   <data name="DanToc" xml:space="preserve">
     <value>Dân tộc</value>
   </data>
   <data name="DaoTaoBoiDuong" xml:space="preserve">
     <value>Đào tạo bồi dưởng</value>
+  </data>
+  <data name="DataValidationError" xml:space="preserve">
+    <value>Vui lòng chọn từ danh sách</value>
   </data>
   <data name="Department" xml:space="preserve">
     <value>Đơn vị</value>
@@ -230,6 +236,9 @@
   </data>
   <data name="Description" xml:space="preserve">
     <value>Mô tả</value>
+  </data>
+  <data name="DiaChi" xml:space="preserve">
+    <value>Địa chỉ</value>
   </data>
   <data name="Dropdownlist_All" xml:space="preserve">
     <value>-- Tất cả --</value>
@@ -246,6 +255,18 @@
   <data name="Error_NotExist" xml:space="preserve">
     <value>Không tìm thấy {0} này!</value>
   </data>
+  <data name="Export_ExcelHeader" xml:space="preserve">
+    <value>Danh sách {0}</value>
+  </data>
+  <data name="Export_ExcelRequired" xml:space="preserve">
+    <value>{0} (*)</value>
+  </data>
+  <data name="Export_ExcelWarning1" xml:space="preserve">
+    <value>Lưu ý: Chỉ chỉnh sửa những ô màu vàng</value>
+  </data>
+  <data name="Export_ExcelWarning2" xml:space="preserve">
+    <value>Bắt buộc nhập những cột có chứa dấu (*)</value>
+  </data>
   <data name="FullName" xml:space="preserve">
     <value>Họ và tên</value>
   </data>
@@ -260,6 +281,12 @@
   </data>
   <data name="HeSo" xml:space="preserve">
     <value>Hệ số</value>
+  </data>
+  <data name="HinhThucKhenThuong" xml:space="preserve">
+    <value>Hình thức khen thưởng</value>
+  </data>
+  <data name="HinhThucKyLuat" xml:space="preserve">
+    <value>Hình thức kỷ luật</value>
   </data>
   <data name="HocHam" xml:space="preserve">
     <value>Học Hàm</value>
@@ -278,6 +305,12 @@
   </data>
   <data name="Icon" xml:space="preserve">
     <value>Icon</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Import excel</value>
+  </data>
+  <data name="ImportSuccess" xml:space="preserve">
+    <value>Import dữ liệu thành công!</value>
   </data>
   <data name="KhenThuong" xml:space="preserve">
     <value>Khen thưởng</value>
@@ -300,11 +333,17 @@
   <data name="List" xml:space="preserve">
     <value>Danh sách</value>
   </data>
+  <data name="LoaiQuanhe" xml:space="preserve">
+    <value>Loại quan hệ</value>
+  </data>
   <data name="Luong" xml:space="preserve">
     <value>Lương</value>
   </data>
   <data name="LuongKhoan" xml:space="preserve">
     <value>Lương khoán</value>
+  </data>
+  <data name="LyDo" xml:space="preserve">
+    <value>Lý do</value>
   </data>
   <data name="MaBacLuong" xml:space="preserve">
     <value>Mã bậc lương</value>
@@ -351,8 +390,14 @@
   <data name="NgayCapCCCD" xml:space="preserve">
     <value>Ngày cấp CCCD</value>
   </data>
+  <data name="NgayKy" xml:space="preserve">
+    <value>Ngày ký</value>
+  </data>
   <data name="NgayNangBacLuong" xml:space="preserve">
     <value>Ngày nâng bậc</value>
+  </data>
+  <data name="NgayQuyetDinh" xml:space="preserve">
+    <value>Ngày Quyết Định</value>
   </data>
   <data name="NgaySinh" xml:space="preserve">
     <value>Ngày sinh</value>
@@ -369,8 +414,17 @@
   <data name="NgayvaoDangDuBi" xml:space="preserve">
     <value>Ngày vào đảng dự bị</value>
   </data>
+  <data name="NgheNghiep" xml:space="preserve">
+    <value>Nghề nghiệp</value>
+  </data>
+  <data name="NguoiKy" xml:space="preserve">
+    <value>Người ký</value>
+  </data>
   <data name="NhanSu" xml:space="preserve">
     <value>Nhân sự</value>
+  </data>
+  <data name="NoiLamVien" xml:space="preserve">
+    <value>Nơi làm việc</value>
   </data>
   <data name="NoiSinh" xml:space="preserve">
     <value>Nơi sinh</value>
@@ -417,11 +471,17 @@
   <data name="ProjectName" xml:space="preserve">
     <value>Tên dự án</value>
   </data>
+  <data name="QHGiaDinh" xml:space="preserve">
+    <value>Quan Hệ Gia Đình</value>
+  </data>
   <data name="QuanHeGiaDinh" xml:space="preserve">
     <value>Quan hệ gia đình</value>
   </data>
   <data name="QuanLyQuaTrinh" xml:space="preserve">
     <value>Quá trình</value>
+  </data>
+  <data name="QuaTrinhKhenThuong" xml:space="preserve">
+    <value>Khen thưởng</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Nhớ mật khẩu</value>
@@ -455,6 +515,9 @@
   </data>
   <data name="SoDienThoai" xml:space="preserve">
     <value>Số điện thoại</value>
+  </data>
+  <data name="SoQuyetDinh" xml:space="preserve">
+    <value>Số quyết định</value>
   </data>
   <data name="Ten" xml:space="preserve">
     <value>Tên</value>
@@ -500,6 +563,18 @@
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Tài khoản</value>
+  </data>
+  <data name="Validation_ImportCheckController" xml:space="preserve">
+    <value>Mẫu file excel không phù hợp với chức năng "{0}"!</value>
+  </data>
+  <data name="Validation_ImportExcelFile" xml:space="preserve">
+    <value>Vui lòng chọn một file excel!</value>
+  </data>
+  <data name="Validation_ImportExcelIdNotExist" xml:space="preserve">
+    <value>{0}: "{1}" không tồn tại trong "{2}"!</value>
+  </data>
+  <data name="Validation_ImportRequired" xml:space="preserve">
+    <value>{0} ở dòng số {1}!</value>
   </data>
   <data name="Validation_OrderIndex" xml:space="preserve">
     <value>{0} phải là dạng số lớn hơn 0!</value>

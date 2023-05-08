@@ -2,16 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 using Portal.DataAccess;
 using Portal.Models.ViewModels.Permission;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Portal.Extensions
 {
-    public class BaseController : Microsoft.AspNetCore.Mvc.Controller
+    public class BaseController : Controller
     {
         protected AppDbContext _context;
         public BaseController(AppDbContext context)
@@ -176,6 +173,73 @@ namespace Portal.Extensions
         #endregion
         #region Language
         #endregion Language
+        protected ActionResult ExcuteImportExcel(Func<JsonResult> codeToExecute)
+        {
+            try
+            {
+                // All code will run here
+                // Usage: return ExecuteContainer(() => { ALL RUNNING CODE HERE, remember to return });
+                return codeToExecute.Invoke();
+            }
+            //1. handle: DbUpdateException
+            catch (DbUpdateException ex)
+            {
+                string error = "";
+                foreach (var errorMessage in ErrorHepler.GetaAllMessages(ex))
+                {
+                    error += errorMessage + "/n";
+                    //ModelState.AddModelError("", errorMessage);
+                }
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.NotModified,
+                    Success = false,
+                    Data = error
+                });
+            }
+            // 2 handlw:DbEntityValidationException
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var eve in ex.EntityValidationErrors)
+                {
+                    sb.AppendLine(string.Format("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                                                    eve.Entry.Entity.GetType().Name,
+                                                    eve.Entry.State));
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        sb.AppendLine(string.Format("- Property: \"{0}\", Error: \"{1}\"",
+                                                    ve.PropertyName,
+                                                    ve.ErrorMessage));
+                    }
+                }
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.NotModified,
+                    Success = false,
+                    Data = sb.ToString()
+                });
+            }
+            //3. handle: Exception
+            catch (Exception ex)
+            {
+                string Message = "";
+                if (ex.InnerException != null)
+                {
+                    Message = ex.InnerException.Message;
+                }
+                else
+                {
+                    Message = ex.Message;
+                }
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.NotModified,
+                    Success = false,
+                    Data = "Lỗi: " + Message
+                });
+            }
+        }
 
         public DateTime FirstDate()
         {
@@ -195,6 +259,50 @@ namespace Portal.Extensions
         {
             return String.IsNullOrEmpty(CurrentUser.EmployeeID)?null: new Guid(CurrentUser.EmployeeID);
         }
-        
+        #region RemoveSign For Vietnamese String
+        private static readonly string[] VietnameseSigns = new string[]
+        {
+
+            "aAeEoOuUiIdDyY",
+
+            "áàạảãâấầậẩẫăắằặẳẵ",
+
+            "ÁÀẠẢÃÂẤẦẬẨẪĂẮẰẶẲẴ",
+
+            "éèẹẻẽêếềệểễ",
+
+            "ÉÈẸẺẼÊẾỀỆỂỄ",
+
+            "óòọỏõôốồộổỗơớờợởỡ",
+
+            "ÓÒỌỎÕÔỐỒỘỔỖƠỚỜỢỞỠ",
+
+            "úùụủũưứừựửữ",
+
+            "ÚÙỤỦŨƯỨỪỰỬỮ",
+
+            "íìịỉĩ",
+
+            "ÍÌỊỈĨ",
+
+            "đ",
+
+            "Đ",
+
+            "ýỳỵỷỹ",
+
+            "ÝỲỴỶỸ"
+        };
+
+        public static string RemoveSign4VietnameseString(string str)
+        {
+            for (int i = 1; i < VietnameseSigns.Length; i++)
+            {
+                for (int j = 0; j < VietnameseSigns[i].Length; j++)
+                    str = str.Replace(VietnameseSigns[i][j], VietnameseSigns[0][i - 1]);
+            }
+            return str;
+        }
+        #endregion RemoveSign For Vietnamese String
     }
 }

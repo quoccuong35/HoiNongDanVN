@@ -172,7 +172,7 @@ namespace Portal.Web.Areas.Permission.Controllers
         public List<Portal.Models.Page> GetMenuFunctions(Guid? id) {
             List<Portal.Models.Page> list = new List<Portal.Models.Page>();
             var menus = _context.MenuModels.Where(it => it.Actived == true).ToList();
-            var pageFuncs = _context.PageFunctionModels.Include(it=>it.FunctionModel).ToList();
+            var pageFuncs = _context.PageFunctionModels.Include(it=>it.FunctionModel).OrderBy(it=>it.FunctionModel.OrderIndex).ToList();
             var pagePermis = _context.PagePermissionModels.Where(it => it.RolesId == id).ToList();
             foreach (var item in menus.Where(it=>it.MenuIdParent == null).OrderBy(it=>it.OrderIndex))
             {

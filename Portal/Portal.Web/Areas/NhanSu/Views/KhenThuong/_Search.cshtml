@@ -1,0 +1,58 @@
+﻿
+@using Portal.Constant
+@using Portal.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<KhenThuongDetail>
+    @{
+        string CurrentController = ConstController.KhenThuong;
+        string CurrentArea = ConstArea.NhanSu;
+        string listRoles = User.FindFirst("Roles")!.Value;
+        listRoles = listRoles == null ? "" : listRoles;
+    }
+    <style>
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+    </style>
+    <table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+        <thead class="table-primary">
+            <tr>
+                <th class="text-center">@LanguageResource.NumberIndex</th>
+                <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
+                <th>@Html.DisplayNameFor(p => p.HoVaTen)</th>
+                <th>@Html.DisplayNameFor(p => p.TenDanhHieuKhenThuong)</th>
+                <th>@Html.DisplayNameFor(p => p.TenHinhThucKhenThuong)</th>
+                <th>@Html.DisplayNameFor(p => p.SoQuyetDinh)</th>
+                <th>@Html.DisplayNameFor(p => p.NgayQuyetDinh)</th>
+                <th>@Html.DisplayNameFor(p => p.NguoiKy)</th>
+                <th>@Html.DisplayNameFor(p => p.LyDo)</th>
+                <th>@Html.DisplayNameFor(p => p.GhiChu)</th>
+                <th class="text-center">@LanguageResource.Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int i = 0;
+            }
+            @foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td class="text-center">@i</td>
+                    <td>@Html.DisplayFor(p => item.MaCanBo)</td>
+                    <td>@Html.DisplayFor(p => item.HoVaTen)</td>
+                    <td>@Html.DisplayFor(p => item.TenDanhHieuKhenThuong)</td>
+                    <td>@Html.DisplayFor(p => item.TenHinhThucKhenThuong)</td>
+                    <td>@Html.DisplayFor(p => item.SoQuyetDinh)</td>
+                    <td>@Html.DisplayFor(p => item.NgayQuyetDinh)</td>
+                    <td>@Html.DisplayFor(p => item.NguoiKy)</td>
+                    <td>@Html.DisplayFor(p => item.LyDo)</td>
+                    <td>@Html.DisplayFor(p => item.GhiChu)</td>
+                    <td class="text-center">
+                        @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.IDQuaTrinhKhenThuong!.Value, listRoles: listRoles)
+                        @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.TenHinhThucKhenThuong, item.IDQuaTrinhKhenThuong!.Value, listRoles: listRoles)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

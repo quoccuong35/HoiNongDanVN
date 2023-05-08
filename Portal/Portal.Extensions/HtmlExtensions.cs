@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using Portal.Models;
 using System.Data;
+using System.Security.Cryptography.Xml;
+using Microsoft.AspNetCore.Html;
 
 namespace Microsoft.AspNetCore.Html
 {
@@ -76,6 +78,8 @@ namespace Microsoft.AspNetCore.Html
         }
 
         #endregion Create Button
+
+        #region Save Button
         public static HtmlString SaveButton(string id, string btn_name, object htmlAttributes = null)
         {
             TagBuilder aTag = new TagBuilder("a");
@@ -94,8 +98,6 @@ namespace Microsoft.AspNetCore.Html
             aTag.RenderSelfClosingTag();
             return new HtmlString(RenderHtml(aTag));
         }
-        #region Save Button
-
         #endregion Save Button
         #region Back Button
         public static HtmlString BackButton(string areaName, string controllerName, object htmlAttributes = null)
@@ -376,29 +378,55 @@ namespace Microsoft.AspNetCore.Html
         #endregion Menu nhan su
 
         #region Import Button
-        public static HtmlString ImportButton(string areaName, string controlName, object htmlAttributes = null,string listRoles = null)
+        public static HtmlString ImportButton(string areaName, string controllerName, object htmlAttributes = null, String listRoles = "")
         {
-
-           string roles = controlName + ":" + ConstFunction.Import;
-           bool  isHasPermission = Function.GetPermission(listRoles, roles);
-            if (!isHasPermission)
+            string CurrentUrl = GetCurrentUrl(areaName, controllerName);
+            string roles = controllerName + ":" + ConstFunction.Import;
+            bool isHasPermission = Function.GetPermission(listRoles, roles);
+            //bool isHasPermission = true;
+            if (isHasPermission)
             {
-                TagBuilder button = new TagBuilder("button");
-                button.Attributes.Add("id", "btn-import");
-                button.Attributes.Add("class", "btn bg-olive");
-                button.Attributes.Add("data-toggle", "modal");
-                button.Attributes.Add("data-target", "#importexcel-window");
-                button.InnerHtml.AppendHtmlLine(string.Format("<i class='fa fa-upload'></i> {0}", LanguageResource.Btn_Import));
-                button.Attributes.Add("disabled", "disabled");
+                TagBuilder aTag = new TagBuilder("a");
+                aTag.Attributes.Add("class", "btn btn-vk text-white mx-1");
+                aTag.Attributes.Add("href", "#modalImport");
+                aTag.Attributes.Add("data-bs-effect", "effect-scale");
+                aTag.Attributes.Add("data-bs-toggle", "modal");
+                aTag.InnerHtml.AppendHtmlLine(string.Format("<i class='fa fa-file-excel-o'></i> {0}", LanguageResource.Import));
                 if (htmlAttributes != null)
                 {
                     var attributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
-                    button.MergeAttributes(attributes, true);
+                    aTag.MergeAttributes(attributes, true);
                 }
-                new HtmlString(RenderHtml(button));
+                aTag.RenderSelfClosingTag();
+                return new HtmlString(RenderHtml(aTag));
             }
+            return null;
+        }
+        public static HtmlString ExportButton(string areaName, string controllerName, object htmlAttributes = null, String listRoles = "")
+        {
+            string CurrentUrl = GetCurrentUrl(areaName, controllerName);
+            string roles = controllerName + ":" + ConstFunction.Export;
+            bool isHasPermission = Function.GetPermission(listRoles, roles);
+            if (isHasPermission)
+            {
+                TagBuilder dropdown = new TagBuilder("div");
+                dropdown.Attributes.Add("class", "dropdown");
 
-           
+                TagBuilder button = new TagBuilder("button");
+                button.Attributes.Add("class", "btn bg-teal dropdown-toggle text-white");
+                button.Attributes.Add("data-bs-toggle", "dropdown");
+                button.InnerHtml.AppendHtmlLine(string.Format("<i class=\"fa fa-arrow-circle-down me-2\"></i>{0}", "Export"));
+
+                TagBuilder dropdown_menu = new TagBuilder("div");
+                dropdown_menu.Attributes.Add("class", "dropdown-menu");
+                dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item\" href=\"" + string.Format("/{0}/ExportCreate", CurrentUrl) + "\">{0}</a>", "Export file mẫu"));
+                dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item\" href=\""+ string.Format("/{0}/ExportEdit", CurrentUrl) + "\">{0}</a>", "Export dữ liệu"));
+
+                dropdown.InnerHtml.AppendHtmlLine(RenderHtml(button));
+                dropdown.InnerHtml.AppendHtmlLine(RenderHtml(dropdown_menu));
+
+                return new HtmlString(RenderHtml(dropdown));
+            }
             return null;
         }
         #endregion Import Button

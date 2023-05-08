@@ -516,6 +516,10 @@ namespace Portal.DataAccess.Migrations
 
                     b.HasIndex("MaDanToc");
 
+                    b.HasIndex("MaHeDaoTao");
+
+                    b.HasIndex("MaHocHam");
+
                     b.HasIndex("MaPhanHe");
 
                     b.HasIndex("MaTinhTrang");
@@ -576,6 +580,22 @@ namespace Portal.DataAccess.Migrations
                     b.HasKey("MaChucVu");
 
                     b.ToTable("ChucVuModel", "tMasterData");
+                });
+
+            modelBuilder.Entity("Portal.Models.DanhHieuKhenThuong", b =>
+                {
+                    b.Property<string>("MaDanhHieuKhenThuong")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TenDanhHieuKhenThuong")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("MaDanhHieuKhenThuong");
+
+                    b.ToTable("DanhHieuKhenThuong", "tMasterData");
                 });
 
             modelBuilder.Entity("Portal.Models.DanToc", b =>
@@ -741,7 +761,7 @@ namespace Portal.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 4, 25, 21, 17, 10, 706, DateTimeKind.Local).AddTicks(2646));
+                        .HasDefaultValue(new DateTime(2023, 5, 7, 19, 58, 58, 580, DateTimeKind.Local).AddTicks(6240));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -1064,6 +1084,66 @@ namespace Portal.DataAccess.Migrations
                     b.ToTable("NgonNguModel", "tMasterData");
                 });
 
+            modelBuilder.Entity("Portal.Models.Entitys.NhanSu.QuaTrinhKhenThuong", b =>
+                {
+                    b.Property<Guid>("IDQuaTrinhKhenThuong")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(550)
+                        .HasColumnType("nvarchar(550)");
+
+                    b.Property<Guid>("IDCanBo")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("LastModifiedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LyDo")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("MaDanhHieuKhenThuong")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("MaHinhThucKhenThuong")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("NgayQuyetDinh")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NguoiKy")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("SoQuyetDinh")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("IDQuaTrinhKhenThuong");
+
+                    b.HasIndex("IDCanBo");
+
+                    b.HasIndex("MaDanhHieuKhenThuong");
+
+                    b.HasIndex("MaHinhThucKhenThuong");
+
+                    b.ToTable("QuaTrinhKhenThuong", "NS");
+                });
+
             modelBuilder.Entity("Portal.Models.Entitys.PageFunctionModel", b =>
                 {
                     b.Property<Guid>("MenuId")
@@ -1280,6 +1360,41 @@ namespace Portal.DataAccess.Migrations
                     b.ToTable("HeDaoTaoModel", "tMasterData");
                 });
 
+            modelBuilder.Entity("Portal.Models.HinhThucKhenThuong", b =>
+                {
+                    b.Property<string>("MaHinhThucKhenThuong")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TenHinhThucKhenThuong")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("MaHinhThucKhenThuong");
+
+                    b.ToTable("HinhThucKhenThuong", "tMasterData");
+                });
+
+            modelBuilder.Entity("Portal.Models.HinhThucKyLuat", b =>
+                {
+                    b.Property<string>("MaHinhThucKyLuat")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool?>("DinhChi")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("TenHinhThucKyLuat")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("MaHinhThucKyLuat");
+
+                    b.ToTable("HinhThucKyLuat", "tMasterData");
+                });
+
             modelBuilder.Entity("Portal.Models.KhuVuc", b =>
                 {
                     b.Property<string>("MaKhuVuc")
@@ -1294,6 +1409,37 @@ namespace Portal.DataAccess.Migrations
                     b.HasKey("MaKhuVuc");
 
                     b.ToTable("KhuVucModel", "tMasterData");
+                });
+
+            modelBuilder.Entity("Portal.Models.LoaiQuanHeGiaDinh", b =>
+                {
+                    b.Property<Guid>("IDLoaiQuanHeGiaDinh")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Actived")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("CreatedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("LastModifiedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TenLoaiQuanHeGiaDinh")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("IDLoaiQuanHeGiaDinh");
+
+                    b.ToTable("LoaiQuanHeGiaDinh", "tMasterData");
                 });
 
             modelBuilder.Entity("Portal.Models.NgachLuong", b =>
@@ -1313,7 +1459,7 @@ namespace Portal.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 4, 25, 21, 17, 10, 706, DateTimeKind.Local).AddTicks(6778));
+                        .HasDefaultValue(new DateTime(2023, 5, 7, 19, 58, 58, 581, DateTimeKind.Local).AddTicks(570));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -1362,6 +1508,67 @@ namespace Portal.DataAccess.Migrations
                     b.ToTable("PhanHeModel", "tMasterData");
                 });
 
+            modelBuilder.Entity("Portal.Models.QuanHeGiaDinh", b =>
+                {
+                    b.Property<Guid>("IDQuanheGiaDinh")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DiaChi")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("HoTen")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<Guid?>("IDCanBo")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("IDHoiVien")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IDLoaiQuanHeGiaDinh")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("LastModifiedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NgaySinh")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("NgheNghiep")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("NoiLamVien")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("IDQuanheGiaDinh");
+
+                    b.HasIndex("IDCanBo");
+
+                    b.HasIndex("IDLoaiQuanHeGiaDinh");
+
+                    b.ToTable("QuanHeGiaDinh", "NS");
+                });
+
             modelBuilder.Entity("Portal.Models.QuanHuyen", b =>
                 {
                     b.Property<string>("MaQuanHuyen")
@@ -1405,6 +1612,63 @@ namespace Portal.DataAccess.Migrations
                     b.HasIndex("MaTinhThanhPho");
 
                     b.ToTable("QuanHuyenModel", "tMasterData");
+                });
+
+            modelBuilder.Entity("Portal.Models.QuaTrinhKyLuat", b =>
+                {
+                    b.Property<Guid>("IdQuaTrinhKyLuat")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(550)
+                        .HasColumnType("nvarchar(550)");
+
+                    b.Property<Guid>("IDCanBo")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("LastModifiedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LyDo")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("MaHinhThucKyLuat")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("NgayKy")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NguoiKy")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("SoQuyetDinh")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("IdQuaTrinhKyLuat");
+
+                    b.HasIndex("IDCanBo");
+
+                    b.HasIndex("MaHinhThucKyLuat");
+
+                    b.ToTable("QuaTrinhKyLuat", "NS");
                 });
 
             modelBuilder.Entity("Portal.Models.TinhThanhPho", b =>
@@ -1588,6 +1852,18 @@ namespace Portal.DataAccess.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_CanBo_DanToc");
 
+                    b.HasOne("Portal.Models.HeDaoTao", "HeDaoTao")
+                        .WithMany("CanBos")
+                        .HasForeignKey("MaHeDaoTao")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_CanBo_HeDaoTao");
+
+                    b.HasOne("Portal.Models.Entitys.MasterData.HocHam", "HocHam")
+                        .WithMany("CanBos")
+                        .HasForeignKey("MaHocHam")
+                        .HasConstraintName("FK_CanBo_HocHam");
+
                     b.HasOne("Portal.Models.PhanHe", "PhanHe")
                         .WithMany("CanBos")
                         .HasForeignKey("MaPhanHe")
@@ -1640,6 +1916,10 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("DanToc");
 
                     b.Navigation("Department");
+
+                    b.Navigation("HeDaoTao");
+
+                    b.Navigation("HocHam");
 
                     b.Navigation("PhanHe");
 
@@ -1694,6 +1974,36 @@ namespace Portal.DataAccess.Migrations
                     b.HasOne("Portal.Models.Entitys.MenuModel", null)
                         .WithMany("Children")
                         .HasForeignKey("MenuIdParent");
+                });
+
+            modelBuilder.Entity("Portal.Models.Entitys.NhanSu.QuaTrinhKhenThuong", b =>
+                {
+                    b.HasOne("Portal.Models.CanBo", "CanBo")
+                        .WithMany("QuaTrinhKhenThuongs")
+                        .HasForeignKey("IDCanBo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_QuaTrinhKhenThuong_CanBo");
+
+                    b.HasOne("Portal.Models.DanhHieuKhenThuong", "DanhHieuKhenThuong")
+                        .WithMany("QuaTrinhKhenThuong")
+                        .HasForeignKey("MaDanhHieuKhenThuong")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_QuanHeGiaDinh_DanhHieuKhenThuong");
+
+                    b.HasOne("Portal.Models.HinhThucKhenThuong", "HinhThucKhenThuong")
+                        .WithMany("QuaTrinhKhenThuong")
+                        .HasForeignKey("MaHinhThucKhenThuong")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_QuanHeGiaDinh_HinhThucKhenThuong");
+
+                    b.Navigation("CanBo");
+
+                    b.Navigation("DanhHieuKhenThuong");
+
+                    b.Navigation("HinhThucKhenThuong");
                 });
 
             modelBuilder.Entity("Portal.Models.Entitys.PageFunctionModel", b =>
@@ -1759,6 +2069,25 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("NgonNgu");
                 });
 
+            modelBuilder.Entity("Portal.Models.QuanHeGiaDinh", b =>
+                {
+                    b.HasOne("Portal.Models.CanBo", "CanBo")
+                        .WithMany("QuanHeGiaDinhs")
+                        .HasForeignKey("IDCanBo")
+                        .HasConstraintName("FK_QuanHeGiaDinh_CanBo");
+
+                    b.HasOne("Portal.Models.LoaiQuanHeGiaDinh", "LoaiQuanhe")
+                        .WithMany("QuanHeGiaDinhs")
+                        .HasForeignKey("IDLoaiQuanHeGiaDinh")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_QuanHeGiaDinh_LoaiQuanHeGiaDinh");
+
+                    b.Navigation("CanBo");
+
+                    b.Navigation("LoaiQuanhe");
+                });
+
             modelBuilder.Entity("Portal.Models.QuanHuyen", b =>
                 {
                     b.HasOne("Portal.Models.TinhThanhPho", "TinhThanhPho")
@@ -1769,6 +2098,27 @@ namespace Portal.DataAccess.Migrations
                         .HasConstraintName("FK_QuanHuyen_TinhThanhPho");
 
                     b.Navigation("TinhThanhPho");
+                });
+
+            modelBuilder.Entity("Portal.Models.QuaTrinhKyLuat", b =>
+                {
+                    b.HasOne("Portal.Models.CanBo", "CanBo")
+                        .WithMany("QuaTrinhKyLuats")
+                        .HasForeignKey("IDCanBo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_QuaTrinhKyLuat_CanBo");
+
+                    b.HasOne("Portal.Models.HinhThucKyLuat", "HinhThucKyLuat")
+                        .WithMany("QuaTrinhKyLuats")
+                        .HasForeignKey("MaHinhThucKyLuat")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_QuaTrinhKyLuat_HinhThucKyLuat");
+
+                    b.Navigation("CanBo");
+
+                    b.Navigation("HinhThucKyLuat");
                 });
 
             modelBuilder.Entity("Portal.Models.TinhThanhPho", b =>
@@ -1788,9 +2138,23 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("CanBos");
                 });
 
+            modelBuilder.Entity("Portal.Models.CanBo", b =>
+                {
+                    b.Navigation("QuaTrinhKhenThuongs");
+
+                    b.Navigation("QuaTrinhKyLuats");
+
+                    b.Navigation("QuanHeGiaDinhs");
+                });
+
             modelBuilder.Entity("Portal.Models.ChucVu", b =>
                 {
                     b.Navigation("CanBos");
+                });
+
+            modelBuilder.Entity("Portal.Models.DanhHieuKhenThuong", b =>
+                {
+                    b.Navigation("QuaTrinhKhenThuong");
                 });
 
             modelBuilder.Entity("Portal.Models.DanToc", b =>
@@ -1818,6 +2182,11 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("PageFunctionModels");
 
                     b.Navigation("PagePermissionModels");
+                });
+
+            modelBuilder.Entity("Portal.Models.Entitys.MasterData.HocHam", b =>
+                {
+                    b.Navigation("CanBos");
                 });
 
             modelBuilder.Entity("Portal.Models.Entitys.MasterData.TinhTrang", b =>
@@ -1866,9 +2235,29 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("CanBos");
                 });
 
+            modelBuilder.Entity("Portal.Models.HeDaoTao", b =>
+                {
+                    b.Navigation("CanBos");
+                });
+
+            modelBuilder.Entity("Portal.Models.HinhThucKhenThuong", b =>
+                {
+                    b.Navigation("QuaTrinhKhenThuong");
+                });
+
+            modelBuilder.Entity("Portal.Models.HinhThucKyLuat", b =>
+                {
+                    b.Navigation("QuaTrinhKyLuats");
+                });
+
             modelBuilder.Entity("Portal.Models.KhuVuc", b =>
                 {
                     b.Navigation("TinhThanhPhos");
+                });
+
+            modelBuilder.Entity("Portal.Models.LoaiQuanHeGiaDinh", b =>
+                {
+                    b.Navigation("QuanHeGiaDinhs");
                 });
 
             modelBuilder.Entity("Portal.Models.NgachLuong", b =>

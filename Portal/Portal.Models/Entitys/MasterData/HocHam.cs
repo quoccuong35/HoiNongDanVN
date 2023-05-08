@@ -10,5 +10,11 @@ namespace Portal.Models.Entitys.MasterData
     {
         public string MaHocHam { get; set; }
         public string TenHocHam { get; set; }
+
+        public ICollection<CanBo> CanBos { get; set; }
+        public HocHam()
+        {
+            CanBos = new List<CanBo>();
+        }
     }
 }

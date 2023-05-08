@@ -1,0 +1,44 @@
+﻿@model KyLuatVM
+<div class="row">
+    <input asp-for="IdQuaTrinhKyLuat" hidden />
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="MaHinhThucKyLuat"></label><span class="text-red">*</span>
+            <select asp-for="MaHinhThucKyLuat" asp-items="@ViewBag.MaHinhThucKyLuat" class="form-control select2-show-search form-select">
+                <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+            </select>
+            <span asp-validation-for="MaHinhThucKyLuat" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="SoQuyetDinh"></label><span class="text-red">*</span>
+            <input asp-for="SoQuyetDinh" class="form-control">
+            <span asp-validation-for="SoQuyetDinh" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="NgayKy"></label><span class="text-red">*</span>
+            <input asp-for="NgayKy" class="form-control">
+            <span asp-validation-for="NgayKy" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="NguoiKy"></label><span class="text-red">*</span>
+            <input asp-for="NguoiKy" class="form-control">
+            <span asp-validation-for="NguoiKy" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="LyDo"></label> <span class="text-red">*</span>
+        <textarea asp-for="LyDo" rows="3" class="form-control"></textarea>
+        <span asp-validation-for="LyDo" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="GhiChu"></label>
+        <textarea asp-for="GhiChu" rows="3" class="form-control"></textarea>
+        <span asp-validation-for="GhiChu" class="text-danger"></span>
+    </div>
+</div>

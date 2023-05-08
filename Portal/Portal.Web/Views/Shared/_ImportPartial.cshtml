@@ -1,0 +1,24 @@
+﻿<div class="modal fade" id="modalImport">
+    <div class="modal-dialog modal-dialog-centered text-center" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h2 class="modal-title">Import From Excel</h2><button aria-label="Close" class="btn-close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row my-1">
+                    <div class="col-md-12">
+                         <input type="file" id="importexcelfile" name="importexcelfile" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                         <input type="hidden" name="currentUrl" class="form-control" />
+                    </div>
+               </div>
+                <div id="import-result">
+
+               </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="btn-importExcel"><i class="pe-1 fe fe-upload" ></i>Import</button>
+                <button class="btn btn-light" data-bs-dismiss="modal"> <i class="pe-1 fa fa-window-close"></i> Thoát</button>
+            </div>
+        </div>
+    </div>
+</div>
