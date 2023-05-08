@@ -18,6 +18,8 @@ namespace Portal.Models
         public Nullable<System.DateTime> LastModifiedTime { get; set; }
         public Nullable<int> OrderIndex { get; set; }
         public ICollection<CanBo> CanBos { get; set; }
+        public Guid? IDCoSo { get; set; }
+        public CoSo CoSo { get; set; }
         public Department()
         {
             CanBos = new List<CanBo>();

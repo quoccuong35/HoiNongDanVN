@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Entity.Core.Mapping;
+using System.Globalization;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Transactions;
@@ -29,10 +30,12 @@ namespace Portal.Web.Areas.NhanSu.Controllers
     public class CanBoController : BaseController
     {
         private readonly IWebHostEnvironment _hostEnvironment;
+        private string [] DateFomat;
         const string controllerCode = ConstExcelController.CanBo;
         const int startIndex = 6;
-        public CanBoController(AppDbContext context, IWebHostEnvironment hostEnvironment) : base(context) {
+        public CanBoController(AppDbContext context, IWebHostEnvironment hostEnvironment, IConfiguration config) : base(context) {
             _hostEnvironment = hostEnvironment;
+            DateFomat = config.GetSection("SiteSettings:DateFormat").Value.ToString().Split(',');
         }
         #region Index
         [PortalAuthorization]
@@ -710,6 +713,10 @@ namespace Portal.Web.Areas.NhanSu.Controllers
             var data = _context.BacLuongs.Where(it => it.Actived == true && it.MaNgachLuong == maNgachLuong).OrderBy(p => p.OrderIndex).Select(it => new { MaBacLuong = it.MaBacLuong, TenBacLuong = it.TenBacLuong +" " + it.HeSo.ToString() }).ToList();
             return Json(data);
         }
+        public JsonResult LoadDonVi(Guid idCoSo) {
+            var data = _context.Departments.Where(it => it.Actived == true && it.IDCoSo == idCoSo).OrderBy(p => p.OrderIndex).Select(it => new { IdDepartment = it.Id, Name = it.Name  }).ToList();
+            return Json(data);
+        }
         public JsonResult GetHoSoLuong(Guid id)
         {
             var data = _context.BacLuongs.SingleOrDefault(it => it.Actived == true && it.MaBacLuong == id);
@@ -727,7 +734,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
             var MenuListCoSo = _context.CoSos.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { IdCoSo = it.IdCoSo, TenCoSo = it.TenCoSo }).ToList();
             ViewBag.IdCoSo = new SelectList(MenuListCoSo, "IdCoSo", "TenCoSo", IdCoSo);
 
-            var DonVi = _context.Departments.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { IdDepartment = it.Id, Name = it.Name }).ToList();
+            var DonVi = _context.Departments.Where(it => it.Actived == true).Include(it=>it.CoSo).OrderBy(p => p.OrderIndex).Select(it => new { IdDepartment = it.Id, Name = it.Name + " "+ it.CoSo.TenCoSo }).ToList();
             ViewBag.IdDepartment = new SelectList(DonVi, "IdDepartment", "Name", IdDepartment);
 
             var chucVu = _context.ChucVus.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { MaChucVu = it.MaChucVu, TenChucVu = it.TenChucVu }).ToList();
@@ -863,7 +870,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                         {
                             try
                             {
-                                data.NgaySinh = DateTime.Parse(ngaySinh);
+                                data.NgaySinh = DateTime.ParseExact(ngaySinh,DateFomat, new CultureInfo("en-US"));
                             }
                             catch (Exception)
                             {
@@ -915,7 +922,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                         }
                         else
                         {
-                            var donVi = _context.Departments.FirstOrDefault(it => it.Name == tenDonVi);
+                            var donVi = _context.Departments.FirstOrDefault(it => it.Name == tenDonVi && it.IDCoSo == data.IdCoSo);
                             if (donVi != null)
                             {
                                 data.IdDepartment = donVi.Id;
@@ -1014,7 +1021,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                         {
                             try
                             {
-                                data.NgayCapCCCD = DateTime.Parse(ngayCap);
+                                data.NgayCapCCCD = DateTime.ParseExact(ngayCap, DateFomat, new CultureInfo("en-US"));
                             }
                             catch (Exception)
                             {
@@ -1096,7 +1103,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                         {
                             try
                             {
-                                data.NgayNangBacLuong = DateTime.Parse(ngayNangBac);
+                                data.NgayNangBacLuong = DateTime.ParseExact(ngayNangBac, DateFomat, new CultureInfo("en-US")); 
                             }
                             catch (Exception)
                             {
@@ -1198,7 +1205,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                         {
                             try
                             {
-                                data.KhoanTuNgay = DateTime.Parse(khoanTuNgay);
+                                data.KhoanTuNgay = DateTime.ParseExact(khoanTuNgay, DateFomat, new CultureInfo("en-US"));
                             }
                             catch (Exception)
                             {
@@ -1214,7 +1221,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                         {
                             try
                             {
-                                data.KhoanDenNgay = DateTime.Parse(khoanDenNgay);
+                                data.KhoanDenNgay = DateTime.ParseExact(khoanDenNgay, DateFomat, new CultureInfo("en-US")); ;
                             }
                             catch (Exception)
                             {
@@ -1245,7 +1252,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                         {
                             try
                             {
-                                data.NgayVaoBienChe = DateTime.Parse(NgayVaoBienChe);
+                                data.NgayVaoBienChe = DateTime.ParseExact(NgayVaoBienChe, DateFomat, new CultureInfo("en-US")); ;
                             }
                             catch (Exception)
                             {
@@ -1261,7 +1268,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                         {
                             try
                             {
-                                data.NgayThamGiaCongTac = DateTime.Parse(ngayThamGiaCongTac);
+                                data.NgayThamGiaCongTac = DateTime.ParseExact(ngayThamGiaCongTac, DateFomat, new CultureInfo("en-US")); ;
                             }
                             catch (Exception)
                             {
@@ -1461,7 +1468,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                         {
                             try
                             {
-                                data.NgayvaoDangDuBi = DateTime.Parse(ngayVaoDangDuBi);
+                                data.NgayvaoDangDuBi = DateTime.ParseExact(ngayVaoDangDuBi, DateFomat, new CultureInfo("en-US")); ;
                             }
                             catch (Exception)
                             {
@@ -1477,7 +1484,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                         {
                             try
                             {
-                                data.NgayVaoDangChinhThuc = DateTime.Parse(ngayVaoDang);
+                                data.NgayVaoDangChinhThuc = DateTime.ParseExact(ngayVaoDang, DateFomat, new CultureInfo("en-US")); ;
                             }
                             catch (Exception)
                             {

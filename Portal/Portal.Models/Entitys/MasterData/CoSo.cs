@@ -19,8 +19,10 @@ namespace Portal.Models.Entitys
         public Nullable<int> OrderIndex { get; set; }
 
         public ICollection<CanBo> CanBos { get; set; }
+        public ICollection<Department> Departments { get; set; }
         public CoSo() {
             CanBos = new List<CanBo>();
+            Departments = new List<Department>();
         }
     }
 }

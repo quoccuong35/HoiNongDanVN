@@ -23,6 +23,7 @@ namespace Portal.Web.Areas.MasterData.Controllers
         #region Index
         public IActionResult Index()
         {
+            CreateViewBag();
             return View("Index");
         }
         public IActionResult _Search(DepartmentSearchVM userSearch)
@@ -32,6 +33,10 @@ namespace Portal.Web.Areas.MasterData.Controllers
                 if (!String.IsNullOrEmpty(userSearch.Name))
                 {
                     data = data.Where(it => it.Name.Contains(userSearch.Name));
+                }
+                if (userSearch.IdCoso !=null)
+                {
+                    data = data.Where(it => it.IDCoSo == userSearch.IdCoso);
                 }
                 if (userSearch.Actived != null)
                 {
@@ -62,6 +67,7 @@ namespace Portal.Web.Areas.MasterData.Controllers
                 departmentVM.Id = item.Id;
                 departmentVM.Name = item.Name;
                 departmentVM.Code = item.Code;
+                departmentVM.IdCoSo = item.IDCoSo;
                 departmentVM.Actived = item.Actived;
                 departmentVM.Description = item.Description;
                 departmentVM.OrderIndex = item.OrderIndex;
@@ -86,6 +92,7 @@ namespace Portal.Web.Areas.MasterData.Controllers
                         Description = obj.Description,
                         OrderIndex = obj.OrderIndex,
                         Actived = true,
+                        IDCoSo = obj.IdCoSo,
                         CreatedAccountId = Guid.NewGuid(),
                         CreatedTime = DateTime.Now
 
@@ -107,8 +114,9 @@ namespace Portal.Web.Areas.MasterData.Controllers
                         departmentEdit.Actived = obj.Actived == null ? true : obj.Actived.Value;
                         departmentEdit.Name = obj.Name;
                         departmentEdit.Code = obj.Code;
+                        departmentEdit.IDCoSo = obj.IdCoSo;
                         departmentEdit.Description = obj.Description;
-                        departmentEdit.LastModifiedAccountId = new Guid(CurrentUser.AccountId);
+                        departmentEdit.LastModifiedAccountId = new Guid(CurrentUser.AccountId!);
                         departmentEdit.LastModifiedTime = DateTime.Now;
 
                         HistoryModelRepository history = new HistoryModelRepository(_context);
@@ -170,7 +178,7 @@ namespace Portal.Web.Areas.MasterData.Controllers
         }
         #endregion Delete
         #region Helper
-        private void CreateViewBag(Guid? IdCoSo) {
+        private void CreateViewBag(Guid? IdCoSo = null) {
             var MenuList = _context.CoSos.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { IdCoSo = it.IdCoSo, TenCoSo = it.TenCoSo }).ToList();
             ViewBag.IdCoSo = new SelectList(MenuList, "IdCoSo", "TenCoSo", IdCoSo);
         }

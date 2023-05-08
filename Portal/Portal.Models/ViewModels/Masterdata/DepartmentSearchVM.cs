@@ -11,12 +11,13 @@ namespace Portal.Models
 {
     public class DepartmentSearchVM
     {
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DepartmentName")]
-        public string Name { get; set; }
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]
-
-        public Guid IdCoso { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "CoSo")]
+        public Guid? IdCoso { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DepartmentName")]
+        public string? Name { get; set; }
+     
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]
         public bool? Actived { get; set; }
     }
 }

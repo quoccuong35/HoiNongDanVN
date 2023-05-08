@@ -29,4 +29,20 @@
             }
         });
     })
+
+
+
+    $("select#IdCoSo").change(function () {
+        let idCoSo = $(this).val();
+
+        $("select#IdDepartment").empty();
+
+        $.getJSON('/NhanSu/CanBo/LoadDonVi?idCoSo=' + idCoSo, function (data) {
+            //console.log(data);
+            $.each(data, function (i, item) {
+                /*console.log(item);*/
+                $("select#IdDepartment").append('<option value=' + item.idDepartment + '>' + item.name + '</option>');
+            });
+        });
+    })
 });

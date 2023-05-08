@@ -86,6 +86,12 @@ namespace Portal.DataAccess
                    .HasMaxLength(200)
                    .HasColumnName("DepartmentName");
                 tbl.Property(it => it.Description).HasMaxLength(500);
+                tbl.HasOne<CoSo>(it => it.CoSo)
+                .WithMany(it => it.Departments)
+                .HasForeignKey(it => it.IDCoSo)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasConstraintName("FK_Department_CoSo");
+                
             });
             builder.Entity<Bank>(tbl =>
             {

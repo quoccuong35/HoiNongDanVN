@@ -19,7 +19,7 @@ namespace Portal.Models
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "CoSo")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
-        public Guid IdCoSo { get; set; }
+        public Guid? IdCoSo { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]
         public bool? Actived { get; set; }

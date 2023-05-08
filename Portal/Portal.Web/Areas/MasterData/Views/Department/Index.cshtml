@@ -27,6 +27,10 @@
                     <form method="get" id="frmSearch" ,asp-action="_Search">
                         <div class="row my-2">
                             <div class="col-3">
+                                <label asp-for="IdCoso"></label>
+                                @Html.DropDownList("IdCoso", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-3">
                                 <label asp-for="Name"></label>
                                 <input class="form-control" asp-for="Name" />
                             </div>

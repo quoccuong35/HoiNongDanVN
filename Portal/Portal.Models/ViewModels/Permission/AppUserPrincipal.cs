@@ -15,50 +15,50 @@ namespace Portal.Models.ViewModels.Permission
 
         }
         //ID người dùng đăng nhập
-        public string AccountId
+        public string? AccountId
         {
             get
             {
-                return this.FindFirst(ClaimTypes.Sid).Value;
+                return this.FindFirst(ClaimTypes.Sid) == null ? "" : this.FindFirst(ClaimTypes.Sid)!.Value;
             }
         }
         //Tên tàikhoản đăng nhập
-        public string UserName
+        public string? UserName
         {
             get
             {
-                return this.FindFirst(ClaimTypes.Name).Value;
+                return this.FindFirst(ClaimTypes.Name) == null ? "" : this.FindFirst(ClaimTypes.Name)!.Value;
             }
         }
         //Họ và tên
-        public string FullName
+        public string? FullName
         {
             get
             {
-                return this.FindFirst("FullName")!.Value;
+                return this.FindFirst("FullName") == null ? "" : this.FindFirst("FullName")!.Value;
             }
         }
         // hình đại diện
-        public string Avatar
+        public string? Avatar
         {
             get
             {
-                return this.FindFirst(ClaimTypes.Uri).Value;
+                return this.FindFirst(ClaimTypes.Uri) == null ? "" : this.FindFirst(ClaimTypes.Uri)!.Value;
             }
         }
         // get EmployeeID user login
-        public string EmployeeID
+        public string? EmployeeID
         {
             get
             {
-                return this.FindFirst(ClaimTypes.PrimarySid).Value;
+                return this.FindFirst(ClaimTypes.PrimarySid) == null?"": this.FindFirst(ClaimTypes.PrimarySid)!.Value;
             }
         }
-        public string Roles
+        public string? Roles
         {
             get
             {
-                return this.UserName == null? "": this.FindFirst("Roles")!.Value;
+                return this.FindFirst("Roles") == null ?"": this.FindFirst("Roles")!.Value;
             }
         }
     }
