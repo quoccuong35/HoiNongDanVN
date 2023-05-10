@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Portal.Models
 { 
-    public class QHGiaDinhSearch
+    public class QHGiaDinhSearchVM
     {
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaCanBo")]
         public string MaCanBo { get; set; }

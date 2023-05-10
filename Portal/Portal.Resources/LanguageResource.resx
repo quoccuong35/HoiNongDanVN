@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Account" xml:space="preserve">
-    <value>Người dùng</value>
+    <value>Người Dùng</value>
   </data>
   <data name="Account_Confirm" xml:space="preserve">
     <value>Tài khoản hoặc mật khẩu không đúng.</value>
@@ -154,10 +154,10 @@
     <value>Bậc</value>
   </data>
   <data name="BacLuong" xml:space="preserve">
-    <value>Bậc lương</value>
+    <value>Bậc Lương</value>
   </data>
   <data name="BoNhiem" xml:space="preserve">
-    <value>Bổ nhiệm cán bộ</value>
+    <value>Bổ Nhiệm Cán Bộ</value>
   </data>
   <data name="Btn_Back" xml:space="preserve">
     <value>Quay lại</value>
@@ -184,7 +184,7 @@
     <value>Tìm kiếm</value>
   </data>
   <data name="CanBo" xml:space="preserve">
-    <value>Cán bộ</value>
+    <value>Cán Bộ</value>
   </data>
   <data name="Check_Exist" xml:space="preserve">
     <value>Đã tồn tại {0} này!</value>
@@ -199,10 +199,13 @@
     <value>Chuyên ngành</value>
   </data>
   <data name="CongTac" xml:space="preserve">
-    <value>Công tác</value>
+    <value>Công Tác</value>
   </data>
   <data name="CoSo" xml:space="preserve">
     <value>Cơ sở</value>
+  </data>
+  <data name="CoSoDaoTao" xml:space="preserve">
+    <value>Cơ sở đào tạo</value>
   </data>
   <data name="Create" xml:space="preserve">
     <value>Thêm mới</value>
@@ -217,7 +220,10 @@
     <value>Danh hiệu khen thưởng</value>
   </data>
   <data name="DanToc" xml:space="preserve">
-    <value>Dân tộc</value>
+    <value>Dân Tộc</value>
+  </data>
+  <data name="DaoTao" xml:space="preserve">
+    <value>Đào Tạo</value>
   </data>
   <data name="DaoTaoBoiDuong" xml:space="preserve">
     <value>Đào tạo bồi dưởng</value>
@@ -226,7 +232,7 @@
     <value>Vui lòng chọn từ danh sách</value>
   </data>
   <data name="Department" xml:space="preserve">
-    <value>Đơn vị</value>
+    <value>Đơn Vị</value>
   </data>
   <data name="DepartmentCode" xml:space="preserve">
     <value>Mã đơn vị</value>
@@ -267,6 +273,9 @@
   <data name="Export_ExcelWarning2" xml:space="preserve">
     <value>Bắt buộc nhập những cột có chứa dấu (*)</value>
   </data>
+  <data name="FileDinhKem" xml:space="preserve">
+    <value>File đính kèm</value>
+  </data>
   <data name="FullName" xml:space="preserve">
     <value>Họ và tên</value>
   </data>
@@ -295,13 +304,13 @@
     <value>Họ đệm</value>
   </data>
   <data name="HoiVien" xml:space="preserve">
-    <value>Hội viên</value>
+    <value>Hội Viên</value>
   </data>
   <data name="Href" xml:space="preserve">
     <value>Link</value>
   </data>
   <data name="HuuTri" xml:space="preserve">
-    <value>Hưu trí</value>
+    <value>Hưu Trí</value>
   </data>
   <data name="Icon" xml:space="preserve">
     <value>Icon</value>
@@ -322,7 +331,7 @@
     <value>Khoán từ ngày</value>
   </data>
   <data name="KyLuat" xml:space="preserve">
-    <value>Kỷ luật</value>
+    <value>Kỷ Luật</value>
   </data>
   <data name="LastModifyDate" xml:space="preserve">
     <value>Ngày cuối cùng chỉnh sửa</value>
@@ -335,6 +344,9 @@
   </data>
   <data name="LoaiQuanhe" xml:space="preserve">
     <value>Loại quan hệ</value>
+  </data>
+  <data name="LuanAnTN" xml:space="preserve">
+    <value>Luận án tốt nghiệp</value>
   </data>
   <data name="Luong" xml:space="preserve">
     <value>Lương</value>
@@ -351,8 +363,17 @@
   <data name="MaCanBo" xml:space="preserve">
     <value>Mã cán bộ</value>
   </data>
+  <data name="MaChuyenNganh" xml:space="preserve">
+    <value>Chuyên ngành</value>
+  </data>
+  <data name="MaHinhThucDaoTao" xml:space="preserve">
+    <value>Hình thức đào tạo</value>
+  </data>
   <data name="MaLoai" xml:space="preserve">
     <value>Mã loại ngạch</value>
+  </data>
+  <data name="MaLoaiBangCap" xml:space="preserve">
+    <value>Loại bằng cấp</value>
   </data>
   <data name="MaNgachLuong" xml:space="preserve">
     <value>Mã ngạch lương</value>
@@ -361,7 +382,7 @@
     <value>Mã số thuế</value>
   </data>
   <data name="MasterData" xml:space="preserve">
-    <value>Dữ liệu nền</value>
+    <value>Dữ Liệu Nền</value>
   </data>
   <data name="Menu" xml:space="preserve">
     <value>Menu</value>
@@ -379,13 +400,13 @@
     <value>Loại</value>
   </data>
   <data name="MienNhiem" xml:space="preserve">
-    <value>Miễn nhiệm cán bộ</value>
+    <value>Miễn Nhiệm Cán Bộ</value>
   </data>
   <data name="NamTangLuong" xml:space="preserve">
     <value>Số năm nâng bậc</value>
   </data>
   <data name="NgachLuong" xml:space="preserve">
-    <value>Ngạch lương</value>
+    <value>Ngạch Lương</value>
   </data>
   <data name="NgayCapCCCD" xml:space="preserve">
     <value>Ngày cấp CCCD</value>
@@ -405,6 +426,9 @@
   <data name="NgayThamGiaCongTac" xml:space="preserve">
     <value>Ngày tham gia công tác</value>
   </data>
+  <data name="NgayTotNghiep" xml:space="preserve">
+    <value>Ngày tốt nghiệp</value>
+  </data>
   <data name="NgayVaoBienChe" xml:space="preserve">
     <value>Ngày vào biên chế</value>
   </data>
@@ -421,7 +445,7 @@
     <value>Người ký</value>
   </data>
   <data name="NhanSu" xml:space="preserve">
-    <value>Nhân sự</value>
+    <value>Nhân Sự</value>
   </data>
   <data name="NoiLamVien" xml:space="preserve">
     <value>Nơi làm việc</value>
@@ -439,13 +463,13 @@
     <value>Mật khẩu</value>
   </data>
   <data name="Permission" xml:space="preserve">
-    <value>Phân quyền</value>
+    <value>Phân Quyền</value>
   </data>
   <data name="PhanHe" xml:space="preserve">
     <value>Phân hệ</value>
   </data>
   <data name="PhuCap" xml:space="preserve">
-    <value>Phụ cấp</value>
+    <value>Phụ Cấp</value>
   </data>
   <data name="PhuCapChucVu" xml:space="preserve">
     <value>Phụ cấp chức vụ</value>
@@ -475,13 +499,19 @@
     <value>Quan Hệ Gia Đình</value>
   </data>
   <data name="QuanHeGiaDinh" xml:space="preserve">
-    <value>Quan hệ gia đình</value>
+    <value>Quan Hệ Gia Đình</value>
   </data>
   <data name="QuanLyQuaTrinh" xml:space="preserve">
     <value>Quá trình</value>
   </data>
+  <data name="QuaTrinhDaoTao" xml:space="preserve">
+    <value>Đào Tạo</value>
+  </data>
   <data name="QuaTrinhKhenThuong" xml:space="preserve">
-    <value>Khen thưởng</value>
+    <value>Khen Thưởng</value>
+  </data>
+  <data name="QuocGia" xml:space="preserve">
+    <value>Quốc gia</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Nhớ mật khẩu</value>
@@ -496,7 +526,7 @@
     <value>Vui lòng chọn thông tin "{0}"</value>
   </data>
   <data name="Roles" xml:space="preserve">
-    <value>Nhóm quyền</value>
+    <value>Nhóm Quyền</value>
   </data>
   <data name="RolesCode" xml:space="preserve">
     <value>Mã nhóm quyền</value>
@@ -526,13 +556,13 @@
     <value>Tên bậc lương</value>
   </data>
   <data name="TenCoSo" xml:space="preserve">
-    <value>Tên cơ sở</value>
+    <value>Tên Cơ Sở</value>
   </data>
   <data name="TenNgachLuong" xml:space="preserve">
     <value>Tên ngạch lương</value>
   </data>
   <data name="ThuyenChuyenCanBo" xml:space="preserve">
-    <value>Thuyên chuyển cán bộ</value>
+    <value>Thuyên Chuyển Cán Bộ</value>
   </data>
   <data name="TimeTracker" xml:space="preserve">
     <value>Time Tracker</value>
@@ -541,22 +571,22 @@
     <value>Tình trạng</value>
   </data>
   <data name="TonGiao" xml:space="preserve">
-    <value>Tôn giáo</value>
+    <value>Tôn Giáo</value>
   </data>
   <data name="TrinhDoChinhTri" xml:space="preserve">
-    <value>Trình độ chính trị</value>
+    <value>Trình Độ Chính Trị</value>
   </data>
   <data name="TrinhDoChuyenMon" xml:space="preserve">
-    <value>Trình độ chuyên môn</value>
+    <value>Trình Độ Chuyên Môn</value>
   </data>
   <data name="TrinhDoHocVan" xml:space="preserve">
-    <value>Trình độ học vấn</value>
+    <value>Trình Độ Học Vấn</value>
   </data>
   <data name="TrinhDoNgoaiNgu" xml:space="preserve">
-    <value>Trình độ ngoại ngữ</value>
+    <value>Trình Độ Ngoại Ngữ</value>
   </data>
   <data name="TrinhDoTinHoc" xml:space="preserve">
-    <value>Trình độ tin học</value>
+    <value>Trình Độ Tin Học</value>
   </data>
   <data name="Update" xml:space="preserve">
     <value>Cập nhật</value>

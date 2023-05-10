@@ -137,11 +137,13 @@ namespace Portal.Models
         public ICollection<QuanHeGiaDinh> QuanHeGiaDinhs { get; set; }
         public ICollection<QuaTrinhKhenThuong> QuaTrinhKhenThuongs { get; set; }
         public ICollection<QuaTrinhKyLuat> QuaTrinhKyLuats { get; set; }
+        public ICollection<QuaTrinhDaoTao> QuaTrinhDaoTaos { get; set; }
 
         public CanBo() {
             QuanHeGiaDinhs = new List<QuanHeGiaDinh>();
             QuaTrinhKhenThuongs = new List<QuaTrinhKhenThuong>();
             QuaTrinhKyLuats = new List<QuaTrinhKyLuat>();
+            QuaTrinhDaoTaos = new List<QuaTrinhDaoTao>();
         }
 
     }

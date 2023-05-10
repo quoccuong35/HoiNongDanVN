@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portal.DataAccess;
 
@@ -11,9 +12,10 @@ using Portal.DataAccess;
 namespace Portal.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230509135005_addDMQuaTrinhDaoTao")]
+    partial class addDMQuaTrinhDaoTao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -766,7 +768,7 @@ namespace Portal.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 9, 21, 14, 13, 220, DateTimeKind.Local).AddTicks(4895));
+                        .HasDefaultValue(new DateTime(2023, 5, 9, 20, 50, 4, 797, DateTimeKind.Local).AddTicks(974));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -1135,81 +1137,6 @@ namespace Portal.DataAccess.Migrations
                     b.HasKey("MaNgonNgu");
 
                     b.ToTable("NgonNguModel", "tMasterData");
-                });
-
-            modelBuilder.Entity("Portal.Models.Entitys.NhanSu.QuaTrinhDaoTao", b =>
-                {
-                    b.Property<Guid>("IDQuaTrinhDaoTao")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CoSoDaoTao")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<Guid?>("CreatedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FileDinhKem")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("GhiChu")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<Guid>("IDCanBo")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("LastModifiedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastModifiedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool?>("LuanAnTN")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MaChuyenNganh")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("MaHinhThucDaoTao")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("MaLoaiBangCap")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("NgayTotNghiep")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("QuocGia")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.HasKey("IDQuaTrinhDaoTao");
-
-                    b.HasIndex("IDCanBo");
-
-                    b.HasIndex("MaChuyenNganh");
-
-                    b.HasIndex("MaHinhThucDaoTao");
-
-                    b.HasIndex("MaLoaiBangCap");
-
-                    b.ToTable("QuaTrinhDaoTao", "NS");
                 });
 
             modelBuilder.Entity("Portal.Models.Entitys.NhanSu.QuaTrinhKhenThuong", b =>
@@ -1587,7 +1514,7 @@ namespace Portal.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 9, 21, 14, 13, 221, DateTimeKind.Local).AddTicks(110));
+                        .HasDefaultValue(new DateTime(2023, 5, 9, 20, 50, 4, 797, DateTimeKind.Local).AddTicks(5452));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -2115,45 +2042,6 @@ namespace Portal.DataAccess.Migrations
                         .HasForeignKey("MenuIdParent");
                 });
 
-            modelBuilder.Entity("Portal.Models.Entitys.NhanSu.QuaTrinhDaoTao", b =>
-                {
-                    b.HasOne("Portal.Models.CanBo", "CanBo")
-                        .WithMany("QuaTrinhDaoTaos")
-                        .HasForeignKey("IDCanBo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_QuaTrinhDaoTao_CanBo");
-
-                    b.HasOne("Portal.Models.Entitys.MasterData.ChuyenNganh", "ChuyenNganh")
-                        .WithMany("QuaTrinhDaoTaos")
-                        .HasForeignKey("MaChuyenNganh")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_QuaTrinhDaoTao_ChuyenNganh");
-
-                    b.HasOne("Portal.Models.Entitys.MasterData.HinhThucDaoTao", "HinhThucDaoTao")
-                        .WithMany("QuaTrinhDaoTaos")
-                        .HasForeignKey("MaHinhThucDaoTao")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_QuaTrinhDaoTao_HinhThucDaoTao");
-
-                    b.HasOne("Portal.Models.Entitys.MasterData.LoaiBangCap", "LoaiBangCap")
-                        .WithMany("QuaTrinhDaoTaos")
-                        .HasForeignKey("MaLoaiBangCap")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_QuaTrinhDaoTao_LoaiBangCap");
-
-                    b.Navigation("CanBo");
-
-                    b.Navigation("ChuyenNganh");
-
-                    b.Navigation("HinhThucDaoTao");
-
-                    b.Navigation("LoaiBangCap");
-                });
-
             modelBuilder.Entity("Portal.Models.Entitys.NhanSu.QuaTrinhKhenThuong", b =>
                 {
                     b.HasOne("Portal.Models.CanBo", "CanBo")
@@ -2318,8 +2206,6 @@ namespace Portal.DataAccess.Migrations
 
             modelBuilder.Entity("Portal.Models.CanBo", b =>
                 {
-                    b.Navigation("QuaTrinhDaoTaos");
-
                     b.Navigation("QuaTrinhKhenThuongs");
 
                     b.Navigation("QuaTrinhKyLuats");
@@ -2366,24 +2252,9 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("PagePermissionModels");
                 });
 
-            modelBuilder.Entity("Portal.Models.Entitys.MasterData.ChuyenNganh", b =>
-                {
-                    b.Navigation("QuaTrinhDaoTaos");
-                });
-
-            modelBuilder.Entity("Portal.Models.Entitys.MasterData.HinhThucDaoTao", b =>
-                {
-                    b.Navigation("QuaTrinhDaoTaos");
-                });
-
             modelBuilder.Entity("Portal.Models.Entitys.MasterData.HocHam", b =>
                 {
                     b.Navigation("CanBos");
-                });
-
-            modelBuilder.Entity("Portal.Models.Entitys.MasterData.LoaiBangCap", b =>
-                {
-                    b.Navigation("QuaTrinhDaoTaos");
                 });
 
             modelBuilder.Entity("Portal.Models.Entitys.MasterData.TinhTrang", b =>

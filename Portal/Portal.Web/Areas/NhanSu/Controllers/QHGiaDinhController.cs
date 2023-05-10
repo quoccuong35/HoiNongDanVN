@@ -23,7 +23,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
             CreateViewBag();
             return View();
         }
-        public IActionResult _Search(QHGiaDinhSearch search) {
+        public IActionResult _Search(QHGiaDinhSearchVM search) {
             return ExecuteSearch(() => { 
                 var model = _context.QuanHeGiaDinhs.AsQueryable();
                 if (search.IDLoaiQuanHeGiaDinh != null) {

@@ -61,7 +61,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Người dùng.
+        ///   Looks up a localized string similar to Người Dùng.
         /// </summary>
         public static string Account {
             get {
@@ -169,7 +169,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bậc lương.
+        ///   Looks up a localized string similar to Bậc Lương.
         /// </summary>
         public static string BacLuong {
             get {
@@ -178,7 +178,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bổ nhiệm cán bộ.
+        ///   Looks up a localized string similar to Bổ Nhiệm Cán Bộ.
         /// </summary>
         public static string BoNhiem {
             get {
@@ -259,7 +259,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cán bộ.
+        ///   Looks up a localized string similar to Cán Bộ.
         /// </summary>
         public static string CanBo {
             get {
@@ -304,7 +304,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Công tác.
+        ///   Looks up a localized string similar to Công Tác.
         /// </summary>
         public static string CongTac {
             get {
@@ -318,6 +318,15 @@ namespace Portal.Resources {
         public static string CoSo {
             get {
                 return ResourceManager.GetString("CoSo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cơ sở đào tạo.
+        /// </summary>
+        public static string CoSoDaoTao {
+            get {
+                return ResourceManager.GetString("CoSoDaoTao", resourceCulture);
             }
         }
         
@@ -358,11 +367,20 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dân tộc.
+        ///   Looks up a localized string similar to Dân Tộc.
         /// </summary>
         public static string DanToc {
             get {
                 return ResourceManager.GetString("DanToc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đào Tạo.
+        /// </summary>
+        public static string DaoTao {
+            get {
+                return ResourceManager.GetString("DaoTao", resourceCulture);
             }
         }
         
@@ -385,7 +403,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Đơn vị.
+        ///   Looks up a localized string similar to Đơn Vị.
         /// </summary>
         public static string Department {
             get {
@@ -511,6 +529,15 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File đính kèm.
+        /// </summary>
+        public static string FileDinhKem {
+            get {
+                return ResourceManager.GetString("FileDinhKem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Họ và tên.
         /// </summary>
         public static string FullName {
@@ -592,7 +619,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hội viên.
+        ///   Looks up a localized string similar to Hội Viên.
         /// </summary>
         public static string HoiVien {
             get {
@@ -610,7 +637,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hưu trí.
+        ///   Looks up a localized string similar to Hưu Trí.
         /// </summary>
         public static string HuuTri {
             get {
@@ -673,7 +700,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Kỷ luật.
+        ///   Looks up a localized string similar to Kỷ Luật.
         /// </summary>
         public static string KyLuat {
             get {
@@ -714,6 +741,15 @@ namespace Portal.Resources {
         public static string LoaiQuanhe {
             get {
                 return ResourceManager.GetString("LoaiQuanhe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Luận án tốt nghiệp.
+        /// </summary>
+        public static string LuanAnTN {
+            get {
+                return ResourceManager.GetString("LuanAnTN", resourceCulture);
             }
         }
         
@@ -763,11 +799,38 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chuyên ngành.
+        /// </summary>
+        public static string MaChuyenNganh {
+            get {
+                return ResourceManager.GetString("MaChuyenNganh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hình thức đào tạo.
+        /// </summary>
+        public static string MaHinhThucDaoTao {
+            get {
+                return ResourceManager.GetString("MaHinhThucDaoTao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mã loại ngạch.
         /// </summary>
         public static string MaLoai {
             get {
                 return ResourceManager.GetString("MaLoai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loại bằng cấp.
+        /// </summary>
+        public static string MaLoaiBangCap {
+            get {
+                return ResourceManager.GetString("MaLoaiBangCap", resourceCulture);
             }
         }
         
@@ -790,7 +853,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dữ liệu nền.
+        ///   Looks up a localized string similar to Dữ Liệu Nền.
         /// </summary>
         public static string MasterData {
             get {
@@ -844,7 +907,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Miễn nhiệm cán bộ.
+        ///   Looks up a localized string similar to Miễn Nhiệm Cán Bộ.
         /// </summary>
         public static string MienNhiem {
             get {
@@ -862,7 +925,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ngạch lương.
+        ///   Looks up a localized string similar to Ngạch Lương.
         /// </summary>
         public static string NgachLuong {
             get {
@@ -925,6 +988,15 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ngày tốt nghiệp.
+        /// </summary>
+        public static string NgayTotNghiep {
+            get {
+                return ResourceManager.GetString("NgayTotNghiep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ngày vào biên chế.
         /// </summary>
         public static string NgayVaoBienChe {
@@ -970,7 +1042,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nhân sự.
+        ///   Looks up a localized string similar to Nhân Sự.
         /// </summary>
         public static string NhanSu {
             get {
@@ -1024,7 +1096,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phân quyền.
+        ///   Looks up a localized string similar to Phân Quyền.
         /// </summary>
         public static string Permission {
             get {
@@ -1042,7 +1114,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phụ cấp.
+        ///   Looks up a localized string similar to Phụ Cấp.
         /// </summary>
         public static string PhuCap {
             get {
@@ -1132,7 +1204,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Quan hệ gia đình.
+        ///   Looks up a localized string similar to Quan Hệ Gia Đình.
         /// </summary>
         public static string QuanHeGiaDinh {
             get {
@@ -1150,11 +1222,29 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Khen thưởng.
+        ///   Looks up a localized string similar to Đào Tạo.
+        /// </summary>
+        public static string QuaTrinhDaoTao {
+            get {
+                return ResourceManager.GetString("QuaTrinhDaoTao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Khen Thưởng.
         /// </summary>
         public static string QuaTrinhKhenThuong {
             get {
                 return ResourceManager.GetString("QuaTrinhKhenThuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quốc gia.
+        /// </summary>
+        public static string QuocGia {
+            get {
+                return ResourceManager.GetString("QuocGia", resourceCulture);
             }
         }
         
@@ -1195,7 +1285,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nhóm quyền.
+        ///   Looks up a localized string similar to Nhóm Quyền.
         /// </summary>
         public static string Roles {
             get {
@@ -1285,7 +1375,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tên cơ sở.
+        ///   Looks up a localized string similar to Tên Cơ Sở.
         /// </summary>
         public static string TenCoSo {
             get {
@@ -1303,7 +1393,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thuyên chuyển cán bộ.
+        ///   Looks up a localized string similar to Thuyên Chuyển Cán Bộ.
         /// </summary>
         public static string ThuyenChuyenCanBo {
             get {
@@ -1330,7 +1420,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tôn giáo.
+        ///   Looks up a localized string similar to Tôn Giáo.
         /// </summary>
         public static string TonGiao {
             get {
@@ -1339,7 +1429,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trình độ chính trị.
+        ///   Looks up a localized string similar to Trình Độ Chính Trị.
         /// </summary>
         public static string TrinhDoChinhTri {
             get {
@@ -1348,7 +1438,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trình độ chuyên môn.
+        ///   Looks up a localized string similar to Trình Độ Chuyên Môn.
         /// </summary>
         public static string TrinhDoChuyenMon {
             get {
@@ -1357,7 +1447,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trình độ học vấn.
+        ///   Looks up a localized string similar to Trình Độ Học Vấn.
         /// </summary>
         public static string TrinhDoHocVan {
             get {
@@ -1366,7 +1456,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trình độ ngoại ngữ.
+        ///   Looks up a localized string similar to Trình Độ Ngoại Ngữ.
         /// </summary>
         public static string TrinhDoNgoaiNgu {
             get {
@@ -1375,7 +1465,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trình độ tin học.
+        ///   Looks up a localized string similar to Trình Độ Tin Học.
         /// </summary>
         public static string TrinhDoTinHoc {
             get {

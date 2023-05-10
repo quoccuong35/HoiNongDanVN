@@ -38,7 +38,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                 {
                     model = model.Where(it => it.CanBo.HoVaTen.Contains(search.HoVaTen));
                 }
-                var data = model.Select(it => new KhenThuongDetail
+                var data = model.Select(it => new KhenThuongDetailVM
                 {
                     IDQuaTrinhKhenThuong = it.IDQuaTrinhKhenThuong,
                     MaCanBo = it.CanBo.MaCanBo,

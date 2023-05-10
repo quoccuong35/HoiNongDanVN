@@ -1,7 +1,7 @@
-﻿@model QHGiaDinhSearchVM
+﻿@model DaoTaoSearchVM
 @{
-    ViewBag.Title = LanguageResource.List + LanguageResource.QuanHeGiaDinh.ToLower();
-    string CurrentController = ConstController.QuanHeGiaDinh;
+    ViewBag.Title = LanguageResource.List + LanguageResource.DaoTao.ToLower();
+    string CurrentController = ConstController.DaoTao;
     string CurrentArea = ConstArea.NhanSu;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
     string listRoles = User != null ? User.FindFirst("Roles").Value : "";
@@ -10,10 +10,8 @@
 <div class="main-container container-fluid">
     <!-- PAGE-HEADER -->
     <div class="page-header">
-        <h1>@LanguageResource.List @LanguageResource.CanBo.ToLower()</h1>
+        <h1>@LanguageResource.List @LanguageResource.DaoTao.ToLower()</h1>
         <div class="d-flex px-2">
-            @HtmlExtensions.ExportButton(CurrentArea,CurrentController,listRoles:listRoles)
-            @HtmlExtensions.ImportButton(CurrentArea,CurrentController,listRoles:listRoles)
             @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
         </div>
     </div>
@@ -28,10 +26,16 @@
                     <form method="get" id="frmSearch" asp-action="_Search">
                         <div class="row my-2">
                             <div class="col-md-3">
-                                <label asp-for="IDLoaiQuanHeGiaDinh"></label><span class="text-red">*</span>
-                                <select asp-for="IDLoaiQuanHeGiaDinh" asp-items="@ViewBag.IDLoaiQuanHeGiaDinh" class="form-control select2-show-search form-select">
-                                    <option  selected>@LanguageResource.Dropdownlist_Menu-</option>
-                                </select>
+                                <label asp-for="MaChuyenNganh"></label><span class="text-red">*</span>
+                                @Html.DropDownList("MaChuyenNganh", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="MaHinhThucDaoTao"></label><span class="text-red">*</span>
+                                @Html.DropDownList("MaHinhThucDaoTao", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="MaHinhThucDaoTao"></label><span class="text-red">*</span>
+                                @Html.DropDownList("MaHinhThucDaoTao", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-3">
                                 <label asp-for="MaCanBo"></label>
@@ -45,7 +49,7 @@
                                 @HtmlExtensions.SearchButton()
                             </div>
                         </div>
-                       
+
                     </form>
                 </div>
             </div>

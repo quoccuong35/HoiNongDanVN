@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace Portal.Models
 {
-    public class KhenThuongDetail
+    public class KhenThuongDetailVM
     {
         public Guid? IDQuaTrinhKhenThuong { get; set; }
 
