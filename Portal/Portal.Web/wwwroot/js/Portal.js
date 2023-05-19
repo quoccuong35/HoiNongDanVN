@@ -144,6 +144,7 @@ Portal.EditInitial = function (controller) {
         var isContinue = false;
         Portal.Edit(controller, "#frmEdit", isContinue, this);
     });
+    Portal.DeleteFileDinhKem();
 }
 
 Portal.Edit = function (controller, frmEdit, isContinue, e) {
@@ -297,7 +298,7 @@ Portal.Upsert = function (controller, frmUpsert, isContinue, e) {
 
 Portal.Delete = function () {
     $(document).on("click", "#btn-delete", function () {
-        let $btn = $(this);;
+        let $btn = $(this);
         let controller = $btn.data("current-url");
         let itemName = $btn.data("item-name");
         let id = $btn.data("id");
@@ -461,6 +462,48 @@ Portal.SearchNhanSu = function () {
             contentType: false,
             success: function (jsonData) {
                 $("#Part_ThongTinNhanSu").html(jsonData);
+            },
+            error: function (xhr, status, error) {
+            }
+        });
+    });
+}
+
+Portal.DeleteFileDinhKem = function (controller) {
+    $(document).on("click", ".btn-deletefile", function () {
+        let $btn = $(this);
+        let id = $btn.data("id");
+        formData = new FormData();
+        formData.append("id", id);
+        $.ajax({
+            type: "POST",
+            url: "/NhanSu/FileDinhKem/DeleteFile",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (jsonData) {
+
+                if (jsonData.success == true) {
+                    if (jsonData.data != null) {
+                        toastr.success(jsonData.data);
+                        var del_html = $("#" + id);
+                        if (del_html != null) {
+                            del_html.remove();
+                        }
+                    }
+                }
+                else {
+                    if (jsonData.data != null && jsonData.data != "") {
+                        toastr.error(jsonData.data);
+                    }
+                    else if (jsonData.indexOf("from-login-error") > 0) {
+                        toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                        setTimeout(function () {
+                            var url = window.location.href.toString().split(window.location.host)[1];
+                            window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                        }, 1000);
+                    }
+                }
             },
             error: function (xhr, status, error) {
             }

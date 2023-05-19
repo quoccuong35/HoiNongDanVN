@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portal.DataAccess;
 
@@ -11,9 +12,10 @@ using Portal.DataAccess;
 namespace Portal.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230516115627_addBoNhiem")]
+    partial class addBoNhiem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -615,7 +617,7 @@ namespace Portal.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 18, 9, 11, 25, 422, DateTimeKind.Local).AddTicks(9507));
+                        .HasDefaultValue(new DateTime(2023, 5, 16, 18, 56, 26, 414, DateTimeKind.Local).AddTicks(9243));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -1365,41 +1367,6 @@ namespace Portal.DataAccess.Migrations
                     b.ToTable("TrinhDoTinHocModel", "tMasterData");
                 });
 
-            modelBuilder.Entity("Portal.Models.FileDinhKem", b =>
-                {
-                    b.Property<Guid>("Key")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("IDLoaiDinhKem")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdCanBo")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.HasKey("Key");
-
-                    b.HasIndex("IDLoaiDinhKem");
-
-                    b.HasIndex("IdCanBo");
-
-                    b.ToTable("FileDinhKem", "NS");
-                });
-
             modelBuilder.Entity("Portal.Models.HeDaoTao", b =>
                 {
                     b.Property<string>("MaHeDaoTao")
@@ -1499,22 +1466,6 @@ namespace Portal.DataAccess.Migrations
                     b.ToTable("LoaiBangCap", "tMasterData");
                 });
 
-            modelBuilder.Entity("Portal.Models.LoaiDinhKem", b =>
-                {
-                    b.Property<string>("IDLoaiDinhKem")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("TenLoaiDinhKem")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("IDLoaiDinhKem");
-
-                    b.ToTable("LoaiDinhKem", "tMasterData");
-                });
-
             modelBuilder.Entity("Portal.Models.LoaiQuanHeGiaDinh", b =>
                 {
                     b.Property<Guid>("IDLoaiQuanHeGiaDinh")
@@ -1563,7 +1514,7 @@ namespace Portal.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 18, 9, 11, 25, 423, DateTimeKind.Local).AddTicks(5061));
+                        .HasDefaultValue(new DateTime(2023, 5, 16, 18, 56, 26, 415, DateTimeKind.Local).AddTicks(3044));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -1788,6 +1739,10 @@ namespace Portal.DataAccess.Migrations
 
                     b.Property<DateTime?>("CreatedTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("FileDinhKem")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("GhiChu")
                         .HasMaxLength(500)
@@ -2381,27 +2336,6 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("NgonNgu");
                 });
 
-            modelBuilder.Entity("Portal.Models.FileDinhKem", b =>
-                {
-                    b.HasOne("Portal.Models.LoaiDinhKem", "LoaiDinhKem")
-                        .WithMany("FileDinhKems")
-                        .HasForeignKey("IDLoaiDinhKem")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_FileDinhKem_LoaiDinhKem");
-
-                    b.HasOne("Portal.Models.CanBo", "CanBo")
-                        .WithMany("FileDinhKems")
-                        .HasForeignKey("IdCanBo")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_FileDinhKem_CanBo");
-
-                    b.Navigation("CanBo");
-
-                    b.Navigation("LoaiDinhKem");
-                });
-
             modelBuilder.Entity("Portal.Models.QuanHeGiaDinh", b =>
                 {
                     b.HasOne("Portal.Models.CanBo", "CanBo")
@@ -2572,8 +2506,6 @@ namespace Portal.DataAccess.Migrations
 
             modelBuilder.Entity("Portal.Models.CanBo", b =>
                 {
-                    b.Navigation("FileDinhKems");
-
                     b.Navigation("QuaTrinhBoNhiems");
 
                     b.Navigation("QuaTrinhBoiDuongs");
@@ -2718,11 +2650,6 @@ namespace Portal.DataAccess.Migrations
             modelBuilder.Entity("Portal.Models.LoaiBangCap", b =>
                 {
                     b.Navigation("QuaTrinhDaoTaos");
-                });
-
-            modelBuilder.Entity("Portal.Models.LoaiDinhKem", b =>
-                {
-                    b.Navigation("FileDinhKems");
                 });
 
             modelBuilder.Entity("Portal.Models.LoaiQuanHeGiaDinh", b =>

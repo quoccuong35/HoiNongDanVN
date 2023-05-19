@@ -53,6 +53,8 @@ namespace Portal.DataAccess
         public DbSet<HinhThucDaoTao> HinhThucDaoTaos { get; set; }
         public DbSet<LoaiBangCap> LoaiBangCaps { get; set; }
         public DbSet<ChuyenNganh> ChuyenNganhs { get; set; }
+        public DbSet<FileDinhKem> FileDinhKems { get; set; }
+        public DbSet<LoaiDinhKem> LoaiDinhKems { get; set; }
         #endregion
         #region nhanSu
         public DbSet<CanBo> CanBos { get; set; }
@@ -60,6 +62,8 @@ namespace Portal.DataAccess
         public DbSet<QuaTrinhKhenThuong> QuaTrinhKhenThuongs { get; set; }
         public DbSet<QuaTrinhKyLuat> QuaTrinhKyLuats { get; set; }
         public DbSet<QuaTrinhDaoTao> QuaTrinhDaoTaos { get; set; }
+        public DbSet<QuaTrinhBoiDuong> QuaTrinhBoiDuongs { get; set; }
+        public DbSet<QuaTrinhBoNhiem> QuaTrinhBoNhiems { get; set; }
         #endregion nhanSu
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -100,6 +104,10 @@ namespace Portal.DataAccess
             builder.Entity<Bank>(tbl =>
             {
                 tbl.ToTable("Bank", "tMasterData");
+            });
+            builder.Entity<LoaiDinhKem>(tbl =>
+            {
+                tbl.ToTable("LoaiDinhKem", "tMasterData");
             });
             builder.Entity<HinhThucDaoTao>(tbl =>
             {
@@ -499,6 +507,83 @@ namespace Portal.DataAccess
               .HasConstraintName("FK_QuaTrinhDaoTao_HinhThucDaoTao");
 
 
+            });
+            builder.Entity<QuaTrinhBoiDuong>(entity => {
+                entity.ToTable("QuaTrinhBoiDuong", "NS");
+                entity.HasKey(it => it.IDQuaTrinhBoiDuong);
+                entity.Property(it => it.MaHinhThucDaoTao).HasMaxLength(50).IsRequired(true);
+                entity.Property(it => it.NoiBoiDuong).HasMaxLength(150).IsRequired(true);
+                entity.Property(it => it.NoiDung).HasMaxLength(150).IsRequired(true);
+                entity.Property(it => it.NgayBatDau).IsRequired(true);
+                entity.Property(it => it.NgayKetThuc).IsRequired(true);
+                entity.Property(it => it.FileDinhKem).HasMaxLength(500).IsRequired(false);
+                entity.Property(it => it.GhiChu).HasMaxLength(500).IsRequired(false);
+
+
+
+                entity.HasOne<CanBo>(it => it.CanBo)
+                .WithMany(it => it.QuaTrinhBoiDuongs)
+                .HasForeignKey(it => it.IDCanBo)
+                .HasConstraintName("FK_QuaTrinhBoiDuong_CanBo");
+
+                entity.HasOne<HinhThucDaoTao>(it => it.HinhThucDaoTao)
+                .WithMany(it => it.QuaTrinhBoiDuongs)
+                .HasForeignKey(it => it.MaHinhThucDaoTao)
+                .HasConstraintName("FK_QuaTrinhBoiDuong_HinhThucDaoTao");
+
+            });
+
+            builder.Entity<QuaTrinhBoNhiem>(entity => {
+                entity.ToTable("QuaTrinhBoNhiem", "NS");
+                entity.HasKey(it => it.IdQuaTrinhBoNhiem);
+                entity.Property(it => it.NgayQuyetDinh).IsRequired(true);
+                entity.Property(it => it.SoQuyetDinh).HasMaxLength(100).IsRequired(true);
+                entity.Property(it => it.NguoiKy).HasMaxLength(150).IsRequired(true);
+                entity.Property(it => it.GhiChu).HasMaxLength(500).IsRequired(false);
+
+               entity.HasOne<CanBo>(it => it.CanBo)
+               .WithMany(it => it.QuaTrinhBoNhiems)
+               .HasForeignKey(it => it.IDCanBo)
+               .HasConstraintName("FK_QuaTrinhBoNhiem_CanBo");
+
+               entity.HasOne<ChucVu>(it => it.ChucVu)
+               .WithMany(it => it.QuaTrinhBoNhiems)
+               .HasForeignKey(it => it.MaChucVu)
+               .OnDelete(DeleteBehavior.NoAction)
+               .HasConstraintName("FK_QuaTrinhBoNhiem_ChucVu");
+
+              entity.HasOne<CoSo>(it => it.CoSo)
+               .WithMany(it => it.QuaTrinhBoNhiems)
+               .HasForeignKey(it => it.IdCoSo)
+               .OnDelete(DeleteBehavior.NoAction)
+               .HasConstraintName("FK_QuaTrinhBoNhiem_CoSo");
+
+              entity.HasOne<Department>(it => it.Department)
+               .WithMany(it => it.QuaTrinhBoNhiems)
+               .HasForeignKey(it => it.IdDepartment)
+               .OnDelete(DeleteBehavior.NoAction)
+               .HasConstraintName("FK_QuaTrinhBoNhiem_Department");
+            });
+            builder.Entity<FileDinhKem>(tbl =>
+            {
+                tbl.HasKey(it => it.Key);
+                tbl.ToTable("FileDinhKem", "NS");
+                tbl.Property(it => it.Url).IsRequired()
+                   .HasMaxLength(500);
+                tbl.Property(it => it.FileName).IsRequired()
+                  .HasMaxLength(200);
+
+                tbl.HasOne<LoaiDinhKem>(it => it.LoaiDinhKem)
+                  .WithMany(it => it.FileDinhKems)
+                  .HasForeignKey(it => it.IDLoaiDinhKem)
+                  .OnDelete(DeleteBehavior.NoAction)
+                  .HasConstraintName("FK_FileDinhKem_LoaiDinhKem");
+
+                tbl.HasOne<CanBo>(it => it.CanBo)
+                  .WithMany(it => it.FileDinhKems)
+                  .HasForeignKey(it => it.IdCanBo)
+                  .OnDelete(DeleteBehavior.NoAction)
+                  .HasConstraintName("FK_FileDinhKem_CanBo");
             });
             #endregion NhanSu
 

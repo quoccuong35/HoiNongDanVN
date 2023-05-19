@@ -71,7 +71,7 @@ namespace Portal.Extensions
                     {
                         Code = System.Net.HttpStatusCode.NotModified,
                         Success = false,
-                        Data = ModelState.Values.SelectMany(v => v.Errors)
+                        Data = String.Join("<br/>", ModelState.Values.SelectMany(v => v.Errors))
                     });
                 }
                 // handlw:DbEntityValidationException

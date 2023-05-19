@@ -156,6 +156,9 @@
   <data name="BacLuong" xml:space="preserve">
     <value>Bậc Lương</value>
   </data>
+  <data name="BoiDuong" xml:space="preserve">
+    <value>Bồi Dưỡng</value>
+  </data>
   <data name="BoNhiem" xml:space="preserve">
     <value>Bổ Nhiệm Cán Bộ</value>
   </data>
@@ -291,6 +294,9 @@
   <data name="HeSo" xml:space="preserve">
     <value>Hệ số</value>
   </data>
+  <data name="HeSoChucVu" xml:space="preserve">
+    <value>Hệ số chức vụ</value>
+  </data>
   <data name="HinhThucKhenThuong" xml:space="preserve">
     <value>Hình thức khen thưởng</value>
   </data>
@@ -408,8 +414,14 @@
   <data name="NgachLuong" xml:space="preserve">
     <value>Ngạch Lương</value>
   </data>
+  <data name="NgayBatDau" xml:space="preserve">
+    <value>Ngày bắt đầu</value>
+  </data>
   <data name="NgayCapCCCD" xml:space="preserve">
     <value>Ngày cấp CCCD</value>
+  </data>
+  <data name="NgayKetThuc" xml:space="preserve">
+    <value>Ngày kết thúc</value>
   </data>
   <data name="NgayKy" xml:space="preserve">
     <value>Ngày ký</value>
@@ -446,6 +458,12 @@
   </data>
   <data name="NhanSu" xml:space="preserve">
     <value>Nhân Sự</value>
+  </data>
+  <data name="NoiBoiDuong" xml:space="preserve">
+    <value>Nơi bồi dưỡng</value>
+  </data>
+  <data name="NoiDung" xml:space="preserve">
+    <value>Nội dung</value>
   </data>
   <data name="NoiLamVien" xml:space="preserve">
     <value>Nơi làm việc</value>
@@ -590,6 +608,9 @@
   </data>
   <data name="Update" xml:space="preserve">
     <value>Cập nhật</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>Chọn file</value>
   </data>
   <data name="UserName" xml:space="preserve">
     <value>Tài khoản</value>

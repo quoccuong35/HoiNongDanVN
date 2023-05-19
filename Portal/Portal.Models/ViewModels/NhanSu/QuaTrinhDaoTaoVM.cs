@@ -22,6 +22,9 @@ namespace Portal.Models
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayTotNghiep")]
         public String NgayTotNghiep { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuocGia")]
         public String QuocGia { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]

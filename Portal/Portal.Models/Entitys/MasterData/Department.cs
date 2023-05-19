@@ -20,9 +20,11 @@ namespace Portal.Models
         public ICollection<CanBo> CanBos { get; set; }
         public Guid? IDCoSo { get; set; }
         public CoSo CoSo { get; set; }
+        public ICollection<QuaTrinhBoNhiem> QuaTrinhBoNhiems { get; set; }
         public Department()
         {
             CanBos = new List<CanBo>();
+            QuaTrinhBoNhiems = new List<QuaTrinhBoNhiem>();
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Portal.DataAccess;
 
@@ -11,9 +12,10 @@ using Portal.DataAccess;
 namespace Portal.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230513021709_addBoiDuong")]
+    partial class addBoiDuong
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -598,48 +600,6 @@ namespace Portal.DataAccess.Migrations
                     b.ToTable("ChuyenNganh", "tMasterData");
                 });
 
-            modelBuilder.Entity("Portal.Models.CoSo", b =>
-                {
-                    b.Property<Guid>("IdCoSo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Actived")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.Property<Guid?>("CreatedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreatedTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 18, 9, 11, 25, 422, DateTimeKind.Local).AddTicks(9507));
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<Guid?>("LastModifiedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastModifiedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("OrderIndex")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TenCoSo")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("IdCoSo");
-
-                    b.ToTable("CoSoModel", "tMasterData");
-                });
-
             modelBuilder.Entity("Portal.Models.DanhHieuKhenThuong", b =>
                 {
                     b.Property<string>("MaDanhHieuKhenThuong")
@@ -805,6 +765,48 @@ namespace Portal.DataAccess.Migrations
                     b.HasIndex("RolesId");
 
                     b.ToTable("AccountInRoleModel", "pms");
+                });
+
+            modelBuilder.Entity("Portal.Models.Entitys.CoSo", b =>
+                {
+                    b.Property<Guid>("IdCoSo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Actived")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<Guid?>("CreatedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2023, 5, 13, 9, 17, 8, 687, DateTimeKind.Local).AddTicks(1073));
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid?>("LastModifiedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("OrderIndex")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TenCoSo")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("IdCoSo");
+
+                    b.ToTable("CoSoModel", "tMasterData");
                 });
 
             modelBuilder.Entity("Portal.Models.Entitys.FunctionModel", b =>
@@ -1365,41 +1367,6 @@ namespace Portal.DataAccess.Migrations
                     b.ToTable("TrinhDoTinHocModel", "tMasterData");
                 });
 
-            modelBuilder.Entity("Portal.Models.FileDinhKem", b =>
-                {
-                    b.Property<Guid>("Key")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("IDLoaiDinhKem")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdCanBo")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.HasKey("Key");
-
-                    b.HasIndex("IDLoaiDinhKem");
-
-                    b.HasIndex("IdCanBo");
-
-                    b.ToTable("FileDinhKem", "NS");
-                });
-
             modelBuilder.Entity("Portal.Models.HeDaoTao", b =>
                 {
                     b.Property<string>("MaHeDaoTao")
@@ -1499,22 +1466,6 @@ namespace Portal.DataAccess.Migrations
                     b.ToTable("LoaiBangCap", "tMasterData");
                 });
 
-            modelBuilder.Entity("Portal.Models.LoaiDinhKem", b =>
-                {
-                    b.Property<string>("IDLoaiDinhKem")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<string>("TenLoaiDinhKem")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.HasKey("IDLoaiDinhKem");
-
-                    b.ToTable("LoaiDinhKem", "tMasterData");
-                });
-
             modelBuilder.Entity("Portal.Models.LoaiQuanHeGiaDinh", b =>
                 {
                     b.Property<Guid>("IDLoaiQuanHeGiaDinh")
@@ -1563,7 +1514,7 @@ namespace Portal.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 18, 9, 11, 25, 423, DateTimeKind.Local).AddTicks(5061));
+                        .HasDefaultValue(new DateTime(2023, 5, 13, 9, 17, 8, 687, DateTimeKind.Local).AddTicks(5177));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -1775,69 +1726,6 @@ namespace Portal.DataAccess.Migrations
                     b.HasIndex("MaHinhThucDaoTao");
 
                     b.ToTable("QuaTrinhBoiDuong", "NS");
-                });
-
-            modelBuilder.Entity("Portal.Models.QuaTrinhBoNhiem", b =>
-                {
-                    b.Property<Guid>("IdQuaTrinhBoNhiem")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CreatedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("GhiChu")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<decimal?>("HeSoChucVu")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<Guid>("IDCanBo")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdCoSo")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdDepartment")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("LastModifiedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastModifiedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("MaChucVu")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("NgayQuyetDinh")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("NguoiKy")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<string>("SoQuyetDinh")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("IdQuaTrinhBoNhiem");
-
-                    b.HasIndex("IDCanBo");
-
-                    b.HasIndex("IdCoSo");
-
-                    b.HasIndex("IdDepartment");
-
-                    b.HasIndex("MaChucVu");
-
-                    b.ToTable("QuaTrinhBoNhiem", "NS");
                 });
 
             modelBuilder.Entity("Portal.Models.QuaTrinhDaoTao", b =>
@@ -2120,7 +2008,7 @@ namespace Portal.DataAccess.Migrations
 
             modelBuilder.Entity("Portal.Models.CanBo", b =>
                 {
-                    b.HasOne("Portal.Models.CoSo", "CoSo")
+                    b.HasOne("Portal.Models.Entitys.CoSo", "CoSo")
                         .WithMany("CanBos")
                         .HasForeignKey("IdCoSo")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2239,7 +2127,7 @@ namespace Portal.DataAccess.Migrations
 
             modelBuilder.Entity("Portal.Models.Department", b =>
                 {
-                    b.HasOne("Portal.Models.CoSo", "CoSo")
+                    b.HasOne("Portal.Models.Entitys.CoSo", "CoSo")
                         .WithMany("Departments")
                         .HasForeignKey("IDCoSo")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -2381,27 +2269,6 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("NgonNgu");
                 });
 
-            modelBuilder.Entity("Portal.Models.FileDinhKem", b =>
-                {
-                    b.HasOne("Portal.Models.LoaiDinhKem", "LoaiDinhKem")
-                        .WithMany("FileDinhKems")
-                        .HasForeignKey("IDLoaiDinhKem")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_FileDinhKem_LoaiDinhKem");
-
-                    b.HasOne("Portal.Models.CanBo", "CanBo")
-                        .WithMany("FileDinhKems")
-                        .HasForeignKey("IdCanBo")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_FileDinhKem_CanBo");
-
-                    b.Navigation("CanBo");
-
-                    b.Navigation("LoaiDinhKem");
-                });
-
             modelBuilder.Entity("Portal.Models.QuanHeGiaDinh", b =>
                 {
                     b.HasOne("Portal.Models.CanBo", "CanBo")
@@ -2452,45 +2319,6 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("CanBo");
 
                     b.Navigation("HinhThucDaoTao");
-                });
-
-            modelBuilder.Entity("Portal.Models.QuaTrinhBoNhiem", b =>
-                {
-                    b.HasOne("Portal.Models.CanBo", "CanBo")
-                        .WithMany("QuaTrinhBoNhiems")
-                        .HasForeignKey("IDCanBo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_QuaTrinhBoNhiem_CanBo");
-
-                    b.HasOne("Portal.Models.CoSo", "CoSo")
-                        .WithMany("QuaTrinhBoNhiems")
-                        .HasForeignKey("IdCoSo")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_QuaTrinhBoNhiem_CoSo");
-
-                    b.HasOne("Portal.Models.Department", "Department")
-                        .WithMany("QuaTrinhBoNhiems")
-                        .HasForeignKey("IdDepartment")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_QuaTrinhBoNhiem_Department");
-
-                    b.HasOne("Portal.Models.ChucVu", "ChucVu")
-                        .WithMany("QuaTrinhBoNhiems")
-                        .HasForeignKey("MaChucVu")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_QuaTrinhBoNhiem_ChucVu");
-
-                    b.Navigation("CanBo");
-
-                    b.Navigation("ChucVu");
-
-                    b.Navigation("CoSo");
-
-                    b.Navigation("Department");
                 });
 
             modelBuilder.Entity("Portal.Models.QuaTrinhDaoTao", b =>
@@ -2572,10 +2400,6 @@ namespace Portal.DataAccess.Migrations
 
             modelBuilder.Entity("Portal.Models.CanBo", b =>
                 {
-                    b.Navigation("FileDinhKems");
-
-                    b.Navigation("QuaTrinhBoNhiems");
-
                     b.Navigation("QuaTrinhBoiDuongs");
 
                     b.Navigation("QuaTrinhDaoTaos");
@@ -2590,22 +2414,11 @@ namespace Portal.DataAccess.Migrations
             modelBuilder.Entity("Portal.Models.ChucVu", b =>
                 {
                     b.Navigation("CanBos");
-
-                    b.Navigation("QuaTrinhBoNhiems");
                 });
 
             modelBuilder.Entity("Portal.Models.ChuyenNganh", b =>
                 {
                     b.Navigation("QuaTrinhDaoTaos");
-                });
-
-            modelBuilder.Entity("Portal.Models.CoSo", b =>
-                {
-                    b.Navigation("CanBos");
-
-                    b.Navigation("Departments");
-
-                    b.Navigation("QuaTrinhBoNhiems");
                 });
 
             modelBuilder.Entity("Portal.Models.DanhHieuKhenThuong", b =>
@@ -2621,13 +2434,18 @@ namespace Portal.DataAccess.Migrations
             modelBuilder.Entity("Portal.Models.Department", b =>
                 {
                     b.Navigation("CanBos");
-
-                    b.Navigation("QuaTrinhBoNhiems");
                 });
 
             modelBuilder.Entity("Portal.Models.Entitys.Account", b =>
                 {
                     b.Navigation("AccountInRoleModels");
+                });
+
+            modelBuilder.Entity("Portal.Models.Entitys.CoSo", b =>
+                {
+                    b.Navigation("CanBos");
+
+                    b.Navigation("Departments");
                 });
 
             modelBuilder.Entity("Portal.Models.Entitys.FunctionModel", b =>
@@ -2718,11 +2536,6 @@ namespace Portal.DataAccess.Migrations
             modelBuilder.Entity("Portal.Models.LoaiBangCap", b =>
                 {
                     b.Navigation("QuaTrinhDaoTaos");
-                });
-
-            modelBuilder.Entity("Portal.Models.LoaiDinhKem", b =>
-                {
-                    b.Navigation("FileDinhKems");
                 });
 
             modelBuilder.Entity("Portal.Models.LoaiQuanHeGiaDinh", b =>

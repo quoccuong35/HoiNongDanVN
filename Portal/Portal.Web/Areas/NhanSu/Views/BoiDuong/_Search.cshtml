@@ -1,0 +1,50 @@
+﻿@using Portal.Constant
+@using Portal.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<BoiDuongDetai>
+@{
+    string CurrentController = ConstController.BoiDuong;
+    string CurrentArea = ConstArea.NhanSu;
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th class="text-center">@LanguageResource.NumberIndex</th>
+            <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
+            <th>@Html.DisplayNameFor(p => p.HoVaTen)</th>
+            <th>@Html.DisplayNameFor(p => p.TenHinhThucDaoTao)</th>
+            <th>@Html.DisplayNameFor(p => p.NgayBatDau)</th>
+            <th>@Html.DisplayNameFor(p => p.NgayKetThuc)</th>
+            <th>@Html.DisplayNameFor(p => p.NoiBoiDuong)</th>
+            <th>@Html.DisplayNameFor(p => p.NoiDung)</th>
+            <th>@Html.DisplayNameFor(p => p.GhiChu)</th>
+            <th class="text-center">@LanguageResource.Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr>
+                <td class="text-center">@i</td>
+                <td>@Html.DisplayFor(p => item.MaCanBo)</td>
+                <td>@Html.DisplayFor(p => item.HoVaTen)</td>
+                <td>@Html.DisplayFor(p => item.TenHinhThucDaoTao)</td>
+                <td>@Html.DisplayFor(p => item.NgayBatDau)</td>
+                <td>@Html.DisplayFor(p => item.NgayKetThuc)</td>
+                <td>@Html.DisplayFor(p => item.NoiBoiDuong)</td>
+                <td>@Html.DisplayFor(p => item.NoiDung)</td>
+                <td>@Html.DisplayFor(p => item.GhiChu)</td>
+                <td class="text-center">
+                    @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.IDQuaTrinhBoiDuong, listRoles: listRoles)
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoVaTen!, item.IDQuaTrinhBoiDuong, listRoles: listRoles)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

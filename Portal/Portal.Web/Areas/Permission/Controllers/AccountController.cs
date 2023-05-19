@@ -104,6 +104,10 @@ namespace Portal.Web.Areas.Permission.Controllers
                 if (obj.AccountId == null)
                 {
                     Account insertAcc = obj.Add(AccountId()!.Value);
+                    if (insertAcc.Password != null)
+                    { 
+                        insertAcc.Password = RepositoryLibrary.GetMd5Sum(insertAcc.Password);
+                    }
                     //Object insert = new object
                     _context.Attach(insertAcc).State = EntityState.Modified;
                     _context.Accounts.Add(insertAcc);

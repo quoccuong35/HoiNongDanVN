@@ -14,8 +14,10 @@ namespace Portal.Models
         public string MaHinhThucDaoTao { get; set; }
         public string TenHinhThucDaoTao { get; set; }
         public ICollection<QuaTrinhDaoTao> QuaTrinhDaoTaos { get; set; }
+        public ICollection<QuaTrinhBoiDuong> QuaTrinhBoiDuongs { get; set; }
         public HinhThucDaoTao() {
             QuaTrinhDaoTaos = new List<QuaTrinhDaoTao>();
+            QuaTrinhBoiDuongs = new List<QuaTrinhBoiDuong>();
         }
     }
 }

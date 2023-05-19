@@ -26,7 +26,6 @@
     <Folder Include="Areas\MasterData\Data\" />
     <Folder Include="Areas\MasterData\Models\" />
     <Folder Include="Areas\NhanSu\Data\" />
-    <Folder Include="Areas\NhanSu\Models\" />
     <Folder Include="Areas\Permission\Data\" />
     <Folder Include="Areas\Permission\Models\" />
   </ItemGroup>

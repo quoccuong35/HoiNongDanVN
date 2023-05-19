@@ -178,6 +178,15 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bồi Dưỡng.
+        /// </summary>
+        public static string BoiDuong {
+            get {
+                return ResourceManager.GetString("BoiDuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bổ Nhiệm Cán Bộ.
         /// </summary>
         public static string BoNhiem {
@@ -583,6 +592,15 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hệ số chức vụ.
+        /// </summary>
+        public static string HeSoChucVu {
+            get {
+                return ResourceManager.GetString("HeSoChucVu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hình thức khen thưởng.
         /// </summary>
         public static string HinhThucKhenThuong {
@@ -934,11 +952,29 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ngày bắt đầu.
+        /// </summary>
+        public static string NgayBatDau {
+            get {
+                return ResourceManager.GetString("NgayBatDau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ngày cấp CCCD.
         /// </summary>
         public static string NgayCapCCCD {
             get {
                 return ResourceManager.GetString("NgayCapCCCD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày kết thúc.
+        /// </summary>
+        public static string NgayKetThuc {
+            get {
+                return ResourceManager.GetString("NgayKetThuc", resourceCulture);
             }
         }
         
@@ -1047,6 +1083,24 @@ namespace Portal.Resources {
         public static string NhanSu {
             get {
                 return ResourceManager.GetString("NhanSu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nơi bồi dưỡng.
+        /// </summary>
+        public static string NoiBoiDuong {
+            get {
+                return ResourceManager.GetString("NoiBoiDuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nội dung.
+        /// </summary>
+        public static string NoiDung {
+            get {
+                return ResourceManager.GetString("NoiDung", resourceCulture);
             }
         }
         
@@ -1479,6 +1533,15 @@ namespace Portal.Resources {
         public static string Update {
             get {
                 return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chọn file.
+        /// </summary>
+        public static string Upload {
+            get {
+                return ResourceManager.GetString("Upload", resourceCulture);
             }
         }
         

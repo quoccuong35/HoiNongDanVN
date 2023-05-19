@@ -894,6 +894,11 @@
                                            @LanguageResource.DaoTao
                                         </a>
                                     </li>
+                                    <li >
+                                        <a class="slide-item"  asp-controller="@ConstController.BoiDuong" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                           @LanguageResource.BoiDuong
+                                        </a>
+                                    </li>
                                      <li >
                                         <a class="slide-item"  href="#" @*asp-controller="@ConstController.CongTac" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
                                            @LanguageResource.CongTac
@@ -925,7 +930,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="slide-item"  href="#" @*asp-controller="@ConstController.BoNhiem" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
+                                        <a class="slide-item"  asp-controller="@ConstController.BoNhiem" asp-area="@ConstArea.NhanSu" asp-action="Index">
                                             @LanguageResource.BoNhiem
                                         </a>
                                     </li>
@@ -940,9 +945,9 @@
                                 <h3>Quản Lý Hội Viên</h3>
                             </li>
                             <li class="slide">
-                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-drivers-license-o"></i><span class="side-menu__label">@LanguageResource.QuanLyQuaTrinh</span><i class="angle fe fe-chevron-right"></i></a>
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-users"></i><span class="side-menu__label">@LanguageResource.HoiVien</span><i class="angle fe fe-chevron-right"></i></a>
                                 <ul class="slide-menu">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">@LanguageResource.QuanLyQuaTrinh</a></li>
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">@LanguageResource.HoiVien</a></li>
                                     <li>
                                         <a class="slide-item"  href="#" >
                                            Địa Bàn Hoạt Động

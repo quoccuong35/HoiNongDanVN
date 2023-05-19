@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Hosting;
@@ -115,48 +116,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
         [HttpPost]
         public JsonResult Create(CanBoVMMT insert, IFormFile? avtFileInbox)
         {
-            var checkExistMaCB = _context.CanBos.Where(it => it.MaCanBo == insert.MaCanBo).ToList();
-            if (checkExistMaCB.Count > 0)
-            {
-                ModelState.AddModelError("MaCanBo", "Mã cán bộ tồn tại không thể thêm");
-            }
-            // Check trình độ học vấn sau đại học
-            if (insert.MaTrinhDoHocVan == "SĐH") 
-            {
-                if (String.IsNullOrEmpty(insert.MaHocHam) || String.IsNullOrWhiteSpace(insert.MaHocHam))
-                {
-                    ModelState.AddModelError("MaHocHam", "Học hàm chưa được chọn");
-                }
-            }
-            if (insert.MaPhanHe != "03")
-            {
-                if (String.IsNullOrEmpty(insert.MaNgachLuong) || String.IsNullOrWhiteSpace(insert.MaNgachLuong)) {
-                    ModelState.AddModelError("MaNgachLuong", "Ngạch lương chưa được chọn");
-                }
-                if (insert.MaBacLuong == null)
-                {
-                    ModelState.AddModelError("MaBacLuong", "Bậc lương chưa được chọn");
-                }
-                if (insert.NgayNangBacLuong == null)
-                {
-                    ModelState.AddModelError("NgayNangBacLuong", "Ngày nâng bậc chưa chọn");
-                }
-            }
-            if (insert.MaPhanHe == "03")
-            {
-                if (insert.LuongKhoan <= 0)
-                {
-                    ModelState.AddModelError("LuongKhoan", "Chưa nhập số tiền lương khoán");
-                }
-                if (insert.KhoanTuNgay  == null)
-                {
-                    ModelState.AddModelError("KhoanTuNgay", "Chưa nhập khoán từ ngày");
-                }
-                if (insert.KhoanDenNgay == null)
-                {
-                    ModelState.AddModelError("KhoanDenNgay", "Chưa nhập khoán đến ngày");
-                }
-            }
+            CheckError(insert);
             return ExecuteContainer(() => {
                 var add = insert.AddCanBo();
                 add.CreatedTime = DateTime.Now;
@@ -216,43 +176,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
         [PortalAuthorization]
         public JsonResult Edit(CanBoVMMT obj, IFormFile? avtFileInbox) {
 
-            if (obj.MaTrinhDoHocVan == "SĐH")
-            {
-                if (String.IsNullOrEmpty(obj.MaHocHam) || String.IsNullOrWhiteSpace(obj.MaHocHam))
-                {
-                    ModelState.AddModelError("MaHocHam", "Học hàm chưa được chọn");
-                }
-            }
-            if (obj.MaPhanHe != "03")
-            {
-                if (String.IsNullOrEmpty(obj.MaNgachLuong) || String.IsNullOrWhiteSpace(obj.MaNgachLuong))
-                {
-                    ModelState.AddModelError("MaNgachLuong", "Ngạch lương chưa được chọn");
-                }
-                if (obj.MaBacLuong == null)
-                {
-                    ModelState.AddModelError("MaBacLuong", "Bậc lương chưa được chọn");
-                }
-                if (obj.NgayNangBacLuong == null)
-                {
-                    ModelState.AddModelError("NgayNangBacLuong", "Ngày nâng bậc chưa chọn");
-                }
-            }
-            if (obj.MaPhanHe == "03")
-            {
-                if (obj.LuongKhoan <= 0)
-                {
-                    ModelState.AddModelError("LuongKhoan", "Chưa nhập số tiền lương khoán");
-                }
-                if (obj.KhoanTuNgay == null)
-                {
-                    ModelState.AddModelError("KhoanTuNgay", "Chưa nhập khoán từ ngày");
-                }
-                if (obj.KhoanDenNgay == null)
-                {
-                    ModelState.AddModelError("KhoanDenNgay", "Chưa nhập khoán đến ngày");
-                }
-            }
+            CheckError(obj);
             return ExecuteContainer(() => {
                 var edit = _context.CanBos.SingleOrDefault(it => it.IDCanBo == obj.IDCanBo);
                 if (edit == null) {
@@ -327,6 +251,15 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                 {
                     //_context.Entry(accountInRoleModels).State = EntityState.Deleted;
                     //_context.Entry(account).State = EntityState.Deleted;
+                    if (del.HinhAnh != null && del.HinhAnh != "")
+                    {
+                        string wwwRootPath = _hostEnvironment.WebRootPath;
+                        var oldImagePath = Path.Combine(wwwRootPath, del.HinhAnh!.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
                     _context.Remove(del);
                     _context.SaveChanges();
 
@@ -709,6 +642,56 @@ namespace Portal.Web.Areas.NhanSu.Controllers
         }
         #endregion Export Data
         #region Helper
+        private void CheckError(CanBoVMMT insert)
+        {
+            var checkExistMaCB = _context.CanBos.Where(it => it.MaCanBo == insert.MaCanBo).ToList();
+            if (checkExistMaCB.Count > 0)
+            {
+                ModelState.AddModelError("MaCanBo", "Mã cán bộ tồn tại không thể thêm");
+            }
+            // Check trình độ học vấn sau đại học
+            if (insert.MaTrinhDoHocVan == "SĐH")
+            {
+                if (String.IsNullOrEmpty(insert.MaHocHam) || String.IsNullOrWhiteSpace(insert.MaHocHam))
+                {
+                    ModelState.AddModelError("MaHocHam", "Học hàm chưa được chọn");
+                }
+            }
+            if (insert.MaPhanHe != "03")
+            {
+                if (String.IsNullOrEmpty(insert.MaNgachLuong) || String.IsNullOrWhiteSpace(insert.MaNgachLuong))
+                {
+                    ModelState.AddModelError("MaNgachLuong", "Ngạch lương chưa được chọn");
+                }
+                if (insert.MaBacLuong == null)
+                {
+                    ModelState.AddModelError("MaBacLuong", "Bậc lương chưa được chọn");
+                }
+                if (insert.NgayNangBacLuong == null)
+                {
+                    ModelState.AddModelError("NgayNangBacLuong", "Ngày nâng bậc chưa chọn");
+                }
+            }
+            if (insert.MaPhanHe == "03")
+            {
+                if (insert.LuongKhoan <= 0)
+                {
+                    ModelState.AddModelError("LuongKhoan", "Chưa nhập số tiền lương khoán");
+                }
+                if (insert.KhoanTuNgay == null)
+                {
+                    ModelState.AddModelError("KhoanTuNgay", "Chưa nhập khoán từ ngày");
+                }
+                if (insert.KhoanDenNgay == null)
+                {
+                    ModelState.AddModelError("KhoanDenNgay", "Chưa nhập khoán đến ngày");
+                }
+            }
+            var existDonVi = _context.Departments.Where(it => it.Actived == true && it.Id == insert.IdDepartment && it.IDCoSo == insert.IdCoSo);
+            if (existDonVi == null) {
+                ModelState.AddModelError("IdDepartment", "Đơn vị không đúng với cơ sở");
+            }
+        }
         public JsonResult LoadBacLuong(string maNgachLuong) {
             var data = _context.BacLuongs.Where(it => it.Actived == true && it.MaNgachLuong == maNgachLuong).OrderBy(p => p.OrderIndex).Select(it => new { MaBacLuong = it.MaBacLuong, TenBacLuong = it.TenBacLuong +" " + it.HeSo.ToString() }).ToList();
             return Json(data);
@@ -734,7 +717,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
             var MenuListCoSo = _context.CoSos.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { IdCoSo = it.IdCoSo, TenCoSo = it.TenCoSo }).ToList();
             ViewBag.IdCoSo = new SelectList(MenuListCoSo, "IdCoSo", "TenCoSo", IdCoSo);
 
-            var DonVi = _context.Departments.Where(it => it.Actived == true).Include(it=>it.CoSo).OrderBy(p => p.OrderIndex).Select(it => new { IdDepartment = it.Id, Name = it.Name + " "+ it.CoSo.TenCoSo }).ToList();
+            var DonVi = _context.Departments.Where(it => it.Actived == true ).Include(it=>it.CoSo).OrderBy(p => p.OrderIndex).Select(it => new { IdDepartment = it.Id, Name = it.Name + " "+ it.CoSo.TenCoSo }).ToList();
             ViewBag.IdDepartment = new SelectList(DonVi, "IdDepartment", "Name", IdDepartment);
 
             var chucVu = _context.ChucVus.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { MaChucVu = it.MaChucVu, TenChucVu = it.TenChucVu }).ToList();

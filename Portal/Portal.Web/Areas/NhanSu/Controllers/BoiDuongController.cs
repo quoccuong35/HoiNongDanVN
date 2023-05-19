@@ -1,42 +1,38 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Portal.Constant;
 using Portal.DataAccess;
 using Portal.Extensions;
 using Portal.Models;
-using Portal.Models.Entitys.NhanSu;
 using Portal.Resources;
+using System.Text.RegularExpressions;
 
 namespace Portal.Web.Areas.NhanSu.Controllers
 {
     [Area(ConstArea.NhanSu)]
-    public class DaoTaoController : BaseController
+    [Authorize]
+    public class BoiDuongController : BaseController
     {
-        public DaoTaoController(AppDbContext context) : base(context) { }
+        public BoiDuongController(AppDbContext context) : base(context) { }
         #region Index
         [PortalAuthorization]
+        [HttpGet]
         public IActionResult Index()
         {
             CreateViewBag();
             return View();
         }
-        public IActionResult _Search(DaoTaoSearchVM search) {
+        public IActionResult _Search(BoiDuongSearchVM search) {
             return ExecuteSearch(() => {
-                var data = _context.QuaTrinhDaoTaos.AsQueryable();
-                if (!String.IsNullOrEmpty(search.MaLoaiBangCap) && !String.IsNullOrWhiteSpace(search.MaLoaiBangCap))
-                {
-                    data = data.Where(it => it.MaLoaiBangCap == search.MaLoaiBangCap);
-                }
-                if (!String.IsNullOrEmpty(search.MaHinhThucDaoTao) && !String.IsNullOrWhiteSpace(search.MaHinhThucDaoTao))
+                var data = _context.QuaTrinhBoiDuongs.AsQueryable();
+                if (!String.IsNullOrEmpty(search.MaHinhThucDaoTao) &&
+                !String.IsNullOrWhiteSpace(search.MaHinhThucDaoTao))
                 {
                     data = data.Where(it => it.MaHinhThucDaoTao == search.MaHinhThucDaoTao);
                 }
-                if (!String.IsNullOrEmpty(search.MaChuyenNganh) && !String.IsNullOrWhiteSpace(search.MaChuyenNganh))
-                {
-                    data = data.Where(it => it.MaChuyenNganh == search.MaChuyenNganh);
-                }
-                data = data.Include(it=>it.CanBo).Include(it=>it.ChuyenNganh).Include(it=>it.LoaiBangCap).Include(it=>it.HinhThucDaoTao);
+                data = data.Include(it => it.CanBo).Include(it => it.HinhThucDaoTao);
                 if (!String.IsNullOrEmpty(search.MaCanBo) && !String.IsNullOrWhiteSpace(search.MaCanBo))
                 {
                     data = data.Where(it => it.CanBo.MaCanBo == search.MaCanBo);
@@ -45,57 +41,52 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                 {
                     data = data.Where(it => it.CanBo.HoVaTen.Contains(search.HoVaTen));
                 }
-                var model = data.Select(it => new DaoTaoDetailVM {
-                    IDQuaTrinhDaoTao = it.IDQuaTrinhDaoTao,
-                    TenChuyenNganh = it.ChuyenNganh.TenChuyenNganh,
-                    TenHinhThucDaoTao = it.HinhThucDaoTao.TenHinhThucDaoTao,
-                    TenLoaiBangCap = it.LoaiBangCap.TenLoaiBangCap,
-                    CoSoDaoTao = it.CoSoDaoTao,
-                    NgayTotNghiep = it.NgayTotNghiep,
-                    QuocGia =it.QuocGia,
-                    GhiChu = it.GhiChu,
-                    LuanAnTN = it.LuanAnTN,
-                    FileDinhKem = it.FileDinhKem,
+                var model = data.Select(it => new BoiDuongDetai
+                {
+                    IDQuaTrinhBoiDuong = it.IDQuaTrinhBoiDuong,
                     MaCanBo = it.CanBo.MaCanBo,
-                    HoVaTen = it.CanBo.HoVaTen
-
-                }).ToList();
+                    HoVaTen = it.CanBo.HoVaTen,
+                    NoiBoiDuong = it.NoiBoiDuong,
+                    NoiDung = it.NoiDung,
+                    NgayBatDau = it.NgayBatDau,
+                    NgayKetThuc = it.NgayKetThuc,
+                    GhiChu = it.GhiChu,
+                    TenHinhThucDaoTao = it.HinhThucDaoTao.TenHinhThucDaoTao,
+                });
                 return PartialView(model);
             });
         }
         #endregion Index
-        #region Create
+        #region Create 
         [HttpGet]
         [PortalAuthorization]
         public IActionResult Create() {
-            QuaTrinhDaoTaoVM daoTao = new QuaTrinhDaoTaoVM();
+            BoiDuongVM boiDuongVM = new BoiDuongVM();
             NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
             nhanSu.CanBo = true;
-            daoTao.NhanSu = nhanSu;
+            boiDuongVM.NhanSu = nhanSu;
             CreateViewBag();
-            return View(daoTao);
+            return View(boiDuongVM);
         }
-        [HttpPost]
-        [PortalAuthorization]
-        public JsonResult Create(QuaTrinhDaoTaoMTVM obj) {
+        public JsonResult Create(BoiDuongMTVM obj) {
             if (obj.NhanSu.IdCanbo == null)
             {
                 ModelState.AddModelError("MaCanBo", "Chưa chọn cán bộ");
             }
             return ExecuteContainer(() => {
-                QuaTrinhDaoTao add = new QuaTrinhDaoTao();
-                add = obj.GetQuaTrinhDaoTao(add);
-                add.IDQuaTrinhDaoTao = Guid.NewGuid();
+                var add = new QuaTrinhBoiDuong();
+                add = obj.GetQuaTrinhBoiDuong(add);
+                add.IDQuaTrinhBoiDuong = Guid.NewGuid();
                 add.CreatedTime = DateTime.Now;
                 add.CreatedAccountId = AccountId();
                 _context.Attach(add).State = EntityState.Modified;
-                _context.QuaTrinhDaoTaos.Add(add);
+                _context.QuaTrinhBoiDuongs.Add(add);
                 _context.SaveChanges();
                 return Json(new
                 {
                     Code = System.Net.HttpStatusCode.OK,
                     Success = true,
-                    Data = string.Format(LanguageResource.Alert_Create_Success, LanguageResource.DaoTao.ToLower())
+                    Data = string.Format(LanguageResource.Alert_Create_Success, LanguageResource.BoiDuong.ToLower())
                 });
             });
         }
@@ -103,13 +94,14 @@ namespace Portal.Web.Areas.NhanSu.Controllers
         #region Edit
         [HttpGet]
         [PortalAuthorization]
-        public IActionResult Edit(Guid id) {
-            var item = _context.QuaTrinhDaoTaos.SingleOrDefault(it => it.IDQuaTrinhDaoTao == id);
+        public IActionResult Edit(Guid id)
+        {
+            var item = _context.QuaTrinhBoiDuongs.SingleOrDefault(it => it.IDQuaTrinhBoiDuong == id);
             if (item == null)
             {
                 return Redirect("~/Error/ErrorNotFound?data=" + id);
             }
-            QuaTrinhDaoTaoVM obj = new QuaTrinhDaoTaoVM();
+            BoiDuongVM obj = new BoiDuongVM();
             NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
             nhanSu.CanBo = true;
             var canBo = _context.CanBos.Include(it => it.CoSo).Include(it => it.Department)
@@ -123,37 +115,33 @@ namespace Portal.Web.Areas.NhanSu.Controllers
             nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
             nhanSu.Edit = false;
 
-            obj.MaChuyenNganh = item.MaChuyenNganh;
-            obj.MaLoaiBangCap = item.MaLoaiBangCap;
             obj.MaHinhThucDaoTao = item.MaHinhThucDaoTao;
-            obj.CoSoDaoTao = item.CoSoDaoTao;
-            obj.NgayTotNghiep = item.NgayTotNghiep;
-            obj.QuocGia = item.QuocGia;
-            obj.LuanAnTN = item.LuanAnTN;
+            obj.NoiBoiDuong = item.NoiBoiDuong;
+            obj.NoiDung = item.NoiDung;
+            obj.NgayBatDau = item.NgayBatDau;
+            obj.NgayKetThuc = item.NgayKetThuc;
             obj.GhiChu = item.GhiChu;
             obj.NhanSu = nhanSu;
-            obj.IDQuaTrinhDaoTao = item.IDQuaTrinhDaoTao;
-            CreateViewBag(item.MaChuyenNganh, item.MaLoaiBangCap,item.MaHinhThucDaoTao);
+            obj.IDQuaTrinhBoiDuong = item.IDQuaTrinhBoiDuong;
+            CreateViewBag(item.MaHinhThucDaoTao);
             return View(obj);
         }
-        [HttpPost]
-        [PortalAuthorization]
-        public JsonResult Edit(QuaTrinhDaoTaoMTVM obj)
+        public JsonResult Edit(BoiDuongMTVM obj)
         {
             return ExecuteContainer(() => {
-                var edit = _context.QuaTrinhDaoTaos.SingleOrDefault(it => it.IDQuaTrinhDaoTao == obj.IDQuaTrinhDaoTao);
+                var edit = _context.QuaTrinhBoiDuongs.SingleOrDefault(it => it.IDQuaTrinhBoiDuong == obj.IDQuaTrinhBoiDuong);
                 if (edit == null)
                 {
                     return Json(new
                     {
                         Code = System.Net.HttpStatusCode.NotFound,
                         Success = false,
-                        Data = string.Format(LanguageResource.Error_NotExist, LanguageResource.DaoTao.ToLower())
+                        Data = string.Format(LanguageResource.Error_NotExist, LanguageResource.BoiDuong.ToLower())
                     });
                 }
                 else
                 {
-                    edit = obj.GetQuaTrinhDaoTao(edit);
+                    edit = obj.GetQuaTrinhBoiDuong(edit);
                     edit.LastModifiedTime = DateTime.Now;
                     edit.LastModifiedAccountId = AccountId();
                     _context.Entry(edit).State = EntityState.Modified;
@@ -162,7 +150,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                     {
                         Code = System.Net.HttpStatusCode.OK,
                         Success = true,
-                        Data = string.Format(LanguageResource.Alert_Edit_Success, LanguageResource.DaoTao.ToLower())
+                        Data = string.Format(LanguageResource.Alert_Edit_Success, LanguageResource.BoiDuong.ToLower())
                     });
                 }
             });
@@ -174,7 +162,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
         {
             return ExecuteDelete(() =>
             {
-                var del = _context.QuaTrinhDaoTaos.FirstOrDefault(p => p.IDQuaTrinhDaoTao == id);
+                var del = _context.QuaTrinhBoiDuongs.FirstOrDefault(p => p.IDQuaTrinhBoiDuong == id);
 
 
                 if (del != null)
@@ -188,7 +176,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                     {
                         Code = System.Net.HttpStatusCode.OK,
                         Success = true,
-                        Data = string.Format(LanguageResource.Alert_Delete_Success, LanguageResource.DaoTao.ToLower())
+                        Data = string.Format(LanguageResource.Alert_Delete_Success, LanguageResource.BoiDuong.ToLower())
                     });
                 }
                 else
@@ -197,22 +185,19 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                     {
                         Code = System.Net.HttpStatusCode.NotModified,
                         Success = false,
-                        Data = string.Format(LanguageResource.Alert_NotExist_Delete, LanguageResource.DaoTao.ToLower())
+                        Data = string.Format(LanguageResource.Alert_NotExist_Delete, LanguageResource.BoiDuong.ToLower())
                     });
                 }
             });
         }
         #endregion Delete
         #region Helper
-        private void CreateViewBag(String? MaChuyenNganh = null,String? MaLoaiBangCap = null, String? MaHinhThucDaoTao = null) {
-            var MenuList = _context.ChuyenNganhs.Select(it => new { MaChuyenNganh = it.MaChuyenNganh, TenChuyenNganh = it.TenChuyenNganh }).ToList();
-            ViewBag.MaChuyenNganh = new SelectList(MenuList, "MaChuyenNganh", "TenChuyenNganh", MaChuyenNganh);
-
+        private void CreateViewBag(String? MaHinhThucDaoTao = null)
+        {
             var MenuList1 = _context.HinhThucDaoTaos.Select(it => new { MaHinhThucDaoTao = it.MaHinhThucDaoTao, TenHinhThucDaoTao = it.TenHinhThucDaoTao }).ToList();
             ViewBag.MaHinhThucDaoTao = new SelectList(MenuList1, "MaHinhThucDaoTao", "TenHinhThucDaoTao", MaHinhThucDaoTao);
 
-            var MenuList2 = _context.LoaiBangCaps.Select(it => new { MaLoaiBangCap = it.MaLoaiBangCap, TenLoaiBangCap = it.TenLoaiBangCap }).ToList();
-            ViewBag.MaLoaiBangCap = new SelectList(MenuList2, "MaLoaiBangCap", "TenLoaiBangCap", MaLoaiBangCap);
+           
         }
         #endregion Helper
     }

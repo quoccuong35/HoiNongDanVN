@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Portal.Models.Entitys
+namespace Portal.Models
 {
     public class CoSo
     {
@@ -20,9 +20,11 @@ namespace Portal.Models.Entitys
 
         public ICollection<CanBo> CanBos { get; set; }
         public ICollection<Department> Departments { get; set; }
+        public ICollection<QuaTrinhBoNhiem> QuaTrinhBoNhiems { get; set; }
         public CoSo() {
             CanBos = new List<CanBo>();
             Departments = new List<Department>();
+            QuaTrinhBoNhiems = new List<QuaTrinhBoNhiem>();
         }
     }
 }
