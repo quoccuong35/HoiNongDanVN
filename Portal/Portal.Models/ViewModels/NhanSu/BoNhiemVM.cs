@@ -46,6 +46,11 @@ namespace Portal.Models
         public FileDinhKem? FileDinhKem { get; set; }
         public NhanSuThongTinVM NhanSu { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Loai")]
+        public LoaiBoNhiem Loai { get; set; }
+
+
 
     }
     public class BoNhiemMTVM : BoNhiemVM {
@@ -59,6 +64,7 @@ namespace Portal.Models
             obj.HeSoChucVu = this.HeSoChucVu;
             obj.GhiChu = this.GhiChu;
             obj.IDCanBo = this.NhanSu.IdCanbo!.Value;
+            obj.Loai = this.Loai;
             return obj;
         }
     }

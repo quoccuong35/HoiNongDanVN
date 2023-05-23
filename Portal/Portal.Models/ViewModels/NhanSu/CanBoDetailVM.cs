@@ -9,14 +9,9 @@ using System.Xml.Linq;
 
 namespace Portal.Models
 {
-    public class CanBoDetailVM
+    public class CanBoDetailVM :CanBoVM
     {
-        public Guid IdCanbo { get; set; }
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaCanBo")]
-        public string MaCanBo { get; set; }
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
-        public string HoVaTen { get; set; }
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TinhTrang")]
+
         public string TenTinhTrang { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "PhanHe")]

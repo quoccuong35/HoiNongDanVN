@@ -615,7 +615,7 @@ namespace Portal.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 18, 9, 11, 25, 422, DateTimeKind.Local).AddTicks(9507));
+                        .HasDefaultValue(new DateTime(2023, 5, 23, 8, 54, 58, 379, DateTimeKind.Local).AddTicks(6808));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -1563,7 +1563,7 @@ namespace Portal.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 5, 18, 9, 11, 25, 423, DateTimeKind.Local).AddTicks(5061));
+                        .HasDefaultValue(new DateTime(2023, 5, 23, 8, 54, 58, 380, DateTimeKind.Local).AddTicks(7118));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -1802,7 +1802,13 @@ namespace Portal.DataAccess.Migrations
                     b.Property<Guid>("IdCoSo")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("IdCoSoCu")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("IdDepartment")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("IdDepartmentCu")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("LastModifiedAccountId")
@@ -1811,7 +1817,13 @@ namespace Portal.DataAccess.Migrations
                     b.Property<DateTime?>("LastModifiedTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Loai")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("MaChucVu")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("MaChucVuCu")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("NgayQuyetDinh")
@@ -1838,6 +1850,54 @@ namespace Portal.DataAccess.Migrations
                     b.HasIndex("MaChucVu");
 
                     b.ToTable("QuaTrinhBoNhiem", "NS");
+                });
+
+            modelBuilder.Entity("Portal.Models.QuaTrinhCongTac", b =>
+                {
+                    b.Property<Guid>("IDQuaTrinhCongTac")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DenNgay")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid>("IDCanBo")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("LastModifiedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("MaChucVu")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("NoiLamViec")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("TuNgay")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("IDQuaTrinhCongTac");
+
+                    b.HasIndex("IDCanBo");
+
+                    b.HasIndex("MaChucVu");
+
+                    b.ToTable("QuaTrinhCongTac", "NS");
                 });
 
             modelBuilder.Entity("Portal.Models.QuaTrinhDaoTao", b =>
@@ -1892,10 +1952,10 @@ namespace Portal.DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("NgayTotNghiep")
+                    b.Property<DateTime?>("NgayTotNghiep")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("QuocGia")
                         .IsRequired()
@@ -1970,6 +2030,69 @@ namespace Portal.DataAccess.Migrations
                     b.HasIndex("MaHinhThucKyLuat");
 
                     b.ToTable("QuaTrinhKyLuat", "NS");
+                });
+
+            modelBuilder.Entity("Portal.Models.QuaTrinhMienNhiem", b =>
+                {
+                    b.Property<Guid>("IDQuaTrinhMienNhiem")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("GhiChu")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal?>("HeSoChucVu")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<Guid>("IDCanBo")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdCoSo")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("IdDepartment")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("LastModifiedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("LastModifiedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("MaChucVu")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("NgayQuyetDinh")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NguoiKy")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("SoQuyetDinh")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("IDQuaTrinhMienNhiem");
+
+                    b.HasIndex("IDCanBo");
+
+                    b.HasIndex("IdCoSo");
+
+                    b.HasIndex("IdDepartment");
+
+                    b.HasIndex("MaChucVu");
+
+                    b.ToTable("QuaTrinhMienNhiem", "NS");
                 });
 
             modelBuilder.Entity("Portal.Models.TinhThanhPho", b =>
@@ -2493,6 +2616,27 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("Department");
                 });
 
+            modelBuilder.Entity("Portal.Models.QuaTrinhCongTac", b =>
+                {
+                    b.HasOne("Portal.Models.CanBo", "CanBo")
+                        .WithMany("QuaTrinhCongTacs")
+                        .HasForeignKey("IDCanBo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_QuaTrinhCongTac_CanBo");
+
+                    b.HasOne("Portal.Models.ChucVu", "ChucVu")
+                        .WithMany("QuaTrinhCongTacs")
+                        .HasForeignKey("MaChucVu")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_QuaTrinhCongTac_ChucVu");
+
+                    b.Navigation("CanBo");
+
+                    b.Navigation("ChucVu");
+                });
+
             modelBuilder.Entity("Portal.Models.QuaTrinhDaoTao", b =>
                 {
                     b.HasOne("Portal.Models.CanBo", "CanBo")
@@ -2553,6 +2697,45 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("HinhThucKyLuat");
                 });
 
+            modelBuilder.Entity("Portal.Models.QuaTrinhMienNhiem", b =>
+                {
+                    b.HasOne("Portal.Models.CanBo", "CanBo")
+                        .WithMany("QuaTrinhMienNhiems")
+                        .HasForeignKey("IDCanBo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_QuaTrinhMienNhiem_CanBo");
+
+                    b.HasOne("Portal.Models.CoSo", "CoSo")
+                        .WithMany("QuaTrinhMienNhiems")
+                        .HasForeignKey("IdCoSo")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_QuaTrinhMienNhiem_CoSo");
+
+                    b.HasOne("Portal.Models.Department", "Department")
+                        .WithMany("QuaTrinhMienNhiems")
+                        .HasForeignKey("IdDepartment")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_QuaTrinhMienNhiem_Department");
+
+                    b.HasOne("Portal.Models.ChucVu", "ChucVu")
+                        .WithMany("QuaTrinhMienNhiems")
+                        .HasForeignKey("MaChucVu")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired()
+                        .HasConstraintName("FK_QuaTrinhMienNhiem_ChucVu");
+
+                    b.Navigation("CanBo");
+
+                    b.Navigation("ChucVu");
+
+                    b.Navigation("CoSo");
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("Portal.Models.TinhThanhPho", b =>
                 {
                     b.HasOne("Portal.Models.KhuVuc", "KhuVuc")
@@ -2578,11 +2761,15 @@ namespace Portal.DataAccess.Migrations
 
                     b.Navigation("QuaTrinhBoiDuongs");
 
+                    b.Navigation("QuaTrinhCongTacs");
+
                     b.Navigation("QuaTrinhDaoTaos");
 
                     b.Navigation("QuaTrinhKhenThuongs");
 
                     b.Navigation("QuaTrinhKyLuats");
+
+                    b.Navigation("QuaTrinhMienNhiems");
 
                     b.Navigation("QuanHeGiaDinhs");
                 });
@@ -2592,6 +2779,10 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("CanBos");
 
                     b.Navigation("QuaTrinhBoNhiems");
+
+                    b.Navigation("QuaTrinhCongTacs");
+
+                    b.Navigation("QuaTrinhMienNhiems");
                 });
 
             modelBuilder.Entity("Portal.Models.ChuyenNganh", b =>
@@ -2606,6 +2797,8 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("Departments");
 
                     b.Navigation("QuaTrinhBoNhiems");
+
+                    b.Navigation("QuaTrinhMienNhiems");
                 });
 
             modelBuilder.Entity("Portal.Models.DanhHieuKhenThuong", b =>
@@ -2623,6 +2816,8 @@ namespace Portal.DataAccess.Migrations
                     b.Navigation("CanBos");
 
                     b.Navigation("QuaTrinhBoNhiems");
+
+                    b.Navigation("QuaTrinhMienNhiems");
                 });
 
             modelBuilder.Entity("Portal.Models.Entitys.Account", b =>

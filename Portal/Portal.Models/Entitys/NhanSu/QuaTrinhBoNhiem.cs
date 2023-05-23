@@ -9,8 +9,15 @@ using System.Threading.Tasks;
 
 namespace Portal.Models
 {
+
+    public enum LoaiBoNhiem
+    {
+        Bổ_nhiệm,
+        Thuyên_chuyển
+    };
     public class QuaTrinhBoNhiem
     {
+        // bo nhiem or thuyen chuyen
         public Guid IdQuaTrinhBoNhiem { get; set; }
 
         public Guid IDCanBo { get; set; }
@@ -40,5 +47,11 @@ namespace Portal.Models
         public Guid? LastModifiedAccountId { get; set; }
         public DateTime? LastModifiedTime { get; set; }
 
+        public Guid? IdCoSoCu { get; set; }
+
+        public Guid? IdDepartmentCu { get; set; }
+
+        public Guid? MaChucVuCu { get; set; }
+        public LoaiBoNhiem Loai { get; set; }
     }
 }

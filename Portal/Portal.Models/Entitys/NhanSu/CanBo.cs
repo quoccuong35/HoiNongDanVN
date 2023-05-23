@@ -141,6 +141,8 @@ namespace Portal.Models
         public ICollection<QuaTrinhBoiDuong> QuaTrinhBoiDuongs { get; set; }
         public ICollection<QuaTrinhBoNhiem> QuaTrinhBoNhiems { get; set; }
         public ICollection<FileDinhKem> FileDinhKems { get; set; }
+        public ICollection<QuaTrinhCongTac> QuaTrinhCongTacs { get; set; }
+        public ICollection<QuaTrinhMienNhiem> QuaTrinhMienNhiems { get; set; }
 
         public CanBo() {
             QuanHeGiaDinhs = new List<QuanHeGiaDinh>();
@@ -149,6 +151,8 @@ namespace Portal.Models
             QuaTrinhDaoTaos = new List<QuaTrinhDaoTao>();
             QuaTrinhBoiDuongs = new List<QuaTrinhBoiDuong>();
             QuaTrinhBoNhiems = new List<QuaTrinhBoNhiem>();
+            QuaTrinhCongTacs = new List<QuaTrinhCongTac>();
+            QuaTrinhMienNhiems = new List<QuaTrinhMienNhiem>();
             FileDinhKems = new List<FileDinhKem>();
         }
 

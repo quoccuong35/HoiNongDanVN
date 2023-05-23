@@ -160,7 +160,7 @@
     <value>Bồi Dưỡng</value>
   </data>
   <data name="BoNhiem" xml:space="preserve">
-    <value>Bổ Nhiệm Cán Bộ</value>
+    <value>Bổ Nhiệm/Thuyên Chuyển Cán Bộ</value>
   </data>
   <data name="Btn_Back" xml:space="preserve">
     <value>Quay lại</value>
@@ -233,6 +233,9 @@
   </data>
   <data name="DataValidationError" xml:space="preserve">
     <value>Vui lòng chọn từ danh sách</value>
+  </data>
+  <data name="DenNgay" xml:space="preserve">
+    <value>Đến ngày</value>
   </data>
   <data name="Department" xml:space="preserve">
     <value>Đơn Vị</value>
@@ -347,6 +350,9 @@
   </data>
   <data name="List" xml:space="preserve">
     <value>Danh sách</value>
+  </data>
+  <data name="Loai" xml:space="preserve">
+    <value>Loại</value>
   </data>
   <data name="LoaiQuanhe" xml:space="preserve">
     <value>Loại quan hệ</value>
@@ -465,6 +471,9 @@
   <data name="NoiDung" xml:space="preserve">
     <value>Nội dung</value>
   </data>
+  <data name="NoiLamViec" xml:space="preserve">
+    <value>Nơi làm việc</value>
+  </data>
   <data name="NoiLamVien" xml:space="preserve">
     <value>Nơi làm việc</value>
   </data>
@@ -503,6 +512,9 @@
   </data>
   <data name="Print" xml:space="preserve">
     <value>In lý lịch</value>
+  </data>
+  <data name="ProfileCanBo" xml:space="preserve">
+    <value>Thông tin cán bộ</value>
   </data>
   <data name="Project" xml:space="preserve">
     <value>Dự án</value>
@@ -605,6 +617,9 @@
   </data>
   <data name="TrinhDoTinHoc" xml:space="preserve">
     <value>Trình Độ Tin Học</value>
+  </data>
+  <data name="TuNgay" xml:space="preserve">
+    <value>Từ ngày</value>
   </data>
   <data name="Update" xml:space="preserve">
     <value>Cập nhật</value>

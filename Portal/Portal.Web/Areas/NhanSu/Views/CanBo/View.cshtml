@@ -1,0 +1,51 @@
+﻿@model ProfileCanBo
+<div class="main-container container-fluid">
+    <div class="page-header">
+        <h1>@LanguageResource.List @LanguageResource.ProfileCanBo.ToLower()</h1>
+    </div>
+    <div class="row" id="user-profile">
+        <div class="col-md-3">
+            <div class="card card-primary card-outline">
+                <div class="card-status bg-blue br-te-7 br-ts-7"></div>
+                <div class="card-body box-profile">
+                    <div class="text-center chat-image mb-5">
+                        <div class="avatar avatar-xxl chat-profile mb-3 brround">
+                            <a class="" href="profile.html"><img alt="avatar" src="~/Images/avatar5.png" class="brround"></a>
+                        </div>
+                        <div class="main-chat-msg-name">
+                            <a href="profile.html">
+                                <h5 class="mb-1 text-dark fw-semibold">@Model.CanBo.HoVaTen</h5>
+                            </a>
+                            <p class="text-muted mt-0 mb-0 pt-0 fs-13">@Model.CanBo.TenChucVu</p>
+                        </div>
+                    </div>
+                    <ul class="list-group no-margin" id="user-profile-info">
+                        <li class="list-group-item d-flex ps-3">
+                            <div class="social social-profile-buttons me-2">
+                                <p class="social-icon text-primary" href="javascript:void(0)"><i class="fa fa-home"></i></p>
+                            </div>
+                            <a href="javascript:void(0)" class="my-auto">@Model.CanBo.TenDonVi</a>
+                        </li>
+                        <li class="list-group-item d-flex ps-3">
+                            <div class="social social-profile-buttons me-2">
+                                <p class="social-icon text-primary" href="javascript:void(0)"><i class="fe fe-mail"></i></p>
+                            </div>
+                            <a href="javascript:void(0)" class="my-auto">@Model.CanBo.Email</a>
+                        </li>
+                        <li class="list-group-item d-flex ps-3">
+                            <div class="social social-profile-buttons me-2">
+                                <a class="social-icon text-primary" href="javascript:void(0)"><i class="fe fe-phone"></i></a>
+                            </div>
+                            <a href="javascript:void(0)" class="my-auto">@Model.CanBo.SoDienThoai</a>
+                        </li>
+                    </ul>
+
+                    <a href="#" class="btn btn-primary btn-block"><i class="fa fa-eye"></i> <b>Xem chi tiết</b></a>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+        <div class="col-md-9">
+        </div>
+    </div>
+</div>

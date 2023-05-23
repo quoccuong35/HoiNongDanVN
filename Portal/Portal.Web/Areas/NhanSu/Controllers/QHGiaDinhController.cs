@@ -110,10 +110,12 @@ namespace Portal.Web.Areas.NhanSu.Controllers
             edit.DiaChi = item.DiaChi;
             edit.GhiChu = item.GhiChu;
 
-            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
-            nhanSu.CanBo = true;
+
             var canBo = _context.CanBos.Include(it => it.CoSo).Include(it => it.Department)
                         .Include(it => it.PhanHe).Include(it => it.TinhTrang).Where(it => it.IDCanBo == item.IDCanBo).SingleOrDefault();
+            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
+            nhanSu = nhanSu.GeThongTin(canBo);
+            nhanSu.CanBo = true;
             nhanSu.IdCanbo = canBo.IDCanBo;
             nhanSu.HoVaTen = canBo.HoVaTen;
             nhanSu.MaCanBo = canBo.MaCanBo;

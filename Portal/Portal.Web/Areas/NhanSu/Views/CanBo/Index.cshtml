@@ -9,8 +9,16 @@
 }
 <div class="main-container container-fluid">
     <!-- PAGE-HEADER -->
-    <div class="page-header">
-        <h1>@LanguageResource.List @LanguageResource.CanBo.ToLower()</h1>
+    <div class="page-header my-2">
+       
+        <div>
+            <span class="header-title">@LanguageResource.List @LanguageResource.CanBo.ToLower()</span>
+            <div class="rectangle">
+                <span> </span>
+                <span> </span>
+                <span> </span>
+            </div>
+        </div>
         <div class="d-flex px-2">
             @HtmlExtensions.ExportButton(CurrentArea,CurrentController,listRoles:listRoles)
             @HtmlExtensions.ImportButton(CurrentArea,CurrentController,listRoles:listRoles)
@@ -75,9 +83,9 @@
             </div>
         </div>
     </div>
-    <div class="row ">
+    <div class="row">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card rounded-3">
                 <div class="card-status bg-blue br-te-7 br-ts-7"></div>
                 <div class="card-body">
                     <div class="table-responsive" id="divSearchResult"></div>

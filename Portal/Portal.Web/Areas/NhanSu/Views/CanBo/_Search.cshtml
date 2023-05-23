@@ -31,7 +31,7 @@
             i++;
             <tr>
                 <td class="text-center">
-                    @HtmlExtensions.MenuNhanSu(CurrentArea, CurrentController, item.HoVaTen, item.IdCanbo.ToString(),listRoles: listRoles)
+                    @HtmlExtensions.MenuNhanSu(CurrentArea, CurrentController, item.HoVaTen, item.IDCanBo!.Value.ToString(),listRoles: listRoles)
                 </td>
                 <td>@Html.DisplayFor(p => item.MaCanBo)</td>
                 <td>@Html.DisplayFor(p => item.HoVaTen)</td>

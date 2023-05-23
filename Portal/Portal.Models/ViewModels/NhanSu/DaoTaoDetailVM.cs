@@ -24,7 +24,7 @@ namespace Portal.Models
 
         
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayTotNghiep")]
-        public String? NgayTotNghiep { get; set; }
+        public DateTime? NgayTotNghiep { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuocGia")]
         public String? QuocGia { get; set; }

@@ -45,3 +45,52 @@
 .splitter-body p {
         text-align: justify;
 }
+/*tab-custom chỉnh tab*/
+.tab-custom {
+    width:auto;
+    height:auto;
+}
+.tab-custom button {
+    display: inline;
+    background-color: inherit;
+    color: black;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.tab-custom > ul > li {
+   line-height:30px;
+}
+.header-title {
+    color: rgb(31, 41, 57);
+    font-weight: 600;
+    line-height: 34px;
+    font-size: 22px
+}
+.header-sticky {
+    position: fixed;
+    right: 20px;
+    z-index: 100;
+}
+.rectangle {
+    display: flex;
+}
+.rectangle > span {
+    display: inline-block;
+    width: 30%;
+    height: 5px;
+    border-radius: 8px;
+}
+.rectangle > span:nth-child(1) {
+    background: #1569B2;
+}
+.rectangle > span:nth-child(2) {
+    background: #F27228;
+    margin: 0 1px;
+}
+.rectangle > span:nth-child(3) {
+    background: #24B24B;
+}

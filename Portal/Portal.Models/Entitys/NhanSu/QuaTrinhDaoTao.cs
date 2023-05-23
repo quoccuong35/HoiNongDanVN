@@ -15,7 +15,7 @@ namespace Portal.Models
         public CanBo CanBo { get; set; }
         public String CoSoDaoTao { get; set; }
 
-        public String NgayTotNghiep { get; set; }
+        public DateTime? NgayTotNghiep { get; set; }
         public String QuocGia { get; set; }
         public String MaLoaiBangCap { get; set; }
         public LoaiBangCap LoaiBangCap { get; set; }

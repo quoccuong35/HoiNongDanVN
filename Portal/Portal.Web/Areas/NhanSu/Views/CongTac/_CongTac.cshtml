@@ -1,0 +1,42 @@
+﻿@model QuaTrinhCongTacVM
+<div class="row">
+    <input asp-for="IDQuaTrinhCongTac" hidden />
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="TuNgay"></label><span class="text-red">*</span>
+            <input asp-for="TuNgay" class="form-control">
+            <span asp-validation-for="TuNgay" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="DenNgay"></label><span class="text-red">*</span>
+            <input asp-for="DenNgay" class="form-control">
+            <span asp-validation-for="DenNgay" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="MaChucVu"></label><span class="text-red">*</span>
+            <select asp-for="MaChucVu" asp-items="@ViewBag.MaChucVu" class="form-control select2-show-search form-select">
+                <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+            </select>
+            <span asp-validation-for="MaChucVu" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="NoiLamViec"></label>
+            <textarea asp-for="NoiLamViec" rows="3" class="form-control"></textarea>
+            <span asp-validation-for="NoiLamViec" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label asp-for="GhiChu"></label>
+            <textarea asp-for="GhiChu" rows="3" class="form-control"></textarea>
+            <span asp-validation-for="GhiChu" class="text-danger"></span>
+        </div>
+    </div>
+</div>

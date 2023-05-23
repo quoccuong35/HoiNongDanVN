@@ -187,7 +187,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bổ Nhiệm Cán Bộ.
+        ///   Looks up a localized string similar to Bổ Nhiệm/Thuyên Chuyển Cán Bộ.
         /// </summary>
         public static string BoNhiem {
             get {
@@ -408,6 +408,15 @@ namespace Portal.Resources {
         public static string DataValidationError {
             get {
                 return ResourceManager.GetString("DataValidationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đến ngày.
+        /// </summary>
+        public static string DenNgay {
+            get {
+                return ResourceManager.GetString("DenNgay", resourceCulture);
             }
         }
         
@@ -750,6 +759,15 @@ namespace Portal.Resources {
         public static string List {
             get {
                 return ResourceManager.GetString("List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loại.
+        /// </summary>
+        public static string Loai {
+            get {
+                return ResourceManager.GetString("Loai", resourceCulture);
             }
         }
         
@@ -1107,6 +1125,15 @@ namespace Portal.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Nơi làm việc.
         /// </summary>
+        public static string NoiLamViec {
+            get {
+                return ResourceManager.GetString("NoiLamViec", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nơi làm việc.
+        /// </summary>
         public static string NoiLamVien {
             get {
                 return ResourceManager.GetString("NoiLamVien", resourceCulture);
@@ -1218,6 +1245,15 @@ namespace Portal.Resources {
         public static string Print {
             get {
                 return ResourceManager.GetString("Print", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thông tin cán bộ.
+        /// </summary>
+        public static string ProfileCanBo {
+            get {
+                return ResourceManager.GetString("ProfileCanBo", resourceCulture);
             }
         }
         
@@ -1524,6 +1560,15 @@ namespace Portal.Resources {
         public static string TrinhDoTinHoc {
             get {
                 return ResourceManager.GetString("TrinhDoTinHoc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Từ ngày.
+        /// </summary>
+        public static string TuNgay {
+            get {
+                return ResourceManager.GetString("TuNgay", resourceCulture);
             }
         }
         

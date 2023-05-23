@@ -102,19 +102,12 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                 return Redirect("~/Error/ErrorNotFound?data=" + id);
             }
             BoiDuongVM obj = new BoiDuongVM();
-            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
-            nhanSu.CanBo = true;
+          
             var canBo = _context.CanBos.Include(it => it.CoSo).Include(it => it.Department)
                         .Include(it => it.PhanHe).Include(it => it.TinhTrang).Where(it => it.IDCanBo == item.IDCanBo).SingleOrDefault();
-            nhanSu.IdCanbo = canBo.IDCanBo;
-            nhanSu.HoVaTen = canBo.HoVaTen;
-            nhanSu.MaCanBo = canBo.MaCanBo;
-            nhanSu.TenTinhTrang = canBo.TinhTrang.TenTinhTrang;
-            nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
-            nhanSu.TenDonVi = canBo.Department.Name;
-            nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
-            nhanSu.Edit = false;
-
+            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
+            nhanSu = nhanSu.GeThongTin(canBo);
+            nhanSu.CanBo = true;
             obj.MaHinhThucDaoTao = item.MaHinhThucDaoTao;
             obj.NoiBoiDuong = item.NoiBoiDuong;
             obj.NoiDung = item.NoiDung;

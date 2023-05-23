@@ -21,7 +21,8 @@ namespace Portal.Models
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayTotNghiep")]
-        public String NgayTotNghiep { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? NgayTotNghiep { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuocGia")]
@@ -42,7 +43,7 @@ namespace Portal.Models
         public String MaChuyenNganh { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "LuanAnTN")]
-        public bool? LuanAnTN { get; set; }
+        public bool LuanAnTN { get; set; } = false;
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FileDinhKem")]
         public String? FileDinhKem { get; set; }
@@ -55,7 +56,6 @@ namespace Portal.Models
         public QuaTrinhDaoTao GetQuaTrinhDaoTao(QuaTrinhDaoTao obj) {
             obj.IDCanBo = this.NhanSu.IdCanbo!.Value;
             obj.CoSoDaoTao = this.CoSoDaoTao;
-            obj.NgayTotNghiep = this.NgayTotNghiep;
             obj.MaHinhThucDaoTao = this.MaHinhThucDaoTao;
             obj.MaChuyenNganh = this.MaChuyenNganh;
             obj.MaLoaiBangCap = this.MaLoaiBangCap;

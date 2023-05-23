@@ -10,7 +10,14 @@
 <div class="main-container container-fluid">
     <!-- PAGE-HEADER -->
     <div class="page-header">
-        <h1>@LanguageResource.List @LanguageResource.BoNhiem.ToLower()</h1>
+        <div>
+            <span class="header-title">@LanguageResource.List @LanguageResource.BoNhiem.ToLower()</span>
+            <div class="rectangle">
+                <span> </span>
+                <span> </span>
+                <span> </span>
+            </div>
+        </div>
         <div class="d-flex px-2">
             @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
         </div>

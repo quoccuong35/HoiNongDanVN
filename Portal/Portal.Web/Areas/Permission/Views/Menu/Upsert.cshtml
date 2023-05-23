@@ -16,8 +16,10 @@
     <div class="page-header">
         <div class="fs-16">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">@LanguageResource.Menu</a></li>
-                <li class="breadcrumb-item active" aria-current="page">@action</li>
+                <li class="breadcrumb-item">
+                    <a class="fs-18 fw-600" asp-area="@ConstArea.Permission" asp-controller="@ConstController.Menu" asp-action="Index">@LanguageResource.Menu</a>
+                </li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">@action</li>
             </ol>
         </div>
         <div>
@@ -71,7 +73,14 @@
                             </div>
                             <div class="col-md-6">
                                 <label asp-for="Href"></label>
-                                <input asp-for="Href" class="form-control" />
+                                @if (Model.MenuId != null)
+                                {
+                                    <input asp-for="Href" class="form-control" readonly />
+                                }
+                                else
+                                {
+                                    <input asp-for="Href" class="form-control" />
+                                }
                                 <span asp-validation-for="Href" class="text-danger"></span>
                             </div>
                             <div class="col-md-2">

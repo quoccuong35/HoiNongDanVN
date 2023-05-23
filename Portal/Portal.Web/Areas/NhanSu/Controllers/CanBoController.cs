@@ -97,7 +97,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                         TenBacLuong = it.BacLuong.TenBacLuong,
                         TenNgachLuong = it.MaNgachLuong!,
                         HeSo = it.HeSoLuong,
-                        IdCanbo = it.IDCanBo,
+                        IDCanBo = it.IDCanBo,
                     }).ToList();
                 return PartialView(data);
             });
@@ -231,7 +231,118 @@ namespace Portal.Web.Areas.NhanSu.Controllers
         #region View
         [PortalAuthorization]
         public IActionResult View(Guid id) {
-            return Content("Chức năng đang phát triển");
+            ProfileCanBo profileCanBo = new ProfileCanBo();
+            var canBo = _context.CanBos.Where(it=>it.IDCanBo==id).Include(it => it.TinhTrang)
+                    .Include(it => it.Department)
+                    .Include(it => it.BacLuong)
+                    .Include(it => it.ChucVu)
+                    .Include(it => it.PhanHe)
+                    .Include(it => it.CoSo).Select(it => new CanBoDetailVM
+                    {
+                        MaCanBo = it.MaCanBo,
+                        HoVaTen = it.HoVaTen,
+                        TenTinhTrang = it.TinhTrang.TenTinhTrang,
+                        TenPhanHe = it.PhanHe.TenPhanHe,
+                        TenCoSo = it.CoSo.TenCoSo,
+                        TenDonVi = it.Department.Name,
+                        TenChucVu = it.ChucVu.TenChucVu,
+                        TenBacLuong = it.BacLuong.TenBacLuong,
+                        TenNgachLuong = it.MaNgachLuong!,
+                        HeSo = it.HeSoLuong,
+                        IDCanBo = it.IDCanBo,
+                        SoDienThoai = it.SoDienThoai,
+                        Email = it.Email,
+                        PhuCapChucVu = it.PhuCapChucVu,
+                        PhuCapKiemNhiem = it.PhuCapKiemNhiem,
+                        PhuCapVuotKhung = it.PhuCapVuotKhung,
+                        PhuCapKhuVuc = it.PhuCapKhuVuc,
+                        NgayVaoBienChe = it.NgayVaoBienChe,
+                        NgayNangBacLuong = it.NgayNangBacLuong,
+                    }).First();
+          
+            var qhGiaDinh = _context.QuanHeGiaDinhs.Where(it => it.IDCanBo == id).Include(it => it.LoaiQuanhe)
+                            .Select(it => new QHGiaDinhDetail {
+                                HoTen = it.HoTen,
+                                NgaySinh = it.NgaySinh,
+                                NgheNghiep = it.NgheNghiep,
+                                NoiLamVien = it.NoiLamVien,
+                                DiaChi = it.DiaChi,
+                                GhiChu = it.GhiChu,
+                                TenLoaiQuanHe = it.LoaiQuanhe.TenLoaiQuanHeGiaDinh
+                            }).ToList();
+            var daoTao = _context.QuaTrinhDaoTaos.Where(it=>it.IDCanBo == id).Select(it => new DaoTaoDetailVM
+            {
+                IDQuaTrinhDaoTao = it.IDQuaTrinhDaoTao,
+                TenChuyenNganh = it.ChuyenNganh.TenChuyenNganh,
+                TenHinhThucDaoTao = it.HinhThucDaoTao.TenHinhThucDaoTao,
+                TenLoaiBangCap = it.LoaiBangCap.TenLoaiBangCap,
+                CoSoDaoTao = it.CoSoDaoTao,
+                NgayTotNghiep = it.NgayTotNghiep,
+                QuocGia = it.QuocGia,
+                GhiChu = it.GhiChu,
+                LuanAnTN = it.LuanAnTN,
+                FileDinhKem = it.FileDinhKem
+
+            }).ToList();
+            var boiDuong = _context.QuaTrinhBoiDuongs.Where(it=>it.IDCanBo == id).Select(it => new BoiDuongDetai
+            {
+                IDQuaTrinhBoiDuong = it.IDQuaTrinhBoiDuong,
+                MaCanBo = it.CanBo.MaCanBo,
+                HoVaTen = it.CanBo.HoVaTen,
+                NoiBoiDuong = it.NoiBoiDuong,
+                NoiDung = it.NoiDung,
+                NgayBatDau = it.NgayBatDau,
+                NgayKetThuc = it.NgayKetThuc,
+                GhiChu = it.GhiChu,
+                TenHinhThucDaoTao = it.HinhThucDaoTao.TenHinhThucDaoTao,
+            }).ToList();
+            var boNhiem = _context.QuaTrinhBoNhiems.Where(it=>it.IDCanBo == id).Select(it => new BoNhiemDetailVM
+            {
+                IdQuaTrinhBoNhiem = it.IdQuaTrinhBoNhiem,
+                MaCanBo = it.CanBo.MaCanBo,
+                HoVaTen = it.CanBo.HoVaTen,
+                SoQuyetDinh = it.SoQuyetDinh,
+                NgayQuyetDinh = it.NgayQuyetDinh,
+                NguoiKy = it.NguoiKy,
+                HeSoChucVu = it.HeSoChucVu,
+                GhiChu = it.GhiChu,
+                TenChucVu = it.ChucVu.TenChucVu,
+                TenDonVi = it.Department.Name,
+                TenCoSo = it.CoSo.TenCoSo
+            }).ToList();
+            var khenThuong = _context.QuaTrinhKhenThuongs.Where(it=>it.IDCanBo==id).Select(it => new KhenThuongDetailVM
+            {
+                IDQuaTrinhKhenThuong = it.IDQuaTrinhKhenThuong,
+                MaCanBo = it.CanBo.MaCanBo,
+                HoVaTen = it.CanBo.HoVaTen,
+                SoQuyetDinh = it.SoQuyetDinh,
+                NgayQuyetDinh = it.NgayQuyetDinh,
+                LyDo = it.LyDo,
+                NguoiKy = it.NguoiKy,
+                GhiChu = it.GhiChu,
+                TenDanhHieuKhenThuong = it.DanhHieuKhenThuong.TenDanhHieuKhenThuong,
+                TenHinhThucKhenThuong = it.HinhThucKhenThuong.TenHinhThucKhenThuong,
+            }).ToList();
+            var kyLuat = _context.QuaTrinhKyLuats.Where(it=>it.IDCanBo == id).Select(it => new KyLuatDetailVM
+            {
+                IdQuaTrinhKyLuat = it.IdQuaTrinhKyLuat,
+                MaCanBo = it.CanBo.MaCanBo,
+                HoVaTen = it.CanBo.HoVaTen,
+                SoQuyetDinh = it.SoQuyetDinh,
+                NgayKy = it.NgayKy,
+                LyDo = it.LyDo,
+                NguoiKy = it.NguoiKy,
+                GhiChu = it.GhiChu,
+                TenHinhThucKyLuat = it.HinhThucKyLuat.TenHinhThucKyLuat,
+            }).ToList();
+            profileCanBo.CanBo = canBo;
+            profileCanBo.QHGiaDinh = qhGiaDinh;
+            profileCanBo.DaoTao = daoTao;
+            profileCanBo.BoiDuong = boiDuong;
+            profileCanBo.BoNhiem = boNhiem;
+            profileCanBo.KhenThuong = khenThuong;
+            profileCanBo.KyLuat = kyLuat;
+            return View(profileCanBo);
         }
         public IActionResult Print(Guid id)
         {
@@ -645,7 +756,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
         private void CheckError(CanBoVMMT insert)
         {
             var checkExistMaCB = _context.CanBos.Where(it => it.MaCanBo == insert.MaCanBo).ToList();
-            if (checkExistMaCB.Count > 0)
+            if (checkExistMaCB.Count > 0 && insert.IDCanBo == null)
             {
                 ModelState.AddModelError("MaCanBo", "Mã cán bộ tồn tại không thể thêm");
             }

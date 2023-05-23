@@ -26,8 +26,10 @@
     <div class="page-header d-flex my-1">
         <div class="fs-16">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">@LanguageResource.QuanHeGiaDinh</a></li>
-                <li class="breadcrumb-item active" aria-current="page">@LanguageResource.Create</li>
+                <li class="breadcrumb-item">
+                    <a class="fs-18 fw-600" asp-area="@ConstArea.NhanSu" asp-controller="@ConstController.QuanHeGiaDinh" asp-action="Index">@LanguageResource.QuanHeGiaDinh</a>
+                </li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Create</li>
             </ol>
         </div>
         <div>

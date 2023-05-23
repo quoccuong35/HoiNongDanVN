@@ -110,10 +110,11 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                 return Redirect("~/Error/ErrorNotFound?data=" + id);
             }
             QuaTrinhDaoTaoVM obj = new QuaTrinhDaoTaoVM();
-            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
-            nhanSu.CanBo = true;
             var canBo = _context.CanBos.Include(it => it.CoSo).Include(it => it.Department)
                         .Include(it => it.PhanHe).Include(it => it.TinhTrang).Where(it => it.IDCanBo == item.IDCanBo).SingleOrDefault();
+            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
+            nhanSu = nhanSu.GeThongTin(canBo);
+            nhanSu.CanBo = true;
             nhanSu.IdCanbo = canBo.IDCanBo;
             nhanSu.HoVaTen = canBo.HoVaTen;
             nhanSu.MaCanBo = canBo.MaCanBo;
@@ -129,7 +130,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
             obj.CoSoDaoTao = item.CoSoDaoTao;
             obj.NgayTotNghiep = item.NgayTotNghiep;
             obj.QuocGia = item.QuocGia;
-            obj.LuanAnTN = item.LuanAnTN;
+            obj.LuanAnTN = item.LuanAnTN == null?false:item.LuanAnTN.Value;
             obj.GhiChu = item.GhiChu;
             obj.NhanSu = nhanSu;
             obj.IDQuaTrinhDaoTao = item.IDQuaTrinhDaoTao;

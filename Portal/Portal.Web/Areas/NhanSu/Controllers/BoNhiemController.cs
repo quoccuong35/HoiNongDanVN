@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Differencing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Portal.Constant;
@@ -66,7 +67,7 @@ namespace Portal.Web.Areas.NhanSu.Controllers
         [HttpGet]
         [PortalAuthorization]
         public IActionResult Create() {
-          
+
             BoNhiemVM boNhiem = new BoNhiemVM();
             NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
             nhanSu.CanBo = true;
@@ -94,10 +95,12 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                 }
             }
             return ExecuteContainer(() => {
-             
-               
                 add.CreatedTime = DateTime.Now;
                 add.CreatedAccountId = AccountId();
+                var canBo = _context.CanBos.SingleOrDefault(it => it.IDCanBo == add.IDCanBo);
+                add.IdCoSoCu = canBo!.IdCoSo;
+                add.IdDepartmentCu = canBo.IdDepartment;
+                add.MaChucVuCu = canBo.MaChucVu;
                 //_context.Attach(add).State = EntityState.Modified;
                 if (!String.IsNullOrEmpty(addFile.Url) && !String.IsNullOrWhiteSpace(addFile.Url))
                 {
@@ -126,12 +129,13 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                 return Redirect("~/Error/ErrorNotFound?data=" + id);
             }
             BoNhiemVM obj = new BoNhiemVM();
-            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
             var file = _context.FileDinhKems.SingleOrDefault(it=>it.Id == id);
 
-            nhanSu.CanBo = true;
             var canBo = _context.CanBos.Include(it => it.CoSo).Include(it => it.Department)
                         .Include(it => it.PhanHe).Include(it => it.TinhTrang).Where(it => it.IDCanBo == item.IDCanBo).SingleOrDefault();
+            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
+            nhanSu = nhanSu.GeThongTin(canBo);
+            nhanSu.CanBo = true;
             nhanSu.IdCanbo = canBo!.IDCanBo;
             nhanSu.HoVaTen = canBo.HoVaTen;
             nhanSu.MaCanBo = canBo.MaCanBo;
@@ -152,6 +156,8 @@ namespace Portal.Web.Areas.NhanSu.Controllers
             obj.NhanSu = nhanSu;
             obj.IdQuaTrinhBoNhiem = item.IdQuaTrinhBoNhiem;
             obj.FileDinhKem = file;
+
+            
 
             CreateViewBag(item.MaChucVu,item.IdCoSo,item.IdDepartment);
             return View(obj);
@@ -201,6 +207,10 @@ namespace Portal.Web.Areas.NhanSu.Controllers
                             FileDinhKem fileDinhKem = addFile.GetFileDinhKem();
                             _context.FileDinhKems.Add(fileDinhKem);
                         }
+                        //var canBo = _context.CanBos.SingleOrDefault(it => it.IDCanBo == edit.IDCanBo);
+                        //edit.IdCoSoCu = canBo!.IdCoSo;
+                        //edit.IdDepartmentCu = canBo.IdDepartment;
+                        //edit.MaChucVuCu = canBo.MaChucVu;
                         _context.Entry(edit).State = EntityState.Modified;
                         _context.SaveChanges();
                         tran.Complete();
@@ -221,32 +231,38 @@ namespace Portal.Web.Areas.NhanSu.Controllers
         {
             return ExecuteDelete(() =>
             {
-                var del = _context.QuaTrinhBoNhiems.FirstOrDefault(p => p.IdQuaTrinhBoNhiem == id);
-
-
-                if (del != null)
+                using (TransactionScope tran = new TransactionScope())
                 {
-                    //_context.Entry(accountInRoleModels).State = EntityState.Deleted;
-                    //_context.Entry(account).State = EntityState.Deleted;
-                    _context.Remove(del);
-                    _context.SaveChanges();
-
-                    return Json(new
+                    var del = _context.QuaTrinhBoNhiems.FirstOrDefault(p => p.IdQuaTrinhBoNhiem == id);
+                    if (del != null)
                     {
-                        Code = System.Net.HttpStatusCode.OK,
-                        Success = true,
-                        Data = string.Format(LanguageResource.Alert_Delete_Success, LanguageResource.BoNhiem.ToLower())
-                    });
-                }
-                else
-                {
-                    return Json(new
+                        var existFile = _context.FileDinhKems.SingleOrDefault(it => it.Id == id);
+                        if (existFile != null)
+                        {
+                            FunctionFile.Delete(_hostEnvironment, existFile.Url);
+                            _context.FileDinhKems.Remove(existFile);
+                        }
+                        _context.Remove(del);
+                        _context.SaveChanges();
+                        tran.Complete();
+                        return Json(new
+                        {
+                            Code = System.Net.HttpStatusCode.OK,
+                            Success = true,
+                            Data = string.Format(LanguageResource.Alert_Delete_Success, LanguageResource.BoNhiem.ToLower())
+                        });
+                    }
+                    else
                     {
-                        Code = System.Net.HttpStatusCode.NotModified,
-                        Success = false,
-                        Data = string.Format(LanguageResource.Alert_NotExist_Delete, LanguageResource.BoNhiem.ToLower())
-                    });
+                        return Json(new
+                        {
+                            Code = System.Net.HttpStatusCode.NotModified,
+                            Success = false,
+                            Data = string.Format(LanguageResource.Alert_NotExist_Delete, LanguageResource.BoNhiem.ToLower())
+                        });
+                    }
                 }
+                
             });
         }
         #endregion Delete

@@ -35,5 +35,21 @@ namespace Portal.Models
         public string? Error { get; set; }
         public bool CanBo { get; set; } = true;
         public bool Edit { get; set; } = true;
+
+        public NhanSuThongTinVM GeThongTin(CanBo canBo) {
+            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
+            nhanSu.IdCanbo = canBo.IDCanBo;
+            nhanSu.HoVaTen = canBo.HoVaTen;
+            nhanSu.MaCanBo = canBo.MaCanBo;
+            nhanSu.TenTinhTrang = canBo.TinhTrang.TenTinhTrang;
+            nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
+            nhanSu.TenDonVi = canBo.Department.Name;
+            nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
+            if (!String.IsNullOrWhiteSpace(canBo.HinhAnh) && !String.IsNullOrEmpty(canBo.HinhAnh))
+            { 
+                nhanSu.HinhAnh = canBo.HinhAnh;
+            }
+            return nhanSu;
+        }
     }
 }

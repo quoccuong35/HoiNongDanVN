@@ -23,10 +23,14 @@ namespace Portal.Models
         public Nullable<int> OrderIndex { get; set; }
         public ICollection<CanBo> CanBos { get; set; }
         public ICollection<QuaTrinhBoNhiem> QuaTrinhBoNhiems { get; set; }
+        public ICollection<QuaTrinhCongTac> QuaTrinhCongTacs { get; set; }
+        public ICollection<QuaTrinhMienNhiem> QuaTrinhMienNhiems { get; set; }
         public ChucVu()
         {
             CanBos = new List<CanBo>();
             QuaTrinhBoNhiems = new List<QuaTrinhBoNhiem>();
+            QuaTrinhCongTacs = new List<QuaTrinhCongTac>();
+            QuaTrinhMienNhiems = new List<QuaTrinhMienNhiem>();
         }
     }
 }

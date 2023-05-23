@@ -64,6 +64,8 @@ namespace Portal.DataAccess
         public DbSet<QuaTrinhDaoTao> QuaTrinhDaoTaos { get; set; }
         public DbSet<QuaTrinhBoiDuong> QuaTrinhBoiDuongs { get; set; }
         public DbSet<QuaTrinhBoNhiem> QuaTrinhBoNhiems { get; set; }
+        public DbSet<QuaTrinhCongTac> QuaTrinhCongTacs { get; set; }
+        public DbSet<QuaTrinhMienNhiem> QuaTrinhMienNhiems { get; set; }
         #endregion nhanSu
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -532,7 +534,24 @@ namespace Portal.DataAccess
                 .HasConstraintName("FK_QuaTrinhBoiDuong_HinhThucDaoTao");
 
             });
+            builder.Entity<QuaTrinhCongTac>(entity => {
+                entity.ToTable("QuaTrinhCongTac", "NS");
+                entity.HasKey(it => it.IDQuaTrinhCongTac);
+                entity.Property(it => it.TuNgay).IsRequired(true);
+                entity.Property(it => it.DenNgay).IsRequired(true);
+                entity.Property(it => it.NoiLamViec).IsRequired(true).HasMaxLength(500);
+                entity.Property(it => it.GhiChu).IsRequired(false).HasMaxLength(500);
+                entity.HasOne<ChucVu>(it => it.ChucVu)
+                .WithMany(it => it.QuaTrinhCongTacs)
+                .HasForeignKey(it => it.MaChucVu)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasConstraintName("FK_QuaTrinhCongTac_ChucVu");
 
+                entity.HasOne<CanBo>(it => it.CanBo)
+                .WithMany(it => it.QuaTrinhCongTacs)
+                .HasForeignKey(it => it.IDCanBo)
+                .HasConstraintName("FK_QuaTrinhCongTac_CanBo");
+            });
             builder.Entity<QuaTrinhBoNhiem>(entity => {
                 entity.ToTable("QuaTrinhBoNhiem", "NS");
                 entity.HasKey(it => it.IdQuaTrinhBoNhiem);
@@ -563,6 +582,37 @@ namespace Portal.DataAccess
                .HasForeignKey(it => it.IdDepartment)
                .OnDelete(DeleteBehavior.NoAction)
                .HasConstraintName("FK_QuaTrinhBoNhiem_Department");
+            });
+            builder.Entity<QuaTrinhMienNhiem>(entity => {
+                entity.ToTable("QuaTrinhMienNhiem", "NS");
+                entity.HasKey(it => it.IDQuaTrinhMienNhiem);
+                entity.Property(it => it.NgayQuyetDinh).IsRequired(true);
+                entity.Property(it => it.SoQuyetDinh).HasMaxLength(100).IsRequired(true);
+                entity.Property(it => it.NguoiKy).HasMaxLength(150).IsRequired(true);
+                entity.Property(it => it.GhiChu).HasMaxLength(500).IsRequired(false);
+
+                entity.HasOne<CanBo>(it => it.CanBo)
+                .WithMany(it => it.QuaTrinhMienNhiems)
+                .HasForeignKey(it => it.IDCanBo)
+                .HasConstraintName("FK_QuaTrinhMienNhiem_CanBo");
+
+                entity.HasOne<ChucVu>(it => it.ChucVu)
+                .WithMany(it => it.QuaTrinhMienNhiems)
+                .HasForeignKey(it => it.MaChucVu)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasConstraintName("FK_QuaTrinhMienNhiem_ChucVu");
+
+                entity.HasOne<CoSo>(it => it.CoSo)
+                 .WithMany(it => it.QuaTrinhMienNhiems)
+                 .HasForeignKey(it => it.IdCoSo)
+                 .OnDelete(DeleteBehavior.NoAction)
+                 .HasConstraintName("FK_QuaTrinhMienNhiem_CoSo");
+
+                entity.HasOne<Department>(it => it.Department)
+                 .WithMany(it => it.QuaTrinhMienNhiems)
+                 .HasForeignKey(it => it.IdDepartment)
+                 .OnDelete(DeleteBehavior.NoAction)
+                 .HasConstraintName("FK_QuaTrinhMienNhiem_Department");
             });
             builder.Entity<FileDinhKem>(tbl =>
             {

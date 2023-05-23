@@ -409,6 +409,7 @@ Portal.ImportModalHideHandler = function () {
 Portal.Table = function () {   
     try {
         var table = $('#data-list').DataTable({
+            autoFill: true,
             responsive: false,
             autoWidth: true,
             autoHeight: false,
@@ -423,7 +424,7 @@ Portal.Table = function () {
             }
         });
         table.buttons().container()
-            .appendTo('#file-datatable_wrapper .col-md-6:eq(0)');
+            .appendTo('#data-list_wrapper .col-md-6:eq(0)');
     } catch (e) {
         console.log(e);
     }
@@ -475,38 +476,52 @@ Portal.DeleteFileDinhKem = function (controller) {
         let id = $btn.data("id");
         formData = new FormData();
         formData.append("id", id);
-        $.ajax({
-            type: "POST",
-            url: "/NhanSu/FileDinhKem/DeleteFile",
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (jsonData) {
+        Swal.fire({
+            title: 'Xóa thông tin',
+            html: "Bạn có muốn xóa file đang chọn",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có',
+            cancelButtonText: "Không"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "/NhanSu/FileDinhKem/DeleteFile",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (jsonData) {
 
-                if (jsonData.success == true) {
-                    if (jsonData.data != null) {
-                        toastr.success(jsonData.data);
-                        var del_html = $("#" + id);
-                        if (del_html != null) {
-                            del_html.remove();
+                        if (jsonData.success == true) {
+                            if (jsonData.data != null) {
+                                toastr.success(jsonData.data);
+                                var del_html = $("#" + id);
+                                if (del_html != null) {
+                                    del_html.remove();
+                                }
+                            }
                         }
+                        else {
+                            if (jsonData.data != null && jsonData.data != "") {
+                                toastr.error(jsonData.data);
+                            }
+                            else if (jsonData.indexOf("from-login-error") > 0) {
+                                toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                                setTimeout(function () {
+                                    var url = window.location.href.toString().split(window.location.host)[1];
+                                    window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                                }, 1000);
+                            }
+                        }
+                    },
+                    error: function (xhr, status, error) {
                     }
-                }
-                else {
-                    if (jsonData.data != null && jsonData.data != "") {
-                        toastr.error(jsonData.data);
-                    }
-                    else if (jsonData.indexOf("from-login-error") > 0) {
-                        toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                        setTimeout(function () {
-                            var url = window.location.href.toString().split(window.location.host)[1];
-                            window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                        }, 1000);
-                    }
-                }
-            },
-            error: function (xhr, status, error) {
+                });
             }
-        });
+        })
+        
     });
 }

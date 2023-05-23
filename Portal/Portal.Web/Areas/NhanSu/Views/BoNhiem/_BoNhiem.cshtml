@@ -1,7 +1,15 @@
 ﻿@model BoNhiemVM
 <div class="row">
     <input asp-for="IdQuaTrinhBoNhiem" hidden />
-
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="Loai"></label><span class="text-red">*</span>
+            <select asp-for="Loai" class="form-control" asp-items="@Html.GetEnumSelectList<LoaiBoNhiem>()">
+                <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+            </select>
+            <span asp-validation-for="Loai" class="text-danger"></span>
+        </div>
+    </div>
     <div class="col-md-3">
         <div class="form-group">
             <label asp-for="IdCoSo"></label><span class="text-red">*</span>
