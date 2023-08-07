@@ -1,0 +1,31 @@
+﻿@using HoiNongDan.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<DBHoatDongHoiVienDetailVM>
+
+<table id="data-list" class="table table-bordered text-nowrap mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th class="text-center">@LanguageResource.NumberIndex</th>
+            <th>@Html.DisplayNameFor(p => p.MaHoiVien)</th>
+            <th>@Html.DisplayNameFor(p => p.HoVaTen)</th>
+            <th>@Html.DisplayNameFor(p => p.TenChucVu)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr>
+                <td class="text-center">@i</td>
+                <td>@Html.DisplayFor(p => item.MaHoiVien)</td>
+                <td>@Html.DisplayFor(p => item.HoVaTen)</td>
+                <td>@Html.DisplayFor(p => item.TenChucVu)</td>
+                <td><a class="btn text-secondary bg-secondary-transparent btn-icon btn-hoivien-roidi" data-bs-toggle="tooltip" data-bs-original-title="Rời địa bàn"><icon class="fa fa-blind fs-16"></icon></a></td>
+            </tr>
+        }
+    </tbody>
+</table>

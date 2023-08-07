@@ -1,0 +1,122 @@
+﻿
+@using HoiNongDan.Resources
+
+@model DiaBanHoatDongVM
+@{
+    ViewBag.Title = LanguageResource.Create + LanguageResource.DiaBanHoatDong;
+    string CurrentController = ConstController.DiaBanHoatDong;
+    string CurrentArea = ConstArea.HoiVien;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+}
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header d-flex my-1">
+        <div class="fs-16">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a class="fs-18 fw-600" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.DiaBanHoatDong" asp-action="Index">@LanguageResource.DiaBanHoatDong</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">@LanguageResource.Edit</li>
+            </ol>
+        </div>
+        <div>
+            @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
+            @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
+            @HtmlExtensions.BackButton(CurrentArea,CurrentController)
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <img class="me-3" src="~/Images/detail.png" /><span class="fs-14 fw-600">Thông tin chi tiết</span>
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <form method="post" asp-action="Edit" id="frmEdit">
+                                        @Html.Partial("_DiaBanHoatDong",Model)
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <img class="me-3" src="~/Images/users-add.png" /><span class="fs-14 fw-600">Thông tin thành viên</span>
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="btn-list mb-1">
+                                        <form method="post" asp-action="Edit" id="frmEditChiTiet">
+                                            <div class="row">
+                                                <input hidden asp-for="DBHoiVien.IdDiaBan" />
+                                                <div class="col-md-4">
+                                                    <label>Hội viên</label><span class="text-red">*</span>
+                                                    <select asp-for="DBHoiVien.IDCanBo" asp-items="@ViewBag.IDCanBo" class="form-control select2-show-search form-select">
+                                                        <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                    </select>
+                                                    <span asp-validation-for="DBHoiVien.IDCanBo" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label>Chức vụ</label><span class="text-red">*</span>
+                                                    <select asp-for="DBHoiVien.MaChucVu" asp-items="@ViewBag.MaChucVu" class="form-control select2-show-search form-select">
+                                                        <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                    </select>
+                                                    <span asp-validation-for="DBHoiVien.MaChucVu" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label>Ngày tham gia</label><span class="text-red">*</span>
+                                                    <input asp-for="DBHoiVien.NgayVao" class="form-control">
+                                                    <span asp-validation-for="DBHoiVien.NgayVao" class="text-danger"></span>
+                                                </div>
+                                                <div class="col-md-2" style="top:27px">
+                                                    <a class="btn btn-primary me-1" id="btn-save-hoivien" onclick="$(this).button('loading')">
+                                                        <i class="fa fa-save"> Lưu</i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        
+                                    </div>
+                                    <div class="table-responsive" id="detailList">
+                                        @Html.Partial("_DiaBanHoiVien", Model.DBHoiVienDetails)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+<!-- Inout modal -->
+<!-- End Datepicker modal -->
+@section Scripts{
+    @{
+    <partial name="_ValidationScriptsPartial" />
+    }
+    }
+    @section ScriptCustomized{
+    <script src="~/js/diabanhoatdong.js"></script>
+    <script src="~/js/diabanhoivien.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            HoiNongDan.EditInitial("@CurrentUrl");
+            HoiNongDan.Table();
+            DiaBanHoiVien.Init("@CurrentUrl");
+        });
+    </script>
+}

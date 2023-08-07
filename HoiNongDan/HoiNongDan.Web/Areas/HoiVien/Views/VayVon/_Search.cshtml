@@ -1,0 +1,53 @@
+﻿@using HoiNongDan.Constant
+@using HoiNongDan.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<VayVonDetailVM>
+@{
+    string CurrentController = ConstController.VayVon;
+    string CurrentArea = ConstArea.HoiVien;
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th class="text-center">@LanguageResource.NumberIndex</th>
+            <th>@Html.DisplayNameFor(p => p.MaHV)</th>
+            <th>@Html.DisplayNameFor(p => p.TenHV)</th>
+            <th>@Html.DisplayNameFor(p => p.SoTienVay)</th>
+            <th>@Html.DisplayNameFor(p => p.ThoiHangChoVay)</th>
+            <th>@Html.DisplayNameFor(p => p.LaiSuatVay)</th>
+            <th>@Html.DisplayNameFor(p => p.NgayTraNoCuoiCung)</th>
+            <th>@Html.DisplayNameFor(p => p.NoiDungVay)</th>
+            <th class="text-center">@LanguageResource.Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+            string ngayTraCuoiCung;
+        }
+        @foreach (var item in Model)
+        {
+            ngayTraCuoiCung = item.NgayTraNoCuoiCung.ToString("dd/MM/yyyy");
+            i++;
+            <tr>
+                <td class="text-center">@i</td>
+                <td>@item.MaHV</td>
+                <td>@item.TenHV</td>
+                <td>@item.SoTienVay.ToString("N0")</td>
+                <td>@item.ThoiHangChoVay</td>
+                <td>@item.LaiSuatVay</td>
+                <td>@ngayTraCuoiCung</td>
+                <td>@item.NoiDungVay</td>
+                <td class="text-center">
+                    @if (item.TraXong != true)
+                    {
+                        @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.IDVayVon, listRoles: listRoles)
+                    }
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.TenHV!, item.IDVayVon, listRoles: listRoles)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

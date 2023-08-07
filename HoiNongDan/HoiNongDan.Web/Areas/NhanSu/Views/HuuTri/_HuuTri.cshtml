@@ -1,0 +1,58 @@
+﻿@model HuuTriVM
+<div class="row">
+    <input asp-for="Id" hidden />
+    <input asp-for="IDCanBo" hidden />
+    <div class="col-md-2">
+        <div class="form-group">
+            <label asp-for="SoQuyetDinh"></label><span class="text-red">*</span>
+            <input asp-for="SoQuyetDinh" class="form-control">
+            <span asp-validation-for="SoQuyetDinh" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label asp-for="NgayQuyetDinh"></label><span class="text-red">*</span>
+            <input asp-for="NgayQuyetDinh" class="form-control">
+            <span asp-validation-for="NgayQuyetDinh" class="text-danger"></span>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>@LanguageResource.Upload</label>
+            <input class="form-control" type="file" name="fileInbox">
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="NguoiKy"></label>
+            <input asp-for="NguoiKy" class="form-control">
+            <span asp-validation-for="NguoiKy" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-2" style="display:flex;align-items:end;padding-bottom:10px;">
+        <label class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" asp-for="CapNhatTinhTrangCanBo">
+            <span class="custom-control-label">Cập nhật cán bộ</span>
+        </label>
+    </div>
+    @if (@Model.FileDinhKem != null && !String.IsNullOrEmpty(@Model.FileDinhKem!.Url) && !String.IsNullOrWhiteSpace(@Model.FileDinhKem!.Url))
+    {
+        <div class="col-md-12">
+            <div class="btn-group file-attach m-2" role="group" aria-label="Basic example" id="@Model.FileDinhKem.Key">
+                <a class="btn btn-sm btn-primary text-white" asp-area="@Model.FileDinhKem!.Url" asp-controller="" asp-action=""><i class="mdi mdi-file-image mx-2"></i>@Model.FileDinhKem!.FileName</a>
+                <a class="btn btn-close btn-sm btn-primary text-white btn-deletefile" data-id="@Model.FileDinhKem.Key" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+            </div>
+        </div>
+    }
+    <div class="col-md-12">
+        <div class="form-group">
+            <label asp-for="GhiChu"></label>
+            <textarea asp-for="GhiChu" rows="3" class="form-control"></textarea>
+            <span asp-validation-for="GhiChu" class="text-danger"></span>
+        </div>
+    </div>
+   
+</div>

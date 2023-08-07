@@ -1,0 +1,62 @@
+﻿@using HoiNongDan.Models
+@using HoiNongDan.Resources
+@model HoiVienVM
+@{
+    ViewBag.Title = LanguageResource.Edit + LanguageResource.HoiVien;
+    string CurrentController = ConstController.HoiVien;
+    string CurrentArea = ConstArea.HoiVien;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+}
+<style>
+    #avtImg {
+        vertical-align: middle;
+        width: 140px;
+        height: 140px;
+        border-radius: 10px;
+    }
+
+    .border-top {
+        border-top: 4px dotted blue;
+    }
+</style>
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header d-flex my-1">
+        <div class="fs-20">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a class="fs-18 fw-600" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.HoiVien" asp-action="Index">@LanguageResource.HoiVien</a>
+                </li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Create</li>
+            </ol>
+        </div>
+        <div class="header-sticky">
+            @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
+            @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
+            @HtmlExtensions.BackButton(CurrentArea,CurrentController)
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <form method="post" asp-action="Edit" id="frmEdit">
+        @Html.Partial("_HoiVien",Model)
+    </form>
+    <!-- /Row -->
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    }
+    @section ScriptCustomized{
+    <script src="~/js/canbo.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            HoiNongDan.EditInitial("@CurrentUrl");
+        });
+    </script>
+}

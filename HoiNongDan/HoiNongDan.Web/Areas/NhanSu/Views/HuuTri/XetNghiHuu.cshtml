@@ -1,0 +1,95 @@
+﻿@model XetNghiHuuSearchVM
+@{
+    ViewBag.Title = LanguageResource.List + LanguageResource.XetNghiHuu.ToLower();
+    string CurrentController = ConstController.HuuTri;
+    string CurrentArea = ConstArea.NhanSu;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User != null ? User.FindFirst("Roles")!.Value : "";
+
+}
+<div class="main-container container-fluid">
+    <!-- PAGE-HEADER -->
+    <div class="page-header my-2">
+        <div>
+            <span class="header-title">@LanguageResource.List @LanguageResource.XetNghiHuu.ToLower()</span>
+            <div class="rectangle">
+                <span> </span>
+                <span> </span>
+                <span> </span>
+            </div>
+        </div>
+        @*<div class="d-flex px-2">
+            <button type="button" class="btn btn-success me-2"><i class="fe fe-check me-2"></i>Đến tuổi nghỉ hưu</button>
+            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
+        </div>*@
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="splitter rounded-3">
+                <div class="splitter-head">Thông tin xét</div>
+                <div class="splitter-body">
+                    <form method="get" id="frmSearch">
+                        <div class="row my-2">
+                            <div class="col-md-2">
+                                <label>@LanguageResource.TuNgay</label>
+                                <input asp-for="TuNgay" class="form-control">
+                            </div>
+                            <div class="col-md-5">
+                                <label asp-for="IdCoSo"></label>
+                                @Html.DropDownList("IdCoSo", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-5">
+                                <label asp-for="IdDepartment"></label>
+                                @Html.DropDownList("IdDepartment", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-5">
+                                <label >Nam</label>
+                                <div class="input-group">
+                                   <span class="input-group-text" id="basic-addon1">Tuổi</span>
+                                   <input type="number" class="form-control" asp-for="Nam_Tuoi" min="60">
+                                    <span class="input-group-text" id="basic-addon1">Tháng</span>
+                                    <input type="number" class="form-control" asp-for="Nam_Thang" min="0" max="12">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label>Nữ</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">Tuổi</span>
+                                    <input type="number" class="form-control" asp-for="Nu_Tuoi" min="56">
+                                    <span class="input-group-text" id="basic-addon1">Tháng</span>
+                                    <input type="number" class="form-control" asp-for="Nu_Thang" min="0" max="12">
+                                </div>
+                            </div>
+                            <div class="col-2 d-flex align-items-end">
+                                @HtmlExtensions.SearchButton()
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-status bg-blue br-te-7 br-ts-7"></div>
+                <div class="card-body">
+                    <div class="table-responsive" id="divSearchResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+
+@section ScriptCustomized {
+    <script src="~/js/canbo.js"></script>
+    <script>
+        $(document).ready(function () {
+            HoiNongDan.SearchInitial("@CurrentUrl", "_DSDenTuoiNghiHuu");
+        });
+    </script>
+}

@@ -1,0 +1,44 @@
+﻿
+@using HoiNongDan.Constant
+@using HoiNongDan.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<DanTocVM>
+@{
+    string CurrentController = ConstController.DanToc;
+    string CurrentArea = ConstArea.MasterData;
+    string listRoles = User.FindFirst("Roles").Value!;
+    listRoles = listRoles == null ? "" : listRoles;
+
+}
+<table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th class="text-center">@LanguageResource.NumberIndex</th>
+            <th>@Html.DisplayNameFor(p => p.MaDanToc)</th>
+            <th>@Html.DisplayNameFor(p => p.TenDanToc)</th>
+            <th>@Html.DisplayNameFor(p => p.OrderIndex)</th>
+            <th>@Html.DisplayNameFor(p => p.Description)</th>
+            <th class="text-center">@LanguageResource.Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr>
+                <td class="text-center">@i</td>
+                <td>@Html.DisplayFor(p => item.MaDanToc)</td>
+                <td>@Html.DisplayFor(p => item.TenDanToc)</td>
+                <td>@Html.DisplayFor(p => item.OrderIndex)</td>
+                <td>@Html.DisplayFor(p => item.Description)</td>
+                <td class="text-center">
+                    @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.MaDanToc,listRoles:listRoles)
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.TenDanToc, item.MaDanToc,listRoles: listRoles)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

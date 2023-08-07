@@ -1,0 +1,203 @@
+﻿@model ProfileCanBo
+@using HoiNongDan.Constant
+<div class="main-container container-fluid mt-2">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex bg-gray-100">
+                <div class="flex-shrink-0 mr-7">
+                    <div class="avatar avatar-xxl chat-profile mb-3 brround">
+                        <a class="" asp-area="@ConstArea.NhanSu" asp-controller ="@ConstController.CanBo" asp-action="edit" asp-route-id="@Model.CanBo.IDCanBo"><img alt="avatar" src="~/Images/avatar5.png" class="brround"></a>
+                    </div>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap mt-2">
+                        <div class="w-100">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap mt-2">
+                                <div class="d-flex flex-wrap my-2">
+                                    <div class="d-flex align-items-center flex-lg-fill" style="padding-left:10px">
+                                        <a class="text-hover-primary fs-16 fw-600">   @Model.CanBo.HoVaTen.ToUpper()</a>
+                                    </div>
+                                </div>
+                                <div class="my-lg-0 my-1">
+                                    <div class="btn-group ml-2">
+                                        <button type="button" class="btn btn-light font-weight-bold btn-sm px-3 font-size-base">
+                                            <span class="svg-icon svg-icon-2x">
+
+                                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                                                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                        <rect x="0" y="0" width="24" height="24"></rect>
+                                                        <path d="M19,11 L21,11 C21.5522847,11 22,11.4477153 22,12 C22,12.5522847 21.5522847,13 21,13 L19,13 C18.4477153,13 18,12.5522847 18,12 C18,11.4477153 18.4477153,11 19,11 Z M3,11 L5,11 C5.55228475,11 6,11.4477153 6,12 C6,12.5522847 5.55228475,13 5,13 L3,13 C2.44771525,13 2,12.5522847 2,12 C2,11.4477153 2.44771525,11 3,11 Z M12,2 C12.5522847,2 13,2.44771525 13,3 L13,5 C13,5.55228475 12.5522847,6 12,6 C11.4477153,6 11,5.55228475 11,5 L11,3 C11,2.44771525 11.4477153,2 12,2 Z M12,18 C12.5522847,18 13,18.4477153 13,19 L13,21 C13,21.5522847 12.5522847,22 12,22 C11.4477153,22 11,21.5522847 11,21 L11,19 C11,18.4477153 11.4477153,18 12,18 Z" fill="#000000" fill-rule="nonzero" opacity="0.3"></path>
+                                                        <circle fill="#000000" opacity="0.3" cx="12" cy="12" r="2"></circle>
+                                                        <path d="M12,17 C14.7614237,17 17,14.7614237 17,12 C17,9.23857625 14.7614237,7 12,7 C9.23857625,7 7,9.23857625 7,12 C7,14.7614237 9.23857625,17 12,17 Z M12,19 C8.13400675,19 5,15.8659932 5,12 C5,8.13400675 8.13400675,5 12,5 C15.8659932,5 19,8.13400675 19,12 C19,15.8659932 15.8659932,19 12,19 Z" fill="#000000" fill-rule="nonzero"></path>
+                                                    </g>
+                                                </svg>
+
+                                            </span> Xem chi tiết
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex flex-wrap my-2">
+                                         <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                                            <span style="margin-right:10px">
+                                                <i class="fa fa-home fs-25 text-danger"></i>
+                                            </span>
+                                            <div class="d-flex flex-column">
+                                                <span class="fs-12 fw-600">Đơn vị</span>
+                                                <span class="fs-16 fw-bold">
+                                                    @Model.CanBo.TenDonVi
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                                            <span style="margin-right:10px">
+                                                <i class="fa fa-address-card-o fs-25 text-success"></i>
+                                            </span>
+                                            <div class="d-flex flex-column">
+                                                <span class="fs-12 fw-600">Chức vụ</span>
+                                                <span class="fs-16 fw-bold">
+                                                    @Model.CanBo.TenChucVu
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center flex-lg-fill my-1" tyle="margin-right:10px">
+                                            <span style="margin-right:10px">
+                                                <i class="fa fa-volume-control-phone fs-25 text-warning"></i>
+                                            </span>
+                                            <div class="d-flex flex-column">
+                                                <span class="fs-12 fw-600">Điện thoại</span>
+                                                <span class="fs-16 fw-bold">
+                                                    @Model.CanBo.SoDienThoai
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                                            <span style="margin-right:10px">
+                                                <i class="fe fe-mail fs-25 text-primary"></i>
+                                            </span>
+                                            <div class="d-flex flex-column">
+                                                <span class="fs-12 fw-600">Email</span>
+                                                <span class="fs-16 fw-bold">
+                                                    @Model.CanBo.SoDienThoai
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+            <hr style="background:red" />
+            <div class="panel panel-primary">
+                <div class="tab-menu-heading">
+                    <div class="tabs-menu">
+                        <!-- Tabs -->
+                        <ul class="nav panel-tabs panel-info">
+                            <li><a href="#tabcanbo" class="active" data-bs-toggle="tab"><span><i class="fa fa-id-card-o me-1"></i></span>Thông tin thêm</a></li>
+                            <li><a href="#tab21" data-bs-toggle="tab"><span><i class="fa fa-group me-1"></i></span>Quan hệ gia đình</a></li>
+                            <li><a href="#tab22" data-bs-toggle="tab"><span><i class="fa fa-graduation-cap me-1"></i></span>Đào tạo</a></li>
+                            <li><a href="#tab23" data-bs-toggle="tab"><span><i class="fa fa-laptop me-1"></i></span>Bồi dưỡng</a></li>
+                            <li><a href="#tab24" data-bs-toggle="tab"><span><i class="fa fa-user-plus me-1"></i></span>Bỗ nhiệm</a></li>
+                            <li><a href="#tabkhenthuong" data-bs-toggle="tab"><span><i class="fa fa-gift me-1"></i></span>Khen thưởng</a></li>
+                            <li><a href="#tabkyluat" data-bs-toggle="tab"><span><i class="fa fa-times-rectangle-o me-1"></i></span>Kỷ luật</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body tabs-menu-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tabcanbo">
+                            <div class="row bg-gray-100">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <span class="mr-15 font-weight-bold">
+                                            <span class="dot bg-light-dark mr-2"></span>   <span> Mã:</span>
+                                        </span>
+                                        <span class="text-right font-weight-bolder">@Model.CanBo.MaCanBo</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="mr-15 font-weight-bold">
+                                            <span class="dot bg-light-dark mr-2"></span>   <span> Tình trạng:</span>
+                                        </span>
+                                        <span class="text-right font-weight-bolder">@Model.CanBo.TenTinhTrang</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="mr-15 font-weight-bold">
+                                            <span class="dot bg-light-dark mr-2"></span>   <span> Phân hệ:</span>
+                                        </span>
+                                        <span class="text-right font-weight-bolder">@Model.CanBo.TenPhanHe</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <span class="mr-15 font-weight-bold">
+                                            <span class="dot bg-light-dark mr-2"></span>   <span> Ngạch lương:</span>
+                                        </span>
+                                        <span class="text-right font-weight-bolder">@Model.CanBo.TenNgachLuong</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="mr-15 font-weight-bold">
+                                            <span class="dot bg-light-dark mr-2"></span>   <span> Bậc lương:</span>
+                                        </span>
+                                        <span class="text-right font-weight-bolder">@Model.CanBo.TenBacLuong</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="mr-15 font-weight-bold">
+                                            <span class="dot bg-light-dark mr-2"></span>   <span> Hệ số lương:</span>
+                                        </span>
+                                        <span class="text-right font-weight-bolder">@Model.CanBo.HeSoLuong</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <span class="mr-15 font-weight-bold">
+                                            <span class="dot bg-light-dark mr-2"></span>   <span> Trình độ học vấn:</span>
+                                        </span>
+                                        <span class="text-right font-weight-bolder">@Model.CanBo.MaTrinhDoHocVan</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="mr-15 font-weight-bold">
+                                            <span class="dot bg-light-dark mr-2"></span>   <span> Trình độ chính trị:</span>
+                                        </span>
+                                        <span class="text-right font-weight-bolder">@Model.CanBo.MaTrinhDoChinhTri</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="mr-15 font-weight-bold">
+                                            <span class="dot bg-light-dark mr-2"></span>   <span> Chuyên ngành:</span>
+                                        </span>
+                                        <span class="text-right font-weight-bolder">@Model.CanBo.ChuyenNganh</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab21">
+                            <div class="row table-responsive">
+                                @Html.Partial("~/Areas/NhanSu/Views/QHGiaDinh/_Search.cshtml", Model.QHGiaDinh)
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab22">
+                            <div class="row table-responsive">@Html.Partial("~/Areas/NhanSu/Views/DaoTao/_Search.cshtml", Model.DaoTao)</div>
+                        </div>
+                        <div class="tab-pane" id="tab23">
+                            <div class="row table-responsive">@Html.Partial("~/Areas/NhanSu/Views/BoiDuong/_Search.cshtml", Model.BoiDuong)</div>
+                        </div>
+                        <div class="tab-pane" id="tab24">
+                            <div class="row table-responsive">@Html.Partial("~/Areas/NhanSu/Views/BoNhiem/_Search.cshtml", Model.BoNhiem)</div>
+                        </div>
+                        <div class="tab-pane" id="tabkhenthuong">
+                            <div class="row table-responsive"> @Html.Partial("~/Areas/NhanSu/Views/KhenThuong/_Search.cshtml", Model.KhenThuong)</div>
+                           
+                        </div>
+                        <div class="tab-pane" id="tabkyluat">
+                            <div class="row table-responsive">@Html.Partial("~/Areas/NhanSu/Views/KyLuat/_Search.cshtml", Model.KyLuat)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

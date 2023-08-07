@@ -1,0 +1,67 @@
+﻿@using HoiNongDan.Models
+@using HoiNongDan.Resources
+
+@model KyLuatVM
+@{
+    ViewBag.Title = LanguageResource.Edit + LanguageResource.KyLuat;
+    string CurrentController = ConstController.KyLuat;
+    string CurrentArea = ConstArea.NhanSu;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+}
+
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header d-flex my-1">
+        <div class="fs-16">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="fs-18 fw-600" asp-area="@ConstArea.NhanSu" asp-controller="@ConstController.KyLuat" asp-action="Index">@LanguageResource.KyLuat</a></li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Edit</li>
+            </ol>
+        </div>
+        <div>
+            @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
+            @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
+            @HtmlExtensions.BackButton(CurrentArea,CurrentController)
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary br-te-3 br-ts-3">
+                    <h3 class="card-title text-white">Thông tin chi tiết</h3>
+                    <div class="card-options ">
+                        <a href="javascript:void(0)" class="card-options-collapse" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up text-white"></i></a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-action="Create" id="frmEdit">
+                        <div class="row" id="Part_ThongTinNhanSu">
+                            @Html.Partial("~/Areas/NhanSu/Views/NhanSuThongTin/_NhanSuThongTin.cshtml", Model.NhanSu)
+                        </div>
+                        <hr />
+                        @Html.Partial("_KyLuat",Model)
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    }
+    @section ScriptCustomized{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            HoiNongDan.EditInitial("@CurrentUrl");
+        });
+    </script>
+}
