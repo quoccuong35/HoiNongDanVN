@@ -39,7 +39,7 @@ $(function() {
             verticalLines: false,
             horizontalLines: false
         },
-        colors: ['#6c5ffc', '#05c3fb'],
+        colors: ['#136d38', '#05c3fb'],
         yaxis: {
             min: -1.2,
             max: 1.2,
@@ -84,7 +84,7 @@ $(function() {
             verticalLines: false,
             horizontalLines: false
         },
-        colors: ['#6c5ffc', '#05c3fb'],
+        colors: ['#136d38', '#05c3fb'],
         yaxis: {
             min: -1.2,
             max: 1.2,
@@ -147,7 +147,7 @@ $(function() {
         grid: {
             borderColor: "rgba(119, 119, 142, 0.1)",
         },
-        colors: ["#6c5ffc"],
+        colors: ["#136d38"],
         yaxis: {
             min: 0,
             max: 100,
@@ -208,7 +208,7 @@ $(function() {
             grid: {
                 borderColor: "rgba(119, 119, 142, 0.1)",
             },
-            colors: ['#6c5ffc', '#05c3fb'],
+            colors: ['#136d38', '#05c3fb'],
             yaxis: {
                 tickLength: 0
             },
@@ -255,7 +255,7 @@ $(function() {
                     show: true
                 }
             },
-            colors: ['#6c5ffc', '#05c3fb', '#09ad95', '#1170e4', '#f82649'],
+            colors: ['#136d38', '#05c3fb', '#09ad95', '#1170e4', '#f82649'],
         });
     });
     $("#example-2").on('click', function() {
@@ -268,7 +268,7 @@ $(function() {
                     show: true
                 }
             },
-            colors: ['#6c5ffc', '#05c3fb', '#09ad95', '#1170e4', '#f82649'],
+            colors: ['#136d38', '#05c3fb', '#09ad95', '#1170e4', '#f82649'],
             legend: {
                 show: false
             }

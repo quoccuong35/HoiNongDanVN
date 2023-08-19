@@ -35,9 +35,9 @@ namespace HoiNongDan.Models
         public DateTime? CreatedTime { get; set; } = DateTime.Now;
         public Guid? LastModifiedAccountId { get; set; }
         public DateTime? LastModifiedTime { get; set; }
-        public ICollection<DiaBanHoatDong_ThanhVien> DiaBanHoatDongThanhViens { get; set; }
+        public ICollection<CanBo> CanBos { get; set; }
         public DiaBanHoatDong() {
-            DiaBanHoatDongThanhViens = new List<DiaBanHoatDong_ThanhVien>();
+            CanBos = new List<CanBo>();
         }
     }
 }

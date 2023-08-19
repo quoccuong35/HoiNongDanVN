@@ -23,7 +23,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         #region Index
         public IActionResult Index()
         {
-            CreateViewBag();
+            //CreateViewBag();
             return View("Index");
         }
         public IActionResult _Search(DepartmentSearchVM userSearch)
@@ -67,13 +67,13 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 departmentVM.Id = item.Id;
                 departmentVM.Name = item.Name;
                 departmentVM.Code = item.Code;
-                departmentVM.IdCoSo = item.IDCoSo;
+                //departmentVM.IdCoSo = item.IDCoSo;
                 departmentVM.Actived = item.Actived;
                 departmentVM.Description = item.Description;
                 departmentVM.OrderIndex = item.OrderIndex;
 
             }
-            CreateViewBag(departmentVM.IdCoSo);
+            //CreateViewBag(departmentVM.IdCoSo);
             return View(departmentVM);
         }
         [HttpPost]
@@ -92,7 +92,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                         Description = obj.Description,
                         OrderIndex = obj.OrderIndex,
                         Actived = true,
-                        IDCoSo = obj.IdCoSo,
+                        //IDCoSo = obj.IdCoSo,
                         CreatedAccountId = Guid.NewGuid(),
                         CreatedTime = DateTime.Now
 
@@ -114,7 +114,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                         departmentEdit.Actived = obj.Actived == null ? true : obj.Actived.Value;
                         departmentEdit.Name = obj.Name;
                         departmentEdit.Code = obj.Code;
-                        departmentEdit.IDCoSo = obj.IdCoSo;
+                        departmentEdit.OrderIndex = obj.OrderIndex;
+                        //departmentEdit.IDCoSo = obj.IdCoSo;
                         departmentEdit.Description = obj.Description;
                         departmentEdit.LastModifiedAccountId = new Guid(CurrentUser.AccountId!);
                         departmentEdit.LastModifiedTime = DateTime.Now;
@@ -178,10 +179,10 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         #endregion Delete
         #region Helper
-        private void CreateViewBag(Guid? IdCoSo = null) {
-            var MenuList = _context.CoSos.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { IdCoSo = it.IdCoSo, TenCoSo = it.TenCoSo }).ToList();
-            ViewBag.IdCoSo = new SelectList(MenuList, "IdCoSo", "TenCoSo", IdCoSo);
-        }
+        //private void CreateViewBag(Guid? IdCoSo = null) {
+        //    var MenuList = _context.CoSos.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { IdCoSo = it.IdCoSo, TenCoSo = it.TenCoSo }).ToList();
+        //    ViewBag.IdCoSo = new SelectList(MenuList, "IdCoSo", "TenCoSo", IdCoSo);
+        //}
         #endregion Helper
     }
 }

@@ -18,6 +18,9 @@ namespace HoiNongDan.Models
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string MaCanBo { get; set; }
 
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaDinhDanh")]
+        public string? MaDinhDanh { get; set; }
+
         [MaxLength(500)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
@@ -25,34 +28,34 @@ namespace HoiNongDan.Models
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgaySinh")]
-        [DataType(DataType.Date)]
-        public DateTime? NgaySinh { get; set; }
+
+        public String? NgaySinh { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GioiTinh")]
         public GioiTinh GioiTinh { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "CoSo")]
-        public Guid IdCoSo { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "CoSo")]
+        //public Guid IdCoSo { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
-        public Guid IdDepartment { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
+        //public Guid IdDepartment { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
         public Guid MaChucVu { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(50)]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
         public string SoCCCD { get; set; }
 
-        [DataType(DataType.Date)]
+
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayCapCCCD")]
-        public DateTime? NgayCapCCCD { get; set; }
+        public String? NgayCapCCCD { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HoKhauThuongTru")]
@@ -63,10 +66,10 @@ namespace HoiNongDan.Models
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string ChoOHienNay { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(100)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoDienThoai")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        public string SoDienThoai { get; set; }
+        public string? SoDienThoai { get; set; }
 
         [DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayvaoDangDuBi")]
@@ -84,44 +87,88 @@ namespace HoiNongDan.Models
         [MaxLength(50)]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TonGiao")]
-        public string MaTonGiao { get; set; }
+        public string? MaTonGiao { get; set; }
+
+
+        [MaxLength(20)]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoChuyenMon")]
+        public string? MaTrinhDoChuyenMon { get; set; }
 
         [MaxLength(50)]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoHocVan")]
-        public string MaTrinhDoHocVan { get; set; }
+        public string? MaTrinhDoHocVan { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HocVi")]
+        public String? MaHocVi { get; set; }
+
 
         [MaxLength(50)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoChinhTri")]
         public string? MaTrinhDoChinhTri { get; set; }
 
-        [DataType(DataType.Date)]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayThamGiaCongTac")]
-        public DateTime? NgayThamGiaCongTac { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayVaoHoi")]
+        public String? NgayVaoHoi { get; set; }
 
-        [DataType(DataType.Date)]
+
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayThamGiaCapUyDang")]
-        public DateTime? NgayThamGiaCapUyDang { get; set; }
+        public String? NgayThamGiaCapUyDang { get; set; }
 
-        [DataType(DataType.Date)]
+
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayThamGiaHDND")]
-        public DateTime? NgayThamGiaHDND { get; set; }
+        public String? NgayThamGiaHDND { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "VaiTro")]
         public string? VaiTro { get; set; }
 
+        public string? VaiTroKhac { get; set; }
+
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "LoaiHoiVien")]
+        public string? LoaiHoiVien { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GiaDinhThuocDien")]
         public string? MaGiaDinhThuocDien { get; set; }
+
+        [MaxLength(500)]
+        public string? GiaDinhThuocDienKhac { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgheNghiepHienNay")]
         public string? MaNgheNghiep { get; set; }
 
+        [MaxLength(800)]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ThamGia_SH_DoanThe_HoiDoanKhac")]
+        public String? ThamGia_SH_DoanThe_HoiDoanKhac { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ThamGia_CLB_DN_MH_HTX_THT")]
+        [MaxLength(800)]
+        public String? ThamGia_CLB_DN_MH_HTX_THT { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ThamGia_THNN_CHNN")]
+        [MaxLength(800)]
+        public String? ThamGia_THNN_CHNN { get; set; }
+
         [MaxLength(2000)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GhiChu")]
         public string? GhiChu { get; set; }
+       
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
+        public Guid? MaDiaBanHoatDong { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Loai_DV_SX_ChN")]
+        public String? Loai_DV_SX_ChN { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoLuong")]
+        public String? SoLuong { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DienTich")]
+        public String? DienTich { get; set; }
+
         [MaxLength(500)]
         public string? HinhAnh { get; set; }
     }
@@ -130,15 +177,14 @@ namespace HoiNongDan.Models
         public CanBo GetHoiVien(CanBo obj)
         {
             obj.MaCanBo = MaCanBo;
+            obj.MaDinhDanh = MaDinhDanh;
             obj.HoVaTen = HoVaTen;
-            obj.NgaySinh = NgaySinh!.Value;
+            obj.NgaySinh = NgaySinh!;
             obj.GioiTinh = GioiTinh;
             obj.MaTinhTrang = null;
-            obj.IdCoSo = IdCoSo;
-            obj.IdDepartment = IdDepartment;
-            obj.MaChucVu = MaChucVu;
+            obj.MaChucVu = MaChucVu ;
             obj.SoCCCD = SoCCCD;
-            obj.NgayCapCCCD = NgayCapCCCD!.Value;
+            obj.NgayCapCCCD = NgayCapCCCD;
             obj.HoKhauThuongTru = HoKhauThuongTru;
             obj.ChoOHienNay = ChoOHienNay;
             obj.SoDienThoai = SoDienThoai;
@@ -147,13 +193,25 @@ namespace HoiNongDan.Models
             obj.MaDanToc = MaDanToc;
             obj.MaTonGiao = MaTonGiao;
             obj.MaTrinhDoHocVan = MaTrinhDoHocVan;
+            obj.MaTrinhDoChuyenMon = MaTrinhDoChuyenMon;
+            obj.MaHocVi = MaHocVi;
             obj.MaTrinhDoChinhTri = MaTrinhDoChinhTri;
-            obj.NgayThamGiaCongTac = NgayThamGiaCongTac;
+            obj.NgayVaoHoi = NgayVaoHoi;
             obj.NgayThamGiaCapUyDang = NgayThamGiaCapUyDang;
             obj.NgayThamGiaHDND = NgayThamGiaHDND;
             obj.VaiTro = VaiTro;
+            obj.VaiTroKhac = VaiTroKhac;
             obj.MaGiaDinhThuocDien = MaGiaDinhThuocDien;
             obj.MaNgheNghiep = MaNgheNghiep;
+            obj.LoaiHoiVien = LoaiHoiVien;
+            obj.MaDiaBanHoatDong = MaDiaBanHoatDong;
+            obj.ThamGia_SH_DoanThe_HoiDoanKhac = ThamGia_SH_DoanThe_HoiDoanKhac;
+            obj.ThamGia_CLB_DN_MH_HTX_THT = ThamGia_CLB_DN_MH_HTX_THT;
+            obj.ThamGia_THNN_CHNN = ThamGia_THNN_CHNN;
+            obj.GiaDinhThuocDienKhac = GiaDinhThuocDienKhac;
+            obj.Loai_DV_SX_ChN = Loai_DV_SX_ChN;
+            obj.SoLuong = SoLuong;
+            obj.DienTich = DienTich;
             obj.IsHoiVien = true;
            
             return obj;
@@ -161,11 +219,10 @@ namespace HoiNongDan.Models
         public static HoiVienVM SetHoiVien(CanBo item) {
             HoiVienVM obj = new HoiVienVM();
             obj.MaCanBo = item.MaCanBo;
+            obj.MaDinhDanh = item.MaDinhDanh;
             obj.HoVaTen = item.HoVaTen;
             obj.NgaySinh = item.NgaySinh;
             obj.GioiTinh = item.GioiTinh;
-            obj.IdCoSo = item.IdCoSo;
-            obj.IdDepartment = item.IdDepartment;
             obj.MaChucVu = item.MaChucVu;
             obj.SoCCCD = item.SoCCCD;
             obj.NgayCapCCCD = item.NgayCapCCCD;
@@ -177,31 +234,48 @@ namespace HoiNongDan.Models
             obj.MaDanToc = item.MaDanToc;
             obj.MaTonGiao = item.MaTonGiao;
             obj.MaTrinhDoHocVan = item.MaTrinhDoHocVan;
+            obj.MaTrinhDoChuyenMon = item.MaTrinhDoChuyenMon;
             obj.MaTrinhDoChinhTri = item.MaTrinhDoChinhTri;
-            obj.NgayThamGiaCongTac = item.NgayThamGiaCongTac;
+            obj.MaHocVi = item.MaHocVi;
+            obj.NgayVaoHoi = item.NgayVaoHoi;
             obj.NgayThamGiaCapUyDang = item.NgayThamGiaCapUyDang;
             obj.NgayThamGiaHDND = item.NgayThamGiaHDND;
             obj.VaiTro = item.VaiTro;
+            obj.VaiTroKhac = item.VaiTroKhac;
             obj.MaGiaDinhThuocDien = item.MaGiaDinhThuocDien;
+            obj.GiaDinhThuocDienKhac = item.GiaDinhThuocDienKhac;
             obj.MaNgheNghiep = item.MaNgheNghiep;
             obj.IDCanBo = item.IDCanBo;
-            obj.HinhAnh = item.HinhAnh;
+            obj.HinhAnh = item.HinhAnh; 
+            obj.LoaiHoiVien = item.LoaiHoiVien!;
+            obj.MaDiaBanHoatDong = item.MaDiaBanHoatDong;
+            obj.ThamGia_SH_DoanThe_HoiDoanKhac = item.ThamGia_SH_DoanThe_HoiDoanKhac;
+            obj.ThamGia_CLB_DN_MH_HTX_THT = item.ThamGia_CLB_DN_MH_HTX_THT;
+            obj.ThamGia_THNN_CHNN = item.ThamGia_THNN_CHNN;
+            obj.Loai_DV_SX_ChN = item.Loai_DV_SX_ChN;
+            obj.SoLuong = item.SoLuong;
+            obj.DienTich = item.DienTich;
             return obj;
         }
     }
     public class HoiVienDetailVM : HoiVienVM
     {
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TinhTrang")]
-        public string TenTinhTrang { get; set; }
+        [Display(Name ="Mã hội viên")]
+        public string MaHoiVien { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "PhanHe")]
-        public string TenPhanHe { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "CoSo")]
-        public string TenCoSo { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DepartmentName")]
-        public string TenDonVi { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DanToc")]
+        public string DanToc { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TonGiao")]
+        public string TonGiao { get; set; }
+        
+        [Display(Name = "Trình độ học vấn")]
+        public string TrinhDoHocvan { get; set; }
+
+        [Display(Name ="Địa bàn")]
+        public string TenDiaBanHoatDong { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
         public string TenChucVu { get; set; }
@@ -215,6 +289,35 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgheNghiepHienNay")]
         public string NgheNghiepHienNay { get; set; }
 
-        public string HinhAnh { get; set; } = @"\images\login.png";
+       // public string HinhAnh { get; set; } = @"\images\login.png";
+    }
+
+    public class HoiVienSearchVM
+    {
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHoiVien")]
+        public string MaCanBo { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
+        public string HoVaTen { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TinhTrang")]
+        public string MaTinhTrang { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "PhanHe")]
+        public string MaPhanHe { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
+        public Guid? MaDiaBanHoatDong { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
+        public Guid? IdDepartment { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
+        public Guid? MaChucVu { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]
+        public bool? Actived { get; set; }
+
+
+
     }
 }

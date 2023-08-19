@@ -15,6 +15,7 @@ namespace HoiNongDan.Constant
         #endregion
         //Url: Permission/Roles/ImportExcel
         public const string CanBo = "I-00001";
+        public const string HoiVien = "I-00002";
 
     }
 }

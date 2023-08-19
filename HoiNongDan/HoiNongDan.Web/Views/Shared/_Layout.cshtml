@@ -20,7 +20,7 @@
     <!-- BOOTSTRAP CSS -->
     <link id="style" href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <!-- STYLE CSS -->
-    <link href="~/assets/css/style.css" rel="stylesheet" /> 
+    <link href="~/assets/css/style.css" rel="stylesheet" />
     <link href="~/assets/css/dark-style.css" rel="stylesheet" />
     <link href="~/assets/css/transparent-style.css" rel="stylesheet">
     <link href="~/assets/css/skin-modes.css" rel="stylesheet" />
@@ -40,17 +40,25 @@
     <link rel="stylesheet" href="~/lib/sweetalert2/sweetalert2.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <style>
-        p,a,span,div
-        {
-           /*font-size: 1em !important;
-           color: #000 !important;*/
-           font-family: wf_segoe-ui_normal, "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
-           font-size:14px;
+        .main-footer1 {
+            background-color: #fff;
+            border-top: 1px solid #e6eaea;
+            position: relative;
+            max-height:200px;
         }
-        .main-sidemenu > span{
-            font-size:16px;
+
+        p, a, span, div {
+            /*font-size: 1em !important;
+                           color: #000 !important;*/
+            font-family: wf_segoe-ui_normal, "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
+            font-size: 14px;
         }
-         #avtImg {
+
+        .main-sidemenu > span {
+            font-size: 16px;
+        }
+
+        #avtImg {
             vertical-align: middle;
             width: 140px;
             height: 140px;
@@ -60,14 +68,41 @@
         .border-top {
             border-top: 4px dotted blue;
         }
+
+        #banner-test {
+            background: url("/Images/banner.png");
+            background-repeat: no-repeat;
+            background-position: left left;
+            background-size: contain;
+            height: 106px;
+        }
+
+        .side-app {
+            /* top:150px; */
+            position: relative;
+            z-index: 1;
+        }
+
+        .app-header, .app-sidebar {
+            top: 106px;
+        }
+
+        .side-header {
+            display: none;
+        }
+        
     </style>
+
 
 </head>
 
-<body class="app sidebar-mini ltr light-mode">
+<body class="app sidebar-mini ltr dark-menu dark-header">
 
     <!-- Switcher -->
+
     <div class="switcher-wrapper">
+        <div id="banner-test">
+        </div>
         <div class="demo_changer">
             <div class="form_holder sidebar-right1">
                 <div class="row">
@@ -85,19 +120,22 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex">
                                         <span class="me-auto">Vertical Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch15" id="myonoffswitch34" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch15" id="myonoffswitch34" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch34" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Horizontal Click Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch15" id="myonoffswitch35" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch15" id="myonoffswitch35" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch35" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Horizontal Hover Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch15" id="myonoffswitch111" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch15" id="myonoffswitch111" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch111" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -110,13 +148,15 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex">
                                         <span class="me-auto">LTR Version</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch7" id="myonoffswitch23" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch7" id="myonoffswitch23" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch23" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">RTL Version</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch7" id="myonoffswitch24" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch7" id="myonoffswitch24" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch24" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -129,7 +169,8 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex">
                                         <span class="me-auto">Light Theme</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch1" id="myonoffswitch1" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch1" id="myonoffswitch1" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch1" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -148,7 +189,8 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Dark Theme</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch1" id="myonoffswitch2" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch1" id="myonoffswitch2" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch2" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -156,7 +198,7 @@
                                         <span class="me-auto">Dark Primary</span>
                                         <div class="">
                                             <input class="w-30p h-30 input-dark-color-picker color-primary-dark" value="#6c5ffc" id="darkPrimaryColorID" oninput="darkPrimaryColor()" type="color" data-id="bg-color" data-id1="bg-hover" data-id2="bg-border" data-id3="primary" data-id8="transparentcolor"
-                                                name="darkPrimary">
+                                                   name="darkPrimary">
                                         </div>
                                     </div>
                                 </div>
@@ -168,7 +210,8 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Transparent Theme</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch1" id="myonoffswitchTransparent" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch1" id="myonoffswitchTransparent" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitchTransparent" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -176,7 +219,7 @@
                                         <span class="me-auto">Transparent Primary</span>
                                         <div class="">
                                             <input class="w-30p h-30 input-transparent-color-picker color-primary-transparent" value="#6c5ffc" id="transparentPrimaryColorID" oninput="transparentPrimaryColor()" type="color" data-id="bg-color" data-id1="bg-hover" data-id2="bg-border" data-id3="primary"
-                                                data-id4="primary" data-id9="transparentcolor" name="tranparentPrimary">
+                                                   data-id4="primary" data-id9="transparentcolor" name="tranparentPrimary">
                                         </div>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
@@ -194,14 +237,14 @@
                                 <div class="switch-toggle d-flex">
                                     <span class="me-auto">Bg-Image Primary</span>
                                     <div class="">
-                                        <input class="w-30p h-30 input-transparent-color-picker color-primary-transparent" value="#6c5ffc" id="transparentBgImgPrimaryColorID" oninput="transparentBgImgPrimaryColor()" type="color" data-id="bg-color" data-id1="bg-hover" data-id2="bg-border" data-id3="primary" data-id4="primary"  data-id9="transparentcolor" name="tranparentPrimary">
+                                        <input class="w-30p h-30 input-transparent-color-picker color-primary-transparent" value="#6c5ffc" id="transparentBgImgPrimaryColorID" oninput="transparentBgImgPrimaryColor()" type="color" data-id="bg-color" data-id1="bg-hover" data-id2="bg-border" data-id3="primary" data-id4="primary" data-id9="transparentcolor" name="tranparentPrimary">
                                     </div>
                                 </div>
                                 <div class="switch-toggle d-flex mt-2">
-                                    <a class="bg-img1" href="javascript:void(0);" onclick="bgImage(this)"><img src="~/assets/images/media/bg-img1.jpg"  alt="Bg-Image" id="bgimage1"></a>
-                                    <a class="bg-img2" href="javascript:void(0);" onclick="bgImage(this)"><img src="~/assets/images/media/bg-img2.jpg"  alt="Bg-Image"  id="bgimage2"></a>
-                                    <a class="bg-img3" href="javascript:void(0);" onclick="bgImage(this)"><img src="~/assets/images/media/bg-img3.jpg"  alt="Bg-Image" id="bgimage3"></a>
-                                    <a class="bg-img4" href="javascript:void(0);" onclick="bgImage(this)"><img src="~/assets/images/media/bg-img4.jpg"  alt="Bg-Image" id="bgimage4"></a>
+                                    <a class="bg-img1" href="javascript:void(0);" onclick="bgImage(this)"><img src="~/assets/images/media/bg-img1.jpg" alt="Bg-Image" id="bgimage1"></a>
+                                    <a class="bg-img2" href="javascript:void(0);" onclick="bgImage(this)"><img src="~/assets/images/media/bg-img2.jpg" alt="Bg-Image" id="bgimage2"></a>
+                                    <a class="bg-img3" href="javascript:void(0);" onclick="bgImage(this)"><img src="~/assets/images/media/bg-img3.jpg" alt="Bg-Image" id="bgimage3"></a>
+                                    <a class="bg-img4" href="javascript:void(0);" onclick="bgImage(this)"><img src="~/assets/images/media/bg-img4.jpg" alt="Bg-Image" id="bgimage4"></a>
                                 </div>
                             </div>
                         </div>
@@ -211,25 +254,29 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle lightMenu d-flex">
                                         <span class="me-auto">Light Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch3" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch2" id="myonoffswitch3" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch3" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle colorMenu d-flex mt-2">
                                         <span class="me-auto">Color Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch4" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch2" id="myonoffswitch4" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch4" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle darkMenu d-flex mt-2">
                                         <span class="me-auto">Dark Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch5" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch2" id="myonoffswitch5" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch5" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle gradientMenu d-flex mt-2">
                                         <span class="me-auto">Gradient Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch19" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch2" id="myonoffswitch19" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch19" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -242,26 +289,30 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle lightHeader d-flex">
                                         <span class="me-auto">Light Header</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch3" id="myonoffswitch6" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch3" id="myonoffswitch6" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch6" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle  colorHeader d-flex mt-2">
                                         <span class="me-auto">Color Header</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch3" id="myonoffswitch7" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch3" id="myonoffswitch7" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch7" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle darkHeader d-flex mt-2">
                                         <span class="me-auto">Dark Header</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch3" id="myonoffswitch8" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch3" id="myonoffswitch8" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch8" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
 
                                     <div class="switch-toggle darkHeader d-flex mt-2">
                                         <span class="me-auto">Gradient Header</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch3" id="myonoffswitch20" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch3" id="myonoffswitch20" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch20" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -274,13 +325,15 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex">
                                         <span class="me-auto">Full Width</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch4" id="myonoffswitch9" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch4" id="myonoffswitch9" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch9" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Boxed</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch4" id="myonoffswitch10" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch4" id="myonoffswitch10" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch10" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -293,13 +346,15 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex">
                                         <span class="me-auto">Fixed</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch5" id="myonoffswitch11" class="onoffswitch2-checkbox" checked>
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch5" id="myonoffswitch11" class="onoffswitch2-checkbox" checked>
                                             <label for="myonoffswitch11" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Scrollable</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch5" id="myonoffswitch12" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch5" id="myonoffswitch12" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch12" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -312,37 +367,43 @@
                                 <div class="switch_section">
                                     <div class="switch-toggle d-flex">
                                         <span class="me-auto">Default Menu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6" id="myonoffswitch13" class="onoffswitch2-checkbox default-menu" checked>
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch6" id="myonoffswitch13" class="onoffswitch2-checkbox default-menu" checked>
                                             <label for="myonoffswitch13" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Icon with Text</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6" id="myonoffswitch14" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch6" id="myonoffswitch14" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch14" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Icon Overlay</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6" id="myonoffswitch15" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch6" id="myonoffswitch15" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch15" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Closed Sidemenu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6" id="myonoffswitch16" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch6" id="myonoffswitch16" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch16" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Hover Submenu</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6" id="myonoffswitch17" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch6" id="myonoffswitch17" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch17" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
                                     <div class="switch-toggle d-flex mt-2">
                                         <span class="me-auto">Hover Submenu Style 1</span>
-                                        <p class="onoffswitch2"><input type="radio" name="onoffswitch6" id="myonoffswitch18" class="onoffswitch2-checkbox">
+                                        <p class="onoffswitch2">
+                                            <input type="radio" name="onoffswitch6" id="myonoffswitch18" class="onoffswitch2-checkbox">
                                             <label for="myonoffswitch18" class="onoffswitch2-label"></label>
                                         </p>
                                     </div>
@@ -356,8 +417,9 @@
                                     <button class="btn btn-danger btn-block" onclick="localStorage.clear();
 										document.querySelector('html').style = '';
 										names() ;
-                                        resetData() ;" type="button">Reset All
-									</button>
+                                        resetData() ;" type="button">
+                                        Reset All
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -367,19 +429,17 @@
         </div>
     </div>
     <!-- End Switcher -->
-
     <!-- GLOBAL-LOADER -->
     <div id="global-loader">
         <img src="~/assets/images/loader.svg" class="loader-img" alt="Loader">
     </div>
     <!-- /GLOBAL-LOADER -->
-
     <!-- PAGE -->
     <div class="page">
         <div class="page-main">
 
             <!-- app-Header -->
-            <div class="app-header header sticky">
+            <div class="app-header header sticky" id="app-header-test">
                 <div class="container-fluid main-container">
                     <div class="d-flex">
                         <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="javascript:void(0)"></a>
@@ -388,16 +448,16 @@
                             @*<img src="~/Images/logo-menu.png" class="header-brand-img desktop-logo" alt="logo">*@
                         </a>
                         <!-- LOGO -->
-                        <div class="main-header-center ms-3 d-none d-lg-block">
+                        <div class="main-header-center ms-3 d-none d-lg-none" style="display:none">
                             <input type="text" class="form-control" id="typehead" placeholder="Search for results~." autocomplete="off">
                             <button class="btn px-0 pt-2"><i class="fe fe-search" aria-hidden="true"></i></button>
                         </div>
                         <div class="d-flex order-lg-2 ms-auto header-right-icons">
                             <!-- SEARCH -->
                             <button class="navbar-toggler navresponsive-toggler d-lg-none ms-auto" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4"
-                                aria-controls="navbarSupportedContent-4" aria-expanded="false"
-                                aria-label="Toggle navigation">
+                                    data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4"
+                                    aria-controls="navbarSupportedContent-4" aria-expanded="false"
+                                    aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon fe fe-more-vertical"></span>
                             </button>
                             <div class="navbar navbar-collapse responsive-navbar p-0">
@@ -416,26 +476,25 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="d-flex country">
+                                        <div class="d-flex country" style="display:none">
                                             <a class="nav-link icon text-center" data-bs-target="#country-selector"
-                                                data-bs-toggle="modal">
-                                                <i class="fe fe-globe"></i><span
-                                                    class="fs-16 ms-2 d-none d-xl-block">English</span>
+                                               data-bs-toggle="modal" style="display:none">
+                                                <i class="fe fe-globe"></i><span class="fs-16 ms-2 d-none d-xl-block">English</span>
                                             </a>
                                         </div>
                                         <!-- COUNTRY -->
-                                        <div class="d-flex country">
-                                            <a class="nav-link icon theme-layout nav-link-bg layout-setting">
+                                        <div class="d-flex country" style="display:none">
+                                            <a class="nav-link icon theme-layout nav-link-bg layout-setting" style="display:none">
                                                 <span class="dark-layout"><i class="fe fe-moon"></i></span>
                                                 <span class="light-layout"><i class="fe fe-sun"></i></span>
                                             </a>
                                         </div>
                                         <!-- Theme-Layout -->
                                         <div class="dropdown  d-flex shopping-cart">
-                                            <a class="nav-link icon text-center" data-bs-toggle="dropdown">
+                                            <a class="nav-link icon text-center" data-bs-toggle="dropdown" style="display:none">
                                                 <i class="fe fe-shopping-cart"></i><span class="badge bg-secondary header-badge">4</span>
                                             </a>
-                                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" style="display:none">
                                                 <div class="drop-heading border-bottom">
                                                     <div class="d-flex">
                                                         <h6 class="mt-1 mb-0 fs-16 fw-semibold text-dark"> My Shopping Cart</h6>
@@ -447,9 +506,8 @@
                                                 <div class="header-dropdown-list message-menu">
                                                     <div class="dropdown-item d-flex p-4">
                                                         <a href="cart.html" class="open-file"></a>
-                                                        <span
-                                                            class="avatar avatar-xl br-5 me-3 align-self-center cover-image"
-                                                            data-bs-image-src="~/assets/images/pngs/4.jpg"></span>
+                                                        <span class="avatar avatar-xl br-5 me-3 align-self-center cover-image"
+                                                              data-bs-image-src="~/assets/images/pngs/4.jpg"></span>
                                                         <div class="wd-50p">
                                                             <h5 class="mb-1">Flower Pot for Home Decor</h5>
                                                             <span>Status: <span class="text-success">In Stock</span></span>
@@ -466,9 +524,8 @@
                                                     </div>
                                                     <div class="dropdown-item d-flex p-4">
                                                         <a href="cart.html" class="open-file"></a>
-                                                        <span
-                                                            class="avatar avatar-xl br-5 me-3 align-self-center cover-image"
-                                                            data-bs-image-src="~/assets/images/pngs/6.jpg"></span>
+                                                        <span class="avatar avatar-xl br-5 me-3 align-self-center cover-image"
+                                                              data-bs-image-src="~/assets/images/pngs/6.jpg"></span>
                                                         <div class="wd-50p">
                                                             <h5 class="mb-1">Black Digital Camera</h5>
                                                             <span>Status: <span class="text-danger">Out Stock</span></span>
@@ -485,9 +542,8 @@
                                                     </div>
                                                     <div class="dropdown-item d-flex p-4">
                                                         <a href="cart.html" class="open-file"></a>
-                                                        <span
-                                                            class="avatar avatar-xl br-5 me-3 align-self-center cover-image"
-                                                            data-bs-image-src="~/assets/images/pngs/8.jpg"></span>
+                                                        <span class="avatar avatar-xl br-5 me-3 align-self-center cover-image"
+                                                              data-bs-image-src="~/assets/images/pngs/8.jpg"></span>
                                                         <div class="wd-50p">
                                                             <h5 class="mb-1">Stylish Rockerz 255 Ear Pods</h5>
                                                             <span>Status: <span class="text-success">In Stock</span></span>
@@ -504,9 +560,8 @@
                                                     </div>
                                                     <div class="dropdown-item d-flex p-4">
                                                         <a href="cart.html" class="open-file"></a>
-                                                        <span
-                                                            class="avatar avatar-xl br-5 me-3 align-self-center cover-image"
-                                                            data-bs-image-src="~/assets/images/pngs/1.jpg"></span>
+                                                        <span class="avatar avatar-xl br-5 me-3 align-self-center cover-image"
+                                                              data-bs-image-src="~/assets/images/pngs/1.jpg"></span>
                                                         <div class="wd-50p">
                                                             <h5 class="mb-1">Women Party Wear Dress</h5>
                                                             <span>Status: <span class="text-success">In Stock</span></span>
@@ -523,9 +578,8 @@
                                                     </div>
                                                     <div class="dropdown-item d-flex p-4">
                                                         <a href="cart.html" class="open-file"></a>
-                                                        <span
-                                                            class="avatar avatar-xl br-5 me-3 align-self-center cover-image"
-                                                            data-bs-image-src="~/assets/images/pngs/3.jpg"></span>
+                                                        <span class="avatar avatar-xl br-5 me-3 align-self-center cover-image"
+                                                              data-bs-image-src="~/assets/images/pngs/3.jpg"></span>
                                                         <div class="wd-50p">
                                                             <h5 class="mb-1">Running Shoes for men</h5>
                                                             <span>Status: <span class="text-success">In Stock</span></span>
@@ -550,19 +604,20 @@
                                         </div>
                                         <!-- CART -->
                                         <div class="dropdown d-flex">
-                                            <a class="nav-link icon full-screen-link nav-link-bg">
+                                            <a class="nav-link icon full-screen-link nav-link-bg" style="display:none">
                                                 <i class="fe fe-minimize fullscreen-button"></i>
                                             </a>
                                         </div>
                                         <!-- FULL-SCREEN -->
-                                        <div class="dropdown  d-flex notifications">
-                                            <a class="nav-link icon" data-bs-toggle="dropdown"><i
-                                                    class="fe fe-bell"></i><span class=" pulse"></span>
+                                        <div class="dropdown  d-flex notifications" style="display:none">
+                                            <a class="nav-link icon" data-bs-toggle="dropdown" style="display:none">
+                                                <i class="fe fe-bell"></i><span class=" pulse"></span>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                 <div class="drop-heading border-bottom">
                                                     <div class="d-flex">
-                                                        <h6 class="mt-1 mb-0 fs-16 fw-semibold text-dark">Notifications
+                                                        <h6 class="mt-1 mb-0 fs-16 fw-semibold text-dark">
+                                                            Notifications
                                                         </h6>
                                                     </div>
                                                 </div>
@@ -572,7 +627,8 @@
                                                             <i class="fe fe-mail"></i>
                                                         </div>
                                                         <div class="mt-1 wd-80p">
-                                                            <h5 class="notification-label mb-1">New Application received
+                                                            <h5 class="notification-label mb-1">
+                                                                New Application received
                                                             </h5>
                                                             <span class="notification-subtext">3 days ago</span>
                                                         </div>
@@ -582,8 +638,10 @@
                                                             <i class="fe fe-check-circle"></i>
                                                         </div>
                                                         <div class="mt-1 wd-80p">
-                                                            <h5 class="notification-label mb-1">Project has been
-                                                                approved</h5>
+                                                            <h5 class="notification-label mb-1">
+                                                                Project has been
+                                                                approved
+                                                            </h5>
                                                             <span class="notification-subtext">2 hours ago</span>
                                                         </div>
                                                     </a>
@@ -592,7 +650,8 @@
                                                             <i class="fe fe-shopping-cart"></i>
                                                         </div>
                                                         <div class="mt-1 wd-80p">
-                                                            <h5 class="notification-label mb-1">Your Product Delivered
+                                                            <h5 class="notification-label mb-1">
+                                                                Your Product Delivered
                                                             </h5>
                                                             <span class="notification-subtext">30 min ago</span>
                                                         </div>
@@ -609,20 +668,25 @@
                                                 </div>
                                                 <div class="dropdown-divider m-0"></div>
                                                 <a href="notify-list.html"
-                                                    class="dropdown-item text-center p-3 text-muted">View all
-                                                    Notification</a>
+                                                   class="dropdown-item text-center p-3 text-muted">
+                                                    View all
+                                                    Notification
+                                                </a>
                                             </div>
                                         </div>
                                         <!-- NOTIFICATIONS -->
                                         <div class="dropdown  d-flex message">
-                                            <a class="nav-link icon text-center" data-bs-toggle="dropdown">
-                                                <i class="fe fe-message-square"></i><span class="pulse-danger"></span>
+                                            <a class="nav-link icon text-center" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fe fe-bell"></i><span class="badge bg-secondary header-badge">4</span>
                                             </a>
+                                            
                                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                 <div class="drop-heading border-bottom">
                                                     <div class="d-flex">
-                                                        <h6 class="mt-1 mb-0 fs-16 fw-semibold text-dark">You have 5
-                                                            Messages</h6>
+                                                        <h6 class="mt-1 mb-0 fs-16 fw-semibold text-dark">
+                                                            You have 5
+                                                            Messages
+                                                        </h6>
                                                         <div class="ms-auto">
                                                             <a href="javascript:void(0)" class="text-muted p-0 fs-12">make all unread</a>
                                                         </div>
@@ -630,9 +694,8 @@
                                                 </div>
                                                 <div class="message-menu message-menu-scroll">
                                                     <a class="dropdown-item d-flex" href="chat.html">
-                                                        <span
-                                                            class="avatar avatar-md brround me-3 align-self-center cover-image"
-                                                            data-bs-image-src="~/assets/images/users/1.jpg"></span>
+                                                        <span class="avatar avatar-md brround me-3 align-self-center cover-image"
+                                                              data-bs-image-src="~/assets/images/users/1.jpg"></span>
                                                         <div class="wd-90p">
                                                             <div class="d-flex">
                                                                 <h5 class="mb-1">Peter Theil</h5>
@@ -644,9 +707,8 @@
                                                         </div>
                                                     </a>
                                                     <a class="dropdown-item d-flex" href="chat.html">
-                                                        <span
-                                                            class="avatar avatar-md brround me-3 align-self-center cover-image"
-                                                            data-bs-image-src="~/assets/images/users/15.jpg"></span>
+                                                        <span class="avatar avatar-md brround me-3 align-self-center cover-image"
+                                                              data-bs-image-src="~/assets/images/users/15.jpg"></span>
                                                         <div class="wd-90p">
                                                             <div class="d-flex">
                                                                 <h5 class="mb-1">Abagael Luth</h5>
@@ -658,9 +720,8 @@
                                                         </div>
                                                     </a>
                                                     <a class="dropdown-item d-flex" href="chat.html">
-                                                        <span
-                                                            class="avatar avatar-md brround me-3 align-self-center cover-image"
-                                                            data-bs-image-src="~/assets/images/users/12.jpg"></span>
+                                                        <span class="avatar avatar-md brround me-3 align-self-center cover-image"
+                                                              data-bs-image-src="~/assets/images/users/12.jpg"></span>
                                                         <div class="wd-90p">
                                                             <div class="d-flex">
                                                                 <h5 class="mb-1">Brizid Dawson</h5>
@@ -672,9 +733,8 @@
                                                         </div>
                                                     </a>
                                                     <a class="dropdown-item d-flex" href="chat.html">
-                                                        <span
-                                                            class="avatar avatar-md brround me-3 align-self-center cover-image"
-                                                            data-bs-image-src="~/assets/images/users/4.jpg"></span>
+                                                        <span class="avatar avatar-md brround me-3 align-self-center cover-image"
+                                                              data-bs-image-src="~/assets/images/users/4.jpg"></span>
                                                         <div class="wd-90p">
                                                             <div class="d-flex">
                                                                 <h5 class="mb-1">Shannon Shaw</h5>
@@ -686,9 +746,8 @@
                                                         </div>
                                                     </a>
                                                     <a class="dropdown-item d-flex" href="chat.html">
-                                                        <span
-                                                            class="avatar avatar-md brround me-3 align-self-center cover-image"
-                                                            data-bs-image-src="~/assets/images/users/3.jpg"></span>
+                                                        <span class="avatar avatar-md brround me-3 align-self-center cover-image"
+                                                              data-bs-image-src="~/assets/images/users/3.jpg"></span>
                                                         <div class="wd-90p">
                                                             <div class="d-flex">
                                                                 <h5 class="mb-1">Cherry Blossom</h5>
@@ -702,24 +761,26 @@
 
                                                 </div>
                                                 <div class="dropdown-divider m-0"></div>
-                                                <a href="javascript:void(0)" class="dropdown-item text-center p-3 text-muted">See all
-                                                    Messages</a>
+                                                <a href="javascript:void(0)" class="dropdown-item text-center p-3 text-muted">
+                                                    See all
+                                                    Messages
+                                                </a>
                                             </div>
                                         </div>
                                         <!-- MESSAGE-BOX -->
                                         <div class="dropdown d-flex header-settings">
                                             <a href="javascript:void(0);" class="nav-link icon"
-                                                data-bs-toggle="sidebar-right" data-target=".sidebar-right">
+                                               data-bs-toggle="sidebar-right" data-target=".sidebar-right" style="display:none">
                                                 <i class="fe fe-align-right"></i>
                                             </a>
                                         </div>
                                         <!-- SIDE-MENU -->
-                                        @if(User.Identity.IsAuthenticated)
+                                        @if (User.Identity.IsAuthenticated)
                                         {
                                             <div class="dropdown d-flex profile-1">
                                                 <a href="javascript:void(0)" data-bs-toggle="dropdown" class="nav-link leading-none d-flex">
                                                     <img src="~/Images/avatar5.png" alt="profile-user"
-                                                        class="avatar  profile-user brround cover-image">
+                                                         class="avatar  profile-user brround cover-image">
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                     <div class="drop-heading">
@@ -738,21 +799,20 @@
                                                 </div>
                                             </div>
                                         }
-                                        
+
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
             <!-- /app-Header -->
-
             <!--APP-SIDEBAR-->
             <div class="sticky">
                 <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
-                <div class="app-sidebar">
+                <div class="app-sidebar" id="app-sidebar-test">
                     <div class="side-header">
                         <a class="header-brand1" asp-controller="" asp-area="Home" asp-action="Index">
                             <img src="~/Images/logo.png" class="" alt="logo">
@@ -760,260 +820,148 @@
                         <!-- LOGO -->
                     </div>
                     <div class="main-sidemenu">
-                        <div class="slide-left disabled" id="slide-left"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"/></svg></div>
+                        <div class="slide-left disabled" id="slide-left"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z" /></svg></div>
                         <ul class="side-menu">
-                            <li class="sub-category">
-                                <h3>Main</h3>
-                            </li>
-                           
                             <li class="slide">
                                 <a class="side-menu__item" asp-controller="" asp-area="Home" asp-action="Index">
                                     <i class="side-menu__icon fe fe-home"></i><span class="side-menu__label">Trang Chủ</span>
                                 </a>
                             </li>
-                             <li class="sub-category">
-                                <h3>Hệ Thống</h3>
+
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Quản lý thông tin</span><i class="angle fe fe-chevron-right"></i></a>
+                                <ul class="slide-menu mega-slide-menu">
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">QL Cán Bộ Hội ND TP.HCM </a></li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.CanBo" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                            QL Cán Bộ Hội ND TP.HCM
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.CanBo" asp-area="@ConstArea.NhanSu" asp-action="CBBanChapHanh">
+                                            Ban chấp hành HND TP.HCM
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.CanBo" asp-area="@ConstArea.NhanSu" asp-action="CBHNDQuaCacThoiKy">
+                                            Cán Bộ Hội ND TP.HCM qua các Thời Kỳ
+                                        </a>
+                                    </li>
+                                     <li>
+                                        <a class="slide-item" href="#">
+                                            Cán bộ Hội Nông Dân TP.Thủ Đức H,Q,X,P
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.HoiVien" asp-area="@ConstArea.HoiVien" asp-action="Index">
+                                            Hội Viên Nông Dân
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-pie-chart"></i><span class="side-menu__label">@LanguageResource.Report</span><i class="angle fe fe-chevron-right"></i></a>
+                                <ul class="slide-menu">
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">Báo cáo cán bộ</a></li>
+                                    <li>
+                                        <a class="slide-item" href="#">
+                                            Thống kê hội viên
+                                        </a>
+                                        <a class="slide-item" href="#">
+                                            Báo cáo thực lực hội theo quý
+                                        </a>
+                                        <a class="slide-item" asp-area="@ConstArea.NhanSu" asp-controller="BaoCao" asp-action="ThucLucHoi">
+                                            Báo cáo thực lực hội theo năm
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                            
                             <li class="slide">
                                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-gear"></i><span class="side-menu__label">@LanguageResource.Permission</span><i class="angle fe fe-chevron-right"></i></a>
                                 <ul class="slide-menu">
                                     <li class="side-menu-label1"><a href="javascript:void(0)">Phân quyền</a></li>
-                                    <li >
+                                    <li>
                                         <a class="slide-item" asp-controller="Menu" asp-area="@ConstArea.Permission" asp-action="Index">
-                                           @LanguageResource.Menu
+                                            Chuyên mục
                                         </a>
                                     </li>
-                                    <li >
-                                        <a  class="slide-item" asp-controller="Roles" asp-area="@ConstArea.Permission" asp-action="Index">
-                                          @LanguageResource.Roles
+                                    <li>
+                                        <a class="slide-item" asp-controller="Roles" asp-area="@ConstArea.Permission" asp-action="Index">
+                                            @LanguageResource.Roles
                                         </a>
                                     </li>
-                                    <li >
-                                        <a  class="slide-item" asp-controller="Account" asp-area="@ConstArea.Permission" asp-action="Index" >
+                                    <li>
+                                        <a class="slide-item" asp-controller="Account" asp-area="@ConstArea.Permission" asp-action="Index">
                                             @LanguageResource.Account
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="slide">
-                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-book"></i><span class="side-menu__label">@LanguageResource.MasterData</span><i class="angle fe fe-chevron-right"></i></a>
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-book"></i><span class="side-menu__label">Danh mục</span><i class="angle fe fe-chevron-right"></i></a>
                                 <ul class="slide-menu">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">@LanguageResource.MasterData</a></li>
-                                    <li >
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">Danh mục</a></li>
+                                    @* <li>
                                         <a class="slide-item" asp-controller="@ConstController.CoSo" asp-area="@ConstArea.MasterData" asp-action="Index">
-                                           @LanguageResource.CoSo
+                                            @LanguageResource.CoSo
                                         </a>
-                                    </li>
-                                    <li >
+                                    </li> *@
+                                    <li>
                                         <a class="slide-item" asp-controller="@ConstController.Department" asp-area="@ConstArea.MasterData" asp-action="Index">
-                                           @LanguageResource.Department
+                                            @LanguageResource.Department
                                         </a>
                                     </li>
-                                     <li >
+                                    <li>
                                         <a class="slide-item" asp-controller="@ConstController.ChucVu" asp-area="@ConstArea.MasterData" asp-action="Index">
                                             @LanguageResource.ChucVu
                                         </a>
                                     </li>
-                                     <li >
+                                    <li>
                                         <a class="slide-item" asp-controller="@ConstController.NgachLuong" asp-area="@ConstArea.MasterData" asp-action="Index">
                                             @LanguageResource.NgachLuong
                                         </a>
                                     </li>
-                                    <li >
+                                    <li>
                                         <a class="slide-item" asp-controller="@ConstController.BacLuong" asp-area="@ConstArea.MasterData" asp-action="Index">
                                             @LanguageResource.BacLuong
                                         </a>
                                     </li>
-                                     <li >
+                                    <li>
                                         <a class="slide-item" asp-controller="@ConstController.TrinhDoChinhTri" asp-area="@ConstArea.MasterData" asp-action="Index">
                                             @LanguageResource.TrinhDoChinhTri
                                         </a>
                                     </li>
-                                     <li >
+                                    <li>
                                         <a class="slide-item" asp-controller="@ConstController.TrinhDoHocVan" asp-area="@ConstArea.MasterData" asp-action="Index">
                                             @LanguageResource.TrinhDoHocVan
                                         </a>
                                     </li>
-                                     <li >
+                                    <li>
                                         <a class="slide-item" asp-controller="@ConstController.TrinhDoTinHoc" asp-area="@ConstArea.MasterData" asp-action="Index">
                                             @LanguageResource.TrinhDoTinHoc
                                         </a>
                                     </li>
-                                     <li >
+                                    <li>
                                         <a class="slide-item" asp-controller="@ConstController.TrinhDoNgoaiNgu" asp-area="@ConstArea.MasterData" asp-action="Index">
                                             @LanguageResource.TrinhDoNgoaiNgu
                                         </a>
                                     </li>
-                                    <li >
+                                    <li>
                                         <a class="slide-item" asp-controller="@ConstController.DanToc" asp-area="@ConstArea.MasterData" asp-action="Index">
-                                           @LanguageResource.DanToc
+                                            @LanguageResource.DanToc
                                         </a>
                                     </li>
-                                    <li >
+                                    <li>
                                         <a class="slide-item" asp-controller="@ConstController.TonGiao" asp-area="@ConstArea.MasterData" asp-action="Index">
-                                           @LanguageResource.TonGiao
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                             <li class="sub-category">
-                                <h3>Nhân Sự</h3>
-                            </li>
-                            <li class="slide">
-                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">@LanguageResource.NhanSu</span><i class="angle fe fe-chevron-right"></i></a>
-                                <ul class="slide-menu mega-slide-menu">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">@LanguageResource.NhanSu</a></li>
-                                    <li>
-                                        <a class="slide-item" asp-controller="@ConstController.CanBo" asp-area="@ConstArea.NhanSu" asp-action="Index">
-                                           @LanguageResource.CanBo
-                                        </a>
-                                    </li>
-                                    <li >
-                                        <a class="slide-item" asp-controller="@ConstController.HoiVien" asp-area="@ConstArea.HoiVien" asp-action="Index">
-                                           @LanguageResource.HoiVien
-                                        </a>
-                                    </li>
-                                    <li >
-                                        <a class="slide-item"  asp-controller="@ConstController.QuanHeGiaDinh" asp-area="@ConstArea.NhanSu" asp-action="Index">
-                                           @LanguageResource.QuanHeGiaDinh
-                                        </a>
-                                    </li>
-                                     <li >
-                                        <a class="slide-item"  asp-controller="@ConstController.HuuTri" asp-area="@ConstArea.NhanSu" asp-action="Index">
-                                           @LanguageResource.HuuTri
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="sub-category">
-                                <h3>Nhân Sự-Quá Trình</h3>
-                            </li>
-                            <li class="slide">
-                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-drivers-license-o"></i><span class="side-menu__label">@LanguageResource.QuanLyQuaTrinh</span><i class="angle fe fe-chevron-right"></i></a>
-                                <ul class="slide-menu">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">@LanguageResource.QuanLyQuaTrinh</a></li>
-                                    <li >
-                                        <a class="slide-item"  asp-controller="@ConstController.DaoTao" asp-area="@ConstArea.NhanSu" asp-action="Index">
-                                           @LanguageResource.DaoTao
-                                        </a>
-                                    </li>
-                                    <li >
-                                        <a class="slide-item"  asp-controller="@ConstController.BoiDuong" asp-area="@ConstArea.NhanSu" asp-action="Index">
-                                           @LanguageResource.BoiDuong
-                                        </a>
-                                    </li>
-                                     <li>
-                                        <a class="slide-item" asp-controller="@ConstController.CongTac" asp-area="@ConstArea.NhanSu" asp-action="Index">
-                                            @LanguageResource.CongTac
-                                        </a>
-                                    </li>
-                                     <li >
-                                        <a class="slide-item"  href="#" @* asp-controller="@ConstController.Luong" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
-                                           @LanguageResource.Luong
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="slide-item"  href="#" @* asp-controller="@ConstController.PhuCap" asp-area="@ConstArea.NhanSu" asp-action="Index"*@>
-                                            @LanguageResource.PhuCap
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="slide-item" asp-controller="@ConstController.KhenThuong" asp-area="@ConstArea.NhanSu" asp-action="Index">
-                                            @LanguageResource.KhenThuong
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="slide-item"   asp-controller="@ConstController.KyLuat" asp-area="@ConstArea.NhanSu" asp-action="Index">
-                                            @LanguageResource.KyLuat
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="slide-item"  asp-controller="@ConstController.BoNhiem" asp-area="@ConstArea.NhanSu" asp-action="Index">
-                                            @LanguageResource.BoNhiem
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="slide-item" asp-controller="@ConstController.MienNhiem" asp-area="@ConstArea.NhanSu" asp-action="Index">
-                                            @LanguageResource.MienNhiem
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="sub-category">
-                                <h3>Quản Lý Hội Viên</h3>
-                            </li>
-                            <li class="slide">
-                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-users"></i><span class="side-menu__label">@LanguageResource.HoiVien</span><i class="angle fe fe-chevron-right"></i></a>
-                                <ul class="slide-menu">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">@LanguageResource.HoiVien</a></li>
-                                    <li>
-                                        <a class="slide-item"  asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.DiaBanHoatDong" asp-action="Index">
-                                           @LanguageResource.DiaBanHoatDong 
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="slide-item"  href="#" >
-                                           Quá Trình Sinh Hoạt
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="slide-item"  href="#" >
-                                           Quản Lý Kết Nạp Hội
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="slide-item"  href="#" >
-                                           Quản Lý CLB, Đội, Nhóm
-                                        </a>
-                                    </li>
-                                     <li>
-                                        <a class="slide-item"  asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.HVKhenThuong" asp-action="Index">
-                                           @LanguageResource.HVKhenThuong 
-                                        </a>
-                                    </li>
-                                    <li class="sub-slide">
-                                        <a class="sub-side-menu__item" data-bs-toggle="sub-slide" href="javascript:void(0)">
-                                            <span class="sub-side-menu__label"> Quản Lý Vay Vốn QHTND</span>
-                                            <i class="sub-angle fe fe-chevron-right"></i>
-                                        </a>
-                                         <ul class="sub-slide-menu">
-                                              <li><a asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.VayVon" asp-action="Index" class="sub-slide-item">@LanguageResource.HoiVienVayVon</a></li>
-                                              <li><a asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.VayVon" asp-action="Report" class="sub-slide-item">Vay vốn quá hạn</a></li>
-                                         </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="sub-category">
-                                <h3>Báo cáo</h3>
-                            </li>
-                            <li class="slide">
-                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-pie-chart"></i><span class="side-menu__label">@LanguageResource.Report</span><i class="angle fe fe-chevron-right"></i></a>
-                                <ul class="slide-menu">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">Báo cáo cán bộ</a></li>
-                                    <li >
-                                        <a class="slide-item"  href="#" @* asp-controller="Menu" asp-area="@ConstArea.Permission" asp-action="Index"*@>
-                                           Cán bộ theo trình độ
-                                        </a>
-                                    </li>
-                                    <li >
-                                        <a  class="slide-item"  href="#" @* asp-controller="Roles" asp-area="@ConstArea.Permission" asp-action="Index"*@>
-                                          Cán bộ theo độ tuổi
-                                        </a>
-                                    </li>
-                                    <li >
-                                        <a  class="slide-item" href="#" @*asp-controller="Account" asp-area="@ConstArea.Permission" asp-action="Index*@" >
-                                            Chính trị - Ngoại ngữ - Tin học
-                                        </a>
-                                    </li>
-                                     <li >
-                                        <a  class="slide-item" href="#" @*asp-controller="Account" asp-area="@ConstArea.Permission" asp-action="Index*@" >
-                                            Nợ Quá Hạn 
+                                            @LanguageResource.TonGiao
                                         </a>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
-                        <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"/></svg></div>
+                        <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z" /></svg></div>
                     </div>
                 </div>
                 <!--/APP-SIDEBAR-->
@@ -1021,8 +969,8 @@
 
             <!--app-content open-->
             <div class="main-content app-content mt-0">
-                <div class="side-app">
-                     @RenderBody()
+                <div class="side-app" id="side-app-test">
+                    @RenderBody()
                 </div>
             </div>
             <!--app-content closed-->
@@ -1443,82 +1391,103 @@
             </div>
         </div>
         <!--/Sidebar-right-->
-
         <!-- Country-selector modal-->
         <div class="modal fade" id="country-selector">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content country-select-modal">
                     <div class="modal-header">
                         <h6 class="modal-title">Choose Country</h6><button aria-label="Close" class="btn-close"
-                            data-bs-dismiss="modal" type="button"><span aria-hidden="true">×</span></button>
+                                                                           data-bs-dismiss="modal" type="button">
+                            <span aria-hidden="true">×</span>
+                        </button>
                     </div>
                     <div class="modal-body">
                         <ul class="row p-3">
                             <li class="col-lg-6 mb-2">
                                 <a href="javascript:void(0)" class="btn btn-country btn-lg btn-block active">
-                                    <span class="country-selector"><img alt="" src="~/assets/images/flags/us_flag.jpg"
-                                            class="me-3 language"></span>USA
+                                    <span class="country-selector">
+                                        <img alt="" src="~/assets/images/flags/us_flag.jpg"
+                                             class="me-3 language">
+                                    </span>USA
                                 </a>
                             </li>
                             <li class="col-lg-6 mb-2">
                                 <a href="javascript:void(0)" class="btn btn-country btn-lg btn-block">
-                                    <span class="country-selector"><img alt=""
-                                        src="~/assets/images/flags/italy_flag.jpg"
-                                        class="me-3 language"></span>Italy
+                                    <span class="country-selector">
+                                        <img alt=""
+                                             src="~/assets/images/flags/italy_flag.jpg"
+                                             class="me-3 language">
+                                    </span>Italy
                                 </a>
                             </li>
                             <li class="col-lg-6 mb-2">
                                 <a href="javascript:void(0)" class="btn btn-country btn-lg btn-block">
-                                    <span class="country-selector"><img alt=""
-                                        src="~/assets/images/flags/spain_flag.jpg"
-                                        class="me-3 language"></span>Spain
+                                    <span class="country-selector">
+                                        <img alt=""
+                                             src="~/assets/images/flags/spain_flag.jpg"
+                                             class="me-3 language">
+                                    </span>Spain
                                 </a>
                             </li>
                             <li class="col-lg-6 mb-2">
                                 <a href="javascript:void(0)" class="btn btn-country btn-lg btn-block">
-                                    <span class="country-selector"><img alt=""
-                                        src="~/assets/images/flags/india_flag.jpg"
-                                        class="me-3 language"></span>India
+                                    <span class="country-selector">
+                                        <img alt=""
+                                             src="~/assets/images/flags/india_flag.jpg"
+                                             class="me-3 language">
+                                    </span>India
                                 </a>
                             </li>
                             <li class="col-lg-6 mb-2">
                                 <a href="javascript:void(0)" class="btn btn-country btn-lg btn-block">
-                                    <span class="country-selector"><img alt=""
-                                        src="~/assets/images/flags/french_flag.jpg"
-                                        class="me-3 language"></span>French
+                                    <span class="country-selector">
+                                        <img alt=""
+                                             src="~/assets/images/flags/french_flag.jpg"
+                                             class="me-3 language">
+                                    </span>French
                                 </a>
                             </li>
                             <li class="col-lg-6 mb-2">
                                 <a href="javascript:void(0)" class="btn btn-country btn-lg btn-block">
-                                    <span class="country-selector"><img alt=""
-                                        src="~/assets/images/flags/russia_flag.jpg"
-                                        class="me-3 language"></span>Russia
+                                    <span class="country-selector">
+                                        <img alt=""
+                                             src="~/assets/images/flags/russia_flag.jpg"
+                                             class="me-3 language">
+                                    </span>Russia
                                 </a>
                             </li>
                             <li class="col-lg-6 mb-2">
                                 <a href="javascript:void(0)" class="btn btn-country btn-lg btn-block">
-                                    <span class="country-selector"><img alt=""
-                                        src="~/assets/images/flags/germany_flag.jpg"
-                                        class="me-3 language"></span>Germany
+                                    <span class="country-selector">
+                                        <img alt=""
+                                             src="~/assets/images/flags/germany_flag.jpg"
+                                             class="me-3 language">
+                                    </span>Germany
                                 </a>
                             </li>
                             <li class="col-lg-6 mb-2">
                                 <a href="javascript:void(0)" class="btn btn-country btn-lg btn-block">
-                                    <span class="country-selector"><img alt=""
-                                        src="~/assets/images/flags/argentina.jpg"
-                                        class="me-3 language"></span>Argentina
+                                    <span class="country-selector">
+                                        <img alt=""
+                                             src="~/assets/images/flags/argentina.jpg"
+                                             class="me-3 language">
+                                    </span>Argentina
                                 </a>
                             </li>
                             <li class="col-lg-6 mb-2">
                                 <a href="javascript:void(0)" class="btn btn-country btn-lg btn-block">
-                                    <span class="country-selector"><img alt="" src="~/assets/images/flags/malaysia.jpg"
-                                        class="me-3 language"></span>Malaysia
+                                    <span class="country-selector">
+                                        <img alt="" src="~/assets/images/flags/malaysia.jpg"
+                                             class="me-3 language">
+                                    </span>Malaysia
                                 </a>
                             </li>
                             <li class="col-lg-6 mb-2">
                                 <a href="javascript:void(0)" class="btn btn-country btn-lg btn-block">
-                                    <span class="country-selector"><img alt="" src="~/assets/images/flags/turkey.jpg"
-                                        class="me-3 language"></span>Turkey
+                                    <span class="country-selector">
+                                        <img alt="" src="~/assets/images/flags/turkey.jpg"
+                                             class="me-3 language">
+                                    </span>Turkey
                                 </a>
                             </li>
                         </ul>
@@ -1527,18 +1496,25 @@
             </div>
         </div>
         <!-- Country-selector modal-->
-
         <!-- FOOTER -->
-        <footer class="footer">
-            <div class="container">
-                <div class="row align-items-center flex-row-reverse">
-                    <div class="col-md-12 col-sm-12 text-center">
-                        Copyright © <span id="year"></span> <a href="javascript:void(0)">Hội Nông Dân</a>. Designed with <span class="fa fa-heart text-danger"></span> by <a href="javascript:void(0)"> Nam Việt Solutions </a>
-                    </div>
+        <footer class="main-footer1">
+            <div b-ovqu4dfemr="" class="backgroundImg">
+                <span id="year" style="display:none">2023</span>
+                <div b-ovqu4dfemr="" class="footer-info">
+                    <span b-ovqu4dfemr="" class="hnd-title">Cơ quan chủ quản: Hội Nông Dân Thành Phố Hồ Chí Minh</span>
+                    <span b-ovqu4dfemr="" class="hdnd-inform">Địa chỉ: 271/1 Nguyễn Trọng Tuyển, Phường 10, Quận Phú Nhuận, TP.HCM </span>
+                </div>
+                <div b-ovqu4dfemr="" class="footer-logo">
+                    <ul b-ovqu4dfemr="" class="footer-social-list ">
+                        <li b-ovqu4dfemr=""><a b-ovqu4dfemr="" href="https://www.facebook.com/" target="_blank"><i b-ovqu4dfemr="" class="fa fa-facebook text-white"></i></a></li>
+                        <li b-ovqu4dfemr=""><a b-ovqu4dfemr="" href="https://www.google.com/" target="_blank"><i b-ovqu4dfemr="" class="fa fa-google text-white"></i></a></li>
+                        <li b-ovqu4dfemr=""><a b-ovqu4dfemr="" href="https://twitter.com/" target="_blank"><i b-ovqu4dfemr="" class="fa fa-twitter text-white"></i></a></li>
+                        <li b-ovqu4dfemr=""><a b-ovqu4dfemr="" href="https://www.linkedin.com/" target="_blank"><i b-ovqu4dfemr="" class="fa fa-linkedin text-white"></i></a></li>
+                    </ul>
                 </div>
             </div>
         </footer>
-           <partial name="_ImportPartial" />
+        <partial name="_ImportPartial" />
         <!-- FOOTER CLOSED -->
     </div>
 
@@ -1546,28 +1522,29 @@
     <a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
 
     <!-- JQUERY JS -->
-    <script src="~/assets/js/jquery.min.js"></script>
 
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/js/jquery.orgchart.js"></script>
     <!-- BOOTSTRAP JS -->
     <script src="~/assets/plugins/bootstrap/js/popper.min.js"></script>
     <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 
-     <!-- INPUT MASK JS-->
+    <!-- INPUT MASK JS-->
     <script src="~/assets/plugins/input-mask/jquery.mask.min.js"></script>
 
 
-	<!-- TypeHead js -->
-	<script src="~/assets/plugins/bootstrap5-typehead/autocomplete.js"></script>
+    <!-- TypeHead js -->
+    <script src="~/assets/plugins/bootstrap5-typehead/autocomplete.js"></script>
     <script src="~/assets/js/typehead.js"></script>
 
     <!-- INTERNAL SELECT2 JS -->
     <script src="~/assets/plugins/select2/select2.full.min.js"></script>
 
-    
+
 
     <!-- SIDEBAR JS -->
     <script src="~/assets/plugins/sidebar/sidebar.js"></script>
-     <!-- SIDE-MENU JS -->
+    <!-- SIDE-MENU JS -->
     <script src="~/assets/plugins/sidemenu/sidemenu.js"></script>
 
     <!-- Perfect SCROLLBAR JS-->
@@ -1584,48 +1561,62 @@
     <partial name="_TableScriptsPartial" />
     <!-- CUSTOM JS -->
     <script src="~/assets/js/custom1.js"></script>
-     <script src="~/assets/js/custom.js"></script>
+    <script src="~/assets/js/custom.js"></script>
 
-     <!-- SELECT2 JS -->
+    <!-- SELECT2 JS -->
     <script src="~/assets/plugins/select2/select2.full.min.js"></script>
     <script src="~/assets/js/select2.js"></script>
     <script src="~/assets/plugins/multipleselect/multiple-select.js"></script>
     <script src="~/assets/plugins/multipleselect/multi-select.js"></script>
-    
+
     <!--- TABS JS -->
     <script src="~/assets/plugins/tabs/jquery.multipurpose_tabcontent.js"></script>
     <script src="~/assets/plugins/tabs/tab-content.js"></script>
-    <!-- Switcher js -->  
-     <script src="~/js/hoinongdan.js"></script>
+    <!-- Switcher js -->
+    <script src="~/js/hoinongdan.js"></script>
     <script src="~/js/toastr.min.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/lib/sweetalert2/sweetalert2.all.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     @await RenderSectionAsync("ScriptCustomized", required: false)
-    
+
 </body>
 
 </html>
 <script>
     $(document).ready(function () {
-        var activePage =  "/"+window.location.href.split('/')[3] +"/"+window.location.href.split('/')[4];
+        var activePage = "/" + window.location.href.split('/')[3] + "/" + window.location.href.split('/')[4];
         //console.log(activePage);
         $(".app-sidebar li a").each(function () {
             var $this = $(this);
             var pageUrl = $this.attr("href");
             if (activePage == pageUrl) {
-                    $(this).addClass("active");
-                    $(this).parent().addClass("is-expanded");
-                    $(this).parent().parent().prev().addClass("active");
-                    $(this).parent().parent().addClass("open");
-                    $(this).parent().parent().prev().addClass("is-expanded");
-                    $(this).parent().parent().parent().addClass("is-expanded");
-                    $(this).parent().parent().parent().parent().addClass("open");
-                    $(this).parent().parent().parent().parent().prev().addClass("active");
-                    $(this).parent().parent().parent().parent().parent().addClass("is-expanded");
-                    $(this).parent().parent().parent().parent().parent().prev().addClass("active");
-                    $(this).parent().parent().parent().parent().parent().prev().parent().addClass("is-expanded");
+                $(this).addClass("active");
+                $(this).parent().addClass("is-expanded");
+                $(this).parent().parent().prev().addClass("active");
+                $(this).parent().parent().addClass("open");
+                $(this).parent().parent().prev().addClass("is-expanded");
+                $(this).parent().parent().parent().addClass("is-expanded");
+                $(this).parent().parent().parent().parent().addClass("open");
+                $(this).parent().parent().parent().parent().prev().addClass("active");
+                $(this).parent().parent().parent().parent().parent().addClass("is-expanded");
+                $(this).parent().parent().parent().parent().parent().prev().addClass("active");
+                $(this).parent().parent().parent().parent().parent().prev().parent().addClass("is-expanded");
             }
         });
+    });
+    document.addEventListener("scroll", (event) => {
+        let lastKnownScrollPosition = window.scrollY;
+        if (lastKnownScrollPosition > 6) {
+            document.getElementById("app-header-test").style.top = 0;
+            document.getElementById("app-sidebar-test").style.top = 0;
+            // document.getElementById("side-app-test").style.top = "74px";
+        }
+        else {
+            var test = document.getElementById("app-header-test").style.top = "106px";
+            document.getElementById("app-sidebar-test").style.top = "106px";
+            // document.getElementById("side-app-test").style.top = "150px";
+        }
+
     });
 </script>

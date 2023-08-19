@@ -43,6 +43,7 @@ namespace HoiNongDan.DataAccess
         public DbSet<QuanHuyen> QuanHuyens { get; set; }
         public DbSet<PhuongXa> PhuongXas { get; set; }
         public DbSet<HocHam> HocHams { get; set; }
+        public DbSet<HocVi> HocVis { get; set; }
         public DbSet<TinhTrang> TinhTrangs { get; set; }
         public DbSet<HeDaoTao> HeDaoTaos { get; set; }
         public DbSet<PhanHe> PhanHes { get; set; }
@@ -58,9 +59,11 @@ namespace HoiNongDan.DataAccess
         public DbSet<LoaiDinhKem> LoaiDinhKems { get; set; }
         public DbSet<NgheNghiep> NgheNghieps { get; set; }
         public DbSet<GiaDinhThuocDien> GiaDinhThuocDiens { get; set; }
+        public DbSet<TrinhDoChuyenMon> TrinhDoChuyenMons { get; set; }
         #endregion
         #region nhanSu
         public DbSet<CanBo> CanBos { get; set; }
+        public DbSet<ThucLucHoi> ThucLucHois { get; set; }
         public DbSet<QuanHeGiaDinh> QuanHeGiaDinhs { get; set; }
         public DbSet<QuaTrinhKhenThuong> QuaTrinhKhenThuongs { get; set; }
         public DbSet<QuaTrinhKyLuat> QuaTrinhKyLuats { get; set; }
@@ -74,7 +77,7 @@ namespace HoiNongDan.DataAccess
 
         #region Hội viên
         public DbSet<DiaBanHoatDong> DiaBanHoatDongs { get; set; }
-        public DbSet<DiaBanHoatDong_ThanhVien> DiaBanHoatDongThanhViens { get; set; }
+     
         public DbSet<HoiVienVayVon> HoiVienVayVons { get; set; }
         #endregion Hội viên
 
@@ -120,6 +123,13 @@ namespace HoiNongDan.DataAccess
             builder.Entity<Bank>(tbl =>
             {
                 tbl.ToTable("Bank", "tMasterData");
+            });
+            builder.Entity<TrinhDoChuyenMon>(tbl =>
+            {
+                tbl.ToTable("TrinhDoChuyenMon", "tMasterData");
+                tbl.HasKey(it => it.MaTrinhDoChuyenMon);
+                tbl.Property(it => it.TenTrinhDoChuyenMon).IsRequired()
+                   .HasMaxLength(200);
             });
             builder.Entity<LoaiDinhKem>(tbl =>
             {
@@ -297,6 +307,13 @@ namespace HoiNongDan.DataAccess
                 tbl.Property(it => it.MaHocHam).HasMaxLength(50).IsRequired(true);
                 tbl.Property(it => it.TenHocHam).HasMaxLength(250).IsRequired(true);
             });
+            builder.Entity<HocVi>(tbl =>
+            {
+                tbl.ToTable("HocViModel", "tMasterData");
+                tbl.HasKey(it => it.MaHocVi);
+                tbl.Property(it => it.MaHocVi).HasMaxLength(50).IsRequired(true);
+                tbl.Property(it => it.TenHocVi).HasMaxLength(250).IsRequired(true);
+            });
             builder.Entity<TinhThanhPho>(tbl =>
             {
                 tbl.ToTable("TinhThanhPhoModel", "tMasterData");
@@ -358,7 +375,6 @@ namespace HoiNongDan.DataAccess
                 entity.ToTable("CanBo", "NS");
                 entity.HasKey(it => it.IDCanBo);
                 entity.Property(it => it.MaCanBo).IsUnicode(true).IsRequired(true).HasMaxLength(20);
-
                 entity.HasOne<TinhTrang>(it => it.TinhTrang)
                     .WithMany(it => it.CanBos)
                     .HasForeignKey(it => it.MaTinhTrang)
@@ -373,6 +389,11 @@ namespace HoiNongDan.DataAccess
                   .WithMany(it => it.CanBos)
                   .HasForeignKey(it => it.IdDepartment)
                   .HasConstraintName("FK_CanBo_Department");
+
+                entity.HasOne<DiaBanHoatDong>(it => it.DiaBanHoatDong)
+                .WithMany(it => it.CanBos)
+                .HasForeignKey(it => it.MaDiaBanHoatDong)
+                .HasConstraintName("FK_CanBo_DiaBanHoatDong");
 
                 entity.HasOne<GiaDinhThuocDien>(it => it.GiaDinhThuocDien)
                   .WithMany(it => it.CanBos)
@@ -398,6 +419,16 @@ namespace HoiNongDan.DataAccess
                 .WithMany(it => it.CanBos)
                 .HasForeignKey(it => it.MaTrinhDoHocVan)
                 .HasConstraintName("FK_CanBo_TrinhDoHocVan");
+
+                entity.HasOne<TrinhDoChuyenMon>(it => it.TrinhDoChuyenMon)
+               .WithMany(it => it.CanBos)
+               .HasForeignKey(it => it.MaTrinhDoChuyenMon)
+               .HasConstraintName("FK_CanBo_TrinhDoChuyenMon");
+
+                entity.HasOne<HocVi>(it => it.HocVi)
+                  .WithMany(it => it.CanBos)
+                  .HasForeignKey(it => it.MaHocVi)
+                  .HasConstraintName("FK_CanBo_HocVi");
 
                 entity.HasOne<TrinhDoTinHoc>(it => it.TrinhDoTinHoc)
                .WithMany(it => it.CanBos)
@@ -428,11 +459,17 @@ namespace HoiNongDan.DataAccess
                .WithMany(it => it.CanBos)
                .HasForeignKey(it => it.MaPhanHe)
                .HasConstraintName("FK_CanBo_PhanHe");
+
             entity.HasOne<HocHam>(it => it.HocHam)
               .WithMany(it => it.CanBos)
               .HasForeignKey(it => it.MaHocHam)
               .HasConstraintName("FK_CanBo_HocHam");
-             entity.HasOne<HeDaoTao>(it => it.HeDaoTao)
+             entity.HasOne<HocVi>(it => it.HocVi)
+                      .WithMany(it => it.CanBos)
+                      .HasForeignKey(it => it.MaHocVi)
+                      .HasConstraintName("FK_CanBo_HocVi");
+
+                entity.HasOne<HeDaoTao>(it => it.HeDaoTao)
              .WithMany(it => it.CanBos)
              .HasForeignKey(it => it.MaHeDaoTao)
              .HasConstraintName("FK_CanBo_HeDaoTao");
@@ -797,30 +834,6 @@ namespace HoiNongDan.DataAccess
                     .HasForeignKey(it => it.MaPhuongXa)
                     .HasConstraintName("FK_DiaBanHoatDong_PhuongXa");
 
-            });
-            builder.Entity<DiaBanHoatDong_ThanhVien>(entity => {
-                entity.ToTable("DiaBanHoatDong_ThanhVien", "HV");
-                entity.HasKey(it => it.Id);
-                entity.Property(it => it.LyDo).IsRequired(false).HasMaxLength(500);
-                entity.Property(it => it.RoiDi).IsRequired(true).HasDefaultValue(false);
-
-                entity.HasOne<CanBo>(it => it.CanBo)
-                    .WithMany(it => it.DiaBanHoatDongThanhViens)
-                    .HasForeignKey(it => it.IDCanBo)
-                    .OnDelete(DeleteBehavior.NoAction)
-                    .HasConstraintName("FK_DiaBanHoatDong_ThanhVien_CanBo");
-
-                entity.HasOne<DiaBanHoatDong>(it => it.DiaBan)
-                   .WithMany(it => it.DiaBanHoatDongThanhViens)
-                   .HasForeignKey(it => it.IdDiaBan)
-                   .OnDelete(DeleteBehavior.NoAction)
-                   .HasConstraintName("FK_DiaBanHoatDong_ThanhVien_DiaBanHoatDong");
-
-                entity.HasOne<ChucVu>(it => it.ChucVu)
-                   .WithMany(it => it.DiaBanHoatDongThanhViens)
-                   .HasForeignKey(it => it.MaChucVu)
-                   .OnDelete(DeleteBehavior.NoAction)
-                   .HasConstraintName("FK_DiaBanHoatDong_ThanhVien_ChucVu");
             });
             builder.Entity<HoiVienVayVon>(entity => {
                 entity.ToTable("HoiVienVayVon", "HV");

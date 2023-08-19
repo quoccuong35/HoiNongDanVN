@@ -1,0 +1,79 @@
+﻿<link href="~/css/jquery.orgchart.css" rel="stylesheet" />
+<style type="text/css">
+    .orgchart .nodes {
+        justify-content: center;
+    }
+
+    .orgchart .node .title {
+        width: auto;
+    }
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        padding: 1px;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial;
+        color: #333333;
+    }
+
+    #chart-container {
+        position: relative;
+        height: 420px;
+        border: 1px solid #aaa;
+        margin: 0.5rem;
+        overflow: auto;
+        text-align: center;
+    }
+
+    .orgchart .node .title {
+        background-color: rgba(33,88,104,0.9);
+        font-size:15px;
+        text-align:center;
+    }
+
+</style>
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header d-flex my-1">
+        <div class="">
+            <span class="header-title">Cơ cấu tổ chức Hội Nông Dân thành phố</span>
+            <div class="rectangle">
+                <span> </span>
+                <span> </span>
+                <span> </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+            
+                <div id="chart-container"></div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+@section ScriptCustomized {
+    <script src="~/js/data.js"></script>
+    <script>
+        $(function () {
+
+            $('#chart-container').orgchart({
+                'data': datasource,
+                'nodeContent': 'title'
+            });
+
+        });
+    </script>
+}

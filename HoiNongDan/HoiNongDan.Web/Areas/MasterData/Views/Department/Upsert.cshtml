@@ -42,13 +42,13 @@
                     <form method="post" asp-action="Upsert" id="frmUpsert">
                         <input asp-for="Id" hidden />
                         <div class="row">
-                            <div class="col-md-3">
+                           @*  <div class="col-md-3">
                                 <label asp-for="IdCoSo"></label>
                                 <select asp-for="IdCoSo" asp-items="@ViewBag.IdCoSo" class="form-control select2-show-search form-select">
                                     <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
                                 </select>
                                 <span asp-validation-for="IdCoSo" class="text-danger"></span>
-                            </div>
+                            </div> *@
                             <div class="col-md-3">
                                 <label asp-for="Code"></label>
                                 <input asp-for="Code" class="form-control" />

@@ -94,3 +94,37 @@
 .rectangle > span:nth-child(3) {
     background: #24B24B;
 }
+.main-footer1 {
+    background-color: #fff;
+    border-top: 1px solid #e6eaea;
+    position: relative;
+}
+.backgroundImg {
+    background: url('../Images/1538363015991upload_00002612.png') no-repeat;
+    height: 100px;
+    background-size: 100%;
+    position:inherit;
+}
+.footer-info {
+    position:absolute;
+    left:170px;
+}
+.footer-logo {
+    position: absolute;
+    right: 70px;
+}
+.hnd-title {
+    float: left;
+    width: 86%;
+    margin: 2% 0px 0px 11%;
+    font-size: 23px;
+    color: white;
+    font-weight: bold;
+}
+.hdnd-inform {
+    float: left;
+    width: 86%;
+    margin: 10px 0px 0px 11%;
+    color: white;
+    font-size: 16px;
+}

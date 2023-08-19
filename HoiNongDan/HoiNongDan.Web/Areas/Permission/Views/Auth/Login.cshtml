@@ -37,15 +37,26 @@
     <link id="theme" rel="stylesheet" type="text/css" media="all" href="~/assets/colors/color1.css" />
     <style>
         .side-header{
-            background-color:darkblue;
+            background-color:#136d38;
+        }
+        body{
+            margin: 0;
+            font-family: "Segoe UI", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #282f53;
+            text-align: left;
+            background-color: rgba(181,236,248,0.2);
+            /*background-image:none;*/
         }
     </style>
 </head>
 
-<body class="app sidebar-mini ltr login-img light-mode" >
+<body class="app sidebar-mini ltr light-mode" >
 
     <!-- BACKGROUND-IMAGE -->
-    <div class="">
+    <div class="" style="">
 
         <!-- GLOABAL LOADER -->
         <div id="global-loader">
@@ -59,7 +70,7 @@
                 <!-- CONTAINER OPEN -->
                 <div class="col col-login mx-auto mt-7">
                     <div class="text-center">
-                        <a href="index.html"><img src="~/Images/logo.png" class="header-brand-img" alt=""></a>
+                        <a href="index.html"><img src="~/Images/logo-menu.png" style="max-width:90%" class="header-brand-img" alt=""></a>
                     </div>
                 </div>
 
@@ -95,7 +106,7 @@
                             </div>
                                 <div class="container-login100-form-btn">
 
-                                    <button id="login-submit" class="login100-form-btn btn-primary">Đăng nhập</button>
+                                <button id="login-submit" class="login100-form-btn" style="background-color:#136d38">Đăng nhập</button>
                                 </div>
                         </form>
                     </div>
@@ -124,7 +135,7 @@
     <script src="~/assets/plugins/p-scroll/perfect-scrollbar.js"></script>
 
     <!-- Color Theme js -->
-    <script src="~/assets/js/themeColors.js"></script>
+    @*<script src="~/assets/js/themeColors.js"></script>*@
 
     <!-- CUSTOM JS -->
     <script src="~/assets/js/custom.js"></script>

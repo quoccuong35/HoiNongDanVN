@@ -8,9 +8,9 @@
                 {
                     label: "Cơ hữu- biên chế",
                     data: [65, 59, 80, 81],
-                    borderColor: "#6c5ffc",
+                    borderColor: "#136d38",
                     borderWidth: "0",
-                    backgroundColor: "#6c5ffc"
+                    backgroundColor: "#136d38"
                 },
                 {
                     label: "Hợp đồng dài hạn",
@@ -67,7 +67,7 @@
         labels: ['Cơ hữu- biên chế', 'Hợp đồng dài hạn', 'Hợp đồng khoán'],
         datasets: [{
             data: [285, 135, 162],
-            backgroundColor: ['#6c5ffc', '#05c3fb', '#09ad95']
+            backgroundColor: ['#136d38', '#05c3fb', '#09ad95']
         }]
     };
     var optionpie = {

@@ -182,7 +182,7 @@
                 ['data1', 'data2', 'data3']
             ],
             colors: {
-                data1: '#6c5ffc',
+                data1: '#136d38',
                 data2: '#05c3fb ',
                 data3: '#09ad95'
             },

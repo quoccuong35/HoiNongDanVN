@@ -26,11 +26,11 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
         public string TenChucVu { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TenNgachLuong")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgachLuong")]
         public string TenNgachLuong { get; set; }
 
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TenBacLuong")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "BacLuong")]
         public string? TenBacLuong { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HeSo")]
         public decimal? HeSo { get; set; }

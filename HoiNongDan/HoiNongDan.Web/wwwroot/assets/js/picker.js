@@ -71,7 +71,7 @@ for (const [theme, config] of themes) {
         pickr = new Pickr(Object.assign({
             el,
             theme,
-            default: '#6c5ffc'
+            default: '#136d38'
         }, config));
 
         // Set events

@@ -407,6 +407,7 @@ HoiNongDan.ImportModalHideHandler = function () {
     })
 }
 HoiNongDan.Table = function (id_table = "#data-list") {   
+    var height = document.documentElement.clientHeight - 550;
     try {
         var table = $(id_table).DataTable({
             autoFill: true,
@@ -415,7 +416,7 @@ HoiNongDan.Table = function (id_table = "#data-list") {
             autoHeight: false,
             scrollCollapse: false,
             scrollX: true,
-            scrollY: 300,
+            scrollY: height,
             iDisplayLength: 10,
             buttons: ['excel', 'pdf'],
             language: {
@@ -425,6 +426,7 @@ HoiNongDan.Table = function (id_table = "#data-list") {
         });
         table.buttons().container()
             .appendTo('#data-list_wrapper .col-md-6:eq(0)');
+      /*  table.column(0).visible(false);*/
     } catch (e) {
         console.log(e);
     }

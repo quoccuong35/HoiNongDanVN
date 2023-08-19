@@ -436,7 +436,7 @@ $(function(e) {
     // WORLD MAP MARKER
     $('#world-map-markers1').vectorMap({
         map: 'world_mill_en',
-        scaleColors: ['#6c5ffc', '#e82646', '#05c3fb'],
+        scaleColors: ['#136d38', '#e82646', '#05c3fb'],
 
         normalizeFunction: 'polynomial',
 
@@ -454,7 +454,7 @@ $(function(e) {
         markerStyle: {
             initial: {
                 r: 6,
-                'fill': '#6c5ffc',
+                'fill': '#136d38',
                 'fill-opacity': 0.9,
                 'stroke': '#fff',
                 'stroke-width': 9,

@@ -34,6 +34,10 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 {
                     data = data.Where(it => it.TenTrinhDoNgoaiNgu.Contains(search.TenTrinhDoNgoaiNgu));
                 }
+                if (!String.IsNullOrEmpty(search.MaNgonNgu) && !String.IsNullOrWhiteSpace(search.MaNgonNgu))
+                {
+                    data = data.Where(it => it.MaNgonNgu == search.MaNgonNgu);
+                }
                 var model = data.Select(it => new NgoaiNguVM
                 {
                     MaTrinhDoNgoaiNgu = it.MaTrinhDoNgoaiNgu,

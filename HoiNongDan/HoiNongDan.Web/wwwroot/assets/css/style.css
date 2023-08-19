@@ -157,12 +157,12 @@ License        :   Licensed under ThemeForest License
 /*Transparent variables*/
 /* ###### Bootstrap ###### */
 :root {
-    --primary-bg-color: #6c5ffc;
+    --primary-bg-color: #136d38;
     --primary-bg-hover: #233ac5;
     --primary-bg-border: #5161c1;
     --dark-body: #292e4a;
     --dark-border: #30314e;
-    --transparent-primary: #6c5ffc;
+    --transparent-primary: #136d38;
     --transparent-body: #584cd9;
     --transparent-theme: rgba(0, 0, 0, 0.2);
     --transparent-border: rgba(255, 255, 255, 0.1);
@@ -172,7 +172,8 @@ License        :   Licensed under ThemeForest License
     --darkprimary-transparentcolor: #2b356e;
     --transparentprimary-transparentcolor: rgba(255, 255, 255, 0.05);
     --indigo: #4b0082;
-    --purple: #6f42c1;
+    /*--purple: #6f42c1;*/
+    --purple: #136d38;
     --pink: #fc5296;
     --orange: #fd7e14;
     --yellow: #FBB034;
@@ -182,7 +183,7 @@ License        :   Licensed under ThemeForest License
     --white: #ffffff;
     --gray: #6c757d;
     --gray-dark: #343a40;
-    --primary: #6c5ffc;
+    --primary: #136d38;
     --secondary: #6c757d;
     --success: #28a745;
     --info: #17a2b8;
@@ -243,9 +244,14 @@ body {
     color: #282f53;
     text-align: left;
     background-color: #f0f0f5;
-    background-image: url("/Images/background.png");
+    /*background-image: url("/Images/background.png");*/
 }
-
+.backgroundImg {
+    background: url("Images/1538363015991upload_00002612.png") no-repeat;
+    height: 270px;
+    background-size: 100%;
+    position: inherit;
+}
 .number-font {
     font-weight: 600 !important;
 }
@@ -18781,7 +18787,7 @@ img {
             }
 
                 .landing-top-header .top .nav li a.active {
-                    color: #6c5ffc;
+                    color: #136d38;
                 }
 
 @media (max-width: 992px) {
@@ -18810,7 +18816,7 @@ img {
 .nav-pills .show > .nav-link {
     background-color: transparent;
     font-weight: bold;
-    color: #6c5ffc;
+    color: #136d38;
 }
 
 .logo-demo {
@@ -18918,7 +18924,7 @@ img {
             position: absolute;
             content: "";
             height: 8px;
-            border: 2px solid #6c5ffc;
+            border: 2px solid #136d38;
             margin: 0px auto;
             transform: rotate(45deg);
             width: 8px;
@@ -19177,7 +19183,7 @@ img {
     }
 
     .landing-page .landing-title {
-        background: linear-gradient(to right, transparent, #6c5ffc, transparent);
+        background: linear-gradient(to right, transparent, #136d38, transparent);
         height: 1px;
         margin: 0px auto;
         width: 70px !important;
@@ -19338,11 +19344,11 @@ img {
 }
 
 .landing-page #faqs .card.bg-primary-transparent .card-header {
-    border-left: 5px solid #6c5ffc;
+    border-left: 5px solid #136d38;
 }
 
     .landing-page #faqs .card.bg-primary-transparent .card-header .card-options-collapse i {
-        background-color: #6c5ffc;
+        background-color: #136d38;
     }
 
     .landing-page #faqs .card.bg-primary-transparent .card-header a:hover {
@@ -19350,7 +19356,7 @@ img {
     }
 
 .landing-page #faqs .card.bg-primary-transparent .card-body {
-    border-left: 5px solid #6c5ffc;
+    border-left: 5px solid #136d38;
     border-radius: 0 0 7px 7px;
 }
 
@@ -19466,7 +19472,7 @@ img {
     height: 35px;
     width: 35px;
     background-color: #fff;
-    border: 1px solid #6c5ffc;
+    border: 1px solid #136d38;
     font-size: 14px;
     line-height: 2.3;
 }
@@ -20317,12 +20323,12 @@ img {
 }
 
 .rtl.landing-page #faqs .card.bg-primary-transparent .card-header {
-    border-right: 5px solid #6c5ffc;
+    border-right: 5px solid #136d38;
     border-left: inherit;
 }
 
 .rtl.landing-page #faqs .card.bg-primary-transparent .card-body {
-    border-right: 5px solid #6c5ffc;
+    border-right: 5px solid #136d38;
     border-left: inherit;
 }
 

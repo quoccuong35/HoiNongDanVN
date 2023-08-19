@@ -1,0 +1,50 @@
+﻿
+@model IEnumerable<CanBoDetailVM>
+@{
+    string CurrentController = ConstController.CanBo;
+    string CurrentArea = ConstArea.NhanSu;
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table table-bordered text-nowrap mb-0">
+    <thead class="table-primary">
+        <tr>
+
+            <th class="text-center">@Html.DisplayNameFor(p => p.HoVaTen)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.TenChucVu)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.GioiTinh)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NgaySinh)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.MaDanToc)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.MaTonGiao)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NgayvaoDangDuBi)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NgayVaoDangChinhThuc)</th>
+
+            <th class="text-center">@Html.DisplayNameFor(p => p.ChuyenNganh)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.MaTrinhDoChinhTri)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.SoDienThoai)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr>
+    
+                <td class="align-middle">@Html.DisplayFor(p => item.HoVaTen)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.TenChucVu)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.GioiTinh)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgaySinh)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.MaDanToc)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.MaTonGiao)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgayvaoDangDuBi)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgayVaoDangChinhThuc)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.ChuyenNganh)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.MaTrinhDoChinhTri)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.SoDienThoai)</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -18,7 +18,7 @@ namespace HoiNongDan.Models
         public string Name { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "CoSo")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         public Guid? IdCoSo { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]

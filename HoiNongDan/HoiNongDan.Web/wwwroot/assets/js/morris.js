@@ -31,7 +31,7 @@ $(function(e) {
         }],
         xkey: 'x',
         ykeys: ['y', 'z'],
-        lineColors: ['#6c5ffc', '#05c3fb'],
+        lineColors: ['#136d38', '#05c3fb'],
         labels: ['Y', 'Z'],
         resize: true
     }).on('click', function(i, row) {
@@ -61,7 +61,7 @@ $(function(e) {
         }],
         xkey: 'x',
         ykeys: ['y', 'z'],
-        lineColors: ['#6c5ffc', '#05c3fb'],
+        lineColors: ['#136d38', '#05c3fb'],
         labels: ['Y', 'Z'],
         resize: true
     });
@@ -103,7 +103,7 @@ $(function(e) {
         barColors: function(row, series, type) {
             if (type === 'bar') {
                 var red = Math.ceil(0 * row.y / this.ymax);
-                return '#6c5ffc';
+                return '#136d38';
             } else {
                 return '#000';
             }
@@ -158,7 +158,7 @@ $(function(e) {
         xkey: 'period',
         ykeys: ['licensed', 'sorned'],
         labels: ['Licensed', 'SORN'],
-        barColors: ['#6c5ffc', '#05c3fb'],
+        barColors: ['#136d38', '#05c3fb'],
         xLabelAngle: 0,
         resize: true
 
@@ -184,7 +184,7 @@ $(function(e) {
         xkey: 'x',
         ykeys: ['y', 'z'],
         labels: ['data1', 'data2'],
-        lineColors: ['#6c5ffc', '#05c3fb'],
+        lineColors: ['#136d38', '#05c3fb'],
         parseTime: false,
         ymin: -1.0,
         ymax: 1.0,
@@ -247,7 +247,7 @@ $(function(e) {
         xkey: 'period',
         ykeys: ['licensed', 'sorned'],
         labels: ['Licensed', 'SORN'],
-        lineColors: ['#6c5ffc', '#05c3fb'],
+        lineColors: ['#136d38', '#05c3fb'],
         resize: true,
     });
     /*---- morrisBar8----*/
@@ -265,7 +265,7 @@ $(function(e) {
         }],
         backgroundColor: 'rgba(119, 119, 142, 0.2)',
         labelColor: '#77778e',
-        colors: ['#6c5ffc', '#05c3fb', '#09ad95'],
+        colors: ['#136d38', '#05c3fb', '#09ad95'],
         resize: true,
         formatter: function(x) {
             return x + "%"
@@ -299,7 +299,7 @@ $(function(e) {
         backgroundColor: 'rgba(119, 119, 142, 0.2)',
         labelColor: '#77778e',
         resize: true,
-        colors: ['#6c5ffc', '#05c3fb', '#09ad95', '#1170e4', '#f82649', '#f7b731'],
+        colors: ['#136d38', '#05c3fb', '#09ad95', '#1170e4', '#f82649', '#f7b731'],
         formatter: function(x) {
             return x + "%"
         }

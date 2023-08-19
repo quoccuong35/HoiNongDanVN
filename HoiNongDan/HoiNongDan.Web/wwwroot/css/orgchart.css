@@ -1,0 +1,74 @@
+.tf-tree * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.tf-tree {
+    font-size: 18px;
+    overflow: auto;
+}
+.tf-tree ul {
+    display: inline-flex;
+}
+.tf-tree li {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 0 1em;
+    position: relative;
+}
+.tf-nc {
+  border-radius: 10px;
+}
+.tf-tree .tf-nc, .tf-tree .tf-node-content {
+    border: 2px solid #136d38;
+    display: inline-block;
+    padding: 1.5em 2em;
+    position: relative;
+	background-color: rgba(33,88,104,0.9);
+	color:white;
+	font-weight:900;
+	text-align: center;
+}
+.tf-tree .tf-nc:after, .tf-tree .tf-node-content:after {
+    top: calc(100% + .03125em);
+}
+.tf-tree li ul {
+    margin: 2em 0;
+}
+
+.tf-tree li li:first-child:before {
+    left: calc(50% - .03125em);
+    max-width: calc(50% + 2px);
+}
+.tf-tree li li:last-child:before {
+    left: auto;
+    max-width: calc(50% + 2px);
+    right: calc(50% - .03125em);
+}
+.tf-tree li li:before {
+    border-top: 2px solid #000;
+    content: "";
+    display: block;
+    height: 2px;
+    left: -.03125em;
+    position: absolute;
+    top: -1.03125em;
+    width: 100%;
+}
+.tf-tree .tf-nc:only-child:after, .tf-tree .tf-node-content:only-child:after, .tf-tree>ul>li>.tf-nc:before, .tf-tree>ul>li>.tf-node-content:before {
+    display: none;
+}
+.tf-tree .tf-nc:after, .tf-tree .tf-nc:before, .tf-tree .tf-node-content:after, .tf-tree .tf-node-content:before {
+    border-left: 2px solid #000;
+    content: "";
+    display: block;
+    height: 1.3em;
+    left: calc(50% - .03125em);
+    position: absolute;
+    width: 2px;
+}
+.tf-tree .tf-nc:before, .tf-tree .tf-node-content:before {
+    top: -1.4em;
+}

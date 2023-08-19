@@ -13,7 +13,7 @@
              ],
              type: 'line', // default type of chart
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb',
                  data3: '#09ad95'
              },
@@ -52,7 +52,7 @@
              labels: true,
              type: 'line', // default type of chart
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb'
              },
              names: {
@@ -88,7 +88,7 @@
              ],
              type: 'area', // default type of chart
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb'
              },
              names: {
@@ -124,7 +124,7 @@
              ],
              type: 'area-spline', // default type of chart
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb'
              },
              names: {
@@ -163,7 +163,7 @@
                  ['data1', 'data2']
              ],
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb'
              },
              names: {
@@ -201,7 +201,7 @@
                  ['data1', 'data2']
              ],
              colors: {
-                 data1: '#6c5ffc'
+                 data1: '#136d38'
              },
              names: {
                  // name of each serie
@@ -236,7 +236,7 @@
              labels: true,
              type: 'spline', // default type of chart
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb'
              },
              names: {
@@ -272,7 +272,7 @@
              ],
              type: 'spline', // default type of chart
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb'
              },
              names: {
@@ -309,7 +309,7 @@
              ],
              type: 'step', // default type of chart
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb'
              },
              names: {
@@ -345,7 +345,7 @@
              ],
              type: 'area-step', // default type of chart
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb'
              },
              names: {
@@ -381,7 +381,7 @@
              ],
              type: 'bar', // default type of chart
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb'
              },
              names: {
@@ -419,7 +419,7 @@
              ],
              type: 'bar', // default type of chart
              colors: {
-                 data1: '#6c5ffc'
+                 data1: '#136d38'
              },
              names: {
                  // name of each serie
@@ -456,7 +456,7 @@
              ],
              type: 'bar', // default type of chart
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb'
              },
              names: {
@@ -499,7 +499,7 @@
                  ['data1', 'data2']
              ],
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb'
              },
              names: {
@@ -540,7 +540,7 @@
              ],
              type: 'pie', // default type of chart
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb',
                  data3: '#09ad95',
                  data4: '#1170e4'
@@ -578,7 +578,7 @@
              ],
              type: 'pie', // default type of chart
              colors: {
-                 'data1': '#6c5ffc',
+                 'data1': '#136d38',
                  'data2': '#05c3fb',
                  'data3': '#09ad95',
                  'data4': '#1170e4',
@@ -617,7 +617,7 @@
              ],
              type: 'pie', // default type of chart
              colors: {
-                 'data1': '#6c5ffc',
+                 'data1': '#136d38',
                  'data2': '#05c3fb',
                  'data3': '#09ad95'
              },
@@ -651,7 +651,7 @@
              ],
              type: 'pie', // default type of chart
              colors: {
-                 'data1': '#6c5ffc',
+                 'data1': '#136d38',
                  'data2': '#05c3fb',
                  'data3': '#09ad95',
                  'data4': '#1170e4'
@@ -686,7 +686,7 @@
              ],
              type: 'donut', // default type of chart
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb',
                  data3: '#09ad95',
              },
@@ -722,7 +722,7 @@
              ],
              type: 'donut', // default type of chart
              colors: {
-                 'data1': '#6c5ffc',
+                 'data1': '#136d38',
                  'data2': '#05c3fb',
                  'data3': '#09ad95',
                  'data4': '#1170e4',
@@ -760,7 +760,7 @@
              ],
              type: 'donut', // default type of chart
              colors: {
-                 'data1': '#6c5ffc',
+                 'data1': '#136d38',
                  'data2': '#05c3fb',
              },
              names: {
@@ -792,7 +792,7 @@
              ],
              type: 'donut', // default type of chart
              colors: {
-                 'data1': '#6c5ffc',
+                 'data1': '#136d38',
                  'data2': '#05c3fb',
                  'data3': '#09ad95',
                  'data4': '#1170e4',
@@ -828,7 +828,7 @@
              ],
              type: 'donut', // default type of chart
              colors: {
-                 'data1': '#6c5ffc',
+                 'data1': '#136d38',
                  'data2': '#05c3fb',
                  'data3': '#09ad95',
                  'data4': '#1170e4',
@@ -906,7 +906,7 @@
                  ['data3']
              ],
              colors: {
-                 data1: '#6c5ffc',
+                 data1: '#136d38',
                  data2: '#05c3fb',
                  data3: '#09ad95'
              },

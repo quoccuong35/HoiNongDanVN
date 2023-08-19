@@ -136,13 +136,21 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DienTich")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("GhiChu")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
+                        .HasMaxLength(700)
+                        .HasColumnType("nvarchar(700)");
+
+                    b.Property<string>("GiaDinhThuocDienKhac")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("GioiTinh")
                         .HasColumnType("int");
@@ -163,11 +171,17 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<Guid>("IdCoSo")
+                    b.Property<bool?>("HoiVienDuyet")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("IdCoSo")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IdDepartment")
+                    b.Property<Guid?>("IdDepartment")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("IsBanChapHanh")
+                        .HasColumnType("bit");
 
                     b.Property<bool?>("IsCanBo")
                         .HasColumnType("bit");
@@ -187,6 +201,14 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("LastModifiedTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("LoaiHoiVien")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("Loai_DV_SX_ChN")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<int?>("LuongKhoan")
                         .HasColumnType("int");
 
@@ -203,9 +225,15 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("MaDanToc")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<Guid?>("MaDiaBanHoatDong")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MaDinhDanh")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("MaGiaDinhThuocDien")
                         .HasMaxLength(10)
@@ -216,6 +244,10 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("MaHocHam")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("MaHocVi")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -240,7 +272,6 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("MaTonGiao")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -248,8 +279,11 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("MaTrinhDoChuyenMon")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<string>("MaTrinhDoHocVan")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -260,23 +294,27 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("NgayCapCCCD")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("NgayCapCCCD")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime?>("NgayNangBacLuong")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("NgaySinh")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("NgaySinh")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("NgayThamGiaCapUyDang")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("NgayThamGiaCapUyDang")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("NgayThamGiaCongTac")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("NgayThamGiaHDND")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("NgayThamGiaHDND")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("NgayVaoBienChe")
                         .HasColumnType("datetime2");
@@ -284,8 +322,9 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("NgayVaoDangChinhThuc")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("NgayVaoHoi")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("NgayVaoHoi")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime?>("NgayvaoDangDuBi")
                         .HasColumnType("datetime2");
@@ -316,17 +355,36 @@ namespace HoiNongDan.DataAccess.Migrations
 
                     b.Property<string>("SoCCCD")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SoDienThoai")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("SoLuong")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("ThamGia_CLB_DN_MH_HTX_THT")
+                        .HasMaxLength(800)
+                        .HasColumnType("nvarchar(800)");
+
+                    b.Property<string>("ThamGia_SH_DoanThe_HoiDoanKhac")
+                        .HasMaxLength(800)
+                        .HasColumnType("nvarchar(800)");
+
+                    b.Property<string>("ThamGia_THNN_CHNN")
+                        .HasMaxLength(800)
+                        .HasColumnType("nvarchar(800)");
 
                     b.Property<string>("VaiTro")
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("VaiTroKhac")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("IDCanBo");
 
@@ -340,11 +398,15 @@ namespace HoiNongDan.DataAccess.Migrations
 
                     b.HasIndex("MaDanToc");
 
+                    b.HasIndex("MaDiaBanHoatDong");
+
                     b.HasIndex("MaGiaDinhThuocDien");
 
                     b.HasIndex("MaHeDaoTao");
 
                     b.HasIndex("MaHocHam");
+
+                    b.HasIndex("MaHocVi");
 
                     b.HasIndex("MaNgheNghiep");
 
@@ -355,6 +417,8 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.HasIndex("MaTonGiao");
 
                     b.HasIndex("MaTrinhDoChinhTri");
+
+                    b.HasIndex("MaTrinhDoChuyenMon");
 
                     b.HasIndex("MaTrinhDoHocVan");
 
@@ -500,7 +564,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 2, 21, 13, 43, 787, DateTimeKind.Local).AddTicks(8149));
+                        .HasDefaultValue(new DateTime(2023, 8, 19, 8, 44, 41, 866, DateTimeKind.Local).AddTicks(8898));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -695,59 +759,6 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.HasIndex("MaTinhThanhPho");
 
                     b.ToTable("DiaBanHoatDong", "HV");
-                });
-
-            modelBuilder.Entity("HoiNongDan.Models.DiaBanHoatDong_ThanhVien", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CreatedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("IDCanBo")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IdDiaBan")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("LastModifiedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastModifiedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LyDo")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<Guid>("MaChucVu")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("NgayRoiDi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("NgayVao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("RoiDi")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IDCanBo");
-
-                    b.HasIndex("IdDiaBan");
-
-                    b.HasIndex("MaChucVu");
-
-                    b.ToTable("DiaBanHoatDong_ThanhVien", "HV");
                 });
 
             modelBuilder.Entity("HoiNongDan.Models.Entitys.Account", b =>
@@ -1278,6 +1289,22 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.ToTable("TrinhDoChinhTriModel", "tMasterData");
                 });
 
+            modelBuilder.Entity("HoiNongDan.Models.Entitys.TrinhDoChuyenMon", b =>
+                {
+                    b.Property<string>("MaTrinhDoChuyenMon")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("TenTrinhDoChuyenMon")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.HasKey("MaTrinhDoChuyenMon");
+
+                    b.ToTable("TrinhDoChuyenMon", "tMasterData");
+                });
+
             modelBuilder.Entity("HoiNongDan.Models.Entitys.TrinhDoNgoaiNgu", b =>
                 {
                     b.Property<Guid>("MaTrinhDoNgoaiNgu")
@@ -1495,6 +1522,22 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.ToTable("HocHamModel", "tMasterData");
                 });
 
+            modelBuilder.Entity("HoiNongDan.Models.HocVi", b =>
+                {
+                    b.Property<string>("MaHocVi")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TenHocVi")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.HasKey("MaHocVi");
+
+                    b.ToTable("HocViModel", "tMasterData");
+                });
+
             modelBuilder.Entity("HoiNongDan.Models.HoiVienVayVon", b =>
                 {
                     b.Property<Guid>("IDVayVon")
@@ -1700,7 +1743,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 2, 21, 13, 43, 788, DateTimeKind.Local).AddTicks(1762));
+                        .HasDefaultValue(new DateTime(2023, 8, 19, 8, 44, 41, 867, DateTimeKind.Local).AddTicks(1473));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -2248,6 +2291,100 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.ToTable("QuaTrinhMienNhiem", "NS");
                 });
 
+            modelBuilder.Entity("HoiNongDan.Models.ThucLucHoi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Giam_HV_Nu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Giam_HV_TongSo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HN_PhatTrien_Nu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HN_PhatTrien_Tong")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_DanhDu_LuyKe")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_DanhDu_Nam")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_Giam")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_LuyKe_Giam")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_LuyKe_Tang")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_LuyKe_TrongKy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_NN_Giam")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_NN_LuyKe_Giam")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_NN_LuyKe_Tang")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_NN_LuyKe_TrongKy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_NN_PhatTrien")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_Nu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_PhatTrien")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HV_TongSo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenDV")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TongAp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TongKhuVuc")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tong_HNN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tong_HNN_Giam")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tong_HNN_HV")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tong_HNN_HV_Giam")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tong_LD_NN")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tong_LD_NN_Giam")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ThucLucHois");
+                });
+
             modelBuilder.Entity("HoiNongDan.Models.TinhThanhPho", b =>
                 {
                     b.Property<string>("MaTinhThanhPho")
@@ -2546,15 +2683,11 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.HasOne("HoiNongDan.Models.CoSo", "CoSo")
                         .WithMany("CanBos")
                         .HasForeignKey("IdCoSo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("FK_CanBo_CoSo");
 
                     b.HasOne("HoiNongDan.Models.Department", "Department")
                         .WithMany("CanBos")
                         .HasForeignKey("IdDepartment")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("FK_CanBo_Department");
 
                     b.HasOne("HoiNongDan.Models.BacLuong", "BacLuong")
@@ -2572,9 +2705,12 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.HasOne("HoiNongDan.Models.DanToc", "DanToc")
                         .WithMany("CanBos")
                         .HasForeignKey("MaDanToc")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("FK_CanBo_DanToc");
+
+                    b.HasOne("HoiNongDan.Models.DiaBanHoatDong", "DiaBanHoatDong")
+                        .WithMany("CanBos")
+                        .HasForeignKey("MaDiaBanHoatDong")
+                        .HasConstraintName("FK_CanBo_DiaBanHoatDong");
 
                     b.HasOne("HoiNongDan.Models.GiaDinhThuocDien", "GiaDinhThuocDien")
                         .WithMany("CanBos")
@@ -2590,6 +2726,11 @@ namespace HoiNongDan.DataAccess.Migrations
                         .WithMany("CanBos")
                         .HasForeignKey("MaHocHam")
                         .HasConstraintName("FK_CanBo_HocHam");
+
+                    b.HasOne("HoiNongDan.Models.HocVi", "HocVi")
+                        .WithMany("CanBos")
+                        .HasForeignKey("MaHocVi")
+                        .HasConstraintName("FK_CanBo_HocVi");
 
                     b.HasOne("HoiNongDan.Models.NgheNghiep", "NgheNghiep")
                         .WithMany("CanBos")
@@ -2609,8 +2750,6 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.HasOne("HoiNongDan.Models.TonGiao", "TonGiao")
                         .WithMany("CanBos")
                         .HasForeignKey("MaTonGiao")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("FK_CanBo_TonGiao");
 
                     b.HasOne("HoiNongDan.Models.Entitys.TrinhDoChinhTri", "TrinhDoChinhTri")
@@ -2618,11 +2757,14 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasForeignKey("MaTrinhDoChinhTri")
                         .HasConstraintName("FK_CanBo_TrinhDoChinhTri");
 
+                    b.HasOne("HoiNongDan.Models.Entitys.TrinhDoChuyenMon", "TrinhDoChuyenMon")
+                        .WithMany("CanBos")
+                        .HasForeignKey("MaTrinhDoChuyenMon")
+                        .HasConstraintName("FK_CanBo_TrinhDoChuyenMon");
+
                     b.HasOne("HoiNongDan.Models.Entitys.MasterData.TrinhDoHocVan", "TrinhDoHocVan")
                         .WithMany("CanBos")
                         .HasForeignKey("MaTrinhDoHocVan")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("FK_CanBo_TrinhDoHocVan");
 
                     b.HasOne("HoiNongDan.Models.Entitys.TrinhDoNgoaiNgu", "TrinhDoNgoaiNgu")
@@ -2645,11 +2787,15 @@ namespace HoiNongDan.DataAccess.Migrations
 
                     b.Navigation("Department");
 
+                    b.Navigation("DiaBanHoatDong");
+
                     b.Navigation("GiaDinhThuocDien");
 
                     b.Navigation("HeDaoTao");
 
                     b.Navigation("HocHam");
+
+                    b.Navigation("HocVi");
 
                     b.Navigation("NgheNghiep");
 
@@ -2660,6 +2806,8 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Navigation("TonGiao");
 
                     b.Navigation("TrinhDoChinhTri");
+
+                    b.Navigation("TrinhDoChuyenMon");
 
                     b.Navigation("TrinhDoHocVan");
 
@@ -2703,36 +2851,6 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Navigation("QuanHuyen");
 
                     b.Navigation("TinhThanhPho");
-                });
-
-            modelBuilder.Entity("HoiNongDan.Models.DiaBanHoatDong_ThanhVien", b =>
-                {
-                    b.HasOne("HoiNongDan.Models.CanBo", "CanBo")
-                        .WithMany("DiaBanHoatDongThanhViens")
-                        .HasForeignKey("IDCanBo")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_DiaBanHoatDong_ThanhVien_CanBo");
-
-                    b.HasOne("HoiNongDan.Models.DiaBanHoatDong", "DiaBan")
-                        .WithMany("DiaBanHoatDongThanhViens")
-                        .HasForeignKey("IdDiaBan")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_DiaBanHoatDong_ThanhVien_DiaBanHoatDong");
-
-                    b.HasOne("HoiNongDan.Models.ChucVu", "ChucVu")
-                        .WithMany("DiaBanHoatDongThanhViens")
-                        .HasForeignKey("MaChucVu")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired()
-                        .HasConstraintName("FK_DiaBanHoatDong_ThanhVien_ChucVu");
-
-                    b.Navigation("CanBo");
-
-                    b.Navigation("ChucVu");
-
-                    b.Navigation("DiaBan");
                 });
 
             modelBuilder.Entity("HoiNongDan.Models.Entitys.AccountInRoleModel", b =>
@@ -3194,8 +3312,6 @@ namespace HoiNongDan.DataAccess.Migrations
 
             modelBuilder.Entity("HoiNongDan.Models.CanBo", b =>
                 {
-                    b.Navigation("DiaBanHoatDongThanhViens");
-
                     b.Navigation("FileDinhKems");
 
                     b.Navigation("HoiVienVayVons");
@@ -3222,8 +3338,6 @@ namespace HoiNongDan.DataAccess.Migrations
             modelBuilder.Entity("HoiNongDan.Models.ChucVu", b =>
                 {
                     b.Navigation("CanBos");
-
-                    b.Navigation("DiaBanHoatDongThanhViens");
 
                     b.Navigation("QuaTrinhBoNhiems");
 
@@ -3269,7 +3383,7 @@ namespace HoiNongDan.DataAccess.Migrations
 
             modelBuilder.Entity("HoiNongDan.Models.DiaBanHoatDong", b =>
                 {
-                    b.Navigation("DiaBanHoatDongThanhViens");
+                    b.Navigation("CanBos");
                 });
 
             modelBuilder.Entity("HoiNongDan.Models.Entitys.Account", b =>
@@ -3325,6 +3439,11 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Navigation("CanBos");
                 });
 
+            modelBuilder.Entity("HoiNongDan.Models.Entitys.TrinhDoChuyenMon", b =>
+                {
+                    b.Navigation("CanBos");
+                });
+
             modelBuilder.Entity("HoiNongDan.Models.Entitys.TrinhDoNgoaiNgu", b =>
                 {
                     b.Navigation("CanBos");
@@ -3363,6 +3482,11 @@ namespace HoiNongDan.DataAccess.Migrations
                 });
 
             modelBuilder.Entity("HoiNongDan.Models.HocHam", b =>
+                {
+                    b.Navigation("CanBos");
+                });
+
+            modelBuilder.Entity("HoiNongDan.Models.HocVi", b =>
                 {
                     b.Navigation("CanBos");
                 });

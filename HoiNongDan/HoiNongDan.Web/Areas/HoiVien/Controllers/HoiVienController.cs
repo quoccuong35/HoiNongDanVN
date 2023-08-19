@@ -25,6 +25,7 @@ using System.Reflection.Metadata;
 using System.Text;
 using System.Transactions;
 
+
 namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 {
     [Area(ConstArea.HoiVien)]
@@ -32,7 +33,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
     {
         private readonly IWebHostEnvironment _hostEnvironment;
         private string[] DateFomat;
-        const string controllerCode = ConstExcelController.CanBo;
+        const string controllerCode = ConstExcelController.HoiVien;
         const int startIndex = 6;
         public HoiVienController(AppDbContext context, IWebHostEnvironment hostEnvironment, IConfiguration config) : base(context)
         {
@@ -43,13 +44,14 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HoiNongDanAuthorization]
         public IActionResult Index()
         {
-            CreateViewBag();
+
+            CreateViewBagSearch();
             return View();
         }
-        public IActionResult _Search(CanBoSearchVM search)
+        public IActionResult _Search(HoiVienSearchVM search)
         {
             return ExecuteSearch(() => {
-                var model = _context.CanBos.Where(it=>it.IsHoiVien == true).AsQueryable();
+                var model = _context.CanBos.Where(it=>it.IsHoiVien == true && it.HoiVienDuyet == true).AsQueryable();
                 if (!String.IsNullOrEmpty(search.MaCanBo))
                 {
                     model = model.Where(it => it.MaCanBo == search.MaCanBo);
@@ -58,13 +60,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     model = model.Where(it => it.HoVaTen.Contains(search.HoVaTen));
                 }
-                if (search.IdCoSo != null)
+                
+                if (search.MaDiaBanHoatDong != null)
                 {
-                    model = model.Where(it => it.IdCoSo == search.IdCoSo);
-                }
-                if (search.IdDepartment != null)
-                {
-                    model = model.Where(it => it.IdDepartment == search.IdDepartment);
+                    model = model.Where(it => it.MaDiaBanHoatDong == search.MaDiaBanHoatDong);
                 }
                 if (search.MaChucVu != null)
                 {
@@ -75,20 +74,22 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     model = model.Where(it => it.Actived == search.Actived);
                 }
                 var data = model.Include(it => it.TinhTrang)
-                    .Include(it => it.Department)
-                    .Include(it => it.BacLuong)
                     .Include(it => it.ChucVu)
                     .Include(it=>it.NgheNghiep)
                     .Include(it=>it.GiaDinhThuocDien)
+                    .Include(it => it.DiaBanHoatDong)
+                    .Include(it => it.DanToc)
+                    .Include(it => it.TonGiao)
+                    .Include(it => it.TrinhDoHocVan)
                     .Include(it => it.CoSo).Select(it => new HoiVienDetailVM
                     {
                         IDCanBo = it.IDCanBo,
                         MaCanBo = it.MaCanBo,
                         HoVaTen = it.HoVaTen,
-                        TenTinhTrang = it.TinhTrang.TenTinhTrang,
-                        TenPhanHe = it.PhanHe.TenPhanHe,
-                        TenCoSo = it.CoSo.TenCoSo,
-                        TenDonVi = it.Department.Name,
+                        TenDiaBanHoatDong = it.DiaBanHoatDong!.TenDiaBanHoatDong,
+                        DanToc =it.DanToc!.TenDanToc,
+                        TonGiao = it.TonGiao!.TenTonGiao,
+                        TrinhDoHocvan = it.TrinhDoHocVan.TenTrinhDoHocVan,
                         TenChucVu = it.ChucVu.TenChucVu,
                         HinhAnh = it.HinhAnh!,
                         VaiTro = it.VaiTro =="01"? "Chủ hộ": "Quan hệ chủ hộ",
@@ -163,7 +164,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }
             HoiVienVM edit = HoiVienMTVM.SetHoiVien(item);
             CreateViewBag(item.IdCoSo, item.IdDepartment, item.MaChucVu,item.MaTrinhDoHocVan,
-                item.MaTrinhDoChinhTri,item.MaDanToc,item.MaTonGiao);
+                item.MaTrinhDoChinhTri,item.MaDanToc,item.MaTonGiao,item.MaTrinhDoChuyenMon,item.MaDiaBanHoatDong,item.MaHocVi);
             return View(edit);
         }
         [HttpPost]
@@ -180,7 +181,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     {
                         Code = System.Net.HttpStatusCode.NotFound,
                         Success = false,
-                        Data = string.Format(LanguageResource.Error_NotExist, LanguageResource.CanBo.ToLower())
+                        Data = string.Format(LanguageResource.Error_NotExist, LanguageResource.HoiVien.ToLower())
                     });
                 }
                 obj.GetHoiVien(edit);
@@ -219,7 +220,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     Code = System.Net.HttpStatusCode.OK,
                     Success = true,
-                    Data = string.Format(LanguageResource.Alert_Edit_Success, LanguageResource.CanBo.ToLower())
+                    Data = string.Format(LanguageResource.Alert_Edit_Success, LanguageResource.HoiVien.ToLower())
                 });
             });
         }
@@ -377,7 +378,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     {
                         Code = System.Net.HttpStatusCode.OK,
                         Success = true,
-                        Data = string.Format(LanguageResource.Alert_Delete_Success, LanguageResource.CanBo.ToLower())
+                        Data = string.Format(LanguageResource.Alert_Delete_Success, LanguageResource.HoiVien.ToLower())
                     });
                 }
                 else
@@ -386,7 +387,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     {
                         Code = System.Net.HttpStatusCode.NotModified,
                         Success = false,
-                        Data = string.Format(LanguageResource.Alert_NotExist_Delete, LanguageResource.CanBo.ToLower())
+                        Data = string.Format(LanguageResource.Alert_NotExist_Delete, LanguageResource.HoiVien.ToLower())
                     });
                 }
             });
@@ -400,8 +401,12 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             return ExcuteImportExcel(() => {
                 if (ds.Tables.Count > 0)
                 {
-                    using (TransactionScope ts = new TransactionScope())
+                    const TransactionScopeOption opt = new TransactionScopeOption();
+
+                    TimeSpan span = new TimeSpan(0, 0, 30, 30);
+                    using (TransactionScope ts = new TransactionScope(opt, span))
                     {
+                        
                         foreach (DataTable dt in ds.Tables)
                         {
                             string contCode = dt.Columns[0].ColumnName.ToString();
@@ -436,11 +441,11 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                     }
                                 }
                             }
-                            else
-                            {
-                                string error = string.Format(LanguageResource.Validation_ImportCheckController, LanguageResource.CanBo);
-                                errorList.Add(error);
-                            }
+                            //else
+                            //{
+                            //    string error = string.Format(LanguageResource.Validation_ImportCheckController, LanguageResource.HoiVien);
+                            //    errorList.Add(error);
+                            //}
                         }
                         if (errorList != null && errorList.Count > 0)
                         {
@@ -524,7 +529,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Export Data
         public IActionResult ExportCreate()
         {
-            List<CanBoExcelVM> data = new List<CanBoExcelVM>();
+            List<HoiVienExcelVM> data = new List<HoiVienExcelVM>();
             return Export(data);
         }
         public IActionResult ExportEdit(CanBoSearchVM search)
@@ -564,69 +569,59 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }
 
             var data = model.Include(it => it.TinhTrang)
-                .Include(it => it.PhanHe)
-                .Include(it => it.CoSo)
-                .Include(it => it.Department)
-                .Include(it => it.ChucVu)
-                .Include(it => it.BacLuong)
+                
                 .Include(it => it.TrinhDoHocVan)
-                .Include(it => it.TrinhDoTinHoc)
-                .Include(it => it.TrinhDoNgoaiNgu)
+                .Include(it => it.TrinhDoChuyenMon)
                 .Include(it => it.TrinhDoChinhTri)
                 .Include(it => it.DanToc)
                 .Include(it => it.TonGiao)
-                .Include(it => it.HocHam)
-                .Include(it => it.HeDaoTao)
-                .Select(item => new CanBoExcelVM
+                .Select(item => new HoiVienExcelVM
                 {
                     IDCanBo = item.IDCanBo,
                     MaCanBo = item.MaCanBo,
                     HoVaTen = item.HoVaTen,
                     NgaySinh = item.NgaySinh,
                     GioiTinh = item.GioiTinh == GioiTinh.Nam ? true : false,
-                    TenCoSo = item.CoSo.TenCoSo,
-                    TenDonVi = item.Department.Name,
-                    TenTinhTrang = item.TinhTrang.TenTinhTrang,
-                    TenPhanHe = item.PhanHe.TenPhanHe,
-                    TenChucVu = item.ChucVu.TenChucVu,
                     SoCCCD = item.SoCCCD,
                     NgayCapCCCD = item.NgayCapCCCD,
+                    HoKhauThuongTru = item.HoKhauThuongTru,
+                    ChoOHienNay = item.ChoOHienNay!,
                     SoDienThoai = item.SoDienThoai,
-                    Email = item.Email,
-                    TenNgachLuong = item.BacLuong.NgachLuong.TenNgachLuong,
-                    BacLuong = item.BacLuong.OrderIndex,
-                    HeSoLuong = item.HeSoLuong,
-                    NgayNangBacLuong = item.NgayNangBacLuong,
-                    PhuCapChucVu = item.PhuCapChucVu,
-                    PhuCapVuotKhung = item.PhuCapVuotKhung,
-                    PhuCapKiemNhiem = item.PhuCapKiemNhiem,
-                    PhuCapKhuVuc = item.PhuCapKhuVuc,
-                    LuongKhoan = item.LuongKhoan,
-                    KhoanTuNgay = item.KhoanTuNgay,
-                    KhoanDenNgay = item.KhoanDenNgay,
-                    SoBHXH = item.SoBHXH,
-                    SoBHYT = item.SoBHYT,
-                    MaSoThue = item.MaSoThue,
-                    NgayVaoBienChe = item.NgayVaoBienChe,
-                    NgayThamGiaCongTac = item.NgayThamGiaCongTac,
-                    TenHeDaoTao = item.HeDaoTao!.TenHeDaoTao,
-                    TenTrinhDoHocVan = item.TrinhDoHocVan.TenTrinhDoHocVan,
-                    ChuyenNganh = item.ChuyenNganh,
-                    TenTrinhDoTinHoc = item.TrinhDoTinHoc!.TenTrinhDoTinHoc,
-                    TenTrinhDoNgoaiNgu = item.TrinhDoNgoaiNgu!.TenTrinhDoNgoaiNgu,
-                    TenTrinhDoChinhTri = item.TrinhDoChinhTri!.TenTrinhDoChinhTri,
-                    TenHocHam = item.HocHam!.TenHocHam,
-                    TenDanToc = item.DanToc.TenDanToc,
-                    TenTonGiao = item.TonGiao.TenTonGiao,
-                    NoiSinh = item.NoiSinh,
-                    ChoOHienNay = item.ChoOHienNay,
                     NgayvaoDangDuBi = item.NgayvaoDangDuBi,
                     NgayVaoDangChinhThuc = item.NgayVaoDangChinhThuc,
-                    GhiChu = item.GhiChu,
+                    MaDanToc = item.DanToc.TenDanToc,
+                    MaTonGiao = item.TonGiao.TenTonGiao,
+                    MaTrinhDoHocVan = item.TrinhDoHocVan.TenTrinhDoHocVan,
+                    MaTrinhDoChuyenMon = item.TrinhDoChuyenMon!.TenTrinhDoChuyenMon,
+                    MaTrinhDoChinhTri = item.TrinhDoChinhTri!.TenTrinhDoChinhTri,
+                    NgayVaoHoi = item.NgayVaoHoi,
+                    NgayThamGiaCapUyDang = item.NgayThamGiaCapUyDang,
+                    NgayThamGiaHDND = item.NgayThamGiaHDND,
+                    VaiTro = item.VaiTro =="1"?"X":"",
+                    VaiTroKhac = item.VaiTroKhac,
+                    HoNgheo = item.MaGiaDinhThuocDien =="01"?"X":"",
+                    CanNgheo = item.MaGiaDinhThuocDien =="02"?"X":"",
+                    GiaDinhChinhSach = item.MaGiaDinhThuocDien =="03"?"X":"",
+                    GiaDinhThanhPhanKhac = item.GiaDinhThuocDienKhac,
+                    NongDan = item.MaGiaDinhThuocDien == "01" ? "X" : "",
+                    CongNhan = item.MaGiaDinhThuocDien == "02" ? "X" : "",
+                    CV_VC = item.MaGiaDinhThuocDien == "03" ? "X" : "",
+                    HuuTri = item.MaGiaDinhThuocDien == "04" ? "X" : "",
+                    DoanhNghiep = item.MaGiaDinhThuocDien == "05" ? "X" : "",
+                    LaoDongTuDo = item.MaGiaDinhThuocDien == "06" ? "X" : "",
+                    HS_SV = item.MaGiaDinhThuocDien == "07" ? "X" : "",
+                    SX_ChN = item.Loai_DV_SX_ChN,
+                    SoLuong = item.SoLuong,
+                    DienTich = item.DienTich,
+                    SinhHoatDoanTheChinhTri = item.ThamGia_SH_DoanThe_HoiDoanKhac,
+                    ThamGia_CLB_DN_HTX = item.ThamGia_CLB_DN_MH_HTX_THT,
+                    ThamGia_THNN_CHNN = item.ThamGia_THNN_CHNN,
+                    HV_NongCot = item.LoaiHoiVien == "01" ? "X" : "",
+                    HV_DanhDu = item.LoaiHoiVien == "02" ? "X" : "",
                 }).ToList();
             return Export(data);
         }
-        public FileContentResult Export(List<CanBoExcelVM> menu)
+        public FileContentResult Export(List<HoiVienExcelVM> menu)
         {
             List<ExcelTemplate> columns = new List<ExcelTemplate>();
             columns.Add(new ExcelTemplate() { ColumnName = "IDCanBo", isAllowedToEdit = false, isText = true });
@@ -634,87 +629,52 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             columns.Add(new ExcelTemplate() { ColumnName = "HoVaTen", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "NgaySinh", isAllowedToEdit = true, isDateTime = true });
             columns.Add(new ExcelTemplate() { ColumnName = "GioiTinh", isBoolean = true, isComment = true, strComment = "Nam để chữ X" });
-
-            var coSo = _context.CoSos.ToList().Select(x => new DropdownModel { Id = x.IdCoSo, Name = x.TenCoSo }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenCoSo", isAllowedToEdit = true, isDropdownlist = true, DropdownData = coSo, TypeId = ConstExcelController.GuidId });
-
-            var donVi = _context.Departments.ToList().Select(x => new DropdownModel { Id = x.Id, Name = x.Name }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenDonVi", isAllowedToEdit = true, isDropdownlist = true, DropdownData = donVi, TypeId = ConstExcelController.GuidId });
-
-
-            var tinhTrang = _context.TinhTrangs.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaTinhTrang, Name = x.TenTinhTrang }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenTinhTrang", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = tinhTrang, TypeId = ConstExcelController.StringId });
-
-            var phanHe = _context.PhanHes.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaPhanHe, Name = x.TenPhanHe }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenPhanHe", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = phanHe, TypeId = ConstExcelController.StringId });
-
-
-            var chuVu = _context.ChucVus.ToList().Select(x => new DropdownModel { Id = x.MaChucVu, Name = x.TenChucVu }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenChucVu", isAllowedToEdit = true, isDropdownlist = true, DropdownData = chuVu, TypeId = ConstExcelController.GuidId });
-
             columns.Add(new ExcelTemplate() { ColumnName = "SoCCCD", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "NgayCapCCCD", isAllowedToEdit = true, isDateTime = true });
-
-            columns.Add(new ExcelTemplate() { ColumnName = "SoDienThoai", isAllowedToEdit = true, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "Email", isAllowedToEdit = true, isText = true });
-
-            var ngachLuong = _context.NgachLuongs.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaNgachLuong, Name = x.TenNgachLuong }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenNgachLuong", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = ngachLuong, TypeId = ConstExcelController.StringId });
-
-
-
-            columns.Add(new ExcelTemplate() { ColumnName = "BacLuong", isAllowedToEdit = true, isText = true });
-
-            columns.Add(new ExcelTemplate() { ColumnName = "HeSoLuong", isAllowedToEdit = false, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "NgayNangBacLuong", isAllowedToEdit = true, isDateTime = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "PhuCapChucVu", isAllowedToEdit = true, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "PhuCapVuotKhung", isAllowedToEdit = true, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "PhuCapKiemNhiem", isAllowedToEdit = true, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "PhuCapKhuVuc", isAllowedToEdit = true, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "LuongKhoan", isAllowedToEdit = true, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "KhoanTuNgay", isAllowedToEdit = true, isDateTime = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "KhoanDenNgay", isAllowedToEdit = true, isDateTime = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "SoBHXH", isAllowedToEdit = true, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "SoBHYT", isAllowedToEdit = true, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "MaSoThue", isAllowedToEdit = true, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "NgayVaoBienChe", isAllowedToEdit = true, isDateTime = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "NgayThamGiaCongTac", isAllowedToEdit = true, isDateTime = true });
-            var heDaoTao = _context.HeDaoTaos.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaHeDaoTao, Name = x.TenHeDaoTao }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenHeDaoTao", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = heDaoTao, TypeId = ConstExcelController.StringId });
-
-            var hocVan = _context.TrinhDoHocVans.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaTrinhDoHocVan, Name = x.TenTrinhDoHocVan }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenTrinhDoHocVan", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = hocVan, TypeId = ConstExcelController.StringId });
-
-            columns.Add(new ExcelTemplate() { ColumnName = "ChuyenNganh", isAllowedToEdit = true, isText = true });
-
-            var tinHoc = _context.TrinhDoTinHocs.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaTrinhDoTinHoc, Name = x.TenTrinhDoTinHoc }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenTrinhDoTinHoc", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = tinHoc, TypeId = ConstExcelController.StringId });
-
-
-            var ngoaiNgu = _context.TrinhDoNgoaiNgus.ToList().Select(x => new DropdownModel { Id = x.MaTrinhDoNgoaiNgu, Name = x.TenTrinhDoNgoaiNgu }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenTrinhDoNgoaiNgu", isAllowedToEdit = true, isDropdownlist = true, DropdownData = ngoaiNgu, TypeId = ConstExcelController.GuidId });
-
-            var chinhTri = _context.TrinhDoChinhTris.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaTrinhDoChinhTri, Name = x.TenTrinhDoChinhTri }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenTrinhDoChinhTri", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = chinhTri, TypeId = ConstExcelController.StringId });
-
-            var hocHam = _context.HocHams.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaHocHam, Name = x.TenHocHam }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenHocHam", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = hocHam, TypeId = ConstExcelController.StringId });
-
-            var danToc = _context.DanTocs.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaDanToc, Name = x.TenDanToc }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenDanToc", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = danToc, TypeId = ConstExcelController.StringId });
-
-            var tonGiao = _context.TonGiaos.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaTonGiao, Name = x.TenTonGiao }).ToList();
-            columns.Add(new ExcelTemplate() { ColumnName = "TenTonGiao", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = tonGiao, TypeId = ConstExcelController.StringId });
-
-            columns.Add(new ExcelTemplate() { ColumnName = "NoiSinh", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "HoKhauThuongTru", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "ChoOHienNay", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "SoDienThoai", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "NgayvaoDangDuBi", isAllowedToEdit = true, isDateTime = true });
             columns.Add(new ExcelTemplate() { ColumnName = "NgayVaoDangChinhThuc", isAllowedToEdit = true, isDateTime = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "GhiChu", isAllowedToEdit = true, isText = true });
+            var danToc = _context.DanTocs.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaDanToc, Name = x.TenDanToc }).ToList();
+            columns.Add(new ExcelTemplate() { ColumnName = "MaDanToc", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = danToc, TypeId = ConstExcelController.StringId });
+            var tonGiao = _context.TonGiaos.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaTonGiao, Name = x.TenTonGiao }).ToList();
+            columns.Add(new ExcelTemplate() { ColumnName = "MaTonGiao", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = tonGiao, TypeId = ConstExcelController.StringId });
+            var hocVan = _context.TrinhDoHocVans.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaTrinhDoHocVan, Name = x.TenTrinhDoHocVan }).ToList();
+            columns.Add(new ExcelTemplate() { ColumnName = "MaTrinhDoHocVan", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = hocVan, TypeId = ConstExcelController.StringId });
+            var chuyenNganh = _context.TrinhDoChuyenMons.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaTrinhDoChuyenMon, Name = x.TenTrinhDoChuyenMon }).ToList();
+            columns.Add(new ExcelTemplate() { ColumnName = "MaTrinhDoChuyenMon", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = chuyenNganh, TypeId = ConstExcelController.StringId });
+            var chinhTri = _context.TrinhDoChinhTris.ToList().Select(x => new DropdownIdTypeStringModel { Id = x.MaTrinhDoChinhTri, Name = x.TenTrinhDoChinhTri }).ToList();
+            columns.Add(new ExcelTemplate() { ColumnName = "MaTrinhDoChinhTri", isAllowedToEdit = true, isDropdownlist = true, DropdownIdTypeStringData = chinhTri, TypeId = ConstExcelController.StringId });
+            columns.Add(new ExcelTemplate() { ColumnName = "NgayVaoHoi", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "NgayThamGiaCapUyDang", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "NgayThamGiaHDND", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "VaiTro", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "VaiTroKhac", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "HoNgheo", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "CanNgheo", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "GiaDinhChinhSach", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "GiaDinhThanhPhanKhac", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "NongDan", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "CongNhan", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "CV_VC", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "HuuTri", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "DoanhNghiep", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "LaoDongTuDo", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "HS_SV", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "SX_ChN", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "SoLuong", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "DienTich", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "SinhHoatDoanTheChinhTri", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "ThamGia_CLB_DN_HTX", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "ThamGia_THNN_CHNN", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "HV_NongCot", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "HV_DanhDu", isAllowedToEdit = true, isText = true });
 
+            
             //Header
             List<ExcelHeadingTemplate> heading = new List<ExcelHeadingTemplate>();
-            string fileheader = string.Format(LanguageResource.Export_ExcelHeader, LanguageResource.CanBo);
+            string fileheader = string.Format(LanguageResource.Export_ExcelHeader, LanguageResource.HoiVien);
             try
             {
 
@@ -766,10 +726,19 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 ModelState.AddModelError("MaCanBo", "Mã cán bộ tồn tại không thể thêm");
             }
             // Check trình độ học vấn sau đại học
-            var existDonVi = _context.Departments.Where(it => it.Actived == true && it.Id == insert.IdDepartment && it.IDCoSo == insert.IdCoSo);
-            if (existDonVi == null)
+            //var existDonVi = _context.Departments.Where(it => it.Actived == true && it.Id == insert.IdDepartment && it.IDCoSo == insert.IdCoSo);
+            //if (existDonVi == null)
+            //{
+            //    ModelState.AddModelError("IdDepartment", "Đơn vị không đúng với cơ sở");
+            //}
+            if (insert.VaiTro == "2" && (String.IsNullOrEmpty(insert.VaiTroKhac) || String.IsNullOrWhiteSpace(insert.VaiTroKhac)))
             {
-                ModelState.AddModelError("IdDepartment", "Đơn vị không đúng với cơ sở");
+                ModelState.AddModelError("VaiTroKhac", "Chưa nhập quan hệ với chủ hộ");
+            }
+
+            if (insert.MaGiaDinhThuocDien == "04" && (String.IsNullOrEmpty(insert.GiaDinhThuocDienKhac) || String.IsNullOrWhiteSpace(insert.GiaDinhThuocDienKhac)))
+            {
+                ModelState.AddModelError("GiaDinhThuocDienKhac", "Chưa nhập gia đình thuộc diện thành phần khác");
             }
         }
       
@@ -781,15 +750,14 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         private void CreateViewBag( Guid? IdCoSo = null, Guid? IdDepartment = null,
             Guid? maChucVu = null,
             String? maTrinhDoHocVan = null, String? maTrinhDoChinhTri = null,
-            String? maDanToc = null, String? maTonGiao = null)
+            String? maDanToc = null, String? maTonGiao = null,string? maTrinhDoChuyenMon = null,Guid? maDiaBanHoatDong = null,string? maHocVi = null)
         {
 
+            //var MenuListCoSo = _context.CoSos.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { IdCoSo = it.IdCoSo, TenCoSo = it.TenCoSo }).ToList();
+            //ViewBag.IdCoSo = new SelectList(MenuListCoSo, "IdCoSo", "TenCoSo", IdCoSo);
 
-            var MenuListCoSo = _context.CoSos.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { IdCoSo = it.IdCoSo, TenCoSo = it.TenCoSo }).ToList();
-            ViewBag.IdCoSo = new SelectList(MenuListCoSo, "IdCoSo", "TenCoSo", IdCoSo);
-
-            var DonVi = _context.Departments.Where(it => it.Actived == true).Include(it => it.CoSo).OrderBy(p => p.OrderIndex).Select(it => new { IdDepartment = it.Id, Name = it.Name + " " + it.CoSo.TenCoSo }).ToList();
-            ViewBag.IdDepartment = new SelectList(DonVi, "IdDepartment", "Name", IdDepartment);
+            //var DonVi = _context.Departments.Where(it => it.Actived == true).Include(it => it.CoSo).OrderBy(p => p.OrderIndex).Select(it => new { IdDepartment = it.Id, Name = it.Name + " " + it.CoSo.TenCoSo }).ToList();
+            //ViewBag.IdDepartment = new SelectList(DonVi, "IdDepartment", "Name", IdDepartment);
 
             var chucVu = _context.ChucVus.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { MaChucVu = it.MaChucVu, TenChucVu = it.TenChucVu }).ToList();
             ViewBag.MaChucVu = new SelectList(chucVu, "MaChucVu", "TenChucVu", maChucVu);
@@ -799,6 +767,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             var trinhDoHocVan = _context.TrinhDoHocVans.Where(it => it.Actived == true).OrderBy(it => it.OrderIndex).Select(it => new { MaTrinhDoHocVan = it.MaTrinhDoHocVan, TenTrinhDoHocVan = it.TenTrinhDoHocVan }).ToList();
             ViewBag.MaTrinhDoHocVan = new SelectList(trinhDoHocVan, "MaTrinhDoHocVan", "TenTrinhDoHocVan", maTrinhDoHocVan);
 
+            var trinhDoChuyenMon = _context.TrinhDoChuyenMons.Select(it => new { MaTrinhDoChuyenMon = it.MaTrinhDoChuyenMon, TenTrinhDoChuyenMon = it.TenTrinhDoChuyenMon }).ToList();
+            ViewBag.MaTrinhDoChuyenMon = new SelectList(trinhDoChuyenMon, "MaTrinhDoChuyenMon", "TenTrinhDoChuyenMon", maTrinhDoChuyenMon);
+
             var trinhDoChinhTri = _context.TrinhDoChinhTris.Where(it => it.Actived == true).OrderBy(it => it.OrderIndex).Select(it => new { MaTrinhDoChinhTri = it.MaTrinhDoChinhTri, TenTrinhDoChinhTri = it.TenTrinhDoChinhTri }).ToList();
             ViewBag.MaTrinhDoChinhTri = new SelectList(trinhDoChinhTri, "MaTrinhDoChinhTri", "TenTrinhDoChinhTri", maTrinhDoChinhTri);
 
@@ -807,36 +778,52 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
             var tonGiao = _context.TonGiaos.Where(it => it.Actived == true).OrderBy(it => it.OrderIndex).Select(it => new { MaTonGiao = it.MaTonGiao, TenTonGiao = it.TenTonGiao }).ToList();
             ViewBag.MaTonGiao = new SelectList(tonGiao, "MaTonGiao", "TenTonGiao", maTonGiao);
+
+            var diaBanHoatDong = _context.DiaBanHoatDongs.Where(it => it.Actived == true).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.TenDiaBanHoatDong  }).ToList();
+            ViewBag.MaDiaBanHoatDong = new SelectList(diaBanHoatDong, "MaDiaBanHoatDong", "Name", maDiaBanHoatDong);
+
+            var hocVis = _context.HocVis.Select(it => new { MaHocVi = it.MaHocVi, TenHocVi = it.TenHocVi }).ToList();
+            ViewBag.MaHocVi = new SelectList(hocVis, "MaHocVi", "TenHocVi", maHocVi);
         }
+        private void CreateViewBagSearch()
+        {
+
+            var diaBanHoatDong = _context.DiaBanHoatDongs.Where(it => it.Actived == true).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.TenDiaBanHoatDong }).ToList();
+            ViewBag.MaDiaBanHoatDong = new SelectList(diaBanHoatDong, "MaDiaBanHoatDong", "Name");
+        }
+
+
         #endregion Helper
 
         #region Insert/Update data from excel file
-        public string ExecuteImportExcelMenu(CanBoImportExcel canBoExcel)
+        public string ExecuteImportExcelMenu(HoiVienImportExcel HoiVienExcel)
         {
             //Check:
             //1. If MenuId == "" then => Insert
             //2. Else then => Update
-            if (canBoExcel.isNullValueId == true)
+            CanBo  canbo = new CanBo(); ;
+            if (HoiVienExcel.isNullValueId == true)
             {
-                CanBo canbo = canBoExcel.AddCanBo();
+                canbo = HoiVienExcel.GetHoiVien(canbo);
+                canbo.IDCanBo = Guid.NewGuid();
 
                 _context.Entry(canbo).State = EntityState.Added;
             }
             else
             {
-                CanBo canBo = _context.CanBos.Where(p => p.IDCanBo == canBoExcel.IDCanBo).FirstOrDefault();
-                if (canBo != null)
+                canbo = _context.CanBos.Where(p => p.IDCanBo == HoiVienExcel.IDCanBo).FirstOrDefault();
+                if (canbo != null)
                 {
-                    canBo = canBoExcel.EditUpdate(canBo);
+                    canbo = HoiVienExcel.GetHoiVien(canbo);
                     HistoryModelRepository history = new HistoryModelRepository(_context);
-                    history.SaveUpdateHistory(canBo.IDCanBo.ToString(), AccountId()!.Value, canBo);
+                    history.SaveUpdateHistory(canbo.IDCanBo.ToString(), AccountId()!.Value, canbo);
                 }
                 else
                 {
                     return string.Format(LanguageResource.Validation_ImportExcelIdNotExist,
-                                            LanguageResource.CanBo, canBo.IDCanBo,
+                                            LanguageResource.HoiVien, canbo.IDCanBo,
                                             string.Format(LanguageResource.Export_ExcelHeader,
-                                            LanguageResource.CanBo));
+                                            LanguageResource.HoiVien));
                 }
             }
             _context.SaveChanges();
@@ -844,13 +831,16 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         #endregion Insert/Update data from excel file
         #region Check data type 
-        public CanBoImportExcel CheckTemplate(object[] row)
+     
+        public HoiVienImportExcel CheckTemplate(object[] row)
         {
-            CanBoImportExcel data = new CanBoImportExcel();
+            HoiVienImportExcel data = new HoiVienImportExcel();
+            data.MaChucVu = Guid.Parse("D710D930-8342-474B-90A4-A1170A7A5691");
+            string? value;
             int index = 0;
             for (int i = 0; i < row.Length; i++)
             {
-
+                value = row[i] == null ? null : row[i].ToString().Trim();
                 switch (i)
                 {
                     case 0:
@@ -859,45 +849,41 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         break;
                     case 1:
                         // IDCanBo
-                        string idCanBo = row[i].ToString();
-                        if (string.IsNullOrEmpty(idCanBo) || idCanBo == "")
+                        if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
                         {
                             data.isNullValueId = true;
                         }
                         else
                         {
-                            data.IDCanBo = Guid.Parse(idCanBo);
+                            data.IDCanBo = Guid.Parse(value);
                             data.isNullValueId = false;
                         }
                         break;
                     case 2:
                         // Mã nhân viên
-                        string maCanBo = row[i].ToString();
-                        if (string.IsNullOrEmpty(maCanBo))
+                        if (string.IsNullOrEmpty(value))
                         {
                             data.Error = string.Format(LanguageResource.Validation_ImportRequired, string.Format(LanguageResource.Required, LanguageResource.MaCanBo), index);
                         }
                         else
                         {
-                            data.MaCanBo = maCanBo;
+                            data.MaCanBo = value;
                         }
                         break;
                     case 3:
                         // Mã nhân viên
-                        string hoVaTen = row[i].ToString();
-                        if (string.IsNullOrEmpty(hoVaTen))
+                        if (string.IsNullOrEmpty(value))
                         {
                             data.Error = string.Format(LanguageResource.Validation_ImportRequired, string.Format(LanguageResource.Required, LanguageResource.FullName), index);
                         }
                         else
                         {
-                            data.HoVaTen = hoVaTen;
+                            data.HoVaTen = value;
                         }
                         break;
                     case 4:
-                        //  Ngày sinh (*)
-                        string ngaySinh = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(ngaySinh) || ngaySinh == "")
+
+                        if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
                         {
                             data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa nhập thông tin {0}", LanguageResource.NgaySinh), index);
                         }
@@ -905,20 +891,20 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         {
                             try
                             {
-                                data.NgaySinh = DateTime.ParseExact(ngaySinh, DateFomat, new CultureInfo("en-US"));
+                                //data.NgaySinh = DateTime.ParseExact(ngaySinh, DateFomat, new CultureInfo("en-US"));
+                                data.NgaySinh = value;
                             }
                             catch (Exception)
                             {
 
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.NgaySinh, ngaySinh, index);
+                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.NgaySinh, value, index);
                             }
 
                         }
                         break;
                     case 5:
                         // giới tính
-                        string gioiTinh = row[i].ToString();
-                        if (string.IsNullOrEmpty(gioiTinh))
+                        if (string.IsNullOrEmpty(value))
                         {
                             data.GioiTinh = GioiTinh.Nữ;
                         }
@@ -928,609 +914,321 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         }
                         break;
                     case 6:
-                        //  cơ sở (*)
-                        string tenCoSo = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(tenCoSo))
+                        //  SoCCCD (*)
+                        if (string.IsNullOrEmpty(value))
                         {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0}", LanguageResource.CoSo), index);
+                            data.SoCCCD = "Không có";
+                            //data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.SoCCCD), index);
                         }
                         else
                         {
-                            var coSo = _context.CoSos.FirstOrDefault(it => it.TenCoSo == tenCoSo);
-                            if (coSo != null)
-                            {
-                                data.IdCoSo = coSo.IdCoSo;
-                            }
-                            else
-                            {
-                                data.Error += string.Format("Không tìm thấy cơ sở tên {0} ở dòng số {1} !", tenCoSo, index);
-                            }
+                            data.SoCCCD = value;
 
                         }
                         break;
                     case 7:
-                        //  DonVi (*)
-                        string tenDonVi = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(tenDonVi))
+                        // ngày cấp SoCCCD (*)
+                        if (string.IsNullOrEmpty(value) || value == "")
                         {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0}", LanguageResource.Department), index);
+                            data.NgayCapCCCD = null;
+                            //data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa nhập thông tin {0} ", LanguageResource.NgayCapCCCD), index);
                         }
                         else
                         {
-                            var donVi = _context.Departments.FirstOrDefault(it => it.Name == tenDonVi && it.IDCoSo == data.IdCoSo);
-                            if (donVi != null)
+                            try
                             {
-                                data.IdDepartment = donVi.Id;
+                                data.NgayCapCCCD = value;
                             }
-                            else
+                            catch (Exception)
                             {
-                                data.Error += string.Format("Không tìm thấy đơn vị tên {0} ở dòng số {1} !", tenDonVi, index);
+
+                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.NgayCapCCCD, value, index);
                             }
 
                         }
                         break;
                     case 8:
-                        //  Tinh trang (*)
-                        string tenTinhTrang = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(tenTinhTrang))
+                        //  SoCCCD (*);
+                        if (string.IsNullOrEmpty(value))
                         {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.TinhTrang), index);
+                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.HoKhauThuongTru), index);
                         }
                         else
                         {
-                            var obj = _context.TinhTrangs.FirstOrDefault(it => it.TenTinhTrang == tenTinhTrang);
-                            if (obj != null)
-                            {
-                                data.MaTinhTrang = obj.MaTinhTrang;
-                            }
-                            else
-                            {
-                                data.Error += string.Format("Không tìm thấy tình trạng tên {0} ở dòng số {1} !", tenTinhTrang, index);
-                            }
+                            data.HoKhauThuongTru = value;
 
                         }
                         break;
                     case 9:
-                        //  PhanHe (*)
-                        string ten = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(ten))
+                        //  SoCCCD (*)
+
+                        if (string.IsNullOrEmpty(value))
                         {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.PhanHe), index);
+                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.ChoOHienNay), index);
                         }
                         else
                         {
-                            var obj = _context.PhanHes.FirstOrDefault(it => it.TenPhanHe == ten);
-                            if (obj != null)
-                            {
-                                data.MaPhanHe = obj.MaPhanHe;
-                            }
-                            else
-                            {
-                                data.Error += string.Format("Không tìm thấy phân hệ tên {0} ở dòng số {1} !", ten, index);
-                            }
+                            data.ChoOHienNay = value;
 
                         }
                         break;
                     case 10:
-                        //  chức vụ (*)
-                        string tenChucVu = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(tenChucVu))
-                        {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.ChucVu), index);
-                        }
-                        else
-                        {
-                            var obj = _context.ChucVus.FirstOrDefault(it => it.TenChucVu == tenChucVu);
-                            if (obj != null)
-                            {
-                                data.MaChucVu = obj.MaChucVu;
-                            }
-                            else
-                            {
-                                data.Error += string.Format("Không tìm thấy chức vụ có tên {0} ở dòng số {1} !", tenChucVu, index);
-                            }
-
-                        }
-                        break;
-                    case 11:
-                        //  SoCCCD (*)
-                        string soCCCD = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(soCCCD))
-                        {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.SoCCCD), index);
-                        }
-                        else
-                        {
-                            data.SoCCCD = soCCCD;
-
-                        }
-                        break;
-                    case 12:
-                        // ngày cấp SoCCCD (*)
-                        string ngayCap = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(ngayCap) || ngayCap == "")
-                        {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa nhập thông tin {0} ", LanguageResource.NgayCapCCCD), index);
-                        }
-                        else
-                        {
-                            try
-                            {
-                                data.NgayCapCCCD = DateTime.ParseExact(ngayCap, DateFomat, new CultureInfo("en-US"));
-                            }
-                            catch (Exception)
-                            {
-
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.NgayCapCCCD, ngayCap, index);
-                            }
-
-                        }
-                        break;
-                    case 13:
                         // so DT (*)
-                        string soDT = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(soDT) || soDT == "")
+                        if (string.IsNullOrEmpty(value) || value == "")
                         {
                             data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa nhập thông tin {0} ", LanguageResource.SoDienThoai), index);
                         }
                         else
                         {
-                            data.SoDienThoai = soDT;
+                            data.SoDienThoai = value;
 
                         }
                         break;
-                    case 14:
-                        // email
-                        string email = row[i] == null ? null : row[i].ToString();
-                        data.Email = email;
-                        break;
-                    case 15:
-                        //  ngach luong(*)
-                        string tenNgachLuong = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(tenNgachLuong))
-                        {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.NgachLuong), index);
-                        }
-                        else
-                        {
-                            var obj = _context.NgachLuongs.FirstOrDefault(it => it.TenNgachLuong == tenNgachLuong);
-                            if (obj != null)
-                            {
-                                data.MaNgachLuong = obj.MaNgachLuong;
-                            }
-                            else
-                            {
-                                data.Error += string.Format("Không tìm thấy ngạch lương tên {0} ở dòng số {1} !", tenNgachLuong, index);
-                            }
 
-                        }
-                        break;
-                    case 16:
-                        //  bac luong (*)
-                        string bacLuong = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(bacLuong) && data.MaNgachLuong.Length > 0)
-                        {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0}", LanguageResource.BacLuong), index);
-                        }
-                        else if (data.MaNgachLuong.Length > 0)
-                        {
-                            var obj = _context.BacLuongs.FirstOrDefault(it => it.MaNgachLuong == data.MaNgachLuong && it.OrderIndex == int.Parse(bacLuong));
-                            if (obj != null)
-                            {
-                                data.MaBacLuong = obj.MaBacLuong;
-                                data.HeSoLuong = obj.HeSo;
-                            }
-                            else
-                            {
-                                data.Error += string.Format("Không tìm thấy bậc lương {0} ở dòng số {1} !", bacLuong, index);
-                            }
-
-                        }
-                        break;
-                    case 18:
-                        // ngày nâng bậc (*)
-                        string ngayNangBac = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(ngayNangBac) && data.MaNgachLuong.Length > 0)
-                        {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa nhập thông tin {0} ", LanguageResource.NgayNangBacLuong), index);
-                        }
-                        else
-                        {
-                            try
-                            {
-                                data.NgayNangBacLuong = DateTime.ParseExact(ngayNangBac, DateFomat, new CultureInfo("en-US"));
-                            }
-                            catch (Exception)
-                            {
-
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.NgayNangBacLuong, ngayNangBac, index);
-                            }
-
-                        }
-                        break;
-                    case 19:
-                        // phụ cấp chức vụ
-                        string pcChucVu = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(pcChucVu))
-                        {
-
-                            try
-                            {
-                                data.PhuCapChucVu = decimal.Parse(pcChucVu);
-                            }
-                            catch (Exception)
-                            {
-
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.PhuCapChucVu, pcChucVu, index);
-                            }
-                        }
-                        break;
-                    case 20:
-                        // phụ cấp vuot khung
-                        string pcVuotKhung = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(pcVuotKhung))
-                        {
-
-                            try
-                            {
-                                data.PhuCapVuotKhung = decimal.Parse(pcVuotKhung);
-                            }
-                            catch (Exception)
-                            {
-
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.PhuCapVuotKhung, pcVuotKhung, index);
-                            }
-                        }
-                        break;
-                    case 21:
-                        // Phu cấp kiêm nhiệm
-                        string pcKiemNhiem = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(pcKiemNhiem))
-                        {
-
-                            try
-                            {
-                                data.PhuCapKiemNhiem = decimal.Parse(pcKiemNhiem);
-                            }
-                            catch (Exception)
-                            {
-
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.PhuCapKiemNhiem, pcKiemNhiem, index);
-                            }
-                        }
-                        break;
-                    case 22:
-                        // Phu cấp khu vực
-                        string pcKhuVuc = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(pcKhuVuc))
-                        {
-
-                            try
-                            {
-                                data.PhuCapKhuVuc = decimal.Parse(pcKhuVuc);
-                            }
-                            catch (Exception)
-                            {
-
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.PhuCapKhuVuc, pcKhuVuc, index);
-                            }
-                        }
-                        break;
-                    case 23:
-                        // Luong khoán
-                        string luongKhoan = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(luongKhoan))
-                        {
-
-                            try
-                            {
-                                data.LuongKhoan = int.Parse(luongKhoan);
-                            }
-                            catch (Exception)
-                            {
-
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.LuongKhoan, luongKhoan, index);
-                            }
-                        }
-                        break;
-                    case 24:
-                        // KhoanTuNgay
-                        string khoanTuNgay = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(khoanTuNgay) && !string.IsNullOrWhiteSpace(khoanTuNgay))
-                        {
-                            try
-                            {
-                                data.KhoanTuNgay = DateTime.ParseExact(khoanTuNgay, DateFomat, new CultureInfo("en-US"));
-                            }
-                            catch (Exception)
-                            {
-
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.KhoanTuNgay, khoanTuNgay, index);
-                            }
-                        }
-                        break;
-                    case 25:
+                    case 11:
                         // KhoanDenNgay
-                        string khoanDenNgay = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(khoanDenNgay) && !string.IsNullOrWhiteSpace(khoanDenNgay))
+
+                        if (!string.IsNullOrEmpty(value) && !string.IsNullOrWhiteSpace(value))
                         {
                             try
                             {
-                                data.KhoanDenNgay = DateTime.ParseExact(khoanDenNgay, DateFomat, new CultureInfo("en-US")); ;
+                                data.NgayvaoDangDuBi = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")); ;
                             }
                             catch (Exception)
                             {
 
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.KhoanDenNgay, khoanDenNgay, index);
+                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.NgayvaoDangDuBi, value, index);
                             }
                         }
                         break;
-                    case 26:
-                        // SoBHXH
-                        data.SoBHXH = row[i] == null ? null : row[i].ToString();
-
-                        break;
-                    case 27:
-                        // SoBHYT
-                        data.SoBHYT = row[i] == null ? null : row[i].ToString();
-
-                        break;
-                    case 28:
-                        // MaSoThue
-                        data.MaSoThue = row[i] == null ? null : row[i].ToString();
-
-                        break;
-                    case 29:
+                    case 12:
                         // KhoanDenNgay
-                        string NgayVaoBienChe = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(NgayVaoBienChe) && !string.IsNullOrWhiteSpace(NgayVaoBienChe))
+
+                        if (!string.IsNullOrEmpty(value) && !string.IsNullOrWhiteSpace(value))
                         {
                             try
                             {
-                                data.NgayVaoBienChe = DateTime.ParseExact(NgayVaoBienChe, DateFomat, new CultureInfo("en-US")); ;
+                                data.NgayVaoDangChinhThuc = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")); ;
                             }
                             catch (Exception)
                             {
 
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.NgayVaoBienChe, NgayVaoBienChe, index);
+                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.NgayVaoDangChinhThuc, value, index);
                             }
                         }
                         break;
-                    case 30:
-                        // NgayThamGiaCongTac
-                        string ngayThamGiaCongTac = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(ngayThamGiaCongTac) && !string.IsNullOrWhiteSpace(ngayThamGiaCongTac))
-                        {
-                            try
-                            {
-                                data.NgayThamGiaCongTac = DateTime.ParseExact(ngayThamGiaCongTac, DateFomat, new CultureInfo("en-US")); ;
-                            }
-                            catch (Exception)
-                            {
-
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.NgayThamGiaCongTac, ngayThamGiaCongTac, index);
-                            }
-                        }
-                        break;
-                    case 31:
-                        //  TenHeDaoTao (*)
-                        string tenHeDaoTao = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(tenHeDaoTao))
-                        {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.HeDaoTao), index);
-                        }
-                        else
-                        {
-                            var obj = _context.HeDaoTaos.FirstOrDefault(it => it.TenHeDaoTao == tenHeDaoTao);
-                            if (obj != null)
-                            {
-                                data.MaHeDaoTao = obj.MaHeDaoTao;
-                            }
-                            else
-                            {
-                                data.Error += string.Format("Không tìm thấy hệ đào tạo có tên {0} ở dòng số {1} !", tenHeDaoTao, index);
-                            }
-
-                        }
-                        break;
-                    case 32:
-                        //  TenTrinhDoHocVan (*)
-                        string tenHocVan = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(tenHocVan))
-                        {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.TrinhDoHocVan), index);
-                        }
-                        else
-                        {
-                            var obj = _context.TrinhDoHocVans.FirstOrDefault(it => it.TenTrinhDoHocVan == tenHocVan);
-                            if (obj != null)
-                            {
-                                data.MaTrinhDoHocVan = obj.MaTrinhDoHocVan;
-                            }
-                            else
-                            {
-                                data.Error += string.Format("Không tìm thấy trình độ học vấn có tên {0} ở dòng số {1} !", tenHocVan, index);
-                            }
-
-                        }
-                        break;
-                    case 33:
-                        // Mã nhân viên
-                        string chuyenNganh = row[i].ToString();
-                        if (string.IsNullOrEmpty(chuyenNganh))
-                        {
-                            data.Error = string.Format(LanguageResource.Validation_ImportRequired, string.Format(LanguageResource.Required, LanguageResource.ChuyenNganh), index);
-                        }
-                        else
-                        {
-                            data.ChuyenNganh = chuyenNganh;
-                        }
-                        break;
-                    case 34:
-                        //  TenTrinhDoTinHoc (*)
-                        string tenTinHoc = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(tenTinHoc))
-                        {
-                            var obj = _context.TrinhDoTinHocs.FirstOrDefault(it => it.TenTrinhDoTinHoc == tenTinHoc);
-                            if (obj != null)
-                            {
-                                data.MaTrinhDoTinHoc = obj.MaTrinhDoTinHoc;
-                            }
-                            else
-                            {
-                                data.Error += string.Format("Không tìm thấy trình độ tin học có tên {0} ở dòng số {1} !", tenTinHoc, index);
-                            }
-                        }
-                        break;
-                    case 35:
-                        //  TenTrinhDoNgoaiNgu (*)
-                        string tenNgoaiNgu = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(tenNgoaiNgu))
-                        {
-                            var obj = _context.TrinhDoNgoaiNgus.FirstOrDefault(it => it.TenTrinhDoNgoaiNgu == tenNgoaiNgu);
-                            if (obj != null)
-                            {
-                                data.MaTrinhDoNgoaiNgu = obj.MaTrinhDoNgoaiNgu;
-                            }
-                            else
-                            {
-                                data.Error += string.Format("Không tìm thấy trình độ ngoại ngữ có tên {0} ở dòng số {1} !", tenNgoaiNgu, index);
-                            }
-                        }
-                        break;
-                    case 36:
-                        //  MaTrinhDoChinhTri (*)
-                        string tenChinhTri = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(tenChinhTri))
-                        {
-                            var obj = _context.TrinhDoChinhTris.FirstOrDefault(it => it.TenTrinhDoChinhTri == tenChinhTri);
-                            if (obj != null)
-                            {
-                                data.MaTrinhDoChinhTri = obj.MaTrinhDoChinhTri;
-                            }
-                            else
-                            {
-                                data.Error += string.Format("Không tìm thấy trình độ chính trị có tên {0} ở dòng số {1} !", tenChinhTri, index);
-                            }
-                        }
-                        break;
-                    case 37:
-                        //  TenHocHam (*)
-                        string tenHocHam = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(tenHocHam))
-                        {
-                            var obj = _context.HocHams.FirstOrDefault(it => it.TenHocHam == tenHocHam);
-                            if (obj != null)
-                            {
-                                data.MaHocHam = obj.MaHocHam;
-                            }
-                            else
-                            {
-                                data.Error += string.Format("Không tìm thấy học hàm có tên {0} ở dòng số {1} !", tenHocHam, index);
-                            }
-                        }
-                        break;
-                    case 38:
+                    case 13:
                         //  dân tộc (*)
-                        string tenDanToc = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(tenDanToc))
+                        if (string.IsNullOrEmpty(value))
                         {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.DanToc), index);
+                            data.MaDanToc = "KH";
+                            //data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.DanToc), index);
                         }
                         else
                         {
-                            var obj = _context.DanTocs.FirstOrDefault(it => it.TenDanToc == tenDanToc);
+                            var obj = _context.DanTocs.FirstOrDefault(it => it.TenDanToc == value);
                             if (obj != null)
                             {
                                 data.MaDanToc = obj.MaDanToc;
                             }
                             else
                             {
-                                data.Error += string.Format("Không tìm thấy dân tộc có tên {0} ở dòng số {1} !", tenDanToc, index);
+                                data.Error += string.Format("Không tìm thấy dân tộc có tên {0} ở dòng số {1} !", value, index);
                             }
 
                         }
                         break;
-                    case 39:
+                    case 14:
                         //  tôn giáo (*)
-                        string tenTonGiao = row[i] == null ? null : row[i].ToString();
-                        if (string.IsNullOrEmpty(tenTonGiao))
+
+                        if (string.IsNullOrEmpty(value))
                         {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.TonGiao), index);
+                            data.MaTonGiao = "KH";
+                            //data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.TonGiao), index);
                         }
                         else
                         {
-                            var obj = _context.TonGiaos.FirstOrDefault(it => it.TenTonGiao == tenTonGiao);
+                            var obj = _context.TonGiaos.FirstOrDefault(it => it.TenTonGiao == value);
                             if (obj != null)
                             {
                                 data.MaTonGiao = obj.MaTonGiao;
                             }
                             else
                             {
-                                data.Error += string.Format("Không tìm thấy tôn giáo có tên {0} ở dòng số {1} !", tenTonGiao, index);
+                                data.Error += string.Format("Không tìm thấy tôn giáo có tên {0} ở dòng số {1} !", value, index);
                             }
 
                         }
+                        break;
+                    case 15:
+
+                        if (string.IsNullOrEmpty(value))
+                        {
+                            //data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.TrinhDoHocVan), index);
+                        }
+                        else
+                        {
+                            var obj = _context.TrinhDoHocVans.FirstOrDefault(it => it.TenTrinhDoHocVan == value);
+                            if (obj != null)
+                            {
+                                data.MaTrinhDoHocVan = obj.MaTrinhDoHocVan;
+                            }
+                            else
+                            {
+                                data.Error += string.Format("Không tìm thấy trình độ học vấn có tên {0} ở dòng số {1} !", value, index);
+                            }
+
+                        }
+                        break;
+                    case 16:
+                        //  TenTrinhDoHocVan (*)
+                        if (string.IsNullOrEmpty(value))
+                        {
+                            //data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.TrinhDoChuyenMon), index);
+                        }
+                        else
+                        {
+                            var obj = _context.TrinhDoChuyenMons.FirstOrDefault(it => it.TenTrinhDoChuyenMon == value);
+                            if (obj != null)
+                            {
+                                data.MaTrinhDoChuyenMon = obj.MaTrinhDoChuyenMon;
+                            }
+                            else
+                            {
+                                data.Error += string.Format("Không tìm thấy trình độ học vấn có tên {0} ở dòng số {1} !", value, index);
+                            }
+
+                        }
+                        break;
+
+                    case 17:
+                        //  MaTrinhDoChinhTri (*)
+
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            var obj = _context.TrinhDoChinhTris.FirstOrDefault(it => it.TenTrinhDoChinhTri == value);
+                            if (obj != null)
+                            {
+                                data.MaTrinhDoChinhTri = obj.MaTrinhDoChinhTri;
+                            }
+                            //else
+                            //{
+                            //    data.Error += string.Format("Không tìm thấy trình độ chính trị có tên {0} ở dòng số {1} !", tenChinhTri, index);
+                            //}
+                        }
+                        break;
+                    case 18:
+                        //  Ngày vào hội (*)
+                     
+                        data.NgayVaoHoi = value;
+                        break;
+                    case 19:
+                        data.NgayThamGiaCapUyDang = value;
+                        break;
+                    case 20:
+
+                        data.NgayThamGiaHDND = value;
+                        break;
+                    case 21:
+                        data.VaiTro = !String.IsNullOrWhiteSpace(value) ? "1" : null; ;
+                        break;
+                    case 22:
+                        //  MaTrinhDoChinhTri (*)
+                        data.VaiTro = !String.IsNullOrWhiteSpace(value) ? "2" : data.VaiTro;
+                        data.VaiTroKhac = value.ToLower()!="x"?value:null;
+                        break;
+                    case 23:
+                        //  Hộ nghèo  (*)
+
+                        data.MaGiaDinhThuocDien = data.MaGiaDinhThuocDien == null && !String.IsNullOrWhiteSpace(value) ?"01": null;
+                        break;
+                    case 24:
+                        //  Cận nghèo (*)
+
+                        data.MaGiaDinhThuocDien = data.MaGiaDinhThuocDien == null && !String.IsNullOrWhiteSpace(value) ? "02" : null;
+                        break;
+                    case 25:
+                        //  Cận nghèo (*)
+
+                        data.MaGiaDinhThuocDien = data.MaGiaDinhThuocDien == null && !String.IsNullOrWhiteSpace(value) ? "03" : null;
+                        break;
+                    case 26:
+                        //  khac (*)
+
+                        data.MaGiaDinhThuocDien = data.MaGiaDinhThuocDien == null && !String.IsNullOrWhiteSpace(value) && value.ToLower()!="x" ? "04" : null;
+                        data.GiaDinhThuocDienKhac = value;
+                        break;
+                    case 27:
+                        //  nongdan (*)
+                        data.MaNgheNghiep =  !String.IsNullOrWhiteSpace(value) ? "01" : data.MaNgheNghiep;
+                        break;
+                    case 28:
+                        //  congnhan (*)
+                        data.MaNgheNghiep =  !String.IsNullOrWhiteSpace(value) ? "02" : data.MaNgheNghiep;
+                        break;
+                    case 29:
+                        //  công chức viên chức (*)
+
+                        data.MaNgheNghiep = !String.IsNullOrWhiteSpace(value) ? "03" : data.MaNgheNghiep;
+                        break;
+                    case 30:
+                        //  công chức viên chức (*)
+
+                        data.MaNgheNghiep =  !String.IsNullOrWhiteSpace(value) ? "04" : data.MaNgheNghiep;
+                        break;
+                    case 31:
+                        //  công chức viên chức (*)
+  
+                        data.MaNgheNghiep =  !String.IsNullOrWhiteSpace(value) ? "05" : data.MaNgheNghiep;
+                        break;
+                    case 32:
+                        //  công chức viên chức (*)
+
+                        data.MaNgheNghiep = !String.IsNullOrWhiteSpace(value) ? "06" : data.MaNgheNghiep;
+                        break;
+                    case 33:
+                        //  công chức viên chức (*)
+
+                        data.MaNgheNghiep =  !String.IsNullOrWhiteSpace(value) ? "07" : data.MaNgheNghiep;
+                        break;
+                    case 34:
+                        //  công chức viên chức (*)
+
+                        data.Loai_DV_SX_ChN = value;
+                        break;
+
+                    case 35:
+                        //  công chức viên chức (*)
+
+                        data.SoLuong = value;
+                        break;
+                    case 36:
+                        //  công chức viên chức (*)
+
+                        data.DienTich = value;
+                        break;
+                    case 37:
+                        //  công chức viên chức (*)
+
+                        data.ThamGia_SH_DoanThe_HoiDoanKhac = value;
+                        break;
+                    case 38:
+                        //  công chức viên chức (*)
+
+                        data.ThamGia_CLB_DN_MH_HTX_THT = value;
+                        break;
+                    case 39:
+                        //  công chức viên chức (*)
+
+                        data.ThamGia_THNN_CHNN = value;
                         break;
                     case 40:
-                        // Mã nhân viên
-                        string noiSinh = row[i].ToString();
-                        if (string.IsNullOrEmpty(noiSinh))
-                        {
-                            data.Error = string.Format(LanguageResource.Validation_ImportRequired, string.Format(LanguageResource.Required, LanguageResource.NoiSinh), index);
-                        }
-                        else
-                        {
-                            data.NoiSinh = noiSinh;
-                        }
+                        //  công chức viên chức (*)
+                        data.LoaiHoiVien = data.LoaiHoiVien ==null && !String.IsNullOrWhiteSpace(value) ? "01" : "";
                         break;
                     case 41:
-                        // Mã nhân viên
-                        string choO = row[i].ToString();
-                        if (string.IsNullOrEmpty(choO))
-                        {
-                            data.Error = string.Format(LanguageResource.Validation_ImportRequired, string.Format(LanguageResource.Required, LanguageResource.ChoOHienNay), index);
-                        }
-                        else
-                        {
-                            data.ChoOHienNay = choO;
-                        }
-                        break;
-                    case 42:
-                        // KhoanDenNgay
-                        string ngayVaoDangDuBi = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(ngayVaoDangDuBi) && !string.IsNullOrWhiteSpace(ngayVaoDangDuBi))
-                        {
-                            try
-                            {
-                                data.NgayvaoDangDuBi = DateTime.ParseExact(ngayVaoDangDuBi, DateFomat, new CultureInfo("en-US")); ;
-                            }
-                            catch (Exception)
-                            {
-
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.NgayvaoDangDuBi, ngayVaoDangDuBi, index);
-                            }
-                        }
-                        break;
-                    case 43:
-                        // KhoanDenNgay
-                        string ngayVaoDang = row[i] == null ? null : row[i].ToString();
-                        if (!string.IsNullOrEmpty(ngayVaoDang) && !string.IsNullOrWhiteSpace(ngayVaoDang))
-                        {
-                            try
-                            {
-                                data.NgayVaoDangChinhThuc = DateTime.ParseExact(ngayVaoDang, DateFomat, new CultureInfo("en-US")); ;
-                            }
-                            catch (Exception)
-                            {
-
-                                data.Error += string.Format("Kiểu dữ liệu cột {0} giá trị {1} ở dòng số {2} không hợp lệ!", LanguageResource.NgayVaoDangChinhThuc, ngayVaoDang, index);
-                            }
-                        }
-                        break;
-                    case 44:
-                        // SoBHXH
-                        data.GhiChu = row[i] == null ? null : row[i].ToString();
+                        //  công chức viên chức (*)
+                        data.LoaiHoiVien = data.LoaiHoiVien == null && !String.IsNullOrWhiteSpace(value) ? "02" : "";
                         break;
                 }
             }

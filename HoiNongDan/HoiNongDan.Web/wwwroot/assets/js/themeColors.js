@@ -504,22 +504,22 @@ function names() {
         index();
     }
     
-    let colorData = hexToRgba(myVarVal || "#6c5ffc", 0.1)
+    let colorData = hexToRgba(myVarVal || "#136d38", 0.1)
     document.querySelector('html').style.setProperty('--primary01', colorData);
 
-    let colorData1 = hexToRgba(myVarVal || "#6c5ffc", 0.2)
+    let colorData1 = hexToRgba(myVarVal || "#136d38", 0.2)
     document.querySelector('html').style.setProperty('--primary02', colorData1);
 
-    let colorData2 = hexToRgba(myVarVal || "#6c5ffc", 0.3)
+    let colorData2 = hexToRgba(myVarVal || "#136d38", 0.3)
     document.querySelector('html').style.setProperty('--primary03', colorData2);
 
-    let colorData3 = hexToRgba(myVarVal || "#6c5ffc", 0.6)
+    let colorData3 = hexToRgba(myVarVal || "#136d38", 0.6)
     document.querySelector('html').style.setProperty('--primary06', colorData3);
 
-    let colorData4 = hexToRgba(myVarVal || "#6c5ffc", 0.9)
+    let colorData4 = hexToRgba(myVarVal || "#136d38", 0.9)
     document.querySelector('html').style.setProperty('--primary09', colorData4);
 
-    let colorData5 = hexToRgba(myVarVal || "#6c5ffc", 0.05)
+    let colorData5 = hexToRgba(myVarVal || "#136d38", 0.05)
     document.querySelector('html').style.setProperty('--primary005', colorData5);
 
 }

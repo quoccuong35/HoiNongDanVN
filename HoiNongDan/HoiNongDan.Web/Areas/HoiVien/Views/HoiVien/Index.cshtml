@@ -1,4 +1,4 @@
-﻿@model CanBoSearchVM
+﻿@model HoiVienSearchVM
 @{
     ViewBag.Title = LanguageResource.List + LanguageResource.HoiVien.ToLower();
     string CurrentController = ConstController.HoiVien;
@@ -12,7 +12,7 @@
     <div class="page-header my-2">
 
         <div>
-            <span class="header-title">@LanguageResource.List @LanguageResource.CanBo.ToLower()</span>
+            <span class="header-title">@LanguageResource.List @LanguageResource.HoiVien.ToLower()</span>
             <div class="rectangle">
                 <span> </span>
                 <span> </span>
@@ -22,7 +22,12 @@
         <div class="d-flex px-2">
             @HtmlExtensions.ExportButton(CurrentArea,CurrentController,listRoles:listRoles)
             @HtmlExtensions.ImportButton(CurrentArea,CurrentController,listRoles:listRoles)
+           @*  <button type="button" class="btn btn-success  mt-1 mb-1 me-3">
+                <span>Notifications</span>
+                <span class="badge bg-white text-success ms-2">2</span>
+            </button> *@
             @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
+           
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -44,17 +49,10 @@
                                 <input class="form-control" asp-for="HoVaTen" />
                             </div>
                             
+                           
                             <div class="col-md-3">
-                                <label asp-for="IdCoSo"></label>
-                                @Html.DropDownList("IdCoSo", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
-                            </div>
-                            <div class="col-md-3">
-                                <label asp-for="IdDepartment"></label>
-                                @Html.DropDownList("IdDepartment", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
-                            </div>
-                            <div class="col-md-3">
-                                <label asp-for="MaChucVu"></label>
-                                @Html.DropDownList("MaChucVu", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                                <label asp-for="MaDiaBanHoatDong"></label>
+                                @Html.DropDownList("MaDiaBanHoatDong", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-3">
                                 <label asp-for="Actived"></label>
@@ -88,9 +86,9 @@
     </div>
     <!-- /Row -->
 </div>
-
+<script src="~/js/canbo.js"></script>
 @section ScriptCustomized {
-    <script src="~/js/canbo.js"></script>
+    
     <script>
         //load default and set event
         $(document).ready(function () {

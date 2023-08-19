@@ -25,8 +25,8 @@ namespace HoiNongDan.Models
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgaySinh")]
-        [DataType(DataType.Date)]
-        public DateTime NgaySinh { get; set; }
+        //[DataType(DataType.Date)]
+        public String NgaySinh { get; set; }
 
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GioiTinh")]
@@ -62,17 +62,17 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
         public String SoCCCD { get; set; }
 
-        [DataType(DataType.Date)]
+
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayCapCCCD")]
-        public DateTime NgayCapCCCD { get; set; }
+        public String? NgayCapCCCD { get; set; }
 
 
 
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoDienThoai")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        public string SoDienThoai { get; set; }
+        public string? SoDienThoai { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Email")]
         public string? Email { get; set; }

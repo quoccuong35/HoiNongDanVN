@@ -17,7 +17,10 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaCanBo")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string MaCanBo { get; set; }
-        
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaDinhDanh")]
+        public string? MaDinhDanh { get; set; }
+
         [MaxLength(500)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
@@ -25,50 +28,51 @@ namespace HoiNongDan.Models
         
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgaySinh")]
-        [DataType(DataType.Date)]
-        public DateTime NgaySinh { get; set; }
+        //[DataType(DataType.Date)]
+        public String NgaySinh { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GioiTinh")]
         public GioiTinh GioiTinh { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TinhTrang")]
-        public string MaTinhTrang { get; set; }
+        public string? MaTinhTrang { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "PhanHe")]
         [MaxLength(50)]
-        public string MaPhanHe { get; set; }
+        public string? MaPhanHe { get; set; }
 
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "CoSo")]
         public Guid IdCoSo { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
-        public Guid IdDepartment { get; set; }
+        public Guid? IdDepartment { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
-        public Guid MaChucVu { get; set; }
+        public Guid? MaChucVu { get; set; }
 
-        [MaxLength(20)]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [MaxLength(50)]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
-        public String SoCCCD { get; set; }
-        [DataType(DataType.Date)]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        public String? SoCCCD { get; set; }
+
+
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayCapCCCD")]
-        public DateTime NgayCapCCCD { get; set; }
+        public String? NgayCapCCCD { get; set; }
 
        
 
-        [MaxLength(20)]
+        [MaxLength(100)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoDienThoai")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        public string SoDienThoai { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        public string? SoDienThoai { get; set; }
 
         [MaxLength(200)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Email")]
@@ -138,17 +142,17 @@ namespace HoiNongDan.Models
 
         [MaxLength(50)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HeDaoTao")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
-        public string MaHeDaoTao { get; set; }
-        
-        [MaxLength(50)]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoHocVan")]
-        public string MaTrinhDoHocVan { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        public string? MaHeDaoTao { get; set; }
+
+        [MaxLength(20)]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoChuyenMon")]
+        public string? MaTrinhDoChuyenMon { get; set; }
 
         [MaxLength(500)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChuyenNganh")]
-        public string ChuyenNganh { get; set; }
+        public string? ChuyenNganh { get; set; }
 
         [MaxLength(50)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoTinHoc")]
@@ -164,24 +168,28 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HocHam")]
         public string? MaHocHam { get; set; }
 
-        [MaxLength(50)]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DanToc")]
-        public string MaDanToc { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HocVi")]
+        public String? MaHocVi { get; set; }
 
         [MaxLength(50)]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DanToc")]
+        public string? MaDanToc { get; set; }
+
+        [MaxLength(50)]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TonGiao")]
-        public string MaTonGiao { get; set; }
+        public string? MaTonGiao { get; set; }
         [MaxLength(1000)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NoiSinh")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        public string NoiSinh { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        public string? NoiSinh { get; set; }
 
         [MaxLength(1000)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChoOHienNay")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        public string ChoOHienNay { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        public string? ChoOHienNay { get; set; }
 
         [DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayvaoDangDuBi")]
@@ -195,6 +203,9 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GhiChu")]
         public string? GhiChu { get; set; }
 
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "BanChapHanh")]
+        public bool IsBanChapHanh { get; set; } = false;
+
         [MaxLength(500)]
         public string? HinhAnh { get; set; }
 
@@ -205,17 +216,19 @@ namespace HoiNongDan.Models
             CanBo add = new CanBo();
             add.IDCanBo = Guid.NewGuid();
             add.MaCanBo = this.MaCanBo;
+            add.MaDinhDanh = this.MaDinhDanh;
             add.HoVaTen = this.HoVaTen;
             add.NgaySinh = this.NgaySinh;
             add.GioiTinh = this.GioiTinh;
-            add.SoCCCD = this.SoCCCD;
+            add.SoCCCD = this.SoCCCD!;
             add.NgayCapCCCD = this.NgayCapCCCD;
             add.MaTinhTrang = this.MaTinhTrang;
             add.IdCoSo = this.IdCoSo;
             add.IdDepartment = this.IdDepartment;
-            add.MaChucVu = this.MaChucVu;
+            add.MaChucVu = this.MaChucVu.Value;
             add.SoDienThoai = this.SoDienThoai;
             add.Email = this.Email;
+            add.IsBanChapHanh = IsBanChapHanh  ;
             add.MaNgachLuong = this.MaNgachLuong;
             add.MaBacLuong = this.MaBacLuong;
             add.HeSoLuong = this.HeSoLuong;
@@ -228,11 +241,12 @@ namespace HoiNongDan.Models
             add.NgayVaoBienChe = this.NgayVaoBienChe;
             add.NgayThamGiaCongTac = this.NgayThamGiaCongTac;
             add.MaHeDaoTao = this.MaHeDaoTao;
-            add.MaTrinhDoHocVan = this.MaTrinhDoHocVan;
+            add.MaTrinhDoChuyenMon = this.MaTrinhDoChuyenMon;
             add.ChuyenNganh = this.ChuyenNganh;
             add.MaTrinhDoTinHoc = this.MaTrinhDoTinHoc;
             add.MaTrinhDoNgoaiNgu = this.MaTrinhDoNgoaiNgu;
             add.MaTrinhDoChinhTri = this.MaTrinhDoChinhTri;
+            add.MaHocVi = this.MaHocVi;
             add.MaHocHam = this.MaHocHam;
             add.MaDanToc = this.MaDanToc;
             add.MaTonGiao = this.MaTonGiao;
@@ -256,17 +270,19 @@ namespace HoiNongDan.Models
             CanBoVMMT edit = new CanBoVMMT();
             edit.IDCanBo = item.IDCanBo;
             edit.MaCanBo = item.MaCanBo;
+            edit.MaDinhDanh = item.MaDinhDanh;
             edit.HoVaTen = item.HoVaTen;
             edit.NgaySinh = item.NgaySinh;
             edit.GioiTinh = item.GioiTinh;
             edit.SoCCCD = item.SoCCCD;
             edit.NgayCapCCCD = item.NgayCapCCCD;
             edit.MaTinhTrang = item.MaTinhTrang;
-            edit.IdCoSo = item.IdCoSo;
-            edit.IdDepartment = item.IdDepartment;
+            edit.IdCoSo = item.IdCoSo.Value;
+            edit.IdDepartment = item.IdDepartment.Value;
             edit.MaChucVu = item.MaChucVu;
             edit.SoDienThoai = item.SoDienThoai;
             edit.Email = item.Email;
+            edit.IsBanChapHanh = item.IsBanChapHanh == null?false: item.IsBanChapHanh.Value;
             edit.MaNgachLuong = item.MaNgachLuong;
             edit.MaBacLuong = item.MaBacLuong;
             edit.HeSoLuong = item.HeSoLuong;
@@ -279,11 +295,12 @@ namespace HoiNongDan.Models
             edit.NgayVaoBienChe = item.NgayVaoBienChe;
             edit.NgayThamGiaCongTac = item.NgayThamGiaCongTac;
             edit.MaHeDaoTao = item.MaHeDaoTao;
-            edit.MaTrinhDoHocVan = item.MaTrinhDoHocVan;
+            edit.MaTrinhDoChuyenMon = item.MaTrinhDoChuyenMon;
             edit.ChuyenNganh = item.ChuyenNganh;
             edit.MaTrinhDoTinHoc = item.MaTrinhDoTinHoc;
             edit.MaTrinhDoNgoaiNgu = item.MaTrinhDoNgoaiNgu;
             edit.MaTrinhDoChinhTri = item.MaTrinhDoChinhTri;
+            edit.MaHocVi = item.MaHocVi;
             edit.MaHocHam = item.MaHocHam;
             edit.MaDanToc = item.MaDanToc;
             edit.MaTonGiao = item.MaTonGiao;
@@ -310,6 +327,7 @@ namespace HoiNongDan.Models
         public  CanBo EditUpdate(CanBo item) {
 
             item.MaCanBo = this.MaCanBo;
+            item.MaDinhDanh = this.MaDinhDanh;
             item.HoVaTen = this.HoVaTen;
             item.NgaySinh = this.NgaySinh;
             item.GioiTinh = this.GioiTinh;
@@ -318,7 +336,7 @@ namespace HoiNongDan.Models
             item.MaTinhTrang = this.MaTinhTrang;
             item.IdCoSo = this.IdCoSo;
             item.IdDepartment = this.IdDepartment;
-            item.MaChucVu = this.MaChucVu;
+            item.MaChucVu = this.MaChucVu.Value;
             item.SoDienThoai = this.SoDienThoai;
             item.Email = this.Email;
             item.MaNgachLuong = this.MaNgachLuong;
@@ -332,12 +350,14 @@ namespace HoiNongDan.Models
             item.LuongKhoan = this.LuongKhoan;
             item.NgayVaoBienChe = this.NgayVaoBienChe;
             item.NgayThamGiaCongTac = this.NgayThamGiaCongTac;
+            item.IsBanChapHanh = this.IsBanChapHanh ;
             item.MaHeDaoTao = this.MaHeDaoTao;
-            item.MaTrinhDoHocVan = this.MaTrinhDoHocVan;
+            item.MaTrinhDoChuyenMon = this.MaTrinhDoChuyenMon;
             item.ChuyenNganh = this.ChuyenNganh;
             item.MaTrinhDoTinHoc = this.MaTrinhDoTinHoc;
             item.MaTrinhDoNgoaiNgu = this.MaTrinhDoNgoaiNgu;
             item.MaTrinhDoChinhTri = this.MaTrinhDoChinhTri;
+            item.MaHocVi = this.MaHocVi;
             item.MaHocHam = this.MaHocHam;
             item.MaDanToc = this.MaDanToc;
             item.MaTonGiao = this.MaTonGiao;

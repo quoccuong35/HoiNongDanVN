@@ -8,13 +8,14 @@
 <table id="data-list" class="table table-bordered text-nowrap mb-0">
     <thead class="table-primary">
         <tr>
-            <th></th>
-            <th>Hình</th>
+            
             <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.HoVaTen)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.TenChucVu)</th>
-            <th class="text-center">@Html.DisplayNameFor(p => p.TenCoSo)</th>
-            <th class="text-center">@Html.DisplayNameFor(p => p.TenDonVi)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.TenDiaBanHoatDong)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.DanToc)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.TonGiao)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.TrinhDoHocvan)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.VaiTro)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.GiaDinhThuocDien)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.NgheNghiepHienNay)</th>
@@ -28,22 +29,17 @@
         {
             i++;
             <tr>
-                <td class="align-middle">
-                    @*@HtmlExtensions.MenuNhanSu(CurrentArea, CurrentController, item.HoVaTen, item.IDCanBo!.Value.ToString(),listRoles: listRoles)*@
-                </td>
-                <td class="align-middle">
-                    @if (!String.IsNullOrEmpty(item.HinhAnh) && !String.IsNullOrWhiteSpace(item.HinhAnh))
-                    {
-                        <img alt="image" class="avatar avatar-md br-7" src="@item.HinhAnh">
-                    }
-                </td>
+                
                 <td class="text-center align-middle">
                     <a asp-area="@ConstArea.HoiVien" asp-action="Edit" asp-controller="@ConstController.HoiVien" target="_blank" asp-route-id="@item.IDCanBo">@item.MaCanBo</a>
                 </td>
                 <td class="align-middle">@Html.DisplayFor(p => item.HoVaTen)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.TenChucVu)</td>
-                <td class="align-middle">@Html.DisplayFor(p => item.TenCoSo)</td>
-                <td class="align-middle">@Html.DisplayFor(p => item.TenDonVi)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.TenDiaBanHoatDong)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.DanToc)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.TonGiao)</td>
+
+                <td class="align-middle">@Html.DisplayFor(p => item.TrinhDoHocvan)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.VaiTro)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.GiaDinhThuocDien)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.NgheNghiepHienNay)</td>
