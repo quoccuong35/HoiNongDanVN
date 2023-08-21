@@ -22,10 +22,6 @@
         <div class="d-flex px-2">
             @HtmlExtensions.ExportButton(CurrentArea,CurrentController,listRoles:listRoles)
             @HtmlExtensions.ImportButton(CurrentArea,CurrentController,listRoles:listRoles)
-           @*  <button type="button" class="btn btn-success  mt-1 mb-1 me-3">
-                <span>Notifications</span>
-                <span class="badge bg-white text-success ms-2">2</span>
-            </button> *@
             @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
            
         </div>
@@ -40,21 +36,26 @@
                 <div class="splitter-body">
                     <form method="get" id="frmSearch" asp-action="_Search">
                         <div class="row my-2">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="MaCanBo"></label>
                                 <input class="form-control" asp-for="MaCanBo" />
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="HoVaTen"></label>
                                 <input class="form-control" asp-for="HoVaTen" />
                             </div>
-                            
-                           
                             <div class="col-md-3">
                                 <label asp-for="MaDiaBanHoatDong"></label>
                                 @Html.DropDownList("MaDiaBanHoatDong", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
+                                <label>Tình trạng hội viên</label>
+                                @Html.DropDownList("DangChoDuyet", new List<SelectListItem>(){
+                                new SelectListItem(){Text = "Đã duyệt", Value = "true", Selected = true},
+                                new SelectListItem(){Text = "Đang chờ duyệt", Value = "false"}
+                                }, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-2">
                                 <label asp-for="Actived"></label>
                                 @Html.DropDownList("Actived", new List<SelectListItem>(){
                                 new SelectListItem(){Text = LanguageResource.Dropdownlist_All, Value = ""},
@@ -79,14 +80,23 @@
             <div class="card rounded-3">
                 <div class="card-status bg-blue br-te-7 br-ts-7"></div>
                 <div class="card-body">
-                    <div class="table-responsive" id="divSearchResult"></div>
+                    <div class="table-responsive" id="divSearchResult">
+                        <div class="dimmer active">
+                            <div class="lds-ring">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <h5>Đang tải dữ liệu</h5>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- /Row -->
 </div>
-<script src="~/js/canbo.js"></script>
 @section ScriptCustomized {
     
     <script>

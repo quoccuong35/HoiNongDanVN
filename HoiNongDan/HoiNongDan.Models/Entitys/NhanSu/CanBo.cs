@@ -195,13 +195,18 @@ namespace HoiNongDan.Models
 
         public bool? HoiVienDuyet { get; set; }
 
-
+        public Guid? NguoiDuyet { get; set; }
+        public DateTime? NgayDuyet { get; set; }
 
         [MaxLength(500)]
         public string? HinhAnh { get; set; }
         public bool Actived { get; set; } = true;
+
+        public DateTime?NgayNgungHoatDong { get; set; }
+        public String? LyDoNgungHoatDong { get; set; }
+
         public Guid? CreatedAccountId { get; set; }
-        public DateTime? CreatedTime { get; set; } = DateTime.Now;
+        public DateTime? CreatedTime { get; set; }
         public Guid? LastModifiedAccountId { get; set; }
         public DateTime? LastModifiedTime { get; set; }
         public ICollection<QuanHeGiaDinh> QuanHeGiaDinhs { get; set; }

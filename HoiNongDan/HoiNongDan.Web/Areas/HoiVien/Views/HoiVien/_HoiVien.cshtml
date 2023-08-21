@@ -170,6 +170,31 @@
                                     </div>
                                 </div>
                             </div>
+                            @if (Model.IDCanBo != null)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="NgayNgungHoatDong"></label>
+                                                <input asp-for="NgayNgungHoatDong" class="form-control">
+                                                <span asp-validation-for="NgayNgungHoatDong" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 d-flex align-items-end">
+                                            <fieldset>
+                                                @Html.RadioButtonFor(p=>p.Actived,true) @LanguageResource.Actived_True
+                                                @Html.RadioButtonFor(p=>p.Actived,false) @LanguageResource.Actived_False
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label asp-for="LyDoNgungHoatDong"></label>
+                                        <textarea asp-for="LyDoNgungHoatDong" rows="3" class="form-control"></textarea>
+                                        <span asp-validation-for="LyDoNgungHoatDong" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

@@ -19,6 +19,7 @@ HoiNongDan.SearchInitial = function (controller, action = "_Search") {
 }
 HoiNongDan.SearchDefault = function (controller, action) {
     var $btn = $("#btn-search");
+    $btn.toggleClass("btn-loading");
     $.ajax({
         type: "get",
         url: "/" + controller + "/" + action,
@@ -37,6 +38,7 @@ HoiNongDan.SearchDefault = function (controller, action) {
             else {
                 $("#divSearchResult").html(xhr);
                 HoiNongDan.Table();
+                $btn.toggleClass("btn-loading");
             }
         },
         error: function (xhr, status, error) {
@@ -46,6 +48,7 @@ HoiNongDan.SearchDefault = function (controller, action) {
             //// disabled button
             //$("#" + $btn[0].id).toggleClass("disabled");
             toastr.error(xhr.responseText);
+            $btn.toggleClass("btn-loading");
         }
     });
 }
@@ -337,7 +340,63 @@ HoiNongDan.Delete = function () {
         })
     });
 }
+HoiNongDan.DuyetHoiVienInitial = function (controller) {
+    $(document).on("click", ".duyet-hoivien", function (e) {
+        let $btn = $(this);
+        let id = $btn.data("id");
+        var lid = [];
+        lid.push(id);
+        var formData = {};
+        formData.lid = lid;
+        HoiNongDan.DuyetHoiVien(formData, controller);
+    });
 
+    $(document).on("click", "#duyet-hoivienall", function () {
+        var lid = [];
+        $('#data-list tbody tr').each(function () {
+            lid.push(this.id);
+        });
+        var formData = {};
+        formData.lid = lid;
+        HoiNongDan.DuyetHoiVien(formData, controller);
+    });
+}
+HoiNongDan.DuyetHoiVien = function (data, controller)
+{
+    let textRequestion = "Bạn có muốn duyệt các hội viên đang chọn?";
+    Swal.fire({
+        title: 'Duyệt hội viên mới',
+        html: textRequestion,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Có',
+        cancelButtonText: "Không"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: "/" + controller + "/Edit",
+                type: 'POST',
+                data: data,
+                success: function (data) {
+                    toastr.clear();
+                    if (data.success) {
+                        $("#btn-search").trigger("click");
+                        toastr.success(data.data);
+                    }
+                    else {
+                        toastr.error(data.data);
+                    }
+                },
+                error: function (xhr, status, data) {
+
+                    toastr.error(data);
+                }
+            })
+        }
+    })
+}
 HoiNongDan.UploadFile = function (controller) {
     $(document).on("click", "#btn-importExcel", function () {
         var file = document.getElementById('importexcelfile').files[0];
@@ -431,6 +490,15 @@ HoiNongDan.Table = function (id_table = "#data-list") {
         console.log(e);
     }
 };
+HoiNongDan.Selected = function (id) {
+    $('#'+id).on('click', 'tr', function () {
+        $(this).toggleClass('selected');
+        //var pos = oTable.row(this).index();
+        //var row = oTable.row(pos).data();
+        //console.log(row);
+        //console.log(oTable);
+    });
+}
 //get message from current url
 HoiNongDan.GetQueryString = function getParameterByName(name, url) {
     if (!url) url = window.location.href;

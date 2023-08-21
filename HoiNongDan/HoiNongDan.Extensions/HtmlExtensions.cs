@@ -64,7 +64,7 @@ namespace Microsoft.AspNetCore.Html
             TagBuilder aTag = new TagBuilder("a");
             aTag.Attributes.Add("href", string.Format("/{0}/{1}", CurrentUrl, action));
             aTag.Attributes.Add("id", "btn-create");
-            aTag.Attributes.Add("class", "btn btn-primary");
+            aTag.Attributes.Add("class", "btn btn-sm btn-primary");
             aTag.InnerHtml.AppendHtmlLine(string.Format("<i class='bi bi-plus-circle'></i> {0}", LanguageResource.Btn_Create));
             if (htmlAttributes != null) {
                 var attributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
@@ -86,7 +86,7 @@ namespace Microsoft.AspNetCore.Html
 
             aTag.Attributes.Add("id", id);
 
-            aTag.Attributes.Add("class", "btn btn-primary me-1");
+            aTag.Attributes.Add("class", "btn btn-sm btn-primary me-1");
             aTag.Attributes.Add("onclick", "$(this).button('loading')");
             aTag.InnerHtml.AppendHtmlLine(string.Format("<i class='fa fa-save'> {0}</i>", btn_name));
             //aTag.InnerHtml.AppendHtmlLine(string.Format("<span class='spinner-border spinner-border-sm d-none' role='status' aria-hidden='true'></span> {0}", btn_name));
@@ -107,7 +107,7 @@ namespace Microsoft.AspNetCore.Html
             string CurrentUrl = GetCurrentUrl(areaName, controllerName);
             TagBuilder aTag = new TagBuilder("a");
             aTag.Attributes.Add("href", string.Format("/{0}/index", CurrentUrl));
-            aTag.Attributes.Add("class", "btn btn-warning-light");
+            aTag.Attributes.Add("class", "btn btn-sm btn-warning");
             aTag.InnerHtml.AppendHtmlLine(string.Format("<i class='text-white bi bi-reply-all-fill me-1'></i> {0}", LanguageResource.Btn_Back));
             if (htmlAttributes != null)
             {
@@ -291,7 +291,7 @@ namespace Microsoft.AspNetCore.Html
         }
         #endregion Delete Button
 
-        #region Menu nhan su
+        #region Menu can bo - hội viên
         public static HtmlString MenuNhanSu(string areaName, string controllerName, string itemName, string id, String listRoles = "")
         {
             string CurrentUrl = GetCurrentUrl(areaName, controllerName);
@@ -375,7 +375,91 @@ namespace Microsoft.AspNetCore.Html
             menu.InnerHtml.AppendHtmlLine(RenderHtml(file_dropdown));
             return new HtmlString(RenderHtml(menu));
         }
-        #endregion Menu nhan su
+        public static HtmlString MenuHoiVien(string areaName, string controllerName, string itemName, string id, String listRoles = "")
+        {
+            string CurrentUrl = GetCurrentUrl(areaName, controllerName);
+            //string roles = controllerName + ":" + ConstFunction.Delete;
+            //bool isHasPermission = Function.GetPermission(listRoles, roles);
+
+
+
+            TagBuilder menu = new TagBuilder("div");
+            menu.Attributes.Add("class", "d-flex");
+
+            TagBuilder file_dropdown = new TagBuilder("div");
+            file_dropdown.Attributes.Add("class", "ms-auto mt-1 file-dropdown");
+            file_dropdown.InnerHtml.AppendHtmlLine("<a href=\"javascript:void(0)\" class=\"text-muted\" data-bs-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><i class=\"fa fa-align-justify fs-18\"></i></a>");
+
+            TagBuilder dropdown_menu = new TagBuilder("div");
+            dropdown_menu.Attributes.Add("class", "dropdown-menu dropdown-menu-start");
+
+            /// check edit
+            string roles = controllerName + ":" + ConstFunction.Edit;
+            bool isHasPermission = Function.GetPermission(listRoles, roles);
+            //bool isHasPermission = true;
+            if (isHasPermission)
+            {
+                TagBuilder aTagEdit = new TagBuilder("a");
+                aTagEdit.Attributes.Add("class", "btn dropdown-item");
+
+
+                aTagEdit.Attributes.Add("href", string.Format("/{0}/Edit/{1}", CurrentUrl, id));
+
+                aTagEdit.InnerHtml.AppendHtmlLine(string.Format("<i class='fe fe-edit bg-primary-transparent me-2'></i> {0}", LanguageResource.Edit));
+                aTagEdit.RenderSelfClosingTag();
+                dropdown_menu.InnerHtml.AppendHtmlLine(RenderHtml(aTagEdit));
+            }
+            //roles = controllerName + ":" + ConstFunction.View;
+            //isHasPermission = Function.GetPermission(listRoles, roles);
+            //if (isHasPermission)
+            //{
+            //    // xem thông tin
+            //    TagBuilder aTagView = new TagBuilder("a");
+            //    aTagView.Attributes.Add("class", "btn dropdown-item");
+
+
+            //    aTagView.Attributes.Add("href", string.Format("/{0}/View/{1}", CurrentUrl, id));
+            //    aTagView.InnerHtml.AppendHtmlLine(string.Format("<i class='fa fa-eye bg-info-transparent me-2'></i> {0}", LanguageResource.View));
+            //    aTagView.RenderSelfClosingTag();
+            //    dropdown_menu.InnerHtml.AppendHtmlLine(RenderHtml(aTagView));
+            //}
+            //roles = controllerName + ":" + ConstFunction.Print;
+            //isHasPermission = Function.GetPermission(listRoles, roles);
+            //if (isHasPermission)
+            //{
+            //    // In lý lịch
+            //    TagBuilder aTagPrint = new TagBuilder("a");
+            //    aTagPrint.Attributes.Add("class", "btn dropdown-item");
+
+
+            //    aTagPrint.Attributes.Add("href", string.Format("/{0}/Print/{1}", CurrentUrl, id));
+            //    aTagPrint.InnerHtml.AppendHtmlLine(string.Format("<i class='fa fa-print bg-success-transparent me-2'></i> {0}", LanguageResource.Print));
+            //    aTagPrint.RenderSelfClosingTag();
+            //    dropdown_menu.InnerHtml.AppendHtmlLine(RenderHtml(aTagPrint));
+            //}
+            // Xóa
+            roles = controllerName + ":" + ConstFunction.Delete;
+            isHasPermission = Function.GetPermission(listRoles, roles);
+            if (isHasPermission)
+            {
+                TagBuilder aTagDel = new TagBuilder("a");
+                //aTag.Attributes.Add("onclick", "$(this).button('loading')");
+                aTagDel.Attributes.Add("class", "btn dropdown-item");
+                aTagDel.Attributes.Add("id", "btn-delete");
+
+                aTagDel.Attributes.Add("data-id", string.Format("{0}", id));
+                aTagDel.Attributes.Add("data-current-url", string.Format("{0}", CurrentUrl));
+                aTagDel.Attributes.Add("data-item-name", string.Format("{0}", itemName));
+                aTagDel.InnerHtml.AppendHtmlLine(string.Format("<i class=\"fe fe-trash bg-danger-transparent me-2\"></i> {0}", LanguageResource.Btn_Del));
+                aTagDel.RenderSelfClosingTag();
+                dropdown_menu.InnerHtml.AppendHtmlLine(RenderHtml(aTagDel));
+            }
+            file_dropdown.InnerHtml.AppendHtmlLine(RenderHtml(dropdown_menu));
+
+            menu.InnerHtml.AppendHtmlLine(RenderHtml(file_dropdown));
+            return new HtmlString(RenderHtml(menu));
+        }
+        #endregion Menu can bo - hội viên
 
         #region Import Button
         public static HtmlString ImportButton(string areaName, string controllerName, object htmlAttributes = null, String listRoles = "")
@@ -387,7 +471,7 @@ namespace Microsoft.AspNetCore.Html
             if (isHasPermission)
             {
                 TagBuilder aTag = new TagBuilder("a");
-                aTag.Attributes.Add("class", "btn btn-vk text-white mx-1");
+                aTag.Attributes.Add("class", "btn btn-sm btn-vk text-white mx-1");
                 aTag.Attributes.Add("href", "#modalImport");
                 aTag.Attributes.Add("data-bs-effect", "effect-scale");
                 aTag.Attributes.Add("data-bs-toggle", "modal");
@@ -413,7 +497,7 @@ namespace Microsoft.AspNetCore.Html
                 dropdown.Attributes.Add("class", "dropdown");
 
                 TagBuilder button = new TagBuilder("button");
-                button.Attributes.Add("class", "btn bg-teal dropdown-toggle text-white");
+                button.Attributes.Add("class", "btn bg-teal dropdown-toggle btn-sm text-white");
                 button.Attributes.Add("data-bs-toggle", "dropdown");
                 button.InnerHtml.AppendHtmlLine(string.Format("<i class=\"fa fa-arrow-circle-down me-2\"></i>{0}", "Export"));
 

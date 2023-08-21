@@ -1,4 +1,65 @@
-﻿
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<HoiVienDetailVM>
+@{
+    string CurrentController = ConstController.DuyetHoiVien;
+    string CurrentArea = ConstArea.HoiVien;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table table-bordered text-nowrap mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th></th>
+            <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.HoVaTen)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.TenChucVu)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.TenDiaBanHoatDong)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.DanToc)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.TonGiao)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.TrinhDoHocvan)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.VaiTro)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.GiaDinhThuocDien)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NgheNghiepHienNay)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr id="@item.IDCanBo">
+                <td>
+                    <button type="button" class="btn btn-sm btn-primary duyet-hoivien" data-bs-placement="top" data-id="@item.IDCanBo" data-bs-toggle="tooltip" title="" data-bs-original-title="Duyệt">
+                        <span class="fa fa-check"> </span>
+                    </button>
+                    <button id="btn-delete" data-id="@item.IDCanBo" data-current-url="HoiVien/HoiVien" data-item-name ="@item.HoVaTen" type="button" class="btn  btn-sm btn-danger xoa-hoivien" data-bs-placement="top" data-bs-toggle="tooltip" title="" data-bs-original-title="Xóa">
+                        <span class="fe fe-trash-2"> </span>
+                    </button>
+                    <a id="bAcep" type="button" class="btn  btn-sm btn-warning xem-hoivien" data-bs-placement="top" data-bs-toggle="tooltip" title="" data-bs-original-title="Xem" asp-action="View" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.DuyetHoiVien" asp-route-id="@item.IDCanBo">
+                        <span class="fa fa-eye"> </span>
+                    </a>
+                </td>
+                <td class="text-center align-middle">
+                    @item.MaCanBo
+                </td>
+                <td class="align-middle">@Html.DisplayFor(p => item.HoVaTen)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.TenChucVu)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.TenDiaBanHoatDong)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.DanToc)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.TonGiao)</td>
+
+                <td class="align-middle">@Html.DisplayFor(p => item.TrinhDoHocvan)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.VaiTro)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.GiaDinhThuocDien)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgheNghiepHienNay)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(function () {
+        HoiNongDan.Selected("data-list");
+    });
+</script>

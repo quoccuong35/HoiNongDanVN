@@ -180,7 +180,7 @@
 /*Header-dark*/
 .dark-header .app-header,
 .dark-header .hor-header {
-    background: #2a2a4a !important;
+    background: #0e344f !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -1052,7 +1052,7 @@
 
 /*dark-menu*/
 .dark-menu .app-sidebar {
-    background: #2a2a4a !important;
+    background: #0e344f !important;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 

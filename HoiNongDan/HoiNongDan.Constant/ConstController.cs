@@ -46,6 +46,7 @@
         public const string DiaBanHoatDong = "DiaBanHoatDong";
         public const string VayVon = "VayVon";
         public const string HVKhenThuong = "HVKhenThuong";
+        public const string DuyetHoiVien = "DuyetHoiVien";
         #endregion Hội viên
     }
     public static class ConstArea

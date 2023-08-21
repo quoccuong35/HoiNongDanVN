@@ -4,6 +4,7 @@ using HoiNongDan.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HoiNongDan.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230819064000_editHoiVienDuyet")]
+    partial class editHoiVienDuyet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,9 +214,6 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<int?>("LuongKhoan")
                         .HasColumnType("int");
 
-                    b.Property<string>("LyDoNgungHoatDong")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("MaBacLuong")
                         .HasColumnType("uniqueidentifier");
 
@@ -305,9 +304,6 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("NgayNangBacLuong")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("NgayNgungHoatDong")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NgaySinh")
@@ -575,7 +571,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 19, 19, 37, 5, 447, DateTimeKind.Local).AddTicks(2900));
+                        .HasDefaultValue(new DateTime(2023, 8, 19, 13, 39, 59, 549, DateTimeKind.Local).AddTicks(7859));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -1754,7 +1750,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 19, 19, 37, 5, 447, DateTimeKind.Local).AddTicks(5549));
+                        .HasDefaultValue(new DateTime(2023, 8, 19, 13, 39, 59, 549, DateTimeKind.Local).AddTicks(9510));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)

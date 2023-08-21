@@ -105,6 +105,10 @@
     background-size: 100%;
     position:inherit;
 }
+.header-info {
+    position: absolute;
+    left: 170px;
+}
 .footer-info {
     position:absolute;
     left:170px;
@@ -127,4 +131,55 @@
     margin: 10px 0px 0px 11%;
     color: white;
     font-size: 16px;
+}
+main-footer1 {
+    background-color: #fff;
+    border-top: 1px solid #e6eaea;
+    position: relative;
+    max-height: 200px;
+}
+
+p, a, span, div {
+    /*font-size: 1em !important;
+                           color: #000 !important;*/
+    font-family: wf_segoe-ui_normal, "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
+    font-size: 14px;
+}
+
+.main-sidemenu > span {
+    font-size: 16px;
+}
+
+#avtImg {
+    vertical-align: middle;
+    width: 140px;
+    height: 140px;
+    border-radius: 10px;
+}
+
+.border-top {
+    border-top: 4px dotted blue;
+}
+
+#banner-test {
+    background: url("/Images/banner.png");
+    background-repeat: no-repeat;
+    background-position: left left;
+    background-size: contain;
+    height: 106px;
+    background-color: white;
+}
+
+.side-app {
+    /* top:150px; */
+    position: relative;
+    z-index: 1;
+}
+
+.app-header, .app-sidebar {
+    top: 106px;
+}
+
+.side-header {
+    display: none;
 }

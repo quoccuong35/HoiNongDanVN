@@ -970,6 +970,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lý do ngưng hoạt động.
+        /// </summary>
+        public static string LyDoNgungHoatDong {
+            get {
+                return ResourceManager.GetString("LyDoNgungHoatDong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mã.
         /// </summary>
         public static string Ma {
@@ -1209,6 +1218,15 @@ namespace HoiNongDan.Resources {
         public static string NgayNangBacLuong {
             get {
                 return ResourceManager.GetString("NgayNangBacLuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày ngưng hoạt động.
+        /// </summary>
+        public static string NgayNgungHoatDong {
+            get {
+                return ResourceManager.GetString("NgayNgungHoatDong", resourceCulture);
             }
         }
         

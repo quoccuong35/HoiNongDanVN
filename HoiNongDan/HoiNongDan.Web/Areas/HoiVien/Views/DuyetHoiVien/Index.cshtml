@@ -1,7 +1,7 @@
 ﻿@model DuyetHoiVienSearchVM
 @{
     ViewBag.Title = LanguageResource.List + LanguageResource.DuyetHoiVienMoi.ToLower();
-    string CurrentController = ConstController.HoiVien;
+    string CurrentController = ConstController.DuyetHoiVien;
     string CurrentArea = ConstArea.HoiVien;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
     string listRoles = User != null ? User.FindFirst("Roles").Value : "";
@@ -20,7 +20,9 @@
             </div>
         </div>
         <div class="d-flex px-2">
-            <a asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.HoiVien" asp-action="InReport">HoiVien</a>
+            <button type="button" id="duyet-hoivienall" class="btn btn-sm btn-primary" data-bs-placement="top" data-bs-toggle="tooltip" title="" data-bs-original-title="Duyệt">
+                <span class="fa fa-check"> Duyệt tất cả</span>
+            </button>
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -69,15 +71,15 @@
         </div>
     </div>
     <!-- /Row -->
+
 </div>
-<script src="~/js/canbo.js"></script>
 @section ScriptCustomized {
 
     <script>
         //load default and set event
         $(document).ready(function () {
             HoiNongDan.SearchInitial("@CurrentUrl");
-    
+            HoiNongDan.DuyetHoiVienInitial("@CurrentUrl");
         });
     </script>
 }

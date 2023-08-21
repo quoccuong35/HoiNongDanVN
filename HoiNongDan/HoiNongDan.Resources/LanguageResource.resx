@@ -420,6 +420,9 @@
   <data name="LyDo" xml:space="preserve">
     <value>Lý do</value>
   </data>
+  <data name="LyDoNgungHoatDong" xml:space="preserve">
+    <value>Lý do ngưng hoạt động</value>
+  </data>
   <data name="Ma" xml:space="preserve">
     <value>Mã</value>
   </data>
@@ -500,6 +503,9 @@
   </data>
   <data name="NgayNangBacLuong" xml:space="preserve">
     <value>Ngày nâng bậc</value>
+  </data>
+  <data name="NgayNgungHoatDong" xml:space="preserve">
+    <value>Ngày ngưng hoạt động</value>
   </data>
   <data name="NgayQuyetDinh" xml:space="preserve">
     <value>Ngày Quyết Định</value>
