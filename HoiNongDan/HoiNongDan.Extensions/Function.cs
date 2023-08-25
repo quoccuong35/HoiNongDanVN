@@ -11,7 +11,7 @@ namespace HoiNongDan.Extensions
     {
         public static bool GetPermission(String listRoless, String Roles)
         {
-            if (listRoless.ToUpper().Contains(Roles.ToUpper()))
+            if (listRoless.ToUpper().Contains(Roles.ToUpper().Trim()))
             {
                 return true;
             }

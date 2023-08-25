@@ -1,0 +1,43 @@
+﻿@model IEnumerable<HoiVienHoiDapDetail>
+@if (Model.Count()>0)
+{
+    <div class="dropdown  d-flex message">
+        <a class="nav-link icon text-center" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fe fe-message-square"></i><span class="badge bg-secondary header-badge">@Model.Count()</span>
+        </a>
+
+        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+            <div class="drop-heading border-bottom">
+                <div class="d-flex">
+                    <h6 class="mt-1 mb-0 fs-16 fw-semibold text-dark">
+                        Bạn có @Model.Count()
+                        Cần trả lời
+                    </h6>
+                   
+                </div>
+            </div>
+            <div class="message-menu message-menu-scroll">
+                @foreach(var item in Model)
+                {
+                    <a class="dropdown-item d-flex" asp-area="@ConstArea.HoiVien" asp-action="View" asp-controller="HVDap" asp-route-id="@item.ID">
+                        <span class="avatar avatar-md brround me-3 align-self-center cover-image"
+                              data-bs-image-src="~/assets/images/users/1.jpg"></span>
+                        <div class="wd-90p">
+                            <div class="d-flex">
+                                <h5 class="mb-1">@item.HoVaTen</h5>
+                                <small class="text-muted ms-auto text-end">
+                                    @item.Ngay.ToString("dd-MM-yyyy HH:mm")
+                                </small>
+                            </div>
+                            <span style="text-overflow:clip;height:20px;">@item.NoiDung</span>
+                        </div>
+                    </a>
+                }
+            </div>
+            <div class="dropdown-divider m-0"></div>
+            <a asp-area="@ConstArea.HoiVien" asp-controller="HVDap" asp-action="ViewAll" class="dropdown-item text-center p-3 text-muted">
+                Xem tất cả
+            </a>
+        </div>
+    </div>
+}

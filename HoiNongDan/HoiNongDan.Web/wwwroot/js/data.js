@@ -1,9 +1,9 @@
 ﻿var datasource = {
     'name': 'Chủ tịch',
-    'title': '',
+    'title': 'Nguyễn Thanh Xuân',
     'children': [
         {
-            'name': 'Phó chủ tịch', 'title': '',
+            'name': 'Phó chủ tịch', 'title': 'Huỳnh Thị Kim Xuyến',
             'children': [
                 {
                     'name': 'Văn phòng', 'title': ''

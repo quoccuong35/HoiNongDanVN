@@ -1,0 +1,45 @@
+﻿@using HoiNongDan.Resources
+
+@model IEnumerable<HoiVienHoiDapDetail>
+@{
+    ViewBag.Title = LanguageResource.Create + LanguageResource.CauHoiVeHoi;
+    string CurrentController = ConstController.HVDap;
+    string CurrentArea = ConstArea.HoiVien;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+}
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+    <!-- PAGE-HEADER -->
+    <div class="page-header d-flex my-1">
+        <div class="fs-16">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a class="fs-18 fw-600" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.HVDap" asp-action="Index">@LanguageResource.CauHoiVeHoi</a>
+                </li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">xem</li>
+            </ol>
+        </div>
+        <div class="header-sticky">
+            @* @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
+            @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
+            @HtmlExtensions.BackButton(CurrentArea,CurrentController) *@
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+              
+                <div class="card-body">
+                    @Html.Partial("_HoiDap",Model)
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+@section ScriptCustomized{
+    <script src="~/js/hvdap.js"></script>
+}

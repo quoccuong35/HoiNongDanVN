@@ -4,7 +4,7 @@ historicalBarChart = [{
 	values: [{
 		"label": "A",
 		"value": 24,
-		"color": "#136d38"
+		"color": "#0e344f"
 	}, {
 		"label": "B",
 		"value": 10,
@@ -16,7 +16,7 @@ historicalBarChart = [{
 	}, {
 		"label": "D",
 		"value": 150,
-		"color": "#136d38"
+		"color": "#0e344f"
 	}, {
 		"label": "E",
 		"value": 120,
@@ -85,11 +85,11 @@ function sinAndCos() {
 	return [{
 		values: sin,
 		key: "Sine Wave",
-		color: "#136d38"
+		color: "#0e344f"
 	}, {
 		values: cos,
 		key: "Cosine Wave",
-		color: "#136d38"
+		color: "#0e344f"
 	}];
 }
 
@@ -106,7 +106,7 @@ function sinData() {
 	return [{
 		values: sin,
 		key: "Sine Wave",
-		color: "#136d38"
+		color: "#0e344f"
 	}];
 }
 /*-----nvd3-chart3-----*/
@@ -186,7 +186,7 @@ function sinAndCos() {
 	return [{
 		values: sin,
 		key: "Sine Wave",
-		color: "#136d38"
+		color: "#0e344f"
 	}, {
 		values: cos,
 		key: "Cosine Wave",

@@ -16,6 +16,7 @@ namespace HoiNongDan.Constant
         //Url: Permission/Roles/ImportExcel
         public const string CanBo = "I-00001";
         public const string HoiVien = "I-00002";
+        public const string CanBoQuTrinhLuong = "I-00003";
 
     }
 }

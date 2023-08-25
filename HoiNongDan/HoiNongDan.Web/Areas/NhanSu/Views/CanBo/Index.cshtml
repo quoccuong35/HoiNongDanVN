@@ -10,7 +10,8 @@
 <div class="main-container container-fluid">
     <!-- PAGE-HEADER -->
     <div class="page-header my-2">
-       
+       @*  <input type="checkbox" name="HoVaTen" checked/><span>Họ và tên</span>
+        <input type="checkbox" name="TenChucVu" checked /><span>Chức vụ</span> *@
         <div>
             <span class="header-title">@LanguageResource.List @LanguageResource.CanBo.ToLower()</span>
             <div class="rectangle">
@@ -100,9 +101,15 @@
     <script src="~/js/canbo.js"></script>
     <script>
         //load default and set event
+
         $(document).ready(function () {
             HoiNongDan.SearchInitial("@CurrentUrl");
             HoiNongDan.ShowMessage(window.location.href);
+            // $('input[type=checkbox]').on('change', function () {
+            //     let name = $(this).attr('name')
+            //     var index = $('th[data-name=' + name + ']')
+            //     console.log(index);
+            // });
         });
     </script>
 }

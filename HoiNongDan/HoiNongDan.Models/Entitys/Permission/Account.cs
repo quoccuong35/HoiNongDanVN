@@ -21,10 +21,11 @@ namespace HoiNongDan.Models.Entitys
         public DateTime? LastModifiedTime { get; set; }
         public Guid? EmployeeId { get; set; }
         public virtual ICollection<AccountInRoleModel> AccountInRoleModels { get; set; }
-
+        public virtual ICollection<HoiVienHoiDap> HoiVienHoiDaps { get; set; }
         public Account()
         {
             AccountInRoleModels = new List<AccountInRoleModel>();
+            HoiVienHoiDaps = new List<HoiVienHoiDap>();
         }
     }
 }

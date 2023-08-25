@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
 }
-
+@model HoiVienDetailVM
 <!DOCTYPE html>
 
 <html>
@@ -13,7 +13,11 @@
     <link href="~/assets/css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" />
     <!--- FONT-ICONS CSS -->
+
     <link href="~/assets/css/icons.css" rel="stylesheet" />
+
+    <!-- COLOR SKIN CSS -->
+    <link id="theme" rel="stylesheet" type="text/css" media="all" href="~/assets/colors/color1.css" />
     <title>Tra cứu thông tin hội viên</title>
     <style>
         * {
@@ -36,18 +40,18 @@
             width: 100%
         }
 
-        
 
-        .footer1 {
+
+        .cs-header {
             position: relative;
             bottom: 10%;
             height: 100px;
             width: 100%;
         }
+
         .content {
-            background: #c7c5bd;
-            width: 90%;
-            max-width: 1060px;
+            background: #f0f0f5;
+            width: 100%;
             min-height: 70vh;
             margin: 2em auto;
             padding: 1.250em;
@@ -66,21 +70,23 @@
                 align-items:center;
             }
 
-        #search input[type='text']{
+        #txt-mahoivien {
             height:38px;
             border :solid 1px;
             border-radius:5px;
             margin-left:5px;
+            padding:10px;
         }
 
-            #search button{
-                height: 25px;
+        #btnxemthongtin {
+              
                 width:50px;
                 border: solid 1px;
                 border-radius: 5px;
                 background: #0e344f;
                 color:white;
                 cursor:pointer;
+                padding:5px;
             }
 
         .form-select-width{
@@ -89,28 +95,10 @@
     </style>
 </head>
 <body>
+    
     <div class="main">
-        <div class="header backgroundImg" style="display:flex;justify-content:center;">
-             <img src="~/Images/logo-while.png" style="object-fit:cover" class="header-brand-img" alt="">
-        </div>
-        <div id="search">
-            <a class="side-menu__item" asp-controller="" asp-area="Home" asp-action="Index">
-                <i class="fe fe-home" style="color:#0e344f"><span class="side-menu__label"> Trang Chủ </span> </i>
-            </a>
-            <div style="width:500px; border :solid 1px; border-radius:5px;">
-                @Html.DropDownList("MaDiaBanHoatDong", null, "Vui lòng chọn hội nông dân bạn đang tham gia", new { @class = "form-control select2-show-search form-select" })
-            </div>
-            <input type="text" placeholder="Nhập mã hội viên" id="txt-mahoivien" style="margin-right:5px;"/>
-            <button id="btnxemthongtin">Xem</button>
-       </div>
-        <div class="content">
-            <div id="thongtinhoivien">
-
-            </div>
-        </div>
-        <div class="footer1">
+        <div class="cs-header">
             <div class="backgroundImg">
-                <span id="year" style="display:none">2023</span>
                 <div class="footer-info">
                     <span class="hnd-title">Cơ quan chủ quản: Hội Nông Dân Thành Phố Hồ Chí Minh</span>
                     <span class="hdnd-inform">Địa chỉ: 271/1 Nguyễn Trọng Tuyển, Phường 10, Quận Phú Nhuận, TP.HCM </span>
@@ -119,55 +107,89 @@
                 </div>
             </div>
         </div>
+        <div class="col-xl-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="panel panel-primary">
+                        <div class="card-header">
+                            <form asp-area="Hoivien" asp-controller="HoiVien" asp-action="XemThongTin" class="d-flex">
+                                <a class="side-menu__item" asp-controller="" asp-area="Home" asp-action="Index">
+                                    <i class="fe fe-home" style="color:#0e344f"><span class="side-menu__label"> Trang Chủ </span> </i>
+                                </a>
+                                <div style="width:500px; border :solid 1px; border-radius:5px; margin-right:5px">
+                                    @Html.DropDownList("MaDiaBanHoatDong", null, "Vui lòng chọn hội nông dân bạn đang tham gia", new { @class = "form-control select2-show-search form-select" })
+                                </div>
+                                <input type="text" placeholder="Nhập mã hội viên" id="txt-mahoivien" name="MaHoiVien" style="margin-right:5px;" value="@Model.MaCanBo" />
+                                <button type ="submit" id="btnxemthongtin">Xem</button>
+                            </form>
+                        </div>
+                        <div class="tab-menu-heading tab-menu-heading-boxed">
+                            <div class="tabs-menu-boxed">
+                                <!-- Tabs -->
+                                <ul class="nav panel-tabs fs-14">
+                                    <li><a href="#activetabs" class="active" data-bs-toggle="tab">Thông Tin Hội Viên</a></li>
+                                    <li><a href="#linktabs" data-bs-toggle="tab" class="">Thông tin hỏi đáp</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel-body tabs-menu-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="activetabs">
+                                    <div class="content">
+                                        <div id="thongtinhoivien">
+                                            @Html.Partial("_XemThongTinPartial",Model)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="linktabs">
+                                    <div class="row">
+                                        <div class="card">
+                                            <div class="card-body pb-0">
+                                                <div id="div-thongtinhoidap">
+                                                    @Html.Partial("~/Areas/HoiVien/Views/HVHoi/_Search.cshtml", Model.HoiDaps)
+                                                </div>
+                                              
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="card-title">Thêm câu hỏi mới</div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <input hidden value="@Model.IDCanBo" id="txt-id" />
+                                                    <div class="col-xs-12">
+                                                        <textarea class="form-control" id="txt-noidung" rows="5" placeholder="Nhập nội dung câu hỏi"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="">
+                                                    <button  class="btn btn-primary btn-sml"  onclick="LuuCauHoi()">Gửi câu hỏi</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>
 </html>
 <script src="~/assets/js/jquery.min.js"></script>
+<script src="~/assets/plugins/bootstrap/js/popper.min.js"></script>
+<script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
 <!-- SELECT2 JS -->
 <script src="~/assets/plugins/select2/select2.full.min.js"></script>
 <script src="~/assets/js/select2.js"></script>
 <script src="~/assets/plugins/multipleselect/multiple-select.js"></script>
 <script src="~/assets/plugins/multipleselect/multi-select.js"></script>
-
-<script>
-   var xenthongtin = $("#btnxemthongtin");
-    xenthongtin.on('click', function () { 
-        var data = {};
-        let diaban = $("#MaDiaBanHoatDong").val();
-        let mahoivien = $("#txt-mahoivien").val();
-        if (!diaban || !mahoivien)
-        {
-            alert("Vui lòng nhập mã hội viên và hội nông dân bạn đang tham gia");
-            return;
-        }
-        data.MaHoiVien = mahoivien;
-        data.MaDiaBanHoatDong = diaban;
-
-        $.ajax({
-            type: "get",
-            url: "/HoiVien/HoiVien/_XemThongTin",
-            data: data,
-            success: function (xhr, status, error) {
-                if (xhr.Code == 500 || xhr.Success == false) {
-
-                }
-                else if (xhr.indexOf("from-login-error") > 0) {
-                    alert('Hết thời gian thao tác xin đăng nhập lại');
-                  
-                }
-                else {
-                    $("#thongtinhoivien").html(xhr);
-                }
-            },
-            error: function (xhr, status, error) {
-                //$("#" + $btn[0].id + " i").toggleClass("d-none")
-                //// hiện loading lên
-                //$("#" + $btn[0].id + " span").toggleClass("d-none")
-                //// disabled button
-                //$("#" + $btn[0].id).toggleClass("disabled");
-                alert("Không tìm thấy thông tin mã đang chọn");
-            }
-        });
-    });
-</script>
+<!--- TABS JS -->
+<script src="~/assets/plugins/tabs/jquery.multipurpose_tabcontent.js"></script>
+<script src="~/assets/plugins/tabs/tab-content.js"></script>
+<script src="~/js/hvhoi.js"></script>

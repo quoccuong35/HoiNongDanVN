@@ -204,8 +204,14 @@
   <data name="CanBoHNDTP" xml:space="preserve">
     <value>Cán bộ Hội Nông dân TP</value>
   </data>
+  <data name="CanBoQuaTrinhLuong" xml:space="preserve">
+    <value>Cán bộ quá trình lương</value>
+  </data>
   <data name="CapNhatTinhTrangCanBo" xml:space="preserve">
     <value>Cập nhật tình trạng cán bộ</value>
+  </data>
+  <data name="CauHoiVeHoi" xml:space="preserve">
+    <value>Quản lý câu hỏi về hội</value>
   </data>
   <data name="Check_Exist" xml:space="preserve">
     <value>Đã tồn tại {0} này!</value>

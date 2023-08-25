@@ -322,11 +322,29 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cán bộ quá trình lương.
+        /// </summary>
+        public static string CanBoQuaTrinhLuong {
+            get {
+                return ResourceManager.GetString("CanBoQuaTrinhLuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cập nhật tình trạng cán bộ.
         /// </summary>
         public static string CapNhatTinhTrangCanBo {
             get {
                 return ResourceManager.GetString("CapNhatTinhTrangCanBo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quản lý câu hỏi về hội.
+        /// </summary>
+        public static string CauHoiVeHoi {
+            get {
+                return ResourceManager.GetString("CauHoiVeHoi", resourceCulture);
             }
         }
         

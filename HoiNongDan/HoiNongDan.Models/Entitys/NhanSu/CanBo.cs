@@ -219,6 +219,8 @@ namespace HoiNongDan.Models
         public ICollection<QuaTrinhCongTac> QuaTrinhCongTacs { get; set; }
         public ICollection<QuaTrinhMienNhiem> QuaTrinhMienNhiems { get; set; }
         public ICollection<HoiVienVayVon> HoiVienVayVons { get; set; }
+        public ICollection<CanBoQuaTrinhLuong> CanBoQuaTrinhLuongs { get; set; }
+        public ICollection<HoiVienHoiDap> HoiVienHoiDaps { get; set; }
         public HuuTri? HuuTri { get; set; }
 
         public CanBo() {
@@ -232,6 +234,8 @@ namespace HoiNongDan.Models
             QuaTrinhMienNhiems = new List<QuaTrinhMienNhiem>();
             FileDinhKems = new List<FileDinhKem>();
             HoiVienVayVons = new List<HoiVienVayVon>();
+            CanBoQuaTrinhLuongs = new List<CanBoQuaTrinhLuong>();
+            HoiVienHoiDaps = new List<HoiVienHoiDap>();
         }
 
     }

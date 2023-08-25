@@ -37,7 +37,7 @@
                 font-size: 15px;
                 text-transform: capitalize;
                 &.active {
-                    color: #136d38;
+                    color: #0e344f;
                 }
             }
         }
@@ -69,7 +69,7 @@
 .nav-pills .show > .nav-link {
     background-color: transparent;
     font-weight: bold;
-    color: #136d38;
+    color: #0e344f;
 }
 
 .logo-demo {
@@ -162,7 +162,7 @@
             position: absolute;
             content: "";
             height: 8px;
-            border: 2px solid #136d38;
+            border: 2px solid #0e344f;
             margin: 0px auto;
             transform: rotate(45deg);
             width: 8px;
@@ -386,7 +386,7 @@
         color: rgba(255, 255, 255, 0.8);
     }
     .landing-title {
-        background: linear-gradient(to right, transparent, #136d38, transparent);
+        background: linear-gradient(to right, transparent, #0e344f, transparent);
         height: 1px;
         margin: 0px auto;
         width: 70px !important;
@@ -541,10 +541,10 @@
         .card {
             &.bg-primary-transparent {
                 .card-header {
-                    border-left: 5px solid #136d38;
+                    border-left: 5px solid #0e344f;
                     .card-options-collapse {
                         i {
-                            background-color: #136d38;
+                            background-color: #0e344f;
                         }
                     }
                     a:hover {
@@ -552,7 +552,7 @@
                     }
                 }
                 .card-body {
-                    border-left: 5px solid #136d38;
+                    border-left: 5px solid #0e344f;
                     border-radius: 0 0 7px 7px;
                 }
             }
@@ -665,7 +665,7 @@
         height: 35px;
         width: 35px;
         background-color: #fff;
-        border: 1px solid #136d38;
+        border: 1px solid #0e344f;
         font-size: 14px;
         line-height: 2.3;
     }
@@ -1492,11 +1492,11 @@
             .card {
                 &.bg-primary-transparent {
                     .card-header {
-                        border-right: 5px solid #136d38;
+                        border-right: 5px solid #0e344f;
                         border-left: inherit;
                     }
                     .card-body {
-                        border-right: 5px solid #136d38;
+                        border-right: 5px solid #0e344f;
                         border-left: inherit;
                     }
                 }

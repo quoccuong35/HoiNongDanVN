@@ -1,0 +1,219 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Quản lý hổi đáp thông tin</title>
+    <link id="style" href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!--- FONT-ICONS CSS -->
+    <!-- STYLE CSS -->
+    <link href="~/assets/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <!--- FONT-ICONS CSS -->
+    <link href="~/assets/css/icons.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            position: relative;
+            top: 10%;
+            width: 100%;
+            height: 100%;
+            max-height: 100vh;
+        }
+
+     
+
+        .cs-header {
+            position: relative;
+            bottom: 10%;
+            height: 100px;
+            width: 100%;
+        }
+
+        .content {
+
+            width: 90%;
+            max-width: 1060px;
+            min-height: 80vh;
+        }
+
+
+        #search {
+            margin-top: 5px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            #search input[type='text'] {
+                height: 38px;
+                border: solid 1px;
+                border-radius: 5px;
+                margin-left: 5px;
+            }
+
+            #search button {
+                height: 25px;
+                width: 50px;
+                border: solid 1px;
+                border-radius: 5px;
+                background: #0e344f;
+                color: white;
+                cursor: pointer;
+            }
+
+        .form-select-width {
+            width: 200px;
+        }
+    </style>
+    <!-- COLOR SKIN CSS -->
+</head>
+<body>
+
+    <div class="main">
+        <div class="cs-header">
+            <div class="backgroundImg">
+                <div class="footer-info">
+                    <span class="hnd-title">Cơ quan chủ quản: Hội Nông Dân Thành Phố Hồ Chí Minh</span>
+                    <span class="hdnd-inform">Địa chỉ: 271/1 Nguyễn Trọng Tuyển, Phường 10, Quận Phú Nhuận, TP.HCM </span>
+                </div>
+                <div b-ovqu4dfemr="" class="footer-logo">
+                </div>
+            </div>
+        </div>
+        <div id="search">
+            <a class="side-menu__item" asp-controller="" asp-area="Home" asp-action="Index">
+                <i class="fe fe-home" style="color:#0e344f"><span class="side-menu__label"> Trang Chủ </span> </i>
+            </a>
+            <div style="width:500px; border :solid 1px; border-radius:5px;">
+                @Html.DropDownList("MaDiaBanHoatDong", null, "Vui lòng chọn hội nông dân bạn đang tham gia", new { @class = "form-control select2-show-search form-select" })
+            </div>
+            <input type="text" placeholder="Nhập mã hội viên" id="txt-mahoivien" style="margin-right:5px;" />
+            <button id="btnxemthongtin">Xem</button>
+        </div>
+        <div class="content">
+            <div id="thongtinhoivien">
+            </div>
+        </div>
+       
+    </div>
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title d-flex">
+
+                    <input class="form-control" type="text" />
+                    <input class="form-control" type="text" />
+
+                </div>
+            </div>
+            <div class="card-body pb-0">
+                <div class="media mb-5 overflow-visible d-block d-sm-flex">
+                    <span class="avatar avatar-md brround bg-danger me-3 mb-2">
+                      Hỏi
+                    </span>
+                    <div class="media-body overflow-visible">
+                        <div class="border mb-5 p-4 br-5">
+                            <h5 class="mt-0">Gavin Murray</h5>
+                            <span><i class="fe fe-thumb-up text-danger"></i></span>
+                            <p class="font-13 text-muted">
+                                Lorem ipsum dolor sit amet, quis Neque porro quisquam est, nostrud exercitation ullamco laboris commodo consequat. There’s an old maxim that states, “No fun for the writer, no fun for the reader.”No matter
+                                what industry you’re working in, as a blogger, you should live and die by this statement.
+                                 Lorem ipsum dolor sit amet, quis Neque porro quisquam est, nostrud exercitation ullamco laboris commodo consequat. There’s an old maxim that states, “No fun for the writer, no fun for the reader.”No matter
+                                what industry you’re working in, as a blogger, you should live and die by this statement.
+                            </p>
+                            <a class="like" href="javascript:;">
+                                <span class="badge btn-danger-light rounded-pill py-2 px-3">
+                                    <i class="fe fe-trash-2 mx-1"></i>Xóa
+                                </span>
+                            </a>
+                        </div>
+                        <div class="media mb-5 overflow-visible">
+                            <span class="avatar avatar-md brround bg-success me-3 mb-2">
+                                Đáp
+                            </span>
+                            <div class="media-body border p-4 overflow-visible br-5">
+                                
+                                <h5 class="mt-0">Mozelle Belt</h5>
+                                <span><i class="fe fe-thumb-up text-danger"></i></span>
+                                <p class="font-13 text-muted">
+                                    Nostrud exercitation ullamco laboris commodo consequat. There’s an old maxim that states, “No fun for the writer, no fun for the reader.”No matter what industry you’re working in, as a blogger, you should
+                                    live and die by this statement.
+                                </p>
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="media mb-5 overflow-visible d-block d-sm-flex">
+
+                    <span class="avatar avatar-md brround bg-danger me-3 mb-2">
+                        Hỏi
+                    </span>
+                    <div class="media-body overflow-visible">
+                        <div class="border mb-5 p-4 br-5">
+                            <h5 class="mt-0">Gavin Murray</h5>
+                            <span><i class="fe fe-thumb-up text-danger"></i></span>
+                            <p class="font-13 text-muted">
+                                Lorem ipsum dolor sit amet, quis Neque porro quisquam est, nostrud exercitation ullamco laboris commodo consequat. There’s an old maxim that states, “No fun for the writer, no fun for the reader.”No matter
+                                what industry you’re working in, as a blogger, you should live and die by this statement.
+                                Lorem ipsum dolor sit amet, quis Neque porro quisquam est, nostrud exercitation ullamco laboris commodo consequat. There’s an old maxim that states, “No fun for the writer, no fun for the reader.”No matter
+                                what industry you’re working in, as a blogger, you should live and die by this statement.
+                            </p>
+                            <a class="like" href="javascript:;">
+                                <span class="badge btn-danger-light rounded-pill py-2 px-3">
+                                    <i class="fe fe-trash-2 mx-1"></i>Xóa
+                                </span>
+                            </a>
+                        </div>
+                        <div class="media mb-5 overflow-visible">
+                            <span class="avatar avatar-md brround bg-success me-3 mb-2">
+                                Đáp
+                            </span>
+                            <div class="media-body border p-4 overflow-visible br-5">
+
+                                <h5 class="mt-0">Mozelle Belt</h5>
+                                <span><i class="fe fe-thumb-up text-danger"></i></span>
+                                <p class="font-13 text-muted">
+                                    Nostrud exercitation ullamco laboris commodo consequat. There’s an old maxim that states, “No fun for the writer, no fun for the reader.”No matter what industry you’re working in, as a blogger, you should
+                                    live and die by this statement.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Thêm câu hỏi mới</div>
+            </div>
+            <div class="card-body">
+                <form class="form-horizontal  m-t-20" action="index.html">
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <textarea class="form-control" rows="5" placeholder="Nhập nội dung câu hỏi"></textarea>
+                        </div>
+                    </div>
+                    <div class="">
+                        <a href="javascript:void(0)" class="btn btn-primary btn-sml  waves-effect waves-light">Gửi câu hỏi</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+   
+</body>
+</html>

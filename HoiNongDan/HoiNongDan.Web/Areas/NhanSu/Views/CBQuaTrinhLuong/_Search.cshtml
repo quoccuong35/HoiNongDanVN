@@ -1,0 +1,51 @@
+﻿@model IEnumerable<CanBoQuaTrinhLuongVM>
+@{
+    string CurrentController = ConstController.CBQuaTrinhLuong;
+    string CurrentArea = ConstArea.NhanSu;
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table table-bordered text-nowrap mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th></th>
+
+            <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
+            <th class="text-center" data-name="HoVaTen">@Html.DisplayNameFor(p => p.HoVaTen)</th>
+            <th class="text-center" data-name="TenChucVu">@Html.DisplayNameFor(p => p.MaNgachLuong)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.BacLuong)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.HeoSoLuong)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.HeSoChucVu)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.KiemNhiem)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.VuotKhung)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NgayHuong)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr>
+                <td class="align-middle">
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoVaTen!, item.ID, listRoles: listRoles)
+                </td>
+               
+                <td class="text-center align-middle">
+                    @item.MaCanBo
+                </td>
+                <td class="align-middle">@Html.DisplayFor(p => item.HoVaTen)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.MaNgachLuong)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.BacLuong)</td>
+
+                <td class="align-middle">@Html.DisplayFor(p => item.HeoSoLuong)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.HeSoChucVu)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.KiemNhiem)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.VuotKhung)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgayHuong)</td>
+            </tr>
+        }
+    </tbody>
+</table>

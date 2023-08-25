@@ -157,12 +157,12 @@ License        :   Licensed under ThemeForest License
 /*Transparent variables*/
 /* ###### Bootstrap ###### */
 :root {
-    --primary-bg-color: #136d38;
+    --primary-bg-color: #0e344f;
     --primary-bg-hover: #233ac5;
     --primary-bg-border: #5161c1;
     --dark-body: #292e4a;
     --dark-border: #30314e;
-    --transparent-primary: #136d38;
+    --transparent-primary: #0e344f;
     --transparent-body: #584cd9;
     --transparent-theme: rgba(0, 0, 0, 0.2);
     --transparent-border: rgba(255, 255, 255, 0.1);
@@ -173,7 +173,7 @@ License        :   Licensed under ThemeForest License
     --transparentprimary-transparentcolor: rgba(255, 255, 255, 0.05);
     --indigo: #4b0082;
     /*--purple: #6f42c1;*/
-    --purple: #136d38;
+    --purple: #0e344f;
     --pink: #fc5296;
     --orange: #fd7e14;
     --yellow: #FBB034;
@@ -183,7 +183,7 @@ License        :   Licensed under ThemeForest License
     --white: #ffffff;
     --gray: #6c757d;
     --gray-dark: #343a40;
-    --primary: #136d38;
+    --primary: #0e344f;
     --secondary: #6c757d;
     --success: #28a745;
     --info: #17a2b8;
@@ -18787,7 +18787,7 @@ img {
             }
 
                 .landing-top-header .top .nav li a.active {
-                    color: #136d38;
+                    color: #0e344f;
                 }
 
 @media (max-width: 992px) {
@@ -18816,7 +18816,7 @@ img {
 .nav-pills .show > .nav-link {
     background-color: transparent;
     font-weight: bold;
-    color: #136d38;
+    color: #0e344f;
 }
 
 .logo-demo {
@@ -18924,7 +18924,7 @@ img {
             position: absolute;
             content: "";
             height: 8px;
-            border: 2px solid #136d38;
+            border: 2px solid #0e344f;
             margin: 0px auto;
             transform: rotate(45deg);
             width: 8px;
@@ -19183,7 +19183,7 @@ img {
     }
 
     .landing-page .landing-title {
-        background: linear-gradient(to right, transparent, #136d38, transparent);
+        background: linear-gradient(to right, transparent, #0e344f, transparent);
         height: 1px;
         margin: 0px auto;
         width: 70px !important;
@@ -19344,11 +19344,11 @@ img {
 }
 
 .landing-page #faqs .card.bg-primary-transparent .card-header {
-    border-left: 5px solid #136d38;
+    border-left: 5px solid #0e344f;
 }
 
     .landing-page #faqs .card.bg-primary-transparent .card-header .card-options-collapse i {
-        background-color: #136d38;
+        background-color: #0e344f;
     }
 
     .landing-page #faqs .card.bg-primary-transparent .card-header a:hover {
@@ -19356,7 +19356,7 @@ img {
     }
 
 .landing-page #faqs .card.bg-primary-transparent .card-body {
-    border-left: 5px solid #136d38;
+    border-left: 5px solid #0e344f;
     border-radius: 0 0 7px 7px;
 }
 
@@ -19472,7 +19472,7 @@ img {
     height: 35px;
     width: 35px;
     background-color: #fff;
-    border: 1px solid #136d38;
+    border: 1px solid #0e344f;
     font-size: 14px;
     line-height: 2.3;
 }
@@ -20323,12 +20323,12 @@ img {
 }
 
 .rtl.landing-page #faqs .card.bg-primary-transparent .card-header {
-    border-right: 5px solid #136d38;
+    border-right: 5px solid #0e344f;
     border-left: inherit;
 }
 
 .rtl.landing-page #faqs .card.bg-primary-transparent .card-body {
-    border-right: 5px solid #136d38;
+    border-right: 5px solid #0e344f;
     border-left: inherit;
 }
 

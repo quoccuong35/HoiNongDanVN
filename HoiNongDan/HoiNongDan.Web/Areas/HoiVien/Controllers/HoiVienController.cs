@@ -24,7 +24,7 @@ using System.Globalization;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Transactions;
-
+using NuGet.Packaging;
 
 namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 {
@@ -239,13 +239,15 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         #endregion Edit
         #region View
-    
+        [HttpGet]
         public IActionResult XemThongTin()
         {
             CreateViewBagSearch();
-            return View();
+            ViewBag.HTTP = "HttpGet";
+            return View(new HoiVienDetailVM()) ;
         }
-        public IActionResult _XemThongTin(String MaHoiVien, Guid MaDiaBanHoatDong)
+        [HttpPost]
+        public IActionResult XemThongTin(String MaHoiVien, Guid MaDiaBanHoatDong)
         {
             HoiVienDetailVM hoivien = new HoiVienDetailVM();
             try
@@ -292,14 +294,37 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             ThamGia_THNN_CHNN = it.ThamGia_THNN_CHNN
 
                         }).First();
+                var lisCauHoi = _context.HoiVienHoiDaps.Include(it=>it.HoiVien).Where(it => it.IDHoivien == hoivien.IDCanBo && it.TraLoi != true).OrderBy(it=>it.Ngay).Select(it=>new HoiVienHoiDapDetail { 
+                    ID = it.ID,
+                    HoVaTen = it.HoiVien.HoVaTen,
+                    NoiDung= it.NoiDung,
+                    TraLoi= it.TraLoi,
+                    Ngay = it.Ngay,
+                    IdParent = it.IdParent
+                }).ToList();
+                if (lisCauHoi.Count() >0)
+                {
+                    hoivien.HoiDaps.AddRange(lisCauHoi);//
+                                                        // add cau tra loi
+                    var listraloi = _context.HoiVienHoiDaps.Include(it => it.Account).Where(it => it.IdParent != null && lisCauHoi.Select(it => it.ID).ToList().Contains(it.IdParent.Value)).Select(it => new HoiVienHoiDapDetail
+                    {
+                        ID = it.ID,
+                        HoVaTen = it.Account.FullName,
+                        NoiDung = it.NoiDung,
+                        TraLoi = it.TraLoi,
+                        Ngay = it.Ngay,
+                        IdParent = it.IdParent
+                    }).ToList();
+                    hoivien.HoiDaps.AddRange(listraloi);
+                }
             }
             catch
             {
 
             }
-
-
-            return PartialView("_XemThongTinPartial", hoivien);
+            ViewBag.HTTP = "HttpPost";
+            CreateViewBagSearch();
+            return View(hoivien);
         }
         #endregion View
         #region Delete

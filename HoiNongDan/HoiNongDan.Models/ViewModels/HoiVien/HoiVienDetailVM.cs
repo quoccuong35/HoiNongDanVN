@@ -41,6 +41,10 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgheNghiepHienNay")]
         public string NgheNghiepHienNay { get; set; }
 
-        
+        public ICollection<HoiVienHoiDapDetail> HoiDaps { get; set; }
+
+        public HoiVienDetailVM() {
+            HoiDaps=new List<HoiVienHoiDapDetail>();
+        }
     }
 }

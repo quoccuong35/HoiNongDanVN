@@ -39,6 +39,7 @@
         public const string ThuyenChuyenCanBo = "ThuyenChuyenCanBo";
         public const string BoNhiem = "BoNhiem";
         public const string MienNhiem = "MienNhiem";
+        public const string CBQuaTrinhLuong = "CBQuaTrinhLuong";
 
 
         #endregion NhanSu
@@ -47,6 +48,7 @@
         public const string VayVon = "VayVon";
         public const string HVKhenThuong = "HVKhenThuong";
         public const string DuyetHoiVien = "DuyetHoiVien";
+        public const string HVDap = "HVDap";
         #endregion Hội viên
     }
     public static class ConstArea

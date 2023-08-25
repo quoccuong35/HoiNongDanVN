@@ -7,7 +7,7 @@
             //various examples
             $('#world-map-markers').vectorMap({
                 map: 'world_mill_en',
-                scaleColors: ['#136d38', '#136d38'],
+                scaleColors: ['#0e344f', '#0e344f'],
                 normalizeFunction: 'polynomial',
                 hoverOpacity: 0.7,
                 hoverColor: false,
@@ -19,7 +19,7 @@
                 markerStyle: {
                     initial: {
                         r: 9,
-                        'fill': '#136d38',
+                        'fill': '#0e344f',
                         'fill-opacity': 0.9,
                         'stroke': '#fff',
                         'stroke-width': 9,

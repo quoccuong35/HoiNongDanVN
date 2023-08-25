@@ -49,6 +49,7 @@ namespace HoiNongDan.Models
             account.FullName = this.FullName;
             account.Password = Password;
             account.Actived = true;
+            account.EmployeeId = this.EmployeeId;
             account.CreatedAccountId = accountId;
             account.CreatedTime = DateTime.Now;
             account.AccountInRoleModels = AccountInRoleModels();
@@ -76,6 +77,7 @@ namespace HoiNongDan.Models
             edit.LastModifiedAccountId = accountId;
             edit.LastModifiedTime = DateTime.Now;
             edit.AccountInRoleModels = AccountInRoleModels();
+            edit.EmployeeId = this.EmployeeId;
             return edit;
         }
 

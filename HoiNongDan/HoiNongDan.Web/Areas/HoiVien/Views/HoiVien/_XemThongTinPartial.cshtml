@@ -3,14 +3,14 @@
 <div class="main-container container-fluid mt-2">
     <div class="card">
         <div class="card-body">
-            @if (Model.IDCanBo == null)
+            @if (Model.IDCanBo == null && @ViewBag.HTTP == "HttpPost")
             {
                 <div class="alert alert-danger" role="alert">
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>
                     <i class="fa fa-frown-o me-2" aria-hidden="true"></i>Không tìm thấy thông tin hội viên có mã bạn đang chọn.
                 </div>
             }
-            else
+            else if (@ViewBag.HTTP == "HttpPost" && Model.IDCanBo != null)
             {
                 <div class="d-flex bg-gray-100">
                     <div class="flex-shrink-0 mr-7">

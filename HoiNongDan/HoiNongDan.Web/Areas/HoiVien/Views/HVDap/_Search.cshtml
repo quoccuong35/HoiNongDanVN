@@ -1,0 +1,60 @@
+﻿@using HoiNongDan.Constant
+@using HoiNongDan.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<HoiVienHoiDapDetail>
+@{
+    string CurrentController = ConstController.HVDap;
+    string CurrentArea = ConstArea.HoiVien;
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+    <thead class="table-primary">
+        <tr>
+           
+            <th>@Html.DisplayNameFor(p => p.HoVaTen)</th>
+         
+            <th>@Html.DisplayNameFor(p => p.Ngay)</th>
+            <th>@Html.DisplayNameFor(p => p.TrangThai)</th>
+            <th>@Html.DisplayNameFor(p => p.NoiDung)</th>
+            <th class="text-center">@LanguageResource.Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+            string trangThai = "";
+        }
+        @foreach (var item in Model)
+        {
+            if(item.TrangThai =="01")
+            {
+                trangThai = "Đã gửi";
+            }
+            if (item.TrangThai == "02")
+            {
+                trangThai = "Đã xem";
+            }
+            if (item.TrangThai == "03")
+            {
+                trangThai = "Đã trã lời";
+            }
+            i++;
+            <tr>
+                <td class="text-center">
+                    <a id="bAcep" type="button" class="btn  btn-sm btn-warning xem-hoivien" data-bs-placement="top" data-bs-toggle="tooltip" title="" data-bs-original-title="Xem" asp-action="View" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.HVDap" asp-route-id="@item.ID">
+                        <span class="fa fa-eye"> </span>
+                    </a>
+                </td>
+                <td>@item.HoVaTen</td>
+                
+                <td>@item.Ngay.ToString("dd-MM-yyyy HH:mm")</td>
+                <td>@trangThai</td>
+                <td>@item.NoiDung</td>
+                <td class="text-center">
+                  
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

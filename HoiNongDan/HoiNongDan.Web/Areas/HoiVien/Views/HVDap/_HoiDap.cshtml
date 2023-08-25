@@ -1,0 +1,56 @@
+﻿@model IEnumerable<HoiVienHoiDapDetail>
+@{
+    int index = 1;
+    var data = @Model.ToList();
+    var cauHoi = data.Where(it => it.TraLoi != true).ToList().OrderByDescending(it=>it.Ngay);
+}
+@foreach (var item in cauHoi)
+{
+    var traLoi = data.Where(it => it.IdParent == item.ID);
+    <div class="media mb-5 overflow-visible d-block d-sm-flex">
+        <span class="avatar avatar-md brround bg-danger me-3 mb-2">
+            @index
+        </span>
+        <div class="media-body overflow-visible">
+            <div class="border mb-5 p-4 br-5">
+                <h5 class="mt-0">@item.HoVaTen @item.Ngay.ToString("dd-MM-yyyy hh:mm")</h5>
+                <span><i class="fe fe-thumb-up text-danger"></i></span>
+                <p class="font-13 text-muted">
+                    @item.NoiDung
+                </p>
+                <button class="badge btn-primary-light rounded-pill py-2 px-3 btn-answer" data-id="@item.ID" data-status="@item.TrangThai"><i class="fe fe-corner-up-left mx-1"></i>Trả lời</button>
+                <div id="cs_answer" style="display:none;">
+                    <div class="comment mt-5 d-grid">
+                        <textarea class="form-control" rows="5" placeholder="Nhập nội dung trã lời" name="NoiDung" id="txt_noidung_@index"></textarea>
+                        <div class="btn-list ms-auto mt-2">
+                            <button class="btn btn-danger  btn-answercancel" data-index="@index">Hủy</button>
+                            <button class="btn btn-success ms-3 btn-guitraloi" data-id="@item.ID" data-index="@index">Gưi</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @if (traLoi != null && traLoi.Count()>0)
+            {
+                foreach (var item2 in traLoi)
+                {
+                    <div class="media mb-5 overflow-visible">
+                        <span class="avatar avatar-md brround bg-success me-3 mb-2">
+                            Đáp
+                        </span>
+                        <div class="media-body border p-4 overflow-visible br-5">
+
+                            <h5 class="mt-0;mr-2">@item2.HoVaTen - @item2.Ngay.ToString("dd-MM-yyyy hh:mm")</h5>
+                            <span><i class="fe fe-thumb-up text-danger"></i></span>
+                            <p class="font-13 text-muted">
+                                @item2.NoiDung
+                            </p>
+
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    
+    index++;
+}
