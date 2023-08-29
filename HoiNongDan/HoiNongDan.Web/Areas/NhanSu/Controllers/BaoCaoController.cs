@@ -9,10 +9,10 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
     public class BaoCaoController : BaseController
     {
         public BaoCaoController(AppDbContext context) : base(context) { }
-        public IActionResult ThucLucHoi()
-        {
-            var data = _context.ThucLucHois.ToList().OrderBy(x => x.Id).ToList();
-            return View(data);
-        }
+        //public IActionResult ThucLucHoi()
+        //{
+        //    var data = _context.ThucLucHois.ToList().OrderBy(x => x.Id).ToList();
+        //    return View(data);
+        //}
     }
 }

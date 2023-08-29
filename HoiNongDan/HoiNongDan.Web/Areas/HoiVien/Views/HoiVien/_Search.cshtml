@@ -9,21 +9,49 @@
     <thead class="table-primary">
         <tr>
             <th></th>
-            <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
-            <th class="text-center">@Html.DisplayNameFor(p => p.HoVaTen)</th>
-            <th class="text-center">@Html.DisplayNameFor(p => p.TenChucVu)</th>
-            <th class="text-center">@Html.DisplayNameFor(p => p.TenDiaBanHoatDong)</th>
-            <th class="text-center">@Html.DisplayNameFor(p => p.DanToc)</th>
-            <th class="text-center">@Html.DisplayNameFor(p => p.TonGiao)</th>
-            <th class="text-center">@Html.DisplayNameFor(p => p.TrinhDoHocvan)</th>
-            <th class="text-center">@Html.DisplayNameFor(p => p.VaiTro)</th>
-            <th class="text-center">@Html.DisplayNameFor(p => p.GiaDinhThuocDien)</th>
-            <th class="text-center">@Html.DisplayNameFor(p => p.NgheNghiepHienNay)</th>
+            <th class="text-center" name="MaCanBo">@Html.DisplayNameFor(p => p.MaCanBo)</th>
+            <th class="text-center" name="HoVaTen">@Html.DisplayNameFor(p => p.HoVaTen)</th>
+            <th class="text-center" name="NgaySinh">@Html.DisplayNameFor(p => p.NgaySinh)</th>
+            <th class="text-center" name="GioiTinh">@Html.DisplayNameFor(p => p.GioiTinh)</th>
+            <th class="text-center" name="SoCCCD">@Html.DisplayNameFor(p => p.SoCCCD)</th>
+            <th class="text-center" name="HoKhauThuongTru">@Html.DisplayNameFor(p => p.HoKhauThuongTru)</th>
+            <th class="text-center" name="ChoOHienNay">@Html.DisplayNameFor(p => p.ChoOHienNay)</th>
+            <th class="text-center" name="SoDienThoai">@Html.DisplayNameFor(p => p.SoDienThoai)</th>
+            <th class="text-center" name="NgayVaoDangChinhThuc">@Html.DisplayNameFor(p => p.NgayVaoDangChinhThuc)</th>
+            <th class="text-center" name="DanToc">@Html.DisplayNameFor(p => p.DanToc)</th>
+            <th class="text-center" name="TonGiao">@Html.DisplayNameFor(p => p.TonGiao)</th>
+            <th class="text-center" name="TrinhDoHocvan">@Html.DisplayNameFor(p => p.TrinhDoHocvan)</th>
+            <th class="text-center" name="MaTrinhDoChuyenMon">@Html.DisplayNameFor(p => p.MaTrinhDoChuyenMon)</th>
+            <th class="text-center" name="MaTrinhDoChinhTri">@Html.DisplayNameFor(p => p.MaTrinhDoChinhTri)</th>
+            <th class="text-center" name="NgayVaoHoi">@Html.DisplayNameFor(p => p.NgayVaoHoi)</th>
+            <th class="text-center" name="NgayThamGiaCapUyDang">@Html.DisplayNameFor(p => p.NgayThamGiaCapUyDang)</th>
+            <th class="text-center" name="NgayThamGiaHDND">@Html.DisplayNameFor(p => p.NgayThamGiaHDND)</th>
+            <th class="text-center" name="VaiTro">@Html.DisplayNameFor(p => p.VaiTro)</th>
+            <th class="text-center" name="VaiTroKhac">@Html.DisplayNameFor(p => p.VaiTroKhac)</th>
+            <th class="text-center" name="HoNgheo">@Html.DisplayNameFor(p => p.HoNgheo)</th>
+            <th class="text-center" name="CanNgheo">@Html.DisplayNameFor(p => p.CanNgheo)</th>
+            <th class="text-center" name="GiaDinhChinhSach">@Html.DisplayNameFor(p => p.GiaDinhChinhSach)</th>
+            <th class="text-center" name="GiaDinhThuocDienKhac">@Html.DisplayNameFor(p => p.GiaDinhThuocDienKhac)</th>
+            <th class="text-center" name="NgheNghiepHienNay">@Html.DisplayNameFor(p => p.NgheNghiepHienNay)</th>
+            <th class="text-center" name="Loai_DV_SX_ChN">@Html.DisplayNameFor(p => p.Loai_DV_SX_ChN)</th>
+            <th class="text-center" name="DienTich_QuyMo">@Html.DisplayNameFor(p => p.DienTich_QuyMo)</th>
+            <th class="text-center" name="ThamGia_SH_DoanThe_HoiDoanKhac">@Html.DisplayNameFor(p => p.ThamGia_SH_DoanThe_HoiDoanKhac)</th>
+            <th class="text-center" name="ThamGia_CLB_DN_MH_HTX_THT">@Html.DisplayNameFor(p => p.ThamGia_CLB_DN_MH_HTX_THT)</th>
+            <th class="text-center" name="ThamGia_THNN_CHNN">@Html.DisplayNameFor(p => p.ThamGia_THNN_CHNN)</th>
+            <th class="text-center" name="HoiVienUuTu">@Html.DisplayNameFor(p => p.HoiVienUuTu)</th>
+            <th class="text-center" name="LoaiHoiVien">@Html.DisplayNameFor(p => p.LoaiHoiVien)</th>
+            <th class="text-center" name="NDSXKDG">@Html.DisplayNameFor(p => p.NDSXKDG)</th>
+            <th class="text-center" name="NDTieuBieu">@Html.DisplayNameFor(p => p.NDTieuBieu)</th>
+            <th class="text-center" name="NDVietnamXS">@Html.DisplayNameFor(p => p.NDVietnamXS)</th>
+            <th class="text-center" name="KKAnToanThucPham">@Html.DisplayNameFor(p => p.KKAnToanThucPham)</th>
+            <th class="text-center" name="DKMauNguoiNongDanMoi">@Html.DisplayNameFor(p => p.DKMauNguoiNongDanMoi)</th>
+            <th class="text-center" name="GhiChu">@Html.DisplayNameFor(p => p.GhiChu)</th>
         </tr>
     </thead>
     <tbody>
         @{
             int i = 0;
+            string value = "";
         }
         @foreach (var item in Model)
         {
@@ -35,17 +63,89 @@
                 <td class="text-center align-middle">
                     <a asp-area="@ConstArea.HoiVien" asp-action="Edit" asp-controller="@ConstController.HoiVien" target="_blank" asp-route-id="@item.IDCanBo">@item.MaCanBo</a>
                 </td>
-                <td class="align-middle">@Html.DisplayFor(p => item.HoVaTen)</td>
-                <td class="align-middle">@Html.DisplayFor(p => item.TenChucVu)</td>
-                <td class="align-middle">@Html.DisplayFor(p => item.TenDiaBanHoatDong)</td>
-                <td class="align-middle">@Html.DisplayFor(p => item.DanToc)</td>
-                <td class="align-middle">@Html.DisplayFor(p => item.TonGiao)</td>
-
-                <td class="align-middle">@Html.DisplayFor(p => item.TrinhDoHocvan)</td>
-                <td class="align-middle">@Html.DisplayFor(p => item.VaiTro)</td>
-                <td class="align-middle">@Html.DisplayFor(p => item.GiaDinhThuocDien)</td>
+                <td class="align-middle">@item.HoVaTen</td>
+                <td class="align-middle">@item.NgaySinh</td>
+                <td class="align-middle">@item.GioiTinh</td>
+                <td class="align-middle">@item.SoCCCD</td>
+                <td class="align-middle">@item.HoKhauThuongTru</td>
+                <td class="align-middle">@item.ChoOHienNay</td>
+                <td class="align-middle">@item.SoDienThoai</td>
+                <td class="align-middle">@item.NgayVaoDangChinhThuc</td>
+                <td class="align-middle">@item.DanToc</td>
+                <td class="align-middle">@item.TonGiao</td>
+                <td class="align-middle">@item.TrinhDoHocvan</td>
+                <td class="align-middle">@item.MaTrinhDoChuyenMon</td>
+                <td class="align-middle">@item.MaTrinhDoChinhTri</td>
+                <td class="align-middle">@item.NgayVaoHoi</td>
+                <td class="align-middle">@item.NgayThamGiaCapUyDang</td>
+                <td class="align-middle">@item.NgayThamGiaHDND</td>
+                <td class="align-middle">@item.VaiTro</td>
+                <td class="align-middle">@item.VaiTroKhac</td>
+                <td class="align-middle">
+                    @{
+                        value = item.HoNgheo == true ? "X" : "";
+                    }@value
+                </td>
+                <td class="align-middle">
+                    @{
+                        value = item.CanNgheo == true ? "X" : "";
+                    }@value
+                </td>
+                <td class="align-middle">
+                    @{
+                        value = item.GiaDinhChinhSach == true ? "X" : "";
+                    }@value
+                </td>
+                <td>@item.GiaDinhThuocDienKhac</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.NgheNghiepHienNay)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.Loai_DV_SX_ChN)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.DienTich_QuyMo)</td>
+                <td>@item.ThamGia_SH_DoanThe_HoiDoanKhac</td>
+                <td>@item.ThamGia_CLB_DN_MH_HTX_THT</td>
+                <td>@item.ThamGia_THNN_CHNN</td>
+                <td>@item.HoiVienUuTu</td>
+                <td>
+                    @{
+                        if (item.LoaiHoiVien == "01")
+                            value = "Hội viên nòng cốt";
+                        else if (item.LoaiHoiVien == "02")
+                        {
+                            value = "Hội viên danh dự";
+                        }
+                    }@value
+                </td>
+                <td>@item.NDSXKDG</td>
+                <td>@item.NDTieuBieu</td>
+                <td>@item.NDVietnamXS</td>
+                <td class="align-middle">
+                    @{
+                        value = item.KKAnToanThucPham == true ? "X" : "";
+                    }@value
+                </td>
+                <td class="align-middle">
+                    @{
+                        value = item.DKMauNguoiNongDanMoi == true ? "X" : "";
+                    }@value
+                </td>
+                <td>@item.GhiChu</td>
             </tr>
         }
     </tbody>
 </table>
+<script>
+    //load default and set event
+    $(document).ready(function () {
+        var ths = document.querySelectorAll(".dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th");
+        var html ="" ;
+        ths.forEach((item) => {
+            if (item.getAttribute("name")) 
+            {
+                html = html + '<input type = "checkbox" name ="' + item.getAttribute("name") + '" value = "true">' + item.innerHTML;
+            }
+           
+        });
+        $("#gridHoiVien").innerHTML = html;
+        console.log(html);
+
+    });
+</script>

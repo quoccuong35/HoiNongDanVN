@@ -471,10 +471,8 @@ namespace Microsoft.AspNetCore.Html
             if (isHasPermission)
             {
                 TagBuilder aTag = new TagBuilder("a");
-                aTag.Attributes.Add("class", "btn btn-sm btn-vk text-white mx-1");
-                aTag.Attributes.Add("href", "#modalImport");
-                aTag.Attributes.Add("data-bs-effect", "effect-scale");
-                aTag.Attributes.Add("data-bs-toggle", "modal");
+                aTag.Attributes.Add("class", "btn btn-sm btn-vk text-white mx-1 btn-import");
+                aTag.Attributes.Add("href", "#");
                 aTag.InnerHtml.AppendHtmlLine(string.Format("<i class='fa fa-file-excel-o'></i> {0}", LanguageResource.Import));
                 if (htmlAttributes != null)
                 {
@@ -504,7 +502,8 @@ namespace Microsoft.AspNetCore.Html
                 TagBuilder dropdown_menu = new TagBuilder("div");
                 dropdown_menu.Attributes.Add("class", "dropdown-menu");
                 dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item\" href=\"" + string.Format("/{0}/ExportCreate", CurrentUrl) + "\">{0}</a>", "Export file mẫu"));
-                dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item\" href=\""+ string.Format("/{0}/ExportEdit", CurrentUrl) + "\">{0}</a>", "Export dữ liệu"));
+                //dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item btn-exporttoexcel\" href=\""+ string.Format("/{0}/ExportEdit", CurrentUrl) + "\">{0}</a>", "Export dữ liệu"));
+                dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item btn-exporttoexcel\" href='#'>{0}</a>", "Export dữ liệu"));
 
                 dropdown.InnerHtml.AppendHtmlLine(RenderHtml(button));
                 dropdown.InnerHtml.AppendHtmlLine(RenderHtml(dropdown_menu));

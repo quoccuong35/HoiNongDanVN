@@ -41,6 +41,22 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgheNghiepHienNay")]
         public string NgheNghiepHienNay { get; set; }
 
+        [Display(Name = "HV ưu tú năm nào")]
+        public string HoiVienUuTu { get; set; }
+
+
+        [Display(Name = "Nông dân sản xuất kinh doanh giỏi")]
+        public string NDSXKDG { get; set; }
+
+
+        [Display(Name = "Nông dân tiêu biểu")]
+        public string NDTieuBieu { get; set; }
+
+
+        [Display(Name = "ND Việt Nam xuất sắc")]
+        public string NDVietnamXS { get; set; }
+
+
         public ICollection<HoiVienHoiDapDetail> HoiDaps { get; set; }
 
         public HoiVienDetailVM() {

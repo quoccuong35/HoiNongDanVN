@@ -6,6 +6,7 @@ using HoiNongDan.Models.Entitys;
 using HoiNongDan.Models.Entitys.MasterData;
 using HoiNongDan.Models.Entitys.NhanSu;
 using System.ComponentModel.DataAnnotations.Schema;
+using HoiNongDan.Models.Entitys.HoiVien;
 
 namespace HoiNongDan.DataAccess
 {
@@ -60,11 +61,12 @@ namespace HoiNongDan.DataAccess
         public DbSet<NgheNghiep> NgheNghieps { get; set; }
         public DbSet<GiaDinhThuocDien> GiaDinhThuocDiens { get; set; }
         public DbSet<TrinhDoChuyenMon> TrinhDoChuyenMons { get; set; }
+        
         #endregion
         #region nhanSu
         public DbSet<CanBo> CanBos { get; set; }
         public DbSet<CanBoQuaTrinhLuong> CanBoQuaTrinhLuongs { get; set; }
-        public DbSet<ThucLucHoi> ThucLucHois { get; set; }
+        public DbSet<BaoCaoThucLucHoi> BaoCaoThucLucHois { get; set; }
         public DbSet<QuanHeGiaDinh> QuanHeGiaDinhs { get; set; }
         public DbSet<QuaTrinhKhenThuong> QuaTrinhKhenThuongs { get; set; }
         public DbSet<QuaTrinhKyLuat> QuaTrinhKyLuats { get; set; }
@@ -81,6 +83,7 @@ namespace HoiNongDan.DataAccess
      
         public DbSet<HoiVienVayVon> HoiVienVayVons { get; set; }
         public DbSet<HoiVienHoiDap> HoiVienHoiDaps { get; set; }
+        public DbSet<DonVi> DonVis { get; set; }
         #endregion Hội viên
 
 
@@ -396,11 +399,6 @@ namespace HoiNongDan.DataAccess
                 .WithMany(it => it.CanBos)
                 .HasForeignKey(it => it.MaDiaBanHoatDong)
                 .HasConstraintName("FK_CanBo_DiaBanHoatDong");
-
-                entity.HasOne<GiaDinhThuocDien>(it => it.GiaDinhThuocDien)
-                  .WithMany(it => it.CanBos)
-                  .HasForeignKey(it => it.MaGiaDinhThuocDien)
-                  .HasConstraintName("FK_CanBo_GiaDinhThuocDien");
 
                 entity.HasOne<NgheNghiep>(it => it.NgheNghiep)
                   .WithMany(it => it.CanBos)
@@ -877,7 +875,18 @@ namespace HoiNongDan.DataAccess
                 .HasForeignKey(it => it.IDCanBo)
                 .HasConstraintName("FK_HoiVienVayVon_HoiVien");
             });
-
+            builder.Entity<BaoCaoThucLucHoi>(entity => {
+                entity.ToTable("BaoCaoThucLucHoi", "HV");
+                entity.HasKey(it => it.ID);
+                entity.HasOne<DonVi>(it => it.DonVi)
+                  .WithMany(it => it.BaoCaoThucLucHois)
+                  .HasForeignKey(it => it.IDDonVi)
+                  .HasConstraintName("FK_BaoCaoThucLucHoi_DonVi");
+            });
+            builder.Entity<DonVi>(entity => {
+                entity.ToTable("DonVi", "HV");
+                entity.HasKey(it => it.IDDonVi);
+            });
             #endregion Hội Viên
         }
 

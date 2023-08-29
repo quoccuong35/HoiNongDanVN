@@ -14,8 +14,10 @@ HoiNongDan.SearchInitial = function (controller, action = "_Search") {
     });
     HoiNongDan.Delete();
     HoiNongDan.Table();
+    HoiNongDan.Import(controller);
     HoiNongDan.UploadFile(controller);
     HoiNongDan.ImportModalHideHandler();
+    HoiNongDan.ExportData(controller);
 }
 HoiNongDan.SearchDefault = function (controller, action) {
     var $btn = $("#btn-search");
@@ -397,16 +399,51 @@ HoiNongDan.DuyetHoiVien = function (data, controller)
         }
     })
 }
+
+HoiNongDan.Import = function (controller) {
+    $(document).on("click", ".btn-import", function () {
+        $.ajax({
+            type: "get",
+            url: "/" + controller + "/_Import",
+            success: function (xhr, status, error) {
+                if (xhr.Code == 500 || xhr.Success == false) {
+
+                }
+                else if (xhr.indexOf("from-login-error") > 0) {
+                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                    }, 1000);
+                }
+                else {
+                   
+                    $("#iframe-import").html(xhr);
+                    $('#modalImport').modal("show");
+                }
+            },
+            error: function (xhr, status, error) {
+                
+            }
+        });
+       
+    });
+  
+}
+
 HoiNongDan.UploadFile = function (controller) {
     $(document).on("click", "#btn-importExcel", function () {
-        var file = document.getElementById('importexcelfile').files[0];
-        if (file == null)
-        {
-            toastr.error('Chưa chọn file dữ liệu');
-            return;
-        }
-        var formData = new FormData();
-        formData.append("importexcelfile", file);
+        var frm = $("#frmImport");
+        var formData = new FormData(),
+        formParams = frm.serializeArray();
+        $.each(frm.find('input[type="file"]'), function (i, tag) {
+            $.each($(tag)[0].files, function (i, file) {
+                formData.append(tag.name, file);
+            });
+        });
+        $.each(formParams, function (i, val) {
+            formData.append(val.name, val.value);
+        });
         $.ajax({
             type: "POST",
             url: "/" + controller + "/Import",
@@ -462,8 +499,55 @@ HoiNongDan.UploadFile = function (controller) {
 }
 HoiNongDan.ImportModalHideHandler = function () {
     $('#modalImport').on('hidden.bs.modal', function (e) {
-        document.getElementById("importexcelfile").value = "";
+        /*document.parentElement.getElementById("importexcelfile").value = "";*/
+        $("#iframe-import").html("");
     })
+}
+
+HoiNongDan.ExportData = function (controller) {
+    $(document).on("click", ".btn-exporttoexcel", function () {
+        var formParams = $("#frmSearch").serializeArray();
+        var para = "";
+        $.each(formParams, function (i, val) {
+            if (val.value) {
+                if (para == "") {
+                    para = para + val.name + "=" + val.value;
+                }
+                else {
+                    para = para +"&"+ val.name + "=" + val.value;
+                }
+               
+            }
+        });
+        self.location = "/" + controller + "/ExportEdit?" + para;
+        console.log(para);
+        //console.log($("#frmSearch").serializeArray());
+        //    $.ajax({
+        //        url: "/" + controller + "/ExportEdit",
+        //        type: 'GET',
+        //        contentType:"application/json; charset=utf-8",
+        //        data: $("#frmSearch").serializeArray(),
+        //        beforSend: function () {
+        //            //startLoader();
+        //        },
+        //        success: function (data) {
+        //            var blod = new Blob([data], { type: 'application/ms-excel' })
+        //            var downloadurl = URL.createObjectURL(blod);
+        //            var a = document.createElement("a")
+        //            a.href = downloadurl;
+        //            a.download = "data.xls";
+        //            a.click();
+        //        },
+        //        conplete: function () {
+        //            //stopLoader();
+        //        },
+        //        error: function (xhr, status, data) {
+
+        //            stopLoader();
+        //        }
+        //    });
+    });
+        
 }
 HoiNongDan.Table = function (id_table = "#data-list") {   
     var height = document.documentElement.clientHeight - 550;

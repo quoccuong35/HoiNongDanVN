@@ -27,22 +27,22 @@ namespace HoiNongDan.Models
         public string HoVaTen { get; set; }
 
         // [DataType(DataType.Date)]
-        public String NgaySinh { get; set; }
+        public String? NgaySinh { get; set; }
 
         public GioiTinh GioiTinh { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(200)]
         public String? SoCCCD { get; set; }
 
         [MaxLength(20)]
         public String? NgayCapCCCD { get; set; }
         [MaxLength(50)]
         public string? MaTinhTrang { get; set; }
-        public TinhTrang TinhTrang { get; set; }
+        public TinhTrang? TinhTrang { get; set; }
 
         [MaxLength(50)]
         public string? MaPhanHe { get; set; }
-        public PhanHe PhanHe { get; set; }
+        public PhanHe? PhanHe { get; set; }
         public Guid? IdCoSo { get; set; }
         public CoSo? CoSo { get; set; }
         public Guid? IdDepartment { get; set; }
@@ -50,8 +50,8 @@ namespace HoiNongDan.Models
         [MaxLength(20)]
         public String? MaTrinhDoChuyenMon { get; set; }
         public TrinhDoChuyenMon? TrinhDoChuyenMon { get; set; }
-        public Guid MaChucVu { get; set; }
-        public ChucVu ChucVu { get; set; }
+        public Guid? MaChucVu { get; set; }
+        public ChucVu? ChucVu { get; set; }
 
         [MaxLength(100)]
         public string? SoDienThoai { get; set; }
@@ -176,12 +176,21 @@ namespace HoiNongDan.Models
         [MaxLength(800)]
         public String? ThamGia_THNN_CHNN { get; set; }
 
-        [MaxLength(10)]
-        public String? MaGiaDinhThuocDien { get; set; }
-        public GiaDinhThuocDien? GiaDinhThuocDien { get; set; }
 
         [MaxLength(500)]
         public String? GiaDinhThuocDienKhac { get; set; }
+
+
+        public bool? KKAnToanThucPham { get; set; } = false;
+
+
+        public bool? DKMauNguoiNongDanMoi { get; set; } = false;
+
+
+        public bool? HoNgheo { get; set; } = false;
+         
+        public bool? CanNgheo { get; set; } = false;
+        public bool? GiaDinhChinhSach { get; set; } = false;
 
         [MaxLength(10)]
         public String? MaNgheNghiep { get; set; }
@@ -189,9 +198,7 @@ namespace HoiNongDan.Models
         [MaxLength(500)]
         public String? Loai_DV_SX_ChN { get; set; }
         [MaxLength(500)]
-        public String? SoLuong { get; set; }
-        [MaxLength(500)]
-        public String? DienTich { get; set; }
+        public String? DienTich_QuyMo { get; set; }
 
         public bool? HoiVienDuyet { get; set; }
 
@@ -223,6 +230,7 @@ namespace HoiNongDan.Models
         public ICollection<HoiVienHoiDap> HoiVienHoiDaps { get; set; }
         public HuuTri? HuuTri { get; set; }
 
+        public bool? DangVien { get; set; }
         public CanBo() {
             QuanHeGiaDinhs = new List<QuanHeGiaDinh>();
             QuaTrinhKhenThuongs = new List<QuaTrinhKhenThuong>();

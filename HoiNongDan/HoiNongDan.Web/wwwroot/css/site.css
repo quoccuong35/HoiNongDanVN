@@ -165,8 +165,8 @@ p, a, span, div {
     background: url("/Images/banner.png");
     background-repeat: no-repeat;
     background-position: left left;
-    background-size: contain;
-    height: 106px;
+    background-size: cover;
+    height: 130px;
     background-color: white;
 }
 
@@ -177,7 +177,7 @@ p, a, span, div {
 }
 
 .app-header, .app-sidebar {
-    top: 106px;
+    top: 130px;
 }
 
 .side-header {

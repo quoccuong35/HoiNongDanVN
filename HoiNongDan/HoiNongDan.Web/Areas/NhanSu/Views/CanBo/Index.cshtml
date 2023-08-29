@@ -1,6 +1,6 @@
 ﻿@model CanBoSearchVM
 @{
-    ViewBag.Title = LanguageResource.List + LanguageResource.CanBo.ToLower();
+    ViewBag.Title = LanguageResource.List + LanguageResource.CanBo.ToLower() + " " + DateTime.Now.Year.ToString();
     string CurrentController = ConstController.CanBo;
     string CurrentArea = ConstArea.NhanSu;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);

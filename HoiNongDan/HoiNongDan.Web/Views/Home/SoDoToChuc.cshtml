@@ -4,7 +4,32 @@
         justify-content: center;
     }
 
-    .orgchart .node .title {
+    .orgchart .node .title,.orgchart .nodes {
+    justify-content: center;
+}
+
+.orgchart .node .title, .orgchart .node .content  {
+    width: auto;
+    height: auto;
+    padding:5px;
+}
+
+  
+
+#chart-container {
+    position: relative;
+    height: 420px;
+    border: 1px solid #aaa;
+    margin: 0.5rem;
+    overflow: auto;
+    text-align: center;
+}
+
+.orgchart .node .title,{
+    background-color: rgba(33,88,104,0.9);
+    font-size:15px;
+    text-align:center;
+} {
         width: auto;
     }
 
@@ -23,7 +48,8 @@
 
     #chart-container {
         position: relative;
-        height: 420px;
+        height: 620px;
+        width:auto
         border: 1px solid #aaa;
         margin: 0.5rem;
         overflow: auto;

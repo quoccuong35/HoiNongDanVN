@@ -1,0 +1,9 @@
+﻿<form id="frmImport">
+    <div class="col-md-12">
+        <input type="file" id="importexcelfile" name="importexcelfile" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+        <input type="hidden" name="currentUrl" class="form-control" />
+    </div>
+    <div class="col-md-12">
+        @Html.DropDownList("MaDiaBanHoatDong",(SelectList)ViewBag.MaDiaBanHoatDong,"Chọn địa bàn hội muốn Import",new {@class="form-control"})
+    </div>
+</form>

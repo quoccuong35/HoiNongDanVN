@@ -657,7 +657,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         public IActionResult ExportEdit(CanBoSearchVM search)
         {
-            var model = _context.CanBos.AsQueryable();
+            var model = _context.CanBos.Where(it=>it.IsCanBo ==true).AsQueryable();
             if (!String.IsNullOrEmpty(search.MaCanBo))
             {
                 model = model.Where(it => it.MaCanBo == search.MaCanBo);
@@ -840,7 +840,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
 
             //Header
             List<ExcelHeadingTemplate> heading = new List<ExcelHeadingTemplate>();
-            string fileheader = string.Format(LanguageResource.Export_ExcelHeader, LanguageResource.CanBo);
+            string fileheader = string.Format(LanguageResource.Export_ExcelHeader, LanguageResource.CanBo)  +" " + DateTime.Now.Year.ToString();
             try
             {
                

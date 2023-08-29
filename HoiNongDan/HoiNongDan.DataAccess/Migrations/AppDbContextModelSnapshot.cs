@@ -113,6 +113,359 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.ToTable("Bank", "tMasterData");
                 });
 
+            modelBuilder.Entity("HoiNongDan.Models.BaoCaoThucLucHoi", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Cot1")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot10")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot11")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot12")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot13")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot14")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot15")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot16")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot17")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot18")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot19")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot2")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot20")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot21")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot22")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot23")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot24")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot25")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot26")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot27")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot28")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot29")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot3")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot30")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot31")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot32")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot33")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot34")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot35")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot36")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot37")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot38")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot39")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot4")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot40")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot41")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot42")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot43")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot44")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot45")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot46")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot47")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot48")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot49")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot5")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot50")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot51")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot52")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot53")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot54")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot55")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot56")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot57")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot58")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot59")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot6")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot60")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot61")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot62")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot63")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot64")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot65")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot66")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot67")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot68")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot69")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot7")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot70")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot71")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot72")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot73")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot74")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot75")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot76")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot77")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot78")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot79")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot8")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot80")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Cot9")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<Guid?>("CreatedAccountId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IDDonVi")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Loai")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("Nam")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Quy")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("IDDonVi");
+
+                    b.ToTable("BaoCaoThucLucHoi", "HV");
+                });
+
             modelBuilder.Entity("HoiNongDan.Models.CanBo", b =>
                 {
                     b.Property<Guid>("IDCanBo")
@@ -120,6 +473,9 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Actived")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("CanNgheo")
                         .HasColumnType("bit");
 
                     b.Property<string>("ChoOHienNay")
@@ -136,7 +492,13 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DienTich")
+                    b.Property<bool?>("DKMauNguoiNongDanMoi")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("DangVien")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("DienTich_QuyMo")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
@@ -147,6 +509,9 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<string>("GhiChu")
                         .HasMaxLength(700)
                         .HasColumnType("nvarchar(700)");
+
+                    b.Property<bool?>("GiaDinhChinhSach")
+                        .HasColumnType("bit");
 
                     b.Property<string>("GiaDinhThuocDienKhac")
                         .HasMaxLength(500)
@@ -165,6 +530,9 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<string>("HoKhauThuongTru")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool?>("HoNgheo")
+                        .HasColumnType("bit");
 
                     b.Property<string>("HoVaTen")
                         .IsRequired()
@@ -187,6 +555,9 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool?>("IsHoiVien")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("KKAnToanThucPham")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("KhoanDenNgay")
@@ -224,7 +595,7 @@ namespace HoiNongDan.DataAccess.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<Guid>("MaChucVu")
+                    b.Property<Guid?>("MaChucVu")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("MaDanToc")
@@ -237,10 +608,6 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<string>("MaDinhDanh")
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("MaGiaDinhThuocDien")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("MaHeDaoTao")
                         .HasMaxLength(50)
@@ -311,7 +678,6 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NgaySinh")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NgayThamGiaCapUyDang")
@@ -366,16 +732,12 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("SoCCCD")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("SoDienThoai")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("SoLuong")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("ThamGia_CLB_DN_MH_HTX_THT")
                         .HasMaxLength(800)
@@ -410,8 +772,6 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.HasIndex("MaDanToc");
 
                     b.HasIndex("MaDiaBanHoatDong");
-
-                    b.HasIndex("MaGiaDinhThuocDien");
 
                     b.HasIndex("MaHeDaoTao");
 
@@ -619,7 +979,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 25, 10, 35, 31, 896, DateTimeKind.Local).AddTicks(421));
+                        .HasDefaultValue(new DateTime(2023, 8, 27, 16, 37, 9, 518, DateTimeKind.Local).AddTicks(6872));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -939,6 +1299,24 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.ToTable("HistoryModel", "utilities");
                 });
 
+            modelBuilder.Entity("HoiNongDan.Models.Entitys.HoiVien.DonVi", b =>
+                {
+                    b.Property<int>("IDDonVi")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IDDonVi"), 1L, 1);
+
+                    b.Property<string>("TenDonVi")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.HasKey("IDDonVi");
+
+                    b.ToTable("DonVi", "HV");
+                });
+
             modelBuilder.Entity("HoiNongDan.Models.Entitys.MasterData.PhuongXa", b =>
                 {
                     b.Property<string>("MaPhuongXa")
@@ -1204,7 +1582,7 @@ namespace HoiNongDan.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("NgayQuyetDinh")
+                    b.Property<DateTime?>("NgayQuyetDinh")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NguoiKy")
@@ -1837,7 +2215,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 8, 25, 10, 35, 31, 896, DateTimeKind.Local).AddTicks(5712));
+                        .HasDefaultValue(new DateTime(2023, 8, 27, 16, 37, 9, 518, DateTimeKind.Local).AddTicks(9585));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -2385,100 +2763,6 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.ToTable("QuaTrinhMienNhiem", "NS");
                 });
 
-            modelBuilder.Entity("HoiNongDan.Models.ThucLucHoi", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Giam_HV_Nu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Giam_HV_TongSo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HN_PhatTrien_Nu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HN_PhatTrien_Tong")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_DanhDu_LuyKe")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_DanhDu_Nam")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_Giam")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_LuyKe_Giam")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_LuyKe_Tang")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_LuyKe_TrongKy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_NN_Giam")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_NN_LuyKe_Giam")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_NN_LuyKe_Tang")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_NN_LuyKe_TrongKy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_NN_PhatTrien")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_Nu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_PhatTrien")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HV_TongSo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TenDV")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TongAp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TongKhuVuc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tong_HNN")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tong_HNN_Giam")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tong_HNN_HV")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tong_HNN_HV_Giam")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tong_LD_NN")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tong_LD_NN_Giam")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ThucLucHois");
-                });
-
             modelBuilder.Entity("HoiNongDan.Models.TinhThanhPho", b =>
                 {
                     b.Property<string>("MaTinhThanhPho")
@@ -2772,6 +3056,18 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Navigation("NgachLuong");
                 });
 
+            modelBuilder.Entity("HoiNongDan.Models.BaoCaoThucLucHoi", b =>
+                {
+                    b.HasOne("HoiNongDan.Models.Entitys.HoiVien.DonVi", "DonVi")
+                        .WithMany("BaoCaoThucLucHois")
+                        .HasForeignKey("IDDonVi")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_BaoCaoThucLucHoi_DonVi");
+
+                    b.Navigation("DonVi");
+                });
+
             modelBuilder.Entity("HoiNongDan.Models.CanBo", b =>
                 {
                     b.HasOne("HoiNongDan.Models.CoSo", "CoSo")
@@ -2792,8 +3088,6 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.HasOne("HoiNongDan.Models.ChucVu", "ChucVu")
                         .WithMany("CanBos")
                         .HasForeignKey("MaChucVu")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
                         .HasConstraintName("FK_CanBo_ChucVu");
 
                     b.HasOne("HoiNongDan.Models.DanToc", "DanToc")
@@ -2805,11 +3099,6 @@ namespace HoiNongDan.DataAccess.Migrations
                         .WithMany("CanBos")
                         .HasForeignKey("MaDiaBanHoatDong")
                         .HasConstraintName("FK_CanBo_DiaBanHoatDong");
-
-                    b.HasOne("HoiNongDan.Models.GiaDinhThuocDien", "GiaDinhThuocDien")
-                        .WithMany("CanBos")
-                        .HasForeignKey("MaGiaDinhThuocDien")
-                        .HasConstraintName("FK_CanBo_GiaDinhThuocDien");
 
                     b.HasOne("HoiNongDan.Models.HeDaoTao", "HeDaoTao")
                         .WithMany("CanBos")
@@ -2882,8 +3171,6 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Navigation("Department");
 
                     b.Navigation("DiaBanHoatDong");
-
-                    b.Navigation("GiaDinhThuocDien");
 
                     b.Navigation("HeDaoTao");
 
@@ -3529,6 +3816,11 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Navigation("PagePermissionModels");
                 });
 
+            modelBuilder.Entity("HoiNongDan.Models.Entitys.HoiVien.DonVi", b =>
+                {
+                    b.Navigation("BaoCaoThucLucHois");
+                });
+
             modelBuilder.Entity("HoiNongDan.Models.Entitys.MasterData.PhuongXa", b =>
                 {
                     b.Navigation("DiaBanHoatDongs");
@@ -3581,11 +3873,6 @@ namespace HoiNongDan.DataAccess.Migrations
                 });
 
             modelBuilder.Entity("HoiNongDan.Models.Entitys.TrinhDoTinHoc", b =>
-                {
-                    b.Navigation("CanBos");
-                });
-
-            modelBuilder.Entity("HoiNongDan.Models.GiaDinhThuocDien", b =>
                 {
                     b.Navigation("CanBos");
                 });

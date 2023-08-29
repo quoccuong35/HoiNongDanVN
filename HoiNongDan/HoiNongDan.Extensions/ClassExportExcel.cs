@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using System.Reflection;
 using HoiNongDan.Constant;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
+using System.Security.Policy;
 
 namespace HoiNongDan.Extensions
 {
@@ -175,7 +176,7 @@ namespace HoiNongDan.Extensions
                         if (isDropdownlist != null && isDropdownlist.Contains(property.Name))
                         {
                             columnIsDropdownlist.Add(i);
-                            
+
                         }
                         // comment hedder
                         var isComment = columnsToTake.Where(p => p.isComment == true).Select(p => p.ColumnName).ToList();
@@ -520,189 +521,6 @@ namespace HoiNongDan.Extensions
                         matchIndex += 3;
                     }
                 }
-                //dropdownlist
-
-                //if (columnIsDropdownlist != null && columnIsDropdownlist.Count > 0)
-                //{
-                //    List<ExcelRange> excelFormulaLst = new List<ExcelRange>();
-                //    List<ExcelRange> matchIdFormulaLst = new List<ExcelRange>();
-                //    List<ExcelRange> matchFormulaLst = new List<ExcelRange>();
-                //    #region Data Validation
-                //    int indexColumn = 2;
-                //    //Type string
-                //    if (dropdownIdTypeStringModels != null && dropdownIdTypeStringModels.Count > 0)
-                //    {
-                //        ExcelRange excelFormula;
-                //        ExcelRange matchIdFormula;
-                //        ExcelRange matchFormula;
-                //        foreach (var dropdownList in dropdownIdTypeStringModels)
-                //        {
-                //            int indexRow = startRowFrom + 1;
-                //            foreach (var item in dropdownList)
-                //            {
-                //                //Id
-                //                ExcelRange cellId = workSheet.Cells[indexRow, (dataTable.Columns.Count + indexColumn)];
-                //                cellId.Value = item.Id;
-
-                //                //Name
-                //                ExcelRange cellName = workSheet.Cells[indexRow, (dataTable.Columns.Count + indexColumn + 1)];
-                //                cellName.Value = item.Name;
-                //                indexRow++;
-                //            }
-                //            //index of dropdown data (display name)
-                //            excelFormula = workSheet.Cells[startRowFrom + 4, (dataTable.Columns.Count + indexColumn + 1), indexRow + 2, (dataTable.Columns.Count + indexColumn + 1)];
-                //            excelFormulaLst.Add(excelFormula);
-                //            //index of id
-                //            matchIdFormula = workSheet.Cells[startRowFrom + 1, (dataTable.Columns.Count + indexColumn), indexRow - 1, (dataTable.Columns.Count + indexColumn)];
-                //            matchIdFormulaLst.Add(matchIdFormula);
-                //            //index of name
-                //            matchFormula = workSheet.Cells[startRowFrom + 1, (dataTable.Columns.Count + indexColumn + 1), indexRow - 1, (dataTable.Columns.Count + indexColumn + 1)];
-                //            matchFormulaLst.Add(matchFormula);
-                //            indexColumn += 3;
-                //        }
-                //    }
-                //    //Type Guid
-                //    if (dropdownModels != null && dropdownModels.Count > 0)
-                //    {
-                //        ExcelRange excelFormula;
-                //        ExcelRange matchIdFormula;
-                //        ExcelRange matchFormula;
-                //        foreach (var dropdownList in dropdownModels)
-                //        {
-                //            int indexRow = startRowFrom + 1;
-                //            foreach (var item in dropdownList)
-                //            {
-                //                //Id
-                //                ExcelRange cellId = workSheet.Cells[indexRow, (dataTable.Columns.Count + indexColumn)];
-                //                cellId.Value = item.Id;
-
-                //                //Name
-                //                ExcelRange cellName = workSheet.Cells[indexRow, (dataTable.Columns.Count + indexColumn + 1)];
-                //                cellName.Value = item.Name;
-                //                indexRow++;
-                //            }
-                //            //index of dropdown data (display name)
-                //            excelFormula = workSheet.Cells[startRowFrom + 4, (dataTable.Columns.Count + indexColumn + 1), indexRow + 2, (dataTable.Columns.Count + indexColumn + 1)];
-                //            excelFormulaLst.Add(excelFormula);
-                //            //index of id
-                //            matchIdFormula = workSheet.Cells[startRowFrom + 1, (dataTable.Columns.Count + indexColumn), indexRow - 1, (dataTable.Columns.Count + indexColumn)];
-                //            matchIdFormulaLst.Add(matchIdFormula);
-                //            //index of name
-                //            matchFormula = workSheet.Cells[startRowFrom + 1, (dataTable.Columns.Count + indexColumn + 1), indexRow - 1, (dataTable.Columns.Count + indexColumn + 1)];
-                //            matchFormulaLst.Add(matchFormula);
-                //            indexColumn += 3;
-                //        }
-                //    }
-                //    //Type int
-                //    if (dropdownIdTypeIntModels != null && dropdownIdTypeIntModels.Count > 0)
-                //    {
-                //        ExcelRange excelFormula;
-                //        ExcelRange matchIdFormula;
-                //        ExcelRange matchFormula;
-                //        foreach (var dropdownList in dropdownIdTypeIntModels)
-                //        {
-                //            int indexRow = startRowFrom + 1;
-                //            foreach (var item in dropdownList)
-                //            {
-                //                //Id
-                //                ExcelRange cellId = workSheet.Cells[indexRow, (dataTable.Columns.Count + indexColumn)];
-                //                cellId.Value = item.Id;
-
-                //                //Name
-                //                ExcelRange cellName = workSheet.Cells[indexRow, (dataTable.Columns.Count + indexColumn + 1)];
-                //                cellName.Value = item.Name;
-                //                indexRow++;
-                //            }
-                //            //index of dropdown data (display name)
-                //            excelFormula = workSheet.Cells[startRowFrom + 4, (dataTable.Columns.Count + indexColumn + 1), indexRow + 2, (dataTable.Columns.Count + indexColumn + 1)];
-                //            excelFormulaLst.Add(excelFormula);
-                //            //index of id
-                //            matchIdFormula = workSheet.Cells[startRowFrom + 1, (dataTable.Columns.Count + indexColumn), indexRow - 1, (dataTable.Columns.Count + indexColumn)];
-                //            matchIdFormulaLst.Add(matchIdFormula);
-                //            //index of name
-                //            matchFormula = workSheet.Cells[startRowFrom + 1, (dataTable.Columns.Count + indexColumn + 1), indexRow - 1, (dataTable.Columns.Count + indexColumn + 1)];
-                //            matchFormulaLst.Add(matchFormula);
-                //            indexColumn += 3;
-                //        }
-                //    }
-                   
-                //    #endregion
-                //    //iterate through two collections of the same length
-                //    var smallestUpperBound = Math.Min(columnIsDropdownlist.Count, excelFormulaLst.Count);
-                //    for (var index = 0; index < smallestUpperBound; index++)
-                //    {
-                //        // Do something with collection1[index] and collection2[index]
-                //        //Dropdownlist
-                //        ExcelRange dropdownColumn = workSheet.SelectedRange[startRowFrom + 1, (columnIsDropdownlist[index] + 1), startRowFrom + dataTable.Rows.Count, (columnIsDropdownlist[index] + 1)];
-                //        if (isEdit == false)
-                //        {
-                //            dropdownColumn = workSheet.SelectedRange[startRowFrom + 1, (columnIsDropdownlist[index] + 1), 500, (columnIsDropdownlist[index] + 1)];
-                //        }
-                //        var listResult = dropdownColumn.DataValidation.AddListDataValidation();
-
-                //        //Get data for dropdownlist
-                //        //MUST turn range to absolute $$ => apply for all row in table
-                //        //If not absolute, next row will leave the last data row before
-                //        var itemNameBefore = excelFormulaLst[index];
-                //        //start
-                //        var sItemNameRow = itemNameBefore.Start.Row.ToString();
-                //        var sItemNameCol = itemNameBefore.Start.Column.ToString();
-                //        var sItemNameFromRC = ExcelCellBase.TranslateFromR1C1("R" + sItemNameRow + "C" + sItemNameCol, 0, 0);
-                //        //end
-                //        var eItemNameRow = itemNameBefore.End.Row.ToString();
-                //        var eItemNameCol = itemNameBefore.End.Column.ToString();
-                //        var eItemNameFromRC = ExcelCellBase.TranslateFromR1C1("R" + eItemNameRow + "C" + eItemNameCol, 0, 0);
-                //        //matchName final
-                //        var itemNameEnd = string.Format("{0}:{1}", sItemNameFromRC, eItemNameFromRC);
-
-                //        listResult.Formula.ExcelFormula = itemNameEnd;
-                //        listResult.ShowErrorMessage = true;
-                //        listResult.Error = LanguageResource.DataValidationError;
-                //    }
-
-                //    var smallestUpperBoundMatch = Math.Min(matchIdFormulaLst.Count, matchFormulaLst.Count);
-                //    int matchIndex = 1;
-                //    for (var index = 0; index < smallestUpperBound; index++)
-                //    {
-                //        //INDEX, MATCH
-                //        var indexMatch = workSheet.SelectedRange[(startRowFrom + 1), (dataTable.Columns.Count + matchIndex), (startRowFrom + dataTable.Rows.Count), (dataTable.Columns.Count + matchIndex)];
-                //        if (isEdit == false)
-                //        {
-                //            indexMatch = workSheet.SelectedRange[(startRowFrom + 1), (dataTable.Columns.Count + matchIndex), 500, (dataTable.Columns.Count + matchIndex)];
-                //        }
-                //        #region MatchId with absolute $$
-                //        var matchIdBefore = matchIdFormulaLst[index];
-                //        //start
-                //        var sMatchIdRow = matchIdBefore.Start.Row.ToString();
-                //        var sMatchIdCol = matchIdBefore.Start.Column.ToString();
-                //        var sMatchIdFromRC = ExcelCellBase.TranslateFromR1C1("R" + sMatchIdRow + "C" + sMatchIdCol, 0, 0);
-                //        //end
-                //        var eMatchIdRow = matchIdBefore.End.Row.ToString();
-                //        var eMatchIdCol = matchIdBefore.End.Column.ToString();
-                //        var eMatchIdFromRC = ExcelCellBase.TranslateFromR1C1("R" + eMatchIdRow + "C" + eMatchIdCol, 0, 0);
-                //        //matchId final
-                //        var matchIdEnd = string.Format("{0}:{1}", sMatchIdFromRC, eMatchIdFromRC);
-                //        #endregion
-
-                //        #region MatchName with absolute $$
-                //        var matchNameBefore = matchFormulaLst[index];
-                //        //start
-                //        var sMatchNameRow = matchNameBefore.Start.Row.ToString();
-                //        var sMatchNameCol = matchNameBefore.Start.Column.ToString();
-                //        var sMatchNameFromRC = ExcelCellBase.TranslateFromR1C1("R" + sMatchNameRow + "C" + sMatchNameCol, 0, 0);
-                //        //end
-                //        var eMatchNameRow = matchNameBefore.End.Row.ToString();
-                //        var eMatchNameCol = matchNameBefore.End.Column.ToString();
-                //        var eMatchNameFromRC = ExcelCellBase.TranslateFromR1C1("R" + eMatchNameRow + "C" + eMatchNameCol, 0, 0);
-                //        //matchName final
-                //        var matchNameEnd = string.Format("{0}:{1}", sMatchNameFromRC, eMatchNameFromRC);
-                //        #endregion
-
-                //        var executeIndex = workSheet.Cells[startRowFrom + 1, (columnIsDropdownlist[index] + 1)];
-                //        indexMatch.Formula = "IFERROR(INDEX(" + matchIdEnd + ",MATCH(" + executeIndex + "," + matchNameEnd + ",0)),\"\")";
-                //        matchIndex += 3;
-                //    }
-                //}
 
                 if (isHeadingHasValue == true)
                 {
@@ -770,6 +588,95 @@ namespace HoiNongDan.Extensions
         public static byte[] ExportExcel<T>(List<T> data, List<HoiNongDan.Models.ExcelTemplate> ColumnsToTake, List<ExcelHeadingTemplate> Heading, bool showSlno = false)
         {
             return ExportExcel<T>(ListToDataTable<T>(data), ColumnsToTake, Heading, showSlno);
+        }
+
+
+        public static byte[] ExportFileMau(string Url) {
+            using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(Url), false)) {
+                byte[] result = null;
+                result = package.GetAsByteArray();
+                return result;
+            }
+        }
+        public static byte[] ExportExcel<T>(List<T> data,int start, string Url)
+        {
+            return ExportExcel<T>(ListToDataTable<T>(data), start,Url);
+        }
+        public static byte[] ExportExcel<T>(DataTable dataTable, int start, string Url)
+        {
+            byte[] result = null;
+            bool isEdit = false;
+            if (dataTable.Rows.Count > 0)
+            {
+                isEdit = true;
+            }
+            using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(Url), false))
+            {
+               
+                //SheetName
+                ExcelWorksheet workSheet = package.Workbook.Worksheets["Data"];
+                int startRowFrom = start;
+                int startBodyColumnFrom = 1;
+
+
+
+                // add the content into the Excel file
+                workSheet.Cells["A" + startRowFrom].LoadFromDataTable(dataTable, true);
+
+                // autofit width of cells with small content
+                int columnIndex = 1;
+
+                //format serial number column
+                ExcelRange serialNumber = workSheet.Cells[startRowFrom + startBodyColumnFrom, columnIndex, startRowFrom + dataTable.Rows.Count, columnIndex];
+                serialNumber.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                foreach (DataColumn column in dataTable.Columns)
+                {
+                    ExcelRange columnCells = workSheet.Cells[workSheet.Dimension.Start.Row, columnIndex, workSheet.Dimension.End.Row, columnIndex];
+                    //ExcelRange columnheaderCells = workSheet.Cells[workSheet.Dimension.Start.Row, columnIndex, workSheet.Dimension.Start.Row, columnIndex];
+                    if (isEdit == false)
+                    {
+                        columnCells = workSheet.Cells[workSheet.Dimension.Start.Row, columnIndex, workSheet.Dimension.Start.Row, columnIndex];
+                        int maxLength = columnCells.Max(cell => cell.Value.ToString().Count());
+                        if (maxLength < 150)
+                        {
+                            workSheet.Column(columnIndex).AutoFit(18);
+                        }
+                    }
+                    else
+                    {
+                        int maxLength = 0;
+                        maxLength = columnCells.Max(cell => cell.Value == null ? 0 : (cell.Value).ToString().Count());
+                        if (maxLength < 150)
+                        {
+                            workSheet.Column(columnIndex).AutoFit();
+                        }
+                    }
+                    columnIndex++;
+                }
+                // format cells - add borders
+                using (ExcelRange r = workSheet.Cells[startRowFrom + 1, startBodyColumnFrom, startRowFrom + dataTable.Rows.Count, dataTable.Columns.Count])
+                {
+                    r.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                    r.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                    r.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                    r.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+
+                    r.Style.Border.Top.Color.SetColor(System.Drawing.Color.Black);
+                    r.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black);
+                    r.Style.Border.Left.Color.SetColor(System.Drawing.Color.Black);
+                    r.Style.Border.Right.Color.SetColor(System.Drawing.Color.Black);
+                }
+
+               
+                //Font Family
+                var allCells = workSheet.Cells[1, 1, workSheet.Dimension.End.Row, workSheet.Dimension.End.Column];
+                allCells.Style.Font.Name = "Times New Roman";
+
+                result = package.GetAsByteArray();
+            }
+
+            return result;
         }
     }
 }

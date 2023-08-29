@@ -49,6 +49,8 @@
         public const string HVKhenThuong = "HVKhenThuong";
         public const string DuyetHoiVien = "DuyetHoiVien";
         public const string HVDap = "HVDap";
+        public const string BCThucLucHoiNam = "BCThucLucHoiNam";
+        public const string BCThucLucHoiQuy = "BCThucLucHoiQuy";
         #endregion Hội viên
     }
     public static class ConstArea

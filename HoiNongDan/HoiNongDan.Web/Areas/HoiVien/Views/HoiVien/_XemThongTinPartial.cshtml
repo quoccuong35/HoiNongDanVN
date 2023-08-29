@@ -188,7 +188,7 @@
                                         Trình độ chuyên môn:
                                     </span>
                                 </span>
-                                <span class="text-right font-weight-bolder">@Model.TrinhDoChuyenMon</span>
+                                <span class="text-right font-weight-bolder">@Model.MaTrinhDoChuyenMon</span>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -261,22 +261,23 @@
                                     @{
 
                                         string giadinh = "";
-                                        if (Model.GiaDinhThuocDien == "01")
+                                        if (Model.HoNgheo)
                                         {
                                             giadinh = "Hộ nghèo";
                                         }
-                                        else if (Model.GiaDinhThuocDien == "02")
+                                        if (Model.CanNgheo)
                                         {
-                                            giadinh = "Cận nghèo";
+                                            giadinh = giadinh +" "+ "Cận nghèo";
                                         }
-                                        else if (Model.GiaDinhThuocDien == "03")
+                                        if (Model.GiaDinhChinhSach)
                                         {
-                                            giadinh = "Gia đình chính sách, con liệt sĩ";
+                                            giadinh = giadinh + " " + "Gia đình chính sách, con liệt sĩ";
                                         }
-                                        else if (Model.GiaDinhThuocDien == "04")
+                                        if (!String.IsNullOrWhiteSpace(Model.GiaDinhThuocDienKhac))
                                         {
-                                            giadinh = Model.GiaDinhThuocDienKhac.ToLower() != "x"?Model.GiaDinhThuocDienKhac:"Thuộc diện khác";
+                                            giadinh = giadinh + " Thành phần khác " + Model.GiaDinhThuocDienKhac;
                                         }
+
                                     } @giadinh
                                 </span>
                             </div>
@@ -289,38 +290,7 @@
                                     </span>
                                 </span>
                                 <span class="text-right font-weight-bolder">
-                                    @{
-
-                                        string nghenghiep = "";
-                                        if (Model.NgheNghiepHienNay == "01")
-                                        {
-                                            nghenghiep = "Nông dân";
-                                        }
-                                        else if (Model.NgheNghiepHienNay == "02")
-                                        {
-                                            nghenghiep = "Công nhân";
-                                        }
-                                        else if (Model.NgheNghiepHienNay == "03")
-                                        {
-                                            nghenghiep = "Công chức, viên chức";
-                                        }
-                                        else if (Model.NgheNghiepHienNay == "04")
-                                        {
-                                            nghenghiep = "Hưu trí";
-                                        }
-                                        else if (Model.NgheNghiepHienNay == "05")
-                                        {
-                                            nghenghiep = "Doanh nghiệp";
-                                        }
-                                        else if (Model.NgheNghiepHienNay == "06")
-                                        {
-                                            nghenghiep = "Lao động tự do";
-                                        }
-                                        else if (Model.NgheNghiepHienNay == "07")
-                                        {
-                                            nghenghiep = "Học sinh, sinh viên";
-                                        }
-                                    } @nghenghiep
+                                    @Model.NgheNghiepHienNay
                                 </span>
                             </div>
                         </div>
@@ -340,13 +310,13 @@
                             <div class="form-group">
                                 <span class="mr-15 font-weight-bold">
                                     <span class="dot bg-light-dark mr-2"></span>   <span>
-                                        Số lượng:
+                                        Diện tích hoặc quy mô:
                                     </span>
                                 </span>
-                                <span class="text-right font-weight-bolder">@Model.SoLuong</span>
+                                <span class="text-right font-weight-bolder">@Model.DienTich_QuyMo</span>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        @* <div class="col-lg-4">
                             <div class="form-group">
                                 <span class="mr-15 font-weight-bold">
                                     <span class="dot bg-light-dark mr-2"></span>   <span>
@@ -355,7 +325,7 @@
                                 </span>
                                 <span class="text-right font-weight-bolder">@Model.DienTich</span>
                             </div>
-                        </div>
+                        </div> *@
                     </div>
                 </div>
             }

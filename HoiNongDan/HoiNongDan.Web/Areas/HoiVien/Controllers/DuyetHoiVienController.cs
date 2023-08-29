@@ -41,7 +41,6 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 var model = data.Include(it => it.TinhTrang)
                    .Include(it => it.ChucVu)
                    .Include(it => it.NgheNghiep)
-                   .Include(it => it.GiaDinhThuocDien)
                    .Include(it => it.DiaBanHoatDong)
                    .Include(it => it.DanToc)
                    .Include(it => it.TonGiao)
@@ -59,7 +58,6 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                        HinhAnh = it.HinhAnh!,
                        VaiTro = it.VaiTro == "01" ? "Chủ hộ" : "Quan hệ chủ hộ: " + it.VaiTroKhac,
                        NgheNghiepHienNay = it.NgheNghiep!.TenNgheNghiep,
-                       GiaDinhThuocDien = it.GiaDinhThuocDien!.TenGiaDinhThuocDien,
 
                    }).ToList();
                 return PartialView(model);
@@ -100,12 +98,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         NgayThamGiaHDND = it.NgayThamGiaHDND,
                         VaiTro = it.VaiTro,
                         VaiTroKhac = it.VaiTroKhac,
-                        GiaDinhThuocDien = it.MaGiaDinhThuocDien,
                         GiaDinhThuocDienKhac = it.GiaDinhThuocDienKhac,
                         NgheNghiepHienNay = it.MaNgheNghiep,
                         Loai_DV_SX_ChN = it.Loai_DV_SX_ChN,
-                        SoLuong = it.SoLuong,
-                        DienTich = it.DienTich,
+                        DienTich_QuyMo = it.DienTich_QuyMo,
                         ThamGia_SH_DoanThe_HoiDoanKhac = it.ThamGia_SH_DoanThe_HoiDoanKhac,
                         ThamGia_CLB_DN_MH_HTX_THT = it.ThamGia_CLB_DN_MH_HTX_THT,
                         ThamGia_THNN_CHNN = it.ThamGia_THNN_CHNN

@@ -26,10 +26,10 @@ namespace HoiNongDan.Models
 
         [DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayQuyetDinh")]
-        public DateTime NgayQuyetDinh { get; set; }
+        public DateTime? NgayQuyetDinh { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoQuyetDinh")]
-        public String SoQuyetDinh { get; set; }
+        public String? SoQuyetDinh { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NguoiKy")]
         public String? NguoiKy { get; set; }

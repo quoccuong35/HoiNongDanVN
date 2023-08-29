@@ -1,0 +1,15 @@
+﻿<form id="frmImport">
+    <div class="col-md-12">
+        <input type="file" id="importexcelfile" name="importexcelfile" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+        <input type="hidden" name="currentUrl" class="form-control" />
+    </div>
+    <div class="col-md-12">
+       <input type="number" value="2022" step="1" name = "Nam" id="Nam" placeholder="Năm inport" class="form-control"/>
+    </div>
+    <div class="col-md-12">
+        <input type="number" value="1" step="1" name="Quy" id="Quy" placeholder="Quý inport" class="form-control" />
+    </div>
+    <div class="col-md-12">
+        @Html.DropDownList("IDDonVi",(SelectList)ViewBag.IDDonVi,"Chọn đơn vị",new {@class="form-control"})
+    </div>
+</form>

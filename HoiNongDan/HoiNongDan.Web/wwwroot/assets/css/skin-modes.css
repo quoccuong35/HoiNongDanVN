@@ -7,6 +7,11 @@
 /*Transparent variables*/
 /*---------- Header-styles ----------*/
 /*Header-Color*/
+/*Custom*/
+.slide.is-expanded > .side-menu__item, .slide.is-expanded > side-menu__item.active.is-expanded, .slide-item.active, .slide-item:hover,.side-menu__item:hover {
+    background-color: #136d38;
+}
+/*Custom*/
 .color-header .main-header-center .form-control {
     color: #fff;
 }
@@ -180,7 +185,7 @@
 /*Header-dark*/
 .dark-header .app-header,
 .dark-header .hor-header {
-    background: #0e344f !important;
+    background: rgb(46, 54, 64) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -1052,7 +1057,7 @@
 
 /*dark-menu*/
 .dark-menu .app-sidebar {
-    background: #0e344f !important;
+    background: rgb(46, 54, 64) !important;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -1071,7 +1076,7 @@
 }
 
 .dark-menu .app-sidebar .side-menu .side-menu__icon {
-    color: var(--primary-bg-color) !important;
+    color: var(--white) !important;
     opacity: 0.7;
 }
 
@@ -1087,30 +1092,29 @@
     color: #dedefd !important;
 }
 
-.dark-menu .app-sidebar .slide a.active .side-menu__icon,
-.dark-menu .app-sidebar .side-menu__item:hover .side-menu__icon {
-    color: var(--primary-bg-color) !important;
-    opacity: inherit;
-}
+    .dark-menu .app-sidebar .slide a.active .side-menu__icon,
+    .dark-menu .app-sidebar .side-menu__item:hover .side-menu__icon {
+        color: var(--white) !important;
+        opacity: 1;
+    }
 
 .dark-menu .app-sidebar .side-menu .slide a.active,
 .dark-menu .app-sidebar .side-menu .slide a:hover {
-    color: var(--primary-bg-color) !important;
+    color: var(--white) !important;
     opacity: inherit;
 }
 
 .dark-menu .app-sidebar .side-menu__item:hover .side-menu__label,
 .dark-menu .app-sidebar .side-menu__item:hover .side-menu__icon,
 .dark-menu .app-sidebar .side-menu__item:hover .angle {
-    color: var(--primary-bg-color) !important;
+    color: var(--white) !important;
     opacity: inherit;
 }
-
 .dark-menu .app-sidebar .side-menu__item:hover .side-menu__icon,
 .dark-menu .app-sidebar .side-menu__item:hover .side-menu__label,
 .dark-menu .app-sidebar .side-menu__item:focus .side-menu__icon,
 .dark-menu .app-sidebar .side-menu__item:focus .side-menu__label {
-    color: var(--primary-bg-color) !important;
+    color: var(--white) !important;
 }
 
 .dark-menu .app-sidebar .app-sidebar__user {
@@ -1761,7 +1765,7 @@
 }
 
 .dark-header .mobile-header.hor-mobile-header {
-    background: #30304d;
+    background: rgb(46, 54, 64) !important;
 }
 
 .gradient-header .mobile-header.hor-mobile-header {

@@ -260,19 +260,19 @@
                                 @{
 
                                     string giadinh = "";
-                                    if (Model.MaGiaDinhThuocDien == "01")
+                                    if (Model.HoNgheo == true)
                                     {
                                         giadinh = "Hộ nghèo";
                                     }
-                                    else if (Model.MaGiaDinhThuocDien == "02")
+                                    else if (Model.CanNgheo == true)
                                     {
                                         giadinh = "Cận nghèo";
                                     }
-                                    else if (Model.MaGiaDinhThuocDien == "03")
+                                    else if (Model.GiaDinhChinhSach == true)
                                     {
                                         giadinh = "Gia đình chính sách, con liệt sĩ";
                                     }
-                                    else if (Model.MaGiaDinhThuocDien == "04")
+                                    else 
                                     {
                                         giadinh = Model.GiaDinhThuocDienKhac;
                                     }
@@ -295,27 +295,27 @@
                                     {
                                         nghenghiep = "Nông dân";
                                     }
-                                    else if (Model.MaGiaDinhThuocDien == "02")
+                                    else if (Model.MaNgheNghiep == "02")
                                     {
                                         nghenghiep = "Công nhân";
                                     }
-                                    else if (Model.MaGiaDinhThuocDien == "03")
+                                    else if (Model.MaNgheNghiep == "03")
                                     {
                                         nghenghiep = "Công chức, viên chức";
                                     }
-                                    else if (Model.MaGiaDinhThuocDien == "04")
+                                    else if (Model.MaNgheNghiep == "04")
                                     {
                                         nghenghiep = "Hưu trí";
                                     }
-                                    else if (Model.MaGiaDinhThuocDien == "05")
+                                    else if (Model.MaNgheNghiep == "05")
                                     {
                                         nghenghiep = "Doanh nghiệp";
                                     }
-                                    else if (Model.MaGiaDinhThuocDien == "06")
+                                    else if (Model.MaNgheNghiep == "06")
                                     {
                                         nghenghiep = "Lao động tự do";
                                     }
-                                    else if (Model.MaGiaDinhThuocDien == "07")
+                                    else if (Model.MaNgheNghiep == "07")
                                     {
                                         nghenghiep = "Học sinh, sinh viên";
                                     }
@@ -342,10 +342,10 @@
                                     Số lượng:
                                 </span>
                             </span>
-                            <span class="text-right font-weight-bolder">@Model.SoLuong</span>
+                            <span class="text-right font-weight-bolder">@Model.DienTich_QuyMo</span>
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                   @*  <div class="col-lg-4">
                         <div class="form-group">
                             <span class="mr-15 font-weight-bold">
                                 <span class="dot bg-light-dark mr-2"></span>   <span>
@@ -354,7 +354,7 @@
                             </span>
                             <span class="text-right font-weight-bolder">@Model.DienTich</span>
                         </div>
-                    </div>
+                    </div> *@
                 </div>
             </div>
         </div>

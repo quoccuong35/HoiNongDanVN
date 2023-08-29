@@ -19,11 +19,11 @@ namespace HoiNongDan.Models.Entitys.NhanSu
         public DanhHieuKhenThuong DanhHieuKhenThuong { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime NgayQuyetDinh { get; set; }
-        public String SoQuyetDinh { get; set; }
+        public DateTime? NgayQuyetDinh { get; set; }
+        public String? SoQuyetDinh { get; set; }
         public String? NguoiKy { get; set; }
-        public String LyDo { get; set; }
-        public String GhiChu { get; set; }
+        public String? LyDo { get; set; }
+        public String? GhiChu { get; set; }
         public Guid? CreatedAccountId { get; set; }
         public DateTime? CreatedTime { get; set; }
         public Guid? LastModifiedAccountId { get; set; }

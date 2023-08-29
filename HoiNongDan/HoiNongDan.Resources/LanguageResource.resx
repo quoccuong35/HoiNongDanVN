@@ -162,6 +162,12 @@
   <data name="BCHHNDTP" xml:space="preserve">
     <value>BCH HNDTP</value>
   </data>
+  <data name="BCThucLucHoiNam" xml:space="preserve">
+    <value>Báo cáo thực lực hội năm</value>
+  </data>
+  <data name="BCThucLucHoiQuy" xml:space="preserve">
+    <value>Báo cáo thực lực hội quý</value>
+  </data>
   <data name="BoiDuong" xml:space="preserve">
     <value>Bồi Dưỡng</value>
   </data>
@@ -282,6 +288,9 @@
   <data name="DienTich" xml:space="preserve">
     <value>Diện tích</value>
   </data>
+  <data name="DKMauNguoiNongDanMoi" xml:space="preserve">
+    <value>Đăng ký mẫu người nông dân mới</value>
+  </data>
   <data name="Dropdownlist_All" xml:space="preserve">
     <value>-- Tất cả --</value>
   </data>
@@ -386,6 +395,9 @@
   </data>
   <data name="KhoanTuNgay" xml:space="preserve">
     <value>Khoán từ ngày</value>
+  </data>
+  <data name="KKAnToanThucPham" xml:space="preserve">
+    <value>Cam kết an toàn thực phẩm</value>
   </data>
   <data name="KyLuat" xml:space="preserve">
     <value>Kỷ Luật</value>

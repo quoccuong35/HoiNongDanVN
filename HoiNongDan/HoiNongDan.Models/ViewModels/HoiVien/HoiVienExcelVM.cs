@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HoiNongDan.Models.Entitys.NhanSu;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -36,9 +37,9 @@ namespace HoiNongDan.Models
         public String SoCCCD { get; set; }
 
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayCapCCCD")]
-        public String? NgayCapCCCD { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayCapCCCD")]
+        //public String? NgayCapCCCD { get; set; }
 
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
@@ -52,12 +53,12 @@ namespace HoiNongDan.Models
 
         [MaxLength(100)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoDienThoai")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string? SoDienThoai { get; set; }
 
-        [DataType(DataType.Date)]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayvaoDangDuBi")]
-        public DateTime? NgayvaoDangDuBi { get; set; }
+        //[DataType(DataType.Date)]
+        //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayvaoDangDuBi")]
+        //public DateTime? NgayvaoDangDuBi { get; set; }
 
         [DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayVaoDangChinhThuc")]
@@ -96,7 +97,7 @@ namespace HoiNongDan.Models
         public String? NgayThamGiaHDND { get; set; }
 
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "VaiTro")]
         public string? VaiTro { get; set; }
 
@@ -139,11 +140,8 @@ namespace HoiNongDan.Models
         [Display(Name = "Loại hình, dịch vụ sản xuất, chăn nuôi")]
         public string? SX_ChN { get; set; }
 
-        [Display(Name = "Số lượng")]
-        public string? SoLuong { get; set; }
-
-        [Display(Name = "DienTich")]
-        public string? DienTich { get; set; }
+        [Display(Name = "Diện tích hoặc quy mô")]
+        public string? DienTich_QuyMo { get; set; }
 
 
         [Display(Name = "Hiện tham gia sinh hoạt  đoàn thể chính trị, Hội đoàn nào khác")]
@@ -155,11 +153,29 @@ namespace HoiNongDan.Models
         [Display(Name = "Tham gia tổ hội ngành nghề, chi hội ngành nghề")]
         public string? ThamGia_THNN_CHNN { get; set; }
 
-        [Display(Name = "HV nòng cốt")]
-        public string? HV_NongCot { get; set; }
+        [Display(Name = "HV ưu tú năm nào")]
+        public string? HV_UuTuNam { get; set; }
 
         [Display(Name = "HV danh dự")]
         public string? HV_DanhDu { get; set; }
+
+        [Display(Name = "NDSXKDG (cấp cơ sở, huyện,Tp, TW năm nào)")]
+        public string? NDSXKDG { get; set; }
+
+        [Display(Name = "ND tiêu biểu (năm nào)")]
+        public string? NoDanTieuBieu { get; set; }
+
+        [Display(Name = "ND Việt Nam xuất sắc")]
+        public string? NDXuatSac { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "KKAnToanThucPham")]
+        public string? KKAnToanThucPham { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DKMauNguoiNongDanMoi")]
+        public string? DKMauNguoiNongDanMoi { get; set; }
+
+        [Display(Name = "GhiChu")]
+        public string? GhiChu { get; set; }
 
     }
     public class HoiVienImportExcel : HoiVienMTVM
@@ -167,6 +183,8 @@ namespace HoiNongDan.Models
         public int RowIndex { get; set; }
         public bool isNullValueId { get; set; }
         public string Error { get; set; }
+
+        public List<QuaTrinhKhenThuong> ListKhenThuong { get; set; }
 
     }
 }
