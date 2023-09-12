@@ -22,23 +22,19 @@
     <tbody>
         @{
             int i = 0;
+            int css = 0;
+            string cssName = "";
         }
         @foreach (var item in Model)
         {
             i++;
-            <tr>
-@*                 <td class="align-middle">
-                    @HtmlExtensions.MenuNhanSu(CurrentArea, CurrentController, item.HoVaTen, item.IDCanBo!.Value.ToString(),listRoles: listRoles)
-                </td>
-                <td class="align-middle">
-                    @if (!String.IsNullOrEmpty(item.HinhAnh) && !String.IsNullOrWhiteSpace(item.HinhAnh))
-                    {
-                        <img alt="image" class="avatar avatar-md br-7" src="@item.HinhAnh">
-                    }
-                </td>
-                <td class="text-center align-middle">
-                   <a asp-area="@ConstArea.NhanSu" asp-action="Edit",asp-controller="@ConstController.CanBo" target="_blank" asp-route-id="@item.IDCanBo">@item.MaCanBo</a>
-                </td> *@
+            css++;
+            if (css > 4)
+            {
+                css = 1;
+            }
+            cssName = "tr" + css.ToString();
+            <tr class="@cssName">
                 <td class="align-middle">@Html.DisplayFor(p => item.HoVaTen)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.GhiChu)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.ChoOHienNay)</td>

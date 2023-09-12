@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HoiNongDan.DataAccess;
+using HoiNongDan.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,5 +23,7 @@ namespace HoiNongDan.Extensions
                 return false; ;
             }
         }
+
+        
     }
 }

@@ -19,7 +19,7 @@ namespace HoiNongDan.Models
     {
         public Guid IDCanBo { get; set; }
         [MaxLength(20)]
-        public string MaCanBo { get; set; }
+        public string? MaCanBo { get; set; }
 
         [MaxLength(20)]
         public string? MaDinhDanh { get; set; }
@@ -84,8 +84,8 @@ namespace HoiNongDan.Models
         public string? MaSoThue { get; set; }
         [DataType(DataType.Date)]
         public DateTime? NgayVaoBienChe { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime? NgayThamGiaCongTac { get; set; }
+
+        public String? NgayThamGiaCongTac { get; set; }
 
         [MaxLength(50)]
         public string? MaHeDaoTao { get; set; }
@@ -212,6 +212,8 @@ namespace HoiNongDan.Models
         public DateTime?NgayNgungHoatDong { get; set; }
         public String? LyDoNgungHoatDong { get; set; }
 
+        public String? SoQuyetDinhBoNhiem { get; set; }
+
         public Guid? CreatedAccountId { get; set; }
         public DateTime? CreatedTime { get; set; }
         public Guid? LastModifiedAccountId { get; set; }
@@ -219,8 +221,6 @@ namespace HoiNongDan.Models
         public ICollection<QuanHeGiaDinh> QuanHeGiaDinhs { get; set; }
         public ICollection<QuaTrinhKhenThuong> QuaTrinhKhenThuongs { get; set; }
         public ICollection<QuaTrinhKyLuat> QuaTrinhKyLuats { get; set; }
-        public ICollection<QuaTrinhDaoTao> QuaTrinhDaoTaos { get; set; }
-        public ICollection<QuaTrinhBoiDuong> QuaTrinhBoiDuongs { get; set; }
         public ICollection<QuaTrinhBoNhiem> QuaTrinhBoNhiems { get; set; }
         public ICollection<FileDinhKem> FileDinhKems { get; set; }
         public ICollection<QuaTrinhCongTac> QuaTrinhCongTacs { get; set; }
@@ -228,6 +228,7 @@ namespace HoiNongDan.Models
         public ICollection<HoiVienVayVon> HoiVienVayVons { get; set; }
         public ICollection<CanBoQuaTrinhLuong> CanBoQuaTrinhLuongs { get; set; }
         public ICollection<HoiVienHoiDap> HoiVienHoiDaps { get; set; }
+        public ICollection<DaoTaoBoiDuong> DaoTaoBoiDuongs { get; set; }
         public HuuTri? HuuTri { get; set; }
 
         public bool? DangVien { get; set; }
@@ -235,8 +236,7 @@ namespace HoiNongDan.Models
             QuanHeGiaDinhs = new List<QuanHeGiaDinh>();
             QuaTrinhKhenThuongs = new List<QuaTrinhKhenThuong>();
             QuaTrinhKyLuats = new List<QuaTrinhKyLuat>();
-            QuaTrinhDaoTaos = new List<QuaTrinhDaoTao>();
-            QuaTrinhBoiDuongs = new List<QuaTrinhBoiDuong>();
+            DaoTaoBoiDuongs = new List<DaoTaoBoiDuong>();
             QuaTrinhBoNhiems = new List<QuaTrinhBoNhiem>();
             QuaTrinhCongTacs = new List<QuaTrinhCongTac>();
             QuaTrinhMienNhiems = new List<QuaTrinhMienNhiem>();

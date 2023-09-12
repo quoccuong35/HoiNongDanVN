@@ -11,11 +11,6 @@ namespace HoiNongDan.Models
     {
         public string MaChuyenNganh { get; set; }
         public string TenChuyenNganh { get; set; }
-        public ICollection<QuaTrinhDaoTao> QuaTrinhDaoTaos { get; set; }
-        public ChuyenNganh()
-        {
-            QuaTrinhDaoTaos = new List<QuaTrinhDaoTao>();
-        }
-
+       
     }
 }

@@ -20,6 +20,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
     {
         public AccountController(AppDbContext context) : base(context) { }
         #region Index
+        [HoiNongDanAuthorization]   
         public IActionResult Index()
         {
             return View(new UserSearchVM());
@@ -128,7 +129,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                         {
                             Code = System.Net.HttpStatusCode.NotFound,
                             Success = false,
-                            Data = "Không tìm thấy thông tin co ma " + obj.AccountId
+                            Data = "Không tìm thấy thông tin người dùng"
                         });
                     }
                     else

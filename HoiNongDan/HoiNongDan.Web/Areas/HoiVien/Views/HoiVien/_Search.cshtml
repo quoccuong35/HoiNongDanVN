@@ -5,9 +5,12 @@
     string listRoles = User.FindFirst("Roles")!.Value;
     listRoles = listRoles == null ? "" : listRoles;
 }
-<table id="data-list" class="table table-bordered text-nowrap mb-0">
-    <thead class="table-primary">
-        <tr>
+<div id="gridHoiVien">
+
+</div>
+<table id="data-list" class="table border text-nowrap text-md-nowrap mb-0 dataTable no-footer">
+    <thead >
+        <tr class="table-primary">
             <th></th>
             <th class="text-center" name="MaCanBo">@Html.DisplayNameFor(p => p.MaCanBo)</th>
             <th class="text-center" name="HoVaTen">@Html.DisplayNameFor(p => p.HoVaTen)</th>
@@ -52,11 +55,20 @@
         @{
             int i = 0;
             string value = "";
+            int css = 0;
+            string cssName = "";
         }
         @foreach (var item in Model)
         {
+           
             i++;
-            <tr>
+            css++;
+            if (css > 4)
+            {
+                css = 1;
+            }
+            cssName = "tr" + css.ToString();
+            <tr id="@item.IDCanBo" class="@cssName">
                 <td class="align-middle">
                     @HtmlExtensions.MenuHoiVien(CurrentArea, CurrentController, item.HoVaTen, item.IDCanBo!.Value.ToString(),listRoles: listRoles)
                 </td>
@@ -134,18 +146,36 @@
 </table>
 <script>
     //load default and set event
-    $(document).ready(function () {
-        var ths = document.querySelectorAll(".dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th");
-        var html ="" ;
-        ths.forEach((item) => {
-            if (item.getAttribute("name")) 
-            {
-                html = html + '<input type = "checkbox" name ="' + item.getAttribute("name") + '" value = "true">' + item.innerHTML;
+     $(document).ready(function () {
+        $('#data-list tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            } else {
+                $(this).addClass('selected');
             }
-           
         });
-        $("#gridHoiVien").innerHTML = html;
-        console.log(html);
+    //     var ths = document.querySelectorAll(".dataTables_scrollHead>.dataTables_scrollHeadInner>table>thead>tr>th");
+    //     var html ="" ;
+    //     ths.forEach((item) => {
+    //         if (item.getAttribute("name")) 
+    //         {
+    //             html = html + '<input type = "checkbox" name ="' + item.getAttribute("name") + '" value = "true">' + item.innerHTML;
+    //         }
+           
+    //     });
+    //     $("#gridHoiVien").append(html);
+    //     $('#gridHoiVien> input:checkbox').change(function () {
+    //         var $num = $(this);
+    //         console.log($num.getAttribute("name"));
+    
+    //         // if ($(this).is(":checked")) {
 
-    });
+    //         //     $('table tbody tr td').eq(num).show();
+    //         // } else {
+    //         //     $('table tbody tr td').eq(num).hide();
+    //         // }
+
+    //     });
+     });
+
 </script>

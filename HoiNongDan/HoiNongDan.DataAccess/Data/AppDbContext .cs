@@ -23,6 +23,7 @@ namespace HoiNongDan.DataAccess
         public DbSet<FunctionModel> FunctionModels { get; set; }
         public DbSet<PageFunctionModel> PageFunctionModels { get; set; }
         public DbSet<PagePermissionModel> PagePermissionModels { get; set; }
+        public DbSet<Parameter> Parameters { get; set; }
         #endregion
         public DbSet<HistoryModel> HistoryModels { get; set; }
         #region Masterdata
@@ -49,7 +50,7 @@ namespace HoiNongDan.DataAccess
         public DbSet<HeDaoTao> HeDaoTaos { get; set; }
         public DbSet<PhanHe> PhanHes { get; set; }
         public DbSet<LoaiQuanHeGiaDinh> LoaiQuanHeGiaDinhs { get; set; }
-      
+
         public DbSet<DanhHieuKhenThuong> DanhHieuKhenThuongs { get; set; }
         public DbSet<HinhThucKhenThuong> HinhThucKhenThuongs { get; set; }
         public DbSet<HinhThucKyLuat> HinhThucKyLuats { get; set; }
@@ -70,11 +71,11 @@ namespace HoiNongDan.DataAccess
         public DbSet<QuanHeGiaDinh> QuanHeGiaDinhs { get; set; }
         public DbSet<QuaTrinhKhenThuong> QuaTrinhKhenThuongs { get; set; }
         public DbSet<QuaTrinhKyLuat> QuaTrinhKyLuats { get; set; }
-        public DbSet<QuaTrinhDaoTao> QuaTrinhDaoTaos { get; set; }
-        public DbSet<QuaTrinhBoiDuong> QuaTrinhBoiDuongs { get; set; }
+
         public DbSet<QuaTrinhBoNhiem> QuaTrinhBoNhiems { get; set; }
         public DbSet<QuaTrinhCongTac> QuaTrinhCongTacs { get; set; }
         public DbSet<QuaTrinhMienNhiem> QuaTrinhMienNhiems { get; set; }
+        public DbSet<DaoTaoBoiDuong> DaoTaoBoiDuongs { get; set; }
         public DbSet<HuuTri> HuuTris { get; set; }
         #endregion nhanSu
 
@@ -379,7 +380,7 @@ namespace HoiNongDan.DataAccess
             {
                 entity.ToTable("CanBo", "NS");
                 entity.HasKey(it => it.IDCanBo);
-                entity.Property(it => it.MaCanBo).IsUnicode(true).IsRequired(true).HasMaxLength(20);
+                entity.Property(it => it.MaCanBo).IsUnicode(true).IsRequired(false).HasMaxLength(20);
                 entity.HasOne<TinhTrang>(it => it.TinhTrang)
                     .WithMany(it => it.CanBos)
                     .HasForeignKey(it => it.MaTinhTrang)
@@ -553,65 +554,28 @@ namespace HoiNongDan.DataAccess
 
 
             });
-            builder.Entity<QuaTrinhDaoTao>(entity => {
-                entity.ToTable("QuaTrinhDaoTao", "NS");
-                entity.HasKey(it => it.IDQuaTrinhDaoTao);
-                entity.Property(it => it.MaChuyenNganh).HasMaxLength(50).IsRequired(true);
-                entity.Property(it => it.MaLoaiBangCap).HasMaxLength(50).IsRequired(true);
-                entity.Property(it => it.MaHinhThucDaoTao).HasMaxLength(50).IsRequired(true);
-                entity.Property(it => it.CoSoDaoTao).HasMaxLength(250).IsRequired(true);
-                entity.Property(it => it.QuocGia).HasMaxLength(150).IsRequired(true);
-                entity.Property(it => it.NgayTotNghiep).HasMaxLength(10).IsRequired(true);
-                entity.Property(it => it.FileDinhKem).HasMaxLength(500).IsRequired(false);
-                entity.Property(it => it.GhiChu).HasMaxLength(500).IsRequired(false);
-                entity.Property(it => it.LuanAnTN).IsRequired(false);
-
-
-                entity.HasOne<CanBo>(it => it.CanBo)
-                .WithMany(it => it.QuaTrinhDaoTaos)
-                .HasForeignKey(it => it.IDCanBo)
-                .HasConstraintName("FK_QuaTrinhDaoTao_CanBo");
-
-                entity.HasOne<LoaiBangCap>(it => it.LoaiBangCap)
-                .WithMany(it => it.QuaTrinhDaoTaos)
-                .HasForeignKey(it => it.MaLoaiBangCap)
-                .HasConstraintName("FK_QuaTrinhDaoTao_LoaiBangCap");
-
-                entity.HasOne<ChuyenNganh>(it => it.ChuyenNganh)
-               .WithMany(it => it.QuaTrinhDaoTaos)
-               .HasForeignKey(it => it.MaChuyenNganh)
-               .HasConstraintName("FK_QuaTrinhDaoTao_ChuyenNganh");
-
+            builder.Entity<DaoTaoBoiDuong>(entity => {
+                entity.ToTable("DaoTaoBoiDuong", "NS");
+                entity.HasKey(it => it.Id);
+                entity.Property(it => it.TuNgay).IsRequired(false);
+                entity.Property(it => it.DenNgay).IsRequired(false);
+                entity.Property(it => it.NoiDungDaoTao).IsRequired(true).HasMaxLength(1000);
+                entity.Property(it => it.GhiChu).IsRequired(false).HasMaxLength(500);
                 entity.HasOne<HinhThucDaoTao>(it => it.HinhThucDaoTao)
-              .WithMany(it => it.QuaTrinhDaoTaos)
-              .HasForeignKey(it => it.MaHinhThucDaoTao)
-              .HasConstraintName("FK_QuaTrinhDaoTao_HinhThucDaoTao");
-
-
-            });
-            builder.Entity<QuaTrinhBoiDuong>(entity => {
-                entity.ToTable("QuaTrinhBoiDuong", "NS");
-                entity.HasKey(it => it.IDQuaTrinhBoiDuong);
-                entity.Property(it => it.MaHinhThucDaoTao).HasMaxLength(50).IsRequired(true);
-                entity.Property(it => it.NoiBoiDuong).HasMaxLength(150).IsRequired(true);
-                entity.Property(it => it.NoiDung).HasMaxLength(150).IsRequired(true);
-                entity.Property(it => it.NgayBatDau).IsRequired(true);
-                entity.Property(it => it.NgayKetThuc).IsRequired(true);
-                entity.Property(it => it.FileDinhKem).HasMaxLength(500).IsRequired(false);
-                entity.Property(it => it.GhiChu).HasMaxLength(500).IsRequired(false);
-
-
-
-                entity.HasOne<CanBo>(it => it.CanBo)
-                .WithMany(it => it.QuaTrinhBoiDuongs)
-                .HasForeignKey(it => it.IDCanBo)
-                .HasConstraintName("FK_QuaTrinhBoiDuong_CanBo");
-
-                entity.HasOne<HinhThucDaoTao>(it => it.HinhThucDaoTao)
-                .WithMany(it => it.QuaTrinhBoiDuongs)
+                .WithMany(it => it.DaoTaoBoiDuongs)
                 .HasForeignKey(it => it.MaHinhThucDaoTao)
-                .HasConstraintName("FK_QuaTrinhBoiDuong_HinhThucDaoTao");
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasConstraintName("FK_DaoTaoBoiDuongc_HinhThucDaoTao");
+                entity.HasOne<LoaiBangCap>(it => it.LoaiBangCap)
+                .WithMany(it => it.DaoTaoBoiDuongs)
+                .HasForeignKey(it => it.MaLoaiBangCap)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasConstraintName("FK_DaoTaoBoiDuong_MaLoaiBangCap");
 
+                entity.HasOne<CanBo>(it => it.CanBo)
+                .WithMany(it => it.DaoTaoBoiDuongs)
+                .HasForeignKey(it => it.IDCanBo)
+                .HasConstraintName("FK_DaoTaoBoiDuong_CanBo");
             });
             builder.Entity<QuaTrinhCongTac>(entity => {
                 entity.ToTable("QuaTrinhCongTac", "NS");
@@ -787,6 +751,12 @@ namespace HoiNongDan.DataAccess
                 entity.Property(it => it.Href).HasMaxLength(500).HasDefaultValue("#");
                 entity.HasMany<MenuModel>(it => it.Children);
 
+            });
+            builder.Entity<Parameter>(entity =>
+            {
+                entity.ToTable("Parameter", "pms");
+                entity.HasKey(it => it.ID);
+                entity.Property(it => it.Value).IsRequired(false).HasMaxLength(500);
             });
             builder.Entity<HistoryModel>(entity =>
             {

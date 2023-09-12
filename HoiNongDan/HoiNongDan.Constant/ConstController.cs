@@ -30,6 +30,7 @@
         public const string QuanHeGiaDinh = "QHGiaDinh";
         public const string TrinhDoChuyenMon = "TrinhDoChuyenMon";
         public const string DaoTao = "DaoTao";
+        public const string DaoTaoBoiDuong = "DaoTaoBoiDuong";
         public const string BoiDuong = "BoiDuong";
         public const string CongTac = "CongTac";
         public const string Luong = "Luong";

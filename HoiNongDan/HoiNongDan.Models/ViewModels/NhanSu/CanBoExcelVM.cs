@@ -15,8 +15,8 @@ namespace HoiNongDan.Models
         public Guid? IDCanBo { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaCanBo")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        public string MaCanBo { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        public string? MaCanBo { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
@@ -142,10 +142,8 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayVaoBienChe")]
         public DateTime? NgayVaoBienChe { get; set; }
 
-
-        [DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayThamGiaCongTac")]
-        public DateTime? NgayThamGiaCongTac { get; set; }
+        public String? NgayThamGiaCongTac { get; set; }
 
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HeDaoTao")]

@@ -550,16 +550,16 @@ HoiNongDan.ExportData = function (controller) {
         
 }
 HoiNongDan.Table = function (id_table = "#data-list") {   
-    var height = document.documentElement.clientHeight - 550;
+    var height = document.documentElement.clientHeight*0.4;
     try {
         var table = $(id_table).DataTable({
             autoFill: true,
             responsive: false,
-            autoWidth: true,
+            autoWidth: false,
             autoHeight: false,
             scrollCollapse: false,
             scrollX: true,
-            scrollY: height,
+/*            scrollY: height,*/
             iDisplayLength: 10,
             buttons: ['excel', 'pdf'],
             language: {
@@ -567,8 +567,8 @@ HoiNongDan.Table = function (id_table = "#data-list") {
                 search: ""
             }
         });
-        table.buttons().container()
-            .appendTo('#data-list_wrapper .col-md-6:eq(0)');
+        //table.buttons().container()
+        //    .appendTo('#data-list_wrapper .col-md-6:eq(0)');
       /*  table.column(0).visible(false);*/
     } catch (e) {
         console.log(e);

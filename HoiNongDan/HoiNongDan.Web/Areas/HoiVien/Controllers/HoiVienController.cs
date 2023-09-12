@@ -28,6 +28,7 @@ using NuGet.Packaging;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using HoiNongDan.Models.Entitys.NhanSu;
+using AspNetCore.Reporting;
 
 namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 {
@@ -35,13 +36,15 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
     public class HoiVienController : BaseController
     {
         private readonly IWebHostEnvironment _hostEnvironment;
+        private readonly IHttpContextAccessor _httpContext;
         private string[] DateFomat;
         const string controllerCode = ConstExcelController.HoiVien;
         const int startIndex = 6;
-        public HoiVienController(AppDbContext context, IWebHostEnvironment hostEnvironment, IConfiguration config) : base(context)
+        public HoiVienController(AppDbContext context, IWebHostEnvironment hostEnvironment, IConfiguration config, IHttpContextAccessor httpContext) : base(context)
         {
             _hostEnvironment = hostEnvironment;
             DateFomat = config.GetSection("SiteSettings:DateFormat").Value.ToString().Split(',');
+            _httpContext = httpContext;
         }
         #region Index
         [HoiNongDanAuthorization]
@@ -759,6 +762,120 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             return File(filecontent, ClassExportExcel.ExcelContentType, fileNameWithFormat);
         }
         #endregion Export Data
+        #region Print the hoi vien
+        [HttpPost]
+        public IActionResult Print(List<Guid> lid) {
+
+            var parameter = Guid.NewGuid();
+            List<HoiNongDan.Models.Parameter> add = new List<Models.Parameter>();
+
+            foreach (var id in lid)
+            {
+                add.Add(new HoiNongDan.Models.Parameter
+                {
+                    ID = Guid.NewGuid(),
+                    Value = id.ToString(),
+                    AccountID = AccountId()!.Value,
+                    Parameter1 = parameter
+
+                });
+            }
+            _context.Parameters.AddRange(add);
+            if (_context.SaveChanges() > 0)
+            {
+                _httpContext.HttpContext!.Session.SetString("InTheHoiVien", parameter.ToString());
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.OK,
+                    Success = true,
+                    Data = "Lưu parameter thành công"
+                });
+                
+            }
+            else
+            {
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.NotFound,
+                    Success = false,
+                    Data = "Lỗi hệ thống không hiển thị report được"
+                });
+            }
+        }
+        public IActionResult ShowInTheHoiVien() {
+            string mintype = "";
+            int extension = 1;
+            var path = $"{this._hostEnvironment.WebRootPath}\\reports\\TheHoiVien.rdlc";
+            Dictionary<String, string> parameters = new Dictionary<string, string>();
+            var keyPara = _httpContext.HttpContext!.Session.GetString("InTheHoiVien") ;
+            List<Guid> idHoiVien = new List<Guid>();
+            if (keyPara != null)
+            {
+                idHoiVien = _context.Parameters.Where(it=>it.Parameter1 == Guid.Parse(keyPara)).Select(it=> Guid.Parse(it.Value)).ToList();
+            }
+            var dataHoiVien = _context.CanBos.Where(it => it.IsHoiVien == true && idHoiVien.Contains(it.IDCanBo))
+                .Include(it => it.DiaBanHoatDong).Select(it => new HoiVienTheTen
+                {
+                    HoVaTen = it.HoVaTen,
+                    NgaySinh = it.NgaySinh!,
+                    NoiCuTru = it.ChoOHienNay!.Replace("/n","")!,
+                    NgayVaoHoi = it.NgayVaoHoi!,
+                    NoiCapThe = it.DiaBanHoatDong!.TenDiaBanHoatDong
+
+                }).Take(10).ToList();
+            foreach (var item in dataHoiVien)
+            {
+                item.Ngay = DateTime.Now.Day.ToString().PadLeft(2, '0');
+                item.Thang = DateTime.Now.Month.ToString().PadLeft(2, '0');
+                item.Nam = DateTime.Now.Year.ToString();
+                string[] array = item.NgaySinh.Replace(@"\", "/").Split("/");
+                item.NgaySinh = "";
+                if (array.Length == 3)
+                {
+                    item.NgaySinh = array[0].PadLeft(2, '0');
+                    item.ThangSinh = array[1].PadLeft(2, '0');
+                    item.NamSinh = array[2];
+                }
+                else if (array.Length == 2)
+                {
+                    item.ThangSinh = array[0].PadLeft(2, '0');
+                    item.NamSinh = array[1];
+                }
+                else if (array.Length == 1)
+                {
+                    item.NamSinh = array[0];
+                }
+                array = item.NgayVaoHoi.Replace(@"\", "/").Split("/");
+                item.NgayVaoHoi = "";
+                if (array.Length == 3)
+                {
+                    item.NgayVaoHoi = array[0].PadLeft(2, '0');
+                    item.ThangVaoHoi = array[1].PadLeft(2, '0');
+                    item.NamVaoHoi = array[2];
+                }
+                else if (array.Length == 2)
+                {
+                    item.ThangVaoHoi = array[0].PadLeft(2, '0');
+                    item.NamVaoHoi = array[1];
+                }
+                else if (array.Length == 1)
+                {
+                    item.NamVaoHoi = array[0];
+                }
+            }
+            LocalReport localReport = new LocalReport(path);
+            localReport.AddDataSource("HoiVienTheTen", dataHoiVien);
+            var result = localReport.Execute(RenderType.Pdf, extension, parameters, mintype);
+            var dels = _context.Parameters.Where(it => it.Parameter1 == Guid.Parse(keyPara!));
+            if (dels != null && dels.Count() > 0)
+            {
+                _context.Parameters.RemoveRange(dels);
+                _httpContext.HttpContext.Session.Remove("InTheHoiVien");
+                _context.SaveChanges();
+            }
+            return File(result.MainStream, "application/pdf");
+        }
+        #endregion Print the hoi vien
         #region Helper
         private void CheckError(HoiVienMTVM insert)
         {
@@ -835,7 +952,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             ViewBag.MaDiaBanHoatDong = new SelectList(diaBanHoatDong, "MaDiaBanHoatDong", "Name");
         }
 
-
+        
         #endregion Helper
 
         #region Insert/Update data from excel file

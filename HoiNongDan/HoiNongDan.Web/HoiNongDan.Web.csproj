@@ -5,9 +5,11 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <UserSecretsId>02a78dce-4be1-40f7-99d8-3e581dc57280</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.14" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.14" />
@@ -32,6 +34,7 @@
     <Folder Include="Areas\Permission\Data\" />
     <Folder Include="Areas\Permission\Models\" />
     <Folder Include="Models\" />
+    <Folder Include="wwwroot\reports\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,17 +1,29 @@
 using Microsoft.EntityFrameworkCore;
 using HoiNongDan.DataAccess;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-builder.Services.AddDbContext<AppDbContext>(options => {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+var dbpass = builder.Configuration.GetSection("DBPass").Value;
+
+var builderSQL = new System.Data.SqlClient.SqlConnectionStringBuilder(builder.Configuration.GetConnectionString("DefaultConnection"));
+builderSQL.Password = dbpass;
+
+string defaultConnection = builderSQL.ConnectionString;
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(defaultConnection);
 });
 
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie(options => {
     options.SlidingExpiration = true;
@@ -32,7 +44,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.IdleTimeout = TimeSpan.FromMinutes(10);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });

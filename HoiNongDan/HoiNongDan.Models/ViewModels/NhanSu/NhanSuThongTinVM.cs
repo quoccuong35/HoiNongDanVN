@@ -41,10 +41,11 @@ namespace HoiNongDan.Models
             nhanSu.IdCanbo = canBo.IDCanBo;
             nhanSu.HoVaTen = canBo.HoVaTen;
             nhanSu.MaCanBo = canBo.MaCanBo;
-            nhanSu.TenTinhTrang = canBo.TinhTrang.TenTinhTrang;
-            nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
-            nhanSu.TenDonVi = canBo.Department.Name;
-            nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
+            nhanSu.TenTinhTrang = String.IsNullOrWhiteSpace(canBo.MaTinhTrang) ==true?"": canBo.TinhTrang!.TenTinhTrang;
+            nhanSu.TenCoSo = canBo.CoSo!.TenCoSo;
+            nhanSu.TenDonVi = canBo.Department!.Name;
+            //nhanSu.TenPhanHe = canBo.PhanHe!.TenPhanHe;
+            nhanSu.CanBo = true;
             if (!String.IsNullOrWhiteSpace(canBo.HinhAnh) && !String.IsNullOrEmpty(canBo.HinhAnh))
             { 
                 nhanSu.HinhAnh = canBo.HinhAnh;

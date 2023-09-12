@@ -30,3 +30,34 @@
         </div>
     </div>
 }
+else
+{
+    <div class="dropdown  d-flex message">
+        <a class="nav-link icon text-center" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fe fe-bell"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" style="display:none">
+            <div class="drop-heading border-bottom">
+                <div class="d-flex">
+                    <h6 class="mt-1 mb-0 fs-16 fw-semibold text-dark">
+                        <a asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.DuyetHoiVien" asp-action="Index"> Duyệt hội viên mới số lượng <span class="badge bg-green br-5 side-badge blink-text pb-1">@Model</span></a>
+                    </h6>
+                </div>
+            </div>
+            <div class="message-menu message-menu-scroll" style="display:none">
+                <a class="dropdown-item d-flex" href="chat.html">
+                    <span class="avatar avatar-md brround me-3 align-self-center cover-image" data-bs-image-src="~/Images/users-add.png" style="background: url(&quot;~/Images/users-add.png&quot;) center center;"></span>
+                    <div class="wd-90p">
+                        <div class="d-flex">
+                            <h5 class="mb-1">Peter Theil</h5>
+                            <small class="text-muted ms-auto text-end">
+                                6:45 am
+                            </small>
+                        </div>
+                        <span>Commented on file Guest list~~</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+}

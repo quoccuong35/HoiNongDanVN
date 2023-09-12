@@ -24,12 +24,20 @@
         @{
             int i = 0;
             string ngayThanhLap;
+            int css = 0;
+            string cssName = "";
         }
         @foreach (var item in Model)
         {
             ngayThanhLap = item.NgayThanhLap != null ? @item.NgayThanhLap.Value.ToString("dd/MM/yyyy") : null;
             i++;
-            <tr>
+            css++;
+            if (css > 4)
+            {
+                css = 1;
+            }
+            cssName = "tr" + css.ToString();
+            <tr class="@cssName">
                 <td class="text-center">@i</td>
                 <td onclick="ShowOffCanVas('@item.TenDiaBanHoatDong')">@item.TenDiaBanHoatDong</td>
                 <td>@ngayThanhLap</td>

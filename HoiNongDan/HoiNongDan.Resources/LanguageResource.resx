@@ -609,6 +609,9 @@
   <data name="Password" xml:space="preserve">
     <value>Mật khẩu</value>
   </data>
+  <data name="PassWordNew" xml:space="preserve">
+    <value>Mật khẩu mới</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>Phân Quyền</value>
   </data>
@@ -713,6 +716,9 @@
   </data>
   <data name="SoQuyetDinh" xml:space="preserve">
     <value>Số quyết định</value>
+  </data>
+  <data name="SoQuyetDinhBoNhiem" xml:space="preserve">
+    <value>Quyết định bổ nhiệm</value>
   </data>
   <data name="SoThangQuaHan" xml:space="preserve">
     <value>Số tháng quá hạn</value>

@@ -1,0 +1,24 @@
+﻿@model AccountInfo
+<form class="form-horizontal">
+    <input asp-for="AccountId" hidden />
+    <div class=" row mb-4">
+        <label asp-for="UserName" class="col-md-3 form-label"></label>
+        <div class="col-md-9">
+            <input asp-for="UserName" class="form-control">
+        </div>
+    </div>
+    <div class=" row mb-4">
+        <label asp-for="FullName" class="col-md-3 form-label"></label>
+        <div class="col-md-9">
+            <input asp-for="FullName" class="form-control">
+        </div>
+    </div>
+    <div class=" row mb-4">
+        <label asp-for="PassWordNew" class="col-md-3 form-label"></label>
+        <div class="col-md-9">
+            <input asp-for="PassWordNew" id="txt-password" class="form-control">
+            <small style="color:red">Nhập mật khẩ mới nếu muốn đổi mật khẩu</small>
+        </div>
+    </div>
+
+</form>

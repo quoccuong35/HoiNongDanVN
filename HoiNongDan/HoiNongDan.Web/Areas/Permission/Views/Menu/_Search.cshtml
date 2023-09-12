@@ -6,7 +6,7 @@
     string listRoles = User.FindFirst("Roles")!.Value;
     listRoles = listRoles == null ? "" : listRoles;
 }
-<table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+<table id="data-list" class="table border text-nowrap text-md-nowrap mb-0">
     <thead class="table-primary">
         <tr>
             <th class="text-center">@LanguageResource.NumberIndex</th>
@@ -21,11 +21,19 @@
     <tbody>
         @{
             int i = 0;
+            int css = 0;
+            string cssName = "";
         }
         @foreach (var item in Model)
         {
             i++;
-            <tr>
+            css++;
+            if (css > 4)
+            {
+                css = 1;
+            }
+            cssName = "tr" + css.ToString();
+            <tr class="@cssName">
                 <td class="text-center">@i</td>
                 <td>@Html.DisplayFor(p => item.MenuName)</td>
                 <td class="text-center">@Html.DisplayFor(p => item.OrderIndex)</td>

@@ -339,20 +339,20 @@ namespace Microsoft.AspNetCore.Html
                 aTagView.RenderSelfClosingTag();
                 dropdown_menu.InnerHtml.AppendHtmlLine(RenderHtml(aTagView));
             }
-            roles = controllerName + ":" + ConstFunction.Print;
-            isHasPermission = Function.GetPermission(listRoles, roles);
-            if (isHasPermission)
-            {
-                // In lý lịch
-                TagBuilder aTagPrint = new TagBuilder("a");
-                aTagPrint.Attributes.Add("class", "btn dropdown-item");
+            //roles = controllerName + ":" + ConstFunction.Print;
+            //isHasPermission = Function.GetPermission(listRoles, roles);
+            //if (isHasPermission)
+            //{
+            //    // In lý lịch
+            //    TagBuilder aTagPrint = new TagBuilder("a");
+            //    aTagPrint.Attributes.Add("class", "btn dropdown-item");
 
 
-                aTagPrint.Attributes.Add("href", string.Format("/{0}/Print/{1}", CurrentUrl, id));
-                aTagPrint.InnerHtml.AppendHtmlLine(string.Format("<i class='fa fa-print bg-success-transparent me-2'></i> {0}", LanguageResource.Print));
-                aTagPrint.RenderSelfClosingTag();
-                dropdown_menu.InnerHtml.AppendHtmlLine(RenderHtml(aTagPrint));
-            }
+            //    aTagPrint.Attributes.Add("href", string.Format("/{0}/Print/{1}", CurrentUrl, id));
+            //    aTagPrint.InnerHtml.AppendHtmlLine(string.Format("<i class='fa fa-print bg-success-transparent me-2'></i> {0}", LanguageResource.Print));
+            //    aTagPrint.RenderSelfClosingTag();
+            //    dropdown_menu.InnerHtml.AppendHtmlLine(RenderHtml(aTagPrint));
+            //}
             // Xóa
             roles = controllerName + ":" + ConstFunction.Delete;
             isHasPermission = Function.GetPermission(listRoles, roles);
@@ -473,7 +473,7 @@ namespace Microsoft.AspNetCore.Html
                 TagBuilder aTag = new TagBuilder("a");
                 aTag.Attributes.Add("class", "btn btn-sm btn-vk text-white mx-1 btn-import");
                 aTag.Attributes.Add("href", "#");
-                aTag.InnerHtml.AppendHtmlLine(string.Format("<i class='fa fa-file-excel-o'></i> {0}", LanguageResource.Import));
+                aTag.InnerHtml.AppendHtmlLine(string.Format("<i class='fa fa-file-excel-o'></i> {0}", LanguageResource.Btn_Import));
                 if (htmlAttributes != null)
                 {
                     var attributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
@@ -497,13 +497,13 @@ namespace Microsoft.AspNetCore.Html
                 TagBuilder button = new TagBuilder("button");
                 button.Attributes.Add("class", "btn bg-teal dropdown-toggle btn-sm text-white");
                 button.Attributes.Add("data-bs-toggle", "dropdown");
-                button.InnerHtml.AppendHtmlLine(string.Format("<i class=\"fa fa-arrow-circle-down me-2\"></i>{0}", "Export"));
+                button.InnerHtml.AppendHtmlLine(string.Format("<i class=\"fa fa-arrow-circle-down me-2\"></i>{0}", "Xuất file excel"));
 
                 TagBuilder dropdown_menu = new TagBuilder("div");
                 dropdown_menu.Attributes.Add("class", "dropdown-menu");
-                dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item\" href=\"" + string.Format("/{0}/ExportCreate", CurrentUrl) + "\">{0}</a>", "Export file mẫu"));
+                dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item\" href=\"" + string.Format("/{0}/ExportCreate", CurrentUrl) + "\">{0}</a>", "Excel file mẫu"));
                 //dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item btn-exporttoexcel\" href=\""+ string.Format("/{0}/ExportEdit", CurrentUrl) + "\">{0}</a>", "Export dữ liệu"));
-                dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item btn-exporttoexcel\" href='#'>{0}</a>", "Export dữ liệu"));
+                dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item btn-exporttoexcel\" href='#'>{0}</a>", "Xuất dữ liệu excel"));
 
                 dropdown.InnerHtml.AppendHtmlLine(RenderHtml(button));
                 dropdown.InnerHtml.AppendHtmlLine(RenderHtml(dropdown_menu));
@@ -513,5 +513,29 @@ namespace Microsoft.AspNetCore.Html
             return null;
         }
         #endregion Import Button
+        #region button Print
+        public static HtmlString Print(string areaName, string controllerName,string title, object htmlAttributes = null, String listRoles = "")
+        {
+            string CurrentUrl = GetCurrentUrl(areaName, controllerName);
+            string roles = controllerName + ":" + ConstFunction.Print;
+            bool isHasPermission = Function.GetPermission(listRoles, roles);
+            //bool isHasPermission = true;
+            if (isHasPermission)
+            {
+                TagBuilder aTag = new TagBuilder("a");
+                aTag.Attributes.Add("class", "btn btn-sm btn-info text-white mx-1 btn-print");
+                aTag.Attributes.Add("href", "#");
+                aTag.InnerHtml.AppendHtmlLine(string.Format("<i class='fa fa-print'></i> {0}", title));
+                if (htmlAttributes != null)
+                {
+                    var attributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+                    aTag.MergeAttributes(attributes, true);
+                }
+                aTag.RenderSelfClosingTag();
+                return new HtmlString(RenderHtml(aTag));
+            }
+            return null;
+        }
+        #endregion button Print 
     }
 }

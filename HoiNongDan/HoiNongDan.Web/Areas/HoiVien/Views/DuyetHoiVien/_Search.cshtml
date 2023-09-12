@@ -25,11 +25,19 @@
     <tbody>
         @{
             int i = 0;
+            int css = 0;
+            string cssName = "";
         }
         @foreach (var item in Model)
         {
             i++;
-            <tr id="@item.IDCanBo">
+            css++;
+            if (css > 4)
+            {
+                css = 1;
+            }
+            cssName = "tr" + css.ToString();
+            <tr id="@item.IDCanBo" class="@cssName">
                 <td>
                     <button type="button" class="btn btn-sm btn-primary duyet-hoivien" data-bs-placement="top" data-id="@item.IDCanBo" data-bs-toggle="tooltip" title="" data-bs-original-title="Duyệt">
                         <span class="fa fa-check"> </span>

@@ -24,6 +24,8 @@
         @{
             int i = 0;
             string trangThai = "";
+            int css = 0;
+            string cssName = "";
         }
         @foreach (var item in Model)
         {
@@ -40,7 +42,13 @@
                 trangThai = "Đã trã lời";
             }
             i++;
-            <tr>
+            css++;
+            if (css > 4)
+            {
+                css = 1;
+            }
+            cssName = "tr" + css.ToString();
+            <tr class="@cssName">
                 <td class="text-center">
                     <a id="bAcep" type="button" class="btn  btn-sm btn-warning xem-hoivien" data-bs-placement="top" data-bs-toggle="tooltip" title="" data-bs-original-title="Xem" asp-action="View" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.HVDap" asp-route-id="@item.ID">
                         <span class="fa fa-eye"> </span>

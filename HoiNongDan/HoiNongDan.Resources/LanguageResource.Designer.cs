@@ -1537,6 +1537,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mật khẩu mới.
+        /// </summary>
+        public static string PassWordNew {
+            get {
+                return ResourceManager.GetString("PassWordNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phân Quyền.
         /// </summary>
         public static string Permission {
@@ -1848,6 +1857,15 @@ namespace HoiNongDan.Resources {
         public static string SoQuyetDinh {
             get {
                 return ResourceManager.GetString("SoQuyetDinh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quyết định bổ nhiệm.
+        /// </summary>
+        public static string SoQuyetDinhBoNhiem {
+            get {
+                return ResourceManager.GetString("SoQuyetDinhBoNhiem", resourceCulture);
             }
         }
         

@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta http-equiv="content-type" content="text-html; charset=utf-8" />
+
+    <script type="text/javascript" src="~/charting/jscharting.js"></script>
+
+    <script type="text/javascript" src="~/charting/types.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/charting/css/default.css" />
+
+    <style>
+        .department {
+
+            max-width: 200px;
+            padding: 5px;
+            color: #424242;
+            font-weight: normal;
+        }
+
+        .units {
+            white-space: pre-wrap;
+            width: 150px;
+            max-height: 100px;
+            color: #212121;
+            font-weight: normal;
+            text-align: center;
+            font-size: 10px;
+        }
+            .units li {
+                list-style-type: none;
+                padding: 5px;
+                margin: 4px 0;
+                border-radius: 5px;
+            }
+
+            .units ul {
+                padding: 0;
+            }
+
+            .units hr {
+                border: none;
+                background: white;
+                width: 40px;
+                height: 1px;
+            }
+
+        #brandingLogo{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container container-fluid">
+        <!-- PAGE-HEADER -->
+        <div class="page-header page-header-fix my-2">
+            <div>
+                <span class="header-title">Sơ Đồ Tổ Chức</span>
+                <div class="rectangle">
+                    <span> </span>
+                    <span> </span>
+                    <span> </span>
+                </div>
+            </div>
+            <div class="d-flex px-2">
+            </div>
+        </div>
+        <div id="chartDiv" style="width: 860px; height: 460px; margin: 10px auto;"></div>
+       
+    </div>
+    
+
+    <script type="text/javascript">
+        /*
+        Organizational chart with HTML annotations.
+        Learn how to:
+
+        - Create complex organizational charts.
+        */
+        // JS
+        var config = {
+            type: 'organizational down',
+            defaultPoint: {
+                outline_width: 0,
+                connectorLine: { width: 1, color: '#e0e0e0' },
+                annotation: {
+                    asHTML: true,
+                    label_text:
+                        '<div class="department" style="border-bottom:5px solid %color;"><b>%position</b>%name%units</div>',
+                },
+            },
+            defaultSeries_mouseTracking_enabled: false,
+            series: [
+                {
+                    points: [
+                        {
+                            name: 'Chủ tịch Hội Nông dân Thành phố',
+                            id: 'dhr',
+                            attributes: {
+                                position: 'NGUYỄN THANH XUÂN<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 16,
+                            color: 'white',
+                        },
+                        {
+                            name: 'Phó Chủ tịch Hội Nông dân Thành phố',
+                            id: 'rm',
+                            parent: 'dhr',
+                            attributes: {
+                                position: 'HUỲNH THỊ KIM XUYẾN<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '',
+                        },
+                        {
+                            name: '',
+                            id: 'rm1_',
+                            parent: 'rm',
+                            attributes: {
+                                position: 'Ban Tổ Chức Kiểm Tra<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '#64b5f6',
+                        },
+                        {
+                            name: '',
+                            id: 'rm2_',
+                            parent: 'rm',
+                            attributes: {
+                                position: 'Ban Tuyên Giáo<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '#aed581',
+                        },
+                        {
+                            name: '',
+                            id: 'rm_',
+                            parent: 'rm1_',
+                            attributes: {
+                                position: '',
+                                units:
+                                    '<ul><li><b>CAO HÙNG THẮNG</b><br>Trưởng Ban</li><li><b>LÊ THỊ KIM HỒNG <br>Phó Trưởng Ban</ b > <br></ li > </ul>',
+                            },
+                            label_style_fontSize: 12,
+                            color: '#90caf9',
+                            annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>',
+                        },
+                        {
+                            name: '',
+                            id: 'rm_1',
+                            parent: 'rm2_',
+                            attributes: {
+                                position: '',
+                                units:
+                                    '<ul><li><b>HỒ THỊ ĐAN THANH</b><br>Trưởng Ban</li><li><b>TRẦN THẾ DƯƠNG</ b > <br>Phó Trưởng Ban</ li > </ul>',
+                            },
+                            label_style_fontSize: 12,
+                            color: '#aed581',
+                            annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>',
+                        },
+                        {
+                            name: '',
+                            id: 'rm3_',
+                            parent: 'rm',
+                            attributes: {
+                                position: 'Ban Kinh tế - Xã Hội<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '#f06292',
+                        },
+                        {
+                            name: '',
+                            id: 'rm_2',
+                            parent: 'rm3_',
+                            attributes: {
+                                position: '',
+                                units:
+                                    '<ul><li><b>NGUYỄN BIỆN TRƯỜNG VINH</b><br>Trưởng Ban</li><li><b>HOÀNG MINH THẮNG</ b > <br>Phó Trưởng Ban</ li > </ul>',
+                            },
+                            label_style_fontSize: 12,
+                            color: '#f06292',
+                            annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>',
+                        },
+                        {
+                            name: 'Phó Chủ tịch Hội Nông dân Thành phố',
+                            id: 't',
+                            parent: 'dhr',
+                            attributes: {
+                                position: 'NUYỄN THỊ NGỌC HẠNH<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '',
+                        },
+                        {
+                            name: '',
+                            id: 'rm4_',
+                            parent: 't',
+                            attributes: {
+                                position: 'Văn phòng<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '#80cbc4',
+                        },
+                        {
+                            name: '',
+                            id: 't_',
+                            parent: 'rm4_',
+                            attributes: {
+                                position: '',
+                                units:
+                                    '<ul><li><b>NGUYỄN THỊ THANH TÂM</b><br>Quyền Chánh văn phòng</li><li><b>NGUYỄN HẢI TRUNG</b><br>Quyền Chánh văn phòng</li></ul>',
+                            },
+                            label_style_fontSize: 12,
+                            color: '#80cbc4',
+                            annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>',
+                        },
+                        {
+                            name: '',
+                            id: 'rm5_',
+                            parent: 't',
+                            attributes: {
+                                position: 'Trung tâm Dạy nghề và <br> hỗ trợ nông dân<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '#ffd54f',
+                        },
+                        {
+                            name: '',
+                            id: 't_1',
+                            parent: 'rm5_',
+                            attributes: {
+                                position: '',
+                                units:
+                                    '<ul><li><b>NGUYỄN VĂN LƯỢNG</b><br>Giám đốc</li><li><b>NGUYỄN HỮU TÍNH</b><br>Phó Giám đốc</li><li><b>NGUYỄN VĂN TỦI</b><br>Phó Giám đốc</li></ul>',
+                            },
+                            label_style_fontSize: 12,
+                            color: '#ffd54f',
+                            annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>',
+                        },
+                    ],
+                },
+            ],
+        };
+
+        config.series[0].points.forEach(function (point) {
+            point.attributes.units = point.attributes.units.replace(/<li>/g, '<li style="background-color: %color;">');
+        });
+
+        var chart = JSC.chart('chartDiv', config);
+    </script>
+</body>
+</html>

@@ -24,11 +24,19 @@
     <tbody>
         @{
             int i = 0;
+            int css = 0;
+            string cssName = "";
         }
         @foreach (var item in Model)
         {
             i++;
-            <tr>
+            css++;
+            if (css > 4)
+            {
+                css = 1;
+            }
+            cssName = "tr" + css.ToString();
+            <tr class="@cssName">
                 <td class="align-middle">
                     @HtmlExtensions.MenuNhanSu(CurrentArea, CurrentController, item.HoVaTen, item.IDCanBo!.Value.ToString(),listRoles: listRoles)
                 </td>

@@ -39,17 +39,5 @@ namespace HoiNongDan.Models
         public String? GhiChu { get; set; }
         public NhanSuThongTinVM NhanSu { get; set; }
     }
-    public class BoiDuongMTVM : BoiDuongVM {
-        public QuaTrinhBoiDuong GetQuaTrinhBoiDuong(QuaTrinhBoiDuong obj) {
-            obj.MaHinhThucDaoTao = this.MaHinhThucDaoTao;
-            obj.NoiBoiDuong = this.NoiBoiDuong;
-            obj.NoiDung = this.NoiDung;
-            obj.NgayBatDau = this.NgayBatDau!.Value;
-            obj.NgayKetThuc = this.NgayKetThuc!.Value;
-            obj.GhiChu = this.GhiChu;
-            obj.IDCanBo = this.NhanSu.IdCanbo!.Value;
-            this.FileDinhKem = this.FileDinhKem;
-            return obj;
-        }
-    }
+   
 }

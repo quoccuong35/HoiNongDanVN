@@ -94,7 +94,18 @@ namespace HoiNongDan.Models
             return lists;
         }
     }
+    public class AccountInfo {
+        public Guid AccountId { get; set;}
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "UserName")]
+        public string UserName { get; set; }
 
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
+        public string FullName { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "PassWordNew")]
+        public string PassWordNew { get; set; }
+    }
     public class UserRoles
     { 
         public Guid RolesId { get; set; }

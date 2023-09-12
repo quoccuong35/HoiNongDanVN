@@ -76,8 +76,10 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                                 new Claim(ClaimTypes.Name,user.UserName),
                                 new Claim(ClaimTypes.Sid,user.AccountId.ToString()),
                                  new Claim("FullName",user.FullName.ToString()),
-                                new Claim(ClaimTypes.PrimarySid,user.EmployeeId==null?"":user.EmployeeId.ToString()),
+                                new Claim(ClaimTypes.PrimarySid,user!.EmployeeId==null?"":user!.EmployeeId.ToString()),
+                                new Claim("Id",user.AccountId.ToString()),
                                 new Claim("Roles",PagePermission(user.AccountId))
+                               
                             };
                             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
                                 CookieAuthenticationDefaults.AuthenticationScheme);

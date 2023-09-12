@@ -1,4 +1,5 @@
-﻿using HoiNongDan.Models.Entitys.NhanSu;
+﻿using HoiNongDan.Models.Entitys;
+using HoiNongDan.Models.Entitys.NhanSu;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,11 +14,10 @@ namespace HoiNongDan.Models
         [MaxLength(50)]
         public string MaHinhThucDaoTao { get; set; }
         public string TenHinhThucDaoTao { get; set; }
-        public ICollection<QuaTrinhDaoTao> QuaTrinhDaoTaos { get; set; }
-        public ICollection<QuaTrinhBoiDuong> QuaTrinhBoiDuongs { get; set; }
-        public HinhThucDaoTao() {
-            QuaTrinhDaoTaos = new List<QuaTrinhDaoTao>();
-            QuaTrinhBoiDuongs = new List<QuaTrinhBoiDuong>();
+        public ICollection<DaoTaoBoiDuong> DaoTaoBoiDuongs { get; set; }
+        public HinhThucDaoTao()
+        {
+            DaoTaoBoiDuongs = new List<DaoTaoBoiDuong>();
         }
     }
 }

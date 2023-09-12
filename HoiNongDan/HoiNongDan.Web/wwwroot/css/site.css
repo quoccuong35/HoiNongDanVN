@@ -161,13 +161,14 @@ p, a, span, div {
     border-top: 4px dotted blue;
 }
 
-#banner-test {
+#banner-cs {
     background: url("/Images/banner.png");
-    background-repeat: no-repeat;
-    background-position: left left;
+    background-repeat: round;
     background-size: cover;
-    height: 130px;
+    height: 100px;
     background-color: white;
+    width: 100%;
+
 }
 
 .side-app {
@@ -177,9 +178,41 @@ p, a, span, div {
 }
 
 .app-header, .app-sidebar {
-    top: 130px;
+    top: 0px;
+}
+.side-header-title {
+    display: none;
+}
+.header-brand-img.desktop-logo {
+    display: block !important;
+}
+.sidenav-toggled .side-header-title {
+    opacity: 0;
 }
 
-.side-header {
-    display: none;
+.sidenav-toggled.sidenav-toggled-open .header-brand-img.desktop-logo {
+   width:60px;
+   height:60px;
+}
+.dark-menu.dark-header .header-brand-img.desktop-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin:5px;
+}
+.sidenav-toggled.sidenav-toggled-open .side-header-title {
+    opacity: 1;
+}
+
+.tr1 {
+    background-color: #dff0d8;
+}
+.tr2 {
+    background-color: #f2dede;
+}
+.tr3 {
+    background-color: #fcf8e3;
+}
+.tr4 {
+    background-color: white;
 }

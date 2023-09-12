@@ -163,7 +163,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 }
             });
         }
-        #endregion Delete
+        #endregion Edit
         #region Del
         [HttpDelete]
         [HoiNongDanAuthorization]

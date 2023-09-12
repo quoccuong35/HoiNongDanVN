@@ -32,11 +32,19 @@
     <tbody>
         @{
             int i = 0;
+            int css = 0;
+            string cssName = "";
         }
         @foreach (var item in Model)
         {
             i++;
-            <tr>
+            css++;
+            if (css > 4)
+            {
+                css = 1;
+            }
+            cssName = "tr" + css.ToString();
+            <tr class="@cssName">
                 <td class="text-center">@i</td>
                 <td>@Html.DisplayFor(p => item.MaCanBo)</td>
                 <td>@Html.DisplayFor(p => item.HoVaTen)</td>

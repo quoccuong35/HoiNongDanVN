@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     string controllerName = ConstController.DuyetHoiVien;
     string listRoles = User != null ? User.FindFirst("Roles").Value : "";
     string roles = controllerName + ":" + ConstFunction.Access;
@@ -20,7 +21,7 @@
     <!-- FAVICON -->
     <link rel="shortcut icon" href="~/Images/login.png" />
     <!-- TITLE -->
-    <title>Quản lý Hội Viên nông cân, cán bộ hội Nông Dân TP.HCM </title>
+    <title>Quản lý Hội Viên, Cán Bộ hội Nông Dân TP.HCM </title>
 
     <!-- BOOTSTRAP CSS -->
     <link id="style" href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -49,18 +50,34 @@
         .side-menu{
             padding:0px;
         }
+
+        .table th, .text-wrap table th {
+            color: white;
+            text-transform: none;
+            font-size: 0.875rem;
+            font-weight: 400;
+            background-color: #0e344f !important;
+        }
+        
     </style>
 
 </head>
-
-<body class="app sidebar-mini ltr dark-menu dark-header">
+<body class="app sidebar-mini ltr dark-menu dark-header sidenav-toggled">
 
     <!-- Switcher -->
 
     <div class="switcher-wrapper">
-        <div id="banner-test">
-            
-        </div>
+        @* <div id="banner-cs" class="d-flex" style="display:none">
+            <div class="banner-logo" style="margin-left:40px;display:flex;flex-direction:column;align-content:center;justify-content:center">
+                <img src="~/Images/login.png"/>
+            </div>
+            <div class="banner-title" style="display:flex;justify-content:center;align-content:center;flex-direction: column;margin-left:15px">
+                <br />
+                <h4 class="text-white fw-bold" style="animation: 2s anim-lineUp ease-out">PHẦN MỀM QUẢN LÝ</h4>
+                <h3 class="text-white fw-bold" style="animation: 2s anim-lineUp ease-out">HỘI VIÊN - CÁN BỘ HỘI NÔNG DÂN THÀNH PHỐ HỒ CHÍ MINH</h3>
+            </div>
+           
+        </div> *@
         <div class="demo_changer">
             <div class="form_holder sidebar-right1">
                 <div class="row">
@@ -397,19 +414,21 @@
         <div class="page-main">
 
             <!-- app-Header -->
-            <div class="app-header header sticky" id="app-header-test">
+            <div class="app-header header sticky" id="app-header-cs">
                 <div class="container-fluid main-container">
                     <div class="d-flex">
                         <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="javascript:void(0)"></a>
+                       
                         <!-- sidebar-toggle-->
                         <a class="logo-horizontal " href="index.html">
                             @*<img src="~/Images/logo-menu.png" class="header-brand-img desktop-logo" alt="logo">*@
                         </a>
                         <!-- LOGO -->
-                        <div class="main-header-center ms-3 d-none d-lg-none" style="display:none">
-                            <input type="text" class="form-control" id="typehead" placeholder="Search for results~." autocomplete="off">
-                            <button class="btn px-0 pt-2"><i class="fe fe-search" aria-hidden="true"></i></button>
+                        <div class="main-header-center ms-3 d-none d-lg-block">
+                            <input type="text" class="form-control" style="background:white; color:black" id="typehead" placeholder="Tìm kiếm..." autocomplete="off">
+                            <button class="btn px-0 pt-2"><i class="fe fe-search" style="color:#0e344f" co aria-hidden="true"></i></button>
                         </div>
+                        
                         <div class="d-flex order-lg-2 ms-auto header-right-icons">
                             <!-- SEARCH -->
                             <button class="navbar-toggler navresponsive-toggler d-lg-none ms-auto" type="button"
@@ -649,6 +668,9 @@
                                         <!-- SIDE-MENU -->
                                         @if (User.Identity.IsAuthenticated)
                                         {
+                                            <div class="text-white fw-bold">
+                                                @User.FindFirst("FullName")!.Value.ToUpper()
+                                            </div>
                                             <div class="dropdown d-flex profile-1">
                                                 <a href="javascript:void(0)" data-bs-toggle="dropdown" class="nav-link leading-none d-flex">
                                                     <img src="~/Images/avatar5.png" alt="profile-user"
@@ -658,11 +680,11 @@
                                                     <div class="drop-heading">
                                                         <div class="text-center">
                                                             <h5 class="text-dark mb-0 fs-14 fw-semibold">@User.Identity!.Name</h5>
-                                                            <small class="text-muted">@User.FindFirst("FullName")!.Value</small>
+                                                            <small class="text-muted"></small>
                                                         </div>
                                                     </div>
                                                     <div class="dropdown-divider m-0"></div>
-                                                    <a class="dropdown-item" href="#">
+                                                    <a class="dropdown-item btn-userinfo" href="#" data-id="@User.FindFirst("Id")!.Value">
                                                         <i class="dropdown-icon fe fe-user"></i> Thông tin
                                                     </a>
                                                     <a asp-area="@ConstArea.Permission" asp-controller="Auth" asp-action="LogOut" class="dropdown-item">
@@ -684,8 +706,15 @@
             <!--APP-SIDEBAR-->
             <div class="sticky">
                 <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
-                <div class="app-sidebar" id="app-sidebar-test">
-                   
+                <div class="app-sidebar" id="app-sidebar-cs">
+                    <div class="side-header">
+                        <img src="~/Images/login.png" class="header-brand-img desktop-logo" alt="logo">
+                        <div class="side-header-title" style="display:flex;justify-content:center;align-content:center;flex-direction: column;margin-left:5px">
+                            <p class="text-white fw-bold" style="margin-bottom:5px;">PHẦN MỀM QUẢN LÝ</p>
+                            <p class="text-white fw-bold" style="font-size:11px">HỘI VIÊN - CÁN BỘ HỘI NÔNG DÂN THÀNH PHỐ HỒ CHÍ MINH</p>
+                        </div>
+                        <!-- LOGO -->
+                    </div>
                     <div class="main-sidemenu">
                         <div class="slide-left disabled" id="slide-left"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z" /></svg></div>
                         <ul class="side-menu">
@@ -701,12 +730,12 @@
                                     <li class="side-menu-label1"><a href="javascript:void(0)">QL Cán Bộ Hội ND TP.HCM </a></li>
                                     <li>
                                         <a class="slide-item" asp-controller="@ConstController.CanBo" asp-area="@ConstArea.NhanSu" asp-action="Index">
-                                            QL Cán Bộ Hội Nông Dân  TP.HCM
+                                            Cán Bộ Hội Nông Dân TP.HCM
                                         </a>
                                     </li>
                                     <li>
                                         <a class="slide-item" asp-controller="@ConstController.CanBo" asp-area="@ConstArea.NhanSu" asp-action="CBBanChapHanh">
-                                            Ban chấp hành <br /> Hội Nông Dân  TP.HCM
+                                            Ban chấp hành <br /> Hội Nông Dân TP.HCM
                                         </a>
                                     </li>
                                     <li> 
@@ -716,7 +745,7 @@
                                     </li>
                                      <li>
                                         <a class="slide-item" href="#">
-                                            Cán bộ Hội Nông Dân <br /> TP.Thủ Đức H,Q,X,P
+                                            Cán bộ Hội Nông Dân TP.Thủ Đức<br /> Huyện, Quận, Xã, Phường
                                         </a>
                                     </li>
                                     <li>
@@ -726,7 +755,7 @@
                                     </li>
                                     <li>
                                         <a class="slide-item" asp-controller="@ConstController.HVDap" asp-area="@ConstArea.HoiVien" asp-action="Index">
-                                            Quản Lý Hỏi Đáp Hội
+                                            Hỏi Đáp Hội Viên
                                         </a>
                                     </li>
                                 </ul>
@@ -1392,7 +1421,7 @@
             </div>
         </footer>
         <partial name="_ImportPartial" />
-        
+        <partial name="_UserInfo" />
         <!-- FOOTER CLOSED -->
     </div>
 
@@ -1491,16 +1520,27 @@
             }
         });
     });
-    document.addEventListener("scroll", (event) => {
-        let lastKnownScrollPosition = window.scrollY;
-        if (lastKnownScrollPosition > 6) {
-            document.getElementById("app-header-test").style.top = 0;
-            document.getElementById("app-sidebar-test").style.top = 0;
-        }
-        else {
-            var test = document.getElementById("app-header-test").style.top = "130px";
-            document.getElementById("app-sidebar-test").style.top = "130px";
-        }
+    // document.addEventListener("scroll", (event) => {
+    //     let lastKnownScrollPosition = window.scrollY;
+    //     if (lastKnownScrollPosition > 5) {
+    //         document.getElementById("app-header-cs").style.top = 0;
+    //         document.getElementById("app-sidebar-cs").style.top = 0;
+    //     }
+    //     else {
+    //         var test = document.getElementById("app-header-cs").style.top = "100px";
+    //         document.getElementById("app-sidebar-cs").style.top = "100px";
+    //     }
 
-    });
+    // });
+    // disable right click menu
+    // document.addEventListener("contextmenu", e => e.preventDefault(), false);
+    // document.addEventListener("keydown", e => {
+    //     // USE THIS TO DISABLE CONTROL AND ALL FUNCTION KEYS
+    //     // if (e.ctrlKey || (e.keyCode>=112 && e.keyCode<=123)) {
+    //     // THIS WILL ONLY DISABLE CONTROL AND F12
+    //     if (e.ctrlKey || e.keyCode == 123) {
+    //         e.stopPropagation();
+    //         e.preventDefault();
+    //     }
+    // });
 </script>

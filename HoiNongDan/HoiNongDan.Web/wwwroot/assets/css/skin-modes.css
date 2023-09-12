@@ -185,7 +185,7 @@
 /*Header-dark*/
 .dark-header .app-header,
 .dark-header .hor-header {
-    background: rgb(46, 54, 64) !important;
+    background: #0052cc;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 

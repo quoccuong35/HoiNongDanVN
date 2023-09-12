@@ -18,7 +18,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         private readonly IWebHostEnvironment _hostEnvironment;
         private string[] DateFomat;
         const string controllerCode = ConstExcelController.HoiVien;
-        const int startIndex = 12;
+        const int startIndex = 13;
         public BCThucLucHoiQuyController(AppDbContext context, IWebHostEnvironment hostEnvironment, IConfiguration config) : base(context)
         {
             _hostEnvironment = hostEnvironment;

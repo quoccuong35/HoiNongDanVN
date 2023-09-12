@@ -199,7 +199,34 @@ License        :   Licensed under ThemeForest License
     --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
+@keyframes anim-lineUp {
+    0% {
+        opacity: 0;
+        transform: translateY(80%);
+    }
 
+    20% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+.banner-logo > img {
+    width: 100%;
+    height: 90%
+}
+.table-striped tbody tr.odd.selected, .table-striped tbody tr.even.selected {
+    background: #136d38;
+    color: white;
+}
 * {
     box-sizing: border-box;
 }
@@ -8662,7 +8689,14 @@ body.fixed-header .page {
     border: 1px solid transparent;
     border-radius: 5px;
 }
-
+.page-header-fix {
+    position: sticky;
+    top: 50px;
+    z-index: 100;
+    background: #f6f6fb;
+    width:100%;
+    margin:inherit 0px;
+}
 .page-title {
     margin: 0;
     font-size: 20px;
@@ -8930,7 +8964,7 @@ body.fixed-header .page {
     margin-top: 0 !important;
     margin-bottom: 0 !important;
     font-size: 16px !important;
-    color: inherit !important;
+    color: white !important;
 }
 
 .expanel {
@@ -8943,7 +8977,8 @@ body.fixed-header .page {
 }
 
 .expanel-default > .expanel-heading {
-    background-color: var(--primary005) !important;
+    /*background-color: var(--primary005) !important;*/
+    background-color:rgb(15,53,79);
     border-color: #f6f6fb !important;
 }
 
@@ -23382,8 +23417,8 @@ ul.timeline {
 
 .header {
     background: #fff;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
     border-bottom: 1px solid #e9edf4;
 }
 
@@ -36282,7 +36317,8 @@ div.table-responsive > div.dataTables_wrapper > div.row {
     }
 
 .dataTables_wrapper .selected {
-    background: #f6f6fb;
+    background: #136d38;
+    color: white;
     cursor: pointer;
 }
 
@@ -62735,7 +62771,7 @@ ul {
     display: flex;
     border-bottom: 1px solid #e9edf4;
     border-right: 1px solid #e9edf4;
-    padding: 19px 17px;
+    padding: 5px 5px;
     align-items: center;
     -webkit-transition: left 0.3s ease, width 450ms ease;
     -o-transition: left 0.3s ease, width 450ms ease;
@@ -71622,7 +71658,7 @@ button.bg-lime-darkest:focus {
 }
 
 .bg-blue {
-    background: #3223f1;
+    background: #0e344f;
     color: #fff !important;
 }
 

@@ -100,8 +100,8 @@
                         <ul class="nav panel-tabs panel-info">
                             <li><a href="#tabcanbo" class="active" data-bs-toggle="tab"><span><i class="fa fa-id-card-o me-1"></i></span>Thông tin thêm</a></li>
                             <li><a href="#tab21" data-bs-toggle="tab"><span><i class="fa fa-group me-1"></i></span>Quan hệ gia đình</a></li>
-                            <li><a href="#tab22" data-bs-toggle="tab"><span><i class="fa fa-graduation-cap me-1"></i></span>Đào tạo</a></li>
-                            <li><a href="#tab23" data-bs-toggle="tab"><span><i class="fa fa-laptop me-1"></i></span>Bồi dưỡng</a></li>
+                            @* <li><a href="#tab22" data-bs-toggle="tab"><span><i class="fa fa-graduation-cap me-1"></i></span>Đào tạo</a></li>
+                            <li><a href="#tab23" data-bs-toggle="tab"><span><i class="fa fa-laptop me-1"></i></span>Bồi dưỡng</a></li> *@
                             <li><a href="#tab24" data-bs-toggle="tab"><span><i class="fa fa-user-plus me-1"></i></span>Bỗ nhiệm</a></li>
                             <li><a href="#tabkhenthuong" data-bs-toggle="tab"><span><i class="fa fa-gift me-1"></i></span>Khen thưởng</a></li>
                             <li><a href="#tabkyluat" data-bs-toggle="tab"><span><i class="fa fa-times-rectangle-o me-1"></i></span>Kỷ luật</a></li>
@@ -179,12 +179,12 @@
                                 @Html.Partial("~/Areas/NhanSu/Views/QHGiaDinh/_Search.cshtml", Model.QHGiaDinh)
                             </div>
                         </div>
-                        <div class="tab-pane" id="tab22">
+                        @* <div class="tab-pane" id="tab22">
                             <div class="row table-responsive">@Html.Partial("~/Areas/NhanSu/Views/DaoTao/_Search.cshtml", Model.DaoTao)</div>
-                        </div>
-                        <div class="tab-pane" id="tab23">
+                        </div> *@
+                        @* <div class="tab-pane" id="tab23">
                             <div class="row table-responsive">@Html.Partial("~/Areas/NhanSu/Views/BoiDuong/_Search.cshtml", Model.BoiDuong)</div>
-                        </div>
+                        </div> *@
                         <div class="tab-pane" id="tab24">
                             <div class="row table-responsive">@Html.Partial("~/Areas/NhanSu/Views/BoNhiem/_Search.cshtml", Model.BoNhiem)</div>
                         </div>
