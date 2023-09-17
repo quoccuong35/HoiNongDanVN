@@ -41,6 +41,7 @@
         public const string BoNhiem = "BoNhiem";
         public const string MienNhiem = "MienNhiem";
         public const string CBQuaTrinhLuong = "CBQuaTrinhLuong";
+        public const string Dashboard = "Dashboard";
 
 
         #endregion NhanSu
@@ -61,5 +62,6 @@
         public const string HRMS = "HRMS";
         public const string NhanSu = "NhanSu";
         public const string HoiVien = "HoiVien";
+        public const string Dashboard = "Dashboard";
     }
 }

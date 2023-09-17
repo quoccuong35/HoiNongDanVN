@@ -1,0 +1,14 @@
+﻿[
+  {
+    "outputFile": "wwwroot/assets/css/skin-modes.css",
+    "inputFile": "wwwroot/assets/css/skin-modes.scss"
+  },
+  {
+    "outputFile": "wwwroot/assets/scss/utilities/_alignments.css",
+    "inputFile": "wwwroot/assets/scss/utilities/_alignments.scss"
+  },
+  {
+    "outputFile": "wwwroot/assets/scss/utilities/_background.css",
+    "inputFile": "wwwroot/assets/scss/utilities/_background.scss"
+  }
+]

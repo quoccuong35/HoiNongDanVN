@@ -3077,16 +3077,20 @@
         background-color: $dark-body;
         border: 1px solid $border-dark;
     }
+
     .onoffswitch2-label:before {
-        background-color: #2a2a4a;
+        background-color: #233ac5;
         border: 1px solid $border-dark;
     }
+
     .input-color-picker {
         background-color: $dark-theme-1;
     }
+
     .input-dark-color-picker {
         background-color: $dark-theme-1;
     }
+
     .input-transparent-color-picker {
         background-color: $dark-theme-1;
     }
@@ -3331,24 +3335,29 @@
             background: $transparent-theme;
             border: 1px solid $border-dark;
         }
+
         .main-sidemenu .slide-left svg,
         .main-sidemenu .slide-right svg {
             fill: $white;
         }
+
         &.light-menu .main-sidemenu .slide-left,
         &.light-menu .main-sidemenu .slide-right {
             background: $white;
             border: 1px solid $border;
         }
+
         &.light-menu .main-sidemenu .slide-left svg,
         &.light-menu .main-sidemenu .slide-right svg {
             fill: $default-color;
         }
+
         &.color-menu.sidenav-toggled.sidenav-toggled-open .app-sidebar {
             background: $primary-1 !important;
         }
+
         &.dark-menu.sidenav-toggled.sidenav-toggled-open .app-sidebar {
-            background: #2a2a4a !important;
+            background: #233ac5 !important;
         }
     }
 }

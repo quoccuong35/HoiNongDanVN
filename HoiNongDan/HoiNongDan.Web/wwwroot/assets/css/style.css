@@ -157,12 +157,12 @@ License        :   Licensed under ThemeForest License
 /*Transparent variables*/
 /* ###### Bootstrap ###### */
 :root {
-    --primary-bg-color: #0e344f;
+    --primary-bg-color: #136d38;
     --primary-bg-hover: #233ac5;
     --primary-bg-border: #5161c1;
     --dark-body: #292e4a;
     --dark-border: #30314e;
-    --transparent-primary: #0e344f;
+    --transparent-primary: #136d38;
     --transparent-body: #584cd9;
     --transparent-theme: rgba(0, 0, 0, 0.2);
     --transparent-border: rgba(255, 255, 255, 0.1);
@@ -173,7 +173,7 @@ License        :   Licensed under ThemeForest License
     --transparentprimary-transparentcolor: rgba(255, 255, 255, 0.05);
     --indigo: #4b0082;
     /*--purple: #6f42c1;*/
-    --purple: #0e344f;
+    --purple: #136d38;
     --pink: #fc5296;
     --orange: #fd7e14;
     --yellow: #FBB034;
@@ -183,7 +183,7 @@ License        :   Licensed under ThemeForest License
     --white: #ffffff;
     --gray: #6c757d;
     --gray-dark: #343a40;
-    --primary: #0e344f;
+    --primary: #136d38;
     --secondary: #6c757d;
     --success: #28a745;
     --info: #17a2b8;
@@ -196,8 +196,7 @@ License        :   Licensed under ThemeForest License
     --breakpoint-md: 768px;
     --breakpoint-lg: 992px;
     --breakpoint-xl: 1200px;
-    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --font-family-sans-serif: roboto-regular;
 }
 @keyframes anim-lineUp {
     0% {
@@ -264,17 +263,19 @@ section {
 
 body {
     margin: 0;
-    font-family: "Segoe UI", sans-serif;
+    font-family: roboto-regular;
     font-size: 14px;
     font-weight: 400;
     line-height: 1.5;
     color: #282f53;
     text-align: left;
-    background-color: #f0f0f5;
-    /*background-image: url("/Images/background.png");*/
+    background-color: #FFF;
+    background-image: url("/Images/bg_new.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .backgroundImg {
-    background: url("Images/1538363015991upload_00002612.png") no-repeat;
+    background: url("Images/bg_new.jpg") no-repeat;
     height: 270px;
     background-size: 100%;
     position: inherit;
@@ -296,6 +297,11 @@ hr {
 p {
     margin-top: 0;
     margin-bottom: 1rem;
+}
+
+.f-hbar {
+    width: 80%;
+    padding-left: 15%;
 }
 
 abbr[title],
@@ -395,7 +401,7 @@ pre,
 code,
 kbd,
 samp {
-    font-family: monospace, monospace;
+    font-family: roboto-regular;
     font-size: 1em;
 }
 
@@ -554,7 +560,7 @@ code,
 kbd,
 pre,
 samp {
-    font-family: Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: roboto-regular;
 }
 
 code {
@@ -611,17 +617,26 @@ pre {
         padding-right: 0.75rem;
         padding-left: 0.75rem;
     }
+    .login-title {
+        font-size: 16px !important;
+    }
 }
 
 @media (min-width: 576px) {
     .container {
         max-width: 540px;
     }
+    .login-title {
+        font-size: 16px !important;
+    }
 }
 
 @media (min-width: 768px) {
     .container {
         max-width: 720px;
+    }
+    .login-title {
+        font-size: 16px !important;
     }
 }
 
@@ -813,7 +828,7 @@ pre {
         .text-wrap table th,
         .table-bordered td,
         .text-wrap table td {
-            border: 1px solid #e9edf4 !important;
+            border: 1px solid #136d38 !important;
         }
 }
 
@@ -837,16 +852,16 @@ body {
 
     body *::-webkit-scrollbar {
         width: 2px;
-        height: 6px;
+        height: 10px;
         transition: 0.3s background;
     }
 
     body *::-webkit-scrollbar-thumb {
-        background: #f6f6fb;
+        background: #09ad95;
     }
 
     body *:hover::-webkit-scrollbar-thumb {
-        background: #f6f6fb;
+        background: #09ad95;
     }
 
 @media print {
@@ -8690,10 +8705,10 @@ body.fixed-header .page {
     border-radius: 5px;
 }
 .page-header-fix {
-    position: sticky;
+    position: inherit;
     top: 50px;
     z-index: 100;
-    background: #f6f6fb;
+    background-color: transparent;
     width:100%;
     margin:inherit 0px;
 }
@@ -8885,7 +8900,7 @@ body.fixed-header .page {
 .panel-heading1 a.collapsed:before {
     content: "\e9af";
     position: absolute;
-    font-family: "feather" !important;
+    font-family: roboto-regular !important;
     right: 16px;
     top: 15px;
     font-size: 15px;
@@ -8896,7 +8911,7 @@ body.fixed-header .page {
 .panel-heading1 a:before {
     content: "\e994";
     position: absolute;
-    font-family: "feather" !important;
+    font-family: roboto-regular;
     right: 16px;
     top: 15px;
     font-size: 15px;
@@ -11349,6 +11364,7 @@ a.tag-addon {
     min-height: 1px;
     padding-right: 0.75rem;
     padding-left: 0.75rem;
+    margin-top: 50p;
 }
 
 .col {
@@ -14179,7 +14195,7 @@ a.icon {
     *:after {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
-        box-sizing: border-box;
+        box-sizing: ;
     }
 
 #back-to-top {
@@ -14575,7 +14591,7 @@ a.icon {
     font-size: 18px;
     position: absolute;
     right: 4px;
-    font-family: "feather";
+    font-family: roboto-regular;
     z-index: 1029;
     line-height: 1;
     color: #fff;
@@ -15464,7 +15480,7 @@ small,
 
 [class^=ri-],
 [class*=" ri-"] {
-    font-family: "remixicon" !important;
+    font-family: roboto-regular;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -17418,6 +17434,7 @@ table.table-bordered.dataTable thead tr:first-child td {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.06);
     border-radius: 5px;
     z-index: 1;
+    width: 450px;
 }
 
 .container-login100 {
@@ -17503,12 +17520,12 @@ table.table-bordered.dataTable thead tr:first-child td {
     line-height: 1.5;
     color: #000;
     display: block;
-    width: 80%;
+    width: 1%;
     background: #ffffff;
     height: 44px;
     padding: 0 30px 0 20px;
     border-radius: 5px;
-    border: 1px solid #ecf0fa;
+    /*border: 1px solid #ecf0fa;*/
 }
 
 .offcanvas {
@@ -18289,7 +18306,7 @@ table.table-bordered.dataTable thead tr:first-child td {
 }
 
 .fw-bold {
-    font-weight: 700 !important;
+    font-weight: 400 !important;
 }
 
 .font-italic {
@@ -18822,7 +18839,7 @@ img {
             }
 
                 .landing-top-header .top .nav li a.active {
-                    color: #0e344f;
+                    color: #136d38;
                 }
 
 @media (max-width: 992px) {
@@ -18851,7 +18868,7 @@ img {
 .nav-pills .show > .nav-link {
     background-color: transparent;
     font-weight: bold;
-    color: #0e344f;
+    color: #136d38;
 }
 
 .logo-demo {
@@ -18959,7 +18976,7 @@ img {
             position: absolute;
             content: "";
             height: 8px;
-            border: 2px solid #0e344f;
+            border: 2px solid #136d38;
             margin: 0px auto;
             transform: rotate(45deg);
             width: 8px;
@@ -19218,7 +19235,7 @@ img {
     }
 
     .landing-page .landing-title {
-        background: linear-gradient(to right, transparent, #0e344f, transparent);
+        background: linear-gradient(to right, transparent, #136d38, transparent);
         height: 1px;
         margin: 0px auto;
         width: 70px !important;
@@ -19379,11 +19396,11 @@ img {
 }
 
 .landing-page #faqs .card.bg-primary-transparent .card-header {
-    border-left: 5px solid #0e344f;
+    border-left: 5px solid #136d38;
 }
 
     .landing-page #faqs .card.bg-primary-transparent .card-header .card-options-collapse i {
-        background-color: #0e344f;
+        background-color: #136d38;
     }
 
     .landing-page #faqs .card.bg-primary-transparent .card-header a:hover {
@@ -19391,7 +19408,7 @@ img {
     }
 
 .landing-page #faqs .card.bg-primary-transparent .card-body {
-    border-left: 5px solid #0e344f;
+    border-left: 5px solid #136d38;
     border-radius: 0 0 7px 7px;
 }
 
@@ -19507,7 +19524,7 @@ img {
     height: 35px;
     width: 35px;
     background-color: #fff;
-    border: 1px solid #0e344f;
+    border: 1px solid #136d38;
     font-size: 14px;
     line-height: 2.3;
 }
@@ -20048,7 +20065,7 @@ img {
     .landing-page
 
 {
-    font-family: feather;
+    font-family: roboto-regular;
     src: url(fonts/feather-webfont.eot?t=1501841394106);
     src: url(fonts/feather-webfont.eot?t=1501841394106#iefix) format("embedded-opentype"), url(fonts/feather-webfont.woff?t=1501841394106) format("woff"), url(fonts/feather-webfont.ttf?t=1501841394106) format("truetype"), url(fonts/feather-webfont.svg?t=1501841394106#feather) format("svg");
 }
@@ -20118,7 +20135,7 @@ img {
 
     .landing-page .slick-prev:before,
     .landing-page .slick-next:before {
-        font-family: "feather";
+        font-family: roboto-regular;
         font-size: 20px;
         padding: 10px;
         line-height: 1;
@@ -20266,7 +20283,7 @@ img {
 
 @media (max-width: 992px) {
     .dark-mode.landing-page .app-sidebar.horizontal-main {
-        background-color: #2a2a4a !important;
+        background-color: rgb(46, 54, 64) !important;
     }
 }
 
@@ -20358,12 +20375,12 @@ img {
 }
 
 .rtl.landing-page #faqs .card.bg-primary-transparent .card-header {
-    border-right: 5px solid #0e344f;
+    border-right: 5px solid #136d38;
     border-left: inherit;
 }
 
 .rtl.landing-page #faqs .card.bg-primary-transparent .card-body {
-    border-right: 5px solid #0e344f;
+    border-right: 5px solid #136d38;
     border-left: inherit;
 }
 
@@ -26004,7 +26021,7 @@ svg {
 
 /*-----Feather icons-----*/
 @font-face {
-    font-family: "feather";
+    font-family: roboto-regular;
     src: url("../iconfonts/feather/fonts/feather-webfont.eot?t=1501841394106");
     /* IE9*/
     src: url("../iconfonts/feather/fonts/feather-webfont.eot?t=1501841394106#iefix") format("embedded-opentype"), url("../iconfonts/feather/fonts/feather-webfont.woff?t=1501841394106") format("woff"), url("../iconfonts/feather/fonts/feather-webfont.ttf?t=1501841394106") format("truetype"), url("../iconfonts/feather/fonts/feather-webfont.svg?t=1501841394106#feather") format("svg");
@@ -26012,7 +26029,7 @@ svg {
 }
 
 .fe {
-    font-family: "feather" !important;
+    font-family: roboto-regular !important;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
@@ -27075,7 +27092,7 @@ svg {
 }
 
 @font-face {
-    font-family: "Glyphicons Halflings";
+    font-family: roboto-regular;
     src: url("../iconfonts/glyphicons/fonts/glyphicons-halflings-regular.eot");
     src: url("../iconfonts/glyphicons/fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../iconfonts/glyphicons/fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("../iconfonts/glyphicons/fonts/glyphicons-halflings-regular.woff") format("woff"), url("../iconfonts/glyphicons/fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../iconfonts/glyphicons/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg");
 }
@@ -27084,7 +27101,7 @@ svg {
     position: relative;
     top: 1px;
     display: inline-block;
-    font-family: "Glyphicons Halflings";
+    font-family: roboto-regular;
     font-style: normal;
     font-weight: normal;
     line-height: 1;
@@ -33499,7 +33516,7 @@ body.rtl {
         .accordionjs .acc_section.acc_active .acc_head h3:before {
             content: "\e995";
             position: absolute;
-            font-family: "feather" !important;
+            font-family: roboto-regular;
             left: 13px;
             color: #fff;
             top: 14px;
@@ -33511,7 +33528,7 @@ body.rtl {
         .accordionjs .acc_section .acc_head h3:before {
             content: "\e9b0";
             position: absolute;
-            font-family: "feather" !important;
+            font-family: roboto-regular;
             left: 12px;
             top: 14px;
             font-size: 15px;
@@ -34938,7 +34955,7 @@ div.dt-buttons a.btn.processing {
 .c3 svg {
     font: 10px sans-serif;
     -webkit-tap-highlight-color: transparent;
-    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-family: roboto-regular;
 }
 
 .c3 path,
@@ -35335,7 +35352,7 @@ div.dt-buttons a.btn.processing {
 .cal2 {
     max-width: 177px;
     margin: 30px auto;
-    font-family: "Droid Sans Mono";
+    font-family: roboto-regular;
 }
 
     .cal2 .clndr .clndr-controls {
@@ -35457,7 +35474,7 @@ div.dt-buttons a.btn.processing {
 .cal3 {
     max-width: 354px;
     margin: 0 auto;
-    font-family: "Droid Sans Mono";
+    font-family: roboto-regular;
 }
 
     .cal3 .cal {
@@ -35616,7 +35633,7 @@ div.dt-buttons a.btn.processing {
         width: 2em;
         padding: 0.5em;
         cursor: pointer;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+        font-family: roboto-regular;
         border-radius: 0.15em;
         background: url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" stroke="%2342445A" stroke-width="5px" stroke-linecap="round"><path d="M45,45L5,5"></path><path d="M45,5L5,45"></path></svg>') no-repeat center;
         background-size: 0;
@@ -35724,7 +35741,7 @@ div.dt-buttons a.btn.processing {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s, visibility 0s 0.3s;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+    font-family: roboto-regular;
     box-shadow: 0 0.15em 1.5em 0 rgba(0, 0, 0, 0.1), 0 0 1em 0 rgba(0, 0, 0, 0.03);
     left: 0;
     top: 0;
@@ -38465,7 +38482,7 @@ div.DTE_Bubble {
                 color: rgba(0, 0, 0, 0.5);
                 font-weight: bold;
                 font-size: 22px;
-                font-family: "Courier New", Courier, monospace;
+                font-family: roboto-regular;
             }
 
             div.DTE_Bubble div.DTE_Bubble_Liner div.DTE_Bubble_Close:hover:after {
@@ -38701,7 +38718,7 @@ div.DTED_Lightbox_Wrapper {
                         color: rgba(0, 0, 0, 0.5);
                         font-weight: bold;
                         font-size: 22px;
-                        font-family: "Courier New", Courier, monospace;
+                        font-family: roboto-regular;
                     }
 
                     div.DTED_Lightbox_Wrapper div.DTED_Lightbox_Container div.DTED_Lightbox_Content_Wrapper div.DTED_Lightbox_Content div.DTED_Lightbox_Close:hover:after {
@@ -38885,7 +38902,7 @@ div.DTED_Envelope_Wrapper {
                 color: rgba(0, 0, 0, 0.5);
                 font-weight: bold;
                 font-size: 22px;
-                font-family: "Courier New", Courier, monospace;
+                font-family: roboto-regular;
             }
 
             div.DTED_Envelope_Wrapper div.DTED_Envelope_Container div.DTED_Envelope_Close:hover:after {
@@ -39825,7 +39842,7 @@ div.DTE div.DTE_Processing_Indicator:after {
  * =============================================================
  */
 @font-face {
-    font-family: "dropify";
+    font-family: roboto-regular;
     src: url("../plugins/fileuploads/fonts/dropify.eot");
     src: url("../plugins/fileuploads/fonts/dropify.eot#iefix") format("embedded-opentype"), url("../plugins/fileuploads/fonts/dropify.woff") format("woff"), url("../plugins/fileuploads/fonts/dropify.ttf") format("truetype"), url("../plugins/fileuploads/fonts/dropify.svg#dropify") format("svg");
     font-weight: normal;
@@ -39836,7 +39853,7 @@ div.DTE div.DTE_Processing_Indicator:after {
 [class*=" dropify-font-"]:before,
 .dropify-font:before,
 .dropify-wrapper .dropify-message span.file-icon:before {
-    font-family: "dropify";
+    font-family: roboto-regular;
     font-style: normal;
     font-weight: normal;
     display: inline-block;
@@ -41832,7 +41849,7 @@ footer .pull-center {
 }
 
 @font-face {
-    font-family: "fcicons";
+    font-family: roboto-regular;
     src: url("data:application/x-font-ttf;charset=utf-8;base64,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") format("truetype");
     font-weight: normal;
     font-style: normal;
@@ -41849,7 +41866,7 @@ footer .pull-center {
     -ms-user-select: none;
     user-select: none;
     /* use !important to prevent issues with browser extensions that change fonts */
-    font-family: "fcicons" !important;
+    font-family: roboto-regular !important;
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
@@ -61960,7 +61977,7 @@ ul {
     }
 
     .app.sidebar-mini.sidenav-toggled .side-header {
-        width: 80px !important;
+        width: 70px !important;
     }
 
     .sidebar-mini footer.footer {
@@ -62124,7 +62141,7 @@ ul {
         content: "\e907";
         transition: all 0.25s;
         font-size: 21px;
-        font-family: "feather";
+        font-family: roboto-regular;
     }
 
     .app-sidebar__toggle:after {
@@ -62396,9 +62413,9 @@ ul {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    padding: 8px 8px;
-    font-size: 13.3px;
-    color: #74829c;
+    padding: 8px 20px 8px 0px;
+    font-size: 14px;
+    color: #FFF;
     white-space: nowrap;
 }
 
@@ -62500,7 +62517,7 @@ ul {
 
     .sidebar-mini.sidenav-toggled .app-sidebar {
         left: 0;
-        width: 80px;
+        width: 70px;
         overflow: hidden;
     }
 
@@ -63213,7 +63230,7 @@ ul {
         content: "\e907";
         transition: all 0.25s;
         font-size: 21px;
-        font-family: "feather";
+        font-family: roboto-regular;
     }
 
     .icontext-menu .app-sidebar__toggle:after {
@@ -64287,7 +64304,7 @@ ul {
         content: "\e907";
         transition: all 0.25s;
         font-size: 21px;
-        font-family: "feather";
+        font-family: roboto-regular;
     }
 
     .closed-leftmenu .app-sidebar__toggle:after {
@@ -64676,7 +64693,7 @@ ul {
 
     .closed-leftmenu.sidebar-mini.sidenav-toggled .app-sidebar {
         left: 0;
-        width: 80px;
+        width: 70px !important;
         overflow: hidden;
     }
 
@@ -66335,7 +66352,7 @@ ul {
         content: "\e907";
         transition: all 0.25s;
         font-size: 21px;
-        font-family: "feather";
+        font-family: roboto-regular;
     }
 
     .hover-submenu1 .app-sidebar__toggle:after {
@@ -66722,7 +66739,7 @@ ul {
 
     .hover-submenu1.sidebar-mini.sidenav-toggled .app-sidebar {
         left: 0;
-        width: 80px;
+        width: 70px !important;
         overflow: hidden;
     }
 
@@ -72292,6 +72309,19 @@ button.bg-lime:focus {
     display: flex !important;
 }
 
+.f-hbar {
+    width: 80%;
+    padding-left: 15%;
+}
+
+.f-title {
+    color:#FFF !important;
+    font-family:roboto-regular !important;
+    font-size:21px !important;
+    text-align:center;
+    vertical-align:middle;
+}
+
 .d-table {
     display: table !important;
 }
@@ -75523,6 +75553,10 @@ textarea {
     opacity: 0.9;
 }
 
+.text-title-transparent {
+    color: #fff !important;
+}
+
 .text-white-transparent-1 {
     color: #fff !important;
     opacity: 0.5;
@@ -75743,6 +75777,22 @@ a.text-dark:focus {
 
 .text-white {
     color: #fff !important;
+}
+
+.text-title {
+    color: #fff !important;
+    font-weight: 550 !important;
+    font-size: 18px !important;
+    font-family: roboto !important;
+    padding-top: 3px;
+}
+
+.login-title {
+    color: #136d38 !important;
+    font-weight: 700 !important;
+    font-size: 22px !important;
+    font-family: roboto !important;
+    padding-top: 15px;
 }
 
 .text-gray {
@@ -76069,4 +76119,4 @@ textarea.form-control {
     }
 }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.css.map *

@@ -27,6 +27,11 @@ namespace HoiNongDan.Web.Controllers
             return View("SoDo");
         }
 
+        public IActionResult Dashboard()
+        {
+            return View("Dashboard");
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

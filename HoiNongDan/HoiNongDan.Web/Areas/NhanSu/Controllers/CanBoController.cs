@@ -85,13 +85,14 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                     .Include(it => it.BacLuong)
                     .Include(it => it.ChucVu)
                     .Include(it => it.PhanHe)
-                    .Include(it=>it.DanToc)
-                    .Include(it=>it.TonGiao)
-                    .Include(it=>it.TrinhDoNgoaiNgu)
-                    .Include(it=>it.TrinhDoTinHoc)
-                    .Include(it=>it.TrinhDoChinhTri)
-                    .Include(it=>it.TrinhDoChuyenMon)
-                    .Include(it=>it.CoSo).Select(it => new CanBoDetailVM
+                    .Include(it => it.DanToc)
+                    .Include(it => it.TonGiao)
+                    .Include(it => it.TrinhDoHocVan)
+                    .Include(it => it.TrinhDoNgoaiNgu)
+                    .Include(it => it.TrinhDoTinHoc)
+                    .Include(it => it.TrinhDoChinhTri)
+                    .Include(it => it.TrinhDoChuyenMon)
+                    .Include(it => it.CoSo).Select(it => new CanBoDetailVM
                     {
                         MaCanBo = it.MaCanBo,
                         HoVaTen = it.HoVaTen,
@@ -102,8 +103,20 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                         TenChucVu = it.ChucVu.TenChucVu,
                         GioiTinh = (GioiTinh)it.GioiTinh,
                         NgaySinh = it.NgaySinh,
+                        ChoOHienNay = it.ChoOHienNay!,
+                        TenDanToc = it.DanToc.TenDanToc,
+                        TenTonGiao = it.TonGiao.TenTonGiao,
                         ChuyenNganh = it.ChuyenNganh,
-                        MaTrinhDoChinhTri = it.MaTrinhDoChinhTri,
+                        NgayVaoDangChinhThuc = it.NgayVaoDangChinhThuc,
+                        NgayvaoDangDuBi = it.NgayvaoDangDuBi,
+                        MaTrinhDoChinhTri = it.TrinhDoChinhTri.TenTrinhDoChinhTri,
+                        TrinhDoHocvan = it.TrinhDoHocVan.TenTrinhDoHocVan,
+                        MaTrinhDoChuyenMon = it.TrinhDoChuyenMon!.TenTrinhDoChuyenMon,
+                        TenTrinhDoNgoaiNgu = it.TrinhDoNgoaiNgu.TenTrinhDoNgoaiNgu,
+                        MaTrinhDoTinHoc = it.TrinhDoTinHoc.TenTrinhDoTinHoc,
+                        NgayVaoHoi = it.NgayVaoHoi,
+                        NgayThamGiaCapUyDang = it.NgayThamGiaCapUyDang,
+                        NgayThamGiaHDND = it.NgayThamGiaHDND,
                         NoiSinh = it.NoiSinh,
                         TenBacLuong = it.BacLuong.TenBacLuong,
                         TenNgachLuong = it.MaNgachLuong!,

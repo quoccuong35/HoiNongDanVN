@@ -94,6 +94,7 @@ namespace HoiNongDan.Models
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayNangBacLuong")]
         public DateTime? NgayNangBacLuong { get; set; }
+
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "PhuCapChucVu")]
         public decimal? PhuCapChucVu { get; set; }
 
@@ -198,6 +199,17 @@ namespace HoiNongDan.Models
         [DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayVaoDangChinhThuc")]
         public DateTime? NgayVaoDangChinhThuc { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayVaoHoi")]
+        public String? NgayVaoHoi { get; set; }
+
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayThamGiaCapUyDang")]
+        public String? NgayThamGiaCapUyDang { get; set; }
+
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayThamGiaHDND")]
+        public String? NgayThamGiaHDND { get; set; }
 
         [MaxLength(2000)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GhiChu")]

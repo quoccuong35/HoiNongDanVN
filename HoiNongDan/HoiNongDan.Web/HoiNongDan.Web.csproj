@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.14" />
@@ -26,6 +30,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Dashboard\Data\" />
+    <Folder Include="Areas\Dashboard\Models\" />
     <Folder Include="Areas\HoiVien\Data\" />
     <Folder Include="Areas\HoiVien\Models\" />
     <Folder Include="Areas\MasterData\Data\" />
@@ -39,6 +45,7 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="compilerconfig.json" />
     <None Include="wwwroot\assets\colors\color1.css.map" />
     <None Include="wwwroot\assets\colors\color1.scss" />
     <None Include="wwwroot\assets\css\dark-style.css.map" />

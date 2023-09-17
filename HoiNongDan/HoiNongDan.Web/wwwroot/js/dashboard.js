@@ -3,24 +3,17 @@
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["HCM", "Đồng Nai", "Bình Dương", "Long An"],
+            labels: ["Hoocmon", "Quận 12", "Củ Chi", "TP.Thủ Đức"],
             datasets: [
                 {
-                    label: "Cơ hữu- biên chế",
-                    data: [65, 59, 80, 81],
-                    borderColor: "#0e344f",
-                    borderWidth: "0",
-                    backgroundColor: "#0e344f"
-                },
-                {
-                    label: "Hợp đồng dài hạn",
+                    label: "Nam",
                     data: [28, 48, 40, 19],
                     borderColor: "#05c3fb",
                     borderWidth: "0",
                     backgroundColor: "#05c3fb"
                 },
                 {
-                    label: "Hợp đồng khoán",
+                    label: "Nữ",
                     data: [44, 22, 60, 36],
                     borderColor: "#09ad95",
                     borderWidth: "0",
@@ -64,10 +57,10 @@
     /* Pie Chart*/
     /* Pie Chart*/
     var datapie = {
-        labels: ['Cơ hữu- biên chế', 'Hợp đồng dài hạn', 'Hợp đồng khoán'],
+        labels: ['Nam', 'Nữ'],
         datasets: [{
-            data: [285, 135, 162],
-            backgroundColor: ['#0e344f', '#05c3fb', '#09ad95']
+            data: [285, 135],
+            backgroundColor: ['#05c3fb', '#09ad95']
         }]
     };
     var optionpie = {

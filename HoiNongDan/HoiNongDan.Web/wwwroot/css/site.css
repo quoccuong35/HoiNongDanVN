@@ -16,19 +16,34 @@
 }
 
 .splitter-head:after {
-        left: 0.5em;
-        margin-right: -50%;
-        width: 100%;
+
 }
 
-.splitter-head::before, .splitter-head:after {
+.splitter-head::before {
         content: "";
         display: inline-block;
         position: relative;
         vertical-align: baseline;
-        border-bottom: 1px dashed #003399;
+        border-bottom: 0px dashed #003399;
         line-height: 0.1em;
 }
+
+.splitter-head:after {
+        left: 0.5em;
+        margin-right: -50%;
+        width: 100%;
+        content: "";
+        display: inline-block;
+        position: relative;
+        vertical-align: baseline;
+        border-bottom: 0px dashed #003399;
+        line-height: 0.1em;
+        font-family: "FontAwesome";
+        font-weight: 900;
+        content: "\f0da";
+        color: #c60000;
+}
+
 .splitter-body{
     padding: 10px;
     height: 0px;
@@ -107,11 +122,11 @@
 }
 .header-info {
     position: absolute;
-    left: 170px;
+    left: 10px;
 }
 .footer-info {
     position:absolute;
-    left:170px;
+    left:10px;
 }
 .footer-logo {
     position: absolute;
@@ -119,15 +134,15 @@
 }
 .hnd-title {
     float: left;
-    width: 86%;
+    width: 100%;
     margin: 2% 0px 0px 11%;
-    font-size: 23px;
+    font-size: 21px;
     color: white;
     font-weight: bold;
 }
 .hdnd-inform {
     float: left;
-    width: 86%;
+    width: 100%;
     margin: 10px 0px 0px 11%;
     color: white;
     font-size: 16px;
@@ -141,8 +156,9 @@ main-footer1 {
 
 p, a, span, div {
     /*font-size: 1em !important;
-                           color: #000 !important;*/
-    font-family: wf_segoe-ui_normal, "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;
+                           color: #000 !important;
+    font-family: wf_segoe-ui_normal, "Segoe UI", "Segoe WP", Tahoma, Arial, sans-serif;*/
+    font-family: Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica Neue,Arial,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
     font-size: 14px;
 }
 
@@ -204,15 +220,15 @@ p, a, span, div {
     opacity: 1;
 }
 
-.tr1 {
+.tr2 {
     background-color: #dff0d8;
 }
-.tr2 {
+.tr4 {
     background-color: #f2dede;
 }
 .tr3 {
     background-color: #fcf8e3;
 }
-.tr4 {
+.tr1 {
     background-color: white;
 }

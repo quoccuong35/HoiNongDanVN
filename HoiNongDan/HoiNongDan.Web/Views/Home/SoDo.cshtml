@@ -18,10 +18,13 @@
             color: #424242;
             font-weight: normal;
         }
+        .name{
+            font-weight: bold;
+        }
 
         .units {
             white-space: pre-wrap;
-            width: 150px;
+            width: 180px;
             max-height: 100px;
             color: #212121;
             font-weight: normal;
@@ -49,14 +52,65 @@
         #brandingLogo{
             display:none;
         }
+
+        .container-c{
+            background-color:transparent !important;
+            width: auto;
+            height: 500px;
+        }
+
+        .container-2 {
+            background-color: transparent !important;
+            width: auto;
+            height: 250px;
+        }
+
+        .pres{
+            color:#136d38;
+            font-size: 18px;
+            margin-left:100px;
+        }
+
+        .pres1 {
+            color: #136d38;
+            font-size: 18px;
+        }
+
+        .lv1 {
+            border-left: 1px solid #424242;
+        }
+
+        .lv2 {
+            text-align: center;
+        }
+
+        @@media screen and (max-width: 800px){
+            .container-c{
+                width: 800px;
+                opacity: 0.5;
+            }
+
+            .container-2 {
+                width: 800px;
+            }
+            .pres{
+                font-size:16px;
+            }
+
+            .pres1 {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="main-container container-fluid">
+    <div class="main-container container-fluid" style="">
         <!-- PAGE-HEADER -->
         <div class="page-header page-header-fix my-2">
             <div>
-                <span class="header-title">Sơ Đồ Tổ Chức</span>
+                <a asp-controller="" asp-area="Home" asp-action="Index" style="padding-right: 20px; border-right: 1px solid #000;"><span class="header-title">Sơ Đồ Tổ Chức</span></a>
+                <a asp-controller="" asp-area="@ConstArea.Dashboard" asp-action="Index" style="padding-left:20px; padding-right: 40px;"><span class="header-title">Bảng Thống Kê</span></a>
+                
                 <div class="rectangle">
                     <span> </span>
                     <span> </span>
@@ -66,10 +120,11 @@
             <div class="d-flex px-2">
             </div>
         </div>
-        <div id="chartDiv" style="width: 860px; height: 460px; margin: 10px auto;"></div>
+        <div id="chartDiv" class="container-c"></div>
+        <div id="chartQ" class="container-2"></div>
        
     </div>
-    
+
 
     <script type="text/javascript">
         /*
@@ -79,8 +134,23 @@
         - Create complex organizational charts.
         */
         // JS
+
+        var type = 'organizational';
+        function getWidth(x) {
+            if (x.matches) { // If media query matches
+                //type = 'organizationalright';
+                type = 'organizational';
+            } else {
+                type = 'organizational';
+            }
+        }
+
+        var x = window.matchMedia("(max-width: 800px)")
+        getWidth(x) // Call listener function at run time
+        x.addListener(getWidth) // Attach listener function on state changes
+
         var config = {
-            type: 'organizational down',
+            type: type,
             defaultPoint: {
                 outline_width: 0,
                 connectorLine: { width: 1, color: '#e0e0e0' },
@@ -95,47 +165,61 @@
                 {
                     points: [
                         {
-                            name: 'Chủ tịch Hội Nông dân Thành phố',
+                            name: '<b>NGUYỄN THANH XUÂN</b>',
                             id: 'dhr',
                             attributes: {
-                                position: 'NGUYỄN THANH XUÂN<br>',
+                                position: 'CHỦ TỊCH HỘI NÔNG DÂN THÀNH PHỐ<br>',
                                 units: '',
                             },
-                            label_style_fontSize: 16,
+                            label_style_fontSize: 18,
                             color: 'white',
+                            annotation_label_text: '<div class="pres"><b>%position%name</b></div>'
                         },
                         {
-                            name: 'Phó Chủ tịch Hội Nông dân Thành phố',
-                            id: 'rm',
+                            name: '<b></b>',
+                            id: 'lv1_1',
                             parent: 'dhr',
                             attributes: {
-                                position: 'HUỲNH THỊ KIM XUYẾN<br>',
+                                position: '',
                                 units: '',
                             },
                             label_style_fontSize: 14,
-                            color: '',
+                            color: '#FFF',
+                            annotation_label_text: '<div class="lv1"><b>%position%name</b></div>'
                         },
                         {
                             name: '',
                             id: 'rm1_',
-                            parent: 'rm',
+                            parent: 'lv1_1',
                             attributes: {
-                                position: 'Ban Tổ Chức Kiểm Tra<br>',
+                                position: 'BAN TỔ CHỨC KIỂM TRA<br>',
                                 units: '',
                             },
                             label_style_fontSize: 14,
-                            color: '#64b5f6',
+                            color: '#136d38',
                         },
                         {
                             name: '',
                             id: 'rm2_',
-                            parent: 'rm',
+                            parent: 'lv1_1',
                             attributes: {
-                                position: 'Ban Tuyên Giáo<br>',
+                                position: 'BAN TUYÊN GIÁO<br>',
                                 units: '',
                             },
                             label_style_fontSize: 14,
-                            color: '#aed581',
+                            color: '#136d38',
+                        },
+                        {
+                            name: '<b>HUỲNH THỊ KIM XUYẾN</b>',
+                            id: 'rm',
+                            parent: 'dhr',
+                            attributes: {
+                                position: 'PHÓ CHỦ TỊCH HỘI NÔNG DÂN THÀNH PHỐ',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '#fda296',
+                            annotation_label_text: '<div><b>%position</br>%name</b></div>',
                         },
                         {
                             name: '',
@@ -144,7 +228,7 @@
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>CAO HÙNG THẮNG</b><br>Trưởng Ban</li><li><b>LÊ THỊ KIM HỒNG <br>Phó Trưởng Ban</ b > <br></ li > </ul>',
+                                    '<ul><li><b>TRƯỞNG BAN </BR> CAO HÙNG THẮNG</b></li><li><b>PHÓ TRƯỞNG BAN </BR> LÊ THỊ KIM HỒNG</ b > <br></ li > </ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#90caf9',
@@ -157,7 +241,7 @@
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>HỒ THỊ ĐAN THANH</b><br>Trưởng Ban</li><li><b>TRẦN THẾ DƯƠNG</ b > <br>Phó Trưởng Ban</ li > </ul>',
+                                    '<ul><li><b>TRƯỞNG BAN </br> HỒ THỊ ĐAN THANH</b></li><li><b>PHÓ TRƯỞNG BAN </br> TRẦN THẾ DƯƠNG</b></ li > </ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#aed581',
@@ -168,11 +252,11 @@
                             id: 'rm3_',
                             parent: 'rm',
                             attributes: {
-                                position: 'Ban Kinh tế - Xã Hội<br>',
+                                position: 'BAN KINH TẾ - XÃ HỘI<br>',
                                 units: '',
                             },
                             label_style_fontSize: 14,
-                            color: '#f06292',
+                            color: '#136d38',
                         },
                         {
                             name: '',
@@ -181,33 +265,34 @@
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>NGUYỄN BIỆN TRƯỜNG VINH</b><br>Trưởng Ban</li><li><b>HOÀNG MINH THẮNG</ b > <br>Phó Trưởng Ban</ li > </ul>',
+                                    '<ul><li><b>TRƯỞNG BAN </br> NGUYỄN BIỆN TRƯỜNG VINH</b></li><li><b>PHÓ TRƯỞNG BAN </br> HOÀNG MINH THẮNG</ b ></ li > </ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#f06292',
                             annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>',
                         },
                         {
-                            name: 'Phó Chủ tịch Hội Nông dân Thành phố',
+                            name: '<b>NGUYỄN THỊ NGỌC HẠNH</b>',
                             id: 't',
                             parent: 'dhr',
                             attributes: {
-                                position: 'NUYỄN THỊ NGỌC HẠNH<br>',
+                                position: 'PHÓ CHỦ TỊCH HỘI NÔNG DÂN THÀNH PHỐ',
                                 units: '',
                             },
                             label_style_fontSize: 14,
-                            color: '',
+                            color: '#fda296',
+                            annotation_label_text: '<div><b>%position</br>%name</b></div>',
                         },
                         {
                             name: '',
                             id: 'rm4_',
                             parent: 't',
                             attributes: {
-                                position: 'Văn phòng<br>',
+                                position: 'VĂN PHÒNG<br>',
                                 units: '',
                             },
                             label_style_fontSize: 14,
-                            color: '#80cbc4',
+                            color: '#136d38',
                         },
                         {
                             name: '',
@@ -216,7 +301,7 @@
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>NGUYỄN THỊ THANH TÂM</b><br>Quyền Chánh văn phòng</li><li><b>NGUYỄN HẢI TRUNG</b><br>Quyền Chánh văn phòng</li></ul>',
+                                    '<ul><li><b>QUYỀN CHÁNH VĂN PHÒNG </br> NGUYỄN THỊ THANH TÂM</b></li><li><b>PHÓ CHÁNH VĂN PHÒNG </br>NGUYỄN HẢI TRUNG</b></li></ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#80cbc4',
@@ -227,11 +312,11 @@
                             id: 'rm5_',
                             parent: 't',
                             attributes: {
-                                position: 'Trung tâm Dạy nghề và <br> hỗ trợ nông dân<br>',
+                                position: 'TRUNG TÂM DẠY NGHỀ<br>',
                                 units: '',
                             },
                             label_style_fontSize: 14,
-                            color: '#ffd54f',
+                            color: '#136d38',
                         },
                         {
                             name: '',
@@ -240,10 +325,10 @@
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>NGUYỄN VĂN LƯỢNG</b><br>Giám đốc</li><li><b>NGUYỄN HỮU TÍNH</b><br>Phó Giám đốc</li><li><b>NGUYỄN VĂN TỦI</b><br>Phó Giám đốc</li></ul>',
+                                    '<ul><li><b>GIÁM ĐỐC </br> NGUYỄN VĂN LƯỢNG</b></li><li><b>PHÓ GIÁM ĐỐC </br> NGUYỄN HỮU TÍNH</b></li><li><b>PHÓ GIÁM ĐỐC </br> NGUYỄN VĂN TỦI</b></li></ul>',
                             },
                             label_style_fontSize: 12,
-                            color: '#ffd54f',
+                            color: '#136d38',
                             annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>',
                         },
                     ],
@@ -252,10 +337,150 @@
         };
 
         config.series[0].points.forEach(function (point) {
-            point.attributes.units = point.attributes.units.replace(/<li>/g, '<li style="background-color: %color;">');
+            //point.attributes.units = point.attributes.units.replace(/<li>/g, '<li style="background-color: %color; color:#FFF;">');
+            point.attributes.units = point.attributes.units.replace(/<li>/g, '<li style="background-color: #136d38; color:#FFF;">');
         });
 
         var chart = JSC.chart('chartDiv', config);
+    </script>
+
+    <script type="text/javascript">
+        /*
+        Organizational chart with HTML annotations.
+        Learn how to:
+
+        - Create complex organizational charts.
+        */
+        // JS
+
+        var type = 'organizational';
+        function getWidth(x) {
+            if (x.matches) { // If media query matches
+                type = 'organizational';
+            } else {
+                type = 'organizational';
+            }
+        }
+
+        var x = window.matchMedia("(max-width: 800px)")
+        getWidth(x) // Call listener function at run time
+        x.addListener(getWidth) // Attach listener function on state changes
+
+        var config = {
+            type: type,
+            defaultPoint: {
+                outline_width: 0,
+                connectorLine: { width: 1, color: '#e0e0e0' },
+                annotation: {
+                    asHTML: true,
+                    label_text:
+                        '<div class="department" style="border-bottom:5px solid %color;"><b>%position</b>%name%units</div>',
+                },
+            },
+            defaultSeries_mouseTracking_enabled: false,
+            series: [
+                {
+                    points: [
+                        {
+                            name: '<b></b>',
+                            id: 'dhr',
+                            attributes: {
+                                position: 'HỘI NÔNG DÂN THÀNH PHỐ HỒ CHÍ MINH<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 18,
+                            color: 'white',
+                            annotation_label_text: '<div class="pres1"><b>%position%name</b></div>'
+                        },
+                        {
+                            name: '',
+                            id: 'rm1_',
+                            parent: 'dhr',
+                            attributes: {
+                                position: 'THÀNH PHỐ THỦ ĐỨC<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '#136d38',
+                        },
+
+                        {
+                            name: '',
+                            id: 'rm2_',
+                            parent: 'dhr',
+                            attributes: {
+                                position: 'HUYỆN CỦ CHI<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '#136d38',
+                        },                          
+                        {
+                            name: '',
+                            id: 'rm3_',
+                            parent: 'dhr',
+                            attributes: {
+                                position: 'HUYỆN BÌNH CHÁNH<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '#136d38',
+                        },
+                        {
+                            name: '',
+                            id: 'rm4_',
+                            parent: 'dhr',
+                            attributes: {
+                                position: 'HUYỆN HÓC MÔN<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '#136d38',
+                        },
+                        {
+                            name: '',
+                            id: 'rm5_',
+                            parent: 'dhr',
+                            attributes: {
+                                position: 'HUYỆN NHÀ BÈ<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '#136d38',
+                        },
+                        {
+                            name: '',
+                            id: 'rm6_',
+                            parent: 'dhr',
+                            attributes: {
+                                position: 'HUYỆN CẦN GIỜ<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '#136d38',
+                        },
+                        {
+                            name: '',
+                            id: 'rm7_',
+                            parent: 'dhr',
+                            attributes: {
+                                position: 'QUẬN 12<br>',
+                                units: '',
+                            },
+                            label_style_fontSize: 14,
+                            color: '#136d38',
+                        },
+                    ],
+                },
+            ],
+        };
+
+        config.series[0].points.forEach(function (point) {
+            //point.attributes.units = point.attributes.units.replace(/<li>/g, '<li style="background-color: %color; color:#FFF;">');
+            point.attributes.units = point.attributes.units.replace(/<li>/g, '<li style="background-color: #136d38; color:#FFF;">');
+        });
+
+        var chart = JSC.chart('chartQ', config);
     </script>
 </body>
 </html>

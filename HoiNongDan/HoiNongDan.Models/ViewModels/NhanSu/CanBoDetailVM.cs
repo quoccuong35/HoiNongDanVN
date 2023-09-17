@@ -26,14 +26,27 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
         public string TenChucVu { get; set; }
 
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DanToc")]
+        public string TenDanToc { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TonGiao")]
+        public string TenTonGiao { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoNgoaiNgu")]
+        public string TenTrinhDoNgoaiNgu { get; set; }
+
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgachLuong")]
         public string TenNgachLuong { get; set; }
 
-
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "BacLuong")]
         public string? TenBacLuong { get; set; }
+
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HeSo")]
         public decimal? HeSo { get; set; }
+
         public string HinhAnh { get; set; } = @"\images\login.png";
+
+        [Display(Name = "Trình độ học vấn")]
+        public string TrinhDoHocvan { get; set; }
     }
 }

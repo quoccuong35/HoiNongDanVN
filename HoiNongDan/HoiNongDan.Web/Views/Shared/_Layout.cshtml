@@ -56,7 +56,7 @@
             text-transform: none;
             font-size: 0.875rem;
             font-weight: 400;
-            background-color: #0e344f !important;
+            background-color: #136d38 !important;
         }
         
     </style>
@@ -420,13 +420,18 @@
                         <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="javascript:void(0)"></a>
                        
                         <!-- sidebar-toggle-->
-                        <a class="logo-horizontal " href="index.html">
+                        <a class="logo-horizontal" asp-controller="" asp-area="Home" asp-action="Index">
                             @*<img src="~/Images/logo-menu.png" class="header-brand-img desktop-logo" alt="logo">*@
                         </a>
                         <!-- LOGO -->
-                        <div class="main-header-center ms-3 d-none d-lg-block">
+                         <!-- <div class="main-header-center ms-3 d-none d-lg-block">
                             <input type="text" class="form-control" style="background:white; color:black" id="typehead" placeholder="Tìm kiếm..." autocomplete="off">
                             <button class="btn px-0 pt-2"><i class="fe fe-search" style="color:#0e344f" co aria-hidden="true"></i></button>
+                        </div> 
+                        <div class="text-title">PHẦN MỀM QUẢN LÝ HỘI VIÊN - CÁN BỘ HỘI NÔNG DÂN THÀNH PHỐ HỒ CHÍ MINH></div>-->
+                        <div style=""><a class="slide-item" asp-controller="" asp-area="Home" asp-action="Index">
+                            <img src="~/Images/logo-title.png" alt="PHẦN MỀM QUẢN LÝ HỘI VIÊN - CÁN BỘ HỘI NÔNG DÂN THÀNH PHỐ HỒ CHÍ MINH">
+                            </a>
                         </div>
                         
                         <div class="d-flex order-lg-2 ms-auto header-right-icons">
@@ -668,8 +673,9 @@
                                         <!-- SIDE-MENU -->
                                         @if (User.Identity.IsAuthenticated)
                                         {
+                                            
                                             <div class="text-white fw-bold">
-                                                @User.FindFirst("FullName")!.Value.ToUpper()
+                                                <!---->
                                             </div>
                                             <div class="dropdown d-flex profile-1">
                                                 <a href="javascript:void(0)" data-bs-toggle="dropdown" class="nav-link leading-none d-flex">
@@ -679,7 +685,7 @@
                                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                     <div class="drop-heading">
                                                         <div class="text-center">
-                                                            <h5 class="text-dark mb-0 fs-14 fw-semibold">@User.Identity!.Name</h5>
+                                                            <h5 class="text-dark mb-0 fs-14 fw-semibold">@User.FindFirst("FullName")!.Value.ToUpper()</h5>
                                                             <small class="text-muted"></small>
                                                         </div>
                                                     </div>
@@ -710,22 +716,24 @@
                     <div class="side-header">
                         <img src="~/Images/login.png" class="header-brand-img desktop-logo" alt="logo">
                         <div class="side-header-title" style="display:flex;justify-content:center;align-content:center;flex-direction: column;margin-left:5px">
-                            <p class="text-white fw-bold" style="margin-bottom:5px;">PHẦN MỀM QUẢN LÝ</p>
-                            <p class="text-white fw-bold" style="font-size:11px">HỘI VIÊN - CÁN BỘ HỘI NÔNG DÂN THÀNH PHỐ HỒ CHÍ MINH</p>
+                            <!-- <p class="text-white fw-bold" style="margin-bottom:5px;">PHẦN MỀM QUẢN LÝ</p>
+                            <p class="text-white fw-bold" style="font-size:11px">HỘI VIÊN - CÁN BỘ HỘI NÔNG DÂN THÀNH PHỐ HỒ CHÍ MINH</p> -->
                         </div>
                         <!-- LOGO -->
                     </div>
+
+
                     <div class="main-sidemenu">
                         <div class="slide-left disabled" id="slide-left"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z" /></svg></div>
                         <ul class="side-menu">
+
                             <li class="slide">
-                                <a class="side-menu__item" asp-controller="" asp-area="Home" asp-action="Index">
-                                    <i class="side-menu__icon fe fe-home"></i><span class="side-menu__label">Trang Chủ</span>
-                                </a>
+                                <a class="side-menu__item" asp-controller="" asp-area="Home" asp-action="Index"><i class="side-menu__icon fe fe-home"></i><span class="side-menu__label">Trang Chủ</span><i class="angle fe fe-chevron-right"></i></a>
+                                
                             </li>
 
                             <li class="slide">
-                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Quản lý thông tin</span><i class="angle fe fe-chevron-right"></i></a>
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Quản Lý Thông Tin</span><i class="angle fe fe-chevron-right"></i></a>
                                 <ul class="slide-menu mega-slide-menu">
                                     <li class="side-menu-label1"><a href="javascript:void(0)">QL Cán Bộ Hội ND TP.HCM </a></li>
                                     <li>
@@ -761,9 +769,9 @@
                                 </ul>
                             </li>
                             <li class="slide">
-                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-pie-chart"></i><span class="side-menu__label">@LanguageResource.Report</span><i class="angle fe fe-chevron-right"></i></a>
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-pie-chart"></i><span class="side-menu__label">Báo Cáo</span><i class="angle fe fe-chevron-right"></i></a>
                                 <ul class="slide-menu">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">Báo cáo cán bộ</a></li>
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">Danh sách cán bộ</a></li>
                                     <li>
                                         <a class="slide-item" href="#">
                                             Thống kê hội viên
@@ -782,7 +790,7 @@
                             <li class="slide">
                                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-gear"></i><span class="side-menu__label">@LanguageResource.Permission</span><i class="angle fe fe-chevron-right"></i></a>
                                 <ul class="slide-menu">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">Phân quyền</a></li>
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">Phân Quyền</a></li>
                                     <li>
                                         <a class="slide-item" asp-controller="Menu" asp-area="@ConstArea.Permission" asp-action="Index">
                                             Chuyên mục
@@ -801,9 +809,9 @@
                                 </ul>
                             </li>
                             <li class="slide">
-                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-book"></i><span class="side-menu__label">Danh mục</span><i class="angle fe fe-chevron-right"></i></a>
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-book"></i><span class="side-menu__label">Danh Mục</span><i class="angle fe fe-chevron-right"></i></a>
                                 <ul class="slide-menu">
-                                    <li class="side-menu-label1"><a href="javascript:void(0)">Danh mục</a></li>
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">Danh Mục</a></li>
                                     @* <li>
                                         <a class="slide-item" asp-controller="@ConstController.CoSo" asp-area="@ConstArea.MasterData" asp-action="Index">
                                             @LanguageResource.CoSo

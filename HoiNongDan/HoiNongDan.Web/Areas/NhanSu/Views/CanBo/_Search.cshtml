@@ -14,11 +14,28 @@
             <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
             <th class="text-center" data-name="HoVaTen">@Html.DisplayNameFor(p => p.HoVaTen)</th>
             <th class="text-center" data-name="TenChucVu">@Html.DisplayNameFor(p => p.TenChucVu)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NgaySinh)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.GioiTinh)</th>
+            <th class="text-center" data-name="TenDanToc">@Html.DisplayNameFor(p => p.TenDanToc)</th>
+            <th class="text-center" data-name="TenTonGiao">@Html.DisplayNameFor(p => p.TenTonGiao)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NoiSinh)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.ChoOHienNay)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NgayvaoDangDuBi)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NgayVaoDangChinhThuc)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.MaTrinhDoChuyenMon)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.MaTrinhDoChinhTri)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.TenTrinhDoNgoaiNgu)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.MaTrinhDoTinHoc)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NgayThamGiaCongTac)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NgayThamGiaCapUyDang)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NgayThamGiaHDND)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.TenTinhTrang)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.TenDonVi)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.TenNgachLuong)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.TenBacLuong)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.HeSo)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.PhuCapVuotKhung)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NgayNangBacLuong)</th>
         </tr>
     </thead>
     <tbody>
@@ -31,7 +48,7 @@
         {
             i++;
             css++;
-            if (css > 4)
+            if (css > 2)
             {
                 css = 1;
             }
@@ -51,6 +68,21 @@
                 </td>
                 <td class="align-middle">@Html.DisplayFor(p => item.HoVaTen)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.TenChucVu)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgaySinh)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.GioiTinh)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.TenDanToc)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.TenTonGiao)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NoiSinh)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.ChoOHienNay)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgayvaoDangDuBi)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgayVaoDangChinhThuc)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.MaTrinhDoChuyenMon)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.MaTrinhDoChinhTri)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.TenTrinhDoNgoaiNgu)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.MaTrinhDoTinHoc)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgayThamGiaCongTac)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgayThamGiaCapUyDang)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgayThamGiaHDND)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.TenTinhTrang)</td>
 @*                 <td class="align-middle">@Html.DisplayFor(p => item.TenPhanHe)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.TenCoSo)</td> *@
@@ -58,6 +90,8 @@
                 <td class="align-middle">@Html.DisplayFor(p => item.TenNgachLuong)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.TenBacLuong)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.HeSo)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgayNangBacLuong)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.PhuCapVuotKhung)</td>
             </tr>
         }
     </tbody>
