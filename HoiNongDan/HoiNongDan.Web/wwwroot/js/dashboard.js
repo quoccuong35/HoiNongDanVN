@@ -59,7 +59,7 @@
     var datapie = {
         labels: ['Nam', 'Nữ'],
         datasets: [{
-            data: [285, 135],
+            data: [39099, 19018],
             backgroundColor: ['#05c3fb', '#09ad95']
         }]
     };

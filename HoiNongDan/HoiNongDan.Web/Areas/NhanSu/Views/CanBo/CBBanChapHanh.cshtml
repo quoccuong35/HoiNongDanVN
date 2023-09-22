@@ -43,35 +43,6 @@
                                 <label asp-for="HoVaTen"></label>
                                 <input class="form-control" asp-for="HoVaTen" />
                             </div>
-                            <div class="col-3">
-                                <label asp-for="MaTinhTrang"></label>
-                                @Html.DropDownList("MaTinhTrang", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
-                            </div>
-                            <div class="col-md-3">
-                                <label asp-for="MaPhanHe"></label>
-                                @Html.DropDownList("MaPhanHe", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
-                            </div>
-                            <div class="col-md-3">
-                                <label asp-for="IdCoSo"></label>
-                                @Html.DropDownList("IdCoSo", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
-                            </div>
-                            <div class="col-md-3">
-                                <label asp-for="IdDepartment"></label>
-                                @Html.DropDownList("IdDepartment", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
-                            </div>
-                            <div class="col-md-3">
-                                <label asp-for="MaChucVu"></label>
-                                @Html.DropDownList("MaChucVu", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
-                            </div>
-                            <div class="col-md-3">
-                                <label asp-for="Actived"></label>
-                                @Html.DropDownList("Actived", new List<SelectListItem>(){
-                                new SelectListItem(){Text = LanguageResource.Dropdownlist_All, Value = ""},
-                                new SelectListItem(){Text = LanguageResource.Actived_True, Value = "true", Selected = true},
-                                new SelectListItem(){Text = LanguageResource.Actived_False, Value = "false"}
-                                }, new { @class = "form-control" })
-                            </div>
-                           
                         </div>
                         <div class="row d-flex align-items-center">
                             <div class="col-2">

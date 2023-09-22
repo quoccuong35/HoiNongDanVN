@@ -1,34 +1,24 @@
 ﻿@using HoiNongDan.Models
 @using HoiNongDan.Resources
-@model CanBoVM
+
+@model CanBoQHXPVM
 @{
-    ViewBag.Title = LanguageResource.Create + LanguageResource.CanBo;
-    string CurrentController = ConstController.CanBo;
+    ViewBag.Title = LanguageResource.Create + LanguageResource.CanBoHNDQHXP;
+    string CurrentController = ConstController.CanBoQHXP;
     string CurrentArea = ConstArea.NhanSu;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
 }
-<style>
-    #avtImg {
-        vertical-align: middle;
-        width: 140px;
-        height:140px;
-        border-radius: 10px;
-    }
-    .border-top{
-        border-top: 4px dotted blue;
-    }
-</style>
 <!-- CONTAINER -->
 <div class="main-container container-fluid">
 
     <!-- PAGE-HEADER -->
-    <div class="page-header page-header-fix d-flex my-1">
+    <div class="page-header page-header-fix d-flex">
         <div class="fs-20">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a class="fs-18 fw-600" asp-area="@ConstArea.NhanSu" asp-controller="@ConstController.CanBo" asp-action="Index">@LanguageResource.CanBo</a>
+                    <a class="fs-18 fw-600" asp-area="@ConstArea.NhanSu" asp-controller="@ConstController.CanBoQHXP" asp-action="Index">@LanguageResource.CanBoHNDQHXP</a>
                 </li>
-                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Create</li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Edit</li>
             </ol>
         </div>
         <div class="">
@@ -40,22 +30,23 @@
     <!-- PAGE-HEADER END -->
     <!-- ROW-1 OPEN -->
     <!-- Row -->
-    <form method="post" asp-action="Create" id="frmCreate">
-        @Html.Partial("_CanBo",Model)
+    <form method="post" asp-action="Create" id="frmEdit">
+        @Html.Partial("_CanBoQHXP",Model)
     </form>
     <!-- /Row -->
 </div>
 
 @section Scripts{
     @{
-    <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial" />
     }
-    }
-    @section ScriptCustomized{
+}
+@section ScriptCustomized{
     <script src="~/js/canbo.js"></script>
     <script type="text/javascript">
+
         $(document).ready(function () {
-            HoiNongDan.CreateInitial("@CurrentUrl");
+            HoiNongDan.EditInitial("@CurrentUrl");
         });
     </script>
 }

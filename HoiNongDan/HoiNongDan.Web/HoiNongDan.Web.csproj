@@ -1082,4 +1082,11 @@
     <ProjectReference Include="..\HoiNongDan.Resources\HoiNongDan.Resources.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Areas\NhanSu\Views\CanBo\_Search.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

@@ -18,10 +18,10 @@ namespace HoiNongDan.Models
     public class CanBo
     {
         public Guid IDCanBo { get; set; }
-        [MaxLength(20)]
+        [MaxLength(100)]
         public string? MaCanBo { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(100)]
         public string? MaDinhDanh { get; set; }
         [MaxLength(500)]
         public string HoVaTen { get; set; }
@@ -34,7 +34,7 @@ namespace HoiNongDan.Models
         [MaxLength(200)]
         public String? SoCCCD { get; set; }
 
-        [MaxLength(20)]
+        [MaxLength(100)]
         public String? NgayCapCCCD { get; set; }
         [MaxLength(50)]
         public string? MaTinhTrang { get; set; }
@@ -213,6 +213,16 @@ namespace HoiNongDan.Models
         public String? LyDoNgungHoatDong { get; set; }
 
         public String? SoQuyetDinhBoNhiem { get; set; }
+        public bool? ThamGiaBTV { get; set; } = false;
+        public bool? HuyenUyVien { get; set; } = false;
+        public bool? DangUyVien { get; set; } = false;
+        public bool? HDNNCapHuyen { get; set; } = false;
+        public bool? HDNNCapXa { get; set; } = false;
+        public String? DanhGiaCBCC { get; set; }
+        public String? DanhGiaDangVien { get; set; }
+        public bool? UBKT { get; set; } = false;
+        public String? Level { get; set; }
+        
 
         public Guid? CreatedAccountId { get; set; }
         public DateTime? CreatedTime { get; set; }

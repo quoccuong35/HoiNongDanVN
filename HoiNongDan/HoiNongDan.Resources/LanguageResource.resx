@@ -208,7 +208,10 @@
     <value>Cán bộ HND TP qua các thời kỳ</value>
   </data>
   <data name="CanBoHNDTP" xml:space="preserve">
-    <value>Cán bộ Hội Nông dân TP</value>
+    <value>Cán Bộ Hội Nông Dân TP.HCM</value>
+  </data>
+  <data name="CanBoQHXP" xml:space="preserve">
+    <value>Cán Bộ Hội Nông Dân Huyện Quận, Xã Phường, Thị Trấn</value>
   </data>
   <data name="CanBoQuaTrinhLuong" xml:space="preserve">
     <value>Cán bộ quá trình lương</value>

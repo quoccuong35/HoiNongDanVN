@@ -1,11 +1,5 @@
 ﻿
 @model IEnumerable<CanBoDetailVM>
-@* @{
-    string CurrentController = ConstController.CanBo;
-    string CurrentArea = ConstArea.NhanSu;
-    string listRoles = User.FindFirst("Roles")!.Value;
-    listRoles = listRoles == null ? "" : listRoles;
-} *@
 <table id="data-list" class="table table-bordered text-nowrap mb-0">
     <thead class="table-primary">
         <tr>
@@ -15,6 +9,7 @@
             <th class="text-center">@Html.DisplayNameFor(p => p.HoVaTen)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.TenChucVu)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.ChoOHienNay)</th>
+            <th class="text-center">Chức vụ hiện nay</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.SoDienThoai)</th>
 
         </tr>
@@ -29,7 +24,7 @@
         {
             i++;
             css++;
-            if (css > 4)
+            if (css > 2)
             {
                 css = 1;
             }
@@ -38,6 +33,7 @@
                 <td class="align-middle">@Html.DisplayFor(p => item.HoVaTen)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.GhiChu)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.ChoOHienNay)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NoiSinh)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.SoDienThoai)</td>
                
             </tr>

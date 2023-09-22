@@ -1,0 +1,12 @@
+﻿<form id="frmImport">
+    <div class="col-md-12">
+        <input type="file" id="importexcelfile" name="importexcelfile" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+        <div class="col-md-12">
+            @Html.DropDownList("Loai", new List<SelectListItem>(){
+            new SelectListItem(){Text = "HUYỆN QUẬN", Value = "20", Selected = true},
+            new SelectListItem(){Text = "XÃ PHƯỜNG, THỊ TRẤN", Value = "30"},
+            }, new { @class = "form-control" })
+        </div>
+    </div>
+
+</form>

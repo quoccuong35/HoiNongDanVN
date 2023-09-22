@@ -968,7 +968,11 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     canbo = HoiVienExcel.GetHoiVien(canbo);
                     canbo.HoiVienDuyet = false;
+                    canbo.Actived = true;
+                    canbo.HoiVienDuyet = true;
                     canbo.IDCanBo = Guid.NewGuid();
+                    canbo.CreatedAccountId = AccountId();
+                    canbo.CreatedTime = DateTime.Now;
                     if (HoiVienExcel.ListKhenThuong.Count() > 0)
                     {
                         HoiVienExcel.ListKhenThuong.ForEach(it => it.IDCanBo = canbo.IDCanBo);
@@ -1004,9 +1008,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             {
                 _context.SaveChanges();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return canbo.MaCanBo + " " + canbo.HoVaTen;
+                return ex.InnerException!.Message + " " + canbo.HoVaTen;
             }
             return LanguageResource.ImportSuccess;
         }
@@ -1022,7 +1026,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             int index = 0;
             for (int i = 0; i < row.Length; i++)
             {
-                value = row[i] == null ? null : row[i].ToString().Trim();
+                value = row[i] == null ? "" : row[i].ToString().Trim().Replace(System.Environment.NewLine,string.Empty);
                 switch (i)
                 {
                     case 0:
@@ -1045,7 +1049,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         // Mã nhân viên
                         if (string.IsNullOrEmpty(value))
                         {
-                            data.Error = string.Format(LanguageResource.Validation_ImportRequired, string.Format(LanguageResource.Required, LanguageResource.MaCanBo), index);
+                            //data.Error = string.Format(LanguageResource.Validation_ImportRequired, string.Format(LanguageResource.Required, LanguageResource.MaCanBo), index);
                         }
                         else
                         {
@@ -1146,7 +1150,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
                         if (string.IsNullOrEmpty(value) || value == "")
                         {
-                            data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa nhập thông tin {0} ", LanguageResource.SoDienThoai), index);
+                            //data.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa nhập thông tin {0} ", LanguageResource.SoDienThoai), index);
                         }
                         else
                         {

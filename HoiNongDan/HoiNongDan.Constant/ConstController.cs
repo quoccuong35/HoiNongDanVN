@@ -25,6 +25,7 @@
         #endregion Permission
         #region NhanSu
         public const string CanBo = "CanBo";
+        public const string CanBoQHXP = "CanBoQHXP";
         public const string HoiVien = "HoiVien";
         public const string HuuTri = "HuuTri";
         public const string QuanHeGiaDinh = "QHGiaDinh";

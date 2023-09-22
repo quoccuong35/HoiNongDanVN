@@ -14,9 +14,9 @@ namespace HoiNongDan.Models
     {
         public Guid? IDCanBo { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHoiVien")]
+        //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHoiVien")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        public string MaCanBo { get; set; }
+        public string? MaCanBo { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]

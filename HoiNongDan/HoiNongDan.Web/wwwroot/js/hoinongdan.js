@@ -190,7 +190,6 @@ HoiNongDan.Edit = function (controller, frmEdit, isContinue, e) {
                         }
                     }
                     else {
-                        //window.location.href = "/" + controller;
                         window.location.href = "/" + controller + "/index?message=" + jsonData.data;
                     }
                 }
@@ -520,32 +519,6 @@ HoiNongDan.ExportData = function (controller) {
             }
         });
         self.location = "/" + controller + "/ExportEdit?" + para;
-        console.log(para);
-        //console.log($("#frmSearch").serializeArray());
-        //    $.ajax({
-        //        url: "/" + controller + "/ExportEdit",
-        //        type: 'GET',
-        //        contentType:"application/json; charset=utf-8",
-        //        data: $("#frmSearch").serializeArray(),
-        //        beforSend: function () {
-        //            //startLoader();
-        //        },
-        //        success: function (data) {
-        //            var blod = new Blob([data], { type: 'application/ms-excel' })
-        //            var downloadurl = URL.createObjectURL(blod);
-        //            var a = document.createElement("a")
-        //            a.href = downloadurl;
-        //            a.download = "data.xls";
-        //            a.click();
-        //        },
-        //        conplete: function () {
-        //            //stopLoader();
-        //        },
-        //        error: function (xhr, status, data) {
-
-        //            stopLoader();
-        //        }
-        //    });
     });
         
 }
@@ -561,7 +534,8 @@ HoiNongDan.Table = function (id_table = "#data-list") {
             scrollX: true,
 /*            scrollY: height,*/
             iDisplayLength: 10,
-            buttons: ['excel', 'pdf'],
+            order: [],
+            //buttons: ['excel', 'pdf'],
             language: {
                 emptyTable: "Không có dữ liệu",
                 search: ""

@@ -4,6 +4,7 @@ using HoiNongDan.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HoiNongDan.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230919143151_editCanBoQHPX1")]
+    partial class editCanBoQHPX1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -495,8 +497,8 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<bool?>("DKMauNguoiNongDanMoi")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("DangUyVien")
-                        .HasColumnType("bit");
+                    b.Property<string>("DangUyVien")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool?>("DangVien")
                         .HasColumnType("bit");
@@ -529,11 +531,11 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<int>("GioiTinh")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("HDNNCapHuyen")
-                        .HasColumnType("bit");
+                    b.Property<string>("HDNNCapHuyen")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("HDNNCapXa")
-                        .HasColumnType("bit");
+                    b.Property<string>("HDNNCapXa")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("HeSoLuong")
                         .HasColumnType("decimal(18,2)");
@@ -557,8 +559,8 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<bool?>("HoiVienDuyet")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("HuyenUyVien")
-                        .HasColumnType("bit");
+                    b.Property<string>("HuyenUyVien")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("IdCoSo")
                         .HasColumnType("uniqueidentifier");
@@ -763,8 +765,8 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<string>("SoQuyetDinhBoNhiem")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("ThamGiaBTV")
-                        .HasColumnType("bit");
+                    b.Property<string>("ThamGiaBTV")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ThamGia_CLB_DN_MH_HTX_THT")
                         .HasMaxLength(800)
@@ -778,8 +780,8 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasMaxLength(800)
                         .HasColumnType("nvarchar(800)");
 
-                    b.Property<bool?>("UBKT")
-                        .HasColumnType("bit");
+                    b.Property<string>("UBKT")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VaiTro")
                         .HasMaxLength(10)
@@ -1009,7 +1011,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 21, 20, 7, 6, 380, DateTimeKind.Local).AddTicks(2051));
+                        .HasDefaultValue(new DateTime(2023, 9, 19, 21, 31, 50, 266, DateTimeKind.Local).AddTicks(5249));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -2304,7 +2306,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 9, 21, 20, 7, 6, 380, DateTimeKind.Local).AddTicks(6203));
+                        .HasDefaultValue(new DateTime(2023, 9, 19, 21, 31, 50, 266, DateTimeKind.Local).AddTicks(7491));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)

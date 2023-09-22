@@ -380,7 +380,8 @@ namespace HoiNongDan.DataAccess
             {
                 entity.ToTable("CanBo", "NS");
                 entity.HasKey(it => it.IDCanBo);
-                entity.Property(it => it.MaCanBo).IsUnicode(true).IsRequired(false).HasMaxLength(20);
+                entity.Property(it => it.MaCanBo).IsUnicode(true).IsRequired(false).HasMaxLength(100);
+                entity.Property(it => it.MaDinhDanh).IsUnicode(true).IsRequired(false).HasMaxLength(100);
                 entity.HasOne<TinhTrang>(it => it.TinhTrang)
                     .WithMany(it => it.CanBos)
                     .HasForeignKey(it => it.MaTinhTrang)
@@ -389,7 +390,8 @@ namespace HoiNongDan.DataAccess
                 entity.HasOne<CoSo>(it => it.CoSo)
                     .WithMany(it => it.CanBos)
                     .HasForeignKey(it => it.IdCoSo)
-                    .HasConstraintName("FK_CanBo_CoSo");
+                    .HasConstraintName("FK_CanBo_CoSo")
+                    .OnDelete(DeleteBehavior.NoAction);
 
                 entity.HasOne<Department>(it => it.Department)
                   .WithMany(it => it.CanBos)

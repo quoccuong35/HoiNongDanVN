@@ -331,11 +331,20 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cán bộ Hội Nông dân TP.
+        ///   Looks up a localized string similar to Cán Bộ Hội Nông Dân TP.HCM.
         /// </summary>
         public static string CanBoHNDTP {
             get {
                 return ResourceManager.GetString("CanBoHNDTP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cán Bộ Hội Nông Dân Huyện Quận, Xã Phường, Thị Trấn.
+        /// </summary>
+        public static string CanBoQHXP {
+            get {
+                return ResourceManager.GetString("CanBoQHXP", resourceCulture);
             }
         }
         

@@ -15,8 +15,8 @@ namespace HoiNongDan.Models
 
         [MaxLength(20)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHoiVien")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        public string MaCanBo { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        public string? MaCanBo { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaDinhDanh")]
         public string? MaDinhDanh { get; set; }
@@ -61,7 +61,7 @@ namespace HoiNongDan.Models
 
         [MaxLength(100)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoDienThoai")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string? SoDienThoai { get; set; }
 
         [DataType(DataType.Date)]
@@ -238,6 +238,7 @@ namespace HoiNongDan.Models
             obj.DKMauNguoiNongDanMoi = DKMauNguoiNongDanMoi;
             obj.DienTich_QuyMo = DienTich_QuyMo;
             obj.IsHoiVien = true;
+           
             obj.GhiChu = GhiChu;
            
             return obj;

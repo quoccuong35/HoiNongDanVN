@@ -13,7 +13,7 @@
        @*  <input type="checkbox" name="HoVaTen" checked/><span>Họ và tên</span>
         <input type="checkbox" name="TenChucVu" checked /><span>Chức vụ</span> *@
         <div>
-            <span class="header-title">@LanguageResource.List.ToUpper() @LanguageResource.CanBo.ToUpper()</span>
+            <span class="header-title">@LanguageResource.List.ToUpper() @LanguageResource.CanBoHNDTP.ToUpper()</span>
             <div class="rectangle">
                 <span> </span>
                 <span> </span>
@@ -56,10 +56,10 @@
                                 <label asp-for="IdCoSo"></label>
                                 @Html.DropDownList("IdCoSo", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div> *@
-                            <div class="col-md-3">
+                          @*   <div class="col-md-3">
                                 <label asp-for="IdDepartment"></label>
                                 @Html.DropDownList("IdDepartment", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
-                            </div>
+                            </div> *@
                             <div class="col-md-3">
                                 <label asp-for="MaChucVu"></label>
                                 @Html.DropDownList("MaChucVu", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })

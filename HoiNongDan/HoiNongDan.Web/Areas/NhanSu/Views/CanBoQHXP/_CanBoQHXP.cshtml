@@ -1,0 +1,289 @@
+﻿@model CanBoQHXPVM
+<div class="row">
+    <input asp-for="IDCanBo" hidden />
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="expanel expanel-default border-top">
+                        <div class="expanel-heading">
+                            <h3 class="expanel-title"><i class="fe fe-user me-1"></i>Thông tin cán bộ</h3>
+                        </div>
+                        <div class="expanel-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <img src="@Model.HinhAnh" alt="User Image" id="avtImg" name="avtImg" ondblclick="UploadAV()" title="Click double để đổi hình">
+                                    <br />
+                                    <input type="file" id="avtFileInbox" name="avtFileInbox" class="fileAvatar1" hidden>
+                                    <script>
+                                        function UploadAV() {
+                                            $("#avtFileInbox").trigger('click');
+                                        }
+                                        function handleFileSelect(evt) {
+                                            var files = evt.target.files;
+                                            for (var i = 0, f; f = files[i]; i++) {
+                                                if (!f.type.match('image.*')) {
+                                                    continue;
+                                                }
+                                                var reader = new FileReader();
+                                                reader.onload = (function (theFile) {
+                                                    return function (e) {
+                                                        var img = document.getElementById('avtImg');
+                                                        img.setAttribute("src", e.target.result);
+                                                    };
+                                                })(f);
+                                                reader.readAsDataURL(f);
+                                            }
+                                        }
+                                        document.getElementById('avtFileInbox').addEventListener('change', handleFileSelect, false);
+                                    </script>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaCanBo"></label>@* <span class="text-red">*</span> *@
+                                                @if (Model.IDCanBo != null)
+                                                {
+                                                    <input type="text" asp-for="MaCanBo" class="form-control" readonly />
+                                                }
+                                                else
+                                                {
+                                                    <input type="text" asp-for="MaCanBo" class="form-control">
+                                                }
+
+                                                <span asp-validation-for="MaCanBo" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="MaDinhDanh"></label>
+                                                <input type="text" asp-for="MaDinhDanh" class="form-control">
+                                                <span asp-validation-for="MaDinhDanh" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="HoVaTen"></label><span class="text-red">*</span>
+                                                <input type="text" asp-for="HoVaTen" class="form-control">
+                                                <span asp-validation-for="HoVaTen" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="NgaySinh"></label><span class="text-red">*</span>
+                                                <input asp-for="NgaySinh" class="form-control">
+                                                <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="GioiTinh"></label><span class="text-red">*</span>
+                                                <select asp-for="GioiTinh" class="form-control" asp-items="@Html.GetEnumSelectList<GioiTinh>()">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label asp-for="IdDepartment"></label><span class="text-red">*</span>
+                                                <select asp-for="IdDepartment" asp-items="@ViewBag.IdDepartment" class="form-control select2-show-search form-select">
+                                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                                </select>
+                                                <span asp-validation-for="IdDepartment" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label asp-for="MaChucVu"></label><span class="text-red">*</span>
+                                        <select asp-for="MaChucVu" asp-items="@ViewBag.MaChucVu" class="form-control select2-show-search form-select">
+                                            <option selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                        </select>
+                                        <span asp-validation-for="MaChucVu" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label asp-for="MaDanToc"></label><span class="text-red">*</span>
+                                        <select asp-for="MaDanToc" asp-items="@ViewBag.MaDanToc" class="form-control select2-show-search form-select">
+                                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                        </select>
+                                        <span asp-validation-for="MaDanToc" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label asp-for="MaTonGiao"></label><span class="text-red">*</span>
+                                        <select asp-for="MaTonGiao" asp-items="@ViewBag.MaTonGiao" class="form-control select2-show-search form-select">
+                                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                        </select>
+                                        <span asp-validation-for="MaTonGiao" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label asp-for="NgayThamGiaCongTac"></label>
+                                        <input asp-for="NgayThamGiaCongTac" class="form-control">
+                                        <span asp-validation-for="NgayThamGiaCongTac" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label asp-for="NgayvaoDangDuBi"></label>
+                                        <input asp-for="NgayvaoDangDuBi" class="form-control">
+                                        <span asp-validation-for="NgayvaoDangDuBi" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label asp-for="NgayVaoDangChinhThuc"></label>
+                                        <input asp-for="NgayVaoDangChinhThuc" class="form-control">
+                                        <span asp-validation-for="NgayVaoDangChinhThuc" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label asp-for="ChoOHienNay"></label> <span class="text-red">*</span>
+                                    <textarea asp-for="ChoOHienNay" rows="3" class="form-control"></textarea>
+                                    <span asp-validation-for="ChoOHienNay" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label asp-for="NoiSinh"></label> <span class="text-red">*</span>
+                                    <textarea asp-for="NoiSinh" rows="3" class="form-control"></textarea>
+                                    <span asp-validation-for="NoiSinh" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="expanel expanel-default">
+                        <div class="expanel-heading">
+                            <h3 class="expanel-title"> <i class="fa fa-book"></i> Học vấn</h3>
+                        </div>
+                        <div class="expanel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label asp-for="MaTrinhDoChuyenMon"></label><span class="text-red">*</span>
+                                        <select asp-for="MaTrinhDoChuyenMon" asp-items="@ViewBag.MaTrinhDoChuyenMon" class="form-control select2-show-search form-select">
+                                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                        </select>
+                                        <span asp-validation-for="MaTrinhDoChuyenMon" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label asp-for="MaTrinhDoChinhTri"></label>
+                                        <select asp-for="MaTrinhDoChinhTri" asp-items="@ViewBag.MaTrinhDoChinhTri" class="form-control select2-show-search form-select">
+                                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                        </select>
+                                        <span asp-validation-for="MaTrinhDoChinhTri" class="text-danger"></span>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label asp-for="MaTrinhDoNgoaiNgu"></label>
+                                        <select asp-for="MaTrinhDoNgoaiNgu" asp-items="@ViewBag.MaTrinhDoNgoaiNgu" class="form-control select2-show-search form-select">
+                                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                        </select>
+                                        <span asp-validation-for="MaTrinhDoNgoaiNgu" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label asp-for="MaTrinhDoTinHoc"></label>
+                                        <select asp-for="MaTrinhDoTinHoc" asp-items="@ViewBag.MaTrinhDoTinHoc" class="form-control select2-show-search form-select">
+                                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                        </select>
+                                        <span asp-validation-for="MaTrinhDoTinHoc" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label asp-for="ChuyenNganh"></label><span class="text-red">*</span>
+                                        <input asp-for="ChuyenNganh" class="form-control">
+                                        <span asp-validation-for="ChuyenNganh" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group m-0">
+                                        <div class="form-label"></div>
+                                        <div class="custom-controls-stacked">
+                                            <label class="custom-control custom-checkbox">
+                                                <span asp-validation-for="IsBanChapHanh" class="text-danger"></span>
+                                                <input asp-for="IsBanChapHanh" type="checkbox" class="custom-control-input">
+                                                <span class="custom-control-label">Tham gia BCH</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox">
+                                                <span asp-validation-for="ThamGiaBTV" class="text-danger"></span>
+                                                <input asp-for="ThamGiaBTV" type="checkbox" class="custom-control-input">
+                                                <span class="custom-control-label">Tham gia BTV</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox">
+                                                <span asp-validation-for="UBKT" class="text-danger"></span>
+                                                <input asp-for="UBKT" type="checkbox" class="custom-control-input">
+                                                <span class="custom-control-label">UBKT</span>
+                                            </label>
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group m-0">
+                                        <div class="form-label">Tham gia cấp ủy</div>
+                                        <div class="custom-controls-stacked">
+                                            <label class="custom-control custom-checkbox">
+                                                <span asp-validation-for="HuyenUyVien" class="text-danger"></span>
+                                                <input asp-for="HuyenUyVien" type="checkbox" class="custom-control-input">
+                                                <span class="custom-control-label">Huyện ủy viên</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox">
+                                                <span asp-validation-for="DangUyVien" class="text-danger"></span>
+                                                <input asp-for="DangUyVien" type="checkbox" class="custom-control-input">
+                                                <span class="custom-control-label">Đảng ủy viên</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group m-0">
+                                        <div class="form-label">Tham gia HĐND</div>
+                                        <div class="custom-controls-stacked">
+                                            <label class="custom-control custom-checkbox">
+                                                <span asp-validation-for="HDNNCapHuyen" class="text-danger"></span>
+                                                <input asp-for="HDNNCapHuyen" type="checkbox" class="custom-control-input">
+                                                <span class="custom-control-label">Cấp huyệnn</span>
+                                            </label>
+                                            <label class="custom-control custom-checkbox">
+                                                <span asp-validation-for="HDNNCapXa" class="text-danger"></span>
+                                                <input asp-for="HDNNCapXa" type="checkbox" class="custom-control-input">
+                                                <span class="custom-control-label">Cấp xã</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <label asp-for="GhiChu"></label>
+                                    <textarea asp-for="GhiChu" rows="3" class="form-control"></textarea>
+                                    <span asp-validation-for="GhiChu" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

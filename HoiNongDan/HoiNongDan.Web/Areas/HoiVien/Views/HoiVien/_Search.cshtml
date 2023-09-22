@@ -11,6 +11,7 @@
 <table id="data-list" class="table border text-nowrap text-md-nowrap mb-0 dataTable no-footer">
     <thead >
         <tr class="table-primary">
+            <th>STT</th>
             <th></th>
             <th class="text-center" name="MaCanBo">@Html.DisplayNameFor(p => p.MaCanBo)</th>
             <th class="text-center" name="HoVaTen">@Html.DisplayNameFor(p => p.HoVaTen)</th>
@@ -69,6 +70,7 @@
             }
             cssName = "tr" + css.ToString();
             <tr id="@item.IDCanBo" class="@cssName">
+                <td>@i.ToString()</td>
                 <td class="align-middle">
                     @HtmlExtensions.MenuHoiVien(CurrentArea, CurrentController, item.HoVaTen, item.IDCanBo!.Value.ToString(),listRoles: listRoles)
                 </td>
