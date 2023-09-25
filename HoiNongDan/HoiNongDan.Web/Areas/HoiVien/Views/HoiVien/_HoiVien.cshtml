@@ -341,14 +341,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label" asp-for="LoaiHoiVien"></label>
+                                        <label class="form-label">Hội viên</label>
                                         <div class="form-group">
-                                            <label class="custom-control custom-radio mb-0 mt-1">
-                                                <input type="radio" class="custom-control-input" asp-for="LoaiHoiVien" value="01">
-                                                <span class="custom-control-label">Hội viên nòng cốt</span>
+                                            <label class="custom-control custom-checkbox mb-0 mt-1">
+                                                <input type="checkbox" class="custom-control-input" asp-for="HoiVienNongCot">
+                                                <span class="custom-control-label">Nòng cốt</span>
                                             </label>
-                                            <label class="custom-control custom-radio mb-0 mt-1">
-                                                <input type="radio" class="custom-control-input" asp-for="LoaiHoiVien" value="02">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" asp-for="HoiVienUuTuNam" aria-label="Username">
+                                                <label class="form-label px-3">Ưu tú năm</label>
+                                            </div>
+                                            <label class="custom-control custom-checkbox mb-0 mt-1">
+                                                <input type="checkbox" class="custom-control-input" asp-for="HoiVienDanhDu">
                                                 <span class="custom-control-label">Hội viên danh dự</span>
                                             </label>
                                         </div>

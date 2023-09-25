@@ -62,6 +62,8 @@ namespace HoiNongDan.DataAccess
         public DbSet<NgheNghiep> NgheNghieps { get; set; }
         public DbSet<GiaDinhThuocDien> GiaDinhThuocDiens { get; set; }
         public DbSet<TrinhDoChuyenMon> TrinhDoChuyenMons { get; set; }
+        public DbSet<ChiHoi> ChiHois { get; set; }
+        public DbSet<ToHoi> ToHois { get; set; }
         
         #endregion
         #region nhanSu
@@ -129,6 +131,20 @@ namespace HoiNongDan.DataAccess
             builder.Entity<Bank>(tbl =>
             {
                 tbl.ToTable("Bank", "tMasterData");
+            });
+            builder.Entity<ChiHoi>(tbl =>
+            {
+                tbl.ToTable("ChiHoi", "tMasterData");
+                tbl.HasKey(it => it.MaChiHoi);
+                tbl.Property(it => it.TenChiHoi).IsRequired()
+                   .HasMaxLength(500);
+            });
+            builder.Entity<ToHoi>(tbl =>
+            {
+                tbl.ToTable("ToHoi", "tMasterData");
+                tbl.HasKey(it => it.MaToHoi);
+                tbl.Property(it => it.TenToHoi).IsRequired()
+                   .HasMaxLength(500);
             });
             builder.Entity<TrinhDoChuyenMon>(tbl =>
             {
@@ -452,6 +468,16 @@ namespace HoiNongDan.DataAccess
                  .WithMany(it => it.CanBos)
                  .HasForeignKey(it => it.MaDanToc)
                  .HasConstraintName("FK_CanBo_DanToc");
+
+                entity.HasOne<ChiHoi>(it => it.ChiHoi)
+                .WithMany(it => it.CanBos)
+                .HasForeignKey(it => it.MaChiHoi)
+                .HasConstraintName("FK_CanBo_ChiHoi");
+
+                entity.HasOne<ToHoi>(it => it.ToHoi)
+                .WithMany(it => it.CanBos)
+                .HasForeignKey(it => it.MaToHoi)
+                .HasConstraintName("FK_CanBo_ToHoi");
 
                 entity.HasOne<TonGiao>(it => it.TonGiao)
                  .WithMany(it => it.CanBos)

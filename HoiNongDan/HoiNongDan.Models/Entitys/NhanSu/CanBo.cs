@@ -164,7 +164,7 @@ namespace HoiNongDan.Models
         [MaxLength(200)]
         public String? VaiTroKhac { get; set; }
 
-        [MaxLength(10)]
+        [MaxLength(200)]
         public String? LoaiHoiVien { get; set; }
 
         [MaxLength(800)]
@@ -222,8 +222,46 @@ namespace HoiNongDan.Models
         public String? DanhGiaDangVien { get; set; }
         public bool? UBKT { get; set; } = false;
         public String? Level { get; set; }
-        
 
+
+        public bool? HoiVienNongCot { get; set; }
+
+        [MaxLength(200)]
+        public String? HoiVienUuTuNam { get; set; }
+
+        public bool? HoiVienDanhDu { get; set; }
+        [MaxLength(1000)]
+        public String? HoTrovayVon { get; set; }
+
+        [MaxLength(1000)]
+        public String? HoTroDaoTaoNghe { get; set; }
+
+        [MaxLength(1000)]
+        public String? HoTroKhac { get; set; }
+
+
+        [MaxLength(1000)]
+        public String? SoLuong { get; set; }
+
+
+        [MaxLength(1000)]
+        public String? ChiHoiDanCu_CHT { get; set; }
+
+        [MaxLength(1000)]
+        public String? ChiHoiDanCu_CHP { get; set; }
+
+        [MaxLength(1000)]
+        public String? ChiHoiNgheNghiep_CHT { get; set; }
+
+
+        [MaxLength(1000)]
+        public String? ChiHoiNgheNghiep_CHP { get; set; }
+
+        public Guid? MaChiHoi { get; set; }
+        public ChiHoi? ChiHoi { get; set; }
+
+        public Guid? MaToHoi { get; set; }
+        public ToHoi? ToHoi { get; set; }
         public Guid? CreatedAccountId { get; set; }
         public DateTime? CreatedTime { get; set; }
         public Guid? LastModifiedAccountId { get; set; }

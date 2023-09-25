@@ -1,5 +1,4 @@
-﻿
-@model  HoiNongDan.Models.AccountLoginViewModel
+﻿@model HoiNongDan.Models.AccountLoginViewModel
 @{
     Layout = null;
 }
@@ -13,7 +12,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Sash – Bootstrap 5  Admin & Dashboard Template">
-    
+
 
     <!-- FAVICON -->
     <link rel="shortcut icon" type="image/x-icon" href="~/assets/images/brand/favicon.ico" />
@@ -36,10 +35,11 @@
     <!-- COLOR SKIN CSS -->
     <link id="theme" rel="stylesheet" type="text/css" media="all" href="~/assets/colors/color1.css" />
     <style>
-        .side-header{
-            background-color:#0e344f;
+        .side-header {
+            background-color: #0e344f;
         }
-        body{
+
+        body {
             margin: 0;
             font-family: "Segoe UI", sans-serif;
             font-size: 14px;
@@ -53,7 +53,7 @@
     </style>
 </head>
 
-<body class="app sidebar-mini ltr light-mode" >
+<body class="app sidebar-mini ltr light-mode">
 
     <!-- BACKGROUND-IMAGE -->
     <div class="" style="">
@@ -71,45 +71,51 @@
                 <div class="col col-login mx-auto mt-7">
                     <div class="text-center">
                         <a href=""><img src="~/Images/login.png" style="width:100px;" class="header-brand-img" alt=""></a>
-                        
+
                     </div>
                     <div class="text-center login-title">PHẦN MỀM QUẢN LÝ HỘI VIÊN - CÁN BỘ </BR> HỘI NÔNG DÂN THÀNH PHỐ HỒ CHÍ MINH</div>
                 </div>
 
                 <div class="container-login100">
-                  
+
                     <div class="wrap-login100 p-6">
-                        <form  id="account" method="post">
+                        <form id="account" method="post">
                             @*<span class="login100-form-title pb-5">
-                                Đăng nhập
+                            Đăng nhập
                             </span>*@
                             <div class="wrap-input100 validate-input input-group">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             </div>
-                                 
-                                <div class="wrap-input100 validate-input input-group" >
-                                    <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
-                                        <i class="fe fe-user" aria-hidden="true"></i>
-                                    </a>
-                                    <input class="input100 border-start-0 form-control ms-0" asp-for="UserName" type="text" placeholder="Tài khoản">
-                                   
-                                </div>
-                                <span asp-validation-for="UserName" class="text-danger"></span>
-                                <div class="wrap-input100 input-group" id="Password-toggle">
-                                    <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
-                                        <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
-                                    </a>
-                                    <input class="input100 border-start-0 form-control ms-0" asp-for="Password" type="password" placeholder="Mật khẩu">
-                                   
-                                </div>
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            <div class="text-end pt-4">
-                                <p class="mb-0"><a href="forgot-password.html" class="text-primary ms-1">Quên mật khẩu?</a></p>
+
+                            <div class="wrap-input100 validate-input input-group">
+                                <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
+                                    <i class="fe fe-user" aria-hidden="true"></i>
+                                </a>
+                                <input class="input100 border-start-0 form-control ms-0" asp-for="UserName" type="text" placeholder="Tài khoản">
+
                             </div>
-                                <div class="container-login100-form-btn">
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                            <div class="wrap-input100 input-group" id="Password-toggle">
+                                <a href="#" class="input-group-text bg-white text-muted">
+                                    <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
+                                </a>
+                                <input class="input100 border-start-0 form-control ms-0" asp-for="Password" type="text" placeholder="Mật khẩu">
+                            </div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <div class="form-group">
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" asp-for="RememberMe" style="opacity:1;" value="option2">
+                                    <span class="custom-control-label">Nhớ mật khẩu</span>
+                                </label>
+                                <div class="text-end pt-2">
+                                    <p class="mb-0"><a href="forgot-password.html" class="text-primary ms-1">Quên mật khẩu?</a></p>
+                                </div>
+                            </div>
+                            
+                            <div class="container-login100-form-btn">
 
                                 <button id="login-submit" class="login100-form-btn" style="background-color:#0e344f">Đăng nhập</button>
-                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -143,7 +149,11 @@
     <script src="~/assets/js/custom.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-
+    <script>
+        $(document).ready(function () {
+            document.getElementById('Password').type = 'password';
+        });
+    </script>
 </body>
 
 </html>

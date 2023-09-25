@@ -185,7 +185,15 @@ namespace HoiNongDan.Models
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DKMauNguoiNongDanMoi")]
         public bool? DKMauNguoiNongDanMoi { get; set; } = false;
+        [Display(Name = ("Đảng viên"))]
         public bool DangVien { get; set; } = false;
+        [Display(Name =("Hội viên nòng cốt"))]
+        public bool HoiVienNongCot { get; set; } = false;
+        [Display(Name = ("Hội viên danh dự"))]
+        public bool HoiVienDanhDu { get; set; } = false;
+
+        [Display(Name = ("Hội viên Ưu tú năm"))]
+        public String? HoiVienUuTuNam { get; set; }
     }
     public class HoiVienMTVM : HoiVienVM
     {
@@ -240,6 +248,9 @@ namespace HoiNongDan.Models
             obj.IsHoiVien = true;
            
             obj.GhiChu = GhiChu;
+            obj.HoiVienUuTuNam = HoiVienUuTuNam;
+            obj.HoiVienNongCot = HoiVienNongCot;
+            obj.HoiVienDanhDu = HoiVienDanhDu;
            
             return obj;
         }
@@ -290,6 +301,10 @@ namespace HoiNongDan.Models
             obj.DKMauNguoiNongDanMoi = item.DKMauNguoiNongDanMoi;
             obj.GhiChu = item.GhiChu;
             obj.DangVien = item.DangVien== null?false:item.DangVien.Value;
+            obj.HoiVienUuTuNam = item.HoiVienUuTuNam;
+
+            obj.HoiVienNongCot = item.HoiVienNongCot == null ? false : item.HoiVienNongCot.Value;
+            obj.HoiVienDanhDu = item.HoiVienDanhDu == null ? false : item.HoiVienDanhDu.Value;
             return obj;
         }
     }
@@ -310,8 +325,8 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
         public Guid? MaDiaBanHoatDong { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
-        public Guid? IdDepartment { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
+        public string? MaQuanHuyen { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
         public Guid? MaChucVu { get; set; }

@@ -23,6 +23,7 @@
         <div class="d-flex px-2">
             @HtmlExtensions.ExportButton(CurrentArea,CurrentController,listRoles:listRoles)
             @HtmlExtensions.ImportButton(CurrentArea,CurrentController,listRoles:listRoles)
+            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -88,10 +89,12 @@
 @section ScriptCustomized {
     <script src="~/js/canbo.js"></script>
     <script>
+
         //load default and set event
         $(document).ready(function () {
             HoiNongDan.SearchInitial("@CurrentUrl");
             HoiNongDan.ShowMessage(window.location.href);
+          
         });
     </script>
 }

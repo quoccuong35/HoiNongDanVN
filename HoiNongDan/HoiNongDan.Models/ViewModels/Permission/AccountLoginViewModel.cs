@@ -18,7 +18,7 @@ namespace HoiNongDan.Models
         public string Password { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "RememberMe")]
-        public bool RememberMe { get; set; }
+        public bool RememberMe { get; set; } = true;
 
         public string ReturnUrl { get; set; }
 

@@ -538,13 +538,13 @@
     <value>Ngày sinh</value>
   </data>
   <data name="NgayThamGiaCapUyDang" xml:space="preserve">
-    <value>Ngày tham gia cấp ủy đảng</value>
+    <value>Tham gia cấp ủy đảng</value>
   </data>
   <data name="NgayThamGiaCongTac" xml:space="preserve">
     <value>Ngày tham gia công tác</value>
   </data>
   <data name="NgayThamGiaHDND" xml:space="preserve">
-    <value>Ngày tham gia HĐND</value>
+    <value>Tham gia HĐND</value>
   </data>
   <data name="NgayThanhLap" xml:space="preserve">
     <value>Ngày thành lập</value>

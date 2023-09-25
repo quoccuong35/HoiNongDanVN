@@ -56,6 +56,8 @@ namespace HoiNongDan.Models
         [Display(Name = "ND Việt Nam xuất sắc")]
         public string NDVietnamXS { get; set; }
 
+        [Display(Name = "Đảng viên")]
+        public bool DangVien { get; set; } = false;
 
         public ICollection<HoiVienHoiDapDetail> HoiDaps { get; set; }
 

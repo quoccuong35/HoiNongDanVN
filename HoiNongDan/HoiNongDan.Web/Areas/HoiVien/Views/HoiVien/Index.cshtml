@@ -46,6 +46,10 @@
                                 <input class="form-control" asp-for="HoVaTen" />
                             </div>
                             <div class="col-md-3">
+                                <label asp-for="MaQuanHuyen"></label>
+                                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
                                 <label asp-for="MaDiaBanHoatDong"></label>
                                 @Html.DropDownList("MaDiaBanHoatDong", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>

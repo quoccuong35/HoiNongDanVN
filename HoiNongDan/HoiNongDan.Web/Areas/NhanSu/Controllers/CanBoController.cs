@@ -132,6 +132,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 var data = model.Select(it => new CanBoHNDTPDelTailVM
                 {
                     IDCanBo = it.IDCanBo,
+                    MaCanBo = it.MaCanBo,
                     HoVaTen = it.HoVaTen,
                     NgaySinh = it.NgaySinh,
                     TenGioiTinh = it.GioiTinh.ToString(),
@@ -379,7 +380,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 if (avtFileInbox != null)
                 {
                     string wwwRootPath = _hostEnvironment.WebRootPath;
-                    string fileName = edit.MaCanBo;
+                    string fileName = edit.MaCanBo!;
                     var uploads = Path.Combine(wwwRootPath, @"images\canbo");
 
                     bool folderExists = System.IO.Directory.Exists(uploads);

@@ -21,6 +21,7 @@
             <th class="text-center" name="HoKhauThuongTru">@Html.DisplayNameFor(p => p.HoKhauThuongTru)</th>
             <th class="text-center" name="ChoOHienNay">@Html.DisplayNameFor(p => p.ChoOHienNay)</th>
             <th class="text-center" name="SoDienThoai">@Html.DisplayNameFor(p => p.SoDienThoai)</th>
+            <th class="text-center" name="NgayVaoDangChinhThuc">@Html.DisplayNameFor(p => p.DangVien)</th>
             <th class="text-center" name="NgayVaoDangChinhThuc">@Html.DisplayNameFor(p => p.NgayVaoDangChinhThuc)</th>
             <th class="text-center" name="DanToc">@Html.DisplayNameFor(p => p.DanToc)</th>
             <th class="text-center" name="TonGiao">@Html.DisplayNameFor(p => p.TonGiao)</th>
@@ -84,6 +85,7 @@
                 <td class="align-middle">@item.HoKhauThuongTru</td>
                 <td class="align-middle">@item.ChoOHienNay</td>
                 <td class="align-middle">@item.SoDienThoai</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.DangVien)</td>
                 <td class="align-middle">@item.NgayVaoDangChinhThuc</td>
                 <td class="align-middle">@item.DanToc</td>
                 <td class="align-middle">@item.TonGiao</td>

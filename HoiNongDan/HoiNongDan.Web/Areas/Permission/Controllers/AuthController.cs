@@ -29,11 +29,13 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
             }
             string user = Request.Cookies["username"];
             string pass = Request.Cookies["password"];
+            bool remember = Request.Cookies["remember"] == null?false:bool.Parse(Request.Cookies["remember"]);
             AccountLoginViewModel login = new AccountLoginViewModel();
             if (user != null)
             {
                 login.UserName = user.ToString();
                 login.Password = pass == null ? "" : pass.ToString();
+                login.RememberMe = remember;
             }
             return View(login);
         }
@@ -42,6 +44,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         public async Task<IActionResult> Login(AccountLoginViewModel model) {
             string userName = model.UserName.Trim();
             string passWord = model.Password.Trim();
+            string remember = model.RememberMe.ToString().Trim();
             Account? user = _db.Accounts.Where(p => p.UserName == userName).FirstOrDefault();
             if (model.RememberMe == true)
             {
@@ -49,12 +52,14 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 userInfo.Expires = DateTime.Now.AddDays(10);
                 Response.Cookies.Append("username", model.UserName, userInfo);
                 Response.Cookies.Append("password", model.Password, userInfo);
+                Response.Cookies.Append("remember", model.RememberMe.ToString(), userInfo);
             }
             else
             {
                 CookieOptions userInfo = new CookieOptions();
                 Response.Cookies.Append("username", "", userInfo);
                 Response.Cookies.Append("password", "", userInfo);
+                Response.Cookies.Append("remember", "false", userInfo);
             }
             try
             {

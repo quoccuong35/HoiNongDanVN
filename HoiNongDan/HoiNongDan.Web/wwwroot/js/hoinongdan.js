@@ -27,6 +27,7 @@ HoiNongDan.SearchDefault = function (controller, action) {
         url: "/" + controller + "/" + action,
         data: $("#frmSearch").serializeArray(),
         success: function (xhr, status, error) {
+           
             if (xhr.Code == 500 || xhr.Success == false) {
                
             }
@@ -137,8 +138,6 @@ HoiNongDan.Create = function (controller, frmCreate, isContinue, e) {
         $btn.button('reset');
     }
 }
-
-
 HoiNongDan.EditInitial = function (controller) {
     $(document).on("click", "#btn-save-continue", function (e) {
         var isContinue = true;
@@ -151,7 +150,6 @@ HoiNongDan.EditInitial = function (controller) {
     });
     HoiNongDan.DeleteFileDinhKem();
 }
-
 HoiNongDan.Edit = function (controller, frmEdit, isContinue, e) {
     var $btn = $(e);
     //var frm = $(frmCreate);
@@ -220,7 +218,6 @@ HoiNongDan.Edit = function (controller, frmEdit, isContinue, e) {
         $btn.button('reset');
     }
 }
-
 HoiNongDan.UpsertInitial = function (controller) {
     $(document).on("click", "#btn-save-continue", function (e) {
         var isContinue = true;
@@ -232,7 +229,6 @@ HoiNongDan.UpsertInitial = function (controller) {
         HoiNongDan.Upsert(controller, "#frmUpsert", isContinue, this);
     });
 }
-
 HoiNongDan.Upsert = function (controller, frmUpsert, isContinue, e) {
     var $btn = $(e);
     //var frm = $(frmCreate);
@@ -299,7 +295,6 @@ HoiNongDan.Upsert = function (controller, frmUpsert, isContinue, e) {
         $btn.button('reset');
     }
 }
-
 HoiNongDan.Delete = function () {
     $(document).on("click", "#btn-delete", function () {
         let $btn = $(this);
@@ -429,7 +424,6 @@ HoiNongDan.Import = function (controller) {
     });
   
 }
-
 HoiNongDan.UploadFile = function (controller) {
     $(document).on("click", "#btn-importExcel", function () {
         var frm = $("#frmImport");
@@ -502,7 +496,6 @@ HoiNongDan.ImportModalHideHandler = function () {
         $("#iframe-import").html("");
     })
 }
-
 HoiNongDan.ExportData = function (controller) {
     $(document).on("click", ".btn-exporttoexcel", function () {
         var formParams = $("#frmSearch").serializeArray();
@@ -520,7 +513,6 @@ HoiNongDan.ExportData = function (controller) {
         });
         self.location = "/" + controller + "/ExportEdit?" + para;
     });
-        
 }
 HoiNongDan.Table = function (id_table = "#data-list") {   
     var height = document.documentElement.clientHeight*0.4;

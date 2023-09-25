@@ -42,4 +42,18 @@
             }
         });
     }
+
+    $("select#MaQuanHuyen").change(function () {
+        let maQuanHuyen = $(this).val();
+        console.log(maQuanHuyen);
+        $("select#MaDiaBanHoatDong").empty();
+        $.getJSON('/HoiVien/HoiVien/loadDiaBanHoatDong?maQuanHuyen=' + maQuanHuyen, function (data) {
+            $("select#MaDiaBanHoatDong").append('<option>' + "--Vui lòng chọn danh mục--" + '</option>');
+            $.each(data, function (i, item) {
+                /*console.log(item);*/
+                $("select#MaDiaBanHoatDong").append('<option value=' + item.maDiaBanHoatDong + '>' + item.name + '</option>');
+            });
+        });
+    })
+
 });

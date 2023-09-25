@@ -123,6 +123,20 @@ namespace HoiNongDan.Models
 
         [Display(Name = "Ghi chú")]
         public string? GhiChu { get; set; }
+
+        [Display(Name = "Cấp")]
+        public string? Level { get; set; }
+    }
+    public class QHXP {
+        public string Level { get; set; }
+        public string Name { get; set; }
+
+        public static List<QHXP> GetData(){
+            List<QHXP> Edit = new List<QHXP>();
+            Edit.Add(new QHXP { Level = "20",Name= "HUYỆN QUẬN" });
+            Edit.Add(new QHXP { Level = "30", Name = "XÃ PHƯỜNG, THỊ TRẤN" });
+            return Edit;
+        }
     }
     public class CanBoQHXPMTVM:CanBoQHXPVM{
         public CanBo getCanBo(CanBo canBo) {
@@ -156,6 +170,8 @@ namespace HoiNongDan.Models
             canBo.DanhGiaCBCC = this.DanhGiaCBCC;
             canBo.DanhGiaDangVien = this.DanhGiaDangVien;
             canBo.GhiChu = this.GhiChu;
+            canBo.IsCanBo = true;
+            canBo.Level = this.Level;
 
             return canBo;
         }
@@ -190,7 +206,9 @@ namespace HoiNongDan.Models
             canBo.HDNNCapXa = obj.HDNNCapXa == null ? false : obj.HDNNCapXa.Value;
             canBo.DanhGiaCBCC = obj.DanhGiaCBCC;
             canBo.DanhGiaDangVien = obj.DanhGiaDangVien;
+            canBo.Level = obj.Level;
             canBo.GhiChu = obj.GhiChu;
+
             return canBo;
         }
     }

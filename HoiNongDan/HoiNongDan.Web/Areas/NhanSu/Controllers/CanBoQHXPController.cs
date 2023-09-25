@@ -99,6 +99,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         [HttpGet]
         public IActionResult Create() {
             CanBoQHXPVM model = new CanBoQHXPVM();
+            UpdateViewBag();
             return View(model);
         }
         [HttpPost]
@@ -113,7 +114,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 if (avtFileInbox != null)
                 {
                     string wwwRootPath = _hostEnvironment.WebRootPath;
-                    string fileName = add.MaCanBo;
+                    string fileName = add.MaCanBo!;
                     var uploads = Path.Combine(wwwRootPath, @"images\canbo");
 
                     bool folderExists = System.IO.Directory.Exists(uploads);
@@ -134,7 +135,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 {
                     Code = System.Net.HttpStatusCode.OK,
                     Success = true,
-                    Data = string.Format(LanguageResource.Alert_Create_Success, LanguageResource.CanBo.ToLower())
+                    Data = string.Format(LanguageResource.Alert_Create_Success, LanguageResource.CanBoHNDTP.ToLower())
                 });
             });
         }
@@ -149,9 +150,106 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             }
             CanBoQHXPMTVM method = new CanBoQHXPMTVM();
             CanBoQHXPVM canbo = method.SetCanBo(item);
-            UpdateViewBag(item.IdDepartment, item.MaChucVu,item.MaDanToc,item.MaTonGiao, item.MaTrinhDoChuyenMon, item.MaTrinhDoChinhTri, item.MaTrinhDoNgoaiNgu, item.MaTrinhDoTinHoc);
+            UpdateViewBag(item.IdDepartment, item.MaChucVu,item.MaDanToc,item.MaTonGiao, item.MaTrinhDoChuyenMon, item.MaTrinhDoChinhTri, item.MaTrinhDoNgoaiNgu, item.MaTrinhDoTinHoc,item.Level);
             return View(canbo);
         }
+        [HttpPost]
+        [HoiNongDanAuthorization]
+        public JsonResult Edit(CanBoQHXPMTVM obj , IFormFile? avtFileInbox) {
+            return ExecuteContainer(() => {
+                var edit = _context.CanBos.SingleOrDefault(it => it.IDCanBo == obj.IDCanBo);
+                if (edit == null)
+                {
+                    return Json(new
+                    {
+                        Code = System.Net.HttpStatusCode.NotFound,
+                        Success = false,
+                        Data = string.Format(LanguageResource.Error_NotExist, LanguageResource.CanBoHNDTP.ToLower())
+                    });
+                }
+                edit = obj.getCanBo(edit);
+                edit.LastModifiedTime = DateTime.Now;
+                edit.LastModifiedAccountId = AccountId();
+                if (avtFileInbox != null)
+                {
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = edit.MaCanBo;
+                    var uploads = Path.Combine(wwwRootPath, @"images\canbo");
+
+                    bool folderExists = System.IO.Directory.Exists(uploads);
+                    if (!folderExists)
+                        System.IO.Directory.CreateDirectory(uploads);
+
+                    var extension = Path.GetExtension(avtFileInbox.FileName);
+                    if (obj.HinhAnh != null)
+                    {
+                        var oldImagePath = Path.Combine(wwwRootPath, edit.HinhAnh!.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+                    using (var fileStream = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                    {
+                        avtFileInbox.CopyTo(fileStream);
+                    }
+                    edit.HinhAnh = @"\images\canbo\" + fileName + extension;
+                }
+                HistoryModelRepository history = new HistoryModelRepository(_context);
+                history.SaveUpdateHistory(edit.IDCanBo.ToString(), AccountId()!.Value, edit);
+                _context.Entry(edit).State = EntityState.Modified;
+                _context.SaveChanges();
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.OK,
+                    Success = true,
+                    Data = string.Format(LanguageResource.Alert_Edit_Success, LanguageResource.CanBoHNDTP.ToLower())
+                });
+            });
+        }
+        #region Delete
+        [HttpDelete]
+        [HoiNongDanAuthorization]
+        public JsonResult Delete(Guid id)
+        {
+            return ExecuteDelete(() =>
+            {
+                var del = _context.CanBos.FirstOrDefault(p => p.IDCanBo == id);
+                if (del != null)
+                {
+                    //_context.Entry(accountInRoleModels).State = EntityState.Deleted;
+                    //_context.Entry(account).State = EntityState.Deleted;
+                    if (del.HinhAnh != null && del.HinhAnh != "")
+                    {
+                        string wwwRootPath = _hostEnvironment.WebRootPath;
+                        var oldImagePath = Path.Combine(wwwRootPath, del.HinhAnh!.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+                    _context.Remove(del);
+                    _context.SaveChanges();
+
+                    return Json(new
+                    {
+                        Code = System.Net.HttpStatusCode.OK,
+                        Success = true,
+                        Data = string.Format(LanguageResource.Alert_Delete_Success, LanguageResource.CanBo.ToLower())
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        Code = System.Net.HttpStatusCode.NotModified,
+                        Success = false,
+                        Data = string.Format(LanguageResource.Alert_NotExist_Delete, LanguageResource.CanBo.ToLower())
+                    });
+                }
+            });
+        }
+        #endregion Delete
         #region Import Excel 
         public IActionResult _Import()
         {
@@ -916,7 +1014,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
 
         }
         public void UpdateViewBag(Guid? idDepartment = null, Guid? maChucVu = null, String? maDanToc = null, String? maTonGiao = null, String? maTrinhDoChuyenMon = null, String? maTrinhDoChinhTri = null,
-            Guid? maTrinhDoNgoaiNgu = null, String? maTrinhDoTinHoc = null)
+            Guid? maTrinhDoNgoaiNgu = null, String? maTrinhDoTinHoc = null, String? Level = null)
         {
             var DonVi = _context.Departments.Where(it => it.Actived == true).Include(it => it.CoSo).OrderBy(p => p.OrderIndex).Select(it => new { IdDepartment = it.Id, Name = it.Name + " " + it.CoSo.TenCoSo }).ToList();
             ViewBag.IdDepartment = new SelectList(DonVi, "IdDepartment", "Name", idDepartment);
@@ -940,6 +1038,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
 
             var trinhDoTinHoc = _context.TrinhDoTinHocs.Where(it => it.Actived == true).OrderBy(it => it.OrderIndex).Select(it => new { MaTrinhDoTinHoc = it.MaTrinhDoTinHoc, TenTrinhDoTinHoc = it.TenTrinhDoTinHoc }).ToList();
             ViewBag.MaTrinhDoTinHoc = new SelectList(trinhDoTinHoc, "MaTrinhDoTinHoc", "TenTrinhDoTinHoc", maTrinhDoTinHoc);
+
+            ViewBag.Level = new SelectList(QHXP.GetData(), "Level", "Name", Level);
         }
         #endregion Helper
     }

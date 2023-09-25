@@ -1321,7 +1321,7 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ngày tham gia cấp ủy đảng.
+        ///   Looks up a localized string similar to Tham gia cấp ủy đảng.
         /// </summary>
         public static string NgayThamGiaCapUyDang {
             get {
@@ -1339,7 +1339,7 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ngày tham gia HĐND.
+        ///   Looks up a localized string similar to Tham gia HĐND.
         /// </summary>
         public static string NgayThamGiaHDND {
             get {

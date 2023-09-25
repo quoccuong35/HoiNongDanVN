@@ -274,7 +274,27 @@
                             </div>
                            
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label asp-for="DanhGiaCBCC"></label>
+                                        <input asp-for="DanhGiaCBCC" class="form-control">
+                                        <span asp-validation-for="DanhGiaCBCC" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label asp-for="DanhGiaDangVien"></label>
+                                        <input asp-for="DanhGiaDangVien" class="form-control">
+                                        <span asp-validation-for="DanhGiaDangVien" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <label asp-for="Level"></label>
+                                    <select asp-for="Level" asp-items="@ViewBag.Level" class="form-control select2-show-search form-select">
+                                        <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-12">
                                     <label asp-for="GhiChu"></label>
                                     <textarea asp-for="GhiChu" rows="3" class="form-control"></textarea>
                                     <span asp-validation-for="GhiChu" class="text-danger"></span>

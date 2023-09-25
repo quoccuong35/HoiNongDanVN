@@ -18,7 +18,7 @@
                 <li class="breadcrumb-item">
                     <a class="fs-18 fw-600" asp-area="@ConstArea.NhanSu" asp-controller="@ConstController.CanBoQHXP" asp-action="Index">@LanguageResource.CanBoQHXP</a>
                 </li>
-                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Edit</li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Create</li>
             </ol>
         </div>
         <div class="">
@@ -30,7 +30,7 @@
     <!-- PAGE-HEADER END -->
     <!-- ROW-1 OPEN -->
     <!-- Row -->
-    <form method="post" asp-action="Create" id="frmEdit">
+    <form method="post" asp-action="Create" id="frmCreate">
         @Html.Partial("_CanBoQHXP",Model)
     </form>
     <!-- /Row -->
@@ -46,7 +46,7 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
-            HoiNongDan.EditInitial("@CurrentUrl");
+            HoiNongDan.CreateInitial("@CurrentUrl");
         });
     </script>
 }
