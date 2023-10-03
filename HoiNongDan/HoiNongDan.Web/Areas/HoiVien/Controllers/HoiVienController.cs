@@ -928,7 +928,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         private void CreateViewBag( Guid? IdCoSo = null, Guid? IdDepartment = null,
             Guid? maChucVu = null,
             String? maTrinhDoHocVan = null, String? maTrinhDoChinhTri = null,
-            String? maDanToc = null, String? maTonGiao = null,string? maTrinhDoChuyenMon = null,Guid? maDiaBanHoatDong = null,string? maHocVi = null)
+            String? maDanToc = null, String? maTonGiao = null,string? maTrinhDoChuyenMon = null,Guid? maDiaBanHoatDong = null,string? maHocVi = null,Guid? MaChiHoi = null, Guid? MaToHoi = null)
         {
 
             //var MenuListCoSo = _context.CoSos.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { IdCoSo = it.IdCoSo, TenCoSo = it.TenCoSo }).ToList();
@@ -962,6 +962,12 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
             var hocVis = _context.HocVis.Select(it => new { MaHocVi = it.MaHocVi, TenHocVi = it.TenHocVi }).ToList();
             ViewBag.MaHocVi = new SelectList(hocVis, "MaHocVi", "TenHocVi", maHocVi);
+
+            var chiHois = _context.ChiHois.Select(it => new { MaChiHoi = it.MaChiHoi, TenChiHoi = it.TenChiHoi }).ToList();
+            ViewBag.MaChiHoi = new SelectList(chiHois, "MaChiHoi", "TenChiHoi", MaChiHoi);
+
+            var toHois = _context.ToHois.Select(it => new { MaToHoi = it.MaToHoi, TenToHoi = it.TenToHoi }).ToList();
+            ViewBag.MaToHoi = new SelectList(toHois, "MaToHoi", "TenToHoi", MaToHoi);
         }
         private void CreateViewBagSearch()
         {
@@ -1141,7 +1147,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             //Năm sinh
                             if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
                             {
-                                import.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa nhập thông tin {0}", LanguageResource.NgaySinh), index);
+                                //import.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa nhập thông tin {0}", LanguageResource.NgaySinh), index);
                             }
                             else
                             {
@@ -1207,7 +1213,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             // Nơi ở hiện nay
                             if (string.IsNullOrEmpty(value))
                             {
-                                import.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.ChoOHienNay), index);
+                                //import.Error += string.Format(LanguageResource.Validation_ImportRequired, string.Format("chưa chọn thông tin {0} ", LanguageResource.ChoOHienNay), index);
                             }
                             else
                             {
@@ -1754,7 +1760,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 }
                 catch (Exception ex)
                 {
-                    string ss = i.ToString() + ex.Message;
+                    string ss = i.ToString() + value.ToString() + ex.Message;
                     throw;
                 }
             }

@@ -429,6 +429,8 @@ HoiNongDan.UploadFile = function (controller) {
         var frm = $("#frmImport");
         var formData = new FormData(),
         formParams = frm.serializeArray();
+        var $btn = $("#btn-importExcel");
+        $btn.toggleClass("btn-loading");
         $.each(frm.find('input[type="file"]'), function (i, tag) {
             $.each($(tag)[0].files, function (i, file) {
                 formData.append(tag.name, file);
@@ -445,6 +447,7 @@ HoiNongDan.UploadFile = function (controller) {
             contentType: false,
             processData: false,
             success: function (jsonData) {
+                $btn.toggleClass("btn-loading");
                 if (jsonData.success == true) {
                     //formData[0].reset();
                     let html = '<div class="alert alert-success">' +
@@ -477,6 +480,7 @@ HoiNongDan.UploadFile = function (controller) {
                     }, 3000);
                 }
                 else if (jsonData.indexOf("from-login-error") > 0) {
+                    $btn.toggleClass("btn-loading");
                     toastr.error('Hết thời gian thao tác xin đăng nhập lại');
                     setTimeout(function () {
                         var url = window.location.href.toString().split(window.location.host)[1];

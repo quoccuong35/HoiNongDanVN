@@ -165,8 +165,11 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Loai_DV_SX_ChN")]
         public String? Loai_DV_SX_ChN { get; set; }
 
-        [Display(Name = "Diện tích hoặc quy mô")]
+        [Display(Name = "Diện tích")]
         public String? DienTich_QuyMo { get; set; }
+
+        [Display(Name = "Số lượng")]
+        public String? SoLuong { get; set; }
 
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayNgungHoatDong")]
@@ -194,6 +197,12 @@ namespace HoiNongDan.Models
 
         [Display(Name = ("Hội viên Ưu tú năm"))]
         public String? HoiVienUuTuNam { get; set; }
+
+        [Display(Name = ("Chi hội"))]
+        public Guid? MaChiHoi { get; set; }
+
+        [Display(Name = ("Tổ hội"))]
+        public Guid? MaToHoi { get; set; }
     }
     public class HoiVienMTVM : HoiVienVM
     {
@@ -245,12 +254,15 @@ namespace HoiNongDan.Models
             obj.KKAnToanThucPham = KKAnToanThucPham;
             obj.DKMauNguoiNongDanMoi = DKMauNguoiNongDanMoi;
             obj.DienTich_QuyMo = DienTich_QuyMo;
+            obj.SoLuong = SoLuong;
             obj.IsHoiVien = true;
            
             obj.GhiChu = GhiChu;
             obj.HoiVienUuTuNam = HoiVienUuTuNam;
             obj.HoiVienNongCot = HoiVienNongCot;
             obj.HoiVienDanhDu = HoiVienDanhDu;
+            obj.MaChiHoi = MaChiHoi;
+            obj.MaToHoi = MaToHoi;
            
             return obj;
         }
@@ -262,14 +274,14 @@ namespace HoiNongDan.Models
             obj.NgaySinh = item.NgaySinh;
             obj.GioiTinh = item.GioiTinh;
             obj.MaChucVu = item.MaChucVu;
-            obj.SoCCCD = item.SoCCCD;
+            obj.SoCCCD = item.SoCCCD!;
             obj.NgayCapCCCD = item.NgayCapCCCD;
             obj.HoKhauThuongTru = item.HoKhauThuongTru;
             obj.ChoOHienNay = item.ChoOHienNay!;
             obj.SoDienThoai = item.SoDienThoai;
             obj.NgayvaoDangDuBi = item.NgayvaoDangDuBi;
             obj.NgayVaoDangChinhThuc = item.NgayVaoDangChinhThuc;
-            obj.MaDanToc = item.MaDanToc;
+            obj.MaDanToc = item.MaDanToc!;
             obj.MaTonGiao = item.MaTonGiao;
             obj.MaTrinhDoHocVan = item.MaTrinhDoHocVan;
             obj.MaTrinhDoChuyenMon = item.MaTrinhDoChuyenMon;
@@ -297,6 +309,7 @@ namespace HoiNongDan.Models
             obj.ThamGia_THNN_CHNN = item.ThamGia_THNN_CHNN;
             obj.Loai_DV_SX_ChN = item.Loai_DV_SX_ChN;
             obj.DienTich_QuyMo = item.DienTich_QuyMo;
+            obj.SoLuong = item.SoLuong;
             obj.KKAnToanThucPham = item.KKAnToanThucPham;
             obj.DKMauNguoiNongDanMoi = item.DKMauNguoiNongDanMoi;
             obj.GhiChu = item.GhiChu;
@@ -305,6 +318,8 @@ namespace HoiNongDan.Models
 
             obj.HoiVienNongCot = item.HoiVienNongCot == null ? false : item.HoiVienNongCot.Value;
             obj.HoiVienDanhDu = item.HoiVienDanhDu == null ? false : item.HoiVienDanhDu.Value;
+            obj.MaToHoi = item.MaToHoi;
+            obj.MaChiHoi = item.MaChiHoi;
             return obj;
         }
     }
