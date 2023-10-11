@@ -10,44 +10,52 @@ using System.Xml.Linq;
 
 namespace HoiNongDan.Models
 {
-    public class VayVonVM
+    public class HoiVienHoTroVM
     {
-        public Guid? IDVayVon { get; set; }
+        public Guid? ID { get; set; }
 
         public NhanSuThongTinVM NhanSu { get; set; }
 
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NguonVon")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        public Guid? MaNguonVon { get; set;}
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HinhThucHoTro")]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        public Guid MaHinhThucHoTro { get; set;}
+
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoTienVay")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        public string SoTienVay { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        public string? SoTienVay { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ThoiHangChoVay")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Range(1, 120, ErrorMessage = "Số tháng không hợp lệ")]
-        public int ThoiHangChoVay { get; set; } = 24;
+        public int? ThoiHangChoVay { get; set; } 
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "LaiSuatVay")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Range(5,50, ErrorMessage = "Lãi suất vay không hợp lệ")]
-        public double LaiSuatVay { get; set; } = 11;
+        public double? LaiSuatVay { get; set; } 
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TuNgay")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [DataType(DataType.Date)]
         public DateTime? TuNgay { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DenNgay")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [DataType(DataType.Date)]
         public DateTime? DenNgay { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayTraNoCuoiCung")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [DataType(DataType.Date)]
         public DateTime? NgayTraNoCuoiCung { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NoiDungVay")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NoiDung")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        public string NoiDungVay { get; set; }
+        public string NoiDung { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GhiChu")]
         public string? GhiChu { get; set; }
@@ -55,23 +63,27 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TraXong")]
         public bool TraXong { get; set; } = false;
     }
-    public class VayVonMTVM : VayVonVM {
-        public HoiVienVayVon GetVayVon(HoiVienVayVon obj) {
-            obj.SoTienVay = long.Parse(this.SoTienVay.Replace(",",""));
+    public class HoiVienHoTroMTVM : HoiVienHoTroVM
+    {
+        public HoiVienHoTro GetHoTro(HoiVienHoTro obj) {
+            obj.SoTienVay = this.SoTienVay != null?  long.Parse(this.SoTienVay.Replace(",","")):null;
             obj.LaiSuatVay = this.LaiSuatVay;
             obj.ThoiHangChoVay = this.ThoiHangChoVay;
             obj.TuNgay = this.TuNgay!.Value;
             obj.DenNgay = this.DenNgay!.Value;
-            obj.NgayTraNoCuoiCung = this.NgayTraNoCuoiCung!.Value;
-            obj.NoiDungVay = this.NoiDungVay;
+            obj.NgayTraNoCuoiCung = this.NgayTraNoCuoiCung;
+            obj.NoiDung = this.NoiDung;
             obj.GhiChu = this.GhiChu!;
-            obj.IDCanBo = this.NhanSu.IdCanbo!.Value;
+            obj.IDHoiVien = this.NhanSu.IdCanbo!.Value;
+            obj.MaHinhThucHoTro = this.MaHinhThucHoTro;
+            obj.MaNguonVon = this.MaNguonVon;
            // obj.TraXong = this.TraXong;
             return obj;
         }
     }
-    public class VayVonDetailVM{
-        public Guid IDVayVon { get; set; }
+    public class HoiVienHoTroDetailVM
+    {
+        public Guid ID { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHV")]
         public String MaHV { get; set; }
@@ -80,32 +92,39 @@ namespace HoiNongDan.Models
         public String TenHV { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoTienVay")]
-        public long SoTienVay { get; set; }
+        public long? SoTienVay { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ThoiHangChoVay")]
-        public int ThoiHangChoVay { get; set; }
+        public int? ThoiHangChoVay { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "LaiSuatVay")]
-        public double LaiSuatVay { get; set; }
+        public double? LaiSuatVay { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TuNgay")]
-        public DateTime TuNgay { get; set; }
+        public DateTime? TuNgay { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DenNgay")]
-        public DateTime DenNgay { get; set; }
+        public DateTime? DenNgay { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayTraNoCuoiCung")]
-        public DateTime NgayTraNoCuoiCung { get; set; }
+        public DateTime? NgayTraNoCuoiCung { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NoiDungVay")]
-        public string NoiDungVay { get; set; }
+        public string NoiDung { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoThangQuaHan")]
         public int SoThangQuaHan { get; set; }
         public bool TraXong { get; set; }
 
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HinhThucHoTro")]
+        public String? HinhThucHoTro { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NguonVon")]
+        public String? NguonVon { get; set; }
+
+        public String? TienVay { get; set; }
     }
-    public class VayVonSearchVM {
+    public class HVHoTroSearchVM {
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NamVayVon")]
         public int? NamVayVon { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHV")]

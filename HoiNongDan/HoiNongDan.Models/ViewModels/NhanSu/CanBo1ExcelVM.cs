@@ -65,13 +65,13 @@ namespace HoiNongDan.Models
         public string? ChoOHienNay { get; set; }
 
 
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayvaoDangDuBi")]
-        public DateTime? NgayvaoDangDuBi { get; set; }
+        public string? NgayvaoDangDuBi { get; set; }
 
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayVaoDangChinhThuc")]
-        public DateTime? NgayVaoDangChinhThuc { get; set; }
+        public string? NgayVaoDangChinhThuc { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChuyenNganh")]
         public string ChuyenNganh { get; set; }

@@ -1,9 +1,9 @@
 ﻿@using HoiNongDan.Constant
 @using HoiNongDan.Resources
 @using Microsoft.AspNetCore.Html
-@model IEnumerable<VayVonDetailVM>
+@model IEnumerable<HoiVienHoTroDetailVM>
 @{
-    string CurrentController = ConstController.VayVon;
+    string CurrentController = ConstController.HoTro;
     string CurrentArea = ConstArea.HoiVien;
     string listRoles = User.FindFirst("Roles")!.Value;
     listRoles = listRoles == null ? "" : listRoles;
@@ -18,7 +18,7 @@
             <th>@Html.DisplayNameFor(p => p.ThoiHangChoVay)</th>
             <th>@Html.DisplayNameFor(p => p.LaiSuatVay)</th>
             <th>@Html.DisplayNameFor(p => p.NgayTraNoCuoiCung)</th>
-            <th>@Html.DisplayNameFor(p => p.NoiDungVay)</th>
+            <th>@Html.DisplayNameFor(p => p.NoiDung)</th>
         </tr>
     </thead>
     <tbody>
@@ -28,17 +28,17 @@
         }
         @foreach (var item in Model)
         {
-            ngayTraCuoiCung = item.NgayTraNoCuoiCung.ToString("dd/MM/yyyy");
+            ngayTraCuoiCung = item.NgayTraNoCuoiCung.Value.ToString("dd/MM/yyyy");
             i++;
             <tr>
                 <td class="text-center">@i</td>
                 <td>@item.MaHV</td>
                 <td>@item.TenHV</td>
-                <td>@item.SoTienVay.ToString("N0")</td>
+                <td>@item.SoTienVay.Value.ToString("N0")</td>
                 <td>@item.ThoiHangChoVay</td>
                 <td>@item.LaiSuatVay</td>
                 <td>@ngayTraCuoiCung</td>
-                <td>@item.NoiDungVay</td>
+                <td>@item.NoiDung</td>
             </tr>
         }
     </tbody>

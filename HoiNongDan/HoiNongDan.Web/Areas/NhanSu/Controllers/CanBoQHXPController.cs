@@ -814,7 +814,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                             {
                                 try
                                 {
-                                    canBo.NgayvaoDangDuBi = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")); ;
+                                    //canBo.NgayvaoDangDuBi = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")); ;
+                                    canBo.NgayvaoDangDuBi = value;//DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")); ;
                                 }
                                 catch (Exception)
                                 {
@@ -829,7 +830,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                             {
                                 try
                                 {
-                                    canBo.NgayVaoDangChinhThuc = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US"));
+                                    //canBo.NgayVaoDangChinhThuc = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US"));
+                                    canBo.NgayVaoDangChinhThuc = value;// DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US"));
                                     canBo.DangVien = true;
                                 }
                                 catch (Exception)

@@ -4,6 +4,7 @@ using HoiNongDan.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HoiNongDan.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231009023726_addHoiVienHoTro")]
+    partial class addHoiVienHoTro
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -759,17 +761,15 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("NgayVaoBienChe")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("NgayVaoDangChinhThuc")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<DateTime?>("NgayVaoDangChinhThuc")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("NgayVaoHoi")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("NgayvaoDangDuBi")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<DateTime?>("NgayvaoDangDuBi")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid?>("NguoiDuyet")
                         .HasColumnType("uniqueidentifier");
@@ -1079,7 +1079,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 10, 13, 51, 41, 21, DateTimeKind.Local).AddTicks(4257));
+                        .HasDefaultValue(new DateTime(2023, 10, 9, 9, 37, 25, 333, DateTimeKind.Local).AddTicks(7962));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -2204,7 +2204,11 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("GhiChu")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("HinhThucHoTroMaHinhThucHoTro")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IDHoiVien")
                         .HasColumnType("uniqueidentifier");
@@ -2221,11 +2225,14 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<Guid>("MaHinhThucHoTro")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("MaNguonVon")
+                    b.Property<Guid>("MaNguonVon")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("NgayTraNoCuoiCung")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid>("NguonVonMaNguonVon")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("NoiDung")
                         .IsRequired()
@@ -2246,11 +2253,11 @@ namespace HoiNongDan.DataAccess.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("HinhThucHoTroMaHinhThucHoTro");
+
                     b.HasIndex("IDHoiVien");
 
-                    b.HasIndex("MaHinhThucHoTro");
-
-                    b.HasIndex("MaNguonVon");
+                    b.HasIndex("NguonVonMaNguonVon");
 
                     b.ToTable("HoiVienHoTro", "HV");
                 });
@@ -2400,7 +2407,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 10, 13, 51, 41, 21, DateTimeKind.Local).AddTicks(7321));
+                        .HasDefaultValue(new DateTime(2023, 10, 9, 9, 37, 25, 334, DateTimeKind.Local).AddTicks(1985));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -3569,6 +3576,12 @@ namespace HoiNongDan.DataAccess.Migrations
 
             modelBuilder.Entity("HoiNongDan.Models.HoiVienHoTro", b =>
                 {
+                    b.HasOne("HoiNongDan.Models.HinhThucHoTro", "HinhThucHoTro")
+                        .WithMany("HoiVienHoTros")
+                        .HasForeignKey("HinhThucHoTroMaHinhThucHoTro")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("HoiNongDan.Models.CanBo", "HoiVien")
                         .WithMany("HoiVienHoTros")
                         .HasForeignKey("IDHoiVien")
@@ -3576,17 +3589,11 @@ namespace HoiNongDan.DataAccess.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_HoiVienVayVon_HoiVien");
 
-                    b.HasOne("HoiNongDan.Models.HinhThucHoTro", "HinhThucHoTro")
-                        .WithMany("HoiVienHoTros")
-                        .HasForeignKey("MaHinhThucHoTro")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_HoiVienHoTro_HinhThucHoTro");
-
                     b.HasOne("HoiNongDan.Models.NguonVon", "NguonVon")
                         .WithMany("HoiVienHoTros")
-                        .HasForeignKey("MaNguonVon")
-                        .HasConstraintName("FK_HoiVienHoTro_NguonVon");
+                        .HasForeignKey("NguonVonMaNguonVon")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("HinhThucHoTro");
 

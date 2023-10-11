@@ -348,6 +348,9 @@
   <data name="HeSoChucVu" xml:space="preserve">
     <value>Hệ số chức vụ</value>
   </data>
+  <data name="HinhThucHoTro" xml:space="preserve">
+    <value>Hình thức hỗ trợ</value>
+  </data>
   <data name="HinhThucKhenThuong" xml:space="preserve">
     <value>Hình thức khen thưởng</value>
   </data>
@@ -367,7 +370,7 @@
     <value>Hội Viên nông dân</value>
   </data>
   <data name="HoiVienVayVon" xml:space="preserve">
-    <value>Hội viên vay vốn</value>
+    <value>Hội viên hỗ trợ</value>
   </data>
   <data name="HoKhauThuongTru" xml:space="preserve">
     <value>Hộ khẩu thường trú</value>
@@ -581,6 +584,9 @@
   </data>
   <data name="NguoiKy" xml:space="preserve">
     <value>Người ký</value>
+  </data>
+  <data name="NguonVon" xml:space="preserve">
+    <value>Nguồn vốn</value>
   </data>
   <data name="NhanSu" xml:space="preserve">
     <value>Nhân Sự</value>

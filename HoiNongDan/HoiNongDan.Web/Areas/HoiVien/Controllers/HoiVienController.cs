@@ -66,10 +66,15 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     model = model.Where(it => it.HoVaTen.Contains(search.HoVaTen));
                 }
-                
+
                 if (search.MaDiaBanHoatDong != null)
                 {
                     model = model.Where(it => it.MaDiaBanHoatDong == search.MaDiaBanHoatDong);
+                }
+                else
+                {
+
+                    model = model.Where(it => it.MaDiaBanHoatDong == Guid.Parse("4633016E-727F-4B69-A5D2-0DF7F42AA345"));
                 }
                 if (search.MaQuanHuyen != null)
                 {
@@ -97,6 +102,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     .Include(it => it.TrinhDoChuyenMon)
                     .Include(it => it.TrinhDoChinhTri)
                     .Include(it=>it.QuaTrinhKhenThuongs)
+                    .Include(it=>it.ChiHoi)
+                    .Include(it=>it.ToHoi)
                     .Include(it => it.CoSo).Select(it => new HoiVienDetailVM
                     {
                         IDCanBo = it.IDCanBo,
@@ -109,7 +116,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         HoKhauThuongTru = it.HoKhauThuongTru,
                         ChoOHienNay = it.ChoOHienNay!,
                         SoDienThoai = it.SoDienThoai,
+                        DangVien = it.DangVien == null ? false : it.DangVien.Value,
+                        NgayvaoDangDuBi = it.NgayvaoDangDuBi,
                         NgayVaoDangChinhThuc = it.NgayVaoDangChinhThuc,
+                       
                         TenDiaBanHoatDong = it.DiaBanHoatDong!.TenDiaBanHoatDong,
                         DanToc = it.DanToc!.TenDanToc,
                         TonGiao = it.TonGiao!.TenTonGiao,
@@ -119,27 +129,42 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         NgayVaoHoi = it.NgayVaoHoi,
                         NgayThamGiaCapUyDang = it.NgayThamGiaCapUyDang,
                         NgayThamGiaHDND = it.NgayThamGiaHDND,
+                        VaiTro = it.VaiTro == "01" ? "Chủ hộ" : "Quan hệ chủ hộ",
+                        VaiTroKhac = it.VaiTroKhac,
                         HoNgheo = it.HoNgheo==null?false : it.HoNgheo.Value,
                         CanNgheo = it.CanNgheo == null ? false : it.CanNgheo.Value,
                         GiaDinhChinhSach = it.GiaDinhChinhSach == null ? false : it.GiaDinhChinhSach.Value,
                         GiaDinhThuocDienKhac = it.GiaDinhThuocDienKhac,
-                        HinhAnh = it.HinhAnh!,
-                        VaiTro = it.VaiTro == "01" ? "Chủ hộ" : "Quan hệ chủ hộ",
-                        VaiTroKhac = it.VaiTroKhac,
                         NgheNghiepHienNay = it.NgheNghiep!.TenNgheNghiep,
                         Loai_DV_SX_ChN = it.Loai_DV_SX_ChN,
                         DienTich_QuyMo = it.DienTich_QuyMo,
+                        SoLuong = it.SoLuong,
                         LoaiHoiVien = it.LoaiHoiVien,
-                        DangVien = it.DangVien == null ? false : it.DangVien.Value,
-                        KKAnToanThucPham = it.KKAnToanThucPham,
-                        DKMauNguoiNongDanMoi = it.DKMauNguoiNongDanMoi,
-                        HoiVienUuTu = String.Join(',',it.QuaTrinhKhenThuongs.Where(p=>p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong =="14").Select(it=>it.GhiChu).ToList()),
-                        NDSXKDG = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "15").Select(it => it.GhiChu).ToList()),
-                        NDTieuBieu = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "16").Select(it => it.GhiChu).ToList()),
-                        NDVietnamXS = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "22").Select(it => it.GhiChu).ToList()),
                         ThamGia_SH_DoanThe_HoiDoanKhac = it.ThamGia_SH_DoanThe_HoiDoanKhac,
                         ThamGia_CLB_DN_MH_HTX_THT = it.ThamGia_CLB_DN_MH_HTX_THT,
                         ThamGia_THNN_CHNN = it.ThamGia_THNN_CHNN,
+                        HoiVienNongCot = it.HoiVienNongCot == null ? false : it.HoiVienNongCot.Value,
+                        HoiVienUuTuNam = it.HoiVienUuTuNam,
+                        HoiVienDanhDu = it.HoiVienDanhDu == null ? false : it.HoiVienDanhDu.Value,
+                        
+                        NDSXKDG = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "15").Select(it => it.GhiChu).ToList()),
+                        NDTieuBieu = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "16").Select(it => it.GhiChu).ToList()),
+                        NDVietnamXS = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "22").Select(it => it.GhiChu).ToList()),
+                        KNCGCND = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "17").Select(it => it.GhiChu).ToList()),
+                        CanBoHoiCoSoGioi = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "18").Select(it => it.GhiChu).ToList()),
+                        SangTaoNhaNong = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "19").Select(it => it.GhiChu).ToList()),
+                        GuongDiemHinh = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "13").Select(it => it.GhiChu).ToList()),
+                        GuongDanVanKheo = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "20").Select(it => it.GhiChu).ToList()),
+                        GuongDiemHinhHocTapLamTheoBac = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "21").Select(it => it.GhiChu).ToList()),
+                        HoTrovayVon  = it.HoTrovayVon,
+                        HoTroKhac = it.HoTroKhac,
+                        HoTroDaoTaoNghe = it.HoTroDaoTaoNghe,
+                      
+                        KKAnToanThucPham = it.KKAnToanThucPham,
+                        DKMauNguoiNongDanMoi = it.DKMauNguoiNongDanMoi,
+                        ChiHoi = it.ChiHoi!.TenChiHoi,
+                        ToHoi = it.ToHoi!.TenToHoi,
+                        GhiChu = it.GhiChu,
                     }).ToList();
                 return PartialView(data);
             });
@@ -663,11 +688,12 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         {
             List<ExcelTemplate> columns = new List<ExcelTemplate>();
             columns.Add(new ExcelTemplate() { ColumnName = "IDCanBo", isAllowedToEdit = false, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "MaCanBo", isAllowedToEdit = false, isText = true });
+            
             columns.Add(new ExcelTemplate() { ColumnName = "HoVaTen", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "NgaySinh", isAllowedToEdit = true, isDateTime = true });
             columns.Add(new ExcelTemplate() { ColumnName = "GioiTinh", isBoolean = true, isComment = true, strComment = "Nam để chữ X" });
             columns.Add(new ExcelTemplate() { ColumnName = "SoCCCD", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "MaCanBo", isAllowedToEdit = false, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "HoKhauThuongTru", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "ChoOHienNay", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "SoDienThoai", isAllowedToEdit = true, isText = true });
@@ -726,13 +752,14 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             columns.Add(new ExcelTemplate() { ColumnName = "HoTrovayVon", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "HoTroKhac", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "HoTroDaoTaoNghe", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "GhiChu", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "TenChiHoi", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "TenToHoi", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "ChiHoiDanCu_CHT", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "ChiHoiDanCu_CHP", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "ChiHoiNgheNghiep_CHT", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "ChiHoiNgheNghiep_CHP", isAllowedToEdit = true, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "GhiChu", isAllowedToEdit = true, isText = true });
+           
 
 
             //Header
@@ -991,7 +1018,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
         }
         private void CreateViewBagImport() {
-            var diaBanHoatDong = _context.DiaBanHoatDongs.Where(it => it.Actived == true).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.TenDiaBanHoatDong }).ToList();
+            var diaBanHoatDong = _context.DiaBanHoatDongs.Where(it => it.Actived == true).OrderByDescending(it => it.CreatedTime).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.TenDiaBanHoatDong }).ToList();
             ViewBag.MaDiaBanHoatDong = new SelectList(diaBanHoatDong, "MaDiaBanHoatDong", "Name");
         }
         public JsonResult loadDiaBanHoatDong(string? maQuanHuyen)
@@ -1017,7 +1044,6 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
            
         }
         #endregion Helper
-
         #region Insert/Update data from excel file
         public string ExecuteImportExcelMenu(HoiVienImportExcel HoiVienExcel)
         {
@@ -1121,18 +1147,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                 import.isNullValueId = false;
                             }
                             break;
+                       
                         case 2:
-                            // Mã nhân viên
-                            if (string.IsNullOrEmpty(value))
-                            {
-                                //import.Error = string.Format(LanguageResource.Validation_ImportRequired, string.Format(LanguageResource.Required, LanguageResource.MaCanBo), index);
-                            }
-                            else
-                            {
-                                data.MaCanBo = value;
-                            }
-                            break;
-                        case 3:
                             // ho và tên
                             if (string.IsNullOrEmpty(value))
                             {
@@ -1143,7 +1159,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                 data.HoVaTen = value;
                             }
                             break;
-                        case 4:
+                        case 3:
                             //Năm sinh
                             if (string.IsNullOrEmpty(value) || string.IsNullOrWhiteSpace(value))
                             {
@@ -1164,7 +1180,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
                             }
                             break;
-                        case 5:
+                        case 4:
                             // giới tính
                             if (string.IsNullOrEmpty(value))
                             {
@@ -1175,7 +1191,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                 data.GioiTinh = GioiTinh.Nam;
                             }
                             break;
-                        case 6:
+                        case 5:
                             //  SoCCCD (*)
                             if (string.IsNullOrEmpty(value))
                             {
@@ -1186,6 +1202,17 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             {
                                 data.SoCCCD = value;
 
+                            }
+                            break;
+                        case 6:
+                            // Mã nhân viên
+                            if (string.IsNullOrEmpty(value))
+                            {
+                                //import.Error = string.Format(LanguageResource.Validation_ImportRequired, string.Format(LanguageResource.Required, LanguageResource.MaCanBo), index);
+                            }
+                            else
+                            {
+                                data.MaCanBo = value;
                             }
                             break;
                         case 7:
@@ -1241,7 +1268,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                 data.DangVien = true;
                                 try
                                 {
-                                    data.NgayvaoDangDuBi = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")); ;
+                                    //data.NgayvaoDangDuBi = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")); ;
+                                    data.NgayvaoDangDuBi = value ;
                                 }
                                 catch (Exception)
                                 {
@@ -1257,7 +1285,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                 data.DangVien = true;
                                 try
                                 {
-                                    data.NgayVaoDangChinhThuc = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")); ;
+                                    //data.NgayVaoDangChinhThuc = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")); ;
+                                    data.NgayVaoDangChinhThuc = value;
                                 }
                                 catch (Exception)
                                 {
@@ -1384,7 +1413,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         case 21:
                             //  MaTrinhDoChinhTri (*)
                             data.VaiTro = !String.IsNullOrWhiteSpace(value) ? "2" : data.VaiTro;
-                            data.VaiTroKhac = value.ToLower() != "x" ? value : null;
+                            data.VaiTroKhac = value;
                             break;
                         case 22:
                             //  Hộ nghèo  (*)
@@ -1684,6 +1713,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             }
                             break;
                         case 54:
+                            //  Hỗ trợ đào tạo nghề
+                            if (!String.IsNullOrWhiteSpace(value))
+                            {
+                                data.GhiChu = value;
+                            }
+                            break;
+                        case 55:
                             //  Chi hội
                             if (!String.IsNullOrWhiteSpace(value))
                             {
@@ -1702,7 +1738,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
                             }
                             break;
-                        case 55:
+                        case 56:
                             //  Tổ hội
                             if (!String.IsNullOrWhiteSpace(value))
                             {
@@ -1721,13 +1757,6 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
                             }
                             break;
-                        case 56:
-                            //  Hỗ trợ đào tạo nghề
-                            if (!String.IsNullOrWhiteSpace(value))
-                            {
-                                data.ChiHoiDanCu_CHT = value;
-                            }
-                            break;
                         case 57:
                             //  Hỗ trợ đào tạo nghề
                             if (!String.IsNullOrWhiteSpace(value))
@@ -1739,29 +1768,29 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             //  Hỗ trợ đào tạo nghề
                             if (!String.IsNullOrWhiteSpace(value))
                             {
-                                data.ChiHoiNgheNghiep_CHP = value;
+                                data.ChiHoiDanCu_CHT = value;
                             }
                             break;
                         case 59:
                             //  Hỗ trợ đào tạo nghề
                             if (!String.IsNullOrWhiteSpace(value))
                             {
-                                data.ChiHoiNgheNghiep_CHT = value;
+                                data.ChiHoiNgheNghiep_CHP = value;
                             }
                             break;
                         case 60:
                             //  Hỗ trợ đào tạo nghề
                             if (!String.IsNullOrWhiteSpace(value))
                             {
-                                data.GhiChu = value;
+                                data.ChiHoiNgheNghiep_CHT = value;
                             }
                             break;
+                        
                     }
                 }
                 catch (Exception ex)
                 {
                     string ss = i.ToString() + value.ToString() + ex.Message;
-                    throw;
                 }
             }
             import.ListKhenThuong = listDanhHieu;

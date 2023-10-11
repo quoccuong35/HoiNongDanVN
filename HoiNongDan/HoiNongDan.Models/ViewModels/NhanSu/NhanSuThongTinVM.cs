@@ -52,5 +52,19 @@ namespace HoiNongDan.Models
             }
             return nhanSu;
         }
+        public NhanSuThongTinVM GetHoiVien(CanBo canBo) {
+            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
+            nhanSu.IdCanbo = canBo.IDCanBo;
+            nhanSu.HoVaTen = canBo.HoVaTen;
+            nhanSu.MaCanBo = canBo.MaCanBo;
+            nhanSu.TenDonVi = canBo.DiaBanHoatDong.TenDiaBanHoatDong;
+            //nhanSu.TenPhanHe = canBo.PhanHe!.TenPhanHe;
+            nhanSu.CanBo = false;
+            if (!String.IsNullOrWhiteSpace(canBo.HinhAnh) && !String.IsNullOrEmpty(canBo.HinhAnh))
+            {
+                nhanSu.HinhAnh = canBo.HinhAnh;
+            }
+            return nhanSu;
+        }
     }
 }

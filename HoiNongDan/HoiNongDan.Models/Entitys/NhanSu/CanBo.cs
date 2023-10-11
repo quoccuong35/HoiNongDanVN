@@ -133,11 +133,13 @@ namespace HoiNongDan.Models
         [MaxLength(1000)]
         public String? ChoOHienNay { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime? NgayvaoDangDuBi { get; set; }
+        //[DataType(DataType.Date)]
+        [MaxLength(50)]
+        public String? NgayvaoDangDuBi { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime? NgayVaoDangChinhThuc { get; set; }
+        //[DataType(DataType.Date)]
+        [MaxLength(50)]
+        public String? NgayVaoDangChinhThuc { get; set; }
 
         [MaxLength(700)]
         public string? GhiChu { get; set; }
@@ -273,7 +275,7 @@ namespace HoiNongDan.Models
         public ICollection<FileDinhKem> FileDinhKems { get; set; }
         public ICollection<QuaTrinhCongTac> QuaTrinhCongTacs { get; set; }
         public ICollection<QuaTrinhMienNhiem> QuaTrinhMienNhiems { get; set; }
-        public ICollection<HoiVienVayVon> HoiVienVayVons { get; set; }
+        public ICollection<HoiVienHoTro> HoiVienHoTros { get; set; }
         public ICollection<CanBoQuaTrinhLuong> CanBoQuaTrinhLuongs { get; set; }
         public ICollection<HoiVienHoiDap> HoiVienHoiDaps { get; set; }
         public ICollection<DaoTaoBoiDuong> DaoTaoBoiDuongs { get; set; }
@@ -289,7 +291,7 @@ namespace HoiNongDan.Models
             QuaTrinhCongTacs = new List<QuaTrinhCongTac>();
             QuaTrinhMienNhiems = new List<QuaTrinhMienNhiem>();
             FileDinhKems = new List<FileDinhKem>();
-            HoiVienVayVons = new List<HoiVienVayVon>();
+            HoiVienHoTros = new List<HoiVienHoTro>();
             CanBoQuaTrinhLuongs = new List<CanBoQuaTrinhLuong>();
             HoiVienHoiDaps = new List<HoiVienHoiDap>();
         }

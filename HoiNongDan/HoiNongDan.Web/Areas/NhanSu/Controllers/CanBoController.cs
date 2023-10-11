@@ -1964,7 +1964,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                         {
                             try
                             {
-                                data.NgayvaoDangDuBi = DateTime.ParseExact(ngayVaoDangDuBi, DateFomat, new CultureInfo("en-US")); ;
+                                //data.NgayvaoDangDuBi = DateTime.ParseExact(ngayVaoDangDuBi, DateFomat, new CultureInfo("en-US")); ;
+                                data.NgayvaoDangDuBi = ngayVaoDangDuBi;
                             }
                             catch (Exception)
                             {
@@ -1980,7 +1981,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                         {
                             try
                             {
-                                data.NgayVaoDangChinhThuc = DateTime.ParseExact(ngayVaoDang, DateFomat, new CultureInfo("en-US")); ;
+                                //data.NgayVaoDangChinhThuc = DateTime.ParseExact(ngayVaoDang, DateFomat, new CultureInfo("en-US")); ;
+                                data.NgayVaoDangChinhThuc = ngayVaoDang;
                             }
                             catch (Exception)
                             {
@@ -2202,7 +2204,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                             {
                                 try
                                 {
-                                    canBo.NgayvaoDangDuBi = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")); ;
+                                    //canBo.NgayvaoDangDuBi = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")); ;
+                                    canBo.NgayvaoDangDuBi = value;
                                 }
                                 catch (Exception)
                                 {
@@ -2217,7 +2220,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                             {
                                 try
                                 {
-                                    canBo.NgayVaoDangChinhThuc = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")); ;
+                                    //canBo.NgayVaoDangChinhThuc = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")); ;
+                                    canBo.NgayVaoDangChinhThuc = value;
                                 }
                                 catch (Exception)
                                 {

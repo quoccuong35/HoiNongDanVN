@@ -52,12 +52,46 @@ namespace HoiNongDan.Models
         [Display(Name = "Nông dân tiêu biểu")]
         public string NDTieuBieu { get; set; }
 
-
         [Display(Name = "ND Việt Nam xuất sắc")]
         public string NDVietnamXS { get; set; }
 
+        [Display(Name = "Kỷ niệm chương vì GCND")]
+        public string? KNCGCND { get; set; }
+
+        [Display(Name = "Cán bộ Hội cơ sở giỏi")]
+        public string? CanBoHoiCoSoGioi { get; set; }
+
+        [Display(Name = "Giải thưởng sáng tạo nhà nông")]
+        public string? SangTaoNhaNong { get; set; }
+
+        [Display(Name = "Gương điển hình tiên tiến")]
+        public string? GuongDiemHinh { get; set; }
+
+        [Display(Name = "Gương Dân vận khéo")]
+        public string? GuongDanVanKheo { get; set; }
+
+        [Display(Name = "Gương điển hình học tập và làm theo Bác")]
+        public string? GuongDiemHinhHocTapLamTheoBac { get; set; }
+
+        [Display(Name = "Hỗ trợ Vay vốn (nguồn vốn)")]
+        public string? HoTrovayVon { get; set; }
+
+        [Display(Name = "Hỗ trợ hình thức khác")]
+        public string? HoTroKhac { get; set; }
+
+
+        [Display(Name = "Hỗ trợ đào tạo nghề")]
+        public string? HoTroDaoTaoNghe { get; set; }
+
+
         [Display(Name = "Đảng viên")]
         public bool DangVien { get; set; } = false;
+
+        [Display(Name = "Chi hội")]
+        public string? ChiHoi { get; set; }
+
+        [Display(Name = "Tổ hội")]
+        public string? ToHoi { get; set; }
 
         public ICollection<HoiVienHoiDapDetail> HoiDaps { get; set; }
 

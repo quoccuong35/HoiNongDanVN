@@ -17,9 +17,7 @@ namespace HoiNongDan.Models
 
         //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHoiVien")]
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        [Display(Name ="Mã hội viên")]
-        public string? MaCanBo { get; set; }
-
+      
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string HoVaTen { get; set; }
@@ -38,6 +36,8 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
         public String SoCCCD { get; set; }
 
+        [Display(Name = "Số thẻ Hội viên")]
+        public string? MaCanBo { get; set; }
 
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayCapCCCD")]
@@ -58,13 +58,13 @@ namespace HoiNongDan.Models
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string? SoDienThoai { get; set; }
 
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayvaoDangDuBi")]
-        public DateTime? NgayvaoDangDuBi { get; set; }
+        public string? NgayvaoDangDuBi { get; set; }
 
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayVaoDangChinhThuc")]
-        public DateTime? NgayVaoDangChinhThuc { get; set; }
+        public string? NgayVaoDangChinhThuc { get; set; }
 
         [MaxLength(50)]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
@@ -204,6 +204,9 @@ namespace HoiNongDan.Models
         [Display(Name = "Hỗ trợ đào tạo nghề")]
         public string? HoTroDaoTaoNghe { get; set; }
 
+        [Display(Name = "GhiChu")]
+        public string? GhiChu { get; set; }
+
         [Display(Name = "Chi hội")]
         public String TenChiHoi { get; set; }
 
@@ -221,8 +224,7 @@ namespace HoiNongDan.Models
 
         [Display(Name = "Chi hội nghề nghiệp CHP")]
         public string? ChiHoiNgheNghiep_CHP { get; set; }
-        [Display(Name = "GhiChu")]
-        public string? GhiChu { get; set; }
+       
 
     }
     public class HoiVienImportExcel : HoiVienExcelVM

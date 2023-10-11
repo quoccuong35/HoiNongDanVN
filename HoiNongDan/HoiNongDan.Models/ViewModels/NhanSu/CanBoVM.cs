@@ -192,13 +192,13 @@ namespace HoiNongDan.Models
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string? ChoOHienNay { get; set; }
 
-        [DataType(DataType.Date)]
+       // [DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayvaoDangDuBi")]
-        public DateTime? NgayvaoDangDuBi { get; set; }
+        public string? NgayvaoDangDuBi { get; set; }
 
-        [DataType(DataType.Date)]
+       // [DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayVaoDangChinhThuc")]
-        public DateTime? NgayVaoDangChinhThuc { get; set; }
+        public string? NgayVaoDangChinhThuc { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayVaoHoi")]
         public String? NgayVaoHoi { get; set; }

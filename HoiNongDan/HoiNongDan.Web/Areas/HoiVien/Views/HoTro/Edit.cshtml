@@ -1,25 +1,34 @@
-﻿@using HoiNongDan.Resources
+﻿@using HoiNongDan.Models
+@using HoiNongDan.Resources
 
-@model VayVonVM
+@model HoiVienHoTroVM
 @{
-    ViewBag.Title = LanguageResource.Create + LanguageResource.HoiVienVayVon;
-    string CurrentController = ConstController.VayVon;
+    ViewBag.Title = LanguageResource.Edit + LanguageResource.HoiVienVayVon;
+    string CurrentController = ConstController.HoTro;
     string CurrentArea = ConstArea.HoiVien;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
 }
+<style>
+
+
+    .border-top {
+        border-top: 4px dotted blue;
+    }
+</style>
 <!-- CONTAINER -->
 <div class="main-container container-fluid">
+
     <!-- PAGE-HEADER -->
     <div class="page-header page-header-fix d-flex my-1">
         <div class="fs-16">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a class="fs-18 fw-600" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.VayVon" asp-action="Index">@LanguageResource.HoiVienVayVon</a>
+                    <a class="fs-18 fw-600" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.HoTro" asp-action="Index">@LanguageResource.HoiVienVayVon</a>
                 </li>
-                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Create</li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Edit</li>
             </ol>
         </div>
-        <div class="header-sticky">
+        <div>
             @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
             @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
             @HtmlExtensions.BackButton(CurrentArea,CurrentController)
@@ -38,12 +47,12 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" asp-action="Create" id="frmCreate">
+                    <form method="post" asp-action="Create" id="frmEdit">
                         <div class="row" id="Part_ThongTinNhanSu">
                             @Html.Partial("~/Areas/NhanSu/Views/NhanSuThongTin/_NhanSuThongTin.cshtml", Model.NhanSu)
                         </div>
                         <hr />
-                        @Html.Partial("_VayVon",Model)
+                        @Html.Partial("_HoTro",Model)
                     </form>
                 </div>
             </div>
@@ -60,8 +69,14 @@
     @section ScriptCustomized{
     <script type="text/javascript">
         $(document).ready(function () {
-            HoiNongDan.CreateInitial("@CurrentUrl");
+            if ("@Model.MaHinhThucHoTro.ToString().ToUpper()" == "945C96EF-EA48-404D-9166-F41342EA48E6") {
+                $("#div-SoTienVay").css("display", "block");
+                $("#div-ThoiHangChoVay").css("display", "block");
+                $("#div-LaiSuatVay").css("display", "block");
+                $("#div-NgayTraNoCuoiCung").css("display", "block");
+                $("#div-MaNguonVon").css("display", "block");
+            }
+            HoiNongDan.EditInitial("@CurrentUrl");
         });
-        
     </script>
 }

@@ -1,34 +1,25 @@
-﻿@using HoiNongDan.Models
-@using HoiNongDan.Resources
+﻿@using HoiNongDan.Resources
 
-@model VayVonVM
+@model HoiVienHoTroVM
 @{
-    ViewBag.Title = LanguageResource.Edit + LanguageResource.HoiVienVayVon;
-    string CurrentController = ConstController.VayVon;
+    ViewBag.Title = LanguageResource.Create + LanguageResource.HoiVienVayVon;
+    string CurrentController = ConstController.HoTro;
     string CurrentArea = ConstArea.HoiVien;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
 }
-<style>
-
-
-    .border-top {
-        border-top: 4px dotted blue;
-    }
-</style>
 <!-- CONTAINER -->
 <div class="main-container container-fluid">
-
     <!-- PAGE-HEADER -->
     <div class="page-header page-header-fix d-flex my-1">
         <div class="fs-16">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                    <a class="fs-18 fw-600" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.VayVon" asp-action="Index">@LanguageResource.HoiVienVayVon</a>
+                    <a class="fs-18 fw-600" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.HoTro" asp-action="Index">@LanguageResource.HoiVienVayVon</a>
                 </li>
-                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Edit</li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Create</li>
             </ol>
         </div>
-        <div>
+        <div class="header-sticky">
             @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
             @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
             @HtmlExtensions.BackButton(CurrentArea,CurrentController)
@@ -47,12 +38,12 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" asp-action="Create" id="frmEdit">
+                    <form method="post" asp-action="Create" id="frmCreate">
                         <div class="row" id="Part_ThongTinNhanSu">
                             @Html.Partial("~/Areas/NhanSu/Views/NhanSuThongTin/_NhanSuThongTin.cshtml", Model.NhanSu)
                         </div>
                         <hr />
-                        @Html.Partial("_VayVon",Model)
+                        @Html.Partial("_HoTro",Model)
                     </form>
                 </div>
             </div>
@@ -63,14 +54,16 @@
 
 @section Scripts{
     @{
-    <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial" />
     }
     }
     @section ScriptCustomized{
+    <script src="~/js/hoivienhotro.js"></script>
     <script type="text/javascript">
-        var sotienvai = $("#SoTienVay");
         $(document).ready(function () {
-            HoiNongDan.EditInitial("@CurrentUrl");
+           
+            HoiNongDan.CreateInitial("@CurrentUrl");
         });
+        
     </script>
 }

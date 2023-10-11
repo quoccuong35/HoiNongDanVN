@@ -43,7 +43,7 @@ namespace Microsoft.AspNetCore.Html
         {
             TagBuilder aTag = new TagBuilder("a");
             aTag.Attributes.Add("id", "btn-search");
-            aTag.Attributes.Add("class", "btn btn-primary btn-search");
+            aTag.Attributes.Add("class", "btn btn-primary btn-sm btn-search");
             aTag.InnerHtml.AppendHtmlLine(string.Format("<i class='bi bi-search'></i> {0}", ""));
             aTag.InnerHtml.AppendHtmlLine(string.Format("<span class='spinner-border spinner-border-sm d-none' role='status' aria-hidden='true'></span> {0}", LanguageResource.Btn_Search));
             if (htmlAttributes != null)

@@ -312,6 +312,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" asp-for="VaiTro"></label>
+                                        <span asp-validation-for="VaiTro" class="text-danger"></span>
                                         <label class="custom-control custom-radio mb-0 mt-1">
                                             <input type="radio" class="custom-control-input" asp-for="VaiTro" value="1">
                                             <span class="custom-control-label">Chủ hộ</span>
@@ -321,11 +322,13 @@
                                             <span class="custom-control-label">Quan hệ chủ hộ</span>
                                             <input asp-for="VaiTroKhac" class="form-control" />
                                         </label>
+                                       
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label class="form-label" asp-for="MaNgheNghiep"></label>
+                                        <span asp-validation-for="MaNgheNghiep" class="text-danger"></span>
                                         <div class="form-group">
                                             <label class="custom-control custom-radio mb-0 mt-1">
                                                 <input type="radio" class="custom-control-input" asp-for="MaNgheNghiep" value="01">
@@ -374,6 +377,13 @@
                                             </label>
                                         </div>
                                     </div>
+                                   
+                                </div>
+                                <div class="form-group">
+                                    <fieldset>
+                                        @Html.CheckBoxFor(p=>p.KKAnToanThucPham!.Value) Cam kết an toàn thực phẩm
+                                        @Html.CheckBoxFor(p=>p.DKMauNguoiNongDanMoi!.Value) Đăng ký mẫu người nông dân mới
+                                    </fieldset>
                                 </div>
                             </div>
                         </div>
@@ -381,6 +391,28 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label asp-for="DienTich_QuyMo"></label>
+                        <input asp-for="DienTich_QuyMo" class="form-control">
+                        <span asp-validation-for="DienTich_QuyMo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label asp-for="SoLuong"></label>
+                        <input asp-for="SoLuong" class="form-control">
+                        <span asp-validation-for="SoLuong" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label asp-for="Loai_DV_SX_ChN"></label>
+                        <input asp-for="Loai_DV_SX_ChN" class="form-control">
+                        <span asp-validation-for="Loai_DV_SX_ChN" class="text-danger"></span>
+                    </div>
+                </div>
+                
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label asp-for="ThamGia_SH_DoanThe_HoiDoanKhac"></label>
@@ -402,32 +434,34 @@
                         <span asp-validation-for="ThamGia_THNN_CHNN" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-lg-3">
+                
+                <div class="col-lg-4">
                     <div class="form-group">
-                        <label asp-for="Loai_DV_SX_ChN"></label>
-                        <input asp-for="Loai_DV_SX_ChN" class="form-control">
-                        <span asp-validation-for="Loai_DV_SX_ChN" class="text-danger"></span>
+                        <label asp-for="HoTrovayVon"></label>
+                        <input asp-for="HoTrovayVon" class="form-control">
+                        <span asp-validation-for="HoTrovayVon" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-4">
                     <div class="form-group">
-                        <label asp-for="DienTich_QuyMo"></label>
-                        <input asp-for="DienTich_QuyMo" class="form-control">
-                        <span asp-validation-for="DienTich_QuyMo" class="text-danger"></span>
+                        <label asp-for="HoTroKhac"></label>
+                        <input asp-for="HoTroKhac" class="form-control">
+                        <span asp-validation-for="HoTroKhac" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-lg-2">
+                <div class="col-lg-4">
                     <div class="form-group">
-                        <label asp-for="SoLuong"></label>
-                        <input asp-for="SoLuong" class="form-control">
-                        <span asp-validation-for="SoLuong" class="text-danger"></span>
+                        <label asp-for="HoTroDaoTaoNghe"></label>
+                        <input asp-for="HoTroDaoTaoNghe" class="form-control">
+                        <span asp-validation-for="HoTroDaoTaoNghe" class="text-danger"></span>
                     </div>
                 </div>
-                <div class="col-lg-6 d-flex align-items-center">
-                    <fieldset>
-                        @Html.CheckBoxFor(p=>p.KKAnToanThucPham!.Value) Cam kết an toàn thực phẩm
-                        @Html.CheckBoxFor(p=>p.DKMauNguoiNongDanMoi!.Value) Đăng ký mẫu người nông dân mới
-                    </fieldset>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="GhiChu"></label>
+                        <input asp-for="GhiChu" class="form-control">
+                        <span asp-validation-for="GhiChu" class="text-danger"></span>
+                    </div>
                 </div>
             </div>
         </div>

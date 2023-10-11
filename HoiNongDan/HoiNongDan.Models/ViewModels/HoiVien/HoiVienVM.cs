@@ -41,7 +41,7 @@ namespace HoiNongDan.Models
         public Guid? MaChucVu { get; set; }
 
         [MaxLength(200)]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
         public string SoCCCD { get; set; }
 
@@ -64,13 +64,13 @@ namespace HoiNongDan.Models
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string? SoDienThoai { get; set; }
 
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayvaoDangDuBi")]
-        public DateTime? NgayvaoDangDuBi { get; set; }
+        public String? NgayvaoDangDuBi { get; set; }
 
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayVaoDangChinhThuc")]
-        public DateTime? NgayVaoDangChinhThuc { get; set; }
+        public String? NgayVaoDangChinhThuc { get; set; }
 
         [MaxLength(50)]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
@@ -203,6 +203,16 @@ namespace HoiNongDan.Models
 
         [Display(Name = ("Tổ hội"))]
         public Guid? MaToHoi { get; set; }
+
+        [Display(Name = "Hỗ trợ Vay vốn (nguồn vốn)")]
+        public string? HoTrovayVon { get; set; }
+
+        [Display(Name = "Hỗ trợ hình thức khác")]
+        public string? HoTroKhac { get; set; }
+
+
+        [Display(Name = "Hỗ trợ đào tạo nghề")]
+        public string? HoTroDaoTaoNghe { get; set; }
     }
     public class HoiVienMTVM : HoiVienVM
     {
@@ -263,6 +273,10 @@ namespace HoiNongDan.Models
             obj.HoiVienDanhDu = HoiVienDanhDu;
             obj.MaChiHoi = MaChiHoi;
             obj.MaToHoi = MaToHoi;
+
+            obj.HoTrovayVon = this.HoTrovayVon;
+            obj.HoTroKhac = this.HoTroKhac;
+            obj.HoTroDaoTaoNghe = this.HoTroDaoTaoNghe;
            
             return obj;
         }
@@ -320,6 +334,10 @@ namespace HoiNongDan.Models
             obj.HoiVienDanhDu = item.HoiVienDanhDu == null ? false : item.HoiVienDanhDu.Value;
             obj.MaToHoi = item.MaToHoi;
             obj.MaChiHoi = item.MaChiHoi;
+
+            obj.HoTrovayVon = item.HoTrovayVon;
+            obj.HoTroKhac = item.HoTroKhac;
+            obj.HoTroDaoTaoNghe = item.HoTroDaoTaoNghe;
             return obj;
         }
     }
@@ -334,8 +352,8 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TinhTrang")]
         public string MaTinhTrang { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "PhanHe")]
-        public string MaPhanHe { get; set; }
+        //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "PhanHe")]
+        //public string MaPhanHe { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
         public Guid? MaDiaBanHoatDong { get; set; }
