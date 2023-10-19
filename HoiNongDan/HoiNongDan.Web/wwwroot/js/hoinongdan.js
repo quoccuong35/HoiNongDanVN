@@ -532,13 +532,14 @@ HoiNongDan.Table = function (id_table = "#data-list") {
             iDisplayLength: 10,
             order: [],
             //buttons: ['excel', 'pdf'],
+            //buttons: ['colvis'],
             language: {
                 emptyTable: "Không có dữ liệu",
                 search: ""
             }
         });
-        //table.buttons().container()
-        //    .appendTo('#data-list_wrapper .col-md-6:eq(0)');
+        table.buttons().container()
+            .appendTo(id_table+'_wrapper .col-md-6:eq(0)');
       /*  table.column(0).visible(false);*/
     } catch (e) {
         console.log(e);

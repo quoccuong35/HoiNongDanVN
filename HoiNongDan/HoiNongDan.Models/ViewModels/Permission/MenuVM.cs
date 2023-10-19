@@ -44,6 +44,8 @@ namespace HoiNongDan.Models
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public MenuType MenuType { get; set; } = MenuType.Menu;
 
+        [Display(Name ="Hiện menu")]
+        public bool? MenuShow { get; set; } = false;
     }
     public class MenuVM : Menu
     {
@@ -63,6 +65,7 @@ namespace HoiNongDan.Models
                 CreatedAccountId = accountId,
                 MenuType = this.MenuType,
                 MenuIdParent = this.MenuIdParent,
+                MenuShow = this.MenuShow,
                 PageFunctionModels = pageFunctionModels()
 
             };
@@ -79,6 +82,7 @@ namespace HoiNongDan.Models
             edit.LastModifiedAccountId = accountId;
             edit.LastModifiedTime = DateTime.Now;
             edit.MenuType = this.MenuType;
+            edit.MenuShow = this.MenuShow;
             edit.PageFunctionModels = pageFunctionModels();
             return edit;
         }

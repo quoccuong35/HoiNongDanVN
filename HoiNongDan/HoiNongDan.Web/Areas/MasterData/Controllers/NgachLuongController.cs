@@ -136,6 +136,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         #endregion Edit
         #region Delete
+        [HoiNongDanAuthorization]
         public JsonResult Delete(string id) {
             return ExecuteDelete(() =>
             {

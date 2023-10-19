@@ -21,6 +21,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         {
         }
         #region Index
+        [HoiNongDanAuthorization]
         public IActionResult Index()
         {
             //CreateViewBag();
@@ -56,7 +57,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
             });
         }
         #endregion End Index
-
+        [HoiNongDanAuthorization]
         [HttpGet]
         public IActionResult Upsert(Guid? id)
         {
@@ -145,6 +146,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         #region Delete
         [HttpDelete]
+        [HoiNongDanAuthorization]
         public JsonResult Delete(Guid id)
         {
             return ExecuteDelete(() =>

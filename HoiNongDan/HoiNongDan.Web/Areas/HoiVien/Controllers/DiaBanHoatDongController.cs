@@ -25,7 +25,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         public IActionResult _Search(DiaBanHoatDongSerachVM serach) {
             return ExecuteSearch(() => {
-                var model = _context.DiaBanHoatDongs.Include(it=>it.TinhThanhPho).Include(it=>it.QuanHuyen).AsEnumerable();
+                var model = _context.DiaBanHoatDongs.Include(it=>it.TinhThanhPho).Include(it=>it.CanBos).Include(it=>it.QuanHuyen).AsEnumerable();
                 if (!String.IsNullOrEmpty(serach.TenDiaBanHoatDong) && !String.IsNullOrWhiteSpace(serach.TenDiaBanHoatDong))
                 {
                     model = model.Where(it => it.TenDiaBanHoatDong.Contains(serach.TenDiaBanHoatDong));
@@ -52,8 +52,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     TenDiaBanHoatDong = it.TenDiaBanHoatDong,
                     NgayThanhLap = it.NgayThanhLap,
                     DiaChi = it.DiaChi,
-                    SoLuongHoiVien = 0,
+                    SoLuongHoiVien = it.CanBos.Count(),
                     TenTinhThanhPho = it.TinhThanhPho.TenTinhThanhPho,
+                    MaQuanHuyen = it.QuanHuyen.TenQuanHuyen,
                     GhiChu = it.GhiChu
                 });
                 return PartialView(data);

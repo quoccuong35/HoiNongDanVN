@@ -9634,7 +9634,8 @@ progress {
 }
 
 .table-dark.table-striped tbody tr:nth-of-type(even) {
-    background-color: #272b2f;
+    /*background-color: #272b2f;*/
+    background-color: #dff0d8;
 }
 
 .table-dark.table-hover tbody tr:hover {
@@ -9804,7 +9805,8 @@ progress {
 }
 
 .table-striped tbody tr:nth-of-type(even) {
-    background-color: #f6f6fb;
+    /*background-color: #f6f6fb;*/
+    background-color: #dff0d8;
 }
 
 .table-calendar {

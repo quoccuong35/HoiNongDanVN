@@ -43,6 +43,8 @@
         public const string MienNhiem = "MienNhiem";
         public const string CBQuaTrinhLuong = "CBQuaTrinhLuong";
         public const string Dashboard = "Dashboard";
+        public const string CBBanChapHanh = "CBBanChapHanh";
+        public const string CBHNDQuaCacThoiKy = "CBHNDQuaCacThoiKy";
 
 
         #endregion NhanSu

@@ -210,11 +210,17 @@
   <data name="CanBoHNDTP" xml:space="preserve">
     <value>Cán Bộ Hội Nông Dân TP.HCM</value>
   </data>
+  <data name="CanBoHoiCoSoGioi" xml:space="preserve">
+    <value>Cán bộ Hội cơ sở giỏi</value>
+  </data>
   <data name="CanBoQHXP" xml:space="preserve">
     <value>Cán Bộ Hội Nông Dân Huyện Quận, Xã Phường, Thị Trấn</value>
   </data>
   <data name="CanBoQuaTrinhLuong" xml:space="preserve">
     <value>Cán bộ quá trình lương</value>
+  </data>
+  <data name="CanNgheo" xml:space="preserve">
+    <value>Cận nghèo</value>
   </data>
   <data name="CapNhatTinhTrangCanBo" xml:space="preserve">
     <value>Cập nhật tình trạng cán bộ</value>
@@ -251,6 +257,9 @@
   </data>
   <data name="CreatedUser" xml:space="preserve">
     <value>Người tạo</value>
+  </data>
+  <data name="DangVien" xml:space="preserve">
+    <value>Đảng viên</value>
   </data>
   <data name="DanhHieuKhenThuong" xml:space="preserve">
     <value>Danh hiệu khen thưởng</value>
@@ -333,11 +342,26 @@
   <data name="GhiChu" xml:space="preserve">
     <value>Ghi chú</value>
   </data>
+  <data name="GiaDinhChinhSach" xml:space="preserve">
+    <value>Gia đình chính sách, con liệt sĩ</value>
+  </data>
   <data name="GiaDinhThuocDien" xml:space="preserve">
     <value>Gia đình thuộc diện</value>
   </data>
+  <data name="GiaDinhThuocDienKhac" xml:space="preserve">
+    <value>Gia đình thuộc diện khác</value>
+  </data>
   <data name="GioiTinh" xml:space="preserve">
     <value>Giới tính</value>
+  </data>
+  <data name="GuongDanVanKheo" xml:space="preserve">
+    <value>Gương Dân vận khéo</value>
+  </data>
+  <data name="GuongDiemHinh" xml:space="preserve">
+    <value>Gương điển hình tiên tiến</value>
+  </data>
+  <data name="GuongDiemHinhHocTapLamTheoBac" xml:space="preserve">
+    <value>Gương điển hình học tập và làm theo Bác</value>
   </data>
   <data name="HeDaoTao" xml:space="preserve">
     <value>Hệ đào tạo</value>
@@ -369,11 +393,32 @@
   <data name="HoiVien" xml:space="preserve">
     <value>Hội Viên nông dân</value>
   </data>
+  <data name="HoiVienDanhDu" xml:space="preserve">
+    <value>Hội viên danh dự</value>
+  </data>
+  <data name="HoiVienNongCot" xml:space="preserve">
+    <value>Hội viên nòng cốt</value>
+  </data>
+  <data name="HoiVienUuTuNam" xml:space="preserve">
+    <value>Hội viên Ưu tú năm</value>
+  </data>
   <data name="HoiVienVayVon" xml:space="preserve">
     <value>Hội viên hỗ trợ</value>
   </data>
   <data name="HoKhauThuongTru" xml:space="preserve">
     <value>Hộ khẩu thường trú</value>
+  </data>
+  <data name="HoNgheo" xml:space="preserve">
+    <value>Hộ nghèo</value>
+  </data>
+  <data name="HoTroDaoTaoNghe" xml:space="preserve">
+    <value>Hỗ trợ đào tạo nghề"</value>
+  </data>
+  <data name="HoTroKhac" xml:space="preserve">
+    <value>Hỗ trợ hình thức khác</value>
+  </data>
+  <data name="HoTrovayVon" xml:space="preserve">
+    <value>Hỗ trợ Vay vốn</value>
   </data>
   <data name="Href" xml:space="preserve">
     <value>Link</value>
@@ -404,6 +449,9 @@
   </data>
   <data name="KKAnToanThucPham" xml:space="preserve">
     <value>Cam kết an toàn thực phẩm</value>
+  </data>
+  <data name="KNCGCND" xml:space="preserve">
+    <value>Kỷ niệm chương vì GCND</value>
   </data>
   <data name="KyLuat" xml:space="preserve">
     <value>Kỷ Luật</value>
@@ -509,6 +557,15 @@
   </data>
   <data name="NamVayVon" xml:space="preserve">
     <value>Năm vay</value>
+  </data>
+  <data name="NDSXKDG" xml:space="preserve">
+    <value>Nông dân sản xuất kinh doanh giỏi</value>
+  </data>
+  <data name="NDTieuBieu" xml:space="preserve">
+    <value>Nông dân tiêu biểu</value>
+  </data>
+  <data name="NDVietnamXS" xml:space="preserve">
+    <value>ND Việt Nam xuất sắc</value>
   </data>
   <data name="NgachLuong" xml:space="preserve">
     <value>Ngạch Lương</value>
@@ -705,6 +762,9 @@
   <data name="RolesName" xml:space="preserve">
     <value>Tên nhóm quyền</value>
   </data>
+  <data name="SangTaoNhaNong" xml:space="preserve">
+    <value>Giải thưởng sáng tạo nhà nông</value>
+  </data>
   <data name="SoBHXH" xml:space="preserve">
     <value>Số BHXH</value>
   </data>
@@ -818,6 +878,9 @@
   </data>
   <data name="VaiTro" xml:space="preserve">
     <value>Vai trò</value>
+  </data>
+  <data name="VaiTroKhac" xml:space="preserve">
+    <value>Vai trò khác</value>
   </data>
   <data name="Validation_ImportCheckController" xml:space="preserve">
     <value>Mẫu file excel không phù hợp với chức năng "{0}"!</value>

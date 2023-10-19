@@ -4,6 +4,7 @@ using HoiNongDan.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HoiNongDan.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231018123205_EditMenuShow")]
+    partial class EditMenuShow
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1079,7 +1081,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 18, 19, 40, 9, 250, DateTimeKind.Local).AddTicks(5928));
+                        .HasDefaultValue(new DateTime(2023, 10, 18, 19, 32, 4, 532, DateTimeKind.Local).AddTicks(5644));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -1648,7 +1650,7 @@ namespace HoiNongDan.DataAccess.Migrations
                         .IsUnicode(true)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<bool?>("MenuShow")
+                    b.Property<bool>("MenuShow")
                         .HasColumnType("bit");
 
                     b.Property<int>("MenuType")
@@ -2403,7 +2405,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 18, 19, 40, 9, 250, DateTimeKind.Local).AddTicks(8457));
+                        .HasDefaultValue(new DateTime(2023, 10, 18, 19, 32, 4, 532, DateTimeKind.Local).AddTicks(8303));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)

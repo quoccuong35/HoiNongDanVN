@@ -11,11 +11,11 @@ namespace HoiNongDan.Web.Controllers
 {
 
    [Authorize]
-    public class HomeController : BaseOfWorkController
+    public class HomeController : BaseController
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ILogger<HomeController> _logger;
-        public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork, IWebHostEnvironment webHostEnvironment) :base(unitOfWork)
+        public HomeController(AppDbContext context, ILogger<HomeController> logger, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContext) :base(context)
         {
             _logger = logger;
             _webHostEnvironment = webHostEnvironment;
@@ -24,6 +24,7 @@ namespace HoiNongDan.Web.Controllers
 
         public IActionResult Index()
         {
+            string menu = HttpContext.Session!.GetString("Menu");
             return View("SoDo");
         }
 
@@ -46,6 +47,10 @@ namespace HoiNongDan.Web.Controllers
             LocalReport localReport = new LocalReport(path);
             var result = localReport.Execute(RenderType.Pdf, extension, parameters, mintype);
             return File(result.MainStream, "application/pdf");
+        }
+        public JsonResult _Dashboard() {
+
+            return Json("");
         }
     }
 }

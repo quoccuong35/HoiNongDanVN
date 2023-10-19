@@ -24,10 +24,12 @@ using System.Globalization;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Transactions;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HoiNongDan.Web.Areas.NhanSu.Controllers
 {
     [Area(ConstArea.NhanSu)]
+    [Authorize]
     public class CanBoController : BaseController
     {
         /// <summary>
@@ -593,6 +595,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         #endregion Delete
         #region Import Excel 
+        [HoiNongDanAuthorization]
         public IActionResult _Import()
         {
             return PartialView();

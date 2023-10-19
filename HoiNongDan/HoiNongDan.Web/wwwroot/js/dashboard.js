@@ -82,22 +82,22 @@
     });
 
     //
-    var table = $('#file-datatable').DataTable({
-        responsive: false,
-        autoWidth: true,
-        autoHeight: false,
-        scrollCollapse: false,
-        scrollX: true,
-        scrollY: 300,
-        buttons: ['excel', 'pdf'],
-        language: {
-            searchPlaceholder: 'Search...',
-            scrollX: "100%",
-            sSearch: '',
-        }
-    });
-    table.buttons().container()
-        .appendTo('#file-datatable_wrapper .col-md-6:eq(0)');
+    //var table = $('#file-datatable').DataTable({
+    //    responsive: false,
+    //    autoWidth: true,
+    //    autoHeight: false,
+    //    scrollCollapse: false,
+    //    scrollX: true,
+    //    scrollY: 300,
+    //    buttons: ['excel', 'pdf'],
+    //    language: {
+    //        searchPlaceholder: 'Search...',
+    //        scrollX: "100%",
+    //        sSearch: '',
+    //    }
+    //});
+    //table.buttons().container()
+    //    .appendTo('#file-datatable_wrapper .col-md-6:eq(0)');
 
 
 })

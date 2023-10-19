@@ -60,6 +60,7 @@
         }
         
     </style>
+
 </head>
 <body class="app sidebar-mini ltr dark-menu dark-header sidenav-toggled">
 
@@ -422,7 +423,6 @@
                         <a class="logo-horizontal" asp-controller="" asp-area="Home" asp-action="Index">
                             @*<img src="~/Images/logo-menu.png" class="header-brand-img desktop-logo" alt="logo">*@
                         </a>
-                        <input type="text" class="form-control" style="background:white; color:black;display:none" id="typehead" placeholder="Tìm kiếm..." autocomplete="off">
                         <!-- LOGO -->
                          <!-- <div class="main-header-center ms-3 d-none d-lg-block">
                             <input type="text" class="form-control" style="background:white; color:black" id="typehead" placeholder="Tìm kiếm..." autocomplete="off">
@@ -734,6 +734,152 @@
                             {
                                 @await Component.InvokeAsync("Sidebar")
                             }
+
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Quản Lý Thông Tin</span><i class="angle fe fe-chevron-right"></i></a>
+                                <ul class="slide-menu mega-slide-menu">
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.CanBo" asp-area="@ConstArea.NhanSu" asp-action="Index">
+                                            Cán Bộ Hội Nông Dân TP.HCM
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.CanBo" asp-area="@ConstArea.NhanSu" asp-action="CBBanChapHanh">
+                                            Ban chấp hành <br /> Hội Nông Dân TP.HCM
+                                        </a>
+                                    </li>
+                                    <li> 
+                                        <a class="slide-item" asp-controller="@ConstController.CanBo" asp-area="@ConstArea.NhanSu" asp-action="CBHNDQuaCacThoiKy" style="text-overflow:clip">
+                                            Cán Bộ Hội Nông Dân  <br />TP.HCM qua các Thời Kỳ
+                                        </a>
+                                    </li>
+                                     <li>
+                                        <a class="slide-item" asp-controller="@ConstController.CanBoQHXP" asp-area="@ConstArea.NhanSu" asp-action="Index" style="text-overflow:clip">
+                                            Cán bộ Hội Nông Dân TP.Thủ Đức<br /> Huyện, Quận, Xã, Phường
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.HoiVien" asp-area="@ConstArea.HoiVien" asp-action="Index">
+                                            Hội Viên Nông Dân
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.HVDap" asp-area="@ConstArea.HoiVien" asp-action="Index">
+                                            Hỏi Đáp Hội Viên
+                                        </a>
+                                    </li>
+                                   @*  <li>
+                                        <a class="slide-item" asp-controller="@ConstController.HoTro" asp-area="@ConstArea.HoiVien" asp-action="Index">
+                                            Hội viên hỗ trợ
+                                        </a>
+                                    </li> *@
+                                </ul>
+                            </li>
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-pie-chart"></i><span class="side-menu__label">Báo Cáo</span><i class="angle fe fe-chevron-right"></i></a>
+                                <ul class="slide-menu">
+                                   
+                                    <li>
+                                        <a class="slide-item" href="#">
+                                            Thống kê hội viên
+                                        </a>
+                                       <a class="slide-item" asp-area="@ConstArea.HoiVien" asp-controller="BCThucLucHoiQuy" asp-action="Index">
+                                            Báo cáo thực lực hội theo quý
+                                        </a>
+                                        <a class="slide-item" asp-area="@ConstArea.HoiVien" asp-controller="BCThucLucHoiNam" asp-action="Index">
+                                            Báo cáo thực lực hội theo năm
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-gear"></i><span class="side-menu__label">@LanguageResource.Permission</span><i class="angle fe fe-chevron-right"></i></a>
+                                <ul class="slide-menu">
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">Phân Quyền</a></li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="Menu" asp-area="@ConstArea.Permission" asp-action="Index">
+                                            Chuyên mục
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="Roles" asp-area="@ConstArea.Permission" asp-action="Index">
+                                            @LanguageResource.Roles
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="Account" asp-area="@ConstArea.Permission" asp-action="Index">
+                                            @LanguageResource.Account
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="slide">
+                                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-book"></i><span class="side-menu__label">Danh Mục</span><i class="angle fe fe-chevron-right"></i></a>
+                                <ul class="slide-menu">
+                                    <li class="side-menu-label1"><a href="javascript:void(0)">Danh Mục</a></li>
+                                    @* <li>
+                                        <a class="slide-item" asp-controller="@ConstController.CoSo" asp-area="@ConstArea.MasterData" asp-action="Index">
+                                            @LanguageResource.CoSo
+                                        </a>
+                                    </li> *@
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.Department" asp-area="@ConstArea.MasterData" asp-action="Index">
+                                            @LanguageResource.Department
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.DiaBanHoatDong" asp-action="Index">
+                                            @LanguageResource.DiaBanHoatDong
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.ChucVu" asp-area="@ConstArea.MasterData" asp-action="Index">
+                                            @LanguageResource.ChucVu
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.NgachLuong" asp-area="@ConstArea.MasterData" asp-action="Index">
+                                            @LanguageResource.NgachLuong
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.BacLuong" asp-area="@ConstArea.MasterData" asp-action="Index">
+                                            @LanguageResource.BacLuong
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.TrinhDoChinhTri" asp-area="@ConstArea.MasterData" asp-action="Index">
+                                            @LanguageResource.TrinhDoChinhTri
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.TrinhDoHocVan" asp-area="@ConstArea.MasterData" asp-action="Index">
+                                            @LanguageResource.TrinhDoHocVan
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.TrinhDoTinHoc" asp-area="@ConstArea.MasterData" asp-action="Index">
+                                            @LanguageResource.TrinhDoTinHoc
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.TrinhDoNgoaiNgu" asp-area="@ConstArea.MasterData" asp-action="Index">
+                                            @LanguageResource.TrinhDoNgoaiNgu
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.DanToc" asp-area="@ConstArea.MasterData" asp-action="Index">
+                                            @LanguageResource.DanToc
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="slide-item" asp-controller="@ConstController.TonGiao" asp-area="@ConstArea.MasterData" asp-action="Index">
+                                            @LanguageResource.TonGiao
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         </ul>
                         <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z" /></svg></div>
                     </div>
@@ -1388,5 +1534,27 @@
             }
         });
     });
-   
+    // document.addEventListener("scroll", (event) => {
+    //     let lastKnownScrollPosition = window.scrollY;
+    //     if (lastKnownScrollPosition > 5) {
+    //         document.getElementById("app-header-cs").style.top = 0;
+    //         document.getElementById("app-sidebar-cs").style.top = 0;
+    //     }
+    //     else {
+    //         var test = document.getElementById("app-header-cs").style.top = "100px";
+    //         document.getElementById("app-sidebar-cs").style.top = "100px";
+    //     }
+
+    // });
+    // disable right click menu
+    // document.addEventListener("contextmenu", e => e.preventDefault(), false);
+    // document.addEventListener("keydown", e => {
+    //     // USE THIS TO DISABLE CONTROL AND ALL FUNCTION KEYS
+    //     // if (e.ctrlKey || (e.keyCode>=112 && e.keyCode<=123)) {
+    //     // THIS WILL ONLY DISABLE CONTROL AND F12
+    //     if (e.ctrlKey || e.keyCode == 123) {
+    //         e.stopPropagation();
+    //         e.preventDefault();
+    //     }
+    // });
 </script>

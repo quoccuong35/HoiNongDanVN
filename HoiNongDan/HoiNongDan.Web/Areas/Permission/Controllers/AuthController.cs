@@ -142,6 +142,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         {
 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Clear();
             return RedirectToAction(nameof(Login));
         }
 

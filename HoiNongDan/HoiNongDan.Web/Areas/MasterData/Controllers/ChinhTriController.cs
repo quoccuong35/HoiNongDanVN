@@ -75,6 +75,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         #endregion Create
         #region Edit
+        [HoiNongDanAuthorization]
         public IActionResult Edit(string id)
         {
             var item = _context.TrinhDoChinhTris.SingleOrDefault(it => it.MaTrinhDoChinhTri == id);

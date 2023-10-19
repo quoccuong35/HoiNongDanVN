@@ -90,7 +90,11 @@ namespace HoiNongDan.Models
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoLuongHoiVien")]
         public int SoLuongHoiVien { get; set; }
-        
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
+        public String MaQuanHuyen { get; set; }
+
+
     }
     public class DBHoatDongHoiVienDetailVM
     { 

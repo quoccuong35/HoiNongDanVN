@@ -161,6 +161,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         #endregion Upsert
         #region Delete
         [HttpDelete]
+        [HoiNongDanAuthorization]
         public JsonResult Delete(Guid id) {
             return ExecuteDelete(() =>
             {

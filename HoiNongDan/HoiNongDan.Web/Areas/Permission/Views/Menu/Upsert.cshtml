@@ -105,6 +105,12 @@
                                     </fieldset>
                                 </div>
                             }
+                            <div class="col-2 d-flex align-items-end">
+                                <fieldset>
+                                    @Html.RadioButtonFor(p=>p.MenuShow,true) Hiện menu
+                                    @Html.RadioButtonFor(p=>p.MenuShow,false) Ẩn menu
+                                </fieldset>
+                            </div>
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="form-label">Quyền</label>

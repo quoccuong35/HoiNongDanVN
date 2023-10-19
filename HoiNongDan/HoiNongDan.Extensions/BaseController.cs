@@ -4,16 +4,37 @@ using HoiNongDan.DataAccess;
 using HoiNongDan.Models.ViewModels.Permission;
 using System.Security.Claims;
 using System.Text;
-
+using Microsoft.AspNetCore.Mvc.Filters;
+using System.Reflection.Metadata;
+using Microsoft.AspNetCore.Authorization;
+using HoiNongDan.Models.Entitys;
+using HoiNongDan.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace HoiNongDan.Extensions
 {
+    [Authorize]
     public class BaseController : Controller
     {
         protected AppDbContext _context;
+        private readonly IHttpContextAccessor _httpContext;
         public BaseController(AppDbContext context)
         {
             _context = context;
+            _context.Database.SetCommandTimeout(TimeSpan.FromMinutes(10));
+        }
+        public BaseController(IHttpContextAccessor httpContext) {
+            _httpContext = httpContext;
+        }
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+
+          
+        }
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            base.OnActionExecuting(context);
+            GetMenuList();
         }
         protected override void Dispose(bool disposing)
         {
@@ -175,6 +196,7 @@ namespace HoiNongDan.Extensions
             }
         }
         #endregion
+
         #region Language
         #endregion Language
         protected ActionResult ExcuteImportExcel(Func<JsonResult> codeToExecute)
@@ -308,5 +330,56 @@ namespace HoiNongDan.Extensions
             return str;
         }
         #endregion RemoveSign For Vietnamese String
+
+        #region LoadMenu
+        private void GetMenuList() {
+            StringBuilder sb = new StringBuilder();
+            
+            if (String.IsNullOrWhiteSpace(HttpContext.Session.GetString("Menu")))
+            {
+                if (User.Identity!.IsAuthenticated && !string.IsNullOrWhiteSpace(CurrentUser.UserName))
+                {
+                    var roles = _context.AccountInRoleModels.Where(it => it.AccountId == Guid.Parse(CurrentUser.AccountId!)).Select(it => it.RolesId).ToList();
+                    if (roles.Count > 0)
+                    {
+                        var menu = (from menu1 in _context.MenuModels
+                                    join permission in _context.PagePermissionModels
+                                    on menu1.MenuId equals permission.MenuId
+                                    where menu1.MenuShow == true
+                                    && menu1.Actived == true
+                                    && roles.Contains(permission.RolesId)
+                                    select menu1).Distinct().ToList();
+
+                        /// lấy menu cha
+                        /// 
+                        var menucha = menu.Where(it => it.MenuType == MenuType.Menu).OrderBy(it => it.OrderIndex);
+                        foreach (var item in menucha)
+                        {
+                            sb.AppendLine("<li class=\"slide\">");
+                            sb.AppendLine("<a class='side-menu__item' data-bs-toggle='slide' href='javascript:void(0)'><i class='side-menu__icon " + item.Icon + "'></i><span class='side-menu__label'>" + item.MenuName + "</span><i class='angle fe fe-chevron-right'></i></a>");
+                            // lấy menu con
+                            var pages = menu.Where(it => it.MenuIdParent == item.MenuId).OrderBy(it => it.OrderIndex);
+                            if (pages.Count() > 0)
+                            {
+                                sb.AppendLine("<ul class=\"slide-menu mega-slide-menu\">");
+                                foreach (var page in pages)
+                                {
+                                    sb.AppendLine("<li>");
+                                    sb.AppendLine("<a class=\"slide-item\" href='" + page.Href + "'>");
+                                    sb.AppendLine(page.MenuName);
+                                    sb.AppendLine(" </a>");
+                                    sb.AppendLine("</li>");
+                                }
+                                sb.AppendLine("</ul>");
+                            }
+                            sb.AppendLine("</li>");
+                        }
+                        HttpContext.Session.SetString("Menu", sb.ToString());
+                    }
+                }
+            };
+
+        }
+        #endregion Loadmenu
     }
 }

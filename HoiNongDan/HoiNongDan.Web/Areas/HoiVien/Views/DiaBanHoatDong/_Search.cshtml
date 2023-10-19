@@ -12,6 +12,7 @@
     <thead class="table-primary">
         <tr>
             <th class="text-center">@LanguageResource.NumberIndex</th>
+            <th>@Html.DisplayNameFor(p => p.MaQuanHuyen)</th>
             <th>@Html.DisplayNameFor(p => p.TenDiaBanHoatDong)</th>
             <th>@Html.DisplayNameFor(p => p.NgayThanhLap)</th>
             <th>@Html.DisplayNameFor(p => p.SoLuongHoiVien)</th>
@@ -39,7 +40,9 @@
             cssName = "tr" + css.ToString();
             <tr class="@cssName">
                 <td class="text-center">@i</td>
+                <td class="text-center">@item.MaQuanHuyen</td>
                 <td onclick="ShowOffCanVas('@item.TenDiaBanHoatDong')">@item.TenDiaBanHoatDong</td>
+                @* <td onclick="ShowOffCanVas('@item.TenDiaBanHoatDong')">@item.TenDiaBanHoatDong</td> *@
                 <td>@ngayThanhLap</td>
                 <td class="text-center"><div>@item.SoLuongHoiVien</div></td>
                 <td>@Html.DisplayFor(p => item.DiaChi)</td>

@@ -35,10 +35,13 @@ namespace HoiNongDan.Models.Entitys
         public DateTime? LastModifiedTime { get; set; }
         public MenuType MenuType { get; set; } = MenuType.Menu;
 
+        public bool? MenuShow { get; set; } = false;
+
         [ForeignKey("MenuIdParent")]
         public ICollection<MenuModel> Children { get; set; }
         public ICollection<PageFunctionModel> PageFunctionModels { get; set; }
         public ICollection<PagePermissionModel> PagePermissionModels { get; set; }
+
         public MenuModel()
         {
             PageFunctionModels = new List<PageFunctionModel>();

@@ -60,6 +60,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         #endregion Index
         #region Upsert
         [HttpGet]
+        [HoiNongDanAuthorization]
         public IActionResult Upsert(Guid? id) {
             RolesVM roles = new RolesVM();
             if (id != null) {
@@ -138,6 +139,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         }
         #endregion Upsert
         #region Delete
+        [HoiNongDanAuthorization]
         public JsonResult Delete(Guid id)
         {
             return ExecuteDelete(() =>

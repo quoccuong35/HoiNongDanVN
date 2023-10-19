@@ -66,7 +66,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         #endregion Index
         #region Upserp
         [HttpGet]
-        //[HoiNongDanAuthorization]
+        [HoiNongDanAuthorization]
         public IActionResult Upsert(Guid? id) {
             MenuVM menu = new MenuVM();
             var listFunction = ListMenuFunction();
@@ -85,6 +85,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                     menu.Href = data.Href;
                     menu.OrderIndex = data.OrderIndex;
                     menu.MenuType = data.MenuType;
+                    menu.MenuShow = data.MenuShow;
                     foreach (var item in data.PageFunctionModels.ToList())
                     {
                         var exist = listFunction.SingleOrDefault(it => it.FunctionId == item.FunctionId);

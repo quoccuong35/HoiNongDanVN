@@ -60,6 +60,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         #endregion Create
         #region Edit
+        [HoiNongDanAuthorization]
         public IActionResult Edit(string id)
         {
             var item = _context.HocVis.SingleOrDefault(it => it.MaHocVi == id);

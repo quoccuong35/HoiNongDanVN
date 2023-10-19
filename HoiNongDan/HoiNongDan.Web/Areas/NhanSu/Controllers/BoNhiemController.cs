@@ -227,6 +227,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         #endregion Edit
         #region Delete
         [HttpDelete]
+        [HoiNongDanAuthorization]
         public JsonResult Delete(Guid id)
         {
             return ExecuteDelete(() =>

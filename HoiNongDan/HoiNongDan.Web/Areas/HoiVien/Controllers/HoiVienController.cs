@@ -71,11 +71,11 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     model = model.Where(it => it.MaDiaBanHoatDong == search.MaDiaBanHoatDong);
                 }
-                else
-                {
+                //else
+                //{
 
-                    model = model.Where(it => it.MaDiaBanHoatDong == Guid.Parse("4633016E-727F-4B69-A5D2-0DF7F42AA345"));
-                }
+                //    model = model.Where(it => it.MaDiaBanHoatDong == Guid.Parse("4633016E-727F-4B69-A5D2-0DF7F42AA345"));
+                //}
                 if (search.MaQuanHuyen != null)
                 {
                     model = model.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
@@ -168,6 +168,125 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     }).ToList();
                 return PartialView(data);
             });
+        }
+        [HttpGet]
+        public JsonResult LoadBigData(HoiVienSearchVM search)
+        {
+            var model = _context.CanBos.Where(it => it.IsHoiVien == true).AsQueryable();
+            if (!String.IsNullOrEmpty(search.MaCanBo))
+            {
+                model = model.Where(it => it.MaCanBo == search.MaCanBo);
+            }
+            if (!String.IsNullOrEmpty(search.HoVaTen))
+            {
+                model = model.Where(it => it.HoVaTen.Contains(search.HoVaTen));
+            }
+
+            if (search.MaDiaBanHoatDong != null)
+            {
+                model = model.Where(it => it.MaDiaBanHoatDong == search.MaDiaBanHoatDong);
+            }
+            //else
+            //{
+
+            //    model = model.Where(it => it.MaDiaBanHoatDong == Guid.Parse("4633016E-727F-4B69-A5D2-0DF7F42AA345"));
+            //}
+            if (search.MaQuanHuyen != null)
+            {
+                model = model.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
+            }
+            if (search.Actived != null)
+            {
+                model = model.Where(it => it.Actived == search.Actived);
+            }
+            if (search.DangChoDuyet == null || search.DangChoDuyet == true)
+            {
+                model = model.Where(it => it.HoiVienDuyet == true);
+            }
+            else
+            {
+                model = model.Where(it => it.HoiVienDuyet != true && it.CreatedAccountId == AccountId());
+            }
+            var data = model
+                .Include(it => it.NgheNghiep)
+                .Include(it => it.DiaBanHoatDong)
+                .Include(it => it.DanToc)
+                .Include(it => it.TonGiao)
+                .Include(it => it.TrinhDoHocVan)
+                .Include(it => it.TrinhDoChuyenMon)
+                .Include(it => it.TrinhDoChinhTri)
+                .Include(it => it.QuaTrinhKhenThuongs)
+                .Include(it => it.ChiHoi)
+                .Include(it => it.ToHoi)
+                .Include(it => it.CoSo).Select(it => new 
+                {
+                   
+                    IDCanBo = it.IDCanBo,
+                    MaCanBo = it.MaCanBo == null?"":it.MaCanBo,
+                    HoVaTen = it.HoVaTen,
+                    NgaySinh = it.NgaySinh,
+                    GioiTinh = (int)it.GioiTinh ==1?"Nam":"Nữ",
+                    SoCCCD = it.SoCCCD!,
+                    NgayCapCCCD = it.NgayCapCCCD!,
+                    HoKhauThuongTru = it.HoKhauThuongTru,
+                    ChoOHienNay = it.ChoOHienNay!,
+                    SoDienThoai = it.SoDienThoai,
+                    DangVien = it.DangVien == null ? "" :"X",
+                    NgayvaoDangDuBi = it.NgayvaoDangDuBi,
+                    NgayVaoDangChinhThuc = it.NgayVaoDangChinhThuc,
+
+                    TenDiaBanHoatDong = it.DiaBanHoatDong!.TenDiaBanHoatDong,
+                    DanToc = it.DanToc!.TenDanToc,
+                    TonGiao = it.TonGiao!.TenTonGiao,
+                    TrinhDoHocvan = it.TrinhDoHocVan.TenTrinhDoHocVan,
+                    MaTrinhDoChuyenMon = it.TrinhDoChuyenMon!.TenTrinhDoChuyenMon,
+                    MaTrinhDoChinhTri = it.TrinhDoChinhTri!.TenTrinhDoChinhTri,
+                    NgayVaoHoi = it.NgayVaoHoi,
+                    NgayThamGiaCapUyDang = it.NgayThamGiaCapUyDang,
+                    NgayThamGiaHDND = it.NgayThamGiaHDND,
+                    VaiTro = it.VaiTro == "1" ? "Chủ hộ" : "Quan hệ chủ hộ",
+                    VaiTroKhac = it.VaiTroKhac,
+                    HoNgheo = it.HoNgheo == true ? "X" : "",
+                    CanNgheo = it.CanNgheo == true ? "X" : "",
+                    GiaDinhChinhSach = it.GiaDinhChinhSach == true ? "X" : "",
+                    GiaDinhThuocDienKhac = it.GiaDinhThuocDienKhac,
+                    NgheNghiepHienNay = it.NgheNghiep!.TenNgheNghiep,
+                    Loai_DV_SX_ChN = it.Loai_DV_SX_ChN,
+                    DienTich_QuyMo = it.DienTich_QuyMo,
+                    SoLuong = it.SoLuong,
+                    LoaiHoiVien = it.LoaiHoiVien,
+                    ThamGia_SH_DoanThe_HoiDoanKhac = it.ThamGia_SH_DoanThe_HoiDoanKhac,
+                    ThamGia_CLB_DN_MH_HTX_THT = it.ThamGia_CLB_DN_MH_HTX_THT,
+                    ThamGia_THNN_CHNN = it.ThamGia_THNN_CHNN,
+                    HoiVienNongCot = it.HoiVienNongCot == true ? "X" : "",
+                    HoiVienUuTuNam = it.HoiVienUuTuNam,
+                    HoiVienDanhDu = it.HoiVienDanhDu == true ? "X" : "",
+
+                    NDSXKDG = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "15").Select(it => it.GhiChu).ToList()),
+                    NDTieuBieu = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "16").Select(it => it.GhiChu).ToList()),
+                    NDVietnamXS = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "22").Select(it => it.GhiChu).ToList()),
+                    KNCGCND = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "17").Select(it => it.GhiChu).ToList()),
+                    CanBoHoiCoSoGioi = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "18").Select(it => it.GhiChu).ToList()),
+                    SangTaoNhaNong = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "19").Select(it => it.GhiChu).ToList()),
+                    GuongDiemHinh = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "13").Select(it => it.GhiChu).ToList()),
+                    GuongDanVanKheo = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "20").Select(it => it.GhiChu).ToList()),
+                    GuongDiemHinhHocTapLamTheoBac = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "21").Select(it => it.GhiChu).ToList()),
+                    HoTrovayVon = it.HoTrovayVon,
+                    HoTroKhac = it.HoTroKhac,
+                    HoTroDaoTaoNghe = it.HoTroDaoTaoNghe,
+
+                    KKAnToanThucPham = it.KKAnToanThucPham,
+                    DKMauNguoiNongDanMoi = it.DKMauNguoiNongDanMoi,
+                    ChiHoi = it.ChiHoi!.TenChiHoi,
+                    ToHoi = it.ToHoi!.TenToHoi,
+                    GhiChu = it.GhiChu,
+                }).ToList();
+            var json = Json(data);
+            return json;
+        }
+        public IActionResult Demo() {
+            CreateViewBagSearch();
+            return View();
         }
         #endregion Index
         #region Create
@@ -639,6 +758,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 .Include(it => it.TrinhDoChinhTri)
                 .Include(it => it.DanToc)
                 .Include(it => it.TonGiao)
+                .Include(it => it.ChiHoi)
+                .Include(it => it.ToHoi)
                 .Select(item => new HoiVienExcelVM
                 {
                     IDCanBo = item.IDCanBo,
@@ -647,7 +768,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     NgaySinh = item.NgaySinh,
                     GioiTinh = item.GioiTinh == GioiTinh.Nam ? true : false,
                     SoCCCD = item.SoCCCD,
-                   // NgayCapCCCD = item.NgayCapCCCD,
+                    // NgayCapCCCD = item.NgayCapCCCD,
                     HoKhauThuongTru = item.HoKhauThuongTru,
                     ChoOHienNay = item.ChoOHienNay!,
                     SoDienThoai = item.SoDienThoai,
@@ -661,9 +782,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     NgayVaoHoi = item.NgayVaoHoi,
                     NgayThamGiaCapUyDang = item.NgayThamGiaCapUyDang,
                     NgayThamGiaHDND = item.NgayThamGiaHDND,
-                    VaiTro = item.VaiTro =="1"?"X":"",
+                    VaiTro = item.VaiTro == "1" ? "X" : "",
                     VaiTroKhac = item.VaiTroKhac,
-                    HoNgheo = item.HoNgheo == true?"X":"",
+                    HoNgheo = item.HoNgheo == true ? "X" : "",
                     CanNgheo = item.CanNgheo == true ? "X" : "",
                     GiaDinhChinhSach = item.GiaDinhChinhSach == true ? "X" : "",
                     GiaDinhThanhPhanKhac = item.GiaDinhThuocDienKhac,
@@ -676,11 +797,32 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     HS_SV = item.MaNgheNghiep == "07" ? "X" : "",
                     SX_ChN = item.Loai_DV_SX_ChN,
                     DienTich_QuyMo = item.DienTich_QuyMo,
+                    SoLuong = item.SoLuong,
                     SinhHoatDoanTheChinhTri = item.ThamGia_SH_DoanThe_HoiDoanKhac,
                     ThamGia_CLB_DN_HTX = item.ThamGia_CLB_DN_MH_HTX_THT,
                     ThamGia_THNN_CHNN = item.ThamGia_THNN_CHNN,
-                    HV_UuTuNam = item.LoaiHoiVien == "01" ? "X" : "",
-                    HV_DanhDu = item.LoaiHoiVien == "02" ? "X" : "",
+                    HV_NongCot = item.HoiVienNongCot == true ? "X" : "",
+                    HV_UuTuNam = item.HoiVienUuTuNam,
+                    HV_DanhDu = item.HoiVienDanhDu == true ? "X" : "",
+                    NDSXKDG = String.Join(',', item.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == item.IDCanBo && p.MaDanhHieuKhenThuong == "15").Select(it => it.GhiChu).ToList()),
+                    NoDanTieuBieu = String.Join(',', item.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == item.IDCanBo && p.MaDanhHieuKhenThuong == "16").Select(it => it.GhiChu).ToList()),
+                    NDXuatSac = String.Join(',', item.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == item.IDCanBo && p.MaDanhHieuKhenThuong == "22").Select(it => it.GhiChu).ToList()),
+                    KNCGCND = String.Join(',', item.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == item.IDCanBo && p.MaDanhHieuKhenThuong == "17").Select(it => it.GhiChu).ToList()),
+                    CanBoHoiCoSoGioi = String.Join(',', item.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == item.IDCanBo && p.MaDanhHieuKhenThuong == "18").Select(it => it.GhiChu).ToList()),
+                    SangTaoNhaNong = String.Join(',', item.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == item.IDCanBo && p.MaDanhHieuKhenThuong == "19").Select(it => it.GhiChu).ToList()),
+                    GuongDiemHinh = String.Join(',', item.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == item.IDCanBo && p.MaDanhHieuKhenThuong == "13").Select(it => it.GhiChu).ToList()),
+                    GuongDanVanKheo = String.Join(',', item.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == item.IDCanBo && p.MaDanhHieuKhenThuong == "20").Select(it => it.GhiChu).ToList()),
+                    GuongDiemHinhHocTapLamTheoBac = String.Join(',', item.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == item.IDCanBo && p.MaDanhHieuKhenThuong == "21").Select(it => it.GhiChu).ToList()),
+                    HoTrovayVon = item.HoTrovayVon,
+                    HoTroKhac = item.HoTroKhac,
+                    HoTroDaoTaoNghe = item.HoTroDaoTaoNghe,
+                    GhiChu = item.GhiChu,
+                    TenChiHoi = item.ChiHoi.TenChiHoi,
+                    TenToHoi = item.ToHoi.TenToHoi,
+                    ChiHoiDanCu_CHT = item.ChiHoiDanCu_CHT,
+                    ChiHoiDanCu_CHP = item.ChiHoiDanCu_CHP,
+                    ChiHoiNgheNghiep_CHT = item.ChiHoiNgheNghiep_CHT,
+                    ChiHoiNgheNghiep_CHP = item.ChiHoiNgheNghiep_CHP,
                 }).ToList();
             return Export(data);
         }
