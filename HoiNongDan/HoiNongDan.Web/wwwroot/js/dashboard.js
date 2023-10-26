@@ -1,4 +1,9 @@
 ﻿$(function () {
+    //var dataQH;
+    //$.getJSON('/Home/_Dashboard', function (data) {
+    //    dataQH = data;
+    //});
+    //console.log(dataQH);
     var ctx = document.getElementById("chartBar2");
     var myChart = new Chart(ctx, {
         type: 'bar',

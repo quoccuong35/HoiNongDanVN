@@ -50,6 +50,8 @@ namespace HoiNongDan.Models
     public class NguonVon { 
         public Guid MaNguonVon { get; set; }
         public String TenNguonVon { get; set; }
+        public string? GhiChu { get; set; }
+        public bool Actived { get; set; }
         public ICollection<HoiVienHoTro> HoiVienHoTros { get; set; }
         public NguonVon()
         {

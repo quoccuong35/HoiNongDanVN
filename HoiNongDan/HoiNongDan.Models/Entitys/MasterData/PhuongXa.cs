@@ -12,6 +12,7 @@ namespace HoiNongDan.Models.Entitys.MasterData
         public string MaPhuongXa { get; set; }
         public string TenPhuongXa { get; set; }
         public string MaQuanHuyen { get; set; }
+        public QuanHuyen QuanHuyen { get; set; }
         public bool Actived { get; set; } = true;
         [MaxLength(500)]
         public String Description { get; set; }
@@ -20,7 +21,6 @@ namespace HoiNongDan.Models.Entitys.MasterData
         public Nullable<System.Guid> LastModifiedAccountId { get; set; }
         public Nullable<System.DateTime> LastModifiedTime { get; set; }
         public Nullable<int> OrderIndex { get; set; }
-        public QuanHuyen QuanHuyen { get; set; }
         public ICollection<DiaBanHoatDong> DiaBanHoatDongs { get; set; }
         public PhuongXa() {
             DiaBanHoatDongs = new List<DiaBanHoatDong>();

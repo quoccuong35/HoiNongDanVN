@@ -403,6 +403,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chi hội.
+        /// </summary>
+        public static string ChiHoi {
+            get {
+                return ResourceManager.GetString("ChiHoi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chổ ở hiện nay.
         /// </summary>
         public static string ChoOHienNay {
@@ -1294,6 +1303,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mã quận huyện.
+        /// </summary>
+        public static string MaQuanHuyen {
+            get {
+                return ResourceManager.GetString("MaQuanHuyen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mã số thuế.
         /// </summary>
         public static string MaSoThue {
@@ -2167,6 +2185,24 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tên phường xã.
+        /// </summary>
+        public static string TenPhuongXa {
+            get {
+                return ResourceManager.GetString("TenPhuongXa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên quận huyện.
+        /// </summary>
+        public static string TenQuanHuyen {
+            get {
+                return ResourceManager.GetString("TenQuanHuyen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tham gia câu lạc bộ, đội nhóm, mô hình, hợp tác xã, tổ hợp tác.
         /// </summary>
         public static string ThamGia_CLB_DN_MH_HTX_THT {
@@ -2235,6 +2271,15 @@ namespace HoiNongDan.Resources {
         public static string TinhTrang {
             get {
                 return ResourceManager.GetString("TinhTrang", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tổi hội.
+        /// </summary>
+        public static string ToHoi {
+            get {
+                return ResourceManager.GetString("ToHoi", resourceCulture);
             }
         }
         

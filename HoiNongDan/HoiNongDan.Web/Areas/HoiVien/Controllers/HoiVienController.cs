@@ -57,7 +57,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         public IActionResult _Search(HoiVienSearchVM search)
         {
             return ExecuteSearch(() => {
-                var model = _context.CanBos.Where(it=>it.IsHoiVien == true ).AsQueryable();
+                var model = _context.CanBos.Where(it=>it.IsHoiVien == true).AsQueryable();
                 if (!String.IsNullOrEmpty(search.MaCanBo))
                 {
                     model = model.Where(it => it.MaCanBo == search.MaCanBo);
@@ -172,7 +172,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HttpGet]
         public JsonResult LoadBigData(HoiVienSearchVM search)
         {
-            var model = _context.CanBos.Where(it => it.IsHoiVien == true).AsQueryable();
+            var model = _context.CanBos.Where(it => it.IsHoiVien == true && it.MaTinhTrang == "00001").AsQueryable();
             if (!String.IsNullOrEmpty(search.MaCanBo))
             {
                 model = model.Where(it => it.MaCanBo == search.MaCanBo);

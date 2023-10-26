@@ -10,6 +10,13 @@ namespace HoiNongDan.Models
     {
         public Guid MaChiHoi { get; set; } 
         public string TenChiHoi { get; set; }
+        public bool Actived { get; set; } = true;
+        public String? Description { get; set; }
+        public Nullable<System.Guid> CreatedAccountId { get; set; }
+        public Nullable<System.DateTime> CreatedTime { get; set; }
+        public Nullable<System.Guid> LastModifiedAccountId { get; set; }
+        public Nullable<System.DateTime> LastModifiedTime { get; set; }
+        public Nullable<int> OrderIndex { get; set; }
 
         public ICollection<CanBo> CanBos { get; set; }
 
@@ -20,6 +27,13 @@ namespace HoiNongDan.Models
     public class ToHoi {
         public Guid MaToHoi { get; set; }
         public string TenToHoi { get; set; }
+        public bool Actived { get; set; } = true;
+        public String? Description { get; set; }
+        public Nullable<System.Guid> CreatedAccountId { get; set; }
+        public Nullable<System.DateTime> CreatedTime { get; set; }
+        public Nullable<System.Guid> LastModifiedAccountId { get; set; }
+        public Nullable<System.DateTime> LastModifiedTime { get; set; }
+        public Nullable<int> OrderIndex { get; set; }
         public ICollection<CanBo> CanBos { get; set; }
 
         public ToHoi()

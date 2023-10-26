@@ -231,6 +231,9 @@
   <data name="Check_Exist" xml:space="preserve">
     <value>Đã tồn tại {0} này!</value>
   </data>
+  <data name="ChiHoi" xml:space="preserve">
+    <value>Chi hội</value>
+  </data>
   <data name="ChoOHienNay" xml:space="preserve">
     <value>Chổ ở hiện nay</value>
   </data>
@@ -528,6 +531,9 @@
   <data name="MaNgachLuong" xml:space="preserve">
     <value>Mã ngạch lương</value>
   </data>
+  <data name="MaQuanHuyen" xml:space="preserve">
+    <value>Mã quận huyện</value>
+  </data>
   <data name="MaSoThue" xml:space="preserve">
     <value>Mã số thuế</value>
   </data>
@@ -819,6 +825,12 @@
   <data name="TenNgachLuong" xml:space="preserve">
     <value>Tên ngạch lương</value>
   </data>
+  <data name="TenPhuongXa" xml:space="preserve">
+    <value>Tên phường xã</value>
+  </data>
+  <data name="TenQuanHuyen" xml:space="preserve">
+    <value>Tên quận huyện</value>
+  </data>
   <data name="ThamGia_CLB_DN_MH_HTX_THT" xml:space="preserve">
     <value>Tham gia câu lạc bộ, đội nhóm, mô hình, hợp tác xã, tổ hợp tác</value>
   </data>
@@ -842,6 +854,9 @@
   </data>
   <data name="TinhTrang" xml:space="preserve">
     <value>Tình trạng</value>
+  </data>
+  <data name="ToHoi" xml:space="preserve">
+    <value>Tổi hội</value>
   </data>
   <data name="TonGiao" xml:space="preserve">
     <value>Tôn Giáo</value>

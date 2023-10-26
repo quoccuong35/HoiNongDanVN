@@ -297,7 +297,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         [HttpGet]
         public IActionResult Create() {
             CreateViewBag();
-            CanBoVM1 obj = new CanBoVM1();
+            CanBoVM obj = new CanBoVM();
             obj.HinhAnh = @"\images\login.png";
             return View(obj);
         }

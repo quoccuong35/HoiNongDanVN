@@ -4,6 +4,7 @@ using HoiNongDan.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HoiNongDan.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231019131756_editNguonVon")]
+    partial class editNguonVon
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -992,27 +994,6 @@ namespace HoiNongDan.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("Actived")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("CreatedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("LastModifiedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastModifiedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("OrderIndex")
-                        .HasColumnType("int");
-
                     b.Property<string>("TenChiHoi")
                         .IsRequired()
                         .HasMaxLength(500)
@@ -1100,7 +1081,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 26, 10, 48, 16, 840, DateTimeKind.Local).AddTicks(6268));
+                        .HasDefaultValue(new DateTime(2023, 10, 19, 20, 17, 55, 651, DateTimeKind.Local).AddTicks(6357));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -2424,7 +2405,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 26, 10, 48, 16, 840, DateTimeKind.Local).AddTicks(9667));
+                        .HasDefaultValue(new DateTime(2023, 10, 19, 20, 17, 55, 651, DateTimeKind.Local).AddTicks(8437));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -2931,27 +2912,6 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<Guid>("MaToHoi")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Actived")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("CreatedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("LastModifiedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastModifiedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("OrderIndex")
-                        .HasColumnType("int");
 
                     b.Property<string>("TenToHoi")
                         .IsRequired()

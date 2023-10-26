@@ -539,7 +539,8 @@ HoiNongDan.Table = function (id_table = "#data-list") {
             }
         });
         table.buttons().container()
-            .appendTo(id_table+'_wrapper .col-md-6:eq(0)');
+            .appendTo(id_table + '_wrapper .col-md-6:eq(0)');
+        HideShowColumns(id_table);
       /*  table.column(0).visible(false);*/
     } catch (e) {
         console.log(e);

@@ -73,7 +73,7 @@
     </div>
     @if (Model != null && Model.ID != null)
     {
-        <div class="col-md-2 d-flex align-items-center">
+        <div class="col-md-2 d-flex align-items-center" id="div-traxong" style="display:none">
             <fieldset>
                 @Html.RadioButtonFor(p=>p.TraXong,true) @LanguageResource.TraXong
                 @Html.RadioButtonFor(p=>p.TraXong,false) Chưa

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using HoiNongDan.Extensions;
 using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 
 namespace HoiNongDan.Web.Controllers
 {
@@ -32,7 +33,6 @@ namespace HoiNongDan.Web.Controllers
         {
             return View("Dashboard");
         }
-
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
@@ -49,8 +49,29 @@ namespace HoiNongDan.Web.Controllers
             return File(result.MainStream, "application/pdf");
         }
         public JsonResult _Dashboard() {
-
-            return Json("");
+            var data = _context.CanBos.Include(it=>it.DiaBanHoatDong).ThenInclude(it=>it.QuanHuyen!).Where(it => it.Actived == true && ((it.IsCanBo == true && it.MaTinhTrang == "01") || (it.IsHoiVien == true))).ToList();
+            var HoiVienTheoQH = data.Where(it=>it.IsHoiVien==true).GroupBy(it => it.DiaBanHoatDong!.QuanHuyen.TenQuanHuyen).Select(it => new {
+                TenQuanHuyen = it.Key,
+                TongNam = it.Where(p=>p.GioiTinh==GioiTinh.Nam).Count(),
+                TongNu = it.Where(p=>p.GioiTinh==GioiTinh.Nữ).Count(),
+            });
+            return Json(HoiVienTheoQH);
         }
+    }
+    public class TongSo { 
+        public string Name { get; set; }
+        public string TrongSo { get; set; }
+    }
+    public class TongSoHoiVienQuanHuyen
+    {
+        public string Name { get; set; }
+        public string TrongSoNam { get; set; }
+        public string TrongSoNu { get; set; }
+    }
+
+    public class Dashboard1 {
+        public List<TongSo> CanBoHoiVien { get; set; } 
+        public TongSoHoiVienQuanHuyen HoiVien { get; set; }
+        public List<TongSo> NamNu { get; set; }
     }
 }

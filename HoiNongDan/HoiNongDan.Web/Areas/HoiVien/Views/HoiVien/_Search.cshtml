@@ -5,9 +5,6 @@
     string listRoles = User.FindFirst("Roles")!.Value;
     listRoles = listRoles == null ? "" : listRoles;
 }
-<div id="gridHoiVien">
-
-</div>
 <table id="data-list" class="table border text-nowrap text-md-nowrap mb-0 dataTable no-footer">
     <thead >
         <tr class="table-primary">
@@ -62,8 +59,11 @@
             <th class="text-center" name="KKAnToanThucPham">@Html.DisplayNameFor(p => p.KKAnToanThucPham)</th>
             <th class="text-center" name="DKMauNguoiNongDanMoi">@Html.DisplayNameFor(p => p.DKMauNguoiNongDanMoi)</th>
             <th class="text-center" name="GhiChu">@Html.DisplayNameFor(p => p.GhiChu)</th>
+            
         </tr>
+       
     </thead>
+    
     <tbody>
         @{
             int i = 0;
