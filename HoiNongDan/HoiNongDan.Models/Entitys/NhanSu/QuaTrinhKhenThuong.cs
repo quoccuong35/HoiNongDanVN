@@ -21,6 +21,7 @@ namespace HoiNongDan.Models.Entitys.NhanSu
         [DataType(DataType.Date)]
         public DateTime? NgayQuyetDinh { get; set; }
         public String? SoQuyetDinh { get; set; }
+        public String? NoiDung { get; set; }
         public String? NguoiKy { get; set; }
         public String? LyDo { get; set; }
         public String? GhiChu { get; set; }

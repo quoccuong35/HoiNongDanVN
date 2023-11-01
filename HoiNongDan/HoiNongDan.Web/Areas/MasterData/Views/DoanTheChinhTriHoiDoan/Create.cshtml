@@ -1,11 +1,13 @@
 ﻿@using HoiNongDan.Models
 @using HoiNongDan.Resources
+@using HoiNongDan.Constant
+@using Microsoft.AspNetCore.Html
 
-@model DiaBanHoatDongVM
+@model DoanTheChinhTri_HoiDoanVM
 @{
-    ViewBag.Title = LanguageResource.Create + LanguageResource.DiaBanHoatDong;
-    string CurrentController = ConstController.DiaBanHoatDong;
-    string CurrentArea = ConstArea.HoiVien;
+    ViewBag.Title = LanguageResource.DoanTheChinhTriHoiDoan;
+    string CurrentController = ConstController.DoanTheChinhTriHoiDoan;
+    string CurrentArea = ConstArea.MasterData;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
 }
 <!-- CONTAINER -->
@@ -15,10 +17,10 @@
     <div class="page-header page-header-fix d-flex my-1">
         <div class="fs-16">
             <ol class="breadcrumb">
-               <li class="breadcrumb-item">
-                    <a class="fs-18 fw-600" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.DiaBanHoatDong" asp-action="Index">@LanguageResource.DiaBanHoatDong</a>
+                <li class="breadcrumb-item">
+                    <a class="fs-18 fw-600" asp-area="@ConstArea.MasterData" asp-controller="@ConstController.DoanTheChinhTriHoiDoan" asp-action="Index">@LanguageResource.DoanTheChinhTriHoiDoan</a>
                 </li>
-                <li class="breadcrumb-item active" aria-current="page">@LanguageResource.Create</li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Create</li>
             </ol>
         </div>
         <div>
@@ -30,7 +32,7 @@
     <!-- PAGE-HEADER END -->
     <!-- ROW-1 OPEN -->
     <!-- Row -->
-    <div class="row">
+    <div class="row ">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-primary br-te-3 br-ts-3">
@@ -41,7 +43,7 @@
                 </div>
                 <div class="card-body">
                     <form method="post" asp-action="Create" id="frmCreate">
-                        @Html.Partial("_DiaBanHoatDong",Model)
+                        @Html.Partial("_DoanTheChinhTriHoiDoan",Model)
                     </form>
                 </div>
             </div>
@@ -54,9 +56,8 @@
     @{
         <partial name="_ValidationScriptsPartial" />
     }
-}
+    }
 @section ScriptCustomized{
-    <script src="~/js/diabanhoatdong.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             HoiNongDan.CreateInitial("@CurrentUrl");

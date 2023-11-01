@@ -306,6 +306,9 @@
   <data name="DKMauNguoiNongDanMoi" xml:space="preserve">
     <value>Đăng ký mẫu người nông dân mới</value>
   </data>
+  <data name="DoanTheChinhTriHoiDoan" xml:space="preserve">
+    <value>Đoàn thể chính chị-Hội đoàn</value>
+  </data>
   <data name="Dropdownlist_All" xml:space="preserve">
     <value>-- Tất cả --</value>
   </data>

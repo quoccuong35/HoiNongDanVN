@@ -60,8 +60,8 @@ namespace HoiNongDan.Models
         }
 
     }
-    public class DiaBanHoatDongSerachVM {
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TenDiaBanHoatDong")]
+    public class DiaBanHoatDongSerachVM {
         public string TenDiaBanHoatDong { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TinhThanhPho")]

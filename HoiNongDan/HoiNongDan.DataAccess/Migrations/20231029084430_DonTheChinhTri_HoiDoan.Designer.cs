@@ -4,6 +4,7 @@ using HoiNongDan.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HoiNongDan.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231029084430_DonTheChinhTri_HoiDoan")]
+    partial class DonTheChinhTri_HoiDoan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1100,7 +1102,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 29, 15, 58, 22, 740, DateTimeKind.Local).AddTicks(2455));
+                        .HasDefaultValue(new DateTime(2023, 10, 29, 15, 44, 29, 589, DateTimeKind.Local).AddTicks(1399));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -1297,9 +1299,9 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.ToTable("DiaBanHoatDong", "HV");
                 });
 
-            modelBuilder.Entity("HoiNongDan.Models.DoanTheChinhTri_HoiDoan", b =>
+            modelBuilder.Entity("HoiNongDan.Models.DonTheChinhTri_HoiDoan", b =>
                 {
-                    b.Property<Guid>("MaDoanTheChinhTri_HoiDoan")
+                    b.Property<Guid>("MaDonTheChinhTri_HoiDoan")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
@@ -1325,14 +1327,14 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<int?>("OrderIndex")
                         .HasColumnType("int");
 
-                    b.Property<string>("TenDoanTheChinhTri_HoiDoan")
+                    b.Property<string>("TenDonTheChinhTri_HoiDoan")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.HasKey("MaDoanTheChinhTri_HoiDoan");
+                    b.HasKey("MaDonTheChinhTri_HoiDoan");
 
-                    b.ToTable("DoanTheChinhTri_HoiDoan", "tMasterData");
+                    b.ToTable("DonTheChinhTri_HoiDoan", "tMasterData");
                 });
 
             modelBuilder.Entity("HoiNongDan.Models.Entitys.Account", b =>
@@ -2465,7 +2467,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 29, 15, 58, 22, 740, DateTimeKind.Local).AddTicks(6030));
+                        .HasDefaultValue(new DateTime(2023, 10, 29, 15, 44, 29, 589, DateTimeKind.Local).AddTicks(4750));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)

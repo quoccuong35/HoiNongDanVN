@@ -628,6 +628,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Đoàn thể chính chị-Hội đoàn.
+        /// </summary>
+        public static string DoanTheChinhTriHoiDoan {
+            get {
+                return ResourceManager.GetString("DoanTheChinhTriHoiDoan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to -- Tất cả --.
         /// </summary>
         public static string Dropdownlist_All {

@@ -4,6 +4,7 @@ using HoiNongDan.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HoiNongDan.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231028092001_editKhenThuong_28_10_2023")]
+    partial class editKhenThuong_28_10_2023
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1100,7 +1102,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 29, 15, 58, 22, 740, DateTimeKind.Local).AddTicks(2455));
+                        .HasDefaultValue(new DateTime(2023, 10, 28, 16, 20, 0, 72, DateTimeKind.Local).AddTicks(6953));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -1295,44 +1297,6 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.HasIndex("MaTinhThanhPho");
 
                     b.ToTable("DiaBanHoatDong", "HV");
-                });
-
-            modelBuilder.Entity("HoiNongDan.Models.DoanTheChinhTri_HoiDoan", b =>
-                {
-                    b.Property<Guid>("MaDoanTheChinhTri_HoiDoan")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("Actived")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("CreatedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<Guid?>("LastModifiedAccountId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("LastModifiedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("OrderIndex")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TenDoanTheChinhTri_HoiDoan")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.HasKey("MaDoanTheChinhTri_HoiDoan");
-
-                    b.ToTable("DoanTheChinhTri_HoiDoan", "tMasterData");
                 });
 
             modelBuilder.Entity("HoiNongDan.Models.Entitys.Account", b =>
@@ -2465,7 +2429,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 10, 29, 15, 58, 22, 740, DateTimeKind.Local).AddTicks(6030));
+                        .HasDefaultValue(new DateTime(2023, 10, 28, 16, 20, 0, 72, DateTimeKind.Local).AddTicks(9771));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)

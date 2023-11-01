@@ -14,9 +14,9 @@
             <th class="text-center">@LanguageResource.NumberIndex</th>
             <th>@Html.DisplayNameFor(p => p.MaQuanHuyen)</th>
             <th>@Html.DisplayNameFor(p => p.TenDiaBanHoatDong)</th>
-            <th>@Html.DisplayNameFor(p => p.NgayThanhLap)</th>
-            <th>@Html.DisplayNameFor(p => p.SoLuongHoiVien)</th>
-            <th>@Html.DisplayNameFor(p => p.DiaChi)</th>
+            @* <th>@Html.DisplayNameFor(p => p.NgayThanhLap)</th> *@
+            <th class="text-center">@Html.DisplayNameFor(p => p.SoLuongHoiVien)</th>
+            @* <th>@Html.DisplayNameFor(p => p.DiaChi)</th> *@
             <th>@Html.DisplayNameFor(p => p.GhiChu)</th>
             <th class="text-center">@LanguageResource.Actions</th>
         </tr>
@@ -43,9 +43,9 @@
                 <td class="text-center">@item.MaQuanHuyen</td>
                 <td onclick="ShowOffCanVas('@item.TenDiaBanHoatDong')">@item.TenDiaBanHoatDong</td>
                 @* <td onclick="ShowOffCanVas('@item.TenDiaBanHoatDong')">@item.TenDiaBanHoatDong</td> *@
-                <td>@ngayThanhLap</td>
+                @* <td>@ngayThanhLap</td> *@
                 <td class="text-center"><div>@item.SoLuongHoiVien</div></td>
-                <td>@Html.DisplayFor(p => item.DiaChi)</td>
+                @* <td>@Html.DisplayFor(p => item.DiaChi)</td> *@
                 <td>@Html.DisplayFor(p => item.GhiChu)</td>
                 <td class="text-center">
                     @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.Id, listRoles: listRoles)

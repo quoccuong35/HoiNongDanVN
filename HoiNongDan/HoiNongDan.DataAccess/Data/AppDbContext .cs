@@ -66,6 +66,7 @@ namespace HoiNongDan.DataAccess
         public DbSet<ToHoi> ToHois { get; set; }
         public DbSet<NguonVon> NguonVons { get; set; }
         public DbSet<HinhThucHoTro> HinhThucHoTros { get; set; }
+        public DbSet<DoanTheChinhTri_HoiDoan> DoanTheChinhTri_HoiDoans { get; set; }
         #endregion
         #region nhanSu
         public DbSet<CanBo> CanBos { get; set; }
@@ -404,6 +405,12 @@ namespace HoiNongDan.DataAccess
                 tbl.HasKey(it => it.MaHinhThucKyLuat);
                 tbl.Property(it => it.MaHinhThucKyLuat).HasMaxLength(50).IsRequired(true);
                 tbl.Property(it => it.TenHinhThucKyLuat).HasMaxLength(250).IsRequired(true);;
+            });
+            builder.Entity<DoanTheChinhTri_HoiDoan>(tbl =>
+            {
+                tbl.ToTable("DoanTheChinhTri_HoiDoan", "tMasterData");
+                tbl.HasKey(it => it.MaDoanTheChinhTri_HoiDoan);
+                tbl.Property(it => it.TenDoanTheChinhTri_HoiDoan).HasMaxLength(500).IsRequired(true); ;
             });
             #endregion Master data
             #region NhanSu

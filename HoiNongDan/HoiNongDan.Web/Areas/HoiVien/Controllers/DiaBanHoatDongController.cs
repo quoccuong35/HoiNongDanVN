@@ -21,6 +21,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HoiNongDanAuthorization]
         public IActionResult Index()
         {
+            CreateViewBagSearch();
             return View(new DiaBanHoatDongSerachVM());
         }
         public IActionResult _Search(DiaBanHoatDongSerachVM serach) {
@@ -30,10 +31,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     model = model.Where(it => it.TenDiaBanHoatDong.Contains(serach.TenDiaBanHoatDong));
                 }
-                if (!String.IsNullOrEmpty(serach.MaTinhThanhPho) && !String.IsNullOrWhiteSpace(serach.MaTinhThanhPho))
-                {
-                    model = model.Where(it => it.MaTinhThanhPho == serach.MaTinhThanhPho);
-                }
+               
                 if (!String.IsNullOrEmpty(serach.MaQuanHuyen) && !String.IsNullOrWhiteSpace(serach.MaQuanHuyen))
                 {
                     model = model.Where(it => it.MaQuanHuyen == serach.MaQuanHuyen);
@@ -56,7 +54,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     TenTinhThanhPho = it.TinhThanhPho.TenTinhThanhPho,
                     MaQuanHuyen = it.QuanHuyen.TenQuanHuyen,
                     GhiChu = it.GhiChu
-                });
+                }).OrderBy(it=>it.MaQuanHuyen);
                 return PartialView(data);
             });
         }
@@ -66,7 +64,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HoiNongDanAuthorization]
         public IActionResult Create() {
             DiaBanHoatDongVM model = new DiaBanHoatDongVM();
-            CreateViewBag();
+            CreateViewBag("02");
             return View(model);
         }
         [HttpPost]
@@ -249,56 +247,15 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 });
             });
         }
-        //[HttpGet]
-        //public IActionResult _DiaBanHoiVien(Guid id)
-        //{
-        //    return ExecuteSearch(() =>
-        //    {
-        //        var data = _context.DiaBanHoatDongThanhViens.Include(it => it.CanBo).Include(it => it.ChucVu)
-        //        .Where(it => it.RoiDi != true && it.IdDiaBan == id).Select(it => new DBHoatDongHoiVienDetailVM
-        //        {
-        //            Id = it.Id,
-        //            IDDiaBan = it.IdDiaBan,
-        //            MaHoiVien = it.CanBo.MaCanBo,
-        //            HoVaTen = it.CanBo.HoVaTen,
-        //            TenChucVu = it.ChucVu.TenChucVu
-        //        }).ToList();
-        //        return PartialView("_DiaBanHoiVien", data);
-        //    });
-        //}
-        //public JsonResult HoiVienRoiDiaBan(Guid id)
-        //{
-        //    return ExecuteContainer(() =>
-        //    {
-        //        var edit = _context.DiaBanHoatDongThanhViens.FirstOrDefault(p => p.Id == id);
-
-
-        //        if (edit != null)
-        //        {
-        //            edit.RoiDi = true;
-        //            edit.LyDo = "";
-        //            edit.LastModifiedAccountId = AccountId();
-        //            edit.LastModifiedTime = DateTime.Now;
-        //            _context.SaveChanges();
-
-        //            return Json(new
-        //            {
-        //                Code = System.Net.HttpStatusCode.OK,
-        //                Success = true,
-        //                Data = string.Format(LanguageResource.Alert_Edit_Success, "Hội viên rời đi")
-        //            });
-        //        }
-        //        else
-        //        {
-        //            return Json(new
-        //            {
-        //                Code = System.Net.HttpStatusCode.NotModified,
-        //                Success = false,
-        //                Data = string.Format(LanguageResource.Error_NotExist,id)
-        //            });
-        //        }
-        //    });
-        //}
+        public void CreateViewBagSearch() {
+            var MenuList2 = _context.QuanHuyens.Include(it=>it.DiaBanHoatDongs).Where(it => it.Actived == true && it.DiaBanHoatDongs.Count()>0).Select(it => new { MaQuanHuyen = it.MaQuanHuyen, TenQuanHuyen = it.TenQuanHuyen }).Distinct().ToList();
+            ViewBag.MaQuanHuyen = new SelectList(MenuList2, "MaQuanHuyen", "TenQuanHuyen");
+        }
+        public JsonResult LoadPhuongXaSearch(string maQuanHuyen)
+        {
+            var data = _context.PhuongXas.Include(it=>it.DiaBanHoatDongs).Where(it => it.Actived == true && it.MaQuanHuyen == maQuanHuyen && it.DiaBanHoatDongs.Count()>0).Distinct().OrderBy(p => p.OrderIndex).Select(it => new { MaPhuongXa = it.MaPhuongXa, TenPhuongXa = it.TenPhuongXa }).ToList();
+            return Json(data);
+        }
         #endregion Helper
     }
 }

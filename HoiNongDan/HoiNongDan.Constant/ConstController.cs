@@ -23,6 +23,7 @@
         public const string PhuongXa = "PhuongXa";
         public const string ChiHoi = "ChiHoi";
         public const string ToHoi = "ToHoi";
+        public const string DoanTheChinhTriHoiDoan = "DoanTheChinhTriHoiDoan";
         #endregion MasterData
         #region Permission
         public const string Menu = "Menu";
