@@ -1,6 +1,7 @@
 ﻿@model HoiVienVM
 <div class="row">
     <input asp-for="IDCanBo" hidden />
+    @Html.AntiForgeryToken()
     <div class="card">
         <div class="card-body">
             <div class="row">
@@ -420,6 +421,7 @@
                         <span asp-validation-for="ThamGia_SH_DoanThe_HoiDoanKhac" class="text-danger"></span>
                     </div>
                 </div>
+                
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label asp-for="ThamGia_CLB_DN_MH_HTX_THT"></label>
@@ -434,7 +436,33 @@
                         <span asp-validation-for="ThamGia_THNN_CHNN" class="text-danger"></span>
                     </div>
                 </div>
-                
+               @*  <div class="col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="MaDoanTheChinhTri_HoiDoan"></label>
+                        <select asp-for="MaDoanTheChinhTri_HoiDoan" asp-items="@ViewBag.MaDoanTheChinhTri_HoiDoan" multiple class="form-control select2-show-search form-select">
+                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                        </select>
+                        <span asp-validation-for="MaDoanTheChinhTri_HoiDoan" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="Id_CLB_DN_MH_HTX_THT"></label>
+                        <select asp-for="Id_CLB_DN_MH_HTX_THT" asp-items="@ViewBag.Id_CLB_DN_MH_HTX_THT" multiple class="form-control select2-show-search form-select">
+                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                        </select>
+                        <span asp-validation-for="Id_CLB_DN_MH_HTX_THT" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="form-group">
+                        <label asp-for="Ma_ToHoiNganhNghe_ChiHoiNganhNghe"></label>
+                        <select asp-for="Ma_ToHoiNganhNghe_ChiHoiNganhNghe" asp-items="@ViewBag.Ma_ToHoiNganhNghe_ChiHoiNganhNghe" multiple class="form-control select2-show-search form-select">
+                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                        </select>
+                        <span asp-validation-for="Ma_ToHoiNganhNghe_ChiHoiNganhNghe" class="text-danger"></span>
+                    </div>
+                </div> *@
                 <div class="col-lg-4">
                     <div class="form-group">
                         <label asp-for="HoTrovayVon"></label>

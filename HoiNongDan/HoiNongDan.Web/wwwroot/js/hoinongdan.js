@@ -22,6 +22,16 @@ HoiNongDan.SearchInitial = function (controller, action = "_Search") {
 HoiNongDan.SearchDefault = function (controller, action) {
     var $btn = $("#btn-search");
     $btn.toggleClass("btn-loading");
+    //try {
+    //    let link = "/" + controller + "/" + action,
+    //        data = $("#frmSearch").serializeArray();
+    //    AjaxGet(link, data, HoiNongDan.SetDataSearch)
+    //    $btn.toggleClass("btn-loading");
+         
+    //} catch (e) {
+    //    console.error(e);
+    //    $btn.toggleClass("btn-loading");
+    //}
     $.ajax({
         type: "get",
         url: "/" + controller + "/" + action,
@@ -45,15 +55,31 @@ HoiNongDan.SearchDefault = function (controller, action) {
             }
         },
         error: function (xhr, status, error) {
-            //$("#" + $btn[0].id + " i").toggleClass("d-none")
-            //// hiện loading lên
-            //$("#" + $btn[0].id + " span").toggleClass("d-none")
-            //// disabled button
-            //$("#" + $btn[0].id).toggleClass("disabled");
-            toastr.error(xhr.responseText);
             $btn.toggleClass("btn-loading");
+            if (xhr.status == 401) {
+                toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                setTimeout(function () {
+                    var url = window.location.href.toString().split(window.location.host)[1];
+                    window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                }, 1000);
+            }
+            else if (xhr.status == 404) {
+                setTimeout(function () {
+                    var url = window.location.href.toString().split(window.location.host)[1];
+                    window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
+                }, 1000);
+            }
+            else {
+                toastr.error(error);
+            }
+           
         }
     });
+}
+HoiNongDan.SetDataSearch = function (data) {
+    $("#divSearchResult").html(data);
+    HoiNongDan.Table();
+   
 }
 
 HoiNongDan.CreateInitial = function (controller) {
@@ -86,8 +112,9 @@ HoiNongDan.Create = function (controller, frmCreate, isContinue, e) {
         $.each(formParams, function (i, val) {
             formData.append(val.name, val.value);
         });
-        console.log(formData.length);
         toastr.clear();
+        let link = "/" + controller + "/Create";
+
         $.ajax({
             type: "POST",
             url: "/" + controller + "/Create",
@@ -125,7 +152,22 @@ HoiNongDan.Create = function (controller, frmCreate, isContinue, e) {
                 }
             },
             error: function (xhr, status, error) {
-                toastr.error(xhr.responseText);
+                if (xhr.status == 401) {
+                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                    }, 1000);
+                }
+                else if (xhr.status == 404) {
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
+                    }, 1000);
+                }
+                else {
+                    toastr.error(error);
+                }
             }
         });
     }
@@ -149,6 +191,7 @@ HoiNongDan.EditInitial = function (controller) {
         HoiNongDan.Edit(controller, "#frmEdit", isContinue, this);
     });
     HoiNongDan.DeleteFileDinhKem();
+    HoiNongDan.DeleteEdit();
 }
 HoiNongDan.Edit = function (controller, frmEdit, isContinue, e) {
     var $btn = $(e);
@@ -205,7 +248,22 @@ HoiNongDan.Edit = function (controller, frmEdit, isContinue, e) {
                 }
             },
             error: function (xhr, status, error) {
-                toastr.error(xhr.responseText);
+                if (xhr.status == 401) {
+                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                    }, 1000);
+                }
+                else if (xhr.status == 404) {
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
+                    }, 1000);
+                }
+                else {
+                    toastr.error(error);
+                }
             }
         });
     }
@@ -282,7 +340,22 @@ HoiNongDan.Upsert = function (controller, frmUpsert, isContinue, e) {
                 }
             },
             error: function (xhr, status, error) {
-                toastr.error(xhr.responseText);
+                if (xhr.status == 401) {
+                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                    }, 1000);
+                }
+                else if (xhr.status == 404) {
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
+                    }, 1000);
+                }
+                else {
+                    toastr.error(error);
+                }
             }
         });
     }
@@ -302,6 +375,7 @@ HoiNongDan.Delete = function () {
         let itemName = $btn.data("item-name");
         let id = $btn.data("id");
         let textRequestion = "Bạn có muốn xóa thông tin <b> " + itemName + "</b> đang chọn?";
+      /*  let token = $('input[name="__RequestVerificationToken"]').val();*/
         Swal.fire({
             title: 'Xóa thông tin',
             html: textRequestion,
@@ -313,10 +387,12 @@ HoiNongDan.Delete = function () {
             cancelButtonText: "Không"
         }).then((result) => {
             if (result.isConfirmed) {
+                var token = $("input[name='__RequestVerificationToken']").val();
                 $.ajax({
                     url: "/" + controller + "/Delete",
+                    data: { id: id, '__RequestVerificationToken': token },
                     type: 'DELETE',
-                    data: {id:id},
+                    
                     success: function (data) {
                         toastr.clear();
                         if (data.success) {
@@ -327,9 +403,83 @@ HoiNongDan.Delete = function () {
                             toastr.error(data.data);
                         }
                     },
-                    error: function (xhr, status, data) {
+                    error: function (xhr, status, error) {
+                        if (xhr.status == 401) {
+                            toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                            setTimeout(function () {
+                                var url = window.location.href.toString().split(window.location.host)[1];
+                                window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                            }, 1000);
+                        }
+                        else if (xhr.status == 404) {
+                            setTimeout(function () {
+                                var url = window.location.href.toString().split(window.location.host)[1];
+                                window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
+                            }, 1000);
+                        }
+                        else {
+                            toastr.error(error);
+                        }
+                    }
+                })
+            }
+        })
+    });
+}
+HoiNongDan.DeleteEdit = function () {
+    $(document).on("click", "#btn-delete", function () {
+        let $btn = $(this);
+        let controller = $btn.data("current-url");
+        let itemName = $btn.data("item-name");
+        let id = $btn.data("id");
+        let textRequestion = "Bạn có muốn xóa thông tin <b> " + itemName + "</b> đang chọn?";
+        /*  let token = $('input[name="__RequestVerificationToken"]').val();*/
+        Swal.fire({
+            title: 'Xóa thông tin',
+            html: textRequestion,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Có',
+            cancelButtonText: "Không"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var token = $("input[name='__RequestVerificationToken']").val();
+                $.ajax({
+                    url: "/" + controller + "/Delete",
+                    data: { id: id, '__RequestVerificationToken': token },
+                    type: 'DELETE',
 
-                        toastr.error(data);
+                    success: function (data) {
+                        toastr.clear();
+                        if (data.success) {
+                            toastr.success(data.data);
+                            setTimeout(function () {
+                                window.location.href ='/'+ controller +"/Index";
+                            }, 1000);
+                        }
+                        else {
+                            toastr.error(data.data);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        if (xhr.status == 401) {
+                            toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                            setTimeout(function () {
+                                var url = window.location.href.toString().split(window.location.host)[1];
+                                window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                            }, 1000);
+                        }
+                        else if (xhr.status == 404) {
+                            setTimeout(function () {
+                                var url = window.location.href.toString().split(window.location.host)[1];
+                                window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
+                            }, 1000);
+                        }
+                        else {
+                            toastr.error(error);
+                        }
                     }
                 })
             }
@@ -417,7 +567,22 @@ HoiNongDan.Import = function (controller) {
                 }
             },
             error: function (xhr, status, error) {
-                
+                if (xhr.status == 401) {
+                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                    }, 1000);
+                }
+                else if (xhr.status == 404) {
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
+                    }, 1000);
+                }
+                else {
+                    toastr.error(error);
+                }
             }
         });
        
@@ -489,7 +654,22 @@ HoiNongDan.UploadFile = function (controller) {
                 }
             },
             error: function (xhr, status, error) {
-                toastr.error(xhr.responseText);
+                if (xhr.status == 401) {
+                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                    }, 1000);
+                }
+                else if (xhr.status == 404) {
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
+                    }, 1000);
+                }
+                else {
+                    toastr.error(error);
+                }
             }
         });
     });
@@ -592,6 +772,22 @@ HoiNongDan.SearchNhanSu = function () {
                 $("#Part_ThongTinNhanSu").html(jsonData);
             },
             error: function (xhr, status, error) {
+                if (xhr.status == 401) {
+                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                    }, 1000);
+                }
+                else if (xhr.status == 404) {
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
+                    }, 1000);
+                }
+                else {
+                    toastr.error(error);
+                }
             }
         });
     });
@@ -645,6 +841,22 @@ HoiNongDan.DeleteFileDinhKem = function (controller) {
                         }
                     },
                     error: function (xhr, status, error) {
+                        if (xhr.status == 401) {
+                            toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                            setTimeout(function () {
+                                var url = window.location.href.toString().split(window.location.host)[1];
+                                window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                            }, 1000);
+                        }
+                        else if (xhr.status == 404) {
+                            setTimeout(function () {
+                                var url = window.location.href.toString().split(window.location.host)[1];
+                                window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
+                            }, 1000);
+                        }
+                        else {
+                            toastr.error(error);
+                        }
                     }
                 });
             }

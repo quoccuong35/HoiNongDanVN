@@ -23,6 +23,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(NgachLuongSearchVM obj) {
             return ExecuteSearch(() => {
                 var model = _context.NgachLuongs.AsQueryable();
@@ -58,7 +59,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Create(NgachLuongVM obj) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(NgachLuongVM obj) {
             return ExecuteContainer(() => {
                 if (CheckExistNgachLuong(obj.MaNgachLuong)) {
                     return Json(new
@@ -114,7 +116,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Edit(NgachLuongVM obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(NgachLuongVM obj)
         {
             return ExecuteContainer(() => {
                 var edit = _context.NgachLuongs.SingleOrDefault(it => it.MaNgachLuong == obj.MaNgachLuong);
@@ -137,7 +140,9 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         #endregion Edit
         #region Delete
         [HoiNongDanAuthorization]
-        public JsonResult Delete(string id) {
+        [ValidateAntiForgeryToken]
+        [HttpDelete]
+        public IActionResult Delete(string id) {
             return ExecuteDelete(() =>
             {
                 var del = _context.NgachLuongs.FirstOrDefault(p => p.MaNgachLuong == id);

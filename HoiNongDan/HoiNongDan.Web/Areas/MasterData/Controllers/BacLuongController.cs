@@ -22,6 +22,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
             CreateViewBag();
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(BacLuongSearchVM obj) {
             return ExecuteSearch(() => {
                 var data = _context.BacLuongs.AsQueryable();
@@ -61,7 +62,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Create(BacLuongVM obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(BacLuongVM obj)
         {
             string check = CheckExistBacLuong(obj.MaNgachLuong, obj.HeSo, obj.OrderIndex!.Value);
             if (check != "") {
@@ -94,7 +96,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

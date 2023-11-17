@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HoiNongDan.Constant;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HoiNongDan.Web.Components
 {
@@ -7,7 +8,7 @@ namespace HoiNongDan.Web.Components
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            string menu = HttpContext.Session!.GetString("Menu");
+            string menu = HttpContext.Session!.GetString(User.Identity!.Name + ConstExcelController.SessionMenu);
             return View("Default", menu);
         }
     }

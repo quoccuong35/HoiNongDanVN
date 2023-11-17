@@ -1,6 +1,7 @@
 ﻿@model KyLuatVM
 <div class="row">
     <input asp-for="IdQuaTrinhKyLuat" hidden />
+    @Html.AntiForgeryToken()
     <div class="col-md-3">
         <div class="form-group">
             <label asp-for="MaHinhThucKyLuat"></label><span class="text-red">*</span>

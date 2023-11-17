@@ -20,6 +20,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(ChiHoiSearchVM obj) {
             return ExecuteSearch(() => { 
                 var data = _context.ChiHois.AsQueryable();
@@ -61,7 +62,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Upsert(ChiHoiVM obj) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(ChiHoiVM obj) {
             return ExecuteContainer(() => {
                 if (obj.MaChiHoi == null)
                 {
@@ -127,7 +129,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

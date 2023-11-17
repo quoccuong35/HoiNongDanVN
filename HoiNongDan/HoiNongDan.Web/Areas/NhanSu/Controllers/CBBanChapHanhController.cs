@@ -16,6 +16,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
+        [HttpGet]
         public IActionResult _Search(CanBoSearchVM search)
         {
             return ExecuteSearch(() => {

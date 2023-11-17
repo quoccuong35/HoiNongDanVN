@@ -1,0 +1,158 @@
+﻿@using HoiNongDan.Models
+@using HoiNongDan.Resources
+@using HoiNongDan.Constant
+@using Microsoft.AspNetCore.Html
+
+@model AccountVM
+@{
+    ViewBag.Title = LanguageResource.Account;
+    string CurrentController = ConstController.Account;
+    string CurrentArea = ConstArea.Permission;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+}
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header page-header-fix d-flex my-1">
+        <div class="fs-16">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="fs-18 fw-600" asp-area="@ConstArea.Permission" asp-controller="@ConstController.Account" asp-action="Index">@LanguageResource.Account</a></li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Create</li>
+            </ol>
+        </div>
+        <div>
+            @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
+            @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
+            @HtmlExtensions.BackButton(CurrentArea,CurrentController)
+        </div>
+
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary br-te-3 br-ts-3">
+                    <h3 class="card-title text-white">Thông tin chi tiết</h3>
+                    <div class="card-options ">
+                        <a href="javascript:void(0)" class="card-options-collapse" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up text-white"></i></a>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <form method="post" asp-action="Create" id="frmCreate" class="row g-3" asp-antiforgery="true">
+                        @Html.AntiForgeryToken()
+                        <input asp-for="AccountId" hidden />
+                        <div class="col-md-3">
+                            <label asp-for="UserName"></label>
+                            <input asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Password"></label>
+                            <input asp-for="Password" class="form-control" />
+                            <small><b style="color:black;text-decoration:underline;padding-left:5px;font-size:15px">Chú ý:</b> Mật khẩu phải 8 ký tự, Có 1 chữ cái thường, 1 chữ cái In hoa,1 số và ký tự đặc biệt.<br> <b>Ví dụ:</b> Abcd@123</small><br>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label asp-for="FullName"></label>
+                            <input asp-for="FullName" class="form-control" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Nhóm quyền</label>
+                                <div class="selectgroup selectgroup-pills">
+                                    @for (var i = 0; i < Model.userRoless.Count; i++)
+                                    {
+                                        <input asp-for="@Model.userRoless[i].RolesId" hidden />
+                                        <label class="selectgroup-item">
+                                            <input asp-for="@Model.userRoless[i].Selected" type="checkbox" id="@Model.userRoless[i].RolesName" class="selectgroup-input">
+                                            <span class="selectgroup-button">@Model.userRoless[i].RolesName</span>
+                                        </label>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- col -->
+                            <div class="col-md-12 mt-4 mt-lg-0">
+                                <ul id="treeview2">
+                                    <li>
+                                        <input type="checkbox" name="chk-all" /> Địa bàn hội viên
+                                        <ul>
+                                            @{
+                                                int index = 0;
+                                                var dataQuanHuyens = Model.DiaBans.Select(it => new { MaQuanHuyen = it.MaQuanHuyen, TenQuanHuyen = it.TenQuanHuyen }).Distinct();
+                                                foreach (var qh in dataQuanHuyens)
+                                                {
+                                                    var diaBans = Model.DiaBans.Where(it => it.MaQuanHuyen == qh.MaQuanHuyen);
+                                                    <li>
+                                                        <input type="checkbox" name="chk-quanhuyen" id="@qh.MaQuanHuyen" /> @qh.TenQuanHuyen
+                                                        <ul>
+                                                            @{
+                                                                foreach (var db in diaBans)
+                                                                {
+                                                                    index = Model.DiaBans.IndexOf(db);
+                                                                    <li>
+                                                                        <input asp-for="@Model.DiaBans[index].MaDiaBanHoiVien" hidden />
+                                                                        <input asp-for="@Model.DiaBans[index].TenDiaBanHoiVien" hidden />
+                                                                        <input type="checkbox" asp-for="@Model.DiaBans[index].Selected" data-qh="@qh.MaQuanHuyen" id="@db.MaDiaBanHoiVien" /> @db.TenDiaBanHoiVien
+                                                                    </li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </li>
+                                                }
+
+                                            }
+
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- /col -->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+        <script src="~/assets/plugins/treeview/treeview.js"></script>
+    }
+    }
+@section ScriptCustomized{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            HoiNongDan.CreateInitial("@CurrentUrl");
+        });
+        const checkall = document.querySelector('input[name="chk-all"]');
+        checkall.addEventListener('click', (event) => {
+            /// get all input
+            var checkboxs = document.querySelectorAll('li>input[type="checkbox"]');
+            for (var i in checkboxs) {
+                checkboxs[i].checked = checkall.checked;
+            }
+        });
+        const checkQuanHuyen = document.querySelectorAll('input[name="chk-quanhuyen"]');
+        for (const sp of checkQuanHuyen) {
+            sp.addEventListener('click', function handleClick(event) {
+                var name = sp.id
+                var checkboxs = document.querySelectorAll('li>input[data-qh="' + name + '"]');
+                for (var i in checkboxs) {
+                    checkboxs[i].checked = this.checked;
+                }
+            });
+        }
+    </script>
+}

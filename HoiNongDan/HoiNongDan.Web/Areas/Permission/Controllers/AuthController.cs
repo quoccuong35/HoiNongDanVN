@@ -8,6 +8,10 @@ using HoiNongDan.Extensions;
 using HoiNongDan.Resources;
 using System.Security.Claims;
 using HoiNongDan.Models.Entitys;
+using NuGet.Protocol.Core.Types;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http;
+using HoiNongDan.Constant;
 
 namespace HoiNongDan.Web.Areas.Permission.Controllers
 {
@@ -17,9 +21,12 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
     {
         #region Login
         private readonly AppDbContext _db;
-        public AuthController(AppDbContext db) { 
+        private readonly IHttpContextAccessor _httpContext;
+        public AuthController(AppDbContext db, IHttpContextAccessor httpContext) { 
             _db = db;
+            _httpContext = httpContext;
         }
+       
         public IActionResult Login() {
             ClaimsPrincipal claimUser = HttpContext.User;
 
@@ -27,39 +34,52 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
             {
                 return RedirectToAction(GetRedirectUrl(""));
             }
-            string user = Request.Cookies["username"];
-            string pass = Request.Cookies["password"];
-            bool remember = Request.Cookies["remember"] == null?false:bool.Parse(Request.Cookies["remember"]);
+            string user = "";
+            string pass ="";
+            string sessionID = Request.Cookies["sessionID"]!;
+
+           if (!String.IsNullOrWhiteSpace(sessionID)) {
+                sessionID = Security.Decrypt(sessionID);
+                user = _httpContext.HttpContext!.Session!.GetString(sessionID + "_user")!;
+                pass = _httpContext.HttpContext!.Session!.GetString(sessionID + "_pass")!;
+            }
             AccountLoginViewModel login = new AccountLoginViewModel();
             if (user != null)
             {
                 login.UserName = user.ToString();
-                login.Password = pass == null ? "" : pass.ToString();
-                login.RememberMe = remember;
+                login.Password = pass.ToString();
+                login.RememberMe = true;
             }
             return View(login);
         }
         [HttpPost]
-
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(AccountLoginViewModel model) {
             string userName = model.UserName.Trim();
             string passWord = model.Password.Trim();
             string remember = model.RememberMe.ToString().Trim();
+            string sessionID = Request.Cookies["sessionID"]!;
             Account? user = _db.Accounts.Where(p => p.UserName == userName).FirstOrDefault();
+           
             if (model.RememberMe == true)
             {
+                if (String.IsNullOrWhiteSpace(sessionID))
+                {
+                    sessionID = Security.Encrypt(model.UserName.ToLower());
+                }
                 CookieOptions userInfo = new CookieOptions();
-                userInfo.Expires = DateTime.Now.AddDays(10);
-                Response.Cookies.Append("username", model.UserName, userInfo);
-                Response.Cookies.Append("password", model.Password, userInfo);
-                Response.Cookies.Append("remember", model.RememberMe.ToString(), userInfo);
+                userInfo.Expires = DateTime.Now.AddDays(30);
+                _httpContext.HttpContext!.Session.SetString(model.UserName.ToLower() + "_user", userName);
+                _httpContext.HttpContext!.Session.SetString(model.UserName.ToLower() + "_pass", passWord);
+                Response.Cookies.Append("sessionID", sessionID, userInfo);
             }
             else
             {
-                CookieOptions userInfo = new CookieOptions();
-                Response.Cookies.Append("username", "", userInfo);
-                Response.Cookies.Append("password", "", userInfo);
-                Response.Cookies.Append("remember", "false", userInfo);
+
+                _httpContext.HttpContext!.Session.Remove(model.UserName.ToLower() + "_user");
+                _httpContext.HttpContext!.Session.Remove(model.UserName.ToLower() + "_pass");
+                //CookieOptions userInfo = new CookieOptions();
+                //Response.Cookies.Append("sessionID", "", userInfo);
             }
             try
             {
@@ -140,9 +160,9 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         #region Logout
         public async Task<IActionResult> LogOut()
         {
-
+            HttpContext.Session.Remove(User.Identity!.Name + ConstExcelController.SessionMenu);
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.Clear();
+           
             return RedirectToAction(nameof(Login));
         }
 

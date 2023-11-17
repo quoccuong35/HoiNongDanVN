@@ -22,10 +22,12 @@ namespace HoiNongDan.Models.Entitys
         public Guid? EmployeeId { get; set; }
         public virtual ICollection<AccountInRoleModel> AccountInRoleModels { get; set; }
         public virtual ICollection<HoiVienHoiDap> HoiVienHoiDaps { get; set; }
+        public virtual ICollection<PhamVi> PhamVis { get; set; }
         public Account()
         {
             AccountInRoleModels = new List<AccountInRoleModel>();
             HoiVienHoiDaps = new List<HoiVienHoiDap>();
+            PhamVis = new List<PhamVi>();
         }
     }
 }

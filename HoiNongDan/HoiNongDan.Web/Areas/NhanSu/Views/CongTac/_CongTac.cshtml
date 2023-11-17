@@ -1,6 +1,7 @@
 ﻿@model QuaTrinhCongTacVM
 <div class="row">
     <input asp-for="IDQuaTrinhCongTac" hidden />
+    @Html.AntiForgeryToken()
     <div class="col-md-3">
         <div class="form-group">
             <label asp-for="TuNgay"></label><span class="text-red">*</span>

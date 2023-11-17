@@ -56,24 +56,28 @@ namespace Microsoft.AspNetCore.Html
         }
         #endregion Search Button
         #region Create Button
-        public static HtmlString CreateButton(string areaName, string controlName, object htmlAttributes = null,string action = "Upsert") {
+        public static HtmlString CreateButton(string areaName, string controlName, object htmlAttributes = null,string action = "Upsert",String listRoles = "") {
             string CurrentUrl = GetCurrentUrl(areaName, controlName);
-            //string roles = controlName + ":" + ConstFunction.Create;
-            //bool isHasPermission = Function.GetPermission(listRoles, roles);
-            //IHtmlContent
-            TagBuilder aTag = new TagBuilder("a");
-            aTag.Attributes.Add("href", string.Format("/{0}/{1}", CurrentUrl, action));
-            aTag.Attributes.Add("id", "btn-create");
-            aTag.Attributes.Add("class", "btn btn-sm btn-primary");
-            aTag.InnerHtml.AppendHtmlLine(string.Format("<i class='bi bi-plus-circle'></i> {0}", LanguageResource.Btn_Create));
-            if (htmlAttributes != null) {
-                var attributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
-                aTag.MergeAttributes(attributes, true);
+            string roles = controlName + ":" + action;
+            bool isHasPermission = Function.GetPermission(listRoles, roles);
+            if (isHasPermission)
+            {
+                TagBuilder aTag = new TagBuilder("a");
+                aTag.Attributes.Add("href", string.Format("/{0}/{1}", CurrentUrl, action));
+                aTag.Attributes.Add("id", "btn-create");
+                aTag.Attributes.Add("class", "btn btn-sm btn-primary");
+                aTag.InnerHtml.AppendHtmlLine(string.Format("<i class='bi bi-plus-circle'></i> {0}", LanguageResource.Btn_Create));
+                if (htmlAttributes != null)
+                {
+                    var attributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+                    aTag.MergeAttributes(attributes, true);
+                }
+                aTag.RenderSelfClosingTag();
+
+
+                return new HtmlString(RenderHtml(aTag));
             }
-            aTag.RenderSelfClosingTag();
-
-
-            return new HtmlString(RenderHtml(aTag));
+            return null;
 
         }
 
@@ -118,6 +122,8 @@ namespace Microsoft.AspNetCore.Html
             return new HtmlString(RenderHtml(aTag));
         }
         #endregion Back Button
+
+
 
         #region Edit Button
         public static HtmlString UpsertButton(string areaName, string controllerName, Guid id, object htmlAttributes = null,String listRoles ="")
@@ -276,9 +282,40 @@ namespace Microsoft.AspNetCore.Html
                 aTag.Attributes.Add("title", LanguageResource.Btn_Del);
 
                 aTag.Attributes.Add("data-id", string.Format("{0}", id));
+
                 aTag.Attributes.Add("data-current-url", string.Format("{0}", CurrentUrl));
                 aTag.Attributes.Add("data-item-name", string.Format("{0}", itemName));
                 aTag.InnerHtml.AppendHtmlLine(string.Format("<i class=\"fe fe-trash\"></i> {0}", ""));
+                if (htmlAttributes != null)
+                {
+                    var attributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+                    aTag.MergeAttributes(attributes, true);
+                }
+                aTag.RenderSelfClosingTag();
+                return new HtmlString(RenderHtml(aTag));
+            }
+            return null;
+        }
+
+        public static HtmlString DeleteButtonV2(string areaName, string controllerName, string itemName, string id, object htmlAttributes = null, String listRoles = "")
+        {
+            string CurrentUrl = GetCurrentUrl(areaName, controllerName);
+            string roles = controllerName + ":" + ConstFunction.Delete;
+            bool isHasPermission = Function.GetPermission(listRoles, roles);
+            // bool isHasPermission = true;
+            if (isHasPermission)
+            {
+                TagBuilder aTag = new TagBuilder("a");
+                //aTag.Attributes.Add("onclick", "$(this).button('loading')");
+                aTag.Attributes.Add("class", "btn btn-sm btn-danger-light me-2");
+                aTag.Attributes.Add("id", "btn-delete");
+                aTag.Attributes.Add("onclick", "$(this).button('loading')");
+
+                aTag.Attributes.Add("data-id", string.Format("{0}", id));
+
+                aTag.Attributes.Add("data-current-url", string.Format("{0}", CurrentUrl));
+                aTag.Attributes.Add("data-item-name", string.Format("{0}", itemName));
+                aTag.InnerHtml.AppendHtmlLine(string.Format("<i class=\"fe fe-trash\"></i> {0}", LanguageResource.Btn_Del));
                 if (htmlAttributes != null)
                 {
                     var attributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
@@ -503,12 +540,34 @@ namespace Microsoft.AspNetCore.Html
                 dropdown_menu.Attributes.Add("class", "dropdown-menu");
                 dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item\" href=\"" + string.Format("/{0}/ExportCreate", CurrentUrl) + "\">{0}</a>", "Excel file mẫu"));
                 //dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item btn-exporttoexcel\" href=\""+ string.Format("/{0}/ExportEdit", CurrentUrl) + "\">{0}</a>", "Export dữ liệu"));
-                dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item btn-exporttoexcel\" href='#'>{0}</a>", "Xuất dữ liệu excel"));
+                dropdown_menu.InnerHtml.AppendHtmlLine(string.Format("<a class=\"dropdown-item btn-exporttoexcel\" href='#'>{0}</a>", LanguageResource.ExportExcel));
 
                 dropdown.InnerHtml.AppendHtmlLine(RenderHtml(button));
                 dropdown.InnerHtml.AppendHtmlLine(RenderHtml(dropdown_menu));
 
                 return new HtmlString(RenderHtml(dropdown));
+            }
+            return null;
+        }
+        public static HtmlString ExportButton1(string areaName, string controllerName, object htmlAttributes = null, String listRoles = "")
+        {
+            string CurrentUrl = GetCurrentUrl(areaName, controllerName);
+            string roles = controllerName + ":" + ConstFunction.Export;
+            bool isHasPermission = Function.GetPermission(listRoles, roles);
+            //bool isHasPermission = true;
+            if (isHasPermission)
+            {
+                TagBuilder aTag = new TagBuilder("a");
+                aTag.Attributes.Add("class", "btn btn-sm btn-vk text-white mx-1 btn-exporttoexcel");
+                aTag.Attributes.Add("href", "#");
+                aTag.InnerHtml.AppendHtmlLine(string.Format("<i class='fa fa-file-excel-o'></i> {0}", LanguageResource.ExportExcel));
+                if (htmlAttributes != null)
+                {
+                    var attributes = HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes);
+                    aTag.MergeAttributes(attributes, true);
+                }
+                aTag.RenderSelfClosingTag();
+                return new HtmlString(RenderHtml(aTag));
             }
             return null;
         }

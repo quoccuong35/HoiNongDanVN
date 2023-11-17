@@ -22,6 +22,79 @@ for (const item of currency) {
         item.value = value == "" ? "" : (Number.parseInt(value)).toLocaleString("en");
     });
 }
+ AjaxGet = function (link, data,func) {
+    $.ajax({
+        type: "get",
+        url: link,
+        data: data,
+        success: function (xhr, status, error) {
+            if (xhr.Code == 500 || xhr.Success == false) {
+
+            }
+            else if (xhr.indexOf("from-login-error") > 0) {
+                toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                setTimeout(function () {
+                    var url = window.location.href.toString().split(window.location.host)[1];
+                    window.location.href = "/Permission/Auth/Login?returnUrl=" + link;
+                }, 1000);
+            }
+            else {
+                func(xhr);
+            }
+        },
+        error: function (xhr, status, error) {
+            if (xhr.status == 401) {
+                toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                setTimeout(function () {
+                    var url = window.location.href.toString().split(window.location.host)[1];
+                    window.location.href = "/Permission/Auth/Login?returnUrl=" + link;
+                }, 1000);
+            }
+            else if (xhr.status == 404)
+            {
+                setTimeout(function () {
+                    var url = window.location.href.toString().split(window.location.host)[1];
+                    window.location.href = "/Error/ErrorNotFound?returnUrl=" + link;
+                }, 1000);
+            }
+            else {
+                toastr.error(error);
+            }
+        }
+    });
+}
+AjaxUpdate = function (link, controller, formData, isContinue, func) {
+    console.log(link);
+    $.ajax({
+        type: "POST",
+        url: link,
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (jsonData) {
+
+            func({ link: controller, jsonData: jsonData, isContinue: isContinue });
+        },
+        error: function (xhr, status, error) {
+            if (xhr.status == 401) {
+                toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                setTimeout(function () {
+                    var url = window.location.href.toString().split(window.location.host)[1];
+                    window.location.href = "/Permission/Auth/Login?returnUrl=" + link;
+                }, 1000);
+            }
+            else if (xhr.status == 404) {
+                setTimeout(function () {
+                    var url = window.location.href.toString().split(window.location.host)[1];
+                    window.location.href = "/Error/ErrorNotFound?returnUrl=" + link;
+                }, 1000);
+            }
+            else {
+                toastr.error(error);
+            }
+        }
+    });
+}
 $('.btn-userinfo').on('click', function () {
     let $btn = $(this);
     var id = $btn.data("id");
@@ -47,17 +120,20 @@ $('.btn-userinfo').on('click', function () {
             }
         },
         error: function (xhr, status, error) {
-
+            if (xhr.status == 401) {
+                toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                setTimeout(function () {
+                    var url = window.location.href.toString().split(window.location.host)[1];
+                    window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                }, 1000);
+            }
+            else {
+                toastr.error(data);
+            }
         }
     });
 });
 $('.btn-doimatkhau').on('click', function () {
-    var id = $("#AccountId").val();
-    var passWord = $("#txt-password").val();
-    if (!passWord) {
-        toastr.info("Bạn chưa nhập thông tin mật khẩu");
-        return;
-    }
     Swal.fire({
         title: 'Đổi mật khẩu',
         html: "Bạn có muốn đổi thông tin mật khẩu. Có để tiếp tục",
@@ -69,27 +145,49 @@ $('.btn-doimatkhau').on('click', function () {
         cancelButtonText: "Không"
     }).then((result) => {
         if (result.isConfirmed) {
+            var frm = $('#frmDoiThongTinMatKhau'),
+                formData = new FormData(),
+                formParams = frm.serializeArray();
+            $.each(frm.find('input[type="file"]'), function (i, tag) {
+                $.each($(tag)[0].files, function (i, file) {
+                    formData.append(tag.name, file);
+                });
+            });
+
+            $.each(formParams, function (i, val) {
+                formData.append(val.name, val.value);
+            });
             $.ajax({
+                type: "POST",
                 url: "/Permission/AccountInfo/DoiMatKhau",
-                type: 'post',
-                data: { id: id, passWord: passWord },
-                success: function (data) {
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (jsonData) {
                     toastr.clear();
-                    if (data.success) {
-                        toastr.success(data.data);
+                    if (jsonData.success) {
+                        toastr.success(jsonData.data);
                         setTimeout(function () {
                             window.location.href = "/Permission/Auth/LogOut";
                         }, 1000);
                     }
                     else {
-                        toastr.error(data.data);
+                        toastr.error(jsonData.data);
                     }
                 },
-                error: function (xhr, status, data) {
-
-                    toastr.error(data);
+                error: function (xhr, status, error) {
+                    if (xhr.status == 401) {
+                        toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                        setTimeout(function () {
+                            var url = window.location.href.toString().split(window.location.host)[1];
+                            window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                        }, 1000);
+                    }
+                    else {
+                        toastr.error(data);
+                    }
                 }
-            })
+            });
         }
     });
 

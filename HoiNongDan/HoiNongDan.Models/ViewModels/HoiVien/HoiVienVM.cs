@@ -43,7 +43,7 @@ namespace HoiNongDan.Models
         [MaxLength(200)]
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
-        public string SoCCCD { get; set; }
+        public string? SoCCCD { get; set; }
 
 
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
@@ -213,6 +213,19 @@ namespace HoiNongDan.Models
 
         [Display(Name = "Hỗ trợ đào tạo nghề")]
         public string? HoTroDaoTaoNghe { get; set; }
+
+        [Display(Name = "Đoàn thể chính trị-Hội đoàn khác")]
+        public List<Guid>? MaDoanTheChinhTri_HoiDoan { get; set; }
+        [Display(Name = "Tham gia câu lạc bộ, đội nhóm, mô hình, hợp tác xã, tổ hợp tác")]
+        public List<Guid>? Id_CLB_DN_MH_HTX_THT { get; set; }
+
+        [Display(Name = "Tham gia tổ hội ngành nghề, chi hội ngành nghề")]
+        public List<Guid>? Ma_ToHoiNganhNghe_ChiHoiNganhNghe { get; set; }
+        public HoiVienVM() {
+            MaDoanTheChinhTri_HoiDoan = new List<Guid>();
+            Id_CLB_DN_MH_HTX_THT = new List<Guid>();
+            Ma_ToHoiNganhNghe_ChiHoiNganhNghe = new List<Guid>();
+        }
     }
     public class HoiVienMTVM : HoiVienVM
     {
@@ -277,7 +290,10 @@ namespace HoiNongDan.Models
             obj.HoTrovayVon = this.HoTrovayVon;
             obj.HoTroKhac = this.HoTroKhac;
             obj.HoTroDaoTaoNghe = this.HoTroDaoTaoNghe;
-           
+            obj.DoanTheChinhTri_HoiDoan_HoiViens = GetListDoanTheChinhTri_HoiDoan();
+            obj.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens = GetCauLacBoDNMHHTXTHT();
+            obj.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens = GetToHoiNganhNgheChiHoiNganhNghe();
+
             return obj;
         }
         public static HoiVienVM SetHoiVien(CanBo item) {
@@ -338,7 +354,57 @@ namespace HoiNongDan.Models
             obj.HoTrovayVon = item.HoTrovayVon;
             obj.HoTroKhac = item.HoTroKhac;
             obj.HoTroDaoTaoNghe = item.HoTroDaoTaoNghe;
+            obj.MaDoanTheChinhTri_HoiDoan = item.DoanTheChinhTri_HoiDoan_HoiViens.Select(it => it.MaDoanTheChinhTri_HoiDoan).ToList();
+            obj.Id_CLB_DN_MH_HTX_THT = item.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.Select(it => it.Id_CLB_DN_MH_HTX_THT).ToList();
+            obj.Ma_ToHoiNganhNghe_ChiHoiNganhNghe = item.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.Select(it => it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe).ToList();
             return obj;
+        }
+        public List<DoanTheChinhTri_HoiDoan_HoiVien> GetListDoanTheChinhTri_HoiDoan() {
+            List<DoanTheChinhTri_HoiDoan_HoiVien> kq =new List<DoanTheChinhTri_HoiDoan_HoiVien> ();
+            if(this.MaDoanTheChinhTri_HoiDoan != null && this.MaDoanTheChinhTri_HoiDoan!.Count > 0 )
+            {
+                foreach (var item in MaDoanTheChinhTri_HoiDoan)
+                {
+                    kq.Add(new DoanTheChinhTri_HoiDoan_HoiVien
+                    {
+                        MaDoanTheChinhTri_HoiDoan = item,
+                        CreatedTime = DateTime.Now
+                    });
+                }
+            }
+            return kq;
+        }
+        public List<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien> GetCauLacBoDNMHHTXTHT()
+        {
+            List<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien> kq = new List<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien>();
+            if (this.Id_CLB_DN_MH_HTX_THT != null && this.Id_CLB_DN_MH_HTX_THT!.Count > 0)
+            {
+                foreach (var item in Id_CLB_DN_MH_HTX_THT!)
+                {
+                    kq.Add(new CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien
+                    {
+                        Id_CLB_DN_MH_HTX_THT = item,
+                        CreatedTime = DateTime.Now
+                    });
+                }
+            }
+            return kq;
+        }
+        public List<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien> GetToHoiNganhNgheChiHoiNganhNghe()
+        {
+            List<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien> kq = new List<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien>();
+            if (this.Ma_ToHoiNganhNghe_ChiHoiNganhNghe != null && this.Ma_ToHoiNganhNghe_ChiHoiNganhNghe!.Count > 0)
+            {
+                foreach (var item in Ma_ToHoiNganhNghe_ChiHoiNganhNghe!)
+                {
+                    kq.Add(new ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien
+                    {
+                        Ma_ToHoiNganhNghe_ChiHoiNganhNghe = item,
+                        CreatedTime = DateTime.Now
+                    });
+                }
+            }
+            return kq;
         }
     }
     

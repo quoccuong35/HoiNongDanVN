@@ -1083,6 +1083,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\HoiVien\Views\HoiVienPublic\XemThongTin.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Update="Areas\NhanSu\Views\CanBo\_Search.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

@@ -23,6 +23,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
             CreateViewBag();
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(String? MaTinhThanhPho, bool? Actived) {
             return ExecuteSearch(() => { 
                 var data = _context.QuanHuyens.Include(it=> it.TinhThanhPho).AsQueryable();
@@ -69,7 +70,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Upsert(QuanHuyenVM obj) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(QuanHuyenVM obj) {
             return ExecuteContainer(() => { 
                 if(obj.MaQuanHuyen == null) {
                     QuanHuyen add = new QuanHuyen();
@@ -128,7 +130,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(string id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(string id)
         {
             return ExecuteDelete(() =>
             {

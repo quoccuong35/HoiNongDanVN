@@ -4,6 +4,7 @@
     string CurrentController = ConstController.Account;
     string CurrentArea = ConstArea.Permission;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User != null ? User.FindFirst("Roles")!.Value : "";
 }
 <div class="main-container container-fluid">
 
@@ -18,7 +19,7 @@
             </div>
         </div>
         <div>
-            @HtmlExtensions.CreateButton(CurrentArea,CurrentController)
+            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create",listRoles:listRoles)
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -56,6 +57,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
+                    @Html.AntiForgeryToken()
                     <div id="divSearchResult"></div>
                 </div>
             </div>

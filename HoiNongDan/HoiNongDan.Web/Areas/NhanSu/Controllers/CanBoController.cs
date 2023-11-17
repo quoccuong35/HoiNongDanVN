@@ -50,6 +50,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             CreateViewBag("01");
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(CanBoSearchVM search) {
             return ExecuteSearch(() => {
                 var model = _context.CanBos.Where(it=>it.IsCanBo == true && it.IdDepartment == Guid.Parse("3E7200F5-9BCA-4D2A-8145-8B09A18C6112")).AsQueryable();
@@ -173,124 +174,6 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 return PartialView(data);
             });
         }
-
-        public IActionResult CBHNDQuaCacThoiKy() {
-            return View();
-        }
-        public IActionResult _CBHNDQuaCacThoiKy(CanBoSearchVM search)
-        {
-            return ExecuteSearch(() => {
-                var model = _context.CanBos.Where(it => it.IsCanBo == true ).AsQueryable();
-                if (!String.IsNullOrEmpty(search.MaCanBo))
-                {
-                    model = model.Where(it => it.MaCanBo == search.MaCanBo);
-                }
-                if (!String.IsNullOrEmpty(search.HoVaTen))
-                {
-                    model = model.Where(it => it.HoVaTen.Contains(search.HoVaTen));
-                }
-                if (!String.IsNullOrEmpty(search.MaTinhTrang))
-                {
-                    model = model.Where(it => it.MaTinhTrang == search.MaTinhTrang);
-                }
-                if (!String.IsNullOrEmpty(search.MaPhanHe))
-                {
-                    model = model.Where(it => it.MaPhanHe == search.MaPhanHe);
-                }
-                model = model.Where(it => it.IdDepartment == Guid.Parse("FE9D6794-102A-488B-9F95-55A34D593530"));
-                var data = model.Include(it => it.TinhTrang)
-                    .Include(it => it.Department)
-                    .Include(it => it.BacLuong)
-                    .Include(it => it.ChucVu)
-                    .Include(it => it.TinhTrang)
-                    .Include(it => it.CoSo).Select(it => new CanBoDetailVM
-                    {
-                        MaCanBo = it.MaCanBo,
-                        HoVaTen = it.HoVaTen,
-                        TenTinhTrang = it.TinhTrang.TenTinhTrang,
-                        TenPhanHe = it.PhanHe.TenPhanHe,
-                        TenCoSo = it.CoSo.TenCoSo,
-                        TenDonVi = it.Department.Name,
-                        TenChucVu = it.ChucVu.TenChucVu,
-                        TenBacLuong = it.BacLuong.TenBacLuong,
-                        TenNgachLuong = it.MaNgachLuong!,
-                        HeSo = it.HeSoLuong,
-                        IDCanBo = it.IDCanBo,
-                        HinhAnh = it.HinhAnh,
-                        GhiChu = it.GhiChu,
-                        SoDienThoai = it.SoDienThoai,
-                        ChoOHienNay = it.ChoOHienNay,
-                        NoiSinh = it.MaChucVu != null?it.ChucVu.TenChucVu:it.TinhTrang.TenTinhTrang
-                    }).OrderBy(it=>it.HoVaTen).ToList();
-                return PartialView(data);
-            });
-        }
-        public IActionResult CBBanChapHanh()
-        {
-            CreateViewBag();
-            return View();
-        }
-        public IActionResult _CBBanChapHanh(CanBoSearchVM search)
-        {
-            return ExecuteSearch(() => {
-                var model = _context.CanBos.Where(it=>it.IsBanChapHanh == true).AsQueryable();
-                if (!String.IsNullOrEmpty(search.MaCanBo))
-                {
-                    model = model.Where(it => it.MaCanBo == search.MaCanBo);
-                }
-                if (!String.IsNullOrEmpty(search.HoVaTen))
-                {
-                    model = model.Where(it => it.HoVaTen.Contains(search.HoVaTen));
-                }
-                if (!String.IsNullOrEmpty(search.MaTinhTrang))
-                {
-                    model = model.Where(it => it.MaTinhTrang == search.MaTinhTrang);
-                }
-                if (!String.IsNullOrEmpty(search.MaPhanHe))
-                {
-                    model = model.Where(it => it.MaPhanHe == search.MaPhanHe);
-                }
-                if (search.IdCoSo != null)
-                {
-                    model = model.Where(it => it.IdCoSo == search.IdCoSo);
-                }
-                if (search.IdDepartment != null)
-                {
-                    model = model.Where(it => it.IdDepartment == search.IdDepartment);
-                }
-                if (search.MaChucVu != null)
-                {
-                    model = model.Where(it => it.MaChucVu == search.MaChucVu);
-                }
-                if (search.Actived != null)
-                {
-                    model = model.Where(it => it.Actived == search.Actived);
-                }
-                model = model.Where(it => it.IsBanChapHanh == true &&  it.IsCanBo == true);
-                var data = model.Include(it => it.TinhTrang)
-                    .Include(it => it.DanToc)
-                    .Include(it => it.TonGiao)
-                    .Include(it => it.TrinhDoChinhTri)
-                    .Include(it => it.TrinhDoChinhTri)
-                    .Include(it => it.CoSo).Select(it => new CanBoDetailVM
-                    {
-                        HoVaTen = it.HoVaTen,
-                        TenChucVu= it.ChucVu.TenChucVu,
-                        GioiTinh = (GioiTinh)it.GioiTinh,
-                        MaDanToc = it.DanToc.TenDanToc,
-                        MaTonGiao = it.TonGiao.TenTonGiao,
-                        ChoOHienNay = it.ChoOHienNay,
-                        ChuyenNganh = it.ChuyenNganh,
-                        MaTrinhDoChinhTri = it.TrinhDoChinhTri.TenTrinhDoChinhTri,
-                        SoDienThoai = it.SoDienThoai,
-                       NgayvaoDangDuBi = it.NgayvaoDangDuBi,
-                       NgayVaoDangChinhThuc = it.NgayVaoDangChinhThuc,
-                       SoBHXH = it.SoDienThoai,
-                      
-                    }).ToList();
-                return PartialView(data);
-            });
-        }
         #endregion Index
         #region Create
         [HoiNongDanAuthorization]
@@ -303,7 +186,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Create(CanBoVMMT insert, IFormFile? avtFileInbox)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(CanBoVMMT insert, IFormFile? avtFileInbox)
         {
             CheckError(insert);
             return ExecuteContainer(() => {
@@ -363,7 +247,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Edit(CanBoVMMT obj, IFormFile? avtFileInbox) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(CanBoVMMT obj, IFormFile? avtFileInbox) {
 
             CheckError(obj);
             return ExecuteContainer(() => {
@@ -552,7 +437,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {
@@ -600,6 +486,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         {
             return PartialView();
         }
+        [HoiNongDanAuthorization]
         public IActionResult Import() {
             DataSet ds = GetDataSetFromExcel();
             List<string> errorList = new List<string>();
@@ -726,10 +613,12 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         #endregion Import Excel
         #region Export Data
+        [HoiNongDanAuthorization]
         public IActionResult ExportCreate() {
             List<CanBo1ExcelVM> data = new List<CanBo1ExcelVM>();
             return Export1(data);
         }
+        [HoiNongDanAuthorization]
         public IActionResult ExportEdit(CanBoSearchVM search)
         {
             var model = _context.CanBos.Where(it=>it.IsCanBo ==true).AsQueryable();
@@ -828,7 +717,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }).ToList();
             return Export(data);
         }
-        public FileContentResult Export(List<CanBoExcelVM> menu) {
+        [HoiNongDanAuthorization]
+        public IActionResult Export(List<CanBoExcelVM> menu) {
             List<ExcelTemplate> columns = new List<ExcelTemplate>();
             columns.Add(new ExcelTemplate() { ColumnName = "IDCanBo", isAllowedToEdit = false, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "MaCanBo", isAllowedToEdit = false, isText = true });
@@ -958,7 +848,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             return File(filecontent, ClassExportExcel.ExcelContentType, fileNameWithFormat);
         }
 
-        public FileContentResult Export1(List<CanBo1ExcelVM> menu)
+        public IActionResult Export1(List<CanBo1ExcelVM> menu)
         {
             List<ExcelTemplate> columns = new List<ExcelTemplate>();
             columns.Add(new ExcelTemplate() { ColumnName = "IDCanBo", isAllowedToEdit = false, isText = true });
@@ -1136,19 +1026,21 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             //    ModelState.AddModelError("IdDepartment", "Đơn vị không đúng với cơ sở");
             //}
         }
-        public JsonResult LoadBacLuong(string maNgachLuong) {
-            var data = _context.BacLuongs.Where(it => it.Actived == true && it.MaNgachLuong == maNgachLuong).OrderBy(p => p.OrderIndex).Select(it => new { MaBacLuong = it.MaBacLuong, TenBacLuong = it.TenBacLuong +" " + it.HeSo.ToString() }).ToList();
+        [HttpGet]
+        public IActionResult LoadBacLuong(string maNgachLuong) {
+            var data = _context.BacLuongs.Where(it => it.Actived == true && it.MaNgachLuong == maNgachLuong).OrderBy(p => p.OrderIndex).Select(it => new { MaBacLuong = it.MaBacLuong, TenBacLuong = it.TenBacLuong +": " + it.HeSo.ToString() }).ToList();
             return Json(data);
         }
-        public JsonResult LoadDonVi(Guid idCoSo) {
+        public IActionResult LoadDonVi(Guid idCoSo) {
             var data = _context.Departments.Where(it => it.Actived == true && it.IDCoSo == idCoSo).OrderBy(p => p.OrderIndex).Select(it => new { IdDepartment = it.Id, Name = it.Name  }).ToList();
             return Json(data);
         }
-        public JsonResult GetHoSoLuong(Guid id)
+        public IActionResult GetHoSoLuong(Guid id)
         {
             var data = _context.BacLuongs.SingleOrDefault(it => it.Actived == true && it.MaBacLuong == id);
             return Json(data);
         }
+        [NonAction]
         private void CreateViewBag(String? maTinhTrang = null, Guid? IdCoSo = null, Guid? IdDepartment = null,
             Guid? maChucVu = null, String? maNgachLuong = null, Guid? maBacLuong = null,
             String? maTrinhDoChuyenMon = null, String? maTrinhDoChinhTri = null,
@@ -1205,6 +1097,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         #endregion Helper
         #region Insert/Update data from excel file
+        [NonAction]
         public string ExecuteImportExcelMenu(CanBoImportExcel canBoExcel)
         {
             //Check:
@@ -1236,6 +1129,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             _context.SaveChanges();
             return LanguageResource.ImportSuccess;
         }
+        [NonAction]
         public string ExecuteImportExcelMenu1(CanBo1ImportExcel canBoExcel)
         {
             //Check:
@@ -1305,6 +1199,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         #endregion Insert/Update data from excel file
         #region Check data type 
+        [NonAction]
         public CanBoImportExcel CheckTemplate(object[] row)
         {
             CanBoImportExcel data = new CanBoImportExcel();
@@ -2002,7 +1897,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             }
             return data;
         }
-
+        [NonAction]
         public CanBo1ImportExcel CheckTemplate1(object[] row)
         {
             CanBo1ImportExcel data = new CanBo1ImportExcel();

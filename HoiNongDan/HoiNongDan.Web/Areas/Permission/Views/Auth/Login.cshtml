@@ -79,10 +79,8 @@
                 <div class="container-login100">
 
                     <div class="wrap-login100 p-6">
-                        <form id="account" method="post">
-                            @*<span class="login100-form-title pb-5">
-                            Đăng nhập
-                            </span>*@
+                        <form id="account" method="post" asp-antiforgery="true">
+                           @Html.AntiForgeryToken()
                             <div class="wrap-input100 validate-input input-group">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             </div>

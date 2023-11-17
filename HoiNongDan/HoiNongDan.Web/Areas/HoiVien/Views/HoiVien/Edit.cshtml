@@ -6,6 +6,7 @@
     string CurrentController = ConstController.HoiVien;
     string CurrentArea = ConstArea.HoiVien;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User != null ? User.FindFirst("Roles").Value : "";
 }
 <style>
     #avtImg {
@@ -35,6 +36,7 @@
         <div class="header-sticky">
             @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
             @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
+            @HtmlExtensions.DeleteButtonV2(CurrentArea, CurrentController, Model.HoVaTen,Model.IDCanBo!.Value.ToString(), listRoles: listRoles)
             @HtmlExtensions.BackButton(CurrentArea,CurrentController)
         </div>
     </div>

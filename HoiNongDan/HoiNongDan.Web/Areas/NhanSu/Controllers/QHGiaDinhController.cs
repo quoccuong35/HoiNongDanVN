@@ -23,6 +23,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             CreateViewBag();
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(QHGiaDinhSearchVM search) {
             return ExecuteSearch(() => { 
                 var model = _context.QuanHeGiaDinhs.AsQueryable();
@@ -67,7 +68,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Create(QHGiaDinhVMMT obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(QHGiaDinhVMMT obj)
         {
             if (obj.NhanSu.IdCanbo == null)
             {
@@ -130,7 +132,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Edit(QHGiaDinhVMMT obj) {
+        public IActionResult Edit(QHGiaDinhVMMT obj) {
             return ExecuteContainer(() => {
                 var edit = _context.QuanHeGiaDinhs.SingleOrDefault(it => it.IDQuanheGiaDinh == obj.IDQuanheGiaDinh);
                 if (edit == null)
@@ -161,7 +163,9 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         #endregion Edit
         #region Delete
         [HttpDelete]
-        public JsonResult Delete(Guid id)
+        [HoiNongDanAuthorization]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

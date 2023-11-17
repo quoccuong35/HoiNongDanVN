@@ -36,6 +36,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         {
             return View(new HuuTriSearchVM());
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(HuuTriSearchVM search) {
             return ExecuteSearch(() => {
                 var data = _context.HuuTris.AsQueryable();
@@ -83,7 +84,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Create(HuuTriMTVM obj, IFormFile? fileInbox) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(HuuTriMTVM obj, IFormFile? fileInbox) {
             CheckError(obj);
             var add = new HuuTri();
             add = obj.GetHuuChi(add);
@@ -164,7 +166,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Edit(HuuTriMTVM obj, IFormFile? fileInbox) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(HuuTriMTVM obj, IFormFile? fileInbox) {
             CheckError(obj);
             return ExecuteContainer(() => {
                 var edit = _context.HuuTris.SingleOrDefault(it => it.Id == obj.Id!.Value);
@@ -228,7 +231,9 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         #endregion Edit
         #region Delete
         [HttpDelete]
-        public JsonResult Delete(Guid id)
+        [HoiNongDanAuthorization]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

@@ -4,6 +4,7 @@
     var data = @Model.ToList();
     var cauHoi = data.Where(it => it.TraLoi != true).ToList().OrderByDescending(it=>it.Ngay);
 }
+@Html.AntiForgeryToken()
 @foreach (var item in cauHoi)
 {
     var traLoi = data.Where(it => it.IdParent == item.ID);

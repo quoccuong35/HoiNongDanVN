@@ -29,6 +29,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(String MaCanBo)
         {
             return ExecuteSearch(() => {
@@ -255,7 +256,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

@@ -1,7 +1,7 @@
 ﻿
 @{
     string controllerName = ConstController.DuyetHoiVien;
-    string listRoles = User != null ? User.FindFirst("Roles").Value : "";
+    string listRoles = User != null ? User.FindFirst("Roles")!.Value : "";
     string roles = controllerName + ":" + ConstFunction.Access;
     bool isHasPermission = Function.GetPermission(listRoles, roles);
 }

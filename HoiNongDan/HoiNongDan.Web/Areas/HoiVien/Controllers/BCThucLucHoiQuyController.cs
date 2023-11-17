@@ -25,11 +25,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             DateFomat = config.GetSection("SiteSettings:DateFormat").Value.ToString().Split(',');
         }
         #region Index
+        [HoiNongDanAuthorization]
         public IActionResult Index()
         {
             CreateViewBagSearch();
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(int? Nam, int? IDDonVi, int? Quy)
         {
             return ExecuteSearch(() => {

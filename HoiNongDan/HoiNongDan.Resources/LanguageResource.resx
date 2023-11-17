@@ -228,6 +228,9 @@
   <data name="CauHoiVeHoi" xml:space="preserve">
     <value>Quản lý câu hỏi về hội</value>
   </data>
+  <data name="CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac" xml:space="preserve">
+    <value>Tham gia câu lạc bộ, đội nhóm, mô hình, hợp tác xã, tổ hợp tác</value>
+  </data>
   <data name="Check_Exist" xml:space="preserve">
     <value>Đã tồn tại {0} này!</value>
   </data>
@@ -327,6 +330,9 @@
   <data name="Error_NotExist" xml:space="preserve">
     <value>Không tìm thấy {0} này!</value>
   </data>
+  <data name="ExportExcel" xml:space="preserve">
+    <value>Xuất dữ liệu excel</value>
+  </data>
   <data name="Export_ExcelHeader" xml:space="preserve">
     <value>Danh sách {0}</value>
   </data>
@@ -399,6 +405,9 @@
   <data name="HoiVien" xml:space="preserve">
     <value>Hội Viên nông dân</value>
   </data>
+  <data name="HoiVienChinhTriHoiDoan" xml:space="preserve">
+    <value>Hội viên sinh hoạt  đoàn thể chính trị - Hội đoàn khác</value>
+  </data>
   <data name="HoiVienDanhDu" xml:space="preserve">
     <value>Hội viên danh dự</value>
   </data>
@@ -410,6 +419,12 @@
   </data>
   <data name="HoiVienVayVon" xml:space="preserve">
     <value>Hội viên hỗ trợ</value>
+  </data>
+  <data name="HoiVien_CLB_DN_MH_HTX_THT" xml:space="preserve">
+    <value>Hội viên tham gia câu lạc bộ, đội nhóm, mô hình, hợp tác xã, tổ hợp tác</value>
+  </data>
+  <data name="HoiVien_ToHoiNN_ChiHoiNN" xml:space="preserve">
+    <value>Hội Viên Tổ hội ngành nghề-Chi hội ngành nghề</value>
   </data>
   <data name="HoKhauThuongTru" xml:space="preserve">
     <value>Hộ khẩu thường trú</value>
@@ -687,6 +702,9 @@
   <data name="PassWordNew" xml:space="preserve">
     <value>Mật khẩu mới</value>
   </data>
+  <data name="PassWordOld" xml:space="preserve">
+    <value>Mậu khẫu cũ</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>Phân Quyền</value>
   </data>
@@ -749,6 +767,9 @@
   </data>
   <data name="QuocGia" xml:space="preserve">
     <value>Quốc gia</value>
+  </data>
+  <data name="RegularPassword" xml:space="preserve">
+    <value>^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&amp;*-]).{8,}$</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Nhớ mật khẩu</value>
@@ -860,6 +881,9 @@
   </data>
   <data name="ToHoi" xml:space="preserve">
     <value>Tổi hội</value>
+  </data>
+  <data name="ToHoiNN_ChiHoiNN" xml:space="preserve">
+    <value>Tổ hội ngành nghề-Chi hội ngành nghề</value>
   </data>
   <data name="TonGiao" xml:space="preserve">
     <value>Tôn Giáo</value>

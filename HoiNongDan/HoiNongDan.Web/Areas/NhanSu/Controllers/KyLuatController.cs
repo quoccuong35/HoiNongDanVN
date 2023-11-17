@@ -24,6 +24,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             CreateViewBag();
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(KyLuatSearchVM search) {
             return ExecuteSearch(() => {
                 var model = _context.QuaTrinhKyLuats.AsQueryable();
@@ -69,7 +70,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Create(KyLuatVMMT obj) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(KyLuatVMMT obj) {
             if (obj.NhanSu.IdCanbo == null)
             {
                 ModelState.AddModelError("MaCanBo", "Chưa chọn cán bộ");
@@ -131,7 +133,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Edit(KyLuatVMMT obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(KyLuatVMMT obj)
         {
             return ExecuteContainer(() => {
                 var edit = _context.QuaTrinhKyLuats.SingleOrDefault(it => it.IdQuaTrinhKyLuat == obj.IdQuaTrinhKyLuat);
@@ -163,7 +166,9 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         #endregion Edit
         #region Delete
         [HttpDelete]
-        public JsonResult Delete(Guid id)
+        [HoiNongDanAuthorization]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

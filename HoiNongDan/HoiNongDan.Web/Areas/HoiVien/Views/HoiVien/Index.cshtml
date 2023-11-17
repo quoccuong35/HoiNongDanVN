@@ -23,8 +23,7 @@
             @HtmlExtensions.ExportButton(CurrentArea,CurrentController,listRoles:listRoles)
             @HtmlExtensions.ImportButton(CurrentArea,CurrentController,listRoles:listRoles)
             @HtmlExtensions.Print(CurrentArea,CurrentController,"In thẻ",listRoles:listRoles)
-            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
-
+            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create",listRoles:listRoles)
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -100,8 +99,9 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @Html.AntiForgeryToken()
                     <div class="table-responsive" id="divSearchResult">
-                        <table id="example" class="table border text-nowrap text-md-nowrap mb-0 dataTable no-footer table-striped">
+                        <table id="dt-hoivien" class="table border text-nowrap text-md-nowrap mb-0 dataTable no-footer table-striped">
 
                             <thead>
                                 <tr>
@@ -174,5 +174,4 @@
 
 @section ScriptCustomized {
     <script src="~/js/hoivien.js"></script>
-
 }

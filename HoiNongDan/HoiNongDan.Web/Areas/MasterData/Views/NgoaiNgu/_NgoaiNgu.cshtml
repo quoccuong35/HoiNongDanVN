@@ -1,5 +1,6 @@
 ﻿@model NgoaiNguVM
 <div class="row">
+    @Html.AntiForgeryToken()
      <input asp-for="MaTrinhDoNgoaiNgu" hidden />
     <div class="col-md-3">
         <label asp-for="TenTrinhDoNgoaiNgu"></label><span class="text-red">*</span>

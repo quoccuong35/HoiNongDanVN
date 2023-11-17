@@ -279,6 +279,10 @@ namespace HoiNongDan.Models
         public ICollection<CanBoQuaTrinhLuong> CanBoQuaTrinhLuongs { get; set; }
         public ICollection<HoiVienHoiDap> HoiVienHoiDaps { get; set; }
         public ICollection<DaoTaoBoiDuong> DaoTaoBoiDuongs { get; set; }
+        public ICollection<DoanTheChinhTri_HoiDoan_HoiVien> DoanTheChinhTri_HoiDoan_HoiViens { get; set; }
+        public ICollection<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien> CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens { get; set; }
+        public ICollection<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien> ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens { get; set; }
+
         public HuuTri? HuuTri { get; set; }
 
         public bool? DangVien { get; set; }
@@ -294,6 +298,9 @@ namespace HoiNongDan.Models
             HoiVienHoTros = new List<HoiVienHoTro>();
             CanBoQuaTrinhLuongs = new List<CanBoQuaTrinhLuong>();
             HoiVienHoiDaps = new List<HoiVienHoiDap>();
+            DoanTheChinhTri_HoiDoan_HoiViens = new List<DoanTheChinhTri_HoiDoan_HoiVien>();
+            CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens = new List<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien>();
+            ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens = new List<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien>();
         }
 
     }

@@ -40,6 +40,7 @@
                 </div>
                 <div class="card-body">
                     <form method="post" asp-action="Upsert" id="frmUpsert">
+                        @Html.AntiForgeryToken()
                         <input asp-for="MaPhuongXa" hidden />
                         <div class="row">
                             <div class="col-md-3">

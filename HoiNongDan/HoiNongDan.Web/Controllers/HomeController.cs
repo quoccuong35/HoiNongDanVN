@@ -25,7 +25,7 @@ namespace HoiNongDan.Web.Controllers
 
         public IActionResult Index()
         {
-            string menu = HttpContext.Session!.GetString("Menu");
+            //string menu = HttpContext.Session!.GetString(User.Identity!.Name+ "_Menu");
             return View("SoDo");
         }
 

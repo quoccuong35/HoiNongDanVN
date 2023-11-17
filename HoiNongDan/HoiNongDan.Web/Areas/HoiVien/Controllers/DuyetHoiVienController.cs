@@ -22,6 +22,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             CreateViewBag();
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(DuyetHoiVienSearchVM search)
         {
             return ExecuteSearch(() => { 
@@ -37,6 +38,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 if (search.MaDiaBanHoatDong != null)
                 {
                     data = data.Where(it => it.MaDiaBanHoatDong == search.MaDiaBanHoatDong);
+                }
+                else
+                {
+                    data = data.Where(it => GetPhamVi().Contains(it.MaDiaBanHoatDong!.Value));
                 }
                 var model = data.Include(it => it.TinhTrang)
                    .Include(it => it.ChucVu)
@@ -65,6 +70,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         #endregion Index
         #region Update duyệt hội viên
+        [HoiNongDanAuthorization]
         public IActionResult View(Guid id)
         {
             var hoivien = _context.CanBos.Where(it => it.IDCanBo == id).Include(it => it.TinhTrang)
@@ -113,7 +119,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Edit(List<Guid> lid) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(List<Guid> lid) {
             return ExecuteContainer(() => {
                 const TransactionScopeOption opt = new TransactionScopeOption();
 
@@ -162,7 +169,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Helper
         private void CreateViewBag()
         {
-            var diaBanHoatDong = _context.DiaBanHoatDongs.Where(it => it.Actived == true).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.TenDiaBanHoatDong }).ToList();
+            var diaBanHoatDong = _context.DiaBanHoatDongs.Where(it => it.Actived == true && GetPhamVi().Contains(it.Id)).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.TenDiaBanHoatDong }).ToList();
             ViewBag.MaDiaBanHoatDong = new SelectList(diaBanHoatDong, "MaDiaBanHoatDong", "Name");
         }
         #endregion Helper

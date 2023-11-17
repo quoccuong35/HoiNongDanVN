@@ -20,6 +20,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search()
         {
             return ExecuteSearch(() => {
@@ -42,7 +43,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Create(HocVi obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(HocVi obj)
         {
             CheckError(obj);
             return ExecuteContainer(() => {
@@ -72,7 +74,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Edit(HocVi obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(HocVi obj)
         {
             return ExecuteContainer(() => {
                 var edit = _context.HocVis.SingleOrDefault(it => it.MaHocVi == obj.MaHocVi);
@@ -102,8 +105,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         #region Del
         [HttpDelete]
         [HoiNongDanAuthorization]
-        //[ValidateAntiForgeryToken]
-        public JsonResult Delete(string id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(string id)
         {
             return ExecuteDelete(() =>
             {

@@ -33,6 +33,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             CreateViewBag();
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(Guid? MaDonVi,string? Loai, String? HoVaTen)
         {
             return ExecuteSearch(() => {
@@ -104,6 +105,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(CanBoQHXPMTVM obj, IFormFile? avtFileInbox) {
             return ExecuteContainer(() => {
                 CanBo add = new CanBo();
@@ -155,7 +157,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Edit(CanBoQHXPMTVM obj , IFormFile? avtFileInbox) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(CanBoQHXPMTVM obj , IFormFile? avtFileInbox) {
             return ExecuteContainer(() => {
                 var edit = _context.CanBos.SingleOrDefault(it => it.IDCanBo == obj.IDCanBo);
                 if (edit == null)
@@ -210,7 +213,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {
@@ -255,7 +259,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         {
             return PartialView();
         }
-
+        [HoiNongDanAuthorization]
         public IActionResult Import(String Loai)
         {
             DataSet ds = GetDataSetFromExcel();
@@ -337,6 +341,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             });
 
         }
+        [NonAction]
         protected DataSet GetDataSetFromExcel()
         {
             DataSet ds = new DataSet();
@@ -386,11 +391,13 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         #endregion Import Excel
         #region Export
+        [HoiNongDanAuthorization]
         public IActionResult ExportCreate()
         {
             List<CanBoQHXPExcelVM> data = new List<CanBoQHXPExcelVM>();
             return Export(data);
         }
+        [HoiNongDanAuthorization]
         public IActionResult ExportEdit(Guid? MaDonVi, string? Loai,String? HoVaTen)
         {
             var moel = _context.CanBos.Include(it => it.TrinhDoChinhTri)
@@ -449,6 +456,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             }).ToList();
             return Export(data);
         }
+        [HoiNongDanAuthorization]
         public FileContentResult Export(List<CanBoQHXPExcelVM> menu)
         {
             List<ExcelTemplate> columns = new List<ExcelTemplate>();
@@ -546,7 +554,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
 
         #endregion Export
         #region Insert/Update data from excel file
-        public string ExecuteImportExcelCanBo(CanBoQHXPImportExcelVM canBoExcel)
+        [NonAction]
+        private string ExecuteImportExcelCanBo(CanBoQHXPImportExcelVM canBoExcel)
         {
             //Check:
             //1. If MenuId == "" then => Insert
@@ -580,8 +589,9 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             _context.SaveChanges();
             return LanguageResource.ImportSuccess;
         }
-       
+
         #endregion Insert/Update data from excel file
+        [NonAction]
         private CanBo EditCanBo(CanBo old, CanBo news){
             old.MaCanBo = news.MaCanBo;
             old.HoVaTen = news.HoVaTen;
@@ -611,10 +621,10 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             old.GhiChu = news.GhiChu;
 
             return old;
-        } 
+        }
         #region Check data type 
 
-        public CanBoQHXPImportExcelVM CheckTemplate(object[] row)
+        private CanBoQHXPImportExcelVM CheckTemplate(object[] row)
         {
             CanBoQHXPImportExcelVM data = new CanBoQHXPImportExcelVM();
             CanBo canBo = new CanBo();
@@ -1015,7 +1025,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             ViewBag.MaDonVi = new SelectList(DonVi, "IdDepartment", "Name", DonVi);
 
         }
-        public void UpdateViewBag(Guid? idDepartment = null, Guid? maChucVu = null, String? maDanToc = null, String? maTonGiao = null, String? maTrinhDoChuyenMon = null, String? maTrinhDoChinhTri = null,
+        private void UpdateViewBag(Guid? idDepartment = null, Guid? maChucVu = null, String? maDanToc = null, String? maTonGiao = null, String? maTrinhDoChuyenMon = null, String? maTrinhDoChinhTri = null,
             Guid? maTrinhDoNgoaiNgu = null, String? maTrinhDoTinHoc = null, String? Level = null)
         {
             var DonVi = _context.Departments.Where(it => it.Actived == true).Include(it => it.CoSo).OrderBy(p => p.OrderIndex).Select(it => new { IdDepartment = it.Id, Name = it.Name + " " + it.CoSo.TenCoSo }).ToList();

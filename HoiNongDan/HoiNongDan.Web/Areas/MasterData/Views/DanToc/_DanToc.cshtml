@@ -1,5 +1,6 @@
 ﻿@model DanTocVM
 <div class="row">
+    @Html.AntiForgeryToken()
     <div class="col-md-3">
         <label asp-for="MaDanToc"></label><span class="text-red">*</span>
         @if (Model.MaDanToc != null)

@@ -394,6 +394,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tham gia câu lạc bộ, đội nhóm, mô hình, hợp tác xã, tổ hợp tác.
+        /// </summary>
+        public static string CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac {
+            get {
+                return ResourceManager.GetString("CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đã tồn tại {0} này!.
         /// </summary>
         public static string Check_Exist {
@@ -727,6 +736,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Xuất dữ liệu excel.
+        /// </summary>
+        public static string ExportExcel {
+            get {
+                return ResourceManager.GetString("ExportExcel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File đính kèm.
         /// </summary>
         public static string FileDinhKem {
@@ -903,6 +921,33 @@ namespace HoiNongDan.Resources {
         public static string HoiVien {
             get {
                 return ResourceManager.GetString("HoiVien", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hội viên tham gia câu lạc bộ, đội nhóm, mô hình, hợp tác xã, tổ hợp tác.
+        /// </summary>
+        public static string HoiVien_CLB_DN_MH_HTX_THT {
+            get {
+                return ResourceManager.GetString("HoiVien_CLB_DN_MH_HTX_THT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hội Viên Tổ hội ngành nghề-Chi hội ngành nghề.
+        /// </summary>
+        public static string HoiVien_ToHoiNN_ChiHoiNN {
+            get {
+                return ResourceManager.GetString("HoiVien_ToHoiNN_ChiHoiNN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hội viên sinh hoạt  đoàn thể chính trị - Hội đoàn khác.
+        /// </summary>
+        public static string HoiVienChinhTriHoiDoan {
+            get {
+                return ResourceManager.GetString("HoiVienChinhTriHoiDoan", resourceCulture);
             }
         }
         
@@ -1771,6 +1816,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mậu khẫu cũ.
+        /// </summary>
+        public static string PassWordOld {
+            get {
+                return ResourceManager.GetString("PassWordOld", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phân Quyền.
         /// </summary>
         public static string Permission {
@@ -1956,6 +2010,15 @@ namespace HoiNongDan.Resources {
         public static string QuocGia {
             get {
                 return ResourceManager.GetString("QuocGia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&amp;*-]).{8,}$.
+        /// </summary>
+        public static string RegularPassword {
+            get {
+                return ResourceManager.GetString("RegularPassword", resourceCulture);
             }
         }
         
@@ -2289,6 +2352,15 @@ namespace HoiNongDan.Resources {
         public static string ToHoi {
             get {
                 return ResourceManager.GetString("ToHoi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tổ hội ngành nghề-Chi hội ngành nghề.
+        /// </summary>
+        public static string ToHoiNN_ChiHoiNN {
+            get {
+                return ResourceManager.GetString("ToHoiNN_ChiHoiNN", resourceCulture);
             }
         }
         

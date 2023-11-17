@@ -15,17 +15,13 @@ namespace HoiNongDan.Extensions
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             var descriptor = context.ActionDescriptor;
-            //string actionName = descriptor.RouteValues["action"];
-            //string controllerName = context.ActionDescriptor.RouteValues["controller"];
-            string roles = context.ActionDescriptor.RouteValues["controller"] + ":"+descriptor.RouteValues["action"];
+            string actionName = RenameAction( descriptor.RouteValues["action"]);
+           
+            string roles = context.ActionDescriptor.RouteValues["controller"] + ":"+ actionName;
             //string areaName = "";
             var controller = context.Controller as BaseController;
-            var listRoles = controller.CurrentUser.Roles;
+            var listRoles = controller!.CurrentUser.Roles;
 
-            //if (context.RouteData.DataTokens["area"] != null)
-            //{
-            //    areaName = context.RouteData.DataTokens["area"].ToString();
-            //}
             if (!Function.GetPermission(listRoles, roles))
             {
                 context.Result = new RedirectResult("/Error/AccessDenied");
@@ -36,6 +32,21 @@ namespace HoiNongDan.Extensions
             }
           
             
+        }
+        private string RenameAction(string name) { 
+            switch(name.ToLower())
+            {
+                case "_search":
+                    return "Index";
+                case "_import":
+                    return "Import";
+                case "exportcreate":
+                    return "Export";
+                case "exportedit":
+                    return "Export";
+                default: 
+                    return name;
+            }
         }
     }
 }

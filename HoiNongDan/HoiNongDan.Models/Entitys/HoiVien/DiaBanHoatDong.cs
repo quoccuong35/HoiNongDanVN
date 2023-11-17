@@ -1,4 +1,5 @@
-﻿using HoiNongDan.Models.Entitys.MasterData;
+﻿using HoiNongDan.Models.Entitys;
+using HoiNongDan.Models.Entitys.MasterData;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -36,8 +37,11 @@ namespace HoiNongDan.Models
         public Guid? LastModifiedAccountId { get; set; }
         public DateTime? LastModifiedTime { get; set; }
         public ICollection<CanBo> CanBos { get; set; }
+        public ICollection<PhamVi> PhamVis { get; set; }
         public DiaBanHoatDong() {
             CanBos = new List<CanBo>();
+            PhamVis = new List<PhamVi>();
+
         }
     }
 }

@@ -21,6 +21,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             CreateViewBag();
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(KhenThuongSearchVN search)
         {
             return ExecuteSearch(() =>
@@ -39,6 +40,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     model = model.Where(it => it.CanBo.HoVaTen.Contains(search.HoVaTen));
                 }
+                model = model.Where(it => GetPhamVi().Contains(it.CanBo.MaDiaBanHoatDong!.Value));
                 var data = model.Select(it => new KhenThuongDetailVM
                 {
                     IDQuaTrinhKhenThuong = it.IDQuaTrinhKhenThuong,
@@ -70,7 +72,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Create(KhenThuongVMMT obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(KhenThuongVMMT obj)
         {
             CheckError(obj);
             return ExecuteContainer(() => {
@@ -131,7 +134,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Edit(KhenThuongVMMT obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(KhenThuongVMMT obj)
         {
             CheckError(obj);
             return ExecuteContainer(() => {
@@ -164,7 +168,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #endregion Edit
         #region Delete
         [HttpDelete]
-        public JsonResult Delete(Guid id)
+        [HoiNongDanAuthorization]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

@@ -28,6 +28,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(MienNhiemSearchVM search)
         {
             return ExecuteSearch(() => {
@@ -77,7 +78,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Create(MienNhiemMTVM obj, IFormFile? fileInbox)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(MienNhiemMTVM obj, IFormFile? fileInbox)
         {
             CheckError(obj);
             var add = new QuaTrinhMienNhiem();
@@ -163,7 +165,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Edit(MienNhiemMTVM obj, IFormFile? fileInbox)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(MienNhiemMTVM obj, IFormFile? fileInbox)
         {
             CheckError(obj);
             return ExecuteContainer(() => {
@@ -223,6 +226,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         #endregion Edit
         #region Delete
         [HttpDelete]
+        [HoiNongDanAuthorization]
+        [ValidateAntiForgeryToken]
         public JsonResult Delete(Guid id)
         {
             return ExecuteDelete(() =>

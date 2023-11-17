@@ -1,11 +1,9 @@
 ﻿@model CanBoSearchVM
 @{
-    ViewBag.Title = LanguageResource.List + LanguageResource.CanBo.ToLower();
-    string CurrentController = ConstController.CanBo;
+    ViewBag.Title = LanguageResource.List + LanguageResource.BanChapHanh.ToLower();
+    string CurrentController = ConstController.CBBanChapHanh;
     string CurrentArea = ConstArea.NhanSu;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
-    string listRoles = User != null ? User.FindFirst("Roles")!.Value : "";
-
 }
 <div class="main-container container-fluid">
     <!-- PAGE-HEADER -->
@@ -19,11 +17,6 @@
                 <span> </span>
             </div>
         </div>
-        @*  <div class="d-flex px-2">
-        @HtmlExtensions.ExportButton(CurrentArea,CurrentController,listRoles:listRoles)
-        @HtmlExtensions.ImportButton(CurrentArea,CurrentController,listRoles:listRoles)
-        @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
-        </div> *@
     </div>
     <!-- PAGE-HEADER END -->
     <!-- ROW-1 OPEN -->
@@ -72,7 +65,7 @@
     <script>
         //load default and set event
         $(document).ready(function () {
-            HoiNongDan.SearchInitial("@CurrentUrl", "_CBBanChapHanh");
+            HoiNongDan.SearchInitial("@CurrentUrl");
             HoiNongDan.ShowMessage(window.location.href);
         });
     </script>

@@ -24,6 +24,8 @@ namespace HoiNongDan.DataAccess
         public DbSet<PageFunctionModel> PageFunctionModels { get; set; }
         public DbSet<PagePermissionModel> PagePermissionModels { get; set; }
         public DbSet<Parameter> Parameters { get; set; }
+        public DbSet<PhamVi> PhamVis { get; set; }
+
         #endregion
         public DbSet<HistoryModel> HistoryModels { get; set; }
         #region Masterdata
@@ -67,6 +69,9 @@ namespace HoiNongDan.DataAccess
         public DbSet<NguonVon> NguonVons { get; set; }
         public DbSet<HinhThucHoTro> HinhThucHoTros { get; set; }
         public DbSet<DoanTheChinhTri_HoiDoan> DoanTheChinhTri_HoiDoans { get; set; }
+        
+        public DbSet<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac> CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTacs { get; set; }
+        public DbSet<ToHoiNganhNghe_ChiHoiNganhNghe> ToHoiNganhNghe_ChiHoiNganhNghes { get; set; }
         #endregion
         #region nhanSu
         public DbSet<CanBo> CanBos { get; set; }
@@ -89,6 +94,9 @@ namespace HoiNongDan.DataAccess
         public DbSet<HoiVienHoTro> HoiVienHoTros { get; set; }
         public DbSet<HoiVienHoiDap> HoiVienHoiDaps { get; set; }
         public DbSet<DonVi> DonVis { get; set; }
+        public DbSet<DoanTheChinhTri_HoiDoan_HoiVien> DoanTheChinhTri_HoiDoan_HoiViens { get; set; }
+        public DbSet<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien> CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens { get; set; }
+        public DbSet<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien> ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens { get; set; }
         #endregion Hội viên
 
 
@@ -411,6 +419,24 @@ namespace HoiNongDan.DataAccess
                 tbl.ToTable("DoanTheChinhTri_HoiDoan", "tMasterData");
                 tbl.HasKey(it => it.MaDoanTheChinhTri_HoiDoan);
                 tbl.Property(it => it.TenDoanTheChinhTri_HoiDoan).HasMaxLength(500).IsRequired(true); ;
+            });
+            builder.Entity<DoanTheChinhTri_HoiDoan>(tbl =>
+            {
+                tbl.ToTable("DoanTheChinhTri_HoiDoan", "tMasterData");
+                tbl.HasKey(it => it.MaDoanTheChinhTri_HoiDoan);
+                tbl.Property(it => it.TenDoanTheChinhTri_HoiDoan).HasMaxLength(500).IsRequired(true); ;
+            });
+            builder.Entity<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac>(tbl =>
+            {
+                tbl.ToTable("CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac", "tMasterData");
+                tbl.HasKey(it => it.Id_CLB_DN_MH_HTX_THT);
+                tbl.Property(it => it.Ten).HasMaxLength(500).IsRequired(true); ;
+            });
+            builder.Entity<ToHoiNganhNghe_ChiHoiNganhNghe>(tbl =>
+            {
+                tbl.ToTable("ToHoiNganhNghe_ChiHoiNganhNghe", "tMasterData");
+                tbl.HasKey(it => it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe);
+                tbl.Property(it => it.Ten).HasMaxLength(500).IsRequired(true); ;
             });
             #endregion Master data
             #region NhanSu
@@ -836,6 +862,20 @@ namespace HoiNongDan.DataAccess
                       .HasForeignKey(it => it.MenuId).HasConstraintName("FK_PagePermissionModel_Menu").OnDelete(DeleteBehavior.NoAction);
 
             });
+            builder.Entity<PhamVi>(tbl =>
+            {
+                tbl.ToTable("PhamVi", "pms");
+                tbl.HasKey(it => new { it.AccountId, it.MaDiabanHoatDong });
+                tbl.HasOne<Account>(it => it.Account)
+                  .WithMany(it => it.PhamVis)
+                  .HasForeignKey(it => it.AccountId)
+                  .HasConstraintName("FK_PhamVi_Account");
+
+                tbl.HasOne<DiaBanHoatDong>(it => it.DiaBanHoatDong)
+                  .WithMany(it => it.PhamVis)
+                  .HasForeignKey(it => it.MaDiabanHoatDong)
+                  .HasConstraintName("FK_PhamVi_DiaBanHoatDong");
+            });
             #endregion Permission
             // Permission
 
@@ -918,6 +958,52 @@ namespace HoiNongDan.DataAccess
             builder.Entity<DonVi>(entity => {
                 entity.ToTable("DonVi", "HV");
                 entity.HasKey(it => it.IDDonVi);
+            });
+            builder.Entity<DoanTheChinhTri_HoiDoan_HoiVien>(tbl =>
+            {
+                tbl.ToTable("DoanTheChinhTri_HoiDoan_HoiVien", "HV");
+                tbl.HasKey(it => new {it.MaDoanTheChinhTri_HoiDoan,it.IDHoiVien });
+                tbl.HasOne<CanBo>(it => it.HoiVien)
+                  .WithMany(it => it.DoanTheChinhTri_HoiDoan_HoiViens)
+                  .HasForeignKey(it => it.IDHoiVien)
+                  .HasConstraintName("FK_DoanTheChinhTri_HoiDoan_HoiVien");
+
+                tbl.HasOne<DoanTheChinhTri_HoiDoan>(it => it.DoanTheChinhTri_HoiDoan)
+                  .WithMany(it => it.DoanTheChinhTri_HoiDoan_HoiViens)
+                  .HasForeignKey(it => it.MaDoanTheChinhTri_HoiDoan)
+                  .HasConstraintName("FK_DoanTheChinhTri_HoiDoan_HoiVien_MaDoanTheChinhTri_HoiDoan");
+
+            });
+
+            builder.Entity<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien>(tbl =>
+            {
+                tbl.ToTable("CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien", "HV");
+                tbl.HasKey(it => new { it.Id_CLB_DN_MH_HTX_THT, it.IDHoiVien });
+                tbl.HasOne<CanBo>(it => it.HoiVien)
+                  .WithMany(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens)
+                  .HasForeignKey(it => it.IDHoiVien)
+                  .HasConstraintName("FK_CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien");
+
+                tbl.HasOne<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac>(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac)
+                  .WithMany(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens)
+                  .HasForeignKey(it => it.Id_CLB_DN_MH_HTX_THT)
+                  .HasConstraintName("FK_CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien");
+
+            });
+            builder.Entity<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien>(tbl =>
+            {
+                tbl.ToTable("ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien", "HV");
+                tbl.HasKey(it => new { it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe, it.IDHoiVien });
+                tbl.HasOne<CanBo>(it => it.HoiVien)
+                  .WithMany(it => it.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens)
+                  .HasForeignKey(it => it.IDHoiVien)
+                  .HasConstraintName("FK_ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien");
+
+                tbl.HasOne<ToHoiNganhNghe_ChiHoiNganhNghe>(it => it.ToHoiNganhNghe_ChiHoiNganhNghe)
+                  .WithMany(it => it.ToHoiNganhNghe_ChiHoiNganhNghe_HVs)
+                  .HasForeignKey(it => it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe)
+                  .HasConstraintName("FK_ToHoiNganhNghe_ChiHoiNganhNghe_ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien");
+
             });
             #endregion Hội Viên
         }

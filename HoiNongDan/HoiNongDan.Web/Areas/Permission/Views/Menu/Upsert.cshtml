@@ -42,6 +42,7 @@
                  </div>
                 <div class="card-body">
                     <form method="post" asp-action="Upsert" id="frmUpsert" class="row g-3">
+                        @Html.AntiForgeryToken()
                         <input asp-for="MenuId" hidden />
                         <div class="row">
                             <div class="col-md-3">
@@ -73,14 +74,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label asp-for="Href"></label>
-                                @if (Model.MenuId != null)
-                                {
-                                    <input asp-for="Href" class="form-control" readonly />
-                                }
-                                else
-                                {
-                                    <input asp-for="Href" class="form-control" />
-                                }
+                                <input asp-for="Href" class="form-control" />
                                 <span asp-validation-for="Href" class="text-danger"></span>
                             </div>
                             <div class="col-md-2">

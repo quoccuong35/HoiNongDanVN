@@ -4,7 +4,7 @@
     string CurrentController = ConstController.QuanHeGiaDinh;
     string CurrentArea = ConstArea.NhanSu;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
-    string listRoles = User != null ? User.FindFirst("Roles").Value : "";
+    string listRoles = User != null ? User.FindFirst("Roles")!.Value : "";
 
 }
 <div class="main-container container-fluid">
@@ -21,7 +21,7 @@
         <div class="d-flex px-2">
             @HtmlExtensions.ExportButton(CurrentArea,CurrentController,listRoles:listRoles)
             @HtmlExtensions.ImportButton(CurrentArea,CurrentController,listRoles:listRoles)
-            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
+            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create",listRoles:listRoles)
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -63,6 +63,7 @@
             <div class="card">
                 <div class="card-status bg-blue br-te-7 br-ts-7"></div>
                 <div class="card-body">
+                    @Html.AntiForgeryToken()
                     <div class="table-responsive" id="divSearchResult"></div>
                 </div>
             </div>

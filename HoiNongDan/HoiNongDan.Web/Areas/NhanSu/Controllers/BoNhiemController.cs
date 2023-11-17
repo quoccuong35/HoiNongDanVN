@@ -30,6 +30,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(BoNhiemSearchVM search) {
             return ExecuteSearch(() => {
                 var data = _context.QuaTrinhBoNhiems.AsQueryable();
@@ -77,7 +78,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Create(BoNhiemMTVM obj, IFormFile? fileInbox) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(BoNhiemMTVM obj, IFormFile? fileInbox) {
             CheckError(obj);
             var add = new QuaTrinhBoNhiem();
             add = obj.GetBoNhiem(add);
@@ -164,7 +166,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Edit(BoNhiemMTVM obj,IFormFile? fileInbox) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(BoNhiemMTVM obj,IFormFile? fileInbox) {
             CheckError(obj);
             return ExecuteContainer(() => {
                 var edit = _context.QuaTrinhBoNhiems.SingleOrDefault(it => it.IdQuaTrinhBoNhiem == obj.IdQuaTrinhBoNhiem);
@@ -228,7 +231,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

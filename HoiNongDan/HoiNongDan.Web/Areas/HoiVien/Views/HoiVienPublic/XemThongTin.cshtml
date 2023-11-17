@@ -1,0 +1,195 @@
+﻿@{
+    Layout = null;
+}
+@model HoiVienDetailVM
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+   
+    <!-- BOOTSTRAP CSS -->
+    <link id="style" href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <!--- FONT-ICONS CSS -->
+
+    <link href="~/assets/css/icons.css" rel="stylesheet" />
+
+    <!-- COLOR SKIN CSS -->
+    <link id="theme" rel="stylesheet" type="text/css" media="all" href="~/assets/colors/color1.css" />
+    <title>Tra cứu thông tin hội viên</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main {
+            position: relative;
+            top: 10%;
+            width: 100%;
+            height: 100%;
+            max-height: 100vh;
+        }
+
+        .header {
+            position: relative;
+            top: 0px;
+            height: 100px;
+            width: 100%
+        }
+
+
+
+        .cs-header {
+            position: relative;
+            bottom: 10%;
+            height: 100px;
+            width: 100%;
+        }
+
+        .content {
+            background: #f0f0f5;
+            width: 100%;
+            min-height: 70vh;
+            margin: 2em auto;
+            padding: 1.250em;
+            border-radius: 0.313em;
+            box-shadow: 0 2px 5px 0 rgba(0,0,0,0.5);
+            line-height: 1.5em;
+            color: #292929;
+        }
+
+        
+            #search{
+                margin-top:5px;
+                height:35px;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+            }
+
+        #txt-mahoivien {
+            height:38px;
+            border :solid 1px;
+            border-radius:5px;
+            margin-left:5px;
+            padding:10px;
+        }
+
+        #btnxemthongtin {
+              
+                width:50px;
+                border: solid 1px;
+                border-radius: 5px;
+                background: #0e344f;
+                color:white;
+                cursor:pointer;
+                padding:5px;
+            }
+
+        .form-select-width{
+            width:200px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="main">
+        <div class="cs-header">
+            <div class="backgroundImg">
+                <div class="footer-info">
+                    <span class="hnd-title">Cơ quan chủ quản: Hội Nông Dân Thành Phố Hồ Chí Minh</span>
+                    <span class="hdnd-inform">Địa chỉ: 271/1 Nguyễn Trọng Tuyển, Phường 10, Quận Phú Nhuận, TP.HCM </span>
+                </div>
+                <div b-ovqu4dfemr="" class="footer-logo">
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="panel panel-primary">
+                        <div class="card-header">
+                            <form asp-area="Hoivien" asp-controller="HoiVien" asp-action="XemThongTin" class="d-flex">
+                                <a class="side-menu__item" asp-controller="" asp-area="Home" asp-action="Index">
+                                    <i class="fe fe-home" style="color:#0e344f"><span class="side-menu__label"> Trang Chủ </span> </i>
+                                </a>
+                                <div style="width:500px; border :solid 1px; border-radius:5px; margin-right:5px">
+                                    @Html.DropDownList("MaDiaBanHoatDong", null, "Vui lòng chọn hội nông dân bạn đang tham gia", new { @class = "form-control select2-show-search form-select" })
+                                </div>
+                                <input type="text" placeholder="Nhập mã hội viên" id="txt-mahoivien" name="MaHoiVien" style="margin-right:5px;" value="@Model.MaCanBo" />
+                                <button type ="submit" id="btnxemthongtin">Xem</button>
+                            </form>
+                        </div>
+                        <div class="tab-menu-heading tab-menu-heading-boxed">
+                            <div class="tabs-menu-boxed">
+                                <!-- Tabs -->
+                                <ul class="nav panel-tabs fs-14">
+                                    <li><a href="#activetabs" class="active" data-bs-toggle="tab">Thông Tin Hội Viên</a></li>
+                                    <li><a href="#linktabs" data-bs-toggle="tab" class="">Thông tin hỏi đáp</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel-body tabs-menu-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="activetabs">
+                                    <div class="content">
+                                        <div id="thongtinhoivien">
+                                            @Html.Partial("_XemThongTinPartial",Model)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="linktabs">
+                                    <div class="row">
+                                        <div class="card">
+                                            <div class="card-body pb-0">
+                                                <div id="div-thongtinhoidap">
+                                                    @Html.Partial("~/Areas/HoiVien/Views/HVHoi/_Search.cshtml", Model.HoiDaps)
+                                                </div>
+                                              
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div class="card-title">Thêm câu hỏi mới</div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <input hidden value="@Model.IDCanBo" id="txt-id" />
+                                                    <div class="col-xs-12">
+                                                        <textarea class="form-control" id="txt-noidung" rows="5" placeholder="Nhập nội dung câu hỏi"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="">
+                                                    <button  class="btn btn-primary btn-sml"  onclick="LuuCauHoi()">Gửi câu hỏi</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+<script src="~/assets/js/jquery.min.js"></script>
+<script src="~/assets/plugins/bootstrap/js/popper.min.js"></script>
+<script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- SELECT2 JS -->
+<script src="~/assets/plugins/select2/select2.full.min.js"></script>
+<script src="~/assets/js/select2.js"></script>
+<script src="~/assets/plugins/multipleselect/multiple-select.js"></script>
+<script src="~/assets/plugins/multipleselect/multi-select.js"></script>
+<!--- TABS JS -->
+<script src="~/assets/plugins/tabs/jquery.multipurpose_tabcontent.js"></script>
+<script src="~/assets/plugins/tabs/tab-content.js"></script>
+<script src="~/js/hvhoi.js"></script>

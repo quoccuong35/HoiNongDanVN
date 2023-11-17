@@ -32,6 +32,7 @@
     <!-- ROW-1 OPEN -->
     <!-- Row -->
     <form method="post" asp-action="Upsert" id="frmUpsert">
+        @Html.AntiForgeryToken()
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -78,13 +79,15 @@
                 <div class="card">
                      <div class="card-header bg-primary br-te-3 br-ts-3">
                         <h3 class="card-title text-white">Thông tin Menu và quyền</h3>
+                        <input placeholder="Nhập tên" onkeyup="myFunction()" type="text" id="myInput" style="margin-left:10px;min-width:150px;border-radius:5px" />
                         <div class="card-options ">
                             <a href="javascript:void(0)" class="card-options-collapse" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up text-white"></i></a>
                         </div>
                     </div>
                     <div class="card-body">
+                        
                         <div class="row">
-                            <table class="table border text-nowrap text-md-nowrap table-striped mb-0">
+                            <table class="table border text-nowrap text-md-nowrap table-striped mb-0" id="myTable">
                                 <thead>
                                     <tr>
                                         <th class="text-center" style="width:5%" ty>@LanguageResource.NumberIndex</th>
@@ -136,13 +139,31 @@
 </div>
 @section Scripts{
     @{
-    <partial name="_ValidationScriptsPartial" />
-    }
+        <partial name="_ValidationScriptsPartial" />
+        }
     }
     @section ScriptCustomized{
     <script type="text/javascript">
         $(document).ready(function () {
             HoiNongDan.UpsertInitial("@CurrentUrl");
         });
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
     </script>
 }

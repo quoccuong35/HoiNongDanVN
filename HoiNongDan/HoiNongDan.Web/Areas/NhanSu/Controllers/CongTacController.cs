@@ -29,6 +29,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(QuaTrinhCongTacSeachVM search) {
             return ExecuteSearch(() => {
                 var data = _context.QuaTrinhCongTacs.Include(it=>it.CanBo).Include(it=>it.ChucVu).AsQueryable();
@@ -68,7 +69,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Create(QuaTrinhCongTacMTVM obj) 
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(QuaTrinhCongTacMTVM obj) 
         {
             CheckError(obj);
             return ExecuteContainer(() => {
@@ -126,7 +128,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Edit(QuaTrinhCongTacMTVM obj) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(QuaTrinhCongTacMTVM obj) {
             CheckError(obj);
             return ExecuteContainer(() => {
                 var edit = _context.QuaTrinhCongTacs.SingleOrDefault(it => it.IDQuaTrinhCongTac == obj.IDQuaTrinhCongTac);
@@ -158,7 +161,9 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         #endregion Edit
         #region Delete
         [HttpDelete]
-        public JsonResult Delete(Guid id)
+        [HoiNongDanAuthorization]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

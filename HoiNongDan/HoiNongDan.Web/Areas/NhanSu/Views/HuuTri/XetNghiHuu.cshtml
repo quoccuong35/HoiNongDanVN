@@ -4,8 +4,6 @@
     string CurrentController = ConstController.HuuTri;
     string CurrentArea = ConstArea.NhanSu;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
-    string listRoles = User != null ? User.FindFirst("Roles")!.Value : "";
-
 }
 <div class="main-container container-fluid">
     <!-- PAGE-HEADER -->
@@ -18,10 +16,6 @@
                 <span> </span>
             </div>
         </div>
-        @*<div class="d-flex px-2">
-            <button type="button" class="btn btn-success me-2"><i class="fe fe-check me-2"></i>Đến tuổi nghỉ hưu</button>
-            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
-        </div>*@
     </div>
     <!-- PAGE-HEADER END -->
     <!-- ROW-1 OPEN -->

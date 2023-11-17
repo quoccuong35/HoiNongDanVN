@@ -29,6 +29,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
             return View(model);
         }
         [HttpGet]
+        [HoiNongDanAuthorization]
         public IActionResult _Search(string? Ten, bool? Actived) {
             return ExecuteSearch(() => {
                 var data = _context.DoanTheChinhTri_HoiDoans.AsQueryable();
@@ -51,7 +52,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Create(DoanTheChinhTri_HoiDoanVM obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(DoanTheChinhTri_HoiDoanVM obj)
         {
 
             return ExecuteContainer(() =>
@@ -99,7 +101,9 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
             return View(model);
         }
         [HttpPost]
-        public JsonResult Edit(DoanTheChinhTri_HoiDoanVM obj)
+        [HoiNongDanAuthorization]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(DoanTheChinhTri_HoiDoanVM obj)
         {
             return ExecuteContainer(() =>
             {
@@ -133,10 +137,12 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
             });
         }
         #endregion Edit
+
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

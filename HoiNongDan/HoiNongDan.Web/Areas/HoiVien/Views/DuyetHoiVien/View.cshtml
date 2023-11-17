@@ -36,6 +36,7 @@
                                     <a  class="btn btn-sm btn btn-warning" asp-action="Index" asp-area="HoiVien" asp-controller="DuyetHoiVien">
                                         <i class="bi bi-reply-all-fill text-white">Quay lại</i>
                                     </a>
+                                    @Html.AntiForgeryToken()
                                     <button type="button" class="btn btn-sm btn-primary duyet-hoivien" data-id="@Model.IDCanBo">
                                         <span class="fa fa-check"> Duyệt</span>
                                     </button>

@@ -19,6 +19,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(bool? Actived) {
             return ExecuteSearch(() => { 
                 var data = _context.NguonVons.AsEnumerable();
@@ -51,7 +52,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Upsert(NguonVonVM obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(NguonVonVM obj)
         {
             return ExecuteContainer(() => {
                 if (obj.MaNguonVon == null)
@@ -111,7 +113,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

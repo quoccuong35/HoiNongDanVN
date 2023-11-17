@@ -27,6 +27,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
             //CreateViewBag();
             return View("Index");
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(DepartmentSearchVM userSearch)
         {
             return ExecuteSearch(() => {
@@ -79,7 +80,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Upsert(DepartmentVM obj)
+        [HoiNongDanAuthorization]
+        public IActionResult Upsert(DepartmentVM obj)
         {
             return ExecuteContainer(() => {
                 if (obj.Id == null)
@@ -147,7 +149,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

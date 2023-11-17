@@ -19,5 +19,9 @@ namespace HoiNongDan.Models
         public Nullable<System.Guid> LastModifiedAccountId { get; set; }
         public Nullable<System.DateTime> LastModifiedTime { get; set; }
         public Nullable<int> OrderIndex { get; set; }
+        public ICollection<DoanTheChinhTri_HoiDoan_HoiVien> DoanTheChinhTri_HoiDoan_HoiViens { get; set; }
+        public DoanTheChinhTri_HoiDoan() {
+            DoanTheChinhTri_HoiDoan_HoiViens = new List<DoanTheChinhTri_HoiDoan_HoiVien>();
+        }
     }
 }

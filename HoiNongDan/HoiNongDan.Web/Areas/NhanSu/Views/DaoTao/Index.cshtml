@@ -4,7 +4,7 @@
     string CurrentController = ConstController.DaoTao;
     string CurrentArea = ConstArea.NhanSu;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
-    string listRoles = User != null ? User.FindFirst("Roles").Value : "";
+    string listRoles = User != null ? User.FindFirst("Roles")!.Value : "";
 
 }
 <div class="main-container container-fluid">
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="d-flex px-2">
-            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
+            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create",listRoles:listRoles)
         </div>
     </div>
     <!-- PAGE-HEADER END -->

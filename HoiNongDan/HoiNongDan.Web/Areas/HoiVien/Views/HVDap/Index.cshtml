@@ -4,6 +4,7 @@
     string CurrentController = ConstController.HVDap;
     string CurrentArea = ConstArea.HoiVien;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+
 }
 <!-- CONTAINER -->
 <div class="main-container container-fluid">
@@ -53,6 +54,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
+                    @Html.AntiForgeryToken()
                     <div class="table-responsive" id="divSearchResult"></div>
                 </div>
             </div>

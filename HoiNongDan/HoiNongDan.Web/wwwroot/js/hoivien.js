@@ -59,16 +59,21 @@ var table;
 $(document).ready(function () {
     LoadThongTin()
     //HideShowColumns();
+    $('#dt-hoivien tbody').on('dblclick', 'tr', function () {
+        var row = table.row(this).data();
+        let link = '/HoiVien/HoiVien/Edit/' + row['idCanBo'];
+        window.open(link, '_blank').focus();
+    });
 });
 function LoadThongTin() {
     var $btn = $("#btn-search");
     $btn.toggleClass("btn-loading");
     $.ajax({
         type: "get",
-        url: "/HoiVien/HoiVien/LoadBigData",
+        url: "/HoiVien/HoiVien/_Search",
         data: $("#frmSearch").serializeArray(),
         success: function (xhr, status, error) {
-            table = $('#example').DataTable({
+            table = $('#dt-hoivien').DataTable({
                 data: xhr,
                 autoFill: true,
                 responsive: false,
@@ -87,11 +92,11 @@ function LoadThongTin() {
                 columns: [
                     { data: null },
                     {
-                        data: "maCanBo",
-                        render: function (data, type) {
-                            let link = 'http://datatables.net';
-                            return '<a href="' + link + '">' + data + '</a>';
-                        }
+                        data: "maCanBo"
+                        //render: function (data, type, row) {
+                        //    let link = '/HoiVien/HoiVien/Edit/' + row['idCanBo'];
+                        //    return '<a href="' + link + '" target="_blank" >' + data + '</a>';
+                        //}
                     },
                     { data: "hoVaTen" },
                     { data: "ngaySinh" },
@@ -170,7 +175,7 @@ $("#btn-search").click(function () {
     table.clear();
     $.ajax({
         type: "get",
-        url: "/HoiVien/HoiVien/LoadBigData",
+        url: "/HoiVien/HoiVien/_Search",
         data: $("#frmSearch").serializeArray(),
         success: function (xhr, status, error) {
 

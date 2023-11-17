@@ -1,6 +1,7 @@
 ﻿@model TonGiaoVM
 <div class="row">
     <div class="col-md-3">
+        @Html.AntiForgeryToken()
         <label asp-for="MaTonGiao"></label><span class="text-red">*</span>
         @if (Model.MaTonGiao != null)
         {

@@ -24,6 +24,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             CreateViewBagSearch();
             return View(new DiaBanHoatDongSerachVM());
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(DiaBanHoatDongSerachVM serach) {
             return ExecuteSearch(() => {
                 var model = _context.DiaBanHoatDongs.Include(it=>it.TinhThanhPho).Include(it=>it.CanBos).Include(it=>it.QuanHuyen).AsEnumerable();
@@ -69,7 +70,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Create(DiaBanHoatDongMTVM obj) {
+        [ValidateAntiForgeryToken]
+
+        public IActionResult Create(DiaBanHoatDongMTVM obj) {
             return ExecuteContainer(() =>
             {
                 var add = new DiaBanHoatDong();
@@ -129,7 +132,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Edit(DiaBanHoatDongMTVM obj) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(DiaBanHoatDongMTVM obj) {
             return ExecuteContainer(() => {
                 var edit = _context.DiaBanHoatDongs.SingleOrDefault(it => it.Id == obj.Id);
                 if (edit == null)
@@ -158,7 +162,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

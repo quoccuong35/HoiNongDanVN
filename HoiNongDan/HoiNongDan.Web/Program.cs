@@ -3,6 +3,8 @@ using HoiNongDan.DataAccess;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Data.SqlClient;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +41,16 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+builder.Services.Configure<FormOptions>(options => {
+    options.ValueCountLimit = 8000;
+});
+//builder.Services.AddAntiforgery(options =>
+//{
+//    // Set Cookie properties using CookieBuilder properties†.
+//    options.FormFieldName = "_hoiNongDanThanhpPhoHCMVerificationToken";
+//    options.HeaderName = "X-CSRF-TOKEN-HEADERNAME";
+//    options.SuppressXFrameOptionsHeader = false;
+//});
 
 
 builder.Services.AddDistributedMemoryCache();
@@ -48,6 +60,10 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
     
+});
+builder.Services.AddMvcCore(options =>
+{
+    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
 });
 var app = builder.Build();
 

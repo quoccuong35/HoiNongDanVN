@@ -47,6 +47,7 @@
             <th>@Html.DisplayNameFor(p => p.DanhGiaCBCC)</th>
             <th>@Html.DisplayNameFor(p => p.DanhGiaDangVien)</th>
             <th>@Html.DisplayNameFor(p => p.GhiChu)</th>
+            <th class="text-center">@LanguageResource.Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -104,6 +105,10 @@
                 <td>@item.DanhGiaCBCC</td>
                 <td>@item.DanhGiaDangVien</td>
                 <td>@item.GhiChu</td>
+                <td class="text-center">
+                    @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.IDCanBo!.ToString()!,listRoles:listRoles)
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoVaTen, item.IDCanBo!.ToString(),listRoles: listRoles)
+                </td>
             </tr>
         }
     </tbody>

@@ -1,0 +1,87 @@
+﻿@model HoiVien_CLB_DN_MH_HTX_THTSearchVM
+@{
+    ViewBag.Title = LanguageResource.List + LanguageResource.HoiVien_CLB_DN_MH_HTX_THT.ToLower();
+    string CurrentController = ConstController.HoiVien_CLB_DN_MH_HTX_THT;
+    string CurrentArea = ConstArea.HoiVien;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User != null ? User.FindFirst("Roles").Value : "";
+}
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header my-2">
+        <div>
+            <span class="header-title">@LanguageResource.List @LanguageResource.HoiVien_CLB_DN_MH_HTX_THT.ToLower()</span>
+            <div class="rectangle">
+                <span> </span>
+                <span> </span>
+                <span> </span>
+            </div>
+        </div>
+        <div class="d-flex px-2">
+            @HtmlExtensions.ExportButton1(CurrentArea,CurrentController,listRoles:listRoles)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="splitter rounded-3">
+                <div class="splitter-head">Tìm kiếm nâng cao</div>
+                <div class="splitter-body">
+                    <form method="get" id="frmSearch" ,asp-action="_Search">
+                        <div class="row my-2">
+                            <div class="col-md-3">
+                                <label asp-for="MaDiaBan"></label>
+                                <select asp-for="MaDiaBan" asp-items="@ViewBag.MaDiaBan" class="form-control select2-show-search form-select">
+                                    <option selected>@LanguageResource.Dropdownlist_All-</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="Id_CLB_DN_MH_HTX_THT"></label>
+                                <select asp-for="Id_CLB_DN_MH_HTX_THT" asp-items="@ViewBag.Id_CLB_DN_MH_HTX_THT" class="form-control select2-show-search form-select">
+                                    <option selected>@LanguageResource.Dropdownlist_All-</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="MaHoiVien"></label>
+                                <input class="form-control" asp-for="MaHoiVien" />
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="HoVaTen"></label>
+                                <input class="form-control" asp-for="HoVaTen" />
+                            </div>
+                            <div class="col-2 d-flex align-items-end">
+                                @HtmlExtensions.SearchButton()
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @Html.AntiForgeryToken()
+                    <div class="table-responsive" id="divSearchResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+
+</div>
+
+<!-- CONTAINER CLOSED -->
+@section ScriptCustomized {
+    <script>
+        //load default and set event
+        $(document).ready(function () {
+            HoiNongDan.SearchInitial("@CurrentUrl");
+        });
+    </script>
+}

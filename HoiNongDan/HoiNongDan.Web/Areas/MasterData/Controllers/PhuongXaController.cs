@@ -22,6 +22,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
             CreateViewBag("02");
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(PhuongXaSearchVM search) {
             return ExecuteSearch(() => { 
                 var data = _context.PhuongXas.Include(it=>it.QuanHuyen).ThenInclude(p=>p.TinhThanhPho).AsEnumerable();
@@ -83,7 +84,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Upsert(PhuongXaVM obj) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(PhuongXaVM obj) {
             return ExecuteContainer(() => {
                 if (obj.MaPhuongXa == null)
                 {
@@ -151,7 +153,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(string id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(string id)
         {
             return ExecuteDelete(() =>
             {

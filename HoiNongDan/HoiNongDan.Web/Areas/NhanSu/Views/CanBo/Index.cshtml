@@ -23,7 +23,7 @@
         <div class="d-flex px-2">
             @HtmlExtensions.ExportButton(CurrentArea,CurrentController,listRoles:listRoles)
             @HtmlExtensions.ImportButton(CurrentArea,CurrentController,listRoles:listRoles)
-            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
+            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create",listRoles:listRoles)
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -104,6 +104,7 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @Html.AntiForgeryToken()
                     <div class="table-responsive" id="divSearchResult">
                         <div class="dimmer active">
                             <div class="lds-ring">

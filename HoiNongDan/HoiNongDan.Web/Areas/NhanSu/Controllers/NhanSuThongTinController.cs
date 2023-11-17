@@ -47,7 +47,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 else
                 {
                     // Hoi viên
-                    var data = _context.CanBos.SingleOrDefault(it => it.MaCanBo == maNhanSu && it.IsHoiVien == true);
+                    var data = _context.CanBos.SingleOrDefault(it => it.MaCanBo == maNhanSu && GetPhamVi().Contains(it.MaDiaBanHoatDong!.Value) && it.IsHoiVien == true);
                     if (data == null)
                     {
                         nhanSu.Error = "Không tìm thấy nhân sự có mã " + maNhanSu;

@@ -1,0 +1,32 @@
+﻿@model ToHoiNganhNghe_ChiHoiNganhNgheVM
+<div class="row">
+    @Html.AntiForgeryToken()
+    <input asp-for="Ma_ToHoiNganhNghe_ChiHoiNganhNghe" hidden />
+    <div class="col-md-3">
+        <label asp-for="Ten"></label><span class="text-red">*</span>
+        <input asp-for="Ten" class="form-control" />
+        <span asp-validation-for="Ten" class="text-danger"></span>
+    </div>
+    <div class="col-md-2">
+        <label asp-for="OrderIndex"></label>
+        <input asp-for="OrderIndex" class="form-control" />
+        <span asp-validation-for="OrderIndex" class="text-danger"></span>
+    </div>
+    @if (@Model.Ma_ToHoiNganhNghe_ChiHoiNganhNghe != null)
+    {
+        <div class="col-md-4 d-flex align-items-end">
+            <fieldset>
+                @Html.RadioButtonFor(p=>p.Actived,true) @LanguageResource.Actived_True
+                @Html.RadioButtonFor(p=>p.Actived,false) @LanguageResource.Actived_False
+            </fieldset>
+        </div>
+    }
+</div>
+<div class="row mb-2">
+    <div class="col-md-12">
+        <label asp-for="Description"></label>
+        <textarea rows="3" asp-for="Description" class="form-control"> </textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+</div>

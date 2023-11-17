@@ -33,7 +33,7 @@
                 <td class="text-center">@Html.DisplayFor(p => item.Password)</td>
                 <td class="text-center">@Html.DisplayFor(p => item.FullName)</td>
                 <td class="text-center">
-                    @HtmlExtensions.UpsertButton(CurrentArea, CurrentController, item.AccountId!.Value,listRoles:listRoles)
+                    @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.AccountId!.Value,listRoles:listRoles)
                     @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.UserName, item.AccountId!.Value,listRoles: listRoles)
                 </td>
             </tr>

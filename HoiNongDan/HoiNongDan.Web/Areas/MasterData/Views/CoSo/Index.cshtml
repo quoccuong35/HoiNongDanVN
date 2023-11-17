@@ -5,6 +5,7 @@
     string CurrentController = ConstController.CoSo;
     string CurrentArea = ConstArea.MasterData;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User != null ? User.FindFirst("Roles").Value : "";
 }
 <!-- CONTAINER -->
 <div class="main-container container-fluid">
@@ -20,7 +21,7 @@
             </div>
         </div>
         <div>
-            @HtmlExtensions.CreateButton("MasterData", "CoSo")
+            @HtmlExtensions.CreateButton("MasterData", "CoSo",listRoles:listRoles)
         </div>
     </div>
     <div class="row">
@@ -58,6 +59,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
+                    @Html.AntiForgeryToken()
                     <div class="table-responsive" id="divSearchResult"></div>
                 </div>
             </div>

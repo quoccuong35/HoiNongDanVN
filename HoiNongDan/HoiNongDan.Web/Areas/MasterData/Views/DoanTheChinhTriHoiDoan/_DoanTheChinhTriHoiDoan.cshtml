@@ -1,5 +1,6 @@
 ﻿@model DoanTheChinhTri_HoiDoanVM
 <div class="row">
+    @Html.AntiForgeryToken()
     <input asp-for="MaDonTheChinhTri_HoiDoan" hidden />
     <div class="col-md-3">
         <label asp-for="TenDoanTheChinhTri_HoiDoan"></label><span class="text-red">*</span>

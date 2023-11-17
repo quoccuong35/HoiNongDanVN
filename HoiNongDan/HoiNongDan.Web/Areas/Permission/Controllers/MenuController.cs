@@ -26,6 +26,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
             CreateViewBag();
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(MenuSearchVM search) {
             return ExecuteSearch(() => {
                 var mennus = _context.MenuModels.AsQueryable();
@@ -101,7 +102,8 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult Upsert(MenuVM obj)
+        [HoiNongDanAuthorization]
+        public IActionResult Upsert(MenuVM obj)
         {
             if (AccountId() == null)
             {
@@ -167,7 +169,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>

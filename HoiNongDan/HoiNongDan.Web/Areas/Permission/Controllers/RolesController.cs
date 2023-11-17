@@ -20,18 +20,19 @@ using System.Linq;
 namespace HoiNongDan.Web.Areas.Permission.Controllers
 {
     [Area(ConstArea.Permission)]
-    [Authorize]
+  
     public class RolesController : BaseController
     {
         public RolesController(AppDbContext context) : base(context)
         {
         }
         #region Index
-       // [HoiNongDanAuthorizationAttribute]
+        [HoiNongDanAuthorizationAttribute]
         public IActionResult Index()
         {
             return View(new RolesSearch());
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(RolesSearch search)
         {
             return ExecuteSearch(() =>
@@ -44,6 +45,15 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 if (search.Actived != null)
                 {
                     roless = roless.Where(it => it.Actived == search.Actived);
+                }
+                if (!User.Identity!.Name!.ToLower().Equals("admin"))
+                {
+                    // get nhom quyen
+                    Guid? accCountID = AccountId();
+                    //var listRole = _context.AccountInRoleModels.Where(it => it.AccountId == accCountID).Select(it => it.RolesId).ToList();
+                    roless = roless.Where(it => it.CreatedAccountId == accCountID);
+                    // khac quen add min 
+
                 }
                 var datas = roless.ToList().Select(it => new Roles
                 {
@@ -65,29 +75,32 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
             RolesVM roles = new RolesVM();
             if (id != null) {
                 var data = _context.RolesModels.FirstOrDefault(it => it.RolesId == id!);
-                if (data != null) {
+                if (!User.Identity!.Name!.ToLower().Equals("admin")) 
+                { 
+                    data = _context.RolesModels.FirstOrDefault(it=>it.RolesId == id! && it.CreatedAccountId == AccountId());
+                }
+                if (data != null)
+                {
                     roles.RolesId = data.RolesId;
                     roles.Actived = data.Actived;
                     roles.RolesCode = data.RolesCode;
                     roles.RolesName = data.RolesName;
                     roles.OrderIndex = data.OrderIndex;
                 }
-                
+                else
+                {
+                    return Redirect("~/Error/ErrorNotFound?data=" + id);
+                }
+
             }
             roles.Pages = GetMenuFunctions(roles.RolesId);
             return View(roles);
         }
         [HttpPost]
-        public JsonResult Upsert(RolesVM roles) {
-            if (AccountId() == null)
-            {
-                return Json(new
-                {
-                    Code = System.Net.HttpStatusCode.NetworkAuthenticationRequired,
-                    Success = false,
-                    Data = string.Format("Hết thời gian sử dụng vui lòng đăng nhập lại")
-                });
-            }
+        [ValidateAntiForgeryToken]
+        [HoiNongDanAuthorizationAttribute]
+        public ActionResult Upsert(RolesVM roles) {
+            
 
             return ExecuteContainer(()=>{
                 if (roles.RolesId == null)
@@ -140,7 +153,9 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         #endregion Upsert
         #region Delete
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {
@@ -174,8 +189,24 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         public List<HoiNongDan.Models.Page> GetMenuFunctions(Guid? id) {
             List<HoiNongDan.Models.Page> list = new List<HoiNongDan.Models.Page>();
             var menus = _context.MenuModels.Where(it => it.Actived == true).ToList();
+           
             var pageFuncs = _context.PageFunctionModels.Include(it=>it.FunctionModel).OrderBy(it=>it.FunctionModel.OrderIndex).ToList();
             var pagePermis = _context.PagePermissionModels.Where(it => it.RolesId == id).ToList();
+
+            if (!User.Identity!.Name!.ToLower().Equals("admin"))
+            {
+                List<Guid> listPages = (from page in _context.AccountInRoleModels
+                                        join per in _context.PagePermissionModels on page.RolesId equals per.RolesId
+                                        where page.AccountId == AccountId()
+                                        select per.MenuId).Distinct().ToList();
+                menus = menus.Where(it => listPages.Contains(it.MenuId)).ToList();
+
+                pageFuncs = (from a in _context.PageFunctionModels
+                            join b in _context.PagePermissionModels on new { a.MenuId,a.FunctionId} equals new  { b.MenuId,b.FunctionId}
+                            join c in _context.AccountInRoleModels on b.RolesId equals c.RolesId
+                            where c.AccountId == AccountId()
+                            select a ).Include(it=>it.FunctionModel).ToList();
+            }
             foreach (var item in menus.Where(it=>it.MenuIdParent == null).OrderBy(it=>it.OrderIndex))
             {
                 HoiNongDan.Models.Page add = new HoiNongDan.Models.Page();

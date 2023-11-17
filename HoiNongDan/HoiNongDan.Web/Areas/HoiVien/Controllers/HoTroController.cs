@@ -21,6 +21,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             CreateViewBag();
             return View(model);
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(HVHoTroSearchVM search)
         {
             return ExecuteSearch(() =>
@@ -76,7 +77,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             CreateViewBag();
             return View(item);
         }
-        public JsonResult Create(HoiVienHoTroMTVM obj)
+        [HoiNongDanAuthorization]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(HoiVienHoTroMTVM obj)
         {
             CheckError(obj);
             return ExecuteContainer(() =>
@@ -137,7 +141,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Edit(HoiVienHoTroMTVM obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(HoiVienHoTroMTVM obj)
         {
             CheckError(obj);
             return ExecuteContainer(() =>
@@ -173,8 +178,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Del
         [HttpDelete]
         [HoiNongDanAuthorization]
-        //[ValidateAntiForgeryToken]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

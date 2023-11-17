@@ -22,6 +22,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(String Name, bool? Actived) {
             return ExecuteSearch(() => {
                 var data = _context.CoSos.AsQueryable();
@@ -67,7 +68,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Upsert(CoSoVM item) {
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(CoSoVM item) {
             return ExecuteContainer(() =>{
                 if (item.IdCoSo == null) {
                     CoSo add = new CoSo
@@ -76,7 +78,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                         TenCoSo = item.TenCoSo,
                         OrderIndex = item.OrderIndex,
                         Description = item.Description,
-                        CreatedAccountId = Guid.Parse(CurrentUser.AccountId),
+                        CreatedAccountId = Guid.Parse(CurrentUser.AccountId!),
                         CreatedTime = DateTime.Now
                     };
                     _context.CoSos.Add(add);
@@ -122,7 +124,10 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         #endregion Upsert
         #region Delete
-        public JsonResult Delete(Guid id)
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        [HoiNongDanAuthorization]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

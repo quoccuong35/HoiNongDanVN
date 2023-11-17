@@ -39,8 +39,9 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" asp-action="Upsert" id="frmUpsert">
+                    <form method="post" asp-route="" id="frmUpsert">
                         <input asp-for="Id" hidden />
+                        @Html.AntiForgeryToken()
                         <div class="row">
                            @*  <div class="col-md-3">
                                 <label asp-for="IdCoSo"></label>

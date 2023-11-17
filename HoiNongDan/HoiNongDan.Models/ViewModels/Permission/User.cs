@@ -16,6 +16,7 @@ namespace HoiNongDan.Models
     {
         public UserVM() {
             userRoless = new List<UserRoles>();
+            DiaBans = new List<AccountDiaBan>();
         }
         public Guid? AccountId { get; set; }
 
@@ -25,8 +26,9 @@ namespace HoiNongDan.Models
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Password")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage ="Mật khẩu không hợp lệ")]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
@@ -38,6 +40,39 @@ namespace HoiNongDan.Models
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Roles")]
         public List<UserRoles> userRoless { get; set; }
+        public List<AccountDiaBan> DiaBans { get; set; }
+    }
+
+    public class UserEditVM
+    {
+        public UserEditVM()
+        {
+            userRoless = new List<UserRoles>();
+            DiaBans = new List<AccountDiaBan>();
+        }
+        public Guid? AccountId { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "UserName")]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        public string UserName { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Password")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Mật khẩu không hợp lệ")]
+        [DataType(DataType.Password)]
+        public string? PasswordNew { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        public string FullName { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]
+        public bool? Actived { get; set; }
+        public Guid? EmployeeId { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Roles")]
+        public List<UserRoles> userRoless { get; set; }
+        public List<AccountDiaBan> DiaBans { get; set; }
     }
 
     public class AccountVM : UserVM
@@ -53,7 +88,8 @@ namespace HoiNongDan.Models
             account.CreatedAccountId = accountId;
             account.CreatedTime = DateTime.Now;
             account.AccountInRoleModels = AccountInRoleModels();
-            
+            account.PhamVis = AccountPhamVi(account.AccountId);
+
             return account;
         }
         public List<AccountInRoleModel> AddAccountInRoleModel(Guid id) {
@@ -77,6 +113,7 @@ namespace HoiNongDan.Models
             edit.LastModifiedAccountId = accountId;
             edit.LastModifiedTime = DateTime.Now;
             edit.AccountInRoleModels = AccountInRoleModels();
+            edit.PhamVis = AccountPhamVi(edit.AccountId);
             edit.EmployeeId = this.EmployeeId;
             return edit;
         }
@@ -93,17 +130,33 @@ namespace HoiNongDan.Models
             }
             return lists;
         }
+        //edit pham vi
+        public List<PhamVi> AccountPhamVi(Guid accountId) { 
+            List<PhamVi> phamVis = this.DiaBans.Where(it=>it.Selected==true).Select(it=>new PhamVi { 
+                MaDiabanHoatDong = it.MaDiaBanHoiVien,
+                CreatedAccountId = accountId,
+                CreatedTime = DateTime.Now
+            }).ToList();
+            return phamVis;
+        }
     }
     public class AccountInfo {
         public Guid AccountId { get; set;}
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "UserName")]
-        public string UserName { get; set; }
+        public string? UserName { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
-        public string FullName { get; set; }
+        public string? FullName { get; set; }
+
+        [DataType(DataType.Password)]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "PassWordOld")]
+        public string PassWordOld { get; set; }
 
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "PassWordNew")]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Mật khẩu không hợp lệ")]
         public string PassWordNew { get; set; }
     }
     public class UserRoles

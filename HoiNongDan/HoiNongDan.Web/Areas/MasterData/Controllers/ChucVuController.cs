@@ -18,6 +18,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(ChucVuSearchVM search) {
             return ExecuteSearch(() => {
                 var data = _context.ChucVus.AsQueryable();
@@ -50,7 +51,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Create(ChucVuMTVM obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(ChucVuMTVM obj)
         {
             return ExecuteContainer(() => {
                 ChucVu add = new ChucVu();
@@ -92,7 +94,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Edit(ChucVuMTVM obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ChucVuMTVM obj)
         {
             return ExecuteContainer(() => {
                 var edit = _context.ChucVus.SingleOrDefault(it => it.MaChucVu == obj.MaChucVu);
@@ -125,8 +128,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         #region Del
         [HttpDelete]
         [HoiNongDanAuthorization]
-        //[ValidateAntiForgeryToken]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

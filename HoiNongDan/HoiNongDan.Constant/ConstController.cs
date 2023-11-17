@@ -24,6 +24,8 @@
         public const string ChiHoi = "ChiHoi";
         public const string ToHoi = "ToHoi";
         public const string DoanTheChinhTriHoiDoan = "DoanTheChinhTriHoiDoan";
+        public const string CauLacBo_DN_MH_HTX_THT = "CauLacBo_DN_MH_HTX_THT";
+        public const string ToHoiNN_ChiHoiNN = "ToHoiNN_ChiHoiNN";
         #endregion MasterData
         #region Permission
         public const string Menu = "Menu";
@@ -63,6 +65,10 @@
         public const string HVDap = "HVDap";
         public const string BCThucLucHoiNam = "BCThucLucHoiNam";
         public const string BCThucLucHoiQuy = "BCThucLucHoiQuy";
+        public const string HoiVienChinhTriHoiDoan = "HoiVienChinhTriHoiDoan";
+        public const string HoiVien_CLB_DN_MH_HTX_THT = "HoiVien_CLB_DN_MH_HTX_THT";
+        public const string HoiVien_ToHoiNN_ChiHoiNN = "HoiVien_ToHoiNN_ChiHoiNN";
+
         #endregion Hội viên
     }
     public static class ConstArea

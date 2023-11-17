@@ -80,8 +80,8 @@ namespace HoiNongDan.Extensions
             byte[] binarySource = Encoding.UTF8.GetBytes(source);
             System.Security.Cryptography.SymmetricAlgorithm rijn = System.Security.Cryptography.SymmetricAlgorithm.Create();
             MemoryStream ms = new MemoryStream();
-            byte[] rgbIV = Encoding.ASCII.GetBytes("lkjhasdfyuiwhcnt");
-            byte[] key = Encoding.ASCII.GetBytes("tkw123aaaa");
+            byte[] rgbIV = Encoding.ASCII.GetBytes("Cuonglq@2023");
+            byte[] key = Encoding.ASCII.GetBytes("HoinongdanthanhphoHCM@!#2023");
             CryptoStream cs = new CryptoStream(ms, rijn.CreateEncryptor(key, rgbIV), CryptoStreamMode.Write);
             cs.Write(binarySource, 0, binarySource.Length);
             cs.Close();
@@ -93,8 +93,8 @@ namespace HoiNongDan.Extensions
             byte[] binarySource = Convert.FromBase64String(source);
             MemoryStream ms = new MemoryStream();
             System.Security.Cryptography.SymmetricAlgorithm rijn = System.Security.Cryptography.SymmetricAlgorithm.Create();
-            byte[] rgbIV = Encoding.ASCII.GetBytes("lkjhasdfyuiwhcnt");
-            byte[] key = Encoding.ASCII.GetBytes("tkw123aaaa");
+            byte[] rgbIV = Encoding.ASCII.GetBytes("Cuonglq@2023");
+            byte[] key = Encoding.ASCII.GetBytes("HoinongdanthanhphoHCM@!#2023");
             CryptoStream cs = new CryptoStream(ms, rijn.CreateDecryptor(key, rgbIV),
             CryptoStreamMode.Write);
             cs.Write(binarySource, 0, binarySource.Length);
@@ -626,5 +626,7 @@ namespace HoiNongDan.Extensions
 
             return retTime;
         }
+
+       
     }
 }

@@ -1,6 +1,7 @@
 ﻿@model TinHocVM
 <div class="row">
     <div class="col-md-3">
+        @Html.AntiForgeryToken()
         <label asp-for="MaTrinhDoTinHoc"></label><span class="text-red">*</span>
         @if (Model.MaTrinhDoTinHoc != null)
         {

@@ -36,7 +36,8 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" asp-action="Upsert" id="frmUpsert">
+                    <form method="post" asp-action="Upsert" id="frmUpsert" asp-antiforgery="true">
+                        @Html.AntiForgeryToken()
                         <input asp-for="MaChiHoi" hidden />
                         <div class="row">
                             <div class="col-md-3">

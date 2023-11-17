@@ -1,6 +1,7 @@
 ﻿@model HuuTriVM
 <div class="row">
     <input asp-for="Id" hidden />
+    @Html.AntiForgeryToken()
     <input asp-for="IDCanBo" hidden />
     <div class="col-md-2">
         <div class="form-group">

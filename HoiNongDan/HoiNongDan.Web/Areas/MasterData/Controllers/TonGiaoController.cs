@@ -20,6 +20,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(TonGiaoSearchVM search)
         {
             return ExecuteSearch(() => {
@@ -53,7 +54,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Create(TonGiaoMTVM obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(TonGiaoMTVM obj)
         {
             CheckError(obj);
             return ExecuteContainer(() => {
@@ -96,7 +98,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Edit(TonGiaoMTVM obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(TonGiaoMTVM obj)
         {
             return ExecuteContainer(() => {
                 var edit = _context.TonGiaos.SingleOrDefault(it => it.MaTonGiao == obj.MaTonGiao);
@@ -129,8 +132,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         #region Del
         [HttpDelete]
         [HoiNongDanAuthorization]
-        //[ValidateAntiForgeryToken]
-        public JsonResult Delete(string id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(string id)
         {
             return ExecuteDelete(() =>
             {

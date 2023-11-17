@@ -5,7 +5,6 @@
     string CurrentArea = ConstArea.NhanSu;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
     string listRoles = User != null ? User.FindFirst("Roles")!.Value : "";
-
 }
 <div class="main-container container-fluid">
     <!-- PAGE-HEADER -->
@@ -20,7 +19,7 @@
         </div>
         <div class="d-flex px-2">
             <a  class="btn btn-success me-2" asp-action="XetNghiHuu" asp-controller="@ConstController.HuuTri" asp-area="@ConstArea.NhanSu" ><i class="fe fe-check me-2"></i>Đến tuổi nghỉ hưu</a>
-            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
+            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create",listRoles:listRoles)
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -59,6 +58,7 @@
             <div class="card">
                 <div class="card-status bg-blue br-te-7 br-ts-7"></div>
                 <div class="card-body">
+                    @Html.AntiForgeryToken()
                     <div class="table-responsive" id="divSearchResult"></div>
                 </div>
             </div>

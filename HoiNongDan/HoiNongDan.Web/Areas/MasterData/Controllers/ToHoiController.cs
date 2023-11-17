@@ -20,6 +20,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(ToHoiSearchVM obj)
         {
             return ExecuteSearch(() => {
@@ -66,7 +67,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Upsert(ToHoiVM obj)
+        [ValidateAntiForgeryToken]
+        public IActionResult Upsert(ToHoiVM obj)
         {
             return ExecuteContainer(() => {
                 if (obj.MaToHoi == null)
@@ -133,7 +135,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

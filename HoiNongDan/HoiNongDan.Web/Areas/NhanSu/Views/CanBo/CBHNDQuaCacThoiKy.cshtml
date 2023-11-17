@@ -4,7 +4,6 @@
     string CurrentController = ConstController.CanBo;
     string CurrentArea = ConstArea.NhanSu;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
-    string listRoles = User!=null? User.FindFirst("Roles").Value :"";
 
 }
 <div class="main-container container-fluid">
@@ -19,11 +18,6 @@
                 <span> </span>
             </div>
         </div>
-        @* <div class="d-flex px-2">
-            @HtmlExtensions.ExportButton(CurrentArea,CurrentController,listRoles:listRoles)
-            @HtmlExtensions.ImportButton(CurrentArea,CurrentController,listRoles:listRoles)
-            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create")
-        </div> *@
     </div>
     <!-- PAGE-HEADER END -->
     <!-- ROW-1 OPEN -->

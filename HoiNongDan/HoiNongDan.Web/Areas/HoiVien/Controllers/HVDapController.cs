@@ -21,6 +21,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         {
             return View();
         }
+        [HoiNongDanAuthorization]
         public IActionResult _Search(String? MaHoiVien, Guid? MaDiaBanHoatDong)
         {
             return ExecuteSearch(() => { 
@@ -45,6 +46,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         #endregion Index
         #region View
+        [HoiNongDanAuthorization]
         public IActionResult View(Guid id) {
             var lisCauHoi = from a in _context.HoiVienHoiDaps 
                             join b in _context.CanBos on a.IDHoivien equals b.IDCanBo
@@ -113,7 +115,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Create
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Create(String NoiDung,Guid id )
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(String NoiDung,Guid id )
         {
             return ExecuteContainer(() => {
                 HoiVienHoiDap add = new HoiVienHoiDap();
@@ -141,7 +144,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Update
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Edit(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Guid id)
         {
             return ExecuteContainer(() => {
 
@@ -160,7 +164,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Del
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {

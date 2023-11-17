@@ -29,6 +29,7 @@ using System;
 using HoiNongDan.Models.Entitys.NhanSu;
 using AspNetCore.Reporting;
 using System.Xml.Linq;
+using System.Diagnostics;
 
 namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 {
@@ -50,129 +51,20 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HoiNongDanAuthorization]
         public IActionResult Index()
         {
-
+            HoiVienSearchVM searchVM = new HoiVienSearchVM();
             CreateViewBagSearch();
             return View();
         }
+        [HttpGet]
+        [HoiNongDanAuthorization]
         public IActionResult _Search(HoiVienSearchVM search)
         {
-            return ExecuteSearch(() => {
-                var model = _context.CanBos.Where(it=>it.IsHoiVien == true).AsQueryable();
-                if (!String.IsNullOrEmpty(search.MaCanBo))
-                {
-                    model = model.Where(it => it.MaCanBo == search.MaCanBo);
-                }
-                if (!String.IsNullOrEmpty(search.HoVaTen))
-                {
-                    model = model.Where(it => it.HoVaTen.Contains(search.HoVaTen));
-                }
-
-                if (search.MaDiaBanHoatDong != null)
-                {
-                    model = model.Where(it => it.MaDiaBanHoatDong == search.MaDiaBanHoatDong);
-                }
-                //else
-                //{
-
-                //    model = model.Where(it => it.MaDiaBanHoatDong == Guid.Parse("4633016E-727F-4B69-A5D2-0DF7F42AA345"));
-                //}
-                if (search.MaQuanHuyen != null)
-                {
-                    model = model.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
-                }
-                if (search.Actived != null)
-                {
-                    model = model.Where(it => it.Actived == search.Actived);
-                }
-                if (search.DangChoDuyet == null || search.DangChoDuyet == true)
-                {
-                    model = model.Where(it => it.HoiVienDuyet == true);
-                }
-                else
-                {
-                    model = model.Where(it => it.HoiVienDuyet !=true && it.CreatedAccountId == AccountId());
-                   
-                }
-                var data = model
-                    .Include(it => it.NgheNghiep)
-                    .Include(it => it.DiaBanHoatDong)
-                    .Include(it => it.DanToc)
-                    .Include(it => it.TonGiao)
-                    .Include(it => it.TrinhDoHocVan)
-                    .Include(it => it.TrinhDoChuyenMon)
-                    .Include(it => it.TrinhDoChinhTri)
-                    .Include(it=>it.QuaTrinhKhenThuongs)
-                    .Include(it=>it.ChiHoi)
-                    .Include(it=>it.ToHoi)
-                    .Include(it => it.CoSo).Select(it => new HoiVienDetailVM
-                    {
-                        IDCanBo = it.IDCanBo,
-                        MaCanBo = it.MaCanBo,
-                        HoVaTen = it.HoVaTen,
-                        NgaySinh = it.NgaySinh,
-                        GioiTinh = (GioiTinh)it.GioiTinh,
-                        SoCCCD = it.SoCCCD!,
-                        NgayCapCCCD = it.NgayCapCCCD!,
-                        HoKhauThuongTru = it.HoKhauThuongTru,
-                        ChoOHienNay = it.ChoOHienNay!,
-                        SoDienThoai = it.SoDienThoai,
-                        DangVien = it.DangVien == null ? false : it.DangVien.Value,
-                        NgayvaoDangDuBi = it.NgayvaoDangDuBi,
-                        NgayVaoDangChinhThuc = it.NgayVaoDangChinhThuc,
-                       
-                        TenDiaBanHoatDong = it.DiaBanHoatDong!.TenDiaBanHoatDong,
-                        DanToc = it.DanToc!.TenDanToc,
-                        TonGiao = it.TonGiao!.TenTonGiao,
-                        TrinhDoHocvan = it.TrinhDoHocVan.TenTrinhDoHocVan,
-                        MaTrinhDoChuyenMon = it.TrinhDoChuyenMon!.TenTrinhDoChuyenMon,
-                        MaTrinhDoChinhTri = it.TrinhDoChinhTri!.TenTrinhDoChinhTri,
-                        NgayVaoHoi = it.NgayVaoHoi,
-                        NgayThamGiaCapUyDang = it.NgayThamGiaCapUyDang,
-                        NgayThamGiaHDND = it.NgayThamGiaHDND,
-                        VaiTro = it.VaiTro == "01" ? "Chủ hộ" : "Quan hệ chủ hộ",
-                        VaiTroKhac = it.VaiTroKhac,
-                        HoNgheo = it.HoNgheo==null?false : it.HoNgheo.Value,
-                        CanNgheo = it.CanNgheo == null ? false : it.CanNgheo.Value,
-                        GiaDinhChinhSach = it.GiaDinhChinhSach == null ? false : it.GiaDinhChinhSach.Value,
-                        GiaDinhThuocDienKhac = it.GiaDinhThuocDienKhac,
-                        NgheNghiepHienNay = it.NgheNghiep!.TenNgheNghiep,
-                        Loai_DV_SX_ChN = it.Loai_DV_SX_ChN,
-                        DienTich_QuyMo = it.DienTich_QuyMo,
-                        SoLuong = it.SoLuong,
-                        LoaiHoiVien = it.LoaiHoiVien,
-                        ThamGia_SH_DoanThe_HoiDoanKhac = it.ThamGia_SH_DoanThe_HoiDoanKhac,
-                        ThamGia_CLB_DN_MH_HTX_THT = it.ThamGia_CLB_DN_MH_HTX_THT,
-                        ThamGia_THNN_CHNN = it.ThamGia_THNN_CHNN,
-                        HoiVienNongCot = it.HoiVienNongCot == null ? false : it.HoiVienNongCot.Value,
-                        HoiVienUuTuNam = it.HoiVienUuTuNam,
-                        HoiVienDanhDu = it.HoiVienDanhDu == null ? false : it.HoiVienDanhDu.Value,
-                        
-                        NDSXKDG = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "15").Select(it => it.GhiChu).ToList()),
-                        NDTieuBieu = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "16").Select(it => it.GhiChu).ToList()),
-                        NDVietnamXS = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "22").Select(it => it.GhiChu).ToList()),
-                        KNCGCND = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "17").Select(it => it.GhiChu).ToList()),
-                        CanBoHoiCoSoGioi = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "18").Select(it => it.GhiChu).ToList()),
-                        SangTaoNhaNong = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "19").Select(it => it.GhiChu).ToList()),
-                        GuongDiemHinh = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "13").Select(it => it.GhiChu).ToList()),
-                        GuongDanVanKheo = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "20").Select(it => it.GhiChu).ToList()),
-                        GuongDiemHinhHocTapLamTheoBac = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "21").Select(it => it.GhiChu).ToList()),
-                        HoTrovayVon  = it.HoTrovayVon,
-                        HoTroKhac = it.HoTroKhac,
-                        HoTroDaoTaoNghe = it.HoTroDaoTaoNghe,
-                      
-                        KKAnToanThucPham = it.KKAnToanThucPham,
-                        DKMauNguoiNongDanMoi = it.DKMauNguoiNongDanMoi,
-                        ChiHoi = it.ChiHoi!.TenChiHoi,
-                        ToHoi = it.ToHoi!.TenToHoi,
-                        GhiChu = it.GhiChu,
-                    }).ToList();
-                return PartialView(data);
-            });
-        }
-        [HttpGet]
-        public JsonResult LoadBigData(HoiVienSearchVM search)
-        {
-            var model = _context.CanBos.Where(it => it.IsHoiVien == true).AsQueryable();
+#if DEBUG
+            Stopwatch timer = new Stopwatch();
+            timer.Start();
+#endif
+            //search.MaCanBo = "14064";
+            var model = _context.CanBos.Where(it => it.IsHoiVien == true && GetPhamVi().Contains(it.MaDiaBanHoatDong!.Value)).AsQueryable();
             if (!String.IsNullOrEmpty(search.MaCanBo))
             {
                 model = model.Where(it => it.MaCanBo == search.MaCanBo);
@@ -199,14 +91,14 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             {
                 model = model.Where(it => it.Actived == search.Actived);
             }
-            if (search.DangChoDuyet == null || search.DangChoDuyet == true)
-            {
-                model = model.Where(it => it.HoiVienDuyet == true);
-            }
-            else
-            {
-                model = model.Where(it => it.HoiVienDuyet != true && it.CreatedAccountId == AccountId());
-            }
+            //if (search.DangChoDuyet == null || search.DangChoDuyet == true)
+            //{
+            //    model = model.Where(it => it.HoiVienDuyet == true);
+            //}
+            //else
+            //{
+            //    model = model.Where(it => it.HoiVienDuyet != true && it.CreatedAccountId == AccountId());
+            //}
             var data = model
                 .Include(it => it.NgheNghiep)
                 .Include(it => it.DiaBanHoatDong)
@@ -282,11 +174,11 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     GhiChu = it.GhiChu,
                 }).ToList();
             var json = Json(data);
+#if DEBUG
+            timer.Stop();
+            string ss = ((timer.ElapsedMilliseconds / 1000) / 60).ToString();
+#endif
             return json;
-        }
-        public IActionResult Demo() {
-            CreateViewBagSearch();
-            return View();
         }
         #endregion Index
         #region Create
@@ -302,7 +194,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        public JsonResult Create(HoiVienMTVM insert, IFormFile? avtFileInbox)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(HoiVienMTVM insert, IFormFile? avtFileInbox)
         {
             CheckError(insert);
             return ExecuteContainer(() => {
@@ -316,7 +209,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 if (avtFileInbox != null)
                 {
                     string wwwRootPath = _hostEnvironment.WebRootPath;
-                    string fileName = add.MaCanBo;
+                    string fileName = add.MaCanBo!;
                     var uploads = Path.Combine(wwwRootPath, @"images\canbo");
 
                     bool folderExists = System.IO.Directory.Exists(uploads);
@@ -329,6 +222,27 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         avtFileInbox.CopyTo(fileStream);
                     }
                     add.HinhAnh = @"\images\canbo\" + fileName + extension;
+                }
+                if (add.DoanTheChinhTri_HoiDoan_HoiViens.Count() > 0)
+                {
+                    add.DoanTheChinhTri_HoiDoan_HoiViens.ToList().ForEach(it => {
+                        it.IDHoiVien = add.IDCanBo;
+                        it.CreatedAccountId = AccountId();
+                    });
+                }
+                if (add.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.Count() > 0)
+                {
+                    add.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.ToList().ForEach(it => {
+                        it.IDHoiVien = add.IDCanBo;
+                        it.CreatedAccountId = AccountId();
+                    });
+                }
+                if (add.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.Count() > 0)
+                {
+                    add.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.ToList().ForEach(it => {
+                        it.IDHoiVien = add.IDCanBo;
+                        it.CreatedAccountId = AccountId();
+                    });
                 }
                 _context.Attach(add).State = EntityState.Modified;
                 _context.CanBos.Add(add);
@@ -347,24 +261,29 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HoiNongDanAuthorization]
         public IActionResult Edit(Guid id)
         {
-            var item = _context.CanBos.SingleOrDefault(it => it.IDCanBo == id);
+            var item = _context.CanBos.Include(it=>it.DoanTheChinhTri_HoiDoan_HoiViens).Include(it=>it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens).Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens).SingleOrDefault(it => it.IDCanBo == id && GetPhamVi().Contains(it.MaDiaBanHoatDong.Value));
             if (item == null)
             {
                 return Redirect("~/Error/ErrorNotFound?data=" + id);
             }
             HoiVienVM edit = HoiVienMTVM.SetHoiVien(item);
-            CreateViewBag(item.IdCoSo, item.IdDepartment, item.MaChucVu,item.MaTrinhDoHocVan,
-                item.MaTrinhDoChinhTri,item.MaDanToc,item.MaTonGiao,item.MaTrinhDoChuyenMon,item.MaDiaBanHoatDong,item.MaHocVi);
+            CreateViewBag(IdCoSo: item.IdCoSo, IdDepartment:item.IdDepartment, maChucVu:item.MaChucVu,maTrinhDoHocVan:item.MaTrinhDoHocVan,
+                maTrinhDoChinhTri:item.MaTrinhDoChinhTri,maDanToc:item.MaDanToc,maTonGiao:item.MaTonGiao,maTrinhDoChuyenMon:item.MaTrinhDoChuyenMon,
+                maDiaBanHoatDong:item.MaDiaBanHoatDong,maHocVi:item.MaHocVi,
+                MaDoanTheChinhTri_HoiDoan:item.DoanTheChinhTri_HoiDoan_HoiViens.Select(it=>it.MaDoanTheChinhTri_HoiDoan).ToList(),
+                Id_CLB_DN_MH_HTX_THT:item.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.Select(it => it.Id_CLB_DN_MH_HTX_THT).ToList(),
+                Ma_ToHoiNganhNghe_ChiHoiNganhNghe:item.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.Select(it=>it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe).ToList());
             return View(edit);
         }
         [HttpPost]
         [HoiNongDanAuthorization]
-        public JsonResult Edit(HoiVienMTVM obj, IFormFile? avtFileInbox)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(HoiVienMTVM obj, IFormFile? avtFileInbox)
         {
 
             CheckError(obj);
             return ExecuteContainer(() => {
-                var edit = _context.CanBos.SingleOrDefault(it => it.IDCanBo == obj.IDCanBo);
+                var edit = _context.CanBos.SingleOrDefault(it => it.IDCanBo == obj.IDCanBo && GetPhamVi().Contains(it.MaDiaBanHoatDong.Value));
                 if (edit == null)
                 {
                     return Json(new
@@ -380,10 +299,46 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 edit.LyDoNgungHoatDong = obj.LyDoNgungHoatDong;
                 edit.LastModifiedTime = DateTime.Now;
                 edit.LastModifiedAccountId = AccountId();
+                if (edit.DoanTheChinhTri_HoiDoan_HoiViens.Count() > 0)
+                {
+                    var dels = _context.DoanTheChinhTri_HoiDoan_HoiViens.Where(it => it.IDHoiVien == edit.IDCanBo).ToList();
+                    if (dels.Count > 0)
+                    {
+                        _context.RemoveRange(dels);
+                    }
+                    edit.DoanTheChinhTri_HoiDoan_HoiViens.ToList().ForEach(it => {
+                        it.IDHoiVien = edit.IDCanBo;
+                        it.CreatedAccountId = AccountId();
+                    });
+                }
+                if (edit.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.Count() > 0)
+                {
+                    var dels = _context.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.Where(it => it.IDHoiVien == edit.IDCanBo).ToList();
+                    if (dels.Count > 0)
+                    {
+                        _context.RemoveRange(dels);
+                    }
+                    edit.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.ToList().ForEach(it => {
+                        it.IDHoiVien = edit.IDCanBo;
+                        it.CreatedAccountId = AccountId();
+                    });
+                }
+                if (edit.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.Count() > 0)
+                {
+                    var dels = _context.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.Where(it => it.IDHoiVien == edit.IDCanBo).ToList();
+                    if (dels.Count > 0)
+                    {
+                        _context.RemoveRange(dels);
+                    }
+                    edit.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.ToList().ForEach(it => {
+                        it.IDHoiVien = edit.IDCanBo;
+                        it.CreatedAccountId = AccountId();
+                    });
+                }
                 if (avtFileInbox != null)
                 {
                     string wwwRootPath = _hostEnvironment.WebRootPath;
-                    string fileName = edit.MaCanBo;
+                    string fileName = edit.MaCanBo!;
                     var uploads = Path.Combine(wwwRootPath, @"images\canbo");
 
                     bool folderExists = System.IO.Directory.Exists(uploads);
@@ -407,7 +362,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 }
                 HistoryModelRepository history = new HistoryModelRepository(_context);
                 history.SaveUpdateHistory(edit.IDCanBo.ToString(), AccountId()!.Value, edit);
-                _context.Entry(edit).State = EntityState.Modified;
+                _context.CanBos.Update(edit);
                 _context.SaveChanges();
                 return Json(new
                 {
@@ -520,7 +475,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]
-        public JsonResult Delete(Guid id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
         {
             return ExecuteDelete(() =>
             {
@@ -563,11 +519,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         #endregion Delete
         #region Import Excel 
+        [HoiNongDanAuthorization]
         public IActionResult _Import()
         {
             CreateViewBagImport();
             return PartialView();
         }
+        [HoiNongDanAuthorization]
         [HoiNongDanAuthorization]
         public IActionResult Import(Guid? MaDiaBanHoatDong)
         {
@@ -714,11 +672,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         #endregion Import Excel
         #region Export Data
+        [HoiNongDanAuthorization]
         public IActionResult ExportCreate()
         {
             List<HoiVienExcelVM> data = new List<HoiVienExcelVM>();
             return Export(data);
         }
+        [HoiNongDanAuthorization]
         public IActionResult ExportEdit(HoiVienSearchVM search)
         {
             var model = _context.CanBos.Where(it => it.IsHoiVien == true).AsQueryable();
@@ -826,6 +786,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 }).ToList();
             return Export(data);
         }
+        [HoiNongDanAuthorization]
         public FileContentResult Export(List<HoiVienExcelVM> menu)
         {
             List<ExcelTemplate> columns = new List<ExcelTemplate>();
@@ -951,6 +912,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #endregion Export Data
         #region Print the hoi vien
         [HttpPost]
+        [HoiNongDanAuthorization]
         public IActionResult Print(List<Guid> lid) {
 
             var parameter = Guid.NewGuid();
@@ -1097,15 +1059,11 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         private void CreateViewBag( Guid? IdCoSo = null, Guid? IdDepartment = null,
             Guid? maChucVu = null,
             String? maTrinhDoHocVan = null, String? maTrinhDoChinhTri = null,
-            String? maDanToc = null, String? maTonGiao = null,string? maTrinhDoChuyenMon = null,Guid? maDiaBanHoatDong = null,string? maHocVi = null,Guid? MaChiHoi = null, Guid? MaToHoi = null)
+            String? maDanToc = null, String? maTonGiao = null,string? maTrinhDoChuyenMon = null,Guid? maDiaBanHoatDong = null,string? maHocVi = null,Guid? MaChiHoi = null, Guid? MaToHoi = null,
+            List<Guid>? MaDoanTheChinhTri_HoiDoan = null, List<Guid>? Id_CLB_DN_MH_HTX_THT = null,List<Guid>? Ma_ToHoiNganhNghe_ChiHoiNganhNghe = null)
         {
 
-            //var MenuListCoSo = _context.CoSos.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { IdCoSo = it.IdCoSo, TenCoSo = it.TenCoSo }).ToList();
-            //ViewBag.IdCoSo = new SelectList(MenuListCoSo, "IdCoSo", "TenCoSo", IdCoSo);
-
-            //var DonVi = _context.Departments.Where(it => it.Actived == true).Include(it => it.CoSo).OrderBy(p => p.OrderIndex).Select(it => new { IdDepartment = it.Id, Name = it.Name + " " + it.CoSo.TenCoSo }).ToList();
-            //ViewBag.IdDepartment = new SelectList(DonVi, "IdDepartment", "Name", IdDepartment);
-
+         
             var chucVu = _context.ChucVus.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { MaChucVu = it.MaChucVu, TenChucVu = it.TenChucVu }).ToList();
             ViewBag.MaChucVu = new SelectList(chucVu, "MaChucVu", "TenChucVu", maChucVu);
 
@@ -1126,7 +1084,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             var tonGiao = _context.TonGiaos.Where(it => it.Actived == true).OrderBy(it => it.OrderIndex).Select(it => new { MaTonGiao = it.MaTonGiao, TenTonGiao = it.TenTonGiao }).ToList();
             ViewBag.MaTonGiao = new SelectList(tonGiao, "MaTonGiao", "TenTonGiao", maTonGiao);
 
-            var diaBanHoatDong = _context.DiaBanHoatDongs.Where(it => it.Actived == true).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.TenDiaBanHoatDong  }).ToList();
+            var diaBanHoatDong = _context.DiaBanHoatDongs.Where(it => it.Actived == true && GetPhamVi().Contains(it.Id)).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.TenDiaBanHoatDong  }).ToList();
             ViewBag.MaDiaBanHoatDong = new SelectList(diaBanHoatDong, "MaDiaBanHoatDong", "Name", maDiaBanHoatDong);
 
             var hocVis = _context.HocVis.Select(it => new { MaHocVi = it.MaHocVi, TenHocVi = it.TenHocVi }).ToList();
@@ -1137,6 +1095,26 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
             var toHois = _context.ToHois.Select(it => new { MaToHoi = it.MaToHoi, TenToHoi = it.TenToHoi }).ToList();
             ViewBag.MaToHoi = new SelectList(toHois, "MaToHoi", "TenToHoi", MaToHoi);
+
+            var hoiDoans = _context.DoanTheChinhTri_HoiDoans.Where(it => it.Actived == true).Select(it => new
+            {
+                it.MaDoanTheChinhTri_HoiDoan,it.TenDoanTheChinhTri_HoiDoan
+            }).ToList();
+            ViewBag.MaDoanTheChinhTri_HoiDoan = new MultiSelectList(hoiDoans, "MaDoanTheChinhTri_HoiDoan", "TenDoanTheChinhTri_HoiDoan", MaDoanTheChinhTri_HoiDoan);
+
+            var cauLacBo = _context.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTacs.Where(it => it.Actived == true).Select(it => new
+            {
+                it.Id_CLB_DN_MH_HTX_THT,
+                it.Ten
+            }).ToList();
+            ViewBag.Id_CLB_DN_MH_HTX_THT = new MultiSelectList(cauLacBo, "Id_CLB_DN_MH_HTX_THT", "Ten", Id_CLB_DN_MH_HTX_THT);
+
+            var toHoiNganhNghe = _context.ToHoiNganhNghe_ChiHoiNganhNghes.Where(it => it.Actived == true).Select(it => new
+            {
+                it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe,
+                it.Ten
+            }).ToList();
+            ViewBag.Ma_ToHoiNganhNghe_ChiHoiNganhNghe = new MultiSelectList(toHoiNganhNghe, "Ma_ToHoiNganhNghe_ChiHoiNganhNghe", "Ten", Ma_ToHoiNganhNghe_ChiHoiNganhNghe);
         }
         private void CreateViewBagSearch()
         {
@@ -1144,6 +1122,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         join diaban in _context.DiaBanHoatDongs on hv.MaDiaBanHoatDong equals diaban.Id
                         join quanhuyen in _context.QuanHuyens on diaban.MaQuanHuyen equals quanhuyen.MaQuanHuyen
                         where hv.IsHoiVien == true
+                        && GetPhamVi().Contains(diaban.Id)
                         select new {
                             MaDiaBanHoatDong = diaban.Id,
                             Name = diaban.TenDiaBanHoatDong,
@@ -1160,7 +1139,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
         }
         private void CreateViewBagImport() {
-            var diaBanHoatDong = _context.DiaBanHoatDongs.Where(it => it.Actived == true).OrderByDescending(it => it.CreatedTime).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.TenDiaBanHoatDong }).ToList();
+            var diaBanHoatDong = _context.DiaBanHoatDongs.Where(it => it.Actived == true && GetPhamVi().Contains(it.Id)).OrderByDescending(it => it.CreatedTime).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.TenDiaBanHoatDong }).ToList();
             ViewBag.MaDiaBanHoatDong = new SelectList(diaBanHoatDong, "MaDiaBanHoatDong", "Name");
         }
         public JsonResult loadDiaBanHoatDong(string? maQuanHuyen)
@@ -1175,6 +1154,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 var data = (from hv in _context.CanBos
                             join diaban in _context.DiaBanHoatDongs on hv.MaDiaBanHoatDong equals diaban.Id
                             where hv.IsHoiVien == true && diaban.Actived == true
+                              && GetPhamVi().Contains(diaban.Id)
                             select new
                             {
                                 MaDiaBanHoatDong = diaban.Id,
@@ -1187,7 +1167,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         #endregion Helper
         #region Insert/Update data from excel file
-        public string ExecuteImportExcelMenu(HoiVienImportExcel HoiVienExcel)
+        private string ExecuteImportExcelMenu(HoiVienImportExcel HoiVienExcel)
         {
             //Check:
             //1. If MenuId == "" then => Insert
@@ -1256,7 +1236,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         #endregion Insert/Update data from excel file
         #region Check data type 
-        public HoiVienImportExcel CheckTemplate(object[] row,List<ChiHoi> chiHois, List<ToHoi>toHois)
+        private HoiVienImportExcel CheckTemplate(object[] row,List<ChiHoi> chiHois, List<ToHoi>toHois)
         {
             HoiVienImportExcel import = new HoiVienImportExcel();
             CanBo data = new CanBo();
