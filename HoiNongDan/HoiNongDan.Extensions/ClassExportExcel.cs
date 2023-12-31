@@ -621,7 +621,7 @@ namespace HoiNongDan.Extensions
 
 
                 // add the content into the Excel file
-                workSheet.Cells["A" + startRowFrom].LoadFromDataTable(dataTable, true);
+                workSheet.Cells["A" + startRowFrom].LoadFromDataTable(dataTable, false);
 
                 // autofit width of cells with small content
                 int columnIndex = 1;

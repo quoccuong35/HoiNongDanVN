@@ -8,7 +8,7 @@ namespace HoiNongDan.Web.Components
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            string menu = HttpContext.Session!.GetString(User.Identity!.Name + ConstExcelController.SessionMenu);
+            string menu = HttpContext.Session!.GetString(User.Identity!.Name + ConstOther.SessionMenu);
             return View("Default", menu);
         }
     }

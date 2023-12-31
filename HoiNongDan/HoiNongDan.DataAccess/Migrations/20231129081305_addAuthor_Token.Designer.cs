@@ -4,6 +4,7 @@ using HoiNongDan.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HoiNongDan.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231129081305_addAuthor_Token")]
+    partial class addAuthor_Token
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1159,7 +1161,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 12, 14, 8, 2, 18, 657, DateTimeKind.Local).AddTicks(150));
+                        .HasDefaultValue(new DateTime(2023, 11, 29, 15, 13, 3, 653, DateTimeKind.Local).AddTicks(2076));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -2588,7 +2590,7 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Property<DateTime?>("CreatedTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 12, 14, 8, 2, 18, 657, DateTimeKind.Local).AddTicks(4457));
+                        .HasDefaultValue(new DateTime(2023, 11, 29, 15, 13, 3, 653, DateTimeKind.Local).AddTicks(4729));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -2751,8 +2753,6 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.HasKey("IDQuanheGiaDinh");
 
                     b.HasIndex("IDCanBo");
-
-                    b.HasIndex("IDHoiVien");
 
                     b.HasIndex("IDLoaiQuanHeGiaDinh");
 
@@ -3965,11 +3965,6 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasForeignKey("IDCanBo")
                         .HasConstraintName("FK_QuanHeGiaDinh_CanBo");
 
-                    b.HasOne("HoiNongDan.Models.CanBo", "HoiVien")
-                        .WithMany("HVQuanHeGiaDinhs")
-                        .HasForeignKey("IDHoiVien")
-                        .HasConstraintName("FK_QuanHeGiaDinh_HoiVien");
-
                     b.HasOne("HoiNongDan.Models.LoaiQuanHeGiaDinh", "LoaiQuanhe")
                         .WithMany("QuanHeGiaDinhs")
                         .HasForeignKey("IDLoaiQuanHeGiaDinh")
@@ -3978,8 +3973,6 @@ namespace HoiNongDan.DataAccess.Migrations
                         .HasConstraintName("FK_QuanHeGiaDinh_LoaiQuanHeGiaDinh");
 
                     b.Navigation("CanBo");
-
-                    b.Navigation("HoiVien");
 
                     b.Navigation("LoaiQuanhe");
                 });
@@ -4216,8 +4209,6 @@ namespace HoiNongDan.DataAccess.Migrations
                     b.Navigation("DoanTheChinhTri_HoiDoan_HoiViens");
 
                     b.Navigation("FileDinhKems");
-
-                    b.Navigation("HVQuanHeGiaDinhs");
 
                     b.Navigation("HoiVienHoTros");
 

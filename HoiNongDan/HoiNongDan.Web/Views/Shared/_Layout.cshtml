@@ -1358,35 +1358,3 @@
 </body>
 
 </html>
-<script>
-    $(document).ready(function () {
-        var array = window.location.href.split('/');
-        var activePage = "";
-        var view = "";
-        for (var i = 3; i < array.length; i++) {
-            view = array[i];
-            if (view.toLowerCase() == "edit" || view.toLowerCase() == "create" || view.toLowerCase() == "view" || view.toLowerCase() == "index" || view.toLowerCase() == "upsert") {
-                break;
-            }
-            activePage = activePage + "/" + array[i];
-        }
-        $(".app-sidebar li a").each(function () {
-            var $this = $(this);
-            var pageUrl = $this.attr("href");
-            if (activePage == pageUrl) {
-                $(this).addClass("active");
-                $(this).parent().addClass("is-expanded");
-                $(this).parent().parent().prev().addClass("active");
-                $(this).parent().parent().addClass("open");
-                $(this).parent().parent().prev().addClass("is-expanded");
-                $(this).parent().parent().parent().addClass("is-expanded");
-                $(this).parent().parent().parent().parent().addClass("open");
-                $(this).parent().parent().parent().parent().prev().addClass("active");
-                $(this).parent().parent().parent().parent().parent().addClass("is-expanded");
-                $(this).parent().parent().parent().parent().parent().prev().addClass("active");
-                $(this).parent().parent().parent().parent().parent().prev().parent().addClass("is-expanded");
-            }
-        });
-    });
-   
-</script>

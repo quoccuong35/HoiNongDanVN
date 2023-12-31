@@ -1,5 +1,5 @@
 ﻿@model AccountInfo
-<form class="form-horizontal" asp-antiforgery="true" id="frmDoiThongTinMatKhau">
+<form class="form-horizontal" id="frmDoiThongTinMatKhau">
     @Html.AntiForgeryToken()
     <input asp-for="AccountId" hidden />
     <div class=" row mb-4">
@@ -26,7 +26,7 @@
         <div class="col-md-9">
             <input asp-for="PassWordNew" id="txt-passwordnew" class="form-control">
             <small style="color:red">Nhập mật khẩ mới nếu muốn đổi mật khẩu</small><br />
-            <small><b style="color:black;text-decoration:underline;padding-left:5px;font-size:15px">Chú ý:</b> Mật khẩu phải 8 ký tự, Có 1 chữ cái thường, 1 chữ cái In hoa,1 số và ký tự đặc biệt.<br> <b>Ví dụ:</b> Abcd@123</small><br>
+            <small><b style="color:black;text-decoration:underline;padding-left:5px;font-size:15px">Chú ý:</b> Mật khẩu phải 8 ký tự, Có 1 chữ cái thường, 1 chữ cái In hoa,1 số và ký tự đặc biệt.<br>Ví dụ: <b class="fs-15"> Abcd@123</b></small><br>
             <span asp-validation-for="PassWordNew" class="text-danger"></span>
         </div>
     </div>

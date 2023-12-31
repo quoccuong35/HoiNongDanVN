@@ -24,14 +24,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
+int timeOut = int.Parse(builder.Configuration.GetSection("SiteSettings:TimeOutCookie").Value);
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie(options => {
-    options.SlidingExpiration = true;
+    options.Cookie.Name = "HND";
     options.LoginPath = $"/Permission/Auth/Login";
-    options.ExpireTimeSpan = TimeSpan.FromDays(30);
     options.AccessDeniedPath = "/Error/AccessDenied";
+    options.SlidingExpiration = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(timeOut);
+   
 });
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -44,27 +47,24 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.Configure<FormOptions>(options => {
     options.ValueCountLimit = 8000;
 });
-//builder.Services.AddAntiforgery(options =>
-//{
-//    // Set Cookie properties using CookieBuilder properties†.
-//    options.FormFieldName = "_hoiNongDanThanhpPhoHCMVerificationToken";
-//    options.HeaderName = "X-CSRF-TOKEN-HEADERNAME";
-//    options.SuppressXFrameOptionsHeader = false;
-//});
 
 
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession(options =>
-{
-    options.IdleTimeout = TimeSpan.FromDays(30);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-    
-});
+
 builder.Services.AddMvcCore(options =>
 {
     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
 });
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(timeOut);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddMemoryCache();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

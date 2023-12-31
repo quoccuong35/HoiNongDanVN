@@ -7,6 +7,7 @@ using HoiNongDan.Extensions;
 using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using System.Xml.Linq;
 
 namespace HoiNongDan.Web.Controllers
 {
@@ -25,6 +26,11 @@ namespace HoiNongDan.Web.Controllers
 
         public IActionResult Index()
         {
+            var active = HttpContext.Session.GetString(User.Identity!.Name!.ToLower());
+            if (String.IsNullOrWhiteSpace(active))
+            {
+                return Redirect("/Permission/Auth/LogOut");
+            }
             //string menu = HttpContext.Session!.GetString(User.Identity!.Name+ "_Menu");
             return View("SoDo");
         }

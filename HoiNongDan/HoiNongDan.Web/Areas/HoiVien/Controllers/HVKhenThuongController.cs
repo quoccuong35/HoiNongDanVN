@@ -107,7 +107,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }
             KhenThuongVM obj = new KhenThuongVM();
 
-            var canBo = _context.CanBos.Include(it => it.CoSo).Include(it => it.Department)
+            var canBo = _context.CanBos.Include(it => it.CoSo).Include(it => it.DiaBanHoatDong)
                         .Include(it => it.PhanHe).Include(it => it.TinhTrang).Where(it => it.IDCanBo == item.IDCanBo && it.IsHoiVien == true).SingleOrDefault();
             NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
             nhanSu = nhanSu.GeThongTin(canBo);
@@ -115,10 +115,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             nhanSu.IdCanbo = canBo.IDCanBo;
             nhanSu.HoVaTen = canBo.HoVaTen;
             nhanSu.MaCanBo = canBo.MaCanBo;
-            nhanSu.TenTinhTrang = canBo.TinhTrang.TenTinhTrang;
-            nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
-            nhanSu.TenDonVi = canBo.Department.Name;
-            nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
+            //nhanSu.TenTinhTrang = canBo.TinhTrang.TenTinhTrang;
+            //nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
+            nhanSu.TenDonVi = canBo.DiaBanHoatDong.TenDiaBanHoatDong;
+            //nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
             nhanSu.Edit = false;
             obj.IDQuaTrinhKhenThuong = item.IDQuaTrinhKhenThuong;
             obj.MaHinhThucKhenThuong = item.MaHinhThucKhenThuong;

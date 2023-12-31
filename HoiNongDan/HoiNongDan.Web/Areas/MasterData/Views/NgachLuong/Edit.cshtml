@@ -45,12 +45,12 @@
                         @*<input asp-for="MaNgachLuong" hidden />*@
                         <div class="row">
                             <div class="col-md-2">
-                                <label asp-for="MaNgachLuong"></label>
+                                <label asp-for="MaNgachLuong"></label><span class="text-red">*</span>
                                 <input asp-for="MaNgachLuong" class="form-control" readonly/>
                                 <span asp-validation-for="MaNgachLuong" class="text-danger"></span>
                             </div>
                             <div class="col-md-3">
-                                <label asp-for="TenNgachLuong"></label>
+                                <label asp-for="TenNgachLuong"></label><span class="text-red">*</span>
                                 <input asp-for="TenNgachLuong" class="form-control" />
                                 <span asp-validation-for="TenNgachLuong" class="text-danger"></span>
                             </div>
@@ -60,7 +60,7 @@
                                 <span asp-validation-for="MaLoai" class="text-danger"></span>
                             </div>
                             <div class="col-md-2">
-                                <label asp-for="NamTangLuong"></label>
+                                <label asp-for="NamTangLuong"></label><span class="text-red">*</span>
                                 <input asp-for="NamTangLuong" class="form-control" />
                                 <span asp-validation-for="NamTangLuong" class="text-danger"></span>
                             </div>

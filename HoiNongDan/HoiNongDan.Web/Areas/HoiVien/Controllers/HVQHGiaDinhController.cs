@@ -9,13 +9,13 @@ using HoiNongDan.Models;
 using HoiNongDan.Resources;
 
 
-namespace HoiNongDan.Web.Areas.NhanSu.Controllers
+namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 {
-    [Area(ConstArea.NhanSu)]
+    [Area(ConstArea.HoiVien)]
     [Authorize]
-    public class QHGiaDinhController : BaseController
+    public class HVQHGiaDinhController : BaseController
     {
-        public QHGiaDinhController(AppDbContext context) : base(context) { }
+        public HVQHGiaDinhController(AppDbContext context) : base(context) { }
         #region Index
         [HoiNongDanAuthorization]
         public IActionResult Index()
@@ -26,22 +26,22 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         [HoiNongDanAuthorization]
         public IActionResult _Search(QHGiaDinhSearchVM search) {
             return ExecuteSearch(() => { 
-                var model = _context.QuanHeGiaDinhs.Where(it=>it.IDHoiVien== null).AsQueryable();
+                var model = _context.QuanHeGiaDinhs.Where(it=>it.IDCanBo == null).AsQueryable();
                 if (search.IDLoaiQuanHeGiaDinh != null) {
                     model = model.Where(it => it.IDLoaiQuanHeGiaDinh == search.IDLoaiQuanHeGiaDinh);
                 }
-                model = model.Include(it => it.CanBo).Include(it => it.LoaiQuanhe).Include(it=>it.LoaiQuanhe);
+                model = model.Include(it => it.HoiVien).Include(it => it.LoaiQuanhe).Include(it=>it.LoaiQuanhe);
                 if (!String.IsNullOrEmpty(search.MaCanBo) && !String.IsNullOrWhiteSpace(search.MaCanBo)) {
-                    model = model.Where(it => it.CanBo.MaCanBo == search.MaCanBo);
+                    model = model.Where(it => it.HoiVien.MaCanBo == search.MaCanBo);
                 }
                 if (!String.IsNullOrEmpty(search.HoVaTen) && !String.IsNullOrWhiteSpace(search.HoVaTen))
                 {
-                    model = model.Where(it => it.CanBo.HoVaTen.Contains(search.HoVaTen));
+                    model = model.Where(it => it.HoiVien.HoVaTen.Contains(search.HoVaTen));
                 }
                 var data = model.Select(it => new QHGiaDinhDetail {
                     IDQuanheGiaDinh = it.IDQuanheGiaDinh,
-                    MaCanBo = it.CanBo.MaCanBo,
-                    HoVaTen = it.CanBo.HoVaTen,
+                    MaCanBo = it.HoiVien.MaCanBo!,
+                    HoVaTen = it.HoiVien.HoVaTen,
                     HoTen = it.HoTen,
                     NgaySinh = it.NgaySinh,
                     NgheNghiep = it.NgheNghiep,
@@ -61,7 +61,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         public IActionResult Create() {
             QHGiaDinhVM model = new QHGiaDinhVM();
             NhanSuThongTinVM NhanSu = new NhanSuThongTinVM();
-            NhanSu.CanBo = true;
+            NhanSu.CanBo = false;
             model.NhanSu = NhanSu;
             CreateViewBag();
             return View(model);
@@ -113,17 +113,17 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             edit.GhiChu = item.GhiChu;
 
 
-            var canBo = _context.CanBos.Include(it => it.CoSo).Include(it => it.Department)
-                        .Include(it => it.PhanHe).Include(it => it.TinhTrang).Where(it => it.IDCanBo == item.IDCanBo && it.IsCanBo == true).SingleOrDefault();
+            var canBo = _context.CanBos.Include(it => it.CoSo).Include(it => it.DiaBanHoatDong)
+                        .Include(it => it.PhanHe).Include(it => it.TinhTrang).Where(it => it.IDCanBo == item.IDHoiVien && it.IsHoiVien == true).SingleOrDefault();
             NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
             nhanSu = nhanSu.GeThongTin(canBo);
-            nhanSu.CanBo = true;
+            nhanSu.CanBo = false;
             nhanSu.IdCanbo = canBo.IDCanBo;
             nhanSu.HoVaTen = canBo.HoVaTen;
-            nhanSu.MaCanBo = canBo.MaCanBo;
-            nhanSu.TenTinhTrang = canBo.TinhTrang.TenTinhTrang;
+            nhanSu.MaCanBo = canBo.MaCanBo!;
+            //nhanSu.TenTinhTrang = canBo.TinhTrang!.TenTinhTrang;
             //nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
-            nhanSu.TenDonVi = canBo.Department.Name;
+            nhanSu.TenDonVi = canBo.DiaBanHoatDong!.TenDiaBanHoatDong;
             //nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
             nhanSu.Edit = false;
             edit.NhanSu = nhanSu;

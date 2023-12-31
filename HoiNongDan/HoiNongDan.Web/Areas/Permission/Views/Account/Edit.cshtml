@@ -3,7 +3,7 @@
 @using HoiNongDan.Constant
 @using HoiNongDan.Extensions
 @using Microsoft.AspNetCore.Html
-@model UserEditVM
+@model AccountEditVM
 @{
     ViewBag.Title = LanguageResource.Account;
     string CurrentController = ConstController.Account;
@@ -42,16 +42,16 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" asp-action="Edit" id="frmEdit" class="row g-3" asp-antiforgery="true">
+                    <form method="post" asp-action="Edit" id="frmEdit" class="row g-3">
                         @Html.AntiForgeryToken()
                         <input asp-for="AccountId" hidden />
                         <div class="col-md-3">
-                            <label asp-for="UserName"></label>
-                            <input asp-for="UserName" class="form-control" />
+                            <label asp-for="UserName"></label> <span class="text-red">*</span>
+                            <input asp-for="UserName" class="form-control"/>
                             <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
                         <div class="col-md-3">
-                            <label asp-for="PasswordNew"></label>
+                            <label asp-for="PasswordNew"></label> <span class="text-red">*</span>
                             <input asp-for="PasswordNew" class="form-control">
                             <small style="color:red">Nhập mật khẩ mới nếu muốn đổi mật khẩu</small><br />
                             <small><b style="color:black;text-decoration:underline;padding-left:5px;font-size:15px">Chú ý:</b> Mật khẩu phải 8 ký tự, Có 1 chữ cái thường, 1 chữ cái In hoa,1 số và ký tự đặc biệt.<br> <b>Ví dụ:</b> Abcd@123</small><br>
@@ -59,7 +59,7 @@
                         </div>
 
                         <div class="col-md-3">
-                            <label asp-for="FullName"></label>
+                            <label asp-for="FullName"></label> <span class="text-red">*</span>
                             <input asp-for="FullName" class="form-control" />
                             <span asp-validation-for="FullName" class="text-danger"></span>
                         </div>

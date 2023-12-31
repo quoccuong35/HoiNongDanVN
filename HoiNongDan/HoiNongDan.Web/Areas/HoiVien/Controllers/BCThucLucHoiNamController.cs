@@ -73,6 +73,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             {
                 data = data.Where(it => it.IDDonVi == IDDonVi.Value);
             }
+            if (data == null || data.Count() == 0)
+            {
+                return Content("Không có dữ liệu xuất");
+            }
             var model = data.Select(it => new BaoCaoThucLucHoiVM {
                 Cot1 = it.DonVi.TenDonVi,
                 Cot2 = it.Cot2,

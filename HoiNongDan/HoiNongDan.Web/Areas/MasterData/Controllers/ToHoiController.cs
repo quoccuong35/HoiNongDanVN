@@ -24,7 +24,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         public IActionResult _Search(ToHoiSearchVM obj)
         {
             return ExecuteSearch(() => {
-                var data = _context.ToHois.AsQueryable();
+                var data = _context.ToHois.Include(it=>it.CanBos).AsQueryable();
                 if (!String.IsNullOrWhiteSpace(obj.TenToHoi))
                 {
                     data = data.Where(it => it.TenToHoi.Contains(obj.TenToHoi!));
@@ -40,6 +40,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                     Actived = it.Actived,
                     Description = it.Description,
                     OrderIndex = it.OrderIndex,
+                    SoHoiVien = it.CanBos.Where(it => it.Actived == true).Count()
                 }).ToList();
                 return PartialView(model);
             });

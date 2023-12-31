@@ -23,7 +23,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         [HoiNongDanAuthorization]
         public IActionResult _Search(ChiHoiSearchVM obj) {
             return ExecuteSearch(() => { 
-                var data = _context.ChiHois.AsQueryable();
+                var data = _context.ChiHois.Include(it=>it.CanBos).AsQueryable();
                 if (!String.IsNullOrWhiteSpace(obj.TenChiHoi))
                 {
                     data = data.Where(it=>it.TenChiHoi.Contains(obj.TenChiHoi!));
@@ -38,6 +38,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                     Actived = it.Actived,
                     Description = it.Description,
                     OrderIndex = it.OrderIndex,
+                    SoHoiVien =it.CanBos.Where(it=>it.Actived ==true).Count()
                 }).ToList();
                 return PartialView(model);
             });

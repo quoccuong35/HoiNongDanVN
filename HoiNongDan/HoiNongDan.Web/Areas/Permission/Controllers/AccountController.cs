@@ -12,6 +12,7 @@ using HoiNongDan.Resources;
 using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 using System.Text.RegularExpressions;
 using System.Windows.Markup;
+using System.Data;
 
 namespace HoiNongDan.Web.Areas.Permission.Controllers
 {
@@ -73,7 +74,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 MaQuanHuyen = it.MaQuanHuyen,
                 TenQuanHuyen = it.QuanHuyen.TenQuanHuyen,
             }).OrderBy(it => it.TenQuanHuyen).ToList();
-            if (!User.Identity.Name.ToLower().Equals("admin")) {
+            if (!User.Identity!.Name!.ToLower().Equals("admin")) {
                 var listRole = _context.AccountInRoleModels.Where(it => it.AccountId == AccountId()).Select(it => it.RolesId).ToList();
                 roles = roles.Where(it => listRole.Contains(it.RolesId) || it.CreatedAccountId == AccountId()).ToList();
                 // Đia bàn hoạt động
@@ -96,7 +97,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         public IActionResult Create(AccountVM obj) {
             if (CheckExistAccountName(obj.UserName))
             {
-                ModelState.AddModelError("UserName", "Tài khoản đã tồn tại. không thể thêm");
+                ModelState.AddModelError("UserName", "Tài khoản đã tồn tại. Không thể thêm");
             }
             return ExecuteContainer(() => {
                 Account insertAcc = obj.Add(AccountId()!.Value);
@@ -122,8 +123,8 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         [HttpGet]
         [HoiNongDanAuthorization]
         public IActionResult Edit(Guid id) {
-            Guid? accID = AccountId();
-            UserEditVM accout = new UserEditVM();
+           
+            AccountEditVM accout = new AccountEditVM();
 
             var roles = _context.RolesModels.Where(it => it.Actived == true).ToList();
             var data = _context.Accounts.SingleOrDefault(it => it.AccountId == id );
@@ -137,6 +138,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
             }).OrderBy(it => it.TenQuanHuyen).ToList();
             if (!User.Identity!.Name!.ToLower().Equals("admin"))
             {
+                Guid? accID = AccountId();
                 var listRole = _context.AccountInRoleModels.Where(it => it.AccountId == AccountId()).Select(it => it.RolesId).ToList();
                 roles = roles.Where(it => listRole.Contains(it.RolesId) || it.CreatedAccountId == AccountId()).ToList();
                 // Đia bàn hoạt động
@@ -150,6 +152,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 RolesName = it.RolesName,
                 Selected = false,
             }).ToList();
+          
             if (data != null)
             {
 
@@ -177,6 +180,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 }
                 accout.userRoless = userRoles;
                 accout.DiaBans = diaBans;
+                //return Json(accout);
                 return View(accout);
             }
             else
@@ -189,10 +193,15 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         [HttpPost]
         [HoiNongDanAuthorization]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(UserEditVM obj)
+        public IActionResult Edit(AccountEditVM obj)
         {
+           
             return ExecuteContainer(() => {
                 Account? editAcc = _context.Accounts.FirstOrDefault(x => x.AccountId == obj.AccountId);
+                if (!User.Identity!.Name!.ToLower().Equals("admin"))
+                {
+                    editAcc = _context.Accounts.SingleOrDefault(it => it.AccountId == obj.AccountId && it.CreatedAccountId == AccountId());
+                }
                 if (editAcc == null)
                 {
                     return Json(new
@@ -261,149 +270,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 }
             });
         }
-        #region Upsert
-        [HttpGet]
-        [HoiNongDanAuthorization]
-        public IActionResult Upsert(Guid? id)
-        {
-
-            AccountVM accout = new AccountVM();
-            List<UserRoles> userRoles = _context.RolesModels.Where(it => it.Actived == true).Select(it => new UserRoles
-            {
-                RolesId = it.RolesId,
-                RolesName = it.RolesName,
-                Selected = false,
-            }).ToList();
-
-            List<AccountDiaBan> diaBans = _context.DiaBanHoatDongs.Include(it => it.QuanHuyen).Where(it => it.Actived == true).Select(it => new AccountDiaBan {
-                MaDiaBanHoiVien = it.Id,
-                TenDiaBanHoiVien = it.TenDiaBanHoatDong,
-                Selected = false,
-                MaQuanHuyen = it.MaQuanHuyen,
-                TenQuanHuyen = it.QuanHuyen.TenQuanHuyen,
-            }).OrderBy(it => it.TenQuanHuyen).ToList();
-
-            if (id != null)
-            {
-                Guid? accID = AccountId();
-                var data = _context.Accounts.SingleOrDefault(it => it.AccountId == id && (it.AccountId == accID || it.CreatedAccountId == accID));
-                if (data != null)
-                {
-                    accout.AccountId = data.AccountId;
-                    accout.UserName = data.UserName;
-                    accout.Actived = data.Actived;
-                    accout.Password = data.Password;
-                    accout.FullName = data.FullName;
-                    var rolesSelected = _context.AccountInRoleModels.Where(it => it.AccountId == data.AccountId).ToList();
-                    foreach (var item in rolesSelected)
-                    {
-                        var exist = userRoles.FirstOrDefault(it => it.RolesId == item.RolesId);
-                        if (exist != null)
-                        {
-                            exist.Selected = true;
-                        }
-                    }
-                    var phamVis = _context.PhamVis.Where(it => it.AccountId == id).ToList();
-                    foreach (var item in phamVis)
-                    {
-                        var exist = diaBans.SingleOrDefault(it => it.MaDiaBanHoiVien == item.MaDiabanHoatDong);
-                        if (exist != null)
-                        {
-                            exist.Selected = true;
-                        }
-                    }
-                }
-            }
-            accout.userRoless = userRoles;
-            accout.DiaBans = diaBans;
-            return View(accout);
-        }
-        [HttpPost]
-        [HoiNongDanAuthorization]
-        [ValidateAntiForgeryToken]
-        public IActionResult Upsert(AccountVM obj) {
-            if (AccountId() == null)
-            {
-                return Json(new
-                {
-                    Code = System.Net.HttpStatusCode.NetworkAuthenticationRequired,
-                    Success = false,
-                    Data = string.Format("Hết thời gian sử dụng vui lòng đăng nhập lại")
-                });
-            }
-            //if (obj.AccountId == null) {
-            //    if (String.IsNullOrWhiteSpace(obj.Password))
-            //    {
-            //        ModelState.AddModelError("Password", "Chưa nhập thông tin mật khẩu");
-            //    }
-            //}
-            if (obj.AccountId != null) {
-                ModelState.ClearValidationState("Password");
-            }
-            return ExecuteContainer(() => {
-                if (obj.AccountId == null)
-                {
-                    Account insertAcc = obj.Add(AccountId()!.Value);
-                    if (insertAcc.Password != null)
-                    {
-                        insertAcc.Password = RepositoryLibrary.GetMd5Sum(insertAcc.Password);
-                    }
-                    //Object insert = new object
-                    _context.Attach(insertAcc).State = EntityState.Modified;
-                    _context.Accounts.Add(insertAcc);
-                    _context.SaveChanges();
-                    return Json(new
-                    {
-                        Code = System.Net.HttpStatusCode.OK,
-                        Success = true,
-                        Data = string.Format(LanguageResource.Alert_Create_Success, LanguageResource.Account.ToLower())
-                    });
-                }
-                else
-                {
-                    Account? editAcc = _context.Accounts.FirstOrDefault(x => x.AccountId == obj.AccountId);
-                    if (editAcc == null)
-                    {
-                        return Json(new
-                        {
-                            Code = System.Net.HttpStatusCode.NotFound,
-                            Success = false,
-                            Data = "Không tìm thấy thông tin người dùng"
-                        });
-                    }
-                    else
-                    {
-                        editAcc = obj.Update(AccountId()!.Value, editAcc);
-
-                        HistoryModelRepository history = new HistoryModelRepository(_context);
-                        history.SaveUpdateHistory(editAcc.AccountId.ToString(), AccountId()!.Value, editAcc);
-                        //_context.Entry(editAcc).State = EntityState.Modified;
-                        //Delete Roles accout old
-                        var delAccountInRoleModels = _context.AccountInRoleModels.Where(it => it.AccountId == obj.AccountId).ToList();
-                        if (delAccountInRoleModels.Count > 0)
-                        {
-                            _context.RemoveRange(delAccountInRoleModels);
-                        }
-                        // Xóa pham vi
-                        var delPhamVis = _context.PhamVis.Where(it => it.AccountId == obj.AccountId).ToList();
-                        if (delPhamVis.Count > 0)
-                        {
-                            _context.RemoveRange(delPhamVis);
-                        }
-                        _context.Accounts.Update(editAcc);
-                        _context.SaveChanges();
-                        return Json(new
-                        {
-                            Code = System.Net.HttpStatusCode.OK,
-                            Success = true,
-                            Data = string.Format(LanguageResource.Alert_Edit_Success, LanguageResource.Account.ToLower())
-                        });
-                    }
-
-                }
-            });
-        }
-        #endregion Upsert
+       
         #region Delete
         [HttpDelete]
         [HoiNongDanAuthorization]

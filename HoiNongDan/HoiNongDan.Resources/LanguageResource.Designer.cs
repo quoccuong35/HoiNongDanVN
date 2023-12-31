@@ -1060,6 +1060,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hội Viên Quan Hệ Gia Đình.
+        /// </summary>
+        public static string HVQHGiaDinh {
+            get {
+                return ResourceManager.GetString("HVQHGiaDinh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Icon.
         /// </summary>
         public static string Icon {
@@ -1816,7 +1825,7 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mậu khẫu cũ.
+        ///   Looks up a localized string similar to Mậu khẩu cũ.
         /// </summary>
         public static string PassWordOld {
             get {

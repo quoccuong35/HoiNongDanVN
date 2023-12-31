@@ -18,6 +18,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
     {
         public DaoTaoBoiDuongController(AppDbContext context):base(context) { }
         #region Index
+        [HoiNongDanAuthorization]
         public IActionResult Index()
         {
             CreateViewBag();

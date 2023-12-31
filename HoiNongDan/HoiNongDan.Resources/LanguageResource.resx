@@ -450,6 +450,9 @@
   <data name="HVKhenThuong" xml:space="preserve">
     <value>Các Hình thức Được Khen Tặng</value>
   </data>
+  <data name="HVQHGiaDinh" xml:space="preserve">
+    <value>Hội Viên Quan Hệ Gia Đình</value>
+  </data>
   <data name="Icon" xml:space="preserve">
     <value>Icon</value>
   </data>
@@ -703,7 +706,7 @@
     <value>Mật khẩu mới</value>
   </data>
   <data name="PassWordOld" xml:space="preserve">
-    <value>Mậu khẫu cũ</value>
+    <value>Mậu khẩu cũ</value>
   </data>
   <data name="Permission" xml:space="preserve">
     <value>Phân Quyền</value>

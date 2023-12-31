@@ -15,6 +15,7 @@ using HoiNongDan.Constant;
 namespace HoiNongDan.Extensions
 {
     [Authorize]
+    //[AutoValidateAntiforgeryToken]
     public class BaseController : Controller
     {
         protected AppDbContext _context;
@@ -30,7 +31,14 @@ namespace HoiNongDan.Extensions
         public override void OnActionExecuted(ActionExecutedContext context)
         {
 
-          
+            //foreach (var cookie in Request.Cookies.Keys)
+            //{
+            //    if (cookie != ConstExcelController.sessionID)
+            //    {
+            //        Response.Cookies.Delete(cookie);
+            //    }
+            //}
+
         }
         public override void OnActionExecuting(ActionExecutingContext context)
         {
@@ -337,7 +345,7 @@ namespace HoiNongDan.Extensions
             StringBuilder sb = new StringBuilder();
             if (User.Identity!.IsAuthenticated && !string.IsNullOrWhiteSpace(CurrentUser.UserName))
             {
-                if (String.IsNullOrWhiteSpace(HttpContext.Session.GetString(CurrentUser.UserName + ConstExcelController.SessionMenu)))
+                if (String.IsNullOrWhiteSpace(HttpContext.Session.GetString(CurrentUser.UserName + ConstOther.SessionMenu)))
                 {
                     var menu = (from menu1 in _context.MenuModels
                                 join permission in _context.PagePermissionModels
@@ -372,7 +380,7 @@ namespace HoiNongDan.Extensions
                         }
                         sb.AppendLine("</li>");
                     }
-                    HttpContext.Session.SetString(CurrentUser.UserName + ConstExcelController.SessionMenu, sb.ToString());
+                    HttpContext.Session.SetString(CurrentUser.UserName + ConstOther.SessionMenu, sb.ToString());
                 }
             }
         }

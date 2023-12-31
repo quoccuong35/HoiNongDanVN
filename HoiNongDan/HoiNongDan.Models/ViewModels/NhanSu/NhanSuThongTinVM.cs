@@ -20,11 +20,11 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         public string? HoVaTen { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "CoSo")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
         public string? TenDonVi { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
-        public string? TenCoSo { get; set; }
+        //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
+        //public string? TenCoSo { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TinhTrang")]
         public string? TenTinhTrang { get; set; }
@@ -42,8 +42,8 @@ namespace HoiNongDan.Models
             nhanSu.HoVaTen = canBo.HoVaTen;
             nhanSu.MaCanBo = canBo.MaCanBo;
             nhanSu.TenTinhTrang = String.IsNullOrWhiteSpace(canBo.MaTinhTrang) ==true?"": canBo.TinhTrang!.TenTinhTrang;
-            nhanSu.TenCoSo = canBo.CoSo!.TenCoSo;
-            nhanSu.TenDonVi = canBo.Department!.Name;
+            //nhanSu.TenCoSo = canBo.CoSo!.TenCoSo;
+            //nhanSu.TenDonVi = canBo.Department!.Name;
             //nhanSu.TenPhanHe = canBo.PhanHe!.TenPhanHe;
             nhanSu.CanBo = true;
             if (!String.IsNullOrWhiteSpace(canBo.HinhAnh) && !String.IsNullOrEmpty(canBo.HinhAnh))

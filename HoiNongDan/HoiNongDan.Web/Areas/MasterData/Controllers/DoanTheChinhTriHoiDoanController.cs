@@ -32,7 +32,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         [HoiNongDanAuthorization]
         public IActionResult _Search(string? Ten, bool? Actived) {
             return ExecuteSearch(() => {
-                var data = _context.DoanTheChinhTri_HoiDoans.AsQueryable();
+                var data = _context.DoanTheChinhTri_HoiDoans.Include(it=>it.DoanTheChinhTri_HoiDoan_HoiViens).ThenInclude(it=>it.HoiVien).AsQueryable();
                 if (!String.IsNullOrWhiteSpace(Ten)) {
                     data = data.Where(it => it.TenDoanTheChinhTri_HoiDoan.Contains(Ten));
                 }

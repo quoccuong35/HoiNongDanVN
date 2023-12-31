@@ -97,7 +97,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         [HoiNongDanAuthorization]
         public IActionResult Edit(Guid id)
         {
-            var item = _context.QuaTrinhKhenThuongs.SingleOrDefault(it => it.IDQuaTrinhKhenThuong == id && it.IsHoiVien == true);
+            var item = _context.QuaTrinhKhenThuongs.SingleOrDefault(it => it.IDQuaTrinhKhenThuong == id && it.IsCanBo == true);
             if (item == null)
             {
                 return Redirect("~/Error/ErrorNotFound?data=" + id);
@@ -113,9 +113,9 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             nhanSu.HoVaTen = canBo.HoVaTen;
             nhanSu.MaCanBo = canBo.MaCanBo;
             nhanSu.TenTinhTrang = canBo.TinhTrang.TenTinhTrang;
-            nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
+            //nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
             nhanSu.TenDonVi = canBo.Department.Name;
-            nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
+            //nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
             nhanSu.Edit = false;
             obj.IDQuaTrinhKhenThuong = item.IDQuaTrinhKhenThuong;
             obj.MaHinhThucKhenThuong = item.MaHinhThucKhenThuong;

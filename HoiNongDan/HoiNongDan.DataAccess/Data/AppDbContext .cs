@@ -25,6 +25,7 @@ namespace HoiNongDan.DataAccess
         public DbSet<PagePermissionModel> PagePermissionModels { get; set; }
         public DbSet<Parameter> Parameters { get; set; }
         public DbSet<PhamVi> PhamVis { get; set; }
+        public DbSet<Author_Token> Author_Tokens { get; set; }
 
         #endregion
         public DbSet<HistoryModel> HistoryModels { get; set; }
@@ -567,6 +568,11 @@ namespace HoiNongDan.DataAccess
                 .HasForeignKey(it=>it.IDCanBo)
                 .HasConstraintName("FK_QuanHeGiaDinh_CanBo");
 
+                entity.HasOne<CanBo>(it => it.HoiVien)
+               .WithMany(it => it.HVQuanHeGiaDinhs)
+               .HasForeignKey(it => it.IDHoiVien)
+               .HasConstraintName("FK_QuanHeGiaDinh_HoiVien");
+
                 entity.HasOne<LoaiQuanHeGiaDinh>(it => it.LoaiQuanhe)
                 .WithMany(it => it.QuanHeGiaDinhs)
                 .HasForeignKey(it => it.IDLoaiQuanHeGiaDinh)
@@ -813,6 +819,17 @@ namespace HoiNongDan.DataAccess
                  .WithMany(it => it.AccountInRoleModels)
                  .HasForeignKey(it => it.RolesId)
                  .HasConstraintName("FK_AccountInRoleModel_RolesModel");
+            });
+            builder.Entity<Author_Token>(entity =>
+            {
+                entity.ToTable("Author_Token", "pms");
+                entity.HasKey(it => it.ID);
+                entity.Property(it => it.ExpireTimeSpan).IsRequired(true);
+                entity.Property(it => it.CreateTime).IsRequired(true);
+                entity.HasOne<Account>(it => it.Account)
+                    .WithMany(it => it.Author_Tokens)
+                    .HasForeignKey(it => it.AccountID)
+                    .HasConstraintName("FK_Author_Token_Account");
             });
             builder.Entity<MenuModel>(entity =>
             {

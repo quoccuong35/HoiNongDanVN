@@ -52,6 +52,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         [HoiNongDanAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AutoValidateAntiforgeryToken]
         public IActionResult Create(ChucVuMTVM obj)
         {
             return ExecuteContainer(() => {
@@ -95,6 +96,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         [HoiNongDanAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AutoValidateAntiforgeryToken]
         public IActionResult Edit(ChucVuMTVM obj)
         {
             return ExecuteContainer(() => {

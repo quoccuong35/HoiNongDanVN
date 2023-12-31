@@ -43,9 +43,9 @@ namespace HoiNongDan.Models
         public List<AccountDiaBan> DiaBans { get; set; }
     }
 
-    public class UserEditVM
+    public class AccountEditVM
     {
-        public UserEditVM()
+        public AccountEditVM()
         {
             userRoless = new List<UserRoles>();
             DiaBans = new List<AccountDiaBan>();
@@ -156,7 +156,7 @@ namespace HoiNongDan.Models
         [DataType(DataType.Password)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "PassWordNew")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Mật khẩu không hợp lệ")]
+        [RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", ErrorMessage = "Mật khẩu mới không hợp lệ")]
         public string PassWordNew { get; set; }
     }
     public class UserRoles

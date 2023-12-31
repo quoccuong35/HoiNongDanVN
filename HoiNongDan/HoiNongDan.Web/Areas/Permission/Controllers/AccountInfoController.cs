@@ -6,6 +6,7 @@ using HoiNongDan.Models.Entitys;
 using HoiNongDan.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace HoiNongDan.Web.Areas.Permission.Controllers
 {
@@ -13,9 +14,14 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
     public class AccountInfoController : BaseController
     {
         public AccountInfoController(AppDbContext context) : base(context) { }
-        public IActionResult Edit(Guid id)
+        public IActionResult Edit()
         {
-            var user = _context.Accounts.SingleOrDefault(it => it.AccountId == id);
+            var active = HttpContext.Session.GetString(User.Identity!.Name!.ToLower());
+            if (String.IsNullOrWhiteSpace(active) || !User.Identity.IsAuthenticated)
+            {
+                return BadRequest();
+            }
+            var user = _context.Accounts.SingleOrDefault(it => it.AccountId == AccountId());
             AccountInfo model = new AccountInfo();
             if (user != null)
             {
@@ -29,10 +35,15 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DoiMatKhau(AccountInfo accout)
         {
+            var active = HttpContext.Session.GetString(User.Identity!.Name!.ToLower());
+            if ( !User.Identity.IsAuthenticated || accout.AccountId != AccountId() || String.IsNullOrWhiteSpace(active))
+            {
+                return BadRequest();
+            }
             return ExecuteContainer(() =>
             {
                 string password = RepositoryLibrary.GetMd5Sum(accout.PassWordOld);
-                var user = _context.Accounts.SingleOrDefault(it => it.AccountId == accout.AccountId && it.Password == password);
+                var user = _context.Accounts.SingleOrDefault(it => it.AccountId == AccountId() && it.Password == password);
                 if (user != null)
                 {
                     string passWordNew = RepositoryLibrary.GetMd5Sum(accout.PassWordNew);

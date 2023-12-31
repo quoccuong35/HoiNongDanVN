@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HoiNongDan.Constant;
+using HoiNongDan.DataAccess;
 
 namespace HoiNongDan.Extensions
 {
@@ -14,6 +16,17 @@ namespace HoiNongDan.Extensions
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+
+            if(!context.HttpContext.User.Identity!.IsAuthenticated) {
+                context.Result = new RedirectResult("/Permission/Auth/LogOut");
+            }
+            var name = context.HttpContext.User.Identity.Name!.ToLower();
+            var active = context.HttpContext.Session.GetString(name);
+            if (String.IsNullOrWhiteSpace(active))
+            {
+                context.Result = new RedirectResult("/Permission/Auth/LogOut");
+            }
+
             var descriptor = context.ActionDescriptor;
             string actionName = RenameAction( descriptor.RouteValues["action"]);
            
@@ -22,7 +35,7 @@ namespace HoiNongDan.Extensions
             var controller = context.Controller as BaseController;
             var listRoles = controller!.CurrentUser.Roles;
 
-            if (!Function.GetPermission(listRoles, roles))
+            if (!Function.GetPermission(listRoles!, roles))
             {
                 context.Result = new RedirectResult("/Error/AccessDenied");
             }
@@ -44,6 +57,8 @@ namespace HoiNongDan.Extensions
                     return "Export";
                 case "exportedit":
                     return "Export";
+                case "doimatkhau":
+                    return "Edit";
                 default: 
                     return name;
             }

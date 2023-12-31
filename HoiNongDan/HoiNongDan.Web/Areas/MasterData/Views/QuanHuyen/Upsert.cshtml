@@ -51,7 +51,7 @@
                             <div class="col-md-3">
                                 <label asp-for="MaTinhThanhPho"></label>
                                 <select asp-for="MaTinhThanhPho" asp-items="@ViewBag.MaTinhThanhPho" class="form-control select2-show-search form-select">
-                                    <option disabled selected>-Select Role-</option>
+                                    <option disabled selected>@LanguageResource.Dropdownlist_All</option>
                                 </select>
                                 <span asp-validation-for="MaTinhThanhPho" class="text-danger"></span>
                             </div>

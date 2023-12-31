@@ -20,6 +20,6 @@ namespace HoiNongDan.Constant
         public const string HoiVienChinhTriHoiDoan = "I-00004";
         public const string HoiVien_CLB_DN_MH_HTX_THT = "I-00005";
         public const string HoiVien_ToHoiNN_ChiHoiNN = "I-00006";
-        public const string SessionMenu = "_Menu";
+      
     }
 }

@@ -1,4 +1,34 @@
-﻿let splitter = document.getElementsByClassName("splitter-head");
+﻿$(document).ready(function () {
+    var array = window.location.href.split('/');
+    var activePage = "";
+    var view = "";
+    for (var i = 3; i < array.length; i++) {
+        view = array[i];
+        if (view.toLowerCase() == "edit" || view.toLowerCase() == "create" || view.toLowerCase() == "view" || view.toLowerCase() == "index" || view.toLowerCase() == "upsert") {
+            break;
+        }
+        activePage = activePage + "/" + array[i];
+    }
+    $(".app-sidebar li a").each(function () {
+        var $this = $(this);
+        var pageUrl = $this.attr("href");
+        if (activePage == pageUrl) {
+            $(this).addClass("active");
+            $(this).parent().addClass("is-expanded");
+            $(this).parent().parent().prev().addClass("active");
+            $(this).parent().parent().addClass("open");
+            $(this).parent().parent().prev().addClass("is-expanded");
+            $(this).parent().parent().parent().addClass("is-expanded");
+            $(this).parent().parent().parent().parent().addClass("open");
+            $(this).parent().parent().parent().parent().prev().addClass("active");
+            $(this).parent().parent().parent().parent().parent().addClass("is-expanded");
+            $(this).parent().parent().parent().parent().parent().prev().addClass("active");
+            $(this).parent().parent().parent().parent().parent().prev().parent().addClass("is-expanded");
+        }
+    });
+});
+
+let splitter = document.getElementsByClassName("splitter-head");
 for (const sp of splitter) {
     sp.addEventListener('click', function handleClick() {
         let parent = sp.closest(".splitter").children[1].classList.toggle("splitter-toggle");
@@ -43,28 +73,12 @@ for (const item of currency) {
             }
         },
         error: function (xhr, status, error) {
-            if (xhr.status == 401) {
-                toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                setTimeout(function () {
-                    var url = window.location.href.toString().split(window.location.host)[1];
-                    window.location.href = "/Permission/Auth/Login?returnUrl=" + link;
-                }, 1000);
-            }
-            else if (xhr.status == 404)
-            {
-                setTimeout(function () {
-                    var url = window.location.href.toString().split(window.location.host)[1];
-                    window.location.href = "/Error/ErrorNotFound?returnUrl=" + link;
-                }, 1000);
-            }
-            else {
-                toastr.error(error);
-            }
+            Exceptions
+                (xhr, status, error)
         }
     });
 }
 AjaxUpdate = function (link, controller, formData, isContinue, func) {
-    console.log(link);
     $.ajax({
         type: "POST",
         url: link,
@@ -76,32 +90,17 @@ AjaxUpdate = function (link, controller, formData, isContinue, func) {
             func({ link: controller, jsonData: jsonData, isContinue: isContinue });
         },
         error: function (xhr, status, error) {
-            if (xhr.status == 401) {
-                toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                setTimeout(function () {
-                    var url = window.location.href.toString().split(window.location.host)[1];
-                    window.location.href = "/Permission/Auth/Login?returnUrl=" + link;
-                }, 1000);
-            }
-            else if (xhr.status == 404) {
-                setTimeout(function () {
-                    var url = window.location.href.toString().split(window.location.host)[1];
-                    window.location.href = "/Error/ErrorNotFound?returnUrl=" + link;
-                }, 1000);
-            }
-            else {
-                toastr.error(error);
-            }
+            Exceptions
+                (xhr, status, error)
         }
     });
 }
 $('.btn-userinfo').on('click', function () {
     let $btn = $(this);
-    var id = $btn.data("id");
     $.ajax({
-        type: "get",
+        type: "GET",
         url: "/Permission/AccountInfo/Edit",
-        data: { id: id },
+       /* data: { id: id },*/
         success: function (xhr, status, error) {
             if (xhr.Code == 500 || xhr.Success == false) {
 
@@ -120,20 +119,15 @@ $('.btn-userinfo').on('click', function () {
             }
         },
         error: function (xhr, status, error) {
-            if (xhr.status == 401) {
-                toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                setTimeout(function () {
-                    var url = window.location.href.toString().split(window.location.host)[1];
-                    window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                }, 1000);
-            }
-            else {
-                toastr.error(data);
-            }
+            Exceptions(xhr, status, error);
         }
     });
 });
 $('.btn-doimatkhau').on('click', function () {
+    if (!$("#txt-passwordold").val() || !$("#txt-passwordnew").val()) {
+        toastr.error('Vui lòng nhâp mật khẩu cũ và mật khẩu mới');
+        return;
+    }
     Swal.fire({
         title: 'Đổi mật khẩu',
         html: "Bạn có muốn đổi thông tin mật khẩu. Có để tiếp tục",
@@ -176,16 +170,8 @@ $('.btn-doimatkhau').on('click', function () {
                     }
                 },
                 error: function (xhr, status, error) {
-                    if (xhr.status == 401) {
-                        toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                        setTimeout(function () {
-                            var url = window.location.href.toString().split(window.location.host)[1];
-                            window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                        }, 1000);
-                    }
-                    else {
-                        toastr.error(data);
-                    }
+                    Exceptions
+                    (xhr, status, error)
                 }
             });
         }
@@ -253,3 +239,24 @@ $(document).on("click", "li[role='menuitem']>button.ui-grid-menu-item", function
         dataTable.column(index).visible(true);
     }
 });
+function Exceptions(xhr, status, error) {
+    if (xhr.status == 401) {
+        toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+        setTimeout(function () {
+            var url = window.location.href.toString().split(window.location.host)[1];
+            window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+        }, 1000);
+    }
+    else if (xhr.status == 404) {
+        setTimeout(function () {
+            var url = window.location.href.toString().split(window.location.host)[1];
+            window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
+        }, 1000);
+    }
+    else if (xhr.status == 400) {
+        toastr.error("Yêu cầu không hợp lệ");
+    }
+    else {
+        toastr.error(error);
+    }
+}

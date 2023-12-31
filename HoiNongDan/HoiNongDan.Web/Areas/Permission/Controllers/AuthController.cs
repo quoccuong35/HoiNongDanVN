@@ -12,6 +12,8 @@ using NuGet.Protocol.Core.Types;
 using Microsoft.AspNetCore.Http;
 using System.Net.Http;
 using HoiNongDan.Constant;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using AspNetCore.ReportingServices.ReportProcessing.ReportObjectModel;
 
 namespace HoiNongDan.Web.Areas.Permission.Controllers
 {
@@ -22,33 +24,50 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         #region Login
         private readonly AppDbContext _db;
         private readonly IHttpContextAccessor _httpContext;
-        public AuthController(AppDbContext db, IHttpContextAccessor httpContext) { 
+        private readonly IConfiguration _config;
+        public AuthController(AppDbContext db, IHttpContextAccessor httpContext, IConfiguration config) { 
             _db = db;
             _httpContext = httpContext;
+            _config = config;
         }
        
         public IActionResult Login() {
             ClaimsPrincipal claimUser = HttpContext.User;
 
-            if (claimUser.Identity.IsAuthenticated)
+            if (claimUser.Identity!.IsAuthenticated)
             {
                 return RedirectToAction(GetRedirectUrl(""));
             }
             string user = "";
             string pass ="";
-            string sessionID = Request.Cookies["sessionID"]!;
-
+            string sessionID = Request.Cookies[ConstOther.sessionID]!;
            if (!String.IsNullOrWhiteSpace(sessionID)) {
-                sessionID = Security.Decrypt(sessionID);
-                user = _httpContext.HttpContext!.Session!.GetString(sessionID + "_user")!;
+                user = _httpContext.HttpContext!.Session.GetString(sessionID + "_user")!;
                 pass = _httpContext.HttpContext!.Session!.GetString(sessionID + "_pass")!;
             }
+          
             AccountLoginViewModel login = new AccountLoginViewModel();
-            if (user != null)
+            if (!String.IsNullOrWhiteSpace(user))
             {
                 login.UserName = user.ToString();
                 login.Password = pass.ToString();
                 login.RememberMe = true;
+            }
+            CookieOptions userInfo = new CookieOptions();
+            userInfo.Expires = DateTime.Now.AddDays(-1);
+            if (!String.IsNullOrWhiteSpace(Request.Cookies["username"])) {
+               
+                Response.Cookies.Append("username", "", userInfo);
+            }
+            if (!String.IsNullOrWhiteSpace(Request.Cookies["password"]))
+            {
+
+                Response.Cookies.Append("password", "", userInfo);
+            }
+            if (!String.IsNullOrWhiteSpace(Request.Cookies["remember"]))
+            {
+
+                Response.Cookies.Append("remember", "", userInfo);
             }
             return View(login);
         }
@@ -58,32 +77,29 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
             string userName = model.UserName.Trim();
             string passWord = model.Password.Trim();
             string remember = model.RememberMe.ToString().Trim();
-            string sessionID = Request.Cookies["sessionID"]!;
-            Account? user = _db.Accounts.Where(p => p.UserName == userName).FirstOrDefault();
-           
-            if (model.RememberMe == true)
-            {
-                if (String.IsNullOrWhiteSpace(sessionID))
-                {
-                    sessionID = Security.Encrypt(model.UserName.ToLower());
-                }
-                CookieOptions userInfo = new CookieOptions();
-                userInfo.Expires = DateTime.Now.AddDays(30);
-                _httpContext.HttpContext!.Session.SetString(model.UserName.ToLower() + "_user", userName);
-                _httpContext.HttpContext!.Session.SetString(model.UserName.ToLower() + "_pass", passWord);
-                Response.Cookies.Append("sessionID", sessionID, userInfo);
-            }
-            else
+            string sessionID = Request.Cookies[ConstOther.sessionID]!;
+            if (!String.IsNullOrWhiteSpace(sessionID))
             {
 
-                _httpContext.HttpContext!.Session.Remove(model.UserName.ToLower() + "_user");
-                _httpContext.HttpContext!.Session.Remove(model.UserName.ToLower() + "_pass");
-                //CookieOptions userInfo = new CookieOptions();
-                //Response.Cookies.Append("sessionID", "", userInfo);
+                HttpContext.Session.Remove(sessionID + "_user");
+                HttpContext.Session.Remove(sessionID + "_pass");
+                CookieOptions userInfo = new CookieOptions();
+                userInfo.Expires = DateTime.Now.AddDays(-1);
+                Response.Cookies.Append(ConstOther.sessionID, "", userInfo);
+            }
+            if (model.RememberMe == true)
+            {
+                sessionID = Guid.NewGuid().ToString().ToLower();
+                CookieOptions userInfo = new CookieOptions();
+                userInfo.Expires = DateTime.Now.AddDays(30);
+                _httpContext.HttpContext!.Session.SetString(sessionID + "_user", userName);
+                _httpContext.HttpContext!.Session.SetString(sessionID + "_pass", passWord);
+                Response.Cookies.Append(ConstOther.sessionID, sessionID, userInfo);
             }
             try
             {
-                 passWord = RepositoryLibrary.GetMd5Sum(passWord);
+                Account? user = _db.Accounts.Where(p => p.UserName == userName).FirstOrDefault();
+                passWord = RepositoryLibrary.GetMd5Sum(passWord);
                 if (user != null)
                 {
 
@@ -95,22 +111,32 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                     }
                     else
                     {
+                        int timoutCookie = int.Parse(_config.GetSection("SiteSettings:TimeOutCookie").Value.ToString());
                         if (user.Password == passWord)
                         {
+                            
+                            // add chug thuc
                             List<Claim> claims = new List<Claim>() {
                                 new Claim(ClaimTypes.Name,user.UserName),
                                 new Claim(ClaimTypes.Sid,user.AccountId.ToString()),
-                                 new Claim("FullName",user.FullName.ToString()),
+                                new Claim("FullName",user.FullName.ToString()),
                                 new Claim(ClaimTypes.PrimarySid,user!.EmployeeId==null?"":user!.EmployeeId.ToString()),
                                 new Claim("Id",user.AccountId.ToString()),
                                 new Claim("Roles",PagePermission(user.AccountId))
                                
                             };
+                            var authenticationProperties = new AuthenticationProperties {
+                                ExpiresUtc = DateTime.UtcNow.AddMinutes(timoutCookie),
+                                IsPersistent = true,
+                                AllowRefresh = true
+                            };
                             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims,
                                 CookieAuthenticationDefaults.AuthenticationScheme);
                             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                             new ClaimsPrincipal(claimsIdentity));
-                            if (!string.IsNullOrEmpty(model.ReturnUrl))
+                             new ClaimsPrincipal(claimsIdentity), authenticationProperties);
+
+                            HttpContext!.Session.SetString(model.UserName.ToLower(), "1");
+                            if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                             {
                                 return Redirect(GetRedirectUrl(model.ReturnUrl));
                             }
@@ -151,18 +177,31 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
             {
                 return Url.Action("Index", "Home");
             }
-
             return returnUrl;
         }
         #endregion GetRedirectUrl
-
-
         #region Logout
+        [Authorize]
         public async Task<IActionResult> LogOut()
         {
-            HttpContext.Session.Remove(User.Identity!.Name + ConstExcelController.SessionMenu);
+            CookieOptions userInfo = new CookieOptions();
+            userInfo.Expires = DateTime.Now.AddDays(-1);
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                if (cookie != ConstOther.sessionID && !cookie.Contains("AspNetCore.Antiforgery"))
+                {
+                    Response.Cookies.Delete(cookie);
+                    Response.Cookies.Append(cookie, "", userInfo);
+                }
+            }
+            HttpContext.Session.Remove(User.Identity!.Name + ConstOther.SessionMenu);
+            var authenticationProperties = new AuthenticationProperties
+            {
+                ExpiresUtc = DateTime.UtcNow.AddDays(-1),
+            };
+            HttpContext.Session.Remove(User.Identity.Name!.ToLower());
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-           
+            
             return RedirectToAction(nameof(Login));
         }
 

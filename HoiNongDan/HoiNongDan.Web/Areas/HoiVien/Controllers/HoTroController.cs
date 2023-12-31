@@ -43,6 +43,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     data = data.Where(it => it.TuNgay!.Value.Year == search.NamVayVon);
                 }
+                if (search.MaHinhThucHoTro != null)
+                {
+                    data = data.Where(it => it.MaHinhThucHoTro == search.MaHinhThucHoTro);
+                }
                 var model = data.Select(it => new HoiVienHoTroDetailVM
                 {
                     ID = it.ID,

@@ -13,6 +13,7 @@ namespace HoiNongDan.Models
         public Guid? IDCanBo { get; set; }
         public CanBo CanBo { get; set; }
         public Guid? IDHoiVien { get; set; }
+        public CanBo HoiVien { get; set; }
         public string HoTen { get; set; }
         [MaxLength(10)]
         public String NgaySinh { get; set; }

@@ -45,24 +45,24 @@
                         @*<input asp-for="MaNgachLuong" hidden />*@
                         <div class="row">
                             <div class="col-md-3">
-                                <label asp-for="TenBacLuong"></label>
+                                <label asp-for="TenBacLuong"></label><span class="text-red">*</span>
                                 <input asp-for="TenBacLuong" class="form-control" />
                                 <span asp-validation-for="TenBacLuong" class="text-danger"></span>
                             </div>
                             <div class="col-md-2">
-                                <label asp-for="HeSo"></label>
+                                <label asp-for="HeSo"></label><span class="text-red">*</span>
                                 <input asp-for="HeSo" class="form-control" />
                                 <span asp-validation-for="HeSo" class="text-danger"></span>
                             </div>
                             <div class="col-md-2">
-                                <label asp-for="OrderIndex"></label>
+                                <label asp-for="OrderIndex"></label><span class="text-red">*</span>
                                 <input asp-for="OrderIndex" class="form-control" />
                                 <span asp-validation-for="OrderIndex" class="text-danger"></span>
                             </div>
                             <div class="col-md-5">
-                                <label asp-for="MaNgachLuong"></label>
+                                <label asp-for="MaNgachLuong"></label><span class="text-red">*</span>
                                 <select asp-for="MaNgachLuong" asp-items="@ViewBag.MaNgachLuong" class="form-control select2-show-search form-select">
-                                    <option disabled selected>-Select Role-</option>
+                                    <option disabled selected>@LanguageResource.Dropdownlist_Menu</option>
                                 </select>
                                 <span asp-validation-for="MaNgachLuong" class="text-danger"></span>
                             </div>

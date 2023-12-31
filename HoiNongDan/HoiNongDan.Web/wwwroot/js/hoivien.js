@@ -37,7 +37,7 @@ function ShowInTheHoiVien(formData) {
             }
         },
         error: function (xhr, status, error) {
-            toastr.error(xhr.responseText);
+            Exceptions(xhr, status, error);
         }
     });
 }
@@ -160,12 +160,7 @@ function LoadThongTin() {
         },
         error: function (xhr, status, error) {
             $btn.toggleClass("btn-loading");
-            //$("#" + $btn[0].id + " i").toggleClass("d-none")
-            //// hiện loading lên
-            //$("#" + $btn[0].id + " span").toggleClass("d-none")
-            //// disabled button
-            //$("#" + $btn[0].id).toggleClass("disabled");
-            toastr.error(xhr.responseText);
+            Exceptions(xhr, status, error);
         }
     });
 }
@@ -184,12 +179,7 @@ $("#btn-search").click(function () {
             $btn.toggleClass("btn-loading");
         },
         error: function (xhr, status, error) {
-            //$("#" + $btn[0].id + " i").toggleClass("d-none")
-            //// hiện loading lên
-            //$("#" + $btn[0].id + " span").toggleClass("d-none")
-            //// disabled button
-            //$("#" + $btn[0].id).toggleClass("disabled");
-            toastr.error(xhr.responseText);
+            Exceptions(xhr, status, error);
         }
     });
 });
@@ -215,7 +205,7 @@ $(document).on("click", ".btn-import", function () {
             }
         },
         error: function (xhr, status, error) {
-
+            Exceptions(xhr, status, error);
         }
     });
 
@@ -285,7 +275,7 @@ $(document).on("click", "#btn-importExcel", function () {
             }
         },
         error: function (xhr, status, error) {
-            toastr.error(xhr.responseText);
+            Exceptions(xhr, status, error);
         }
     });
 });

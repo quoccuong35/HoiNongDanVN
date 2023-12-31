@@ -29,7 +29,7 @@
             }
         },
         error: function (xhr, status, error) {
-            alert(xhr.responseText);
+            Exceptions(xhr, status, error);
         }
     });
 }

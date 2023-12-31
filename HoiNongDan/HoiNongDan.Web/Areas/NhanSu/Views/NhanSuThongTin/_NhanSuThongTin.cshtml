@@ -7,10 +7,11 @@
     <input name="NhanSu.IdCanbo" hidden asp-for="IdCanbo" />
     <input name="NhanSu.MaCanBo" hidden asp-for="MaCanBo" />
     <input name="NhanSu.HoVaTen" hidden asp-for="HoVaTen"/>
-    <input name="NhanSu.TenCoSo" hidden asp-for="TenCoSo"/>
+    @* <input name="NhanSu.TenCoSo" hidden asp-for="TenCoSo"/> *@
     <input name="NhanSu.TenDonVi" hidden asp-for="TenDonVi" />
     <input name="NhanSu.TenPhanHe" hidden asp-for="TenPhanHe" />
     <input name="NhanSu.TenTinhTrang" hidden asp-for="TenTinhTrang" />
+    <input name="NhanSu.CanBo" hidden asp-for="CanBo" />
     <div class="row">
          <div class="col-md-4">
             <div class="form-group">
@@ -47,16 +48,16 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label asp-for="TenCoSo"></label>
-                <input type="text" asp-for="TenCoSo" class="form-control" readonly>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
                 <label asp-for="TenDonVi"></label>
                 <input type="text" asp-for="TenDonVi" class="form-control" readonly>
             </div>
         </div>
+        @* <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="TenDonVi"></label>
+                <input type="text" asp-for="TenDonVi" class="form-control" readonly>
+            </div>
+        </div> *@
     </div>
 </div>
 <script>

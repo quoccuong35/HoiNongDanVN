@@ -91,14 +91,14 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             {
                 model = model.Where(it => it.Actived == search.Actived);
             }
-            //if (search.DangChoDuyet == null || search.DangChoDuyet == true)
-            //{
-            //    model = model.Where(it => it.HoiVienDuyet == true);
-            //}
-            //else
-            //{
-            //    model = model.Where(it => it.HoiVienDuyet != true && it.CreatedAccountId == AccountId());
-            //}
+            if (search.DangChoDuyet == null || search.DangChoDuyet == true)
+            {
+                model = model.Where(it => it.HoiVienDuyet == true);
+            }
+            else
+            {
+                model = model.Where(it => it.HoiVienDuyet != true && it.CreatedAccountId == AccountId());
+            }
             var data = model
                 .Include(it => it.NgheNghiep)
                 .Include(it => it.DiaBanHoatDong)

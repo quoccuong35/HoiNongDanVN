@@ -27,7 +27,7 @@ namespace HoiNongDan.Extensions
             byte[] clearBytes = System.Text.Encoding.Unicode.GetBytes(value);
             PasswordDeriveBytes pdb = new PasswordDeriveBytes(Key, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
             byte[] encryptedData = Encrypt(clearBytes, pdb.GetBytes(32), pdb.GetBytes(16));
-            return Convert.ToBase64String(encryptedData);
+            return Convert.ToBase64String(encryptedData).Replace(" ","+");
         }
         public static byte[] Encrypt(byte[] ClearData, string Password)
         {
@@ -71,7 +71,7 @@ namespace HoiNongDan.Extensions
             byte[] cipherBytes = Convert.FromBase64String(value);
             PasswordDeriveBytes pdb = new PasswordDeriveBytes(Key, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
             byte[] decryptedData = Decrypt(cipherBytes, pdb.GetBytes(32), pdb.GetBytes(16));
-            return System.Text.Encoding.Unicode.GetString(decryptedData);
+            return System.Text.Encoding.Unicode.GetString(decryptedData).Replace("+", " ");
         }
         public static byte[] Decrypt(byte[] CipherData, string Password)
         {

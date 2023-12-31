@@ -26,7 +26,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         public IActionResult _Search(NgoaiNguSearchVM search)
         {
             return ExecuteSearch(() => {
-                var data = _context.TrinhDoNgoaiNgus.AsQueryable();
+                var data = _context.TrinhDoNgoaiNgus.Include(it=>it.NgonNgu).AsQueryable();
                 if (search.Actived != null)
                 {
                     data = data.Where(it => it.Actived == search.Actived);
@@ -44,6 +44,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                     MaTrinhDoNgoaiNgu = it.MaTrinhDoNgoaiNgu,
                     TenTrinhDoNgoaiNgu = it.TenTrinhDoNgoaiNgu,
                     Description = it.Description,
+                    MaNgonNgu = it.NgonNgu.TenNgonNgu,
                     Actived = it.Actived,
                     OrderIndex = it.OrderIndex
                 }).ToList();

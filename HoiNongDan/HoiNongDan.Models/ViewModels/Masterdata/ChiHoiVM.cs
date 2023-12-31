@@ -25,6 +25,9 @@ namespace HoiNongDan.Models
         [RegularExpression("([0-9][0-9]*)", ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Validation_OrderIndex")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "OrderIndex")]
         public Nullable<int> OrderIndex { get; set; }
+
+        [Display(Name = "Số hội viên")]
+        public int? SoHoiVien { get; set; }
     }
     public class ChiHoiSearchVM {
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Ten")]

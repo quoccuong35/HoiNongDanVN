@@ -56,22 +56,7 @@ HoiNongDan.SearchDefault = function (controller, action) {
         },
         error: function (xhr, status, error) {
             $btn.toggleClass("btn-loading");
-            if (xhr.status == 401) {
-                toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                setTimeout(function () {
-                    var url = window.location.href.toString().split(window.location.host)[1];
-                    window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                }, 1000);
-            }
-            else if (xhr.status == 404) {
-                setTimeout(function () {
-                    var url = window.location.href.toString().split(window.location.host)[1];
-                    window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
-                }, 1000);
-            }
-            else {
-                toastr.error(error);
-            }
+            Exceptions(xhr, status, error);
            
         }
     });
@@ -152,22 +137,7 @@ HoiNongDan.Create = function (controller, frmCreate, isContinue, e) {
                 }
             },
             error: function (xhr, status, error) {
-                if (xhr.status == 401) {
-                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                    setTimeout(function () {
-                        var url = window.location.href.toString().split(window.location.host)[1];
-                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                    }, 1000);
-                }
-                else if (xhr.status == 404) {
-                    setTimeout(function () {
-                        var url = window.location.href.toString().split(window.location.host)[1];
-                        window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
-                    }, 1000);
-                }
-                else {
-                    toastr.error(error);
-                }
+                Exceptions(xhr, status, error);
             }
         });
     }
@@ -210,6 +180,8 @@ HoiNongDan.Edit = function (controller, frmEdit, isContinue, e) {
         $.each(formParams, function (i, val) {
             formData.append(val.name, val.value);
         });
+        let id = HoiNongDan.GetQueryString('id', window.location.href);
+        console.log(id);
         toastr.clear();
         $.ajax({
             type: "POST",
@@ -248,22 +220,7 @@ HoiNongDan.Edit = function (controller, frmEdit, isContinue, e) {
                 }
             },
             error: function (xhr, status, error) {
-                if (xhr.status == 401) {
-                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                    setTimeout(function () {
-                        var url = window.location.href.toString().split(window.location.host)[1];
-                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                    }, 1000);
-                }
-                else if (xhr.status == 404) {
-                    setTimeout(function () {
-                        var url = window.location.href.toString().split(window.location.host)[1];
-                        window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
-                    }, 1000);
-                }
-                else {
-                    toastr.error(error);
-                }
+                Exceptions(xhr, status, error);
             }
         });
     }
@@ -276,6 +233,7 @@ HoiNongDan.Edit = function (controller, frmEdit, isContinue, e) {
         $btn.button('reset');
     }
 }
+
 HoiNongDan.UpsertInitial = function (controller) {
     $(document).on("click", "#btn-save-continue", function (e) {
         var isContinue = true;
@@ -340,22 +298,7 @@ HoiNongDan.Upsert = function (controller, frmUpsert, isContinue, e) {
                 }
             },
             error: function (xhr, status, error) {
-                if (xhr.status == 401) {
-                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                    setTimeout(function () {
-                        var url = window.location.href.toString().split(window.location.host)[1];
-                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                    }, 1000);
-                }
-                else if (xhr.status == 404) {
-                    setTimeout(function () {
-                        var url = window.location.href.toString().split(window.location.host)[1];
-                        window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
-                    }, 1000);
-                }
-                else {
-                    toastr.error(error);
-                }
+                Exceptions(xhr, status, error);
             }
         });
     }
@@ -404,22 +347,7 @@ HoiNongDan.Delete = function () {
                         }
                     },
                     error: function (xhr, status, error) {
-                        if (xhr.status == 401) {
-                            toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                            setTimeout(function () {
-                                var url = window.location.href.toString().split(window.location.host)[1];
-                                window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                            }, 1000);
-                        }
-                        else if (xhr.status == 404) {
-                            setTimeout(function () {
-                                var url = window.location.href.toString().split(window.location.host)[1];
-                                window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
-                            }, 1000);
-                        }
-                        else {
-                            toastr.error(error);
-                        }
+                        Exceptions(xhr, status, error);
                     }
                 })
             }
@@ -464,22 +392,7 @@ HoiNongDan.DeleteEdit = function () {
                         }
                     },
                     error: function (xhr, status, error) {
-                        if (xhr.status == 401) {
-                            toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                            setTimeout(function () {
-                                var url = window.location.href.toString().split(window.location.host)[1];
-                                window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                            }, 1000);
-                        }
-                        else if (xhr.status == 404) {
-                            setTimeout(function () {
-                                var url = window.location.href.toString().split(window.location.host)[1];
-                                window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
-                            }, 1000);
-                        }
-                        else {
-                            toastr.error(error);
-                        }
+                        Exceptions(xhr, status, error);
                     }
                 })
             }
@@ -567,22 +480,7 @@ HoiNongDan.Import = function (controller) {
                 }
             },
             error: function (xhr, status, error) {
-                if (xhr.status == 401) {
-                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                    setTimeout(function () {
-                        var url = window.location.href.toString().split(window.location.host)[1];
-                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                    }, 1000);
-                }
-                else if (xhr.status == 404) {
-                    setTimeout(function () {
-                        var url = window.location.href.toString().split(window.location.host)[1];
-                        window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
-                    }, 1000);
-                }
-                else {
-                    toastr.error(error);
-                }
+                Exceptions(xhr, status, error);
             }
         });
        
@@ -654,22 +552,7 @@ HoiNongDan.UploadFile = function (controller) {
                 }
             },
             error: function (xhr, status, error) {
-                if (xhr.status == 401) {
-                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                    setTimeout(function () {
-                        var url = window.location.href.toString().split(window.location.host)[1];
-                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                    }, 1000);
-                }
-                else if (xhr.status == 404) {
-                    setTimeout(function () {
-                        var url = window.location.href.toString().split(window.location.host)[1];
-                        window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
-                    }, 1000);
-                }
-                else {
-                    toastr.error(error);
-                }
+                Exceptions(xhr, status, error);
             }
         });
     });
@@ -711,7 +594,7 @@ HoiNongDan.Table = function (id_table = "#data-list") {
 /*            scrollY: height,*/
             iDisplayLength: 10,
             order: [],
-            //buttons: ['excel', 'pdf'],
+            buttons: ['excel'],
             //buttons: ['colvis'],
             language: {
                 emptyTable: "Không có dữ liệu",
@@ -759,35 +642,16 @@ HoiNongDan.SearchNhanSu = function () {
         var maNhanSu = $("#txt-MaCanBo").val();
         let $btn = $(this);
         var canBo = $btn.data("canbo");;
-        formData = new FormData();
-        formData.append("maNhanSu", maNhanSu);
-        formData.append("canBo", canBo);
+       
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "/NhanSu/NhanSuThongTin/SearchNhanSu",
-            data: formData,
-            processData: false,
-            contentType: false,
+            data: { maNhanSu: maNhanSu, canBo: canBo },
             success: function (jsonData) {
                 $("#Part_ThongTinNhanSu").html(jsonData);
             },
             error: function (xhr, status, error) {
-                if (xhr.status == 401) {
-                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                    setTimeout(function () {
-                        var url = window.location.href.toString().split(window.location.host)[1];
-                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                    }, 1000);
-                }
-                else if (xhr.status == 404) {
-                    setTimeout(function () {
-                        var url = window.location.href.toString().split(window.location.host)[1];
-                        window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
-                    }, 1000);
-                }
-                else {
-                    toastr.error(error);
-                }
+                Exceptions(xhr, status, error);
             }
         });
     });
@@ -841,22 +705,7 @@ HoiNongDan.DeleteFileDinhKem = function (controller) {
                         }
                     },
                     error: function (xhr, status, error) {
-                        if (xhr.status == 401) {
-                            toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                            setTimeout(function () {
-                                var url = window.location.href.toString().split(window.location.host)[1];
-                                window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                            }, 1000);
-                        }
-                        else if (xhr.status == 404) {
-                            setTimeout(function () {
-                                var url = window.location.href.toString().split(window.location.host)[1];
-                                window.location.href = "/Error/ErrorNotFound?returnUrl=" + url;
-                            }, 1000);
-                        }
-                        else {
-                            toastr.error(error);
-                        }
+                        Exceptions(xhr, status, error);
                     }
                 });
             }

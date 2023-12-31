@@ -119,7 +119,6 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         [HoiNongDanAuthorization]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Edit(List<Guid> lid) {
             return ExecuteContainer(() => {
                 const TransactionScopeOption opt = new TransactionScopeOption();

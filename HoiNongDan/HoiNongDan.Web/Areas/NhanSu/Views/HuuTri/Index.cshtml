@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="d-flex px-2">
-            <a  class="btn btn-success me-2" asp-action="XetNghiHuu" asp-controller="@ConstController.HuuTri" asp-area="@ConstArea.NhanSu" ><i class="fe fe-check me-2"></i>Đến tuổi nghỉ hưu</a>
+            @* <a  class="btn btn-success me-2" asp-action="XetNghiHuu" asp-controller="@ConstController.HuuTri" asp-area="@ConstArea.NhanSu" ><i class="fe fe-check me-2"></i>Đến tuổi nghỉ hưu</a> *@
             @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create",listRoles:listRoles)
         </div>
     </div>

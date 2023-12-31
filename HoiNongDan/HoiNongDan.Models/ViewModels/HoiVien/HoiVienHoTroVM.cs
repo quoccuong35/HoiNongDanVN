@@ -132,6 +132,8 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TenHV")]
         public String TenHV { get; set; }
         public bool? Actived { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HinhThucHoTro")]
+        public Guid? MaHinhThucHoTro { get; set; }
     }
 
     public class VayVonQuaHanSearchVM {

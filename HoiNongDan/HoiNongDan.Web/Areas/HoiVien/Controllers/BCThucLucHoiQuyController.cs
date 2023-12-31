@@ -63,18 +63,30 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
             return File(filecontent, ClassExportExcel.ExcelContentType, fileNameWithFormat);
         }
-        public IActionResult ExportEdit(int? Nam, int? IDDonVi)
+        public IActionResult ExportEdit(int? Nam, int? IDDonVi, int? Quy)
         {
             string wwwRootPath = _hostEnvironment.WebRootPath;
             var url = Path.Combine(wwwRootPath, @"upload\filemau\BCThucLucHoiQuy.xlsx");
-            var data = _context.BaoCaoThucLucHois.Include(it => it.DonVi).Where(it => it.Loai == "02").AsEnumerable();
+            var data = _context.BaoCaoThucLucHois.Include(it => it.DonVi).Where(it => it.Loai == "01").AsEnumerable();
+            if (Quy == null)
+            {
+                return Content("Chưa chọn quý không thể xuất");
+            }
             if (Nam != null)
             {
                 data = data.Where(it => it.Nam == Nam.Value);
             }
+            if (Quy != null)
+            {
+                data = data.Where(it => it.Quy == Quy.Value);
+            }
             if (IDDonVi != null)
             {
                 data = data.Where(it => it.IDDonVi == IDDonVi.Value);
+            }
+            if (data == null || data.Count()==0)
+            {
+                return Content("Không có dữ liệu xuất");
             }
             var model = data.Select(it => new BaoCaoThucLucHoiVM
             {

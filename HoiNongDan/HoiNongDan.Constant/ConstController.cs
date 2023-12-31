@@ -38,6 +38,7 @@
         public const string HoiVien = "HoiVien";
         public const string HuuTri = "HuuTri";
         public const string QuanHeGiaDinh = "QHGiaDinh";
+        public const string HVQHGiaDinh = "HVQHGiaDinh";
         public const string TrinhDoChuyenMon = "TrinhDoChuyenMon";
         public const string DaoTao = "DaoTao";
         public const string DaoTaoBoiDuong = "DaoTaoBoiDuong";
