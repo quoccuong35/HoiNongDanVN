@@ -1,0 +1,52 @@
+﻿@using HoiNongDan.Resources
+
+@model PhatTrienDangVM
+@{
+    ViewBag.Title = LanguageResource.Create + LanguageResource.PhatTrienDang;
+    string CurrentController = ConstController.PhatTrienDang;
+    string CurrentArea = ConstArea.HoiVien;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+}
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header  page-header-fix d-flex my-1">
+        <div class="fs-16">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a class="fs-18 fw-600" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.PhatTrienDang" asp-action="Index">@LanguageResource.PhatTrienDang</a>
+                </li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Create</li>
+            </ol>
+        </div>
+        <div>
+            @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
+            @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
+            @HtmlExtensions.BackButton(CurrentArea, CurrentController)
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <form method="post" asp-action="Create" id="frmCreate">
+        @Html.Partial("_PhatTrienDang", Model)
+    </form>
+    <!-- /Row -->
+</div>
+
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+        <partial name="_HoiVienModalPartial" />
+    }
+}
+@section ScriptCustomized {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            HoiNongDan.CreateInitial("@CurrentUrl");
+            
+        });
+        
+    </script>
+}

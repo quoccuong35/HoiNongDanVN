@@ -38,6 +38,11 @@ namespace HoiNongDan.Models
         public Guid IDLoaiQuanHeGiaDinh { get; set; }
 
         public NhanSuThongTinVM NhanSu { get; set; }
+        public HoiVienInfo HoiVien { get; set; }
+        public QHGiaDinhVM() {
+            NhanSu = new NhanSuThongTinVM();
+            HoiVien = new HoiVienInfo();
+        }
     }
     public class QHGiaDinhVMMT: QHGiaDinhVM {
         public QuanHeGiaDinh GetQuanHeGiaDinh(QuanHeGiaDinh item) {
@@ -48,13 +53,13 @@ namespace HoiNongDan.Models
             item.NoiLamVien = this.NoiLamVien;
             item.DiaChi = this.DiaChi;
             item.GhiChu = this.GhiChu;
-            if (this.NhanSu.CanBo)
+            if (this.NhanSu != null && this.NhanSu.IdCanbo != null)
             {
                 item.IDCanBo = this.NhanSu.IdCanbo;
             }
             else
             {
-                item.IDHoiVien = this.NhanSu.IdCanbo;
+                item.IDHoiVien = this.HoiVien.IdCanbo;
             }
             return item;
         }

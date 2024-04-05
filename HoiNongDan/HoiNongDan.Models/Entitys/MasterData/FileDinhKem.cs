@@ -12,8 +12,8 @@ namespace HoiNongDan.Models
     {
         public Guid Key { get; set; }
         public Guid Id { get; set; }
-        public Guid IdCanBo { get; set; }
-        public CanBo CanBo { get; set; }
+        public Guid? IdCanBo { get; set; }
+        public CanBo? CanBo { get; set; }
         public string IDLoaiDinhKem { get; set; }
         [MaxLength(200)]
         public string FileName { get; set; }

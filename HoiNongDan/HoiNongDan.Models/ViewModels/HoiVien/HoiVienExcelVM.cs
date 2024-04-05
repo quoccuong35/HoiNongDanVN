@@ -207,12 +207,7 @@ namespace HoiNongDan.Models
         [Display(Name = "GhiChu")]
         public string? GhiChu { get; set; }
 
-        [Display(Name = "Chi hội")]
-        public String TenChiHoi { get; set; }
-
-        [Display(Name = "Tổ hội")]
-        public String TenToHoi { get; set; }
-
+       
         [Display(Name = "Chi Hội Dân Cư CHT")]
         public string? ChiHoiDanCu_CHT { get; set; }
 
@@ -224,7 +219,13 @@ namespace HoiNongDan.Models
 
         [Display(Name = "Chi hội nghề nghiệp CHP")]
         public string? ChiHoiNgheNghiep_CHP { get; set; }
-       
+
+        [Display(Name = "Chi hội")]
+        public String TenChiHoi { get; set; }
+
+        [Display(Name = "Tổ hội")]
+        public String TenToHoi { get; set; }
+
 
     }
     public class HoiVienImportExcel : HoiVienExcelVM

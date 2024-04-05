@@ -1,0 +1,63 @@
+﻿@model HoiVienCapTheVM
+<style>
+    .custom-control{
+        display:inline-flex;
+    }
+</style>
+<div class="card">
+    <div class="card-body">
+        <div class="panel panel-primary">
+            <div class="row">
+                <input asp-for="ID" hidden />
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label asp-for="LoaiCap"></label><span class="text-red">*</span>
+                        <div class="form-group">
+                            <label class="custom-control custom-radio mb-0 mt-1">
+                                <input type="radio" class="custom-control-input" asp-for="LoaiCap" value="01">
+                                <span class="custom-control-label">Cấp mới</span>
+                            </label>
+                            <label class="custom-control custom-radio mb-0 mt-1">
+                                <input type="radio" class="custom-control-input" asp-for="LoaiCap" value="02">
+                                <span class="custom-control-label">Cấp lại</span>
+                            </label>
+                        </div>
+                        <span asp-validation-for="LoaiCap" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label asp-for="Nam"></label><span class="text-red">*</span>
+                        <input asp-for="Nam" class="form-control">
+                        <span asp-validation-for="Nam" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label asp-for="Quy"></label><span class="text-red">*</span>
+                        <input asp-for="Quy" class="form-control">
+                        <span asp-validation-for="Quy" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label asp-for="MaDot"></label><span class="text-red">*</span>
+                        <select asp-for="MaDot" asp-items="@ViewBag.MaDot" class="form-control select2-show-search form-select">
+                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                        </select>
+                        <span asp-validation-for="MaDot" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-12 mt-1">
+                    <div class="p-1" style="border-top:1px solid #e9edf4;border-radius:5px;">
+                        <a href="javascript:void(0)" class="btn btn-sm btn-default btn-hoivien-modal"> <img src="~/Images/users-add.png" /> Thêm</a>
+                        @* <a href="javascript:void(0)" class="btn btn-sm btn-default">Xóa</a> *@
+                    </div>
+                    <div id="divDSHoiVien">
+                        @Html.Partial("_DSHoiVien", Model.HoiViens)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

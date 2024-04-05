@@ -14,6 +14,7 @@
         <tr>
             <th class="text-center">@LanguageResource.NumberIndex</th>
             <th>@Html.DisplayNameFor(p => p.Ten)</th>
+            <th>@Html.DisplayNameFor(p => p.Loai)</th>
             <th>@Html.DisplayNameFor(p => p.Actived)</th>
             <th>@Html.DisplayNameFor(p => p.OrderIndex)</th>
             <th>@Html.DisplayNameFor(p => p.Description)</th>
@@ -23,13 +24,17 @@
     <tbody>
         @{
             int i = 0;
+            string loai = "";
         }
         @foreach (var item in Model)
         {
             i++;
+            loai = item.Loai.Replace("01", "Câu lạc bộ").Replace("02", "Đội nhóm").Replace("03", "Mô hình")
+            .Replace("04", "Hợp tác xã").Replace("05", "Tổ hợp tác");
             <tr>
                 <td class="text-center">@i</td>
                 <td>@Html.DisplayFor(p => item.Ten)</td>
+                <td>@loai</td>
                 <td>@Html.DisplayFor(p => item.Actived)</td>
                 <td>@Html.DisplayFor(p => item.OrderIndex)</td>
                 <td>@Html.DisplayFor(p => item.Description)</td>

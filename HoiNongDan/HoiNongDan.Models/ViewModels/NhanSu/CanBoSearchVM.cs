@@ -31,9 +31,12 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
         public Guid? MaChucVu { get; set; }
 
+
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]
         public bool? Actived { get; set; }
 
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NhiemKy")]
+        public string NhiemKy { get; set; }
 
 
     }

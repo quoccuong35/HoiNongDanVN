@@ -75,6 +75,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             CheckError(obj);
             return ExecuteContainer(() => {
                 QuaTrinhCongTac add = new QuaTrinhCongTac();
+                add.IsBanChapHanh = false;
                 add = obj.GetQuaTrinhCongTac(add);
                 add.IDQuaTrinhCongTac = Guid.NewGuid();
                 add.CreatedTime = DateTime.Now;
@@ -111,9 +112,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             nhanSu.HoVaTen = canBo.HoVaTen;
             nhanSu.MaCanBo = canBo.MaCanBo;
             nhanSu.TenTinhTrang = canBo.TinhTrang.TenTinhTrang;
-            //nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
+
             nhanSu.TenDonVi = canBo.Department.Name;
-            //nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
             nhanSu.Edit = false;
 
             obj.IDQuaTrinhCongTac = item.IDQuaTrinhCongTac;
@@ -123,6 +123,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             obj.NoiLamViec = item.NoiLamViec;
             obj.GhiChu = item.GhiChu;
             obj.NhanSu = nhanSu;
+            obj.IsBanChapHanh = item.IsBanChapHanh;
+            obj.NhiemKy = item.NhiemKy;
             CreateViewBag(item.MaChucVu);
             return View(obj);
         }

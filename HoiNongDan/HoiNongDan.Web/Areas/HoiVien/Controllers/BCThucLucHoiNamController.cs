@@ -209,9 +209,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             {
                                 if (dt.Rows.IndexOf(dr) == startIndex)
                                 {
-                                    if (!string.IsNullOrEmpty(dr.ItemArray[0].ToString()))
+                                    if (!string.IsNullOrEmpty(dr.ItemArray[0]!.ToString()))
                                     {
-                                        var data = CheckTemplate(dr.ItemArray, IDDonVi.Value, Nam.Value);
+                                        var data = CheckTemplate(dr.ItemArray!, IDDonVi.Value, Nam.Value);
                                         string result = ExecuteImportExcel(data);
 
                                         if (result != LanguageResource.ImportSuccess)

@@ -11,6 +11,13 @@ namespace HoiNongDan.Models
 { 
     public class QHGiaDinhSearchVM
     {
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
+        public String? MaQuanHuyen { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
+        public Guid? MaDiaBanHoiVien { get; set; }
+
+
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaCanBo")]
         public string MaCanBo { get; set; }
 

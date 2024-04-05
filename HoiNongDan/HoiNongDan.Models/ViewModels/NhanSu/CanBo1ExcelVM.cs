@@ -160,6 +160,7 @@ namespace HoiNongDan.Models
     public class CanBoHNDTPDelTailVM : CanBo1ExcelVM { 
         public String TenGioiTinh { get; set; }
         public String TenTrinhDoChinhTri { get; set; }
+        public String DonVi { get; set; }
     }
     public class CanBo1ImportExcel 
     {

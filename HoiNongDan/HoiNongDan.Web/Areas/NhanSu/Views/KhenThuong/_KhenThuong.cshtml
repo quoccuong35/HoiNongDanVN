@@ -20,21 +20,28 @@
             <span asp-validation-for="MaHinhThucKhenThuong" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group">
-            <label asp-for="SoQuyetDinh"></label><span class="text-red">*</span>
+            <label asp-for="SoQuyetDinh"></label>
             <input type="text" asp-for="SoQuyetDinh" class="form-control">
             <span asp-validation-for="SoQuyetDinh" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group">
-            <label asp-for="NgayQuyetDinh"></label><span class="text-red">*</span>
-            <input asp-for="NgayQuyetDinh" class="form-control">
+            <label asp-for="NgayQuyetDinh"></label>
+            <input asp-for="NgayQuyetDinh" type ="date" class="form-control">
             <span asp-validation-for="NgayQuyetDinh" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-2">
+        <div class="form-group">
+            <label asp-for="Nam"></label><span class="text-red">*</span>
+            <input asp-for="Nam" class="form-control">
+            <span asp-validation-for="Nam" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
         <div class="form-group">
             <label asp-for="NguoiKy"></label>
             <input type="text" asp-for="NguoiKy" class="form-control">
@@ -42,11 +49,11 @@
         </div>
     </div>
     <div class="col-md-6">
-        <label asp-for="LyDo"></label>
-        <input type="text" asp-for="NguoiKy" class="form-control">
-        <span asp-validation-for="LyDo" class="text-danger"></span>
+        <label asp-for="NoiDung"></label>
+        <input type="text" asp-for="NoiDung" class="form-control">
+        <span asp-validation-for="NoiDung" class="text-danger"></span>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-6">
         <label asp-for="GhiChu"></label>
         <textarea asp-for="GhiChu" rows="3" class="form-control"></textarea>
         <span asp-validation-for="GhiChu" class="text-danger"></span>

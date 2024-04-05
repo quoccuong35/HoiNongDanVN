@@ -20,17 +20,23 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HoiNongDanAuthorization]
         public IActionResult Index()
         {
-            CreateViewBag();
+            CreateViewBagSearch();
             return View();
         }
         [HoiNongDanAuthorization]
         public IActionResult _Search(QHGiaDinhSearchVM search) {
             return ExecuteSearch(() => { 
-                var model = _context.QuanHeGiaDinhs.Where(it=>it.IDCanBo == null).AsQueryable();
+
+                var model = (from qh in _context.QuanHeGiaDinhs
+                             join hv in _context.CanBos on qh.IDHoiVien equals hv.IDCanBo
+                             join pv in _context.PhamVis on hv.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
+                             where hv.IsHoiVien == true
+                             && pv.AccountId == AccountId()
+                             select qh).Include(it => it.HoiVien).Include(it => it.LoaiQuanhe).Include(it => it.LoaiQuanhe).AsQueryable();
                 if (search.IDLoaiQuanHeGiaDinh != null) {
                     model = model.Where(it => it.IDLoaiQuanHeGiaDinh == search.IDLoaiQuanHeGiaDinh);
                 }
-                model = model.Include(it => it.HoiVien).Include(it => it.LoaiQuanhe).Include(it=>it.LoaiQuanhe);
+
                 if (!String.IsNullOrEmpty(search.MaCanBo) && !String.IsNullOrWhiteSpace(search.MaCanBo)) {
                     model = model.Where(it => it.HoiVien.MaCanBo == search.MaCanBo);
                 }
@@ -60,9 +66,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HttpGet]
         public IActionResult Create() {
             QHGiaDinhVM model = new QHGiaDinhVM();
-            NhanSuThongTinVM NhanSu = new NhanSuThongTinVM();
-            NhanSu.CanBo = false;
-            model.NhanSu = NhanSu;
+            HoiVienInfo NhanSu = new HoiVienInfo();
+
+            model.HoiVien = NhanSu;
             CreateViewBag();
             return View(model);
         }
@@ -71,7 +77,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(QHGiaDinhVMMT obj)
         {
-            if (obj.NhanSu.IdCanbo == null)
+            if (obj.HoiVien.IdCanbo == null)
             {
                 ModelState.AddModelError("MaCanBo", "Chưa chọn cán bộ");
             }
@@ -112,21 +118,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             edit.DiaChi = item.DiaChi;
             edit.GhiChu = item.GhiChu;
 
-
-            var canBo = _context.CanBos.Include(it => it.CoSo).Include(it => it.DiaBanHoatDong)
-                        .Include(it => it.PhanHe).Include(it => it.TinhTrang).Where(it => it.IDCanBo == item.IDHoiVien && it.IsHoiVien == true).SingleOrDefault();
-            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
-            nhanSu = nhanSu.GeThongTin(canBo);
-            nhanSu.CanBo = false;
-            nhanSu.IdCanbo = canBo.IDCanBo;
-            nhanSu.HoVaTen = canBo.HoVaTen;
-            nhanSu.MaCanBo = canBo.MaCanBo!;
-            //nhanSu.TenTinhTrang = canBo.TinhTrang!.TenTinhTrang;
-            //nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
-            nhanSu.TenDonVi = canBo.DiaBanHoatDong!.TenDiaBanHoatDong;
-            //nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
-            nhanSu.Edit = false;
-            edit.NhanSu = nhanSu;
+            edit.HoiVien = Function.GetThongTinHoiVien(maHoiVien:item.IDHoiVien!.Value,_context);
             CreateViewBag(item.IDLoaiQuanHeGiaDinh);
             return View(edit);
         }
@@ -200,8 +192,36 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #endregion Delete
         #region Helper
         private void CreateViewBag(Guid? IDLoaiQuanHeGiaDinh = null) {
-            var MenuList = _context.LoaiQuanHeGiaDinhs.Where(it => it.Actived == true).Select(it => new { IDLoaiQuanHeGiaDinh = it.IDLoaiQuanHeGiaDinh, TenLoaiQuanHeGiaDinh = it.TenLoaiQuanHeGiaDinh }).ToList();
-            ViewBag.IDLoaiQuanHeGiaDinh = new SelectList(MenuList, "IDLoaiQuanHeGiaDinh", "TenLoaiQuanHeGiaDinh", IDLoaiQuanHeGiaDinh);
+            FnViewBag fnViewBag = new FnViewBag(_context);
+            ViewBag.IDLoaiQuanHeGiaDinh = fnViewBag.LoaiQuanHeGiaDinh(value:IDLoaiQuanHeGiaDinh);
+        }
+        private void CreateViewBagSearch()
+        {
+            FnViewBag fnViewBag = new FnViewBag(_context);
+            ViewBag.IDLoaiQuanHeGiaDinh = fnViewBag.LoaiQuanHeGiaDinh();
+
+
+            ViewBag.MaDiaBanHoiVien = fnViewBag.DiaBanHoiVien(acID: AccountId());
+
+            ViewBag.MaQuanHuyen = fnViewBag.QuanHuyen(idAc: AccountId());
+        }
+        [NonAction]
+        private HoiVienInfo GetThongTinNhanSu(Guid maHoiVien)
+        {
+            HoiVienInfo HoiVien = new HoiVienInfo();
+            var data = _context.CanBos.FirstOrDefault(it => it.IDCanBo == maHoiVien && GetPhamVi().Contains(it.MaDiaBanHoatDong!.Value) && it.IsHoiVien == true);
+            var diaBan = _context.DiaBanHoatDongs.SingleOrDefault(it => it.Id == data.MaDiaBanHoatDong);
+            var quanThanhPho = _context.QuanHuyens.SingleOrDefault(it => it.MaQuanHuyen == diaBan!.MaQuanHuyen);
+            HoiVien.IdCanbo = data!.IDCanBo;
+            HoiVien.HoVaTen = data.HoVaTen;
+            HoiVien.MaCanBo = data.MaCanBo!;
+            HoiVien.DiaBan = diaBan!.TenDiaBanHoatDong;
+            HoiVien.NgaySinh = data!.NgaySinh;
+            HoiVien.HoKhauThuongTru = data.HoKhauThuongTru;
+            HoiVien.SoCCCD = data.SoCCCD;
+            HoiVien.QuanHuyen = quanThanhPho!.TenQuanHuyen;
+            HoiVien.Edit = false;
+            return HoiVien;
         }
         #endregion Helper
     }

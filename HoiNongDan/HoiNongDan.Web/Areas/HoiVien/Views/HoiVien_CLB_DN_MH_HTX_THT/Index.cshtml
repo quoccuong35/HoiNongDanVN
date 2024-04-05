@@ -20,7 +20,8 @@
             </div>
         </div>
         <div class="d-flex px-2">
-            @HtmlExtensions.ExportButton1(CurrentArea,CurrentController,listRoles:listRoles)
+            @HtmlExtensions.ExportButton(CurrentArea, CurrentController, listRoles: listRoles)
+            @HtmlExtensions.ImportButton(CurrentArea, CurrentController, listRoles: listRoles)
         </div>
     </div>
     <div class="row">
@@ -31,16 +32,12 @@
                     <form method="get" id="frmSearch" ,asp-action="_Search">
                         <div class="row my-2">
                             <div class="col-md-3">
-                                <label asp-for="MaDiaBan"></label>
-                                <select asp-for="MaDiaBan" asp-items="@ViewBag.MaDiaBan" class="form-control select2-show-search form-select">
-                                    <option selected>@LanguageResource.Dropdownlist_All-</option>
-                                </select>
+                                <label asp-for="MaQuanHuyen"></label>
+                                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-3">
-                                <label asp-for="Id_CLB_DN_MH_HTX_THT"></label>
-                                <select asp-for="Id_CLB_DN_MH_HTX_THT" asp-items="@ViewBag.Id_CLB_DN_MH_HTX_THT" class="form-control select2-show-search form-select">
-                                    <option selected>@LanguageResource.Dropdownlist_All-</option>
-                                </select>
+                                <label asp-for="MaDiaBanHoiVien"></label><span class="text-red">*</span>
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-2">
                                 <label asp-for="MaHoiVien"></label>

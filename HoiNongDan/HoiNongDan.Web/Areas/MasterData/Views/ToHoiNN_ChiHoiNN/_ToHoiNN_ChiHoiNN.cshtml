@@ -1,4 +1,9 @@
 ﻿@model ToHoiNganhNghe_ChiHoiNganhNgheVM
+<style>
+    .custom-control {
+        display: inline-flex;
+    }
+</style>
 <div class="row">
     @Html.AntiForgeryToken()
     <input asp-for="Ma_ToHoiNganhNghe_ChiHoiNganhNghe" hidden />
@@ -7,6 +12,29 @@
         <input asp-for="Ten" class="form-control" />
         <span asp-validation-for="Ten" class="text-danger"></span>
     </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label asp-for="Loai"></label><span class="text-red">*</span>
+            <div class="form-group">
+                <label class="custom-control custom-radio mb-0 mt-1">
+                    <input type="radio" class="custom-control-input" asp-for="Loai" value="01">
+                    <span class="custom-control-label">Chi hội</span>
+                </label>
+                <label class="custom-control custom-radio mb-0 mt-1">
+                    <input type="radio" class="custom-control-input" asp-for="Loai" value="02">
+                    <span class="custom-control-label">Tổ hội</span>
+                </label>
+            </div>
+            <span asp-validation-for="Loai" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <label asp-for="NgayThanhLap"></label>
+        <input asp-for="NgayThanhLap" class="form-control" />
+        <span asp-validation-for="NgayThanhLap" class="text-danger"></span>
+    </div>
+
+   
     <div class="col-md-2">
         <label asp-for="OrderIndex"></label>
         <input asp-for="OrderIndex" class="form-control" />
@@ -21,12 +49,30 @@
             </fieldset>
         </div>
     }
-</div>
-<div class="row mb-2">
-    <div class="col-md-12">
-        <label asp-for="Description"></label>
-        <textarea rows="3" asp-for="Description" class="form-control"> </textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
+    
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <label asp-for="Description"></label>
+            <textarea rows="3" asp-for="Description" class="form-control"> </textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
 
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>@LanguageResource.Upload</label>
+            <input class="form-control" type="file" name="fileInbox">
+        </div>
+    </div>
+    @if (@Model.FileDinhKem != null && !String.IsNullOrEmpty(@Model.FileDinhKem!.Url) && !String.IsNullOrWhiteSpace(@Model.FileDinhKem!.Url))
+    {
+        <div class="col-md-12">
+            <div class="btn-group file-attach m-2" role="group" aria-label="Basic example" id="@Model.FileDinhKem.Key">
+                <a class="btn btn-sm btn-primary text-white" asp-area="@Model.FileDinhKem!.Url" asp-controller="" asp-action=""><i class="mdi mdi-file-image mx-2"></i>@Model.FileDinhKem!.FileName</a>
+                <a class="btn btn-close btn-sm btn-primary text-white btn-deletefile" data-id="@Model.FileDinhKem.Key" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+            </div>
+        </div>
+    }
 </div>

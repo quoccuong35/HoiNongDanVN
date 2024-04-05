@@ -46,15 +46,32 @@
     </form>
     <!-- /Row -->
 </div>
-
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />
     }
+    <script src="~/assets/plugins/fileuploads/js/fileupload.js"></script>
+    <script src="~/assets/plugins/fileuploads/js/file-upload.js"></script>
+    <script src="~/assets/plugins/fancyuploder/jquery.ui.widget.js"></script>
+    <script src="~/assets/plugins/fancyuploder/jquery.fileupload.js"></script>
+    <script src="~/assets/plugins/fancyuploder/jquery.iframe-transport.js"></script>
+    <script src="~/assets/plugins/fancyuploder/jquery.fancy-fileupload.js"></script>
+    <script src="~/assets/plugins/fancyuploder/fancy-uploader.js"></script>
+    <script src="~/js/canbo.js"></script>
     }
     @section ScriptCustomized{
-    <script src="~/js/canbo.js"></script>
+   
     <script type="text/javascript">
+        (function ($) {
+            "use strict";
+            //fancyfileuplod
+            $('#filesDinhKem').FancyFileUpload({
+                params: {
+                    action: 'fileuploader'
+                },
+                maxfilesize: 1000000
+            });
+        })(jQuery);
         $(document).ready(function () {
             HoiNongDan.CreateInitial("@CurrentUrl");
         });

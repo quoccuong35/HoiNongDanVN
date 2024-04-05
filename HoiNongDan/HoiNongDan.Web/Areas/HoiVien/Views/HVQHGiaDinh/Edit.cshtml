@@ -55,8 +55,8 @@
                     <form method="post" asp-action="Edit" id="frmEdit">
                         <input asp-for="IDQuanheGiaDinh" hidden/>
                         @Html.AntiForgeryToken()
-                        <div class="row" id="Part_ThongTinNhanSu">
-                            @Html.Partial("~/Areas/NhanSu/Views/NhanSuThongTin/_NhanSuThongTin.cshtml", Model.NhanSu)
+                        <div class="row" id="part-hoivien">
+                            @Html.Partial("~/Areas/HoiVien/Views/HVInfo/_HVThongTin.cshtml", Model.HoiVien)
                         </div>
                         <hr />
                         <div class="row">

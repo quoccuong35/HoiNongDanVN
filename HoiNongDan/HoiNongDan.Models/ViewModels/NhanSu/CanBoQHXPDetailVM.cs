@@ -11,5 +11,9 @@ namespace HoiNongDan.Models
     {
         [Display(Name ="Cấp")]
         public String? Cap { get; set; }
+
+
+        [Display(Name = "Đơn vị")]
+        public String? DonVi { get; set; }
     }
 }

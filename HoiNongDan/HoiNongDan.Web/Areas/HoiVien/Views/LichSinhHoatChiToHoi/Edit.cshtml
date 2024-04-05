@@ -1,0 +1,81 @@
+﻿@using HoiNongDan.Models
+@using HoiNongDan.Resources
+@model LichSinhHoatChiToHoiVM
+@{
+    ViewBag.Title = LanguageResource.Create + LanguageResource.LichSinhHoatChiToHoi;
+    string CurrentController = ConstController.LichSinhHoatChiToHoi;
+    string CurrentArea = ConstArea.HoiVien;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+}
+<style>
+    #avtImg {
+        vertical-align: middle;
+        width: 140px;
+        height: 140px;
+        border-radius: 10px;
+    }
+
+    .border-top {
+        border-top: 4px dotted blue;
+    }
+</style>
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header d-flex page-header-fix my-1">
+        <div class="fs-20">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a class="fs-18 fw-600" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.LichSinhHoatChiToHoi" asp-action="Index">@LanguageResource.LichSinhHoatChiToHoi</a>
+                </li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">@LanguageResource.Edit</li>
+            </ol>
+        </div>
+        <div class="header-sticky">
+            @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
+            @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
+            @HtmlExtensions.BackButton(CurrentArea, CurrentController)
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <form method="post" asp-action="Edit" id="frmEdit">
+        @Html.Partial("_LichSinhHoatChiToHoi", Model)
+    </form>
+    <!-- /Row -->
+</div>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script src="~/assets/plugins/fileuploads/js/fileupload.js"></script>
+    <script src="~/assets/plugins/fileuploads/js/file-upload.js"></script>
+    <script src="~/assets/plugins/fancyuploder/jquery.ui.widget.js"></script>
+    <script src="~/assets/plugins/fancyuploder/jquery.fileupload.js"></script>
+    <script src="~/assets/plugins/fancyuploder/jquery.iframe-transport.js"></script>
+    <script src="~/assets/plugins/fancyuploder/jquery.fancy-fileupload.js"></script>
+    <script src="~/assets/plugins/fancyuploder/fancy-uploader.js"></script>
+    <!-- INTERNAL WYSIWYG Editor JS -->
+    <script src="~/assets/plugins/wysiwyag/jquery.richtext.js"></script>
+    <script src="~/assets/plugins/wysiwyag/wysiwyag.js"></script>
+}
+@section ScriptCustomized {
+
+    <script type="text/javascript">
+        (function ($) {
+            "use strict";
+            //fancyfileuplod
+            $('#filesDinhKem').FancyFileUpload({
+                params: {
+                    action: 'fileuploader'
+                },
+                maxfilesize: 1000000
+            });
+        })(jQuery);
+        $(document).ready(function () {
+            HoiNongDan.EditInitial("@CurrentUrl");
+        });
+    </script>
+}

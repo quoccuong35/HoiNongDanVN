@@ -42,6 +42,10 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
         public Guid? MaChucVu { get; set; }
 
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DonVi")]
+        public String? DonVi { get; set; }
+
+
         [MaxLength(50)]
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DanToc")]
@@ -172,6 +176,7 @@ namespace HoiNongDan.Models
             canBo.GhiChu = this.GhiChu;
             canBo.IsCanBo = true;
             canBo.Level = this.Level;
+            canBo.DonVi = this.DonVi;
 
             return canBo;
         }
@@ -208,6 +213,7 @@ namespace HoiNongDan.Models
             canBo.DanhGiaDangVien = obj.DanhGiaDangVien;
             canBo.Level = obj.Level;
             canBo.GhiChu = obj.GhiChu;
+            canBo.DonVi = obj.DonVi;
 
             return canBo;
         }

@@ -1,0 +1,69 @@
+﻿@using HoiNongDan.Resources
+@model HoiVienInfo
+<input name="HoiVien.IdCanbo" hidden asp-for="IdCanbo" id="HoiVien-IdCanbo" />
+<input name="HoiVien.MaCanBo" hidden asp-for="MaCanBo" />
+<input name="HoiVien.HoVaTen" hidden asp-for="HoVaTen" />
+@* <input name="NhanSu.TenCoSo" hidden asp-for="TenCoSo"/> *@
+<input name="HoiVien.SoCCCD" hidden asp-for="SoCCCD" />
+<input name="HoiVien.DiaBan" hidden asp-for="DiaBan" />
+@* <input name="HoiVien.QuanHuyen" hidden asp-for="QuanHuyen" /> *@
+<input name="HoiVien.HoKhauThuongTru" hidden asp-for="HoKhauThuongTru" />
+<input name="HoiVien.NgaySinh" hidden asp-for="NgaySinh" />
+<div class="col-md-3">
+    <div class="form-group">
+        <label>Mã hội viên</label><span class="text-red">*</span>
+        <div class="input-group">
+            <input type="text" asp-for="MaCanBo" id="txt-mahoivien" class="form-control">
+            @if (Model.Edit)
+            {
+                <button type="button" class="btn btn-primary" id="btn-search-hoivien" style="margin-left:5px">
+                    <i class="bi bi-search"></i>
+                </button>
+                <a href="javascript:void(0)" class="btn btn-sm btn-default btn-hoivien-modal" style="margin-left:5px;background-color:#0e344f"> <img src="/Images/users-add.png"></a>
+            }
+        </div>
+        <span asp-validation-for="MaCanBo" class="text-danger"></span>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="form-group">
+        <label asp-for="HoVaTen"></label>
+        <input type="text" asp-for="HoVaTen" id="txt-HoVaTen" class="form-control" readonly>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="form-group">
+        <label asp-for="NgaySinh"></label>
+        <input type="text" asp-for="NgaySinh" id="txt-NgaySinh" class="form-control" readonly>
+    </div>
+</div>
+<div class="col-md-3">
+    <div class="form-group">
+        <label asp-for="SoCCCD"></label>
+        <input type="text" asp-for="SoCCCD" id="txt-SoCCCD" class="form-control" readonly>
+    </div>
+</div>
+@* <div class="col-md-2">
+    <div class="form-group">
+        <label asp-for="QuanHuyen"></label>
+        <input type="text" asp-for="QuanHuyen" id="txt-QuanHuyen" class="form-control" readonly>
+    </div>
+</div> *@
+<div class="col-md-2">
+    <div class="form-group">
+        <label asp-for="DiaBan"></label>
+        <input type="text" asp-for="DiaBan" id="txt-DiaBan" class="form-control" readonly>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="form-group">
+        <label asp-for="HoKhauThuongTru"></label>
+        <input type="text" asp-for="HoKhauThuongTru" id="txt-HoKhauThuongTru" class="form-control" readonly>
+    </div>
+</div>
+
+<script>
+    if ("@Model.Error" != "") {
+        toastr.error("@Model.Error");
+    }
+</script>

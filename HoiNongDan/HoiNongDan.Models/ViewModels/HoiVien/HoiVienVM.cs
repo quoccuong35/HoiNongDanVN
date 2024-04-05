@@ -172,10 +172,11 @@ namespace HoiNongDan.Models
         public String? SoLuong { get; set; }
 
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayNgungHoatDong")]
+        [Display(Name = "Ngày rời hội")]
+
         public DateTime? NgayNgungHoatDong { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "LyDoNgungHoatDong")]
+        [Display(Name = "Lý do")]
         public String? LyDoNgungHoatDong { get; set; }
 
         public bool? Actived { get; set; }
@@ -221,11 +222,16 @@ namespace HoiNongDan.Models
 
         [Display(Name = "Tham gia tổ hội ngành nghề, chi hội ngành nghề")]
         public List<Guid>? Ma_ToHoiNganhNghe_ChiHoiNganhNghe { get; set; }
+        public List<FileDinhKem>? FileDinhKems { get; set; }
         public HoiVienVM() {
             MaDoanTheChinhTri_HoiDoan = new List<Guid>();
             Id_CLB_DN_MH_HTX_THT = new List<Guid>();
             Ma_ToHoiNganhNghe_ChiHoiNganhNghe = new List<Guid>();
+            FileDinhKems = new List<FileDinhKem>();
         }
+
+        [Display(Name = "Rời hội")]
+        public bool? IsRoiHoi { get; set; }
     }
     public class HoiVienMTVM : HoiVienVM
     {
@@ -330,6 +336,7 @@ namespace HoiNongDan.Models
             obj.IDCanBo = item.IDCanBo;
             obj.HinhAnh = item.HinhAnh;
             obj.Actived = item.Actived;
+            obj.IsRoiHoi = item.isRoiHoi == null?false:item.isRoiHoi;
             obj.LyDoNgungHoatDong = item.LyDoNgungHoatDong;
             obj.NgayNgungHoatDong = item.NgayNgungHoatDong;
             obj.LoaiHoiVien = item.LoaiHoiVien!;
@@ -422,7 +429,7 @@ namespace HoiNongDan.Models
         //public string MaPhanHe { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
-        public Guid? MaDiaBanHoatDong { get; set; }
+        public Guid? MaDiaBanHoiVien { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
         public string? MaQuanHuyen { get; set; }
@@ -433,7 +440,16 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]
         public bool? Actived { get; set; }
 
+        [Display(Name ="Rời hội")]
+        public bool? IsRoiHoi { get; set; }
+
         public bool? DangChoDuyet { get; set; } = false;
+
+
+        [Display(Name = "Rời từ năm")]
+        public int? RoiTuNam { get; set; }
+        [Display(Name = "Rời đến năm")]
+        public int? RoiDenNam { get; set; }
 
 
     }

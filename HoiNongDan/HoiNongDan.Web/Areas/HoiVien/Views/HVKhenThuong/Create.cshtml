@@ -40,8 +40,8 @@
                 </div>
                 <div class="card-body">
                     <form method="post" asp-action="Create" id="frmCreate">
-                        <div class="row" id="Part_ThongTinNhanSu">
-                            @Html.Partial("~/Areas/NhanSu/Views/NhanSuThongTin/_NhanSuThongTin.cshtml", Model.NhanSu)
+                        <div class="row" id="part-hoivien">
+                            @Html.Partial("~/Areas/HoiVien/Views/HVInfo/_HVThongTin.cshtml", Model.HoiVien)
                         </div>
                         <hr />
                         @Html.Partial("~/Areas/NhanSu/Views/KhenThuong/_KhenThuong.cshtml",Model)
@@ -56,6 +56,7 @@
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />
+        <partial name="_HoiVienModalPartial" />
     }
     }
     @section ScriptCustomized{

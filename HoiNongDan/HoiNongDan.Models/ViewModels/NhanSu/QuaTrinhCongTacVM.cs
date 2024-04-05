@@ -25,12 +25,18 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
         public Guid MaChucVu { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NoiLamViec")]
-        public String NoiLamViec { get; set; }
+        public String? NoiLamViec { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GhiChu")]
         public String? GhiChu { get; set; }
+
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NhiemKy")]
+        public String? NhiemKy { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "BanChapHanh")]
+        public bool? IsBanChapHanh { get; set; } = false;
         public NhanSuThongTinVM NhanSu { get; set; }
     }
     public class QuaTrinhCongTacMTVM : QuaTrinhCongTacVM {
@@ -41,6 +47,8 @@ namespace HoiNongDan.Models
             obj.NoiLamViec = this.NoiLamViec;
             obj.GhiChu = this.GhiChu;
             obj.IDCanBo = this.NhanSu.IdCanbo!.Value;
+            obj.IsBanChapHanh = this.IsBanChapHanh;
+            obj.NhiemKy = this.NhiemKy;
             return obj;
         }
     }

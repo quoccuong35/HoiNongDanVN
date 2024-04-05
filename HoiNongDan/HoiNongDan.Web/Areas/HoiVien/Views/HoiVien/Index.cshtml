@@ -49,25 +49,32 @@
                                 @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-3">
-                                <label asp-for="MaDiaBanHoatDong"></label>
-                                @Html.DropDownList("MaDiaBanHoatDong", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                                <label asp-for="MaDiaBanHoiVien"></label>
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                            <div class="col-md-2">
+                          @*   <div class="col-md-2">
                                 <label>Tình trạng hội viên</label>
                                 @Html.DropDownList("DangChoDuyet", new List<SelectListItem>(){
                                 new SelectListItem(){Text = "Đã duyệt", Value = "true", Selected = true},
                                 new SelectListItem(){Text = "Đang chờ duyệt", Value = "false"}
                                 }, new { @class = "form-control" })
-                            </div>
+                            </div> *@
                             <div class="col-md-2">
-                                <label asp-for="Actived"></label>
-                                @Html.DropDownList("Actived", new List<SelectListItem>(){
+                                <label asp-for="IsRoiHoi"></label>
+                                @Html.DropDownList("IsRoiHoi", new List<SelectListItem>(){
                                 new SelectListItem(){Text = LanguageResource.Dropdownlist_All, Value = ""},
-                                new SelectListItem(){Text = LanguageResource.Actived_True, Value = "true", Selected = true},
-                                new SelectListItem(){Text = LanguageResource.Actived_False, Value = "false"}
+                                new SelectListItem(){Text = LanguageResource.RoiHoi_False, Value = "false", Selected = false},
+                                new SelectListItem(){Text = LanguageResource.RoiHoi_True, Value = "true"}
                                 }, new { @class = "form-control" })
                             </div>
-
+                            <div class="col-md-2">
+                                <label asp-for="RoiTuNam"></label>
+                                <input class="form-control" type="number" step="1" asp-for="RoiTuNam" />
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="RoiDenNam"></label>
+                                <input class="form-control" type="number" step="1" asp-for="RoiDenNam" />
+                            </div>
                         </div>
                         <div class="row d-flex align-items-center">
                             <div class="col-2">
@@ -171,7 +178,7 @@
     <!-- /Row -->
 </div>
 
-
 @section ScriptCustomized {
-    <script src="~/js/hoivien.js"></script>
+    <script src="~/js/diaban_hv_quanhuyen.js"></script>
+    <script src="~/js/hoivien.js?v'@DateTime.Now.ToString("HH_mm")'"></script>
 }

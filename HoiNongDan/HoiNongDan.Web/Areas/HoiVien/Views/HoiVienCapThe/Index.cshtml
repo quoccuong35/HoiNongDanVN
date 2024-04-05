@@ -1,0 +1,136 @@
+﻿@model HoiVienCapTheSearchVM
+@{
+    ViewBag.Title = LanguageResource.List + LanguageResource.HoiVienCapThe.ToLower();
+    string CurrentController = ConstController.HoiVienCapThe;
+    string CurrentArea = ConstArea.HoiVien;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User != null ? User.FindFirst("Roles").Value : "";
+}
+<style>
+    .custom-control {
+        display: inline-flex;
+    }
+</style>
+<div class="main-container container-fluid">
+    <!-- PAGE-HEADER -->
+    <div class="page-header my-2">
+        <div>
+            <span class="header-title">@LanguageResource.List @LanguageResource.HoiVienCapThe.ToLower()</span>
+            <div class="rectangle">
+                <span> </span>
+                <span> </span>
+                <span> </span>
+            </div>
+        </div>
+        <div class="d-flex px-2">
+            @HtmlExtensions.CreateButton(CurrentArea, CurrentController, action: "Create", listRoles: listRoles)
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="splitter rounded-3">
+                <div class="splitter-head">Tìm kiếm nâng cao</div>
+                <div class="splitter-body">
+                    <form method="get" id="frmSearch" asp-action="_Search">
+                        <div class="row my-2">
+                            <div class="col-md-2">
+                                <label asp-for="MaQuanHuyen"></label>
+                                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="MaDiaBanHoiVien"></label>
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="HoVaTen"></label>
+                                <input type="text" asp-for="HoVaTen" class="form-control">
+                            </div>
+                            <div class="col-md-1">
+                                <label asp-for="Nam"></label>
+                                <input type="number" asp-for="Nam" step="1" class="form-control">
+                            </div>
+                            <div class="col-md-1">
+                                <label asp-for="Quy"></label>
+                                <input type="number" asp-for="Quy" step="1" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="MaDot"></label>
+                                @Html.DropDownList("MaDot", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                           
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label asp-for="LoaiCap"></label>
+                                    <div class="form-group">
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" asp-for="LoaiCap" value="">
+                                            <span class="custom-control-label">Tất ca</span>
+                                        </label>
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" asp-for="LoaiCap" value="01">
+                                            <span class="custom-control-label">Cấp mới</span>
+                                        </label>
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" asp-for="LoaiCap" value="02">
+                                            <span class="custom-control-label">Cấp lại</span>
+                                        </label>
+                                    </div>
+                                    <span asp-validation-for="LoaiCap" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label asp-for="TrangThai"></label>
+                                    <div class="form-group">
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" asp-for="TrangThai" value="">
+                                            <span class="custom-control-label">Tất ca</span>
+                                        </label>
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" asp-for="TrangThai" value="01">
+                                            <span class="custom-control-label">Chờ cấp</span>
+                                        </label>
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" asp-for="TrangThai" value="02">
+                                            <span class="custom-control-label">Đã cấp</span>
+                                        </label>
+                                    </div>
+                                    <span asp-validation-for="TrangThai" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-2 d-flex align-items-end">
+                                @HtmlExtensions.SearchButton()
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-status bg-blue br-te-7 br-ts-7"></div>
+                <div class="card-body">
+                    @Html.AntiForgeryToken()
+                    <div class="table-responsive" id="divSearchResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+
+@section ScriptCustomized {
+    <script>
+        //load default and set event
+        $(document).ready(function () {
+            HoiNongDan.SearchInitial("@CurrentUrl");
+            HoiNongDan.ShowMessage(window.location.href);
+        });
+    </script>
+}

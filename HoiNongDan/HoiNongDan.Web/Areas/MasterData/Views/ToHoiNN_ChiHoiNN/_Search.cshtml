@@ -14,9 +14,11 @@
         <tr>
             <th class="text-center">@LanguageResource.NumberIndex</th>
             <th>@Html.DisplayNameFor(p => p.Ten)</th>
-            <th>@Html.DisplayNameFor(p => p.Actived)</th>
+            <th>@Html.DisplayNameFor(p => p.Loai)</th>
+            <th>@Html.DisplayNameFor(p => p.SoHoiVien)</th>
             <th>@Html.DisplayNameFor(p => p.OrderIndex)</th>
             <th>@Html.DisplayNameFor(p => p.Description)</th>
+            @* <th>@Html.DisplayNameFor(p => p.Actived)</th> *@
             <th class="text-center">@LanguageResource.Actions</th>
         </tr>
     </thead>
@@ -30,12 +32,18 @@
             <tr>
                 <td class="text-center">@i</td>
                 <td>@Html.DisplayFor(p => item.Ten)</td>
-                <td>@Html.DisplayFor(p => item.Actived)</td>
+                <td>@Html.DisplayFor(p => item.Loai)</td>
+                <td>@Html.DisplayFor(p => item.SoHoiVien)</td>
                 <td>@Html.DisplayFor(p => item.OrderIndex)</td>
                 <td>@Html.DisplayFor(p => item.Description)</td>
+                 @* <td>@Html.DisplayFor(p => item.Actived)</td> *@
                 <td class="text-center">
                     @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.Ma_ToHoiNganhNghe_ChiHoiNganhNghe!.Value,listRoles:listRoles)
                     @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.Ten, item.Ma_ToHoiNganhNghe_ChiHoiNganhNghe!.Value,listRoles: listRoles)
+                    @if (!String.IsNullOrWhiteSpace(item.Url))
+                    {
+                        <a type="button" class="btn btn-icon  btn-success-light me-2 bradius" href="@Url.Content(item.Url)"><i class="fe fe-download fs-14"></i></a>
+                    }
                 </td>
             </tr>
         }

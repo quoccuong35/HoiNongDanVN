@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CanBoDetailVM>
+﻿@model IEnumerable<CanBoBanChapHanhQuanCacThoiKy>
 <table id="data-list" class="table table-bordered text-nowrap mb-0">
     <thead class="table-primary">
         <tr>
@@ -7,6 +7,8 @@
             <th>@Html.DisplayNameFor(p => p.MaCanBo)</th> *@
             <th class="text-center">@Html.DisplayNameFor(p => p.HoVaTen)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.TenChucVu)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NhiemKy)</th>
+            <th class="text-center">@Html.DisplayNameFor(p => p.NoiLamViec)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.ChoOHienNay)</th>
             <th class="text-center">Chức vụ hiện nay</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.SoDienThoai)</th>
@@ -30,9 +32,11 @@
             cssName = "tr" + css.ToString();
             <tr class="@cssName">
                 <td class="align-middle">@Html.DisplayFor(p => item.HoVaTen)</td>
-                <td class="align-middle">@Html.DisplayFor(p => item.GhiChu)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.TenChucVu)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NhiemKy)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NoiLamViec)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.ChoOHienNay)</td>
-                <td class="align-middle">@Html.DisplayFor(p => item.NoiSinh)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.ChucVuHienNay)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.SoDienThoai)</td>
 
             </tr>

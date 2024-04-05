@@ -69,6 +69,12 @@
         public const string HoiVienChinhTriHoiDoan = "HoiVienChinhTriHoiDoan";
         public const string HoiVien_CLB_DN_MH_HTX_THT = "HoiVien_CLB_DN_MH_HTX_THT";
         public const string HoiVien_ToHoiNN_ChiHoiNN = "HoiVien_ToHoiNN_ChiHoiNN";
+        public const string LichSinhHoatChiToHoi = "LichSinhHoatChiToHoi";
+        public const string PhatTrienDang = "PhatTrienDang";
+        public const string HoiVienCapThe = "HoiVienCapThe";
+        public const string BaoCaoGiamHV = "BaoCaoGiamHV";
+        public const string BCHVMoi = "BCHVMoi";
+        public const string DeXuatKhenThuong = "DeXuatKhenThuong";
 
         #endregion Hội viên
     }

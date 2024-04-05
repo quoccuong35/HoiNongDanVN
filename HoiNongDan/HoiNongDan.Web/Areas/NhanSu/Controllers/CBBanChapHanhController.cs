@@ -30,6 +30,10 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 {
                     model = model.Where(it => it.HoVaTen.Contains(search.HoVaTen));
                 }
+                //if (!String.IsNullOrEmpty(search.NhiemKy))
+                //{
+                //    model = model.Where(it => it.HoVaTen.Contains(search.HoVaTen));
+                //}
                 if (!String.IsNullOrEmpty(search.MaTinhTrang))
                 {
                     model = model.Where(it => it.MaTinhTrang == search.MaTinhTrang);

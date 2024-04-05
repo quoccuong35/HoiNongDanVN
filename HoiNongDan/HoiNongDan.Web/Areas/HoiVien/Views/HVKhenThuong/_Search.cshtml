@@ -1,7 +1,7 @@
 ﻿@using HoiNongDan.Constant
 @using HoiNongDan.Resources
 @using Microsoft.AspNetCore.Html
-@model IEnumerable<KhenThuongDetailVM>
+@model IEnumerable<HVKhenThuongDetailVM>
 @{
     string CurrentController = ConstController.HVKhenThuong;
     string CurrentArea = ConstArea.HoiVien;
@@ -19,12 +19,10 @@
             <th class="text-center">@LanguageResource.NumberIndex</th>
             <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
             <th>@Html.DisplayNameFor(p => p.HoVaTen)</th>
+            <th>@Html.DisplayNameFor(p => p.DiaBanHND)</th>
             <th>@Html.DisplayNameFor(p => p.TenDanhHieuKhenThuong)</th>
-            <th>@Html.DisplayNameFor(p => p.TenHinhThucKhenThuong)</th>
-            <th>@Html.DisplayNameFor(p => p.SoQuyetDinh)</th>
-            <th>@Html.DisplayNameFor(p => p.NgayQuyetDinh)</th>
-            <th>@Html.DisplayNameFor(p => p.NguoiKy)</th>
-            <th>@Html.DisplayNameFor(p => p.LyDo)</th>
+            <th>@Html.DisplayNameFor(p => p.Nam)</th>
+            <th>@Html.DisplayNameFor(p => p.NoiDung)</th>
             <th>@Html.DisplayNameFor(p => p.GhiChu)</th>
             <th class="text-center">@LanguageResource.Actions</th>
         </tr>
@@ -48,16 +46,14 @@
                 <td class="text-center">@i</td>
                 <td>@Html.DisplayFor(p => item.MaCanBo)</td>
                 <td>@Html.DisplayFor(p => item.HoVaTen)</td>
+                <td>@Html.DisplayFor(p => item.DiaBanHND)</td>
                 <td>@Html.DisplayFor(p => item.TenDanhHieuKhenThuong)</td>
-                <td>@Html.DisplayFor(p => item.TenHinhThucKhenThuong)</td>
-                <td>@Html.DisplayFor(p => item.SoQuyetDinh)</td>
-                <td>@Html.DisplayFor(p => item.NgayQuyetDinh)</td>
-                <td>@Html.DisplayFor(p => item.NguoiKy)</td>
-                <td>@Html.DisplayFor(p => item.LyDo)</td>
+                <td>@Html.DisplayFor(p => item.Nam)</td>
+                <td>@Html.DisplayFor(p => item.NoiDung)</td>
                 <td>@Html.DisplayFor(p => item.GhiChu)</td>
                 <td class="text-center">
                     @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.IDQuaTrinhKhenThuong!.Value, listRoles: listRoles)
-                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.TenHinhThucKhenThuong, item.IDQuaTrinhKhenThuong!.Value, listRoles: listRoles)
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.TenDanhHieuKhenThuong, item.IDQuaTrinhKhenThuong!.Value, listRoles: listRoles)
                 </td>
             </tr>
         }

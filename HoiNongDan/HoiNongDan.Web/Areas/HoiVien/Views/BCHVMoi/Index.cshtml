@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = LanguageResource.List + LanguageResource.BCHVMoi.ToLower();
+    string CurrentController = ConstController.BCHVMoi;
+    string CurrentArea = ConstArea.HoiVien;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User != null ? User.FindFirst("Roles").Value : "";
+}
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header my-2">
+        <div>
+            <span class="header-title">@LanguageResource.List @LanguageResource.BCHVMoi.ToLower()</span>
+            <div class="rectangle">
+                <span> </span>
+                <span> </span>
+                <span> </span>
+            </div>
+        </div>
+        <div class="d-flex px-2">
+            @HtmlExtensions.ExportButton1(CurrentArea, CurrentController, listRoles: listRoles)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="splitter rounded-3">
+                <div class="splitter-head">Tìm kiếm nâng cao</div>
+                <div class="splitter-body">
+                    <form method="get" id="frmSearch" asp-action="_Search">
+                        <div class="row my-2">
+                            <div class="col-md-3">
+                                <labe>
+                                    Quận/Huyện</label>
+                                    @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
+                                <label>Tên hội nông dân</label>
+                                @Html.DropDownList("MaDiaBanHoatDong", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-2">
+                                <label>Từ ngày</label>
+                                <input type="date" name="TuNgay" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <label>Đến ngày</label>
+                                <input type="date" name="DenNgay" class="form-control">
+                            </div>
+                            <div class="col-2 d-flex align-items-end">
+                                @HtmlExtensions.SearchButton()
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" id="divSearchResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+<!-- CONTAINER CLOSED -->
+@section ScriptCustomized {
+    <script>
+        //load default and set event
+        $(document).ready(function () {
+            HoiNongDan.SearchInitial("@CurrentUrl");
+        });
+        $("select#MaQuanHuyen").change(function () {
+            let maQuanHuyen = $(this).val();
+            //console.log(maQuanHuyen);
+            $("select#MaDiaBanHoatDong").empty();
+            $.getJSON('/HoiVien/BaoCaoGiamHV/loadDiaBanHoatDong?maQuanHuyen=' + maQuanHuyen, function (data) {
+                $("select#MaDiaBanHoatDong").append('<option>' + "--Vui lòng chọn danh mục--" + '</option>');
+                $.each(data, function (i, item) {
+                    /*console.log(item);*/
+                    $("select#MaDiaBanHoatDong").append('<option value=' + item.maDiaBanHoatDong + '>' + item.name + '</option>');
+                });
+            });
+        })
+    </script>
+}

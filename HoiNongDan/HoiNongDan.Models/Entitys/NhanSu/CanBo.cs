@@ -52,6 +52,8 @@ namespace HoiNongDan.Models
         public TrinhDoChuyenMon? TrinhDoChuyenMon { get; set; }
         public Guid? MaChucVu { get; set; }
         public ChucVu? ChucVu { get; set; }
+        [MaxLength(500)]
+        public String? DonVi { get; set; }
 
         [MaxLength(100)]
         public string? SoDienThoai { get; set; }
@@ -147,6 +149,7 @@ namespace HoiNongDan.Models
         public bool? IsCanBo { get; set; } = false;
         public bool? IsHoiVien { get; set; } = false;
         public bool? IsBanChapHanh { get; set; } = false;
+        public bool? isRoiHoi { get; set; } = false;
 
         [MaxLength(500)]
         public string? HoKhauThuongTru { get; set; }
@@ -283,10 +286,12 @@ namespace HoiNongDan.Models
         public ICollection<DoanTheChinhTri_HoiDoan_HoiVien> DoanTheChinhTri_HoiDoan_HoiViens { get; set; }
         public ICollection<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien> CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens { get; set; }
         public ICollection<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien> ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens { get; set; }
+        public ICollection<HoiVienCapThe> HoiVienCapThes { get; set; }
 
         public HuuTri? HuuTri { get; set; }
 
         public bool? DangVien { get; set; }
+        public virtual ICollection<PhatTrienDang_HoiVien> PhatTrienDang_HoiViens { get; set; }
         public CanBo() {
             QuanHeGiaDinhs = new List<QuanHeGiaDinh>();
             HVQuanHeGiaDinhs = new List<QuanHeGiaDinh>();
@@ -303,6 +308,8 @@ namespace HoiNongDan.Models
             DoanTheChinhTri_HoiDoan_HoiViens = new List<DoanTheChinhTri_HoiDoan_HoiVien>();
             CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens = new List<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien>();
             ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens = new List<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien>();
+            PhatTrienDang_HoiViens = new List<PhatTrienDang_HoiVien>();
+            HoiVienCapThes = new  List<HoiVienCapThe>();
         }
 
     }

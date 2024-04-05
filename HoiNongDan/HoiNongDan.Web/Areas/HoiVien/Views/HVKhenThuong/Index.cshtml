@@ -32,17 +32,34 @@
                 <div class="splitter-body">
                     <form method="get" id="frmSearch" asp-action="_Search">
                         <div class="row my-2">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
+                                <label asp-for="MaQuanHuyen"></label>
+                                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="MaDiaBanHoiVien"></label><span class="text-red">*</span>
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
                                 <label asp-for="MaDanhHieuKhenThuong"></label><span class="text-red">*</span>
                                 @Html.DropDownList("MaDanhHieuKhenThuong", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
+                           
                             <div class="col-md-2">
                                 <label >Mã hội viên</label>
                                 <input type="text" asp-for="MaCanBo" class="form-control">
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="HoVaTen"></label>
                                 <input type="text" asp-for="HoVaTen" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="TuNam"></label>
+                                <input type="number" asp-for="TuNam" step="1" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="DenNam"></label>
+                                <input type="number" asp-for="DenNam" step="1" class="form-control">
                             </div>
                             <div class="col-2 d-flex align-items-end">
                                 @HtmlExtensions.SearchButton()
@@ -69,6 +86,7 @@
 </div>
 
 @section ScriptCustomized {
+    <script src="~/js/diaban_hv_quanhuyen.js"></script>
     <script>
         //load default and set event
         $(document).ready(function () {

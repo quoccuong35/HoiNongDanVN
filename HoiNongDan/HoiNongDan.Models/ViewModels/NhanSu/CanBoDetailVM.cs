@@ -48,5 +48,37 @@ namespace HoiNongDan.Models
 
         [Display(Name = "Trình độ học vấn")]
         public string TrinhDoHocvan { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NhiemKy")]
+        public string NhiemKy { get; set; }
+    }
+
+    public class CanBoBanChapHanhQuanCacThoiKy 
+    {
+        public Guid ID { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaCanBo")]
+        public string? MaCanBo { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
+        public string HoVaTen { get; set; }
+
+        [Display(ResourceType = typeof(HoiNongDan.Resources.LanguageResource), Name = "ChucVu")]
+        public string TenChucVu { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NhiemKy")]
+        public string NhiemKy { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NoiLamViec")]
+        public string NoiLamViec { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChoOHienNay")]
+        public string ChoOHienNay { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVuHienNay")]
+        public string ChucVuHienNay { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoDienThoai")]
+        public string SoDienThoai { get; set; }
     }
 }

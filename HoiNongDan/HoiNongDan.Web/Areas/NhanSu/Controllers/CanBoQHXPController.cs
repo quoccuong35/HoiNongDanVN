@@ -34,7 +34,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             return View();
         }
         [HoiNongDanAuthorization]
-        public IActionResult _Search(Guid? MaDonVi,string? Loai, String? HoVaTen)
+        public IActionResult _Search(Guid? MaDonVi,string? Loai, String? HoVaTen, Guid? MaChucVu)
         {
             return ExecuteSearch(() => {
 
@@ -49,6 +49,10 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 .Where(it => (it.Level == "20" || it.Level == "30") && it.IsCanBo == true).AsQueryable();
                 if (MaDonVi !=null) {
                     moel = moel.Where(it => it.IdDepartment == MaDonVi);
+                }
+                if (MaChucVu != null)
+                {
+                    moel = moel.Where(it => it.MaChucVu == MaChucVu);
                 }
                 if (Loai != null && Loai !="")
                 {
@@ -89,7 +93,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                     DanhGiaCBCC = it.DanhGiaCBCC,
                     DanhGiaDangVien = it.DanhGiaDangVien,
                     Cap = it.Level=="20"? "HUYỆN QUẬN": "XÃ PHƯỜNG, THỊ TRẤN",
-                    GhiChu   = it.GhiChu
+                    GhiChu   = it.GhiChu,
+                    DonVi = it.DonVi
                 }).ToList();
                 return PartialView(data);
             });
@@ -1023,6 +1028,12 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                         where nv.Level =="20" || nv.Level =="30"
                         select new { IdDepartment  = dv.Id,Name = dv.Name}).Distinct().ToList();
             ViewBag.MaDonVi = new SelectList(DonVi, "IdDepartment", "Name", DonVi);
+            var ChucVu = (from dv in _context.ChucVus
+                         join
+                      nv in _context.CanBos on dv.MaChucVu equals nv.MaChucVu
+                         where nv.Level == "20" || nv.Level == "30"
+                         select new { MaChucVu = dv.MaChucVu, Name = dv.TenChucVu }).Distinct().ToList();
+            ViewBag.MaChucVu = new SelectList(ChucVu, "MaChucVu", "Name");
 
         }
         private void UpdateViewBag(Guid? idDepartment = null, Guid? maChucVu = null, String? maDanToc = null, String? maTonGiao = null, String? maTrinhDoChuyenMon = null, String? maTrinhDoChinhTri = null,

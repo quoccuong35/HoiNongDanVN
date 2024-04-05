@@ -1,0 +1,35 @@
+﻿@using HoiNongDan.Constant
+@using HoiNongDan.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<HoiVienInfo>
+<table id="list-dshoivien" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th>Chọn</th>
+            <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
+            <th>@Html.DisplayNameFor(p => p.HoVaTen)</th>
+            <th>@Html.DisplayNameFor(p => p.DiaBan)</th>
+            <th>@Html.DisplayNameFor(p => p.NgaySinh)</th>
+            <th>@Html.DisplayNameFor(p => p.SoCCCD)</th>
+            <th>@Html.DisplayNameFor(p => p.HoKhauThuongTru)</th>
+        </tr>
+    </thead>
+    <tbody id="tbodyHoiViens">
+        @{
+            int i = 0;
+        }
+        @foreach (var item in Model)
+        {
+            <tr id="tr_@item.IdCanbo">
+                <td><input asp-for="@item.Chon" name="HoiViens[@i].Chon" /></td>
+                <td> <input hidden asp-for="@item.IdCanbo" name="HoiViens[@i].IdCanbo" /> @item.MaCanBo</td>
+                <td><input hidden asp-for="@item.HoVaTen" name="HoiViens[@i].HoVaTen" />@item.HoVaTen</td>
+                <td>@item.DiaBan</td>
+                <td>@item.NgaySinh</td>
+                <td>@item.SoCCCD</td>
+                <td>@item.HoKhauThuongTru</td>
+            </tr>
+            i++;
+        }
+    </tbody>
+</table>

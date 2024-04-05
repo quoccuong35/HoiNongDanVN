@@ -15,6 +15,10 @@ namespace HoiNongDan.Models
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public String Ten { get; set; }
 
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Loai")]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        public String Loai { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Actived")]
         public bool Actived { get; set; } = true;
 

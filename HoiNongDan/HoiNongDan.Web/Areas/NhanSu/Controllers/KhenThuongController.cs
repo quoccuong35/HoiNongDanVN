@@ -25,7 +25,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         public IActionResult _Search(KhenThuongSearchVN search) {
             return ExecuteSearch(() =>
             {
-                var model = _context.QuaTrinhKhenThuongs.Where(it=>it.IsCanBo == true).AsQueryable();
+                var model = _context.QuaTrinhKhenThuongs.Where(it=>it.IsCanBo == true && it.Loai =="02").AsQueryable();
                 if (!String.IsNullOrEmpty(search.MaDanhHieuKhenThuong) && !String.IsNullOrWhiteSpace(search.MaDanhHieuKhenThuong))
                 {
                     model = model.Where(it => it.MaDanhHieuKhenThuong == search.MaDanhHieuKhenThuong);
@@ -42,13 +42,14 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 var data = model.Select(it => new KhenThuongDetailVM
                 {
                     IDQuaTrinhKhenThuong = it.IDQuaTrinhKhenThuong,
-                    MaCanBo = it.CanBo.MaCanBo,
+                    MaCanBo = it.CanBo!.MaCanBo,
                     HoVaTen = it.CanBo.HoVaTen,
                     SoQuyetDinh = it.SoQuyetDinh,
                     NgayQuyetDinh = it.NgayQuyetDinh,
-                    LyDo = it.LyDo,
+                    NoiDung = it.NoiDung,
                     NguoiKy = it.NguoiKy,
                     GhiChu = it.GhiChu,
+                    Nam = it.Nam,
                     TenDanhHieuKhenThuong = it.DanhHieuKhenThuong.TenDanhHieuKhenThuong,
                     TenHinhThucKhenThuong = it.HinhThucKhenThuong.TenHinhThucKhenThuong,
                 }).ToList();
@@ -79,6 +80,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 add.IDQuaTrinhKhenThuong = Guid.NewGuid();
                 add.CreatedTime = DateTime.Now;
                 add.CreatedAccountId = AccountId();
+                add.Loai = "02";
                 add.IsCanBo = true;
                 _context.Attach(add).State = EntityState.Modified;
                 _context.QuaTrinhKhenThuongs.Add(add);
@@ -113,9 +115,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             nhanSu.HoVaTen = canBo.HoVaTen;
             nhanSu.MaCanBo = canBo.MaCanBo;
             nhanSu.TenTinhTrang = canBo.TinhTrang.TenTinhTrang;
-            //nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
+
             nhanSu.TenDonVi = canBo.Department.Name;
-            //nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
             nhanSu.Edit = false;
             obj.IDQuaTrinhKhenThuong = item.IDQuaTrinhKhenThuong;
             obj.MaHinhThucKhenThuong = item.MaHinhThucKhenThuong;
@@ -123,7 +124,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             obj.SoQuyetDinh = item.SoQuyetDinh;
             obj.NgayQuyetDinh = item.NgayQuyetDinh;
             obj.NguoiKy = item.NguoiKy;
-            obj.LyDo = item.LyDo;
+            obj.NoiDung = item.NoiDung;
+            obj.Nam = item.Nam;
             obj.GhiChu = item.GhiChu;
             obj.NhanSu = nhanSu;
             CreateViewBag(item.MaHinhThucKhenThuong,item.MaDanhHieuKhenThuong);

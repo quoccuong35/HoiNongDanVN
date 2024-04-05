@@ -14,8 +14,8 @@ namespace HoiNongDan.Models
         public Guid? IdCanbo { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaCanBo")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        public string MaCanBo { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        public string? MaCanBo { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         public string? HoVaTen { get; set; }
@@ -35,6 +35,13 @@ namespace HoiNongDan.Models
         public string? Error { get; set; }
         public bool CanBo { get; set; }
         public bool Edit { get; set; } = true;
+        [Display(Name ="Chức vụ")]
+        public string? ChucVu { get; set; }
+        [Display(Name = "Ngày sinh")]
+        public string? NgaySinh { get; set; }
+        [Display(Name = "Chuyên ngành")]
+        public string? ChuyenNganh { get; set; }
+
 
         public NhanSuThongTinVM GeThongTin(CanBo canBo) {
             NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();

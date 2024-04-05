@@ -1,0 +1,37 @@
+﻿@using HoiNongDan.Constant
+@using HoiNongDan.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<HoiVienInfo>
+<table id="list-dshoivien" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th><input type="checkbox" id="checkAll" name="chk-all" /></th>
+            <th class="text-center">@LanguageResource.NumberIndex</th>
+            <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
+            <th>@Html.DisplayNameFor(p => p.HoVaTen)</th>
+            <th>@Html.DisplayNameFor(p => p.DiaBan)</th>
+            <th>@Html.DisplayNameFor(p => p.NgaySinh)</th>
+            <th>@Html.DisplayNameFor(p => p.SoCCCD)</th>
+            <th>@Html.DisplayNameFor(p => p.HoKhauThuongTru)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr>
+                <td><input type="checkbox" name="chk-item[]" value="" id="@item.IdCanbo" /></td>
+                <td class="text-center">@i</td>
+                <td>@item.MaCanBo</td>
+                <td>@item.HoVaTen</td>
+                <td>@item.DiaBan</td>
+                <td>@item.NgaySinh</td>
+                <td>@item.SoCCCD</td>
+                <td>@item.HoKhauThuongTru</td>
+            </tr>
+        }
+    </tbody>
+</table>

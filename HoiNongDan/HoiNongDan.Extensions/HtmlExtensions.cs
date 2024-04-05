@@ -187,7 +187,7 @@ namespace Microsoft.AspNetCore.Html
             if (isHasPermission)
             {
                 TagBuilder aTag = new TagBuilder("a");
-                aTag.Attributes.Add("class", "btn btn-icon  btn-info-light me-2 bradius");
+                aTag.Attributes.Add("class", "btn btn-icon btn-sm  btn-info-light bradius");
                 aTag.Attributes.Add("data-bs-toggle", "tooltip");
                 aTag.Attributes.Add("title", LanguageResource.Btn_Edit);
 
@@ -214,7 +214,7 @@ namespace Microsoft.AspNetCore.Html
             if (isHasPermission)
             {
                 TagBuilder aTag = new TagBuilder("a");
-                aTag.Attributes.Add("class", "btn btn-icon  btn-info-light me-2 bradius");
+                aTag.Attributes.Add("class", "btn btn-icon btn-sm btn-info-light bradius");
                 aTag.Attributes.Add("data-bs-toggle", "tooltip");
                 aTag.Attributes.Add("title", LanguageResource.Btn_Edit);
 
@@ -245,7 +245,7 @@ namespace Microsoft.AspNetCore.Html
             {
                 TagBuilder aTag = new TagBuilder("a");
                 //aTag.Attributes.Add("onclick", "$(this).button('loading')");
-                aTag.Attributes.Add("class", "btn btn-icon btn-danger-light me-2 bradius");
+                aTag.Attributes.Add("class", "btn btn-icon btn-sm btn-danger-light bradius");
                 aTag.Attributes.Add("id", "btn-delete");
                 aTag.Attributes.Add("data-bs-toggle", "tooltip");
                 aTag.Attributes.Add("title", LanguageResource.Btn_Del);
@@ -274,7 +274,7 @@ namespace Microsoft.AspNetCore.Html
             {
                 TagBuilder aTag = new TagBuilder("a");
                 //aTag.Attributes.Add("onclick", "$(this).button('loading')");
-                aTag.Attributes.Add("class", "btn btn-icon btn-danger-light me-2 bradius");
+                aTag.Attributes.Add("class", "btn btn-icon btn-sm btn-danger-light bradius");
                 aTag.Attributes.Add("id", "btn-delete");
                 aTag.Attributes.Add("data-bs-toggle", "tooltip");
                 aTag.Attributes.Add("title", LanguageResource.Btn_Del);
@@ -547,6 +547,7 @@ namespace Microsoft.AspNetCore.Html
             }
             return null;
         }
+       
         public static HtmlString ExportButton1(string areaName, string controllerName, object htmlAttributes = null, String listRoles = "")
         {
             string CurrentUrl = GetCurrentUrl(areaName, controllerName);

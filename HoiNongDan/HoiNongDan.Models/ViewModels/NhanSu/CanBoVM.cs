@@ -57,6 +57,9 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
         public Guid? MaChucVu { get; set; }
 
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DonVi")]
+        public String? DonVi { get; set; }
         [MaxLength(50)]
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
@@ -275,6 +278,7 @@ namespace HoiNongDan.Models
             add.ChoOHienNay = this.ChoOHienNay;
             add.MaPhanHe = this.MaPhanHe;
             add.IsCanBo = true;
+            add.DonVi = this.DonVi;
             return add;
         }
         public static CanBoVMMT EditCanBo(CanBo item)
@@ -329,6 +333,7 @@ namespace HoiNongDan.Models
             edit.ChoOHienNay = item.ChoOHienNay;
             edit.MaPhanHe = item.MaPhanHe;
             edit.HinhAnh = item.HinhAnh;
+            edit.DonVi = item.DonVi;
             edit.IsBanChapHanh = item.IsBanChapHanh==null?false: item.IsBanChapHanh.Value;
             if (item.HinhAnh == null || item.HinhAnh == "")
             {
@@ -386,6 +391,7 @@ namespace HoiNongDan.Models
             item.GhiChu = this.GhiChu;
             item.ChoOHienNay = this.ChoOHienNay;
             item.MaPhanHe = this.MaPhanHe;
+            item.DonVi = this.DonVi;
             return item;
         }
     }

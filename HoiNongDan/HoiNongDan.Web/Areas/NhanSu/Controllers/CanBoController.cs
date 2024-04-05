@@ -169,7 +169,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                     QLNNCVCC = it.DaoTaoBoiDuongs.Where(it=>it.MaHinhThucDaoTao=="09").Count()>0?"X":"",
                     DanhGiaCBCC = it.DanhGiaCBCC!,
                     DanhGiaDangVien = it.DanhGiaDangVien!,
-                    GhiChu = it.GhiChu!
+                    GhiChu = it.GhiChu!,
+                    DonVi = it.DonVi
                 }).ToList();
                 return PartialView(data);
             });
@@ -402,7 +403,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 HoVaTen = it.CanBo.HoVaTen,
                 SoQuyetDinh = it.SoQuyetDinh,
                 NgayQuyetDinh = it.NgayQuyetDinh,
-                LyDo = it.LyDo,
+                NoiDung = it.NoiDung,
                 NguoiKy = it.NguoiKy,
                 GhiChu = it.GhiChu,
                 TenDanhHieuKhenThuong = it.DanhHieuKhenThuong.TenDanhHieuKhenThuong,

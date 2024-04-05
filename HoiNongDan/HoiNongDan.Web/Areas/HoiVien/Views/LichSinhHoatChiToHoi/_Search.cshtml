@@ -1,0 +1,44 @@
+﻿@using HoiNongDan.Constant
+@using HoiNongDan.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<LichSinhHoatChiToHoiDetailVM>
+@{
+    string CurrentController = ConstController.LichSinhHoatChiToHoi;
+    string CurrentArea = ConstArea.HoiVien;
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th class="text-center">@LanguageResource.NumberIndex</th>
+            <th>@Html.DisplayNameFor(p => p.TenNoiDungSinhHoat)</th>
+            <th>@Html.DisplayNameFor(p => p.Ngay)</th>
+            <th>@Html.DisplayNameFor(p => p.TenDiaBanHoi)</th>
+            <th>@Html.DisplayNameFor(p => p.SoLuongNguoiThanGia)</th>
+            <th class="text-center">@LanguageResource.Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+            string ngayTraCuoiCung;
+        }
+        @foreach (var item in Model)
+        {
+            ngayTraCuoiCung = item.Ngay != null ? item.Ngay.Value!.ToString("dd/MM/yyyy HH:mm:ss") : "";
+            i++;
+            <tr>
+                <td class="text-center">@i</td>
+                <td>@item.TenNoiDungSinhHoat</td>
+                <td>@ngayTraCuoiCung</td>
+                <td>@item.TenDiaBanHoi</td>
+                <td>@item.SoLuongNguoiThanGia</td>
+                <td class="text-center">
+                    @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.ID, listRoles: listRoles)
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.TenNoiDungSinhHoat!, item.ID, listRoles: listRoles)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,10 +1,43 @@
 ﻿@model CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTacVM
+<style>
+    .custom-control {
+        display: inline-flex;
+    }
+</style>
 <div class="row">
     <input asp-for="ID" hidden />
     <div class="col-md-3">
         <label asp-for="Ten"></label><span class="text-red">*</span>
         <input asp-for="Ten" class="form-control" />
         <span asp-validation-for="Ten" class="text-danger"></span>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label asp-for="Loai"></label><span class="text-red">*</span>
+            <div class="form-group">
+                <label class="custom-control custom-radio mb-0 mt-1">
+                    <input type="radio" class="custom-control-input" asp-for="Loai" value="01">
+                    <span class="custom-control-label">Câu lạc bộ</span>
+                </label>
+                <label class="custom-control custom-radio mb-0 mt-1">
+                    <input type="radio" class="custom-control-input" asp-for="Loai" value="02">
+                    <span class="custom-control-label">Đội nhóm</span>
+                </label>
+                <label class="custom-control custom-radio mb-0 mt-1">
+                    <input type="radio" class="custom-control-input" asp-for="Loai" value="03">
+                    <span class="custom-control-label">Mô hình</span>
+                </label>
+                <label class="custom-control custom-radio mb-0 mt-1">
+                    <input type="radio" class="custom-control-input" asp-for="Loai" value="04">
+                    <span class="custom-control-label">Hợp tác xã</span>
+                </label>
+                <label class="custom-control custom-radio mb-0 mt-1">
+                    <input type="radio" class="custom-control-input" asp-for="Loai" value="05">
+                    <span class="custom-control-label">Tổ hợp tác</span>
+                </label>
+            </div>
+            <span asp-validation-for="Loai" class="text-danger"></span>
+        </div>
     </div>
     <div class="col-md-2">
         <label asp-for="OrderIndex"></label>

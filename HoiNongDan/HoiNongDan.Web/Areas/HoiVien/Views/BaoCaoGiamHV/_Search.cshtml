@@ -1,0 +1,43 @@
+﻿@using HoiNongDan.Constant
+@using HoiNongDan.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<BaoCaoGiamHVVM>
+@{
+    string CurrentController = ConstController.BaoCaoGiamHV;
+    string CurrentArea = ConstArea.HoiVien;
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">@LanguageResource.NumberIndex</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">  Họ và tên</th>
+            <th colspan="2" class="text-center" style="vertical-align: middle;">Năm sinh</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Địa chỉ</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Năm vào hội</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Lý do giảm</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;" >Chi hội</th>
+        </tr>
+        <tr>
+            <th class="text-center">Nam</th>
+            <th class="text-center">Nữ</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+           
+            <tr>
+                <td class="text-center">@item.STT</td>
+                <td class="text-center">@item.HoVaTen</td>
+                <td class="text-center">@item.Nam</td>
+                <td class="text-center">@item.Nu</td>
+                <td class="text-center">@item.DiaChi</td>
+                <td class="text-center">@item.NamVaoHoi</td>
+                <td>@item.LyDoGiam</td>
+                <td>@item.ChiHoi</td>
+            </tr>
+        }
+    </tbody>
+</table>

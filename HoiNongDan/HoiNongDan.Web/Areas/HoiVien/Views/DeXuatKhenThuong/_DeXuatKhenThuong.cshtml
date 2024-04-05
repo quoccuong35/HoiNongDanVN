@@ -1,0 +1,83 @@
+﻿@model HoiVienDeXuatKhenThuongVM
+<style>
+    .custom-control {
+        display: inline-flex;
+    }
+</style>
+<div class="row">
+    <input asp-for="ID" hidden />
+    <div class="col-md-2">
+        <div class="form-group">
+            <label asp-for="MaDanhHieuKhenThuong"></label><span class="text-red">*</span>
+            <select asp-for="MaDanhHieuKhenThuong" asp-items="@ViewBag.MaDanhHieuKhenThuong" class="form-control select2-show-search form-select">
+                <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+            </select>
+            <span asp-validation-for="MaDanhHieuKhenThuong" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label asp-for="MaHinhThucKhenThuong"></label><span class="text-red">*</span>
+            <select asp-for="MaHinhThucKhenThuong" asp-items="@ViewBag.MaHinhThucKhenThuong" class="form-control select2-show-search form-select">
+                <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+            </select>
+            <span asp-validation-for="MaHinhThucKhenThuong" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class="form-group">
+            <label asp-for="Nam"></label><span class="text-red">*</span>
+            <input asp-for="Nam" class="form-control">
+            <span asp-validation-for="Nam" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class="form-group">
+            <label asp-for="Quy"></label><span class="text-red">*</span>
+            <input asp-for="Quy" class="form-control">
+            <span asp-validation-for="Quy" class="text-danger"></span>
+        </div>
+    </div>
+    @if (Model.ID != null)
+    {
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="Loai"></label><span class="text-red">*</span>
+                <div class="form-group">
+                    <label class="custom-control custom-radio mb-0 mt-1">
+                        <input type="radio" class="custom-control-input" asp-for="Loai" value="01">
+                        <span class="custom-control-label">Chờ duyệt</span>
+                    </label>
+                    <label class="custom-control custom-radio mb-0 mt-1">
+                        <input type="radio" class="custom-control-input" asp-for="Loai" value="02">
+                        <span class="custom-control-label">Đã duyệt</span>
+                    </label>
+                </div>
+                <span asp-validation-for="Loai" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="SoQuyetDinh"></label><span class="text-red">*</span>
+                <input asp-for="SoQuyetDinh" class="form-control">
+                <span asp-validation-for="SoQuyetDinh" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label asp-for="NgayQuyetDinh"></label><span class="text-red">*</span>
+                <input asp-for="NgayQuyetDinh" class="form-control">
+                <span asp-validation-for="NgayQuyetDinh" class="text-danger"></span>
+            </div>
+        </div>
+    }
+    
+    <div class="col-md-6">
+        <label asp-for="NoiDung"></label>
+        <input asp-for="NoiDung" class="form-control">
+    </div>
+    <div class="col-md-6">
+        <label asp-for="GhiChu"></label>
+        <input asp-for="GhiChu" class="form-control">
+    </div>
+</div>

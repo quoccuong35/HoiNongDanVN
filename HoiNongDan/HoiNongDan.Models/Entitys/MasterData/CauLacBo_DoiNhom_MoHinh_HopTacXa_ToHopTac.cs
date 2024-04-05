@@ -11,6 +11,7 @@ namespace HoiNongDan.Models
     {
         public Guid Id_CLB_DN_MH_HTX_THT { get; set; }
         public String Ten { get; set; }
+        public String? Loai { get; set; }
         public bool Actived { get; set; } = true;
         [MaxLength(500)]
         public String? Description { get; set; }

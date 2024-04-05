@@ -160,6 +160,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ẩn.
+        /// </summary>
+        public static string An {
+            get {
+                return ResourceManager.GetString("An", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bậc.
         /// </summary>
         public static string Bac {
@@ -187,11 +196,29 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Báo cáo giảm hội viên.
+        /// </summary>
+        public static string BaoCaoGiamHV {
+            get {
+                return ResourceManager.GetString("BaoCaoGiamHV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BCH HNDTP.
         /// </summary>
         public static string BCHHNDTP {
             get {
                 return ResourceManager.GetString("BCHHNDTP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Báo cáo hội viên nông dân phát triển mới.
+        /// </summary>
+        public static string BCHVMoi {
+            get {
+                return ResourceManager.GetString("BCHVMoi", resourceCulture);
             }
         }
         
@@ -376,6 +403,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cập nhật thông tin nhân sự.
+        /// </summary>
+        public static string CapNhatNhanSu {
+            get {
+                return ResourceManager.GetString("CapNhatNhanSu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cập nhật tình trạng cán bộ.
         /// </summary>
         public static string CapNhatTinhTrangCanBo {
@@ -421,6 +457,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chi tổ hội ngành nghề.
+        /// </summary>
+        public static string ChiToHoiNganhNghe {
+            get {
+                return ResourceManager.GetString("ChiToHoiNganhNghe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chổ ở hiện nay.
         /// </summary>
         public static string ChoOHienNay {
@@ -439,11 +484,29 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chứ vụ hiện nay.
+        /// </summary>
+        public static string ChucVuHienNay {
+            get {
+                return ResourceManager.GetString("ChucVuHienNay", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chuyên ngành.
         /// </summary>
         public static string ChuyenNganh {
             get {
                 return ResourceManager.GetString("ChuyenNganh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dòng {0} chưa nhập thông tin Câu Lạc Bộ, Đội Nhóm, Mô Hình, Hợp Tác Xã, Tổ Hợp Tác.
+        /// </summary>
+        public static string CLB_DN_MH_HTX_THTError1 {
+            get {
+                return ResourceManager.GetString("CLB_DN_MH_HTX_THTError1", resourceCulture);
             }
         }
         
@@ -601,7 +664,16 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Địa bàn hoạt động.
+        ///   Looks up a localized string similar to Đề xuất khen thưởng.
+        /// </summary>
+        public static string DeXuatKhenThuong {
+            get {
+                return ResourceManager.GetString("DeXuatKhenThuong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên hội nông dân.
         /// </summary>
         public static string DiaBanHoatDong {
             get {
@@ -642,6 +714,24 @@ namespace HoiNongDan.Resources {
         public static string DoanTheChinhTriHoiDoan {
             get {
                 return ResourceManager.GetString("DoanTheChinhTriHoiDoan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đơn vị.
+        /// </summary>
+        public static string DonVi {
+            get {
+                return ResourceManager.GetString("DonVi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đợt.
+        /// </summary>
+        public static string Dot {
+            get {
+                return ResourceManager.GetString("Dot", resourceCulture);
             }
         }
         
@@ -696,6 +786,33 @@ namespace HoiNongDan.Resources {
         public static string Error_NotExist {
             get {
                 return ResourceManager.GetString("Error_NotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dòng {0} Phải có ít nhất tên chi hội hoặc tổ hội nghề nghiệp.
+        /// </summary>
+        public static string ErrorImportChiToHoiNganhNghe1 {
+            get {
+                return ResourceManager.GetString("ErrorImportChiToHoiNganhNghe1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dòng {0} không tìm thấy thông tin hội viên.
+        /// </summary>
+        public static string ErrorImportChiToHoiNganhNghe2 {
+            get {
+                return ResourceManager.GetString("ErrorImportChiToHoiNganhNghe2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dòng {0} có nhiều hơn 1 thông tin hội viên.
+        /// </summary>
+        public static string ErrorImportChiToHoiNganhNghe3 {
+            get {
+                return ResourceManager.GetString("ErrorImportChiToHoiNganhNghe3", resourceCulture);
             }
         }
         
@@ -862,6 +979,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hiện.
+        /// </summary>
+        public static string Hien {
+            get {
+                return ResourceManager.GetString("Hien", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hình thức hỗ trợ.
         /// </summary>
         public static string HinhThucHoTro {
@@ -939,6 +1065,15 @@ namespace HoiNongDan.Resources {
         public static string HoiVien_ToHoiNN_ChiHoiNN {
             get {
                 return ResourceManager.GetString("HoiVien_ToHoiNN_ChiHoiNN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hội viên cấp thẻ.
+        /// </summary>
+        public static string HoiVienCapThe {
+            get {
+                return ResourceManager.GetString("HoiVienCapThe", resourceCulture);
             }
         }
         
@@ -1177,6 +1312,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lịch sinh hoạt chi tổ hội.
+        /// </summary>
+        public static string LichSinhHoatChiToHoi {
+            get {
+                return ResourceManager.GetString("LichSinhHoatChiToHoi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Danh sách.
         /// </summary>
         public static string List {
@@ -1200,6 +1344,15 @@ namespace HoiNongDan.Resources {
         public static string Loai_DV_SX_ChN {
             get {
                 return ResourceManager.GetString("Loai_DV_SX_ChN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loại cấp.
+        /// </summary>
+        public static string LoaiCap {
+            get {
+                return ResourceManager.GetString("LoaiCap", resourceCulture);
             }
         }
         
@@ -1447,6 +1600,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Năm.
+        /// </summary>
+        public static string Nam {
+            get {
+                return ResourceManager.GetString("Nam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Số năm nâng bậc.
         /// </summary>
         public static string NamTangLuong {
@@ -1506,6 +1668,15 @@ namespace HoiNongDan.Resources {
         public static string NgayBatDau {
             get {
                 return ResourceManager.GetString("NgayBatDau", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày cấp.
+        /// </summary>
+        public static string NgayCap {
+            get {
+                return ResourceManager.GetString("NgayCap", resourceCulture);
             }
         }
         
@@ -1578,6 +1749,15 @@ namespace HoiNongDan.Resources {
         public static string NgaySinh {
             get {
                 return ResourceManager.GetString("NgaySinh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngày sinh hoạt.
+        /// </summary>
+        public static string NgaySinhHoat {
+            get {
+                return ResourceManager.GetString("NgaySinhHoat", resourceCulture);
             }
         }
         
@@ -1735,6 +1915,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nhiệm kỳ.
+        /// </summary>
+        public static string NhiemKy {
+            get {
+                return ResourceManager.GetString("NhiemKy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nơi bồi dưỡng.
         /// </summary>
         public static string NoiBoiDuong {
@@ -1848,6 +2037,15 @@ namespace HoiNongDan.Resources {
         public static string PhanHe {
             get {
                 return ResourceManager.GetString("PhanHe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hội viên phát triển đảng.
+        /// </summary>
+        public static string PhatTrienDang {
+            get {
+                return ResourceManager.GetString("PhatTrienDang", resourceCulture);
             }
         }
         
@@ -2023,6 +2221,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quý.
+        /// </summary>
+        public static string Quy {
+            get {
+                return ResourceManager.GetString("Quy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&amp;*-]).{8,}$.
         /// </summary>
         public static string RegularPassword {
@@ -2064,6 +2271,24 @@ namespace HoiNongDan.Resources {
         public static string Required_Dropdownlist {
             get {
                 return ResourceManager.GetString("Required_Dropdownlist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đang tham gia.
+        /// </summary>
+        public static string RoiHoi_False {
+            get {
+                return ResourceManager.GetString("RoiHoi_False", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Không còn tham gia.
+        /// </summary>
+        public static string RoiHoi_True {
+            get {
+                return ResourceManager.GetString("RoiHoi_True", resourceCulture);
             }
         }
         
@@ -2158,6 +2383,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Số người tham gia.
+        /// </summary>
+        public static string SoLuongNguoiThanGia {
+            get {
+                return ResourceManager.GetString("SoLuongNguoiThanGia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Số quyết định.
         /// </summary>
         public static string SoQuyetDinh {
@@ -2185,6 +2419,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Số thẻ.
+        /// </summary>
+        public static string SoThe {
+            get {
+                return ResourceManager.GetString("SoThe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Số tiền vay.
         /// </summary>
         public static string SoTienVay {
@@ -2199,6 +2442,15 @@ namespace HoiNongDan.Resources {
         public static string String1 {
             get {
                 return ResourceManager.GetString("String1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tài liệu.
+        /// </summary>
+        public static string TaiLieu {
+            get {
+                return ResourceManager.GetString("TaiLieu", resourceCulture);
             }
         }
         
@@ -2257,6 +2509,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tên nội dung tóm tắt.
+        /// </summary>
+        public static string TenLichSinhHoat {
+            get {
+                return ResourceManager.GetString("TenLichSinhHoat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tên ngạch lương.
         /// </summary>
         public static string TenNgachLuong {
@@ -2280,6 +2541,15 @@ namespace HoiNongDan.Resources {
         public static string TenQuanHuyen {
             get {
                 return ResourceManager.GetString("TenQuanHuyen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên viết tắt.
+        /// </summary>
+        public static string TenVietTat {
+            get {
+                return ResourceManager.GetString("TenVietTat", resourceCulture);
             }
         }
         
@@ -2379,6 +2649,15 @@ namespace HoiNongDan.Resources {
         public static string TonGiao {
             get {
                 return ResourceManager.GetString("TonGiao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trạng thái.
+        /// </summary>
+        public static string TrangThai {
+            get {
+                return ResourceManager.GetString("TrangThai", resourceCulture);
             }
         }
         

@@ -9,6 +9,49 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Dashboard\Data\**" />
+    <Compile Remove="Areas\Dashboard\Models\**" />
+    <Compile Remove="Areas\HoiVien\Data\**" />
+    <Compile Remove="Areas\HoiVien\Models\**" />
+    <Compile Remove="Areas\MasterData\Data\**" />
+    <Compile Remove="Areas\MasterData\Models\**" />
+    <Compile Remove="Areas\NhanSu\Data\**" />
+    <Compile Remove="Areas\Permission\Data\**" />
+    <Compile Remove="Areas\Permission\Models\**" />
+    <Compile Remove="Models\**" />
+    <Content Remove="Areas\Dashboard\Data\**" />
+    <Content Remove="Areas\Dashboard\Models\**" />
+    <Content Remove="Areas\HoiVien\Data\**" />
+    <Content Remove="Areas\HoiVien\Models\**" />
+    <Content Remove="Areas\MasterData\Data\**" />
+    <Content Remove="Areas\MasterData\Models\**" />
+    <Content Remove="Areas\NhanSu\Data\**" />
+    <Content Remove="Areas\Permission\Data\**" />
+    <Content Remove="Areas\Permission\Models\**" />
+    <Content Remove="Models\**" />
+    <EmbeddedResource Remove="Areas\Dashboard\Data\**" />
+    <EmbeddedResource Remove="Areas\Dashboard\Models\**" />
+    <EmbeddedResource Remove="Areas\HoiVien\Data\**" />
+    <EmbeddedResource Remove="Areas\HoiVien\Models\**" />
+    <EmbeddedResource Remove="Areas\MasterData\Data\**" />
+    <EmbeddedResource Remove="Areas\MasterData\Models\**" />
+    <EmbeddedResource Remove="Areas\NhanSu\Data\**" />
+    <EmbeddedResource Remove="Areas\Permission\Data\**" />
+    <EmbeddedResource Remove="Areas\Permission\Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Areas\Dashboard\Data\**" />
+    <None Remove="Areas\Dashboard\Models\**" />
+    <None Remove="Areas\HoiVien\Data\**" />
+    <None Remove="Areas\HoiVien\Models\**" />
+    <None Remove="Areas\MasterData\Data\**" />
+    <None Remove="Areas\MasterData\Models\**" />
+    <None Remove="Areas\NhanSu\Data\**" />
+    <None Remove="Areas\Permission\Data\**" />
+    <None Remove="Areas\Permission\Models\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="compilerconfig.json" />
   </ItemGroup>
 
@@ -30,16 +73,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Dashboard\Data\" />
-    <Folder Include="Areas\Dashboard\Models\" />
-    <Folder Include="Areas\HoiVien\Data\" />
-    <Folder Include="Areas\HoiVien\Models\" />
-    <Folder Include="Areas\MasterData\Data\" />
-    <Folder Include="Areas\MasterData\Models\" />
-    <Folder Include="Areas\NhanSu\Data\" />
-    <Folder Include="Areas\Permission\Data\" />
-    <Folder Include="Areas\Permission\Models\" />
-    <Folder Include="Models\" />
     <Folder Include="wwwroot\reports\" />
   </ItemGroup>
 

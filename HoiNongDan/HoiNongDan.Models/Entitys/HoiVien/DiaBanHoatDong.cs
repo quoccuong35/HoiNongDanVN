@@ -38,10 +38,13 @@ namespace HoiNongDan.Models
         public DateTime? LastModifiedTime { get; set; }
         public ICollection<CanBo> CanBos { get; set; }
         public ICollection<PhamVi> PhamVis { get; set; }
+        public ICollection<LichSinhHoatChiToHoi> LichSinhHoatChiToHois { get; set; }
+        public ICollection<PhatTrienDang> PhatTrienDangs { get; set; }
         public DiaBanHoatDong() {
             CanBos = new List<CanBo>();
             PhamVis = new List<PhamVi>();
-
+            LichSinhHoatChiToHois = new List<LichSinhHoatChiToHoi>();
+            PhatTrienDangs = new List<PhatTrienDang>();
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using HoiNongDan.Constant;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data.Entity.Core.Mapping;
 
 namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 {
@@ -18,20 +19,31 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Index
         public IActionResult Index()
         {
-            CreateViewBag();
-            return View();
+            KhenThuongSearchVN model = new KhenThuongSearchVN();
+            model.TuNam = model.DenNam = DateTime.Now.Year;
+
+            CreateViewBagSearch();
+            return View(model);
         }
         [HoiNongDanAuthorization]
         public IActionResult _Search(KhenThuongSearchVN search)
         {
             return ExecuteSearch(() =>
             {
-                var model = _context.QuaTrinhKhenThuongs.Where(it => it.IsHoiVien == true).AsQueryable();
+                var model = (from kt in _context.QuaTrinhKhenThuongs
+                              join hv in _context.CanBos on kt.IDCanBo equals hv.IDCanBo
+                              join pv in _context.PhamVis on hv.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
+                              where kt.Loai == "02" &&
+                              kt.IsHoiVien == true
+                              && pv.AccountId == AccountId()
+                              select kt).Include(it => it.CanBo).ThenInclude(it => it.DiaBanHoatDong).
+                              Include(it => it.DanhHieuKhenThuong).Include(it => it.HinhThucKhenThuong).AsQueryable();
+                //var model = _context.QuaTrinhKhenThuongs.Where(it => it.IsHoiVien == true && it.Loai =="02").AsQueryable();
                 if (!String.IsNullOrEmpty(search.MaDanhHieuKhenThuong) && !String.IsNullOrWhiteSpace(search.MaDanhHieuKhenThuong))
                 {
                     model = model.Where(it => it.MaDanhHieuKhenThuong == search.MaDanhHieuKhenThuong);
                 }
-                model = model.Include(it => it.CanBo).Include(it => it.DanhHieuKhenThuong).Include(it => it.HinhThucKhenThuong);
+               // model = model.Include(it => it.CanBo).ThenInclude(it => it.DiaBanHoatDong).Include(it => it.DanhHieuKhenThuong).Include(it => it.HinhThucKhenThuong);
                 if (!String.IsNullOrEmpty(search.MaCanBo) && !String.IsNullOrWhiteSpace(search.MaCanBo))
                 {
                     model = model.Where(it => it.CanBo.MaCanBo == search.MaCanBo);
@@ -40,19 +52,33 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     model = model.Where(it => it.CanBo.HoVaTen.Contains(search.HoVaTen));
                 }
-                model = model.Where(it => GetPhamVi().Contains(it.CanBo.MaDiaBanHoatDong!.Value));
-                var data = model.Select(it => new KhenThuongDetailVM
+                if (search.MaDiaBanHoiVien != null)
+                {
+                    model = model.Where(it => it.CanBo.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
+                }
+                if (!String.IsNullOrEmpty(search.MaQuanHuyen))
+                {
+                    model = model.Where(it => it.CanBo.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
+                }
+                if (search.TuNam != null)
+                {
+                    model = model.Where(it => it.NgayQuyetDinh != null && it.NgayQuyetDinh.Value.Year >= search.TuNam);
+                }
+                if (search.DenNam != null)
+                {
+                    model = model.Where(it => it.NgayQuyetDinh != null && it.NgayQuyetDinh.Value.Year <= search.DenNam);
+                }
+                var data = model.Select(it => new HVKhenThuongDetailVM
                 {
                     IDQuaTrinhKhenThuong = it.IDQuaTrinhKhenThuong,
-                    MaCanBo = it.CanBo.MaCanBo,
+                    MaCanBo = it.CanBo.MaCanBo!,
                     HoVaTen = it.CanBo.HoVaTen,
-                    SoQuyetDinh = it.SoQuyetDinh,
-                    NgayQuyetDinh = it.NgayQuyetDinh,
-                    LyDo = it.LyDo,
-                    NguoiKy = it.NguoiKy,
+                    Nam = it.Nam,
+                    NoiDung = it.NoiDung,
                     GhiChu = it.GhiChu,
                     TenDanhHieuKhenThuong = it.DanhHieuKhenThuong.TenDanhHieuKhenThuong,
-                    TenHinhThucKhenThuong = it.HinhThucKhenThuong.TenHinhThucKhenThuong,
+                    //TenHinhThucKhenThuong = it.HinhThucKhenThuong.TenHinhThucKhenThuong,
+                    DiaBanHND = it.CanBo.DiaBanHoatDong!.TenDiaBanHoatDong
                 }).ToList();
                 return PartialView(data);
             });
@@ -64,9 +90,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         public IActionResult Create()
         {
             KhenThuongVM khenThuong = new KhenThuongVM();
-            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
-            nhanSu.CanBo = false;
-            khenThuong.NhanSu = nhanSu;
+            HoiVienInfo nhanSu = new HoiVienInfo();
+            khenThuong.HoiVien = nhanSu;
             CreateViewBag();
             return View(khenThuong);
         }
@@ -106,29 +131,17 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 return Redirect("~/Error/ErrorNotFound?data=" + id);
             }
             KhenThuongVM obj = new KhenThuongVM();
-
-            var canBo = _context.CanBos.Include(it => it.CoSo).Include(it => it.DiaBanHoatDong)
-                        .Include(it => it.PhanHe).Include(it => it.TinhTrang).Where(it => it.IDCanBo == item.IDCanBo && it.IsHoiVien == true).SingleOrDefault();
-            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
-            nhanSu = nhanSu.GeThongTin(canBo);
-            nhanSu.CanBo = false;
-            nhanSu.IdCanbo = canBo.IDCanBo;
-            nhanSu.HoVaTen = canBo.HoVaTen;
-            nhanSu.MaCanBo = canBo.MaCanBo;
-            //nhanSu.TenTinhTrang = canBo.TinhTrang.TenTinhTrang;
-            //nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
-            nhanSu.TenDonVi = canBo.DiaBanHoatDong.TenDiaBanHoatDong;
-            //nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
-            nhanSu.Edit = false;
+            
             obj.IDQuaTrinhKhenThuong = item.IDQuaTrinhKhenThuong;
-            obj.MaHinhThucKhenThuong = item.MaHinhThucKhenThuong;
+            obj.MaHinhThucKhenThuong = item.MaHinhThucKhenThuong!;
             obj.MaDanhHieuKhenThuong = item.MaDanhHieuKhenThuong;
-            obj.SoQuyetDinh = item.SoQuyetDinh;
+            obj.SoQuyetDinh = item.SoQuyetDinh!;
             obj.NgayQuyetDinh = item.NgayQuyetDinh;
             obj.NguoiKy = item.NguoiKy;
-            obj.LyDo = item.LyDo;
+            obj.NoiDung = item.NoiDung;
+            obj.Nam = item.Nam;
             obj.GhiChu = item.GhiChu;
-            obj.NhanSu = nhanSu;
+            obj.HoiVien = Function.GetThongTinHoiVien(item.IDCanBo,_context);
             CreateViewBag(item.MaHinhThucKhenThuong, item.MaDanhHieuKhenThuong);
             return View(obj);
         }
@@ -204,18 +217,31 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Helper
         private void CheckError(KhenThuongVMMT obj)
         {
-            if (obj.NhanSu.IdCanbo == null)
+            if (obj.HoiVien.IdCanbo == null)
             {
                 ModelState.AddModelError("MaCanBo", "Chưa chọn cán bộ");
             }
         }
         private void CreateViewBag(String? MaHinhThucKhenThuong = null, String? MaDanhHieuKhenThuong = null)
         {
-            var hinhThucKhenThuong = _context.HinhThucKhenThuongs.Select(it => new { MaHinhThucKhenThuong = it.MaHinhThucKhenThuong, TenHinhThucKhenThuong = it.TenHinhThucKhenThuong }).ToList();
-            ViewBag.MaHinhThucKhenThuong = new SelectList(hinhThucKhenThuong, "MaHinhThucKhenThuong", "TenHinhThucKhenThuong", MaHinhThucKhenThuong);
+            FnViewBag fnViewBag = new FnViewBag(_context);
+            ViewBag.MaHinhThucKhenThuong = fnViewBag.HinhThucKhenThuong(value:MaHinhThucKhenThuong);
 
-            var MenuList = _context.DanhHieuKhenThuongs.Where(it => it.IsHoiVien == true).Select(it => new { MaDanhHieuKhenThuong = it.MaDanhHieuKhenThuong, TenDanhHieuKhenThuong = it.TenDanhHieuKhenThuong }).ToList();
-            ViewBag.MaDanhHieuKhenThuong = new SelectList(MenuList, "MaDanhHieuKhenThuong", "TenDanhHieuKhenThuong", MaDanhHieuKhenThuong);
+            //  var MenuList = _context.DanhHieuKhenThuongs.Where(it => it.IsHoiVien == true).Select(it => new { MaDanhHieuKhenThuong = it.MaDanhHieuKhenThuong, TenDanhHieuKhenThuong = it.TenDanhHieuKhenThuong }).ToList();
+            ViewBag.MaDanhHieuKhenThuong = fnViewBag.DanhHieuKhenThuong(value:MaDanhHieuKhenThuong); ;
+
+        }
+        private void CreateViewBagSearch()
+        {
+            FnViewBag fnViewBag = new FnViewBag(_context);
+            ViewBag.MaHinhThucKhenThuong = fnViewBag.HinhThucKhenThuong();
+
+          //  var MenuList = _context.DanhHieuKhenThuongs.Where(it => it.IsHoiVien == true).Select(it => new { MaDanhHieuKhenThuong = it.MaDanhHieuKhenThuong, TenDanhHieuKhenThuong = it.TenDanhHieuKhenThuong }).ToList();
+            ViewBag.MaDanhHieuKhenThuong = fnViewBag.DanhHieuKhenThuong(); ;
+
+            ViewBag.MaDiaBanHoiVien = fnViewBag.DiaBanHoiVien(acID:AccountId()) ;
+
+            ViewBag.MaQuanHuyen = fnViewBag.QuanHuyen(idAc: AccountId());
         }
         #endregion Helper
     }

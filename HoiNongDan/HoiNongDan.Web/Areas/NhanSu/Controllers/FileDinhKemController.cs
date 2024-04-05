@@ -20,8 +20,9 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public JsonResult DeleteFile(Guid id) {
+        [HttpDelete]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteFile(Guid id) {
             return ExecuteDelete(() => {
                 var del = _context.FileDinhKems.SingleOrDefault(it => it.Key == id);
                 if (del != null)

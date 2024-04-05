@@ -34,8 +34,10 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NguoiKy")]
         public String? NguoiKy { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "LyDo")]
-        public String? LyDo { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NoiDung")]
+        public String? NoiDung { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GhiChu")]
+        public int? Nam { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GhiChu")]
         public String? GhiChu { get; set; }

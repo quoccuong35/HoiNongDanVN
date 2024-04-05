@@ -5,6 +5,11 @@
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
     string listRoles = User != null ? User.FindFirst("Roles").Value : "";
 }
+<style>
+    .custom-control {
+        display: inline-flex;
+    }
+</style>
 <!-- CONTAINER -->
 <div class="main-container container-fluid">
 
@@ -29,11 +34,42 @@
                 <div class="splitter-body">
                     <form method="get" id="frmSearch" ,asp-action="_Search">
                         <div class="row my-2">
-                            <div class="col-3">
-                                <label></label>
+                            <div class="col-md-3">
+                                <label>Tên</label>
                                 <input class="form-control" name="Ten" />
                             </div>
-                            <div class="col-3">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Loại</label>
+                                    <div class="form-group">
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" name="Loai" value="">
+                                            <span class="custom-control-label">Tất cả</span>
+                                        </label>
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" name="Loai" value="01">
+                                            <span class="custom-control-label">Câu lạc bộ</span>
+                                        </label>
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" name="Loai" value="02">
+                                            <span class="custom-control-label">Đội nhóm</span>
+                                        </label>
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" name="Loai" value="03">
+                                            <span class="custom-control-label">Mô hình</span>
+                                        </label>
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" name="Loai" value="04">
+                                            <span class="custom-control-label">Hợp tác xã</span>
+                                        </label>
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" name="Loai" value="05">
+                                            <span class="custom-control-label">Tổ hợp tác</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
                                 <label>Trạng thái</label>
                                 @Html.DropDownList("Actived", new List<SelectListItem>(){
                                 new SelectListItem(){Text = LanguageResource.Dropdownlist_All, Value = ""},

@@ -150,6 +150,9 @@
   <data name="Alert_NotExist_Delete" xml:space="preserve">
     <value>Không tìm thấy {0} cần xóa!</value>
   </data>
+  <data name="An" xml:space="preserve">
+    <value>Ẩn</value>
+  </data>
   <data name="Bac" xml:space="preserve">
     <value>Bậc</value>
   </data>
@@ -159,8 +162,14 @@
   <data name="BanChapHanh" xml:space="preserve">
     <value>Ban chấp hành</value>
   </data>
+  <data name="BaoCaoGiamHV" xml:space="preserve">
+    <value>Báo cáo giảm hội viên</value>
+  </data>
   <data name="BCHHNDTP" xml:space="preserve">
     <value>BCH HNDTP</value>
+  </data>
+  <data name="BCHVMoi" xml:space="preserve">
+    <value>Báo cáo hội viên nông dân phát triển mới</value>
   </data>
   <data name="BCThucLucHoiNam" xml:space="preserve">
     <value>Báo cáo thực lực hội năm</value>
@@ -222,6 +231,9 @@
   <data name="CanNgheo" xml:space="preserve">
     <value>Cận nghèo</value>
   </data>
+  <data name="CapNhatNhanSu" xml:space="preserve">
+    <value>Cập nhật thông tin nhân sự</value>
+  </data>
   <data name="CapNhatTinhTrangCanBo" xml:space="preserve">
     <value>Cập nhật tình trạng cán bộ</value>
   </data>
@@ -237,14 +249,23 @@
   <data name="ChiHoi" xml:space="preserve">
     <value>Chi hội</value>
   </data>
+  <data name="ChiToHoiNganhNghe" xml:space="preserve">
+    <value>Chi tổ hội ngành nghề</value>
+  </data>
   <data name="ChoOHienNay" xml:space="preserve">
     <value>Chổ ở hiện nay</value>
   </data>
   <data name="ChucVu" xml:space="preserve">
     <value>Chức vụ</value>
   </data>
+  <data name="ChucVuHienNay" xml:space="preserve">
+    <value>Chứ vụ hiện nay</value>
+  </data>
   <data name="ChuyenNganh" xml:space="preserve">
     <value>Chuyên ngành</value>
+  </data>
+  <data name="CLB_DN_MH_HTX_THTError1" xml:space="preserve">
+    <value>Dòng {0} chưa nhập thông tin Câu Lạc Bộ, Đội Nhóm, Mô Hình, Hợp Tác Xã, Tổ Hợp Tác</value>
   </data>
   <data name="CongTac" xml:space="preserve">
     <value>Công Tác</value>
@@ -297,8 +318,11 @@
   <data name="Description" xml:space="preserve">
     <value>Mô tả</value>
   </data>
+  <data name="DeXuatKhenThuong" xml:space="preserve">
+    <value>Đề xuất khen thưởng</value>
+  </data>
   <data name="DiaBanHoatDong" xml:space="preserve">
-    <value>Địa bàn hoạt động</value>
+    <value>Tên hội nông dân</value>
   </data>
   <data name="DiaChi" xml:space="preserve">
     <value>Địa chỉ</value>
@@ -311,6 +335,12 @@
   </data>
   <data name="DoanTheChinhTriHoiDoan" xml:space="preserve">
     <value>Đoàn thể chính chị-Hội đoàn</value>
+  </data>
+  <data name="DonVi" xml:space="preserve">
+    <value>Đơn vị</value>
+  </data>
+  <data name="Dot" xml:space="preserve">
+    <value>Đợt</value>
   </data>
   <data name="Dropdownlist_All" xml:space="preserve">
     <value>-- Tất cả --</value>
@@ -326,6 +356,15 @@
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="ErrorImportChiToHoiNganhNghe1" xml:space="preserve">
+    <value>Dòng {0} Phải có ít nhất tên chi hội hoặc tổ hội nghề nghiệp</value>
+  </data>
+  <data name="ErrorImportChiToHoiNganhNghe2" xml:space="preserve">
+    <value>Dòng {0} không tìm thấy thông tin hội viên</value>
+  </data>
+  <data name="ErrorImportChiToHoiNganhNghe3" xml:space="preserve">
+    <value>Dòng {0} có nhiều hơn 1 thông tin hội viên</value>
   </data>
   <data name="Error_NotExist" xml:space="preserve">
     <value>Không tìm thấy {0} này!</value>
@@ -384,6 +423,9 @@
   <data name="HeSoChucVu" xml:space="preserve">
     <value>Hệ số chức vụ</value>
   </data>
+  <data name="Hien" xml:space="preserve">
+    <value>Hiện</value>
+  </data>
   <data name="HinhThucHoTro" xml:space="preserve">
     <value>Hình thức hỗ trợ</value>
   </data>
@@ -404,6 +446,9 @@
   </data>
   <data name="HoiVien" xml:space="preserve">
     <value>Hội Viên nông dân</value>
+  </data>
+  <data name="HoiVienCapThe" xml:space="preserve">
+    <value>Hội viên cấp thẻ</value>
   </data>
   <data name="HoiVienChinhTriHoiDoan" xml:space="preserve">
     <value>Hội viên sinh hoạt  đoàn thể chính trị - Hội đoàn khác</value>
@@ -489,11 +534,17 @@
   <data name="LastModifyUser" xml:space="preserve">
     <value>Người cuối cùng chỉnh sửa</value>
   </data>
+  <data name="LichSinhHoatChiToHoi" xml:space="preserve">
+    <value>Lịch sinh hoạt chi tổ hội</value>
+  </data>
   <data name="List" xml:space="preserve">
     <value>Danh sách</value>
   </data>
   <data name="Loai" xml:space="preserve">
     <value>Loại</value>
+  </data>
+  <data name="LoaiCap" xml:space="preserve">
+    <value>Loại cấp</value>
   </data>
   <data name="LoaiHoiVien" xml:space="preserve">
     <value>Loại hội viên</value>
@@ -579,6 +630,9 @@
   <data name="MienNhiem" xml:space="preserve">
     <value>Miễn Nhiệm Cán Bộ</value>
   </data>
+  <data name="Nam" xml:space="preserve">
+    <value>Năm</value>
+  </data>
   <data name="NamTangLuong" xml:space="preserve">
     <value>Số năm nâng bậc</value>
   </data>
@@ -599,6 +653,9 @@
   </data>
   <data name="NgayBatDau" xml:space="preserve">
     <value>Ngày bắt đầu</value>
+  </data>
+  <data name="NgayCap" xml:space="preserve">
+    <value>Ngày cấp</value>
   </data>
   <data name="NgayCapCCCD" xml:space="preserve">
     <value>Ngày cấp CCCD</value>
@@ -623,6 +680,9 @@
   </data>
   <data name="NgaySinh" xml:space="preserve">
     <value>Ngày sinh</value>
+  </data>
+  <data name="NgaySinhHoat" xml:space="preserve">
+    <value>Ngày sinh hoạt</value>
   </data>
   <data name="NgayThamGiaCapUyDang" xml:space="preserve">
     <value>Tham gia cấp ủy đảng</value>
@@ -675,6 +735,9 @@
   <data name="NhanSu" xml:space="preserve">
     <value>Nhân Sự</value>
   </data>
+  <data name="NhiemKy" xml:space="preserve">
+    <value>Nhiệm kỳ</value>
+  </data>
   <data name="NoiBoiDuong" xml:space="preserve">
     <value>Nơi bồi dưỡng</value>
   </data>
@@ -713,6 +776,9 @@
   </data>
   <data name="PhanHe" xml:space="preserve">
     <value>Phân hệ</value>
+  </data>
+  <data name="PhatTrienDang" xml:space="preserve">
+    <value>Hội viên phát triển đảng</value>
   </data>
   <data name="PhuCap" xml:space="preserve">
     <value>Phụ Cấp</value>
@@ -771,6 +837,9 @@
   <data name="QuocGia" xml:space="preserve">
     <value>Quốc gia</value>
   </data>
+  <data name="Quy" xml:space="preserve">
+    <value>Quý</value>
+  </data>
   <data name="RegularPassword" xml:space="preserve">
     <value>^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&amp;*-]).{8,}$</value>
   </data>
@@ -785,6 +854,12 @@
   </data>
   <data name="Required_Dropdownlist" xml:space="preserve">
     <value>Vui lòng chọn thông tin "{0}"</value>
+  </data>
+  <data name="RoiHoi_False" xml:space="preserve">
+    <value>Đang tham gia</value>
+  </data>
+  <data name="RoiHoi_True" xml:space="preserve">
+    <value>Không còn tham gia</value>
   </data>
   <data name="Roles" xml:space="preserve">
     <value>Nhóm Quyền</value>
@@ -816,6 +891,9 @@
   <data name="SoLuongHoiVien" xml:space="preserve">
     <value>Số lượng hội viên</value>
   </data>
+  <data name="SoLuongNguoiThanGia" xml:space="preserve">
+    <value>Số người tham gia</value>
+  </data>
   <data name="SoQuyetDinh" xml:space="preserve">
     <value>Số quyết định</value>
   </data>
@@ -825,11 +903,17 @@
   <data name="SoThangQuaHan" xml:space="preserve">
     <value>Số tháng quá hạn</value>
   </data>
+  <data name="SoThe" xml:space="preserve">
+    <value>Số thẻ</value>
+  </data>
   <data name="SoTienVay" xml:space="preserve">
     <value>Số tiền vay</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value />
+  </data>
+  <data name="TaiLieu" xml:space="preserve">
+    <value>Tài liệu</value>
   </data>
   <data name="Ten" xml:space="preserve">
     <value>Tên</value>
@@ -849,6 +933,9 @@
   <data name="TenHV" xml:space="preserve">
     <value>Tên hội viên</value>
   </data>
+  <data name="TenLichSinhHoat" xml:space="preserve">
+    <value>Tên nội dung tóm tắt</value>
+  </data>
   <data name="TenNgachLuong" xml:space="preserve">
     <value>Tên ngạch lương</value>
   </data>
@@ -857,6 +944,9 @@
   </data>
   <data name="TenQuanHuyen" xml:space="preserve">
     <value>Tên quận huyện</value>
+  </data>
+  <data name="TenVietTat" xml:space="preserve">
+    <value>Tên viết tắt</value>
   </data>
   <data name="ThamGia_CLB_DN_MH_HTX_THT" xml:space="preserve">
     <value>Tham gia câu lạc bộ, đội nhóm, mô hình, hợp tác xã, tổ hợp tác</value>
@@ -890,6 +980,9 @@
   </data>
   <data name="TonGiao" xml:space="preserve">
     <value>Tôn Giáo</value>
+  </data>
+  <data name="TrangThai" xml:space="preserve">
+    <value>Trạng thái</value>
   </data>
   <data name="TraXong" xml:space="preserve">
     <value>Trả xong</value>

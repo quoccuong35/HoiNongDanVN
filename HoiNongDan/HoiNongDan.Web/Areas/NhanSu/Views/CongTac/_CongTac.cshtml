@@ -2,21 +2,21 @@
 <div class="row">
     <input asp-for="IDQuaTrinhCongTac" hidden />
     @Html.AntiForgeryToken()
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group">
             <label asp-for="TuNgay"></label><span class="text-red">*</span>
             <input asp-for="TuNgay" class="form-control">
             <span asp-validation-for="TuNgay" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group">
             <label asp-for="DenNgay"></label><span class="text-red">*</span>
             <input asp-for="DenNgay" class="form-control">
             <span asp-validation-for="DenNgay" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group">
             <label asp-for="MaChucVu"></label><span class="text-red">*</span>
             <select asp-for="MaChucVu" asp-items="@ViewBag.MaChucVu" class="form-control select2-show-search form-select">
@@ -25,18 +25,33 @@
             <span asp-validation-for="MaChucVu" class="text-danger"></span>
         </div>
     </div>
-
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="NhiemKy"></label>
+            <input type="text" asp-for="NhiemKy" class="form-control">
+            <small class="text-red">Nhập số la mã: VD:X,XI</small>
+            <span asp-validation-for="NhiemKy" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="IsBanChapHanh"></label>
+            <input asp-for="IsBanChapHanh.Value" type="checkbox">
+           
+            <span asp-validation-for="IsBanChapHanh" class="text-danger"></span>
+        </div>
+    </div>
     <div class="col-md-6">
         <div class="form-group">
             <label asp-for="NoiLamViec"></label>
-            <textarea asp-for="NoiLamViec" rows="3" class="form-control"></textarea>
+            <input type="text" asp-for="NoiLamViec" class="form-control">
             <span asp-validation-for="NoiLamViec" class="text-danger"></span>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             <label asp-for="GhiChu"></label>
-            <textarea asp-for="GhiChu" rows="3" class="form-control"></textarea>
+            <input type="text" asp-for="GhiChu" class="form-control">
             <span asp-validation-for="GhiChu" class="text-danger"></span>
         </div>
     </div>

@@ -30,6 +30,9 @@ using HoiNongDan.Models.Entitys.NhanSu;
 using AspNetCore.Reporting;
 using System.Xml.Linq;
 using System.Diagnostics;
+using HoiNongDan.Models.ViewModels.Masterdata;
+using HoiNongDan.Web.Areas.NhanSu.Models;
+using System.IO;
 
 namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 {
@@ -64,43 +67,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             timer.Start();
 #endif
             //search.MaCanBo = "14064";
-            var model = _context.CanBos.Where(it => it.IsHoiVien == true && GetPhamVi().Contains(it.MaDiaBanHoatDong!.Value)).AsQueryable();
-            if (!String.IsNullOrEmpty(search.MaCanBo))
-            {
-                model = model.Where(it => it.MaCanBo == search.MaCanBo);
-            }
-            if (!String.IsNullOrEmpty(search.HoVaTen))
-            {
-                model = model.Where(it => it.HoVaTen.Contains(search.HoVaTen));
-            }
+            //var model = _context.CanBos.Where(it => it.IsHoiVien == true && GetPhamVi().Contains(it.MaDiaBanHoatDong!.Value)).AsQueryable();
 
-            if (search.MaDiaBanHoatDong != null)
-            {
-                model = model.Where(it => it.MaDiaBanHoatDong == search.MaDiaBanHoatDong);
-            }
-            //else
-            //{
-
-            //    model = model.Where(it => it.MaDiaBanHoatDong == Guid.Parse("4633016E-727F-4B69-A5D2-0DF7F42AA345"));
-            //}
-            if (search.MaQuanHuyen != null)
-            {
-                model = model.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
-            }
-            if (search.Actived != null)
-            {
-                model = model.Where(it => it.Actived == search.Actived);
-            }
-            if (search.DangChoDuyet == null || search.DangChoDuyet == true)
-            {
-                model = model.Where(it => it.HoiVienDuyet == true);
-            }
-            else
-            {
-                model = model.Where(it => it.HoiVienDuyet != true && it.CreatedAccountId == AccountId());
-            }
-            var data = model
-                .Include(it => it.NgheNghiep)
+            var model = (from cb in _context.CanBos
+                          join pv in _context.PhamVis on cb.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
+                          where pv.AccountId == AccountId()
+                          && cb.IsHoiVien == true
+                          select cb).Include(it => it.NgheNghiep)
                 .Include(it => it.DiaBanHoatDong)
                 .Include(it => it.DanToc)
                 .Include(it => it.TonGiao)
@@ -110,7 +83,56 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 .Include(it => it.QuaTrinhKhenThuongs)
                 .Include(it => it.ChiHoi)
                 .Include(it => it.ToHoi)
-                .Include(it => it.CoSo).Select(it => new 
+                .Include(it => it.CoSo).AsQueryable();
+           
+            if (!String.IsNullOrEmpty(search.HoVaTen))
+            {
+                model = model.Where(it => it.HoVaTen.Contains(search.HoVaTen));
+            }
+
+            if (search.MaDiaBanHoiVien != null)
+            {
+                model = model.Where(it => it.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
+            }
+            else
+            {
+                //search.MaCanBo = "jekjkejrkjerjekr";
+               // model = model.Where(it => it.MaDiaBanHoatDong == Guid.Parse("4633016E-727F-4B69-A5D2-0DF7F42AA345"));
+            }
+            if (!String.IsNullOrEmpty(search.MaCanBo))
+            {
+                model = model.Where(it => it.MaCanBo == search.MaCanBo);
+            }
+            if (search.MaQuanHuyen != null)
+            {
+                model = model.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
+            }
+            if (search.IsRoiHoi != null && search.IsRoiHoi == true)
+            {
+                model = model.Where(it => it.isRoiHoi == search.IsRoiHoi);
+                if (search.RoiTuNam != null) {
+                    model = model.Where(it => it.NgayNgungHoatDong != null && it.NgayNgungHoatDong.Value.Year >=search.RoiTuNam);
+                }
+                if (search.RoiDenNam != null)
+                {
+                    model = model.Where(it => it.NgayNgungHoatDong != null && it.NgayNgungHoatDong.Value.Year <= search.RoiDenNam);
+                }
+            }
+            else if(search.IsRoiHoi != null && search.IsRoiHoi == false)
+            {
+                model = model.Where(it => it.isRoiHoi == null || it.isRoiHoi == search.IsRoiHoi);
+            }
+
+            //if (search.DangChoDuyet == null || search.DangChoDuyet == true)
+            //{
+            //    model = model.Where(it => it.HoiVienDuyet == true);
+            //}
+            //else
+            //{
+            //    model = model.Where(it => it.HoiVienDuyet != true && it.CreatedAccountId == AccountId());
+            //}
+            var data = model
+                .Select(it => new 
                 {
                    
                     IDCanBo = it.IDCanBo,
@@ -195,7 +217,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HoiNongDanAuthorization]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(HoiVienMTVM insert, IFormFile? avtFileInbox)
+        public IActionResult Create(HoiVienMTVM insert, IFormFile? avtFileInbox, IFormFile?[] filesDinhKem)
         {
             CheckError(insert);
             return ExecuteContainer(() => {
@@ -203,6 +225,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 insert.GetHoiVien(add);
                 add.IDCanBo = Guid.NewGuid();
                 add.Actived = true;
+                add.isRoiHoi = false;
                 add.CreatedTime = DateTime.Now;
                 add.CreatedAccountId = AccountId();
                 add.HoiVienDuyet = false;
@@ -222,6 +245,11 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         avtFileInbox.CopyTo(fileStream);
                     }
                     add.HinhAnh = @"\images\canbo\" + fileName + extension;
+                }
+                if (filesDinhKem.Count() > 0)
+                {
+                    var dataFile = AdFiles(filesDinhKem, add);
+                    _context.FileDinhKems.AddRange(dataFile);
                 }
                 if (add.DoanTheChinhTri_HoiDoan_HoiViens.Count() > 0)
                 {
@@ -267,6 +295,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 return Redirect("~/Error/ErrorNotFound?data=" + id);
             }
             HoiVienVM edit = HoiVienMTVM.SetHoiVien(item);
+            var file = _context.FileDinhKems.Where(it => it.Id == id).ToList();
+            edit.FileDinhKems!.AddRange(file);
             CreateViewBag(IdCoSo: item.IdCoSo, IdDepartment:item.IdDepartment, maChucVu:item.MaChucVu,maTrinhDoHocVan:item.MaTrinhDoHocVan,
                 maTrinhDoChinhTri:item.MaTrinhDoChinhTri,maDanToc:item.MaDanToc,maTonGiao:item.MaTonGiao,maTrinhDoChuyenMon:item.MaTrinhDoChuyenMon,
                 maDiaBanHoatDong:item.MaDiaBanHoatDong,maHocVi:item.MaHocVi,
@@ -278,12 +308,15 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HttpPost]
         [HoiNongDanAuthorization]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(HoiVienMTVM obj, IFormFile? avtFileInbox)
+        public IActionResult Edit(HoiVienMTVM obj, IFormFile? avtFileInbox, IFormFile?[] filesDinhKem)
         {
 
             CheckError(obj);
             return ExecuteContainer(() => {
-                var edit = _context.CanBos.SingleOrDefault(it => it.IDCanBo == obj.IDCanBo && GetPhamVi().Contains(it.MaDiaBanHoatDong.Value));
+                var edit = _context.CanBos.Include(it=> it.DoanTheChinhTri_HoiDoan_HoiViens)
+                .Include(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens)
+                .Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens)
+                .SingleOrDefault(it => it.IDCanBo == obj.IDCanBo && GetPhamVi().Contains(it.MaDiaBanHoatDong.Value));
                 if (edit == null)
                 {
                     return Json(new
@@ -295,6 +328,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 }
                 obj.GetHoiVien(edit);
                 edit.Actived = obj.Actived!.Value;
+                edit.isRoiHoi = obj.IsRoiHoi;
                 edit.NgayNgungHoatDong = obj.NgayNgungHoatDong;
                 edit.LyDoNgungHoatDong = obj.LyDoNgungHoatDong;
                 edit.LastModifiedTime = DateTime.Now;
@@ -359,6 +393,11 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         avtFileInbox.CopyTo(fileStream);
                     }
                     edit.HinhAnh = @"\images\canbo\" + fileName + extension;
+                }
+                if (filesDinhKem.Count() > 0)
+                {
+                   var dataFile= AdFiles(filesDinhKem, edit);
+                    _context.FileDinhKems.AddRange(dataFile);
                 }
                 HistoryModelRepository history = new HistoryModelRepository(_context);
                 history.SaveUpdateHistory(edit.IDCanBo.ToString(), AccountId()!.Value, edit);
@@ -495,6 +534,18 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         {
                             System.IO.File.Delete(oldImagePath);
                         }
+                       
+                    }
+                    var deleteAllFile = _context.FileDinhKems.Where(it => it.Id == del.IDCanBo);
+                    if (deleteAllFile.Count() > 0)
+                    {
+                        foreach (var item in deleteAllFile)
+                        {
+                            if (FunctionFile.Delete(_hostEnvironment, item.Url))
+                            {
+                                _context.Remove(deleteAllFile);
+                            }
+                        }
                     }
                     _context.Remove(del);
                     _context.SaveChanges();
@@ -526,17 +577,19 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             return PartialView();
         }
         [HoiNongDanAuthorization]
-        [HoiNongDanAuthorization]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Import(Guid? MaDiaBanHoatDong)
         {
-            if (MaDiaBanHoatDong == null) {
-                return Json(new
-                {
-                    Code = System.Net.HttpStatusCode.Created,
-                    Success = false,
-                    Data = "Chưa chọn địa bàn hội muốn Import"
-                }); ;
-            }
+            //if (MaDiaBanHoatDong == null)
+            //{
+            //    return Json(new
+            //    {
+            //        Code = System.Net.HttpStatusCode.Created,
+            //        Success = false,
+            //        Data = "Chưa chọn địa bàn hội muốn Import"
+            //    }); ;
+            //}
             DataSet ds = GetDataSetFromExcel();
             List<string> errorList = new List<string>();
             var chiHois = _context.ChiHois.ToList();
@@ -555,6 +608,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             string contCode = dt.Columns[0].ColumnName.ToString();
                             if (contCode == controllerCode)
                             {
+                                MaDiaBanHoatDong = Guid.Parse(dt.Rows[0][0].ToString());
                                 foreach (DataRow dr in dt.Rows)
                                 {
                                     //string aa = dr.ItemArray[0].ToString();
@@ -628,38 +682,35 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             DataSet ds = new DataSet();
             try
             {
-                if (Request.Form.Files.Count > 0)
+                var file = Request.Form.Files[0];
+                if (file != null && file.Length > 0)
                 {
-                    var file = Request.Form.Files[0];
-                    if (file != null && file.Length > 0)
+                    //Check file is excel
+                    //Notes: Châu bổ sung .xlsb
+                    if (file.FileName.Contains("xls") || file.FileName.Contains("xlsx") || file.FileName.Contains("xlsb"))
                     {
-                        //Check file is excel
-                        //Notes: Châu bổ sung .xlsb
-                        if (file.FileName.Contains("xls") || file.FileName.Contains("xlsx") || file.FileName.Contains("xlsb"))
+                        string wwwRootPath = _hostEnvironment.WebRootPath;
+                        var fileName = Path.GetFileName(file.FileName);
+                        var mapPath = Path.Combine(wwwRootPath, @"upload\excel");
+                        if (!Directory.Exists(mapPath))
                         {
-                            string wwwRootPath = _hostEnvironment.WebRootPath;
-                            var fileName = Path.GetFileName(file.FileName);
-                            var mapPath = Path.Combine(wwwRootPath, @"upload\excel");
-                            if (!Directory.Exists(mapPath))
-                            {
-                                Directory.CreateDirectory(mapPath);
-                            }
-                            var path = Path.Combine(mapPath, fileName);
-                            using (var fileStream = new FileStream(Path.Combine(mapPath, fileName), FileMode.Create))
-                            {
-                                file.CopyTo(fileStream);
-                            }
+                            Directory.CreateDirectory(mapPath);
+                        }
+                        var path = Path.Combine(mapPath, fileName);
+                        using (var fileStream = new FileStream(Path.Combine(mapPath, fileName), FileMode.Create))
+                        {
+                            file.CopyTo(fileStream);
+                        }
 
-                            using (ClassImportExcel excelHelper = new ClassImportExcel(path))
-                            {
-                                excelHelper.Hdr = "YES";
-                                excelHelper.Imex = "1";
-                                ds = excelHelper.ReadDataSet();
-                            }
-                            if (System.IO.File.Exists(path))
-                            {
-                                System.IO.File.Delete(path);
-                            }
+                        using (ClassImportExcel excelHelper = new ClassImportExcel(path))
+                        {
+                            excelHelper.Hdr = "YES";
+                            excelHelper.Imex = "1";
+                            ds = excelHelper.ReadDataSet();
+                        }
+                        if (System.IO.File.Exists(path))
+                        {
+                            System.IO.File.Delete(path);
                         }
                     }
                 }
@@ -691,9 +742,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 model = model.Where(it => it.HoVaTen.Contains(search.HoVaTen));
             }
 
-            if (search.MaDiaBanHoatDong != null)
+            if (search.MaDiaBanHoiVien != null)
             {
-                model = model.Where(it => it.MaDiaBanHoatDong == search.MaDiaBanHoatDong);
+                model = model.Where(it => it.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
             }
             if (search.MaChucVu != null)
             {
@@ -856,13 +907,14 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             columns.Add(new ExcelTemplate() { ColumnName = "HoTroKhac", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "HoTroDaoTaoNghe", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "GhiChu", isAllowedToEdit = true, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "TenChiHoi", isAllowedToEdit = true, isText = true });
-            columns.Add(new ExcelTemplate() { ColumnName = "TenToHoi", isAllowedToEdit = true, isText = true });
+          
             columns.Add(new ExcelTemplate() { ColumnName = "ChiHoiDanCu_CHT", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "ChiHoiDanCu_CHP", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "ChiHoiNgheNghiep_CHT", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "ChiHoiNgheNghiep_CHP", isAllowedToEdit = true, isText = true });
-           
+            columns.Add(new ExcelTemplate() { ColumnName = "TenChiHoi", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "TenToHoi", isAllowedToEdit = true, isText = true });
+
 
 
             //Header
@@ -1038,7 +1090,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             {
                 ModelState.AddModelError("VaiTroKhac", "Chưa nhập quan hệ với chủ hộ");
             }
-            if (insert.Actived == false)
+            if (insert.IsRoiHoi == true)
             {
                 if ((String.IsNullOrEmpty(insert.LyDoNgungHoatDong) || String.IsNullOrWhiteSpace(insert.LyDoNgungHoatDong)))
                 {
@@ -1048,6 +1100,15 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     ModelState.AddModelError("NgayNgungHoatDong", "Ngày ngưng hoạt động chưa nhập");
                 }
+            }
+            if (!String.IsNullOrWhiteSpace(insert.NgayVaoHoi))
+            {
+                DateTime dt = Function.ConvertStringToDate(insert.NgayVaoHoi);
+                if (dt.Year == 1900 || dt.Year > DateTime.Now.Year)
+                {
+                    ModelState.AddModelError("NgayVaoHoi", "Ngày vào hội không hợp lệ");
+                }
+                
             }
         }
       
@@ -1062,13 +1123,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             String? maDanToc = null, String? maTonGiao = null,string? maTrinhDoChuyenMon = null,Guid? maDiaBanHoatDong = null,string? maHocVi = null,Guid? MaChiHoi = null, Guid? MaToHoi = null,
             List<Guid>? MaDoanTheChinhTri_HoiDoan = null, List<Guid>? Id_CLB_DN_MH_HTX_THT = null,List<Guid>? Ma_ToHoiNganhNghe_ChiHoiNganhNghe = null)
         {
-
-         
             var chucVu = _context.ChucVus.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { MaChucVu = it.MaChucVu, TenChucVu = it.TenChucVu }).ToList();
             ViewBag.MaChucVu = new SelectList(chucVu, "MaChucVu", "TenChucVu", maChucVu);
-
-
-
             var trinhDoHocVan = _context.TrinhDoHocVans.Where(it => it.Actived == true).OrderBy(it => it.OrderIndex).Select(it => new { MaTrinhDoHocVan = it.MaTrinhDoHocVan, TenTrinhDoHocVan = it.TenTrinhDoHocVan }).ToList();
             ViewBag.MaTrinhDoHocVan = new SelectList(trinhDoHocVan, "MaTrinhDoHocVan", "TenTrinhDoHocVan", maTrinhDoHocVan);
 
@@ -1118,28 +1174,15 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         private void CreateViewBagSearch()
         {
-            var data = (from hv in _context.CanBos
-                        join diaban in _context.DiaBanHoatDongs on hv.MaDiaBanHoatDong equals diaban.Id
-                        join quanhuyen in _context.QuanHuyens on diaban.MaQuanHuyen equals quanhuyen.MaQuanHuyen
-                        where hv.IsHoiVien == true
-                        && GetPhamVi().Contains(diaban.Id)
-                        select new {
-                            MaDiaBanHoatDong = diaban.Id,
-                            Name = diaban.TenDiaBanHoatDong,
-                            MaQuanHuyen = quanhuyen.MaQuanHuyen,
-                            TenQuanHuyen = quanhuyen.TenQuanHuyen
-                        }
-                                  ).Distinct().ToList();
+            FnViewBag fnViewBag = new FnViewBag(_context);
+            ViewBag.MaDiaBanHoiVien = fnViewBag.DiaBanHoiVien(acID:AccountId());
 
-            var diaBanHoatDong = data.Select(it => new { MaDiaBanHoatDong = it.MaDiaBanHoatDong, Name = it.Name }).Distinct().ToList();
-            ViewBag.MaDiaBanHoatDong = new SelectList(diaBanHoatDong, "MaDiaBanHoatDong", "Name");
-
-            var quanHuyen = data.Select(it => new { MaQuanHuyen = it.MaQuanHuyen, TenQuanHuyen = it.TenQuanHuyen }).Distinct().ToList();
-            ViewBag.MaQuanHuyen = new SelectList(quanHuyen, "MaQuanHuyen", "TenQuanHuyen");
+            ViewBag.MaQuanHuyen = fnViewBag.QuanHuyen( idAc:AccountId());
 
         }
         private void CreateViewBagImport() {
-            var diaBanHoatDong = _context.DiaBanHoatDongs.Where(it => it.Actived == true && GetPhamVi().Contains(it.Id)).OrderByDescending(it => it.CreatedTime).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.TenDiaBanHoatDong }).ToList();
+          
+            var diaBanHoatDong = _context.DiaBanHoatDongs.Include(it=>it.QuanHuyen).Where(it => it.Actived == true && GetPhamVi().Contains(it.Id)).OrderByDescending(it => it.CreatedTime).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.QuanHuyen.TenQuanHuyen + " "+ it.TenDiaBanHoatDong }).ToList();
             ViewBag.MaDiaBanHoatDong = new SelectList(diaBanHoatDong, "MaDiaBanHoatDong", "Name");
         }
         public JsonResult loadDiaBanHoatDong(string? maQuanHuyen)
@@ -1178,10 +1221,11 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 try
                 {
                     canbo = HoiVienExcel.CanBo;
-                    canbo.HoiVienDuyet = false;
+                    canbo.HoiVienDuyet = true;
                     canbo.Actived = true;
                     canbo.HoiVienDuyet = true;
                     canbo.Level = "90";
+                    canbo.isRoiHoi = false;
                     canbo.IsHoiVien = true;
                     canbo.CreatedTime = DateTime.Now;
                     if (HoiVienExcel.ListKhenThuong.Count() > 0)
@@ -1246,7 +1290,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             int index = 0;
             for (int i = 0; i < row.Length; i++)
             {
-                value = row[i] == null ? "" : row[i].ToString().Trim().Replace(System.Environment.NewLine,string.Empty);
+                value = row[i] == null ? "" : row[i].ToString().Trim().Replace(System.Environment.NewLine,string.Empty).Trim();
                 try
                 {
                     switch (i)
@@ -1490,14 +1534,14 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             }
                             else
                             {
-                                var obj = _context.TrinhDoChuyenMons.FirstOrDefault(it => it.TenTrinhDoChuyenMon == value);
+                                var obj = _context.TrinhDoChuyenMons.FirstOrDefault(it => it.TenTrinhDoChuyenMon == value.Trim());
                                 if (obj != null)
                                 {
                                     data.MaTrinhDoChuyenMon = obj.MaTrinhDoChuyenMon;
                                 }
                                 else
                                 {
-                                    import.Error += string.Format("Không tìm thấy trình độ học vấn có tên {0} ở dòng số {1} !", value, index);
+                                    import.Error += string.Format("Không tìm thấy trình độ chuyên môn có tên {0} ở dòng số {1} !", value, index);
                                 }
 
                             }
@@ -1519,7 +1563,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             break;
                         case 17:
                             //  Ngày vào hội (*)
-
+                            if (!String.IsNullOrWhiteSpace(value)) {
+                                DateTime dTest = Function.ConvertStringToDate(value);
+                                if (dTest.Year == 1900 || dTest.Year > DateTime.Now.Year)
+                                {
+                                    import.Error = "Ngày vào hội không hợp lệ dòng " + index.ToString();
+                                }
+                            }
                             data.NgayVaoHoi = value;
                             break;
                         case 18:
@@ -1624,6 +1674,23 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             if (!String.IsNullOrWhiteSpace(value))
                             {
                                 data.HoiVienUuTuNam = value;
+                                if (!String.IsNullOrWhiteSpace(value))
+                                {
+                                    QuaTrinhKhenThuong add = new QuaTrinhKhenThuong
+                                    {
+                                        IDCanBo = data.IDCanBo,
+                                        MaHinhThucKhenThuong = "01",
+                                        MaDanhHieuKhenThuong = "14",
+                                        SoQuyetDinh = "",
+                                        NguoiKy = "",
+                                        IsHoiVien = true,
+                                        GhiChu = value,
+                                        IDQuaTrinhKhenThuong = Guid.NewGuid()
+
+                                    };
+                                    listDanhHieu.Add(add);
+
+                                }
                             }
                             break;
                         case 41:
@@ -1835,18 +1902,47 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             }
                             break;
                         case 54:
-                            //  Hỗ trợ đào tạo nghề
+                            //  Ghi chú
                             if (!String.IsNullOrWhiteSpace(value))
                             {
                                 data.GhiChu = value;
                             }
                             break;
+                       
                         case 55:
+                            //  Chi Hội Dân Cư CHT
+                            if (!String.IsNullOrWhiteSpace(value))
+                            {
+                                data.ChiHoiDanCu_CHT = value;
+                            }
+                            break;
+                        case 56:
+                            // Chi Hội Dân Cư CHP
+                            if (!String.IsNullOrWhiteSpace(value))
+                            {
+                                data.ChiHoiDanCu_CHT = value;
+                            }
+                            break;
+                        case 57:
+                            //  Chi hội nghề nghiệp CHT
+                            if (!String.IsNullOrWhiteSpace(value))
+                            {
+                                data.ChiHoiNgheNghiep_CHP = value;
+                            }
+                            break;
+                        case 58:
+                            //  Chi hội nghề nghiệp CHP
+                            if (!String.IsNullOrWhiteSpace(value))
+                            {
+                                data.ChiHoiNgheNghiep_CHT = value;
+                            }
+                            break;
+                        case 59:
                             //  Chi hội
                             if (!String.IsNullOrWhiteSpace(value))
                             {
                                 var exist = chiHois.Where(it => it.TenChiHoi == value);
-                                if (exist.Count()>0)
+                                if (exist.Count() > 0)
                                 {
                                     data.MaChiHoi = exist.First().MaChiHoi;
                                 }
@@ -1860,12 +1956,12 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
                             }
                             break;
-                        case 56:
+                        case 60:
                             //  Tổ hội
                             if (!String.IsNullOrWhiteSpace(value))
                             {
                                 var exist = toHois.Where(it => it.TenToHoi == value);
-                                if (exist.Count()>0)
+                                if (exist.Count() > 0)
                                 {
                                     data.MaToHoi = exist.First().MaToHoi;
                                 }
@@ -1879,35 +1975,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
                             }
                             break;
-                        case 57:
-                            //  Hỗ trợ đào tạo nghề
-                            if (!String.IsNullOrWhiteSpace(value))
-                            {
-                                data.ChiHoiDanCu_CHT = value;
-                            }
-                            break;
-                        case 58:
-                            //  Hỗ trợ đào tạo nghề
-                            if (!String.IsNullOrWhiteSpace(value))
-                            {
-                                data.ChiHoiDanCu_CHT = value;
-                            }
-                            break;
-                        case 59:
-                            //  Hỗ trợ đào tạo nghề
-                            if (!String.IsNullOrWhiteSpace(value))
-                            {
-                                data.ChiHoiNgheNghiep_CHP = value;
-                            }
-                            break;
-                        case 60:
-                            //  Hỗ trợ đào tạo nghề
-                            if (!String.IsNullOrWhiteSpace(value))
-                            {
-                                data.ChiHoiNgheNghiep_CHT = value;
-                            }
-                            break;
-                        
+
                     }
                 }
                 catch (Exception ex)
@@ -1919,6 +1987,26 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             import.CanBo = data;
 
             return import;
+        }
+
+        private List<FileDinhKemModel> AdFiles(IFormFile?[] filesDinhKem,CanBo canBo) {
+            List< FileDinhKemModel> addFiles = new List<FileDinhKemModel>();
+            foreach (var file in filesDinhKem)
+            {
+                FileDinhKemModel addFile = new FileDinhKemModel();
+                addFile.Id = canBo.IDCanBo;
+                addFile.IdCanBo = canBo.IDCanBo;
+                addFile.Key = Guid.NewGuid();
+                addFile.IDLoaiDinhKem = "99";
+                FunctionFile.CopyFile(_hostEnvironment, file!, addFile);
+                if (!String.IsNullOrEmpty(addFile.Error) && !String.IsNullOrWhiteSpace(addFile.Error))
+                {
+                    ModelState.AddModelError("fileInbox", addFile.Error);
+                    break;
+                }
+                addFiles.Add(addFile);
+            }
+            return addFiles;
         }
         #endregion Check data type 
     }

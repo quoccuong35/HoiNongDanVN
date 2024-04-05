@@ -41,6 +41,10 @@
                                 @Html.DropDownList("MaDonVi", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-3">
+                                <label>Chức vụ</label>
+                                @Html.DropDownList("MaChucVu", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
                                 <label>Cấp</label>
                                 @Html.DropDownList("Loai", new List<SelectListItem>(){
                                 new SelectListItem(){Text = LanguageResource.Dropdownlist_All, Value = ""},

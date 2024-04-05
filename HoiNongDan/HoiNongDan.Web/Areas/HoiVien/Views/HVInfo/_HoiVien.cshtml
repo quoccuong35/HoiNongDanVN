@@ -1,0 +1,89 @@
+﻿@model HVInfoSearchVM
+
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header p-1" style="background: #f2f2f2;">
+            <h4 class="text-center">Thông tin tìm kiếm</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <form id="frmSearchHoiVien" >
+                    <div class="row my-2">
+                        <div class="col-md-2">
+                            <label asp-for="MaQuanHuyen"></label>
+                            @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                        </div>
+                        <div class="col-md-2">
+                            <label asp-for="MaDiaBanHoiVien"></label><span class="text-red">*</span>
+                            @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                        </div>
+                        <div class="col-md-2">
+                            <label asp-for="MaCanBo"></label>
+                            <input type="text" asp-for="MaCanBo" id="hv-MaCanBo" class="form-control">
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="HoVaTen"></label>
+                            <input type="text" asp-for="HoVaTen" id="hv-HoVaTen" class="form-control">
+                        </div>
+                        <div class="col-md-2">
+                            <label asp-for="SoCCCD"></label>
+                            <input type="text" asp-for="SoCCCD" id="hv-SoCCCD" class="form-control">
+                        </div>
+                        <div class="col-2 d-flex align-items-end">
+                            <a class="btn btn-primary btn-sm" id="btn-searchhoivien">
+                                <i class="bi bi-search"></i>
+                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span> Tìm kiếm
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header p-1 d-flex flex-row justify-content-around" style="background: #f2f2f2;">
+            <div class="col-md-4 d-flex justify-content-start align-items-start">
+                <img  src="/Images/detail.png" class="mx-1"/>
+                <h5> Danh sách hội viên</h5>
+            </div>
+            <div class="col-md-4">
+                <h3 id="selected-info">Chưa chọn</h3>
+                <small><b>Chú ý:</b> muốn chọn nhanh thì double click vào dòng thông tin</small>
+            </div>
+            <div class="col-md-4">
+                <button class="btn" style="background-color:#0e344f;width:130px" id="btn-chon-hv"><i class="fa fa-check mx-1" style="color:white"></i><span style="font-size:15px;color:white">Chọn</span></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+               <div class="col-md-8">
+                    <div class="table-responsive" id="divDSSearchHoiVien">
+                        @Html.Partial("_DSHoiVien", Model.HoiViens)
+                    </div>
+               </div>
+               <div class="col-md-4">
+                    <div class="table-responsive">
+                        <table class="table text-nowrap text-md-nowrap mb-0" id="divDSChonHoiVien">
+                            <thead>
+                                <th>Số thẻ HV</th>
+                                <th>Họ Tên</th>
+                                <th>Địa Bàn</th>
+                                <th>Ngày Sinh</th>
+                                <th>Số CCCD</th>
+                                <th>Hộ khẩu thường trú</th>
+                                <th>ID</th>
+                            </thead>
+                            <tbody id="tbodyDSChonHoiVien">
+
+                            </tbody>
+                        </table>
+                   </div>
+               </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+<script src="~/js/diaban_hv_quanhuyen.js"></script>

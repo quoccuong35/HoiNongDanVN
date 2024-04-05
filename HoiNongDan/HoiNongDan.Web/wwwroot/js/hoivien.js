@@ -41,19 +41,6 @@ function ShowInTheHoiVien(formData) {
         }
     });
 }
-
-$("select#MaQuanHuyen").change(function () {
-    let maQuanHuyen = $(this).val();
-    //console.log(maQuanHuyen);
-    $("select#MaDiaBanHoatDong").empty();
-    $.getJSON('/HoiVien/HoiVien/loadDiaBanHoatDong?maQuanHuyen=' + maQuanHuyen, function (data) {
-        $("select#MaDiaBanHoatDong").append('<option>' + "--Vui lòng chọn danh mục--" + '</option>');
-        $.each(data, function (i, item) {
-            /*console.log(item);*/
-            $("select#MaDiaBanHoatDong").append('<option value=' + item.maDiaBanHoatDong + '>' + item.name + '</option>');
-        });
-    });
-})
 var table;
 //load default and set event
 $(document).ready(function () {
@@ -229,9 +216,8 @@ $(document).on("click", "#btn-importExcel", function () {
         type: "POST",
         url: "/HoiVien/HoiVien/Import",
         data: formData,
-        cache: false,
-        contentType: false,
         processData: false,
+        contentType: false,
         success: function (jsonData) {
             $btn.toggleClass("btn-loading");
             if (jsonData.success == true) {
@@ -276,6 +262,7 @@ $(document).on("click", "#btn-importExcel", function () {
         },
         error: function (xhr, status, error) {
             Exceptions(xhr, status, error);
+             $btn.toggleClass("btn-loading");
         }
     });
 });

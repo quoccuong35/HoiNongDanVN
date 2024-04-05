@@ -1,0 +1,81 @@
+﻿@model LichSinhHoatChiToHoiVM
+<div class="card">
+    <div class="card-body">
+        <div class="panel panel-primary">
+            <div class="row">
+                <input asp-for="ID" hidden />
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label asp-for="MaDiaBanHoiVien"></label><span class="text-red">*</span>
+                        <select asp-for="MaDiaBanHoiVien" asp-items="@ViewBag.MaDiaBanHoiVien" class="form-control select2-show-search form-select">
+                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                        </select>
+                        <span asp-validation-for="MaDiaBanHoiVien" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="form-group">
+                        <label asp-for="IDMaChiToHoi"></label><span class="text-red">*</span>
+                        <select asp-for="IDMaChiToHoi" asp-items="@ViewBag.IDMaChiToHoi" class="form-control select2-show-search form-select">
+                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                        </select>
+                        <span asp-validation-for="IDMaChiToHoi" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="form-group">
+                        <label asp-for="TenNoiDungSinhHoat"></label><span class="text-red">*</span>
+                        <input asp-for="TenNoiDungSinhHoat" class="form-control">
+                        <span asp-validation-for="TenNoiDungSinhHoat" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label asp-for="Ngay"></label><span class="text-red">*</span>
+                        <input asp-for="Ngay" class="form-control">
+                        <span asp-validation-for="Ngay" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label asp-for="SoLuongNguoiThanGia"></label><span class="text-red">*</span>
+                        <input asp-for="SoLuongNguoiThanGia" class="form-control">
+                        <span asp-validation-for="SoLuongNguoiThanGia" class="text-danger"></span>
+                    </div>
+                </div>
+                @if (@Model.ID != null)
+                {
+                    <div class="col-md-2 d-flex align-items-end">
+                        <fieldset>
+                            @Html.RadioButtonFor(p => p.Actived, true) @LanguageResource.Actived_True
+                            @Html.RadioButtonFor(p => p.Actived, false) @LanguageResource.Actived_False
+                        </fieldset>
+                    </div>
+                }
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>@LanguageResource.TaiLieu</label>
+                        <input class="form-control" type="file" name="fileDinhKems" multiple>
+                    </div>
+                </div>
+                
+                @foreach (var item in Model.FileDinhKems!)
+                {
+                    <div class="col-md-2" id="@item.Key" style="padding-top:20px">
+                        <div class="btn-group file-attach m-2" role="group" aria-label="Basic example">
+                            <a type="button" class="btn btn-success-light" href="\@item.Url"><i class="mdi mdi-file-video me-2"></i>@item.FileName</a>
+                            <button type="button" class="btn btn-close btn-success-light btn-deletefile" aria-label="Close" data-id="@item.Key">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    </div>
+                }
+                <div class="col-lg-12">
+                    <label asp-for="NoiDungSinhHoat"></label><span class="text-red">*</span>
+                    <textarea class ="content" asp-for="NoiDungSinhHoat"> </textarea>
+                    <span asp-validation-for="NoiDungSinhHoat" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

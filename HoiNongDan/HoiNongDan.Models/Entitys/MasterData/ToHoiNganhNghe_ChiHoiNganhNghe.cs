@@ -11,9 +11,11 @@ namespace HoiNongDan.Models
     {
         public Guid Ma_ToHoiNganhNghe_ChiHoiNganhNghe { get; set; }
         public String Ten { get; set; }
+        public DateTime NgayThanhLap { get; set; }
         public bool Actived { get; set; } = true;
         [MaxLength(500)]
         public String? Description { get; set; }
+        public String? Loai { get; set; } //01 chi hội 02 tổ hội
         public Nullable<System.Guid> CreatedAccountId { get; set; }
         public DateTime CreatedTime { get; set; } = DateTime.Now;
         public Nullable<System.Guid> LastModifiedAccountId { get; set; }

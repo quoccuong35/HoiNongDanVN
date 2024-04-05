@@ -109,14 +109,19 @@
                                         <span asp-validation-for="IdDepartment" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
+                                    <label asp-for="MaChucVu"></label><span class="text-red">*</span>
                                     <div class="form-group">
-                                        <label asp-for="MaChucVu"></label><span class="text-red">*</span>
                                         <select asp-for="MaChucVu" asp-items="@ViewBag.MaChucVu" class="form-control select2-show-search form-select">
                                             <option  selected>@LanguageResource.Dropdownlist_Menu-</option>
                                         </select>
-                                        <span asp-validation-for="MaChucVu" class="text-danger"></span>
+                                       
                                     </div>
+                                    <span asp-validation-for="MaChucVu" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label asp-for="DonVi"></label>
+                                    <input asp-for="DonVi" class="form-control">
                                 </div>
                             </div>
                             <div class="row">

@@ -1,4 +1,12 @@
 
+.nav.panel-tabs.panel-success a {
+    color: #136d38;
+}
+
+    .nav.panel-tabs.panel-success a.active {
+        background-color: #136d38 !important;
+        color: #fff;
+    }
 
 .splitter {
     width: 100%;

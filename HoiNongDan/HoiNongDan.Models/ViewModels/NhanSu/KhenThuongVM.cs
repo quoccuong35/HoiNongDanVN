@@ -23,27 +23,35 @@ namespace HoiNongDan.Models
         public string MaDanhHieuKhenThuong { get; set; }
 
    
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayQuyetDinh")]
         [DataType(DataType.Date)]
         public DateTime? NgayQuyetDinh { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoQuyetDinh")]
-        public String SoQuyetDinh { get; set; }
+        public String? SoQuyetDinh { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NguoiKy")]
         public String? NguoiKy { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "LyDo")]
-        public String? LyDo { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NoiDung")]
+        public String? NoiDung { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GhiChu")]
         public String? GhiChu { get; set; }
 
+
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Nam")]
+        public int? Nam {  get; set; }
         public NhanSuThongTinVM NhanSu { get; set; }
-        public KhenThuongVM() {
+       
+        public HoiVienInfo HoiVien { get; set; }
+        public KhenThuongVM()
+        {
             NhanSu = new NhanSuThongTinVM();
+            HoiVien = new HoiVienInfo();
         }
     }
     public class KhenThuongVMMT:KhenThuongVM {
@@ -51,11 +59,12 @@ namespace HoiNongDan.Models
             obj.MaHinhThucKhenThuong = this.MaHinhThucKhenThuong;
             obj.MaDanhHieuKhenThuong = this.MaDanhHieuKhenThuong;
             obj.SoQuyetDinh = this.SoQuyetDinh;
-            obj.NgayQuyetDinh = this.NgayQuyetDinh!.Value;
-            obj.LyDo = this.LyDo!;
+            obj.NgayQuyetDinh = this.NgayQuyetDinh;
             obj.GhiChu = this.GhiChu!;
+            obj.Nam = this.Nam!;
+            obj.NoiDung = this.NoiDung!;
             obj.NguoiKy = this.NguoiKy;
-            obj.IDCanBo = this.NhanSu.IdCanbo!.Value;
+            obj.IDCanBo = this.HoiVien.IdCanbo!= null ? this.HoiVien.IdCanbo.Value :  this.NhanSu.IdCanbo!.Value;
             return obj;
         }
     }

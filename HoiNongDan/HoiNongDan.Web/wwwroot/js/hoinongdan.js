@@ -1,4 +1,5 @@
-﻿var HoiNongDan = {};
+﻿
+var HoiNongDan = {};
 
 HoiNongDan.SearchInitial = function (controller, action = "_Search") {
     //set btn-search event
@@ -18,6 +19,7 @@ HoiNongDan.SearchInitial = function (controller, action = "_Search") {
     HoiNongDan.UploadFile(controller);
     HoiNongDan.ImportModalHideHandler();
     HoiNongDan.ExportData(controller);
+  
 }
 HoiNongDan.SearchDefault = function (controller, action) {
     var $btn = $("#btn-search");
@@ -38,8 +40,8 @@ HoiNongDan.SearchDefault = function (controller, action) {
         data: $("#frmSearch").serializeArray(),
         success: function (xhr, status, error) {
            
-            if (xhr.Code == 500 || xhr.Success == false) {
-               
+            if (xhr.code == 500 || xhr.success == false) {
+                toastr.error(xhr.data);
             }
             else if (xhr.indexOf("from-login-error") > 0) {
                 toastr.error('Hết thời gian thao tác xin đăng nhập lại');
@@ -78,6 +80,8 @@ HoiNongDan.CreateInitial = function (controller) {
         HoiNongDan.Create(controller, "#frmCreate", isContinue, this);
     });
     HoiNongDan.SearchNhanSu();
+    HoiNongDan.SearchHoiVien();
+    HoiNongDan.HoiVienShowModal();
 }
 
 HoiNongDan.Create = function (controller, frmCreate, isContinue, e) {
@@ -98,7 +102,6 @@ HoiNongDan.Create = function (controller, frmCreate, isContinue, e) {
             formData.append(val.name, val.value);
         });
         toastr.clear();
-        let link = "/" + controller + "/Create";
 
         $.ajax({
             type: "POST",
@@ -162,6 +165,7 @@ HoiNongDan.EditInitial = function (controller) {
     });
     HoiNongDan.DeleteFileDinhKem();
     HoiNongDan.DeleteEdit();
+    HoiNongDan.HoiVienShowModal();
 }
 HoiNongDan.Edit = function (controller, frmEdit, isContinue, e) {
     var $btn = $(e);
@@ -180,8 +184,6 @@ HoiNongDan.Edit = function (controller, frmEdit, isContinue, e) {
         $.each(formParams, function (i, val) {
             formData.append(val.name, val.value);
         });
-        let id = HoiNongDan.GetQueryString('id', window.location.href);
-        console.log(id);
         toastr.clear();
         $.ajax({
             type: "POST",
@@ -490,7 +492,7 @@ HoiNongDan.Import = function (controller) {
 HoiNongDan.UploadFile = function (controller) {
     $(document).on("click", "#btn-importExcel", function () {
         var frm = $("#frmImport");
-        var formData = new FormData(),
+        var formData = new FormData();
         formParams = frm.serializeArray();
         var $btn = $("#btn-importExcel");
         $btn.toggleClass("btn-loading");
@@ -502,6 +504,7 @@ HoiNongDan.UploadFile = function (controller) {
         $.each(formParams, function (i, val) {
             formData.append(val.name, val.value);
         });
+        console.log(formData);
         $.ajax({
             type: "POST",
             url: "/" + controller + "/Import",
@@ -553,6 +556,7 @@ HoiNongDan.UploadFile = function (controller) {
             },
             error: function (xhr, status, error) {
                 Exceptions(xhr, status, error);
+                $btn.toggleClass("btn-loading");
             }
         });
     });
@@ -657,12 +661,217 @@ HoiNongDan.SearchNhanSu = function () {
     });
 }
 
+HoiNongDan.SearchHoiVien = function () {
+    $(document).on("click", "#btn-search-hoivien", function () {
+        var mahoivien = $("#txt-mahoivien").val();
+        $.ajax({
+            type: "GET",
+            url: "/HoiVien/HVInfo/SearchHV",
+            data: { maHV: mahoivien},
+            success: function (jsonData) {
+                $("#part-hoivien").html(jsonData);
+               
+            },
+            error: function (xhr, status, error) {
+                Exceptions(xhr, status, error);
+            }
+        });
+    });
+}
+
+HoiNongDan.HoiVienShowModal = function (controller) {
+    HoiNongDan.HoiVienSearch();
+    HoiNongDan.ChonHoiViens();
+    HoiNongDan.ChonHoiVien();
+    HoiNongDan.ChonNhanhHV();
+    $(document).on("click", ".btn-hoivien-modal", function () {
+        $.ajax({
+            type: "get",
+            url: "/HoiVien/HVInfo/_HoiVien",
+            success: function (xhr, status, error) {
+                if (xhr.Code == 500 || xhr.Success == false) {
+
+                }
+                else if (xhr.indexOf("from-login-error") > 0) {
+                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                    }, 1000);
+                }
+                else {
+                    $("#modalHoiVien").appendTo("body");
+                    $("#container-hoivien").html(xhr);
+                    $('#modalHoiVien').modal("show");
+                }
+            },
+            error: function (xhr, status, error) {
+                Exceptions(xhr, status, error);
+            }
+        });
+
+    });
+
+}
+HoiNongDan.HoiVienSearch = function () {
+    HoiNongDan.CheckedAll();
+    $(document).on("click", "#btn-searchhoivien", function () {
+        $.ajax({
+            type: "get",
+            url: "/HoiVien/HVInfo/_HoiVienSearch",
+            data: $("#frmSearchHoiVien").serializeArray(),
+            success: function (xhr, status, error) {
+                if (xhr.Code == 500 || xhr.Success == false) {
+
+                }
+                else if (xhr.indexOf("from-login-error") > 0) {
+                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                    setTimeout(function () {
+                        var url = window.location.href.toString().split(window.location.host)[1];
+                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                    }, 1000);
+                }
+                else {
+                    $("#divDSSearchHoiVien").html(xhr);
+                    $('#divDSSearchHoiVien>#list-dshoivien').dataTable();
+                }
+            },
+            error: function (xhr, status, error) {
+                Exceptions(xhr, status, error);
+            }
+        });
+
+    });
+
+}
+
+HoiNongDan.CheckedAll = function () {
+    $(document).on("change", "#checkAll", function (e) {
+       
+        const items = document.querySelectorAll('#divDSSearchHoiVien input[name="chk-item[]"]');
+        for (let i = 0; i < items.length; i++) {
+            items[i].checked = this.checked;
+            var tr = items[i].parentNode.parentNode;
+            var id = items[i].getAttribute('id')
+            if (this.checked) {
+                HoiNongDan.InsertRowTable(tr, id);
+            }
+            else {
+                HoiNongDan.RemoveRowTable(id);
+            }
+        }
+        HoiVienDaChon();
+        //if (checkAll.checked) {
+        //    $("#selected-info").html("Đã chọn" + items.length)
+        //}
+        //else {
+        //    $("#selected-info").html("Chưa chọn")
+        //}
+        
+    });
+}
+function HoiVienDaChon() {
+    let so_item_chon = document.querySelectorAll("#tbodyDSChonHoiVien>tr").length;
+    $("#selected-info").html("Đã chọn " + so_item_chon)
+}
+HoiNongDan.ChonHoiViens = function () {
+    $(document).on("click", "#btn-chon-hv", function (e) {
+       
+        var data_selected = document.querySelectorAll("#tbodyDSChonHoiVien>tr"); 
+        var data = document.querySelectorAll("#tbodyHoiViens>tr");
+        var cout = data.length;
+        for (var i = 0; i < data_selected.length; i++) {
+            data
+            var table = document.getElementById("list-dshoivien").getElementsByTagName('tbody')[0];
+            var row = table.insertRow(0);
+            let chon = row.insertCell(0);
+            let maNV = row.insertCell(1);
+            let hoten = row.insertCell(2);
+            let diaban = row.insertCell(3);
+            let ngaysinh = row.insertCell(4);
+            let socccd = row.insertCell(5);
+            let hokhau = row.insertCell(6);
+            chon.innerHTML = "<input type ='checkbox' name = 'HoiViens[" + cout + "].Chon' value='true' checked>";
+            maNV.innerHTML = data_selected[i].children[0].innerText + "<input type='text' hidden name = 'HoiViens[" + cout + "].IdCanbo' value='" + data_selected[i].children[6].innerText.toString().trim() + "' >";
+            hoten.innerHTML = data_selected[i].children[1].innerText + "<input type='text' hidden name = 'HoiViens[" + cout + "].HoVaTen' value='" + data_selected[i].children[1].innerText.toString().trim() + "' >";
+            diaban.innerText = data_selected[i].children[2].innerText 
+            ngaysinh.innerText = data_selected[i].children[3].innerText 
+            socccd.innerText = data_selected[i].children[4].innerText 
+            hokhau.innerText = data_selected[i].children[5].innerText 
+            cout++;
+        }
+        $('#modalHoiVien').modal("hide");
+    });
+}
+HoiNongDan.ChonNhanhHV = function () {
+    // khi double click
+    $(document).on("dblclick", "#list-dshoivien>tbody>tr", function (e) {
+        document.getElementById("HoiVien-IdCanbo").value = this.children[0].children[0].getAttribute("id");
+
+        document.getElementById("MaCanBo").value = this.children[2].innerText;
+        document.getElementById("txt-mahoivien").value = this.children[2].innerText;
+
+        document.getElementById("HoVaTen").value = this.children[3].innerText;
+        document.getElementById("txt-HoVaTen").value = this.children[3].innerText;
+
+        document.getElementById("SoCCCD").value = this.children[6].innerText;
+        document.getElementById("txt-SoCCCD").value = this.children[6].innerText;
+
+        document.getElementById("DiaBan").value = this.children[4].innerText;
+        document.getElementById("txt-DiaBan").value = this.children[4].innerText;
+
+        document.getElementById("HoKhauThuongTru").value = this.children[7].innerText;
+        document.getElementById("txt-HoKhauThuongTru").value = this.children[7].innerText;
+
+        document.getElementById("NgaySinh").value = this.children[5].innerText;
+        document.getElementById("txt-NgaySinh").value = this.children[5].innerText;
+
+        $('#modalHoiVien').modal("hide");
+    });
+}
+HoiNongDan.ChonHoiVien = function () {
+    $(document).on("click", 'input[name="chk-item[]"]', function (e) {
+        let id = this.getAttribute('id');
+        let tr = document.getElementById(id).parentElement.parentElement;
+        if (this.checked) {
+            HoiNongDan.InsertRowTable(tr, id);
+        }
+        else {
+            HoiNongDan.RemoveRowTable(id);
+        }
+        HoiVienDaChon();
+    });
+}
+
+HoiNongDan.InsertRowTable = function (tr, id) {
+    var table = document.getElementById("divDSChonHoiVien").getElementsByTagName('tbody')[0];
+    
+    var row = table.insertRow(0);
+    row.id = "tr_"+id;
+    let manv = row.insertCell(0);
+    let hoten = row.insertCell(1);
+    let diaban = row.insertCell(2);
+    let ngaysinh = row.insertCell(3);
+    let socccd = row.insertCell(4);
+    let hokhau = row.insertCell(5);
+    let idCanBo = row.insertCell(6);
+  
+    manv.innerText = tr.children[2].innerText;
+    hoten.innerText = tr.children[3].innerText;
+    diaban.innerText = tr.children[4].innerText;
+    ngaysinh.innerText = tr.children[5].innerText;
+    socccd.innerText = tr.children[6].innerText;
+    hokhau.innerText = tr.children[7].innerText;
+    idCanBo.innerText = id;
+}
+HoiNongDan.RemoveRowTable = function (rowid) {
+    var tr = document.getElementById("tr_"+rowid);
+    tr.parentNode.removeChild(tr);
+}
 HoiNongDan.DeleteFileDinhKem = function (controller) {
     $(document).on("click", ".btn-deletefile", function () {
         let $btn = $(this);
         let id = $btn.data("id");
-        formData = new FormData();
-        formData.append("id", id);
         Swal.fire({
             title: 'Xóa thông tin',
             html: "Bạn có muốn xóa file đang chọn",
@@ -674,12 +883,11 @@ HoiNongDan.DeleteFileDinhKem = function (controller) {
             cancelButtonText: "Không"
         }).then((result) => {
             if (result.isConfirmed) {
+                var token = $("input[name='__RequestVerificationToken']").val();
                 $.ajax({
-                    type: "POST",
                     url: "/NhanSu/FileDinhKem/DeleteFile",
-                    data: formData,
-                    processData: false,
-                    contentType: false,
+                    data: { id: id, '__RequestVerificationToken': token },
+                    type: 'DELETE',
                     success: function (jsonData) {
 
                         if (jsonData.success == true) {

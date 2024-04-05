@@ -31,6 +31,14 @@
                     <form method="get" id="frmSearch" asp-action="_Search">
                         <div class="row my-2">
                             <div class="col-md-3">
+                                <label asp-for="MaQuanHuyen"></label>
+                                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="MaDiaBanHoiVien"></label><span class="text-red">*</span>
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
                                 <label asp-for="MaHinhThucHoTro"></label>
                                 @Html.DropDownList("MaHinhThucHoTro", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
@@ -80,6 +88,7 @@
 </div>
 <!-- CONTAINER CLOSED -->
 @section ScriptCustomized {
+    <script src="~/js/diaban_hv_quanhuyen.js"></script>
     <script>
         //load default and set event
         $(document).ready(function () {

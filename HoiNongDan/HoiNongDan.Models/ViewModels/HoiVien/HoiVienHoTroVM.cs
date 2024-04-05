@@ -14,7 +14,7 @@ namespace HoiNongDan.Models
     {
         public Guid? ID { get; set; }
 
-        public NhanSuThongTinVM NhanSu { get; set; }
+        public HoiVienInfo HoiVien { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NguonVon")]
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
@@ -74,7 +74,7 @@ namespace HoiNongDan.Models
             obj.NgayTraNoCuoiCung = this.NgayTraNoCuoiCung;
             obj.NoiDung = this.NoiDung;
             obj.GhiChu = this.GhiChu!;
-            obj.IDHoiVien = this.NhanSu.IdCanbo!.Value;
+            obj.IDHoiVien = this.HoiVien.IdCanbo!.Value;
             obj.MaHinhThucHoTro = this.MaHinhThucHoTro;
             obj.MaNguonVon = this.MaNguonVon;
            // obj.TraXong = this.TraXong;
@@ -125,6 +125,11 @@ namespace HoiNongDan.Models
         public String? TienVay { get; set; }
     }
     public class HVHoTroSearchVM {
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
+        public String? MaQuanHuyen { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
+        public Guid? MaDiaBanHoiVien { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NamVayVon")]
         public int? NamVayVon { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHV")]

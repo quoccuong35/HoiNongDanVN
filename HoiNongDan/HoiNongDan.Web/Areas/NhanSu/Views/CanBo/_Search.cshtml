@@ -12,6 +12,7 @@
             <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
             <th>@Html.DisplayNameFor(p => p.HoVaTen)</th>
             <th>@Html.DisplayNameFor(p => p.TenChucVu)</th>
+            <th>Đơn vị</th>
             <th>@Html.DisplayNameFor(p => p.NgaySinh)</th>
             <th>@Html.DisplayNameFor(p => p.GioiTinh)</th>
             <th>@Html.DisplayNameFor(p => p.SoQuyetDinhBoNhiem)</th>
@@ -70,6 +71,7 @@
                 <td>@item.MaCanBo</td>
                 <td class="align-middle"> <a asp-area="@ConstArea.NhanSu" asp-action="Edit" ,asp-controller="@ConstController.CanBo" target="_blank" asp-route-id="@item.IDCanBo">@item.HoVaTen</a></td>
                 <td>@item.TenChucVu</td>
+                <td>@item.DonVi</td>
                 <td>@item.NgaySinh</td>
                 <td>@item.TenGioiTinh</td>
                 <td>@item.SoQuyetDinhBoNhiem</td>

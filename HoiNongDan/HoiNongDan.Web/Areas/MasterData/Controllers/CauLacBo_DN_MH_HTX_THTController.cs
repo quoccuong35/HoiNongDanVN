@@ -21,7 +21,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         [HttpGet]
         [HoiNongDanAuthorization]
-        public IActionResult _Search(string? Ten, bool? Actived)
+        public IActionResult _Search(string? Ten, bool? Actived, string? Loai)
         {
             return ExecuteSearch(() => {
                 var data = _context.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTacs.AsQueryable();
@@ -33,11 +33,16 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 {
                     data = data.Where(it => it.Actived == Actived);
                 }
+                if (!String.IsNullOrWhiteSpace(Loai))
+                {
+                    data = data.Where(it => it.Loai == Loai);
+                }
                 var model = data.Select(it => new CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTacVM
                 {
                     ID = it.Id_CLB_DN_MH_HTX_THT,
                     Actived = it.Actived,
                     Ten = it.Ten,
+                    Loai = it.Loai!,
                     Description = it.Description,
                     OrderIndex = it.OrderIndex,
                 }).ToList();
@@ -65,6 +70,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac add= new CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac();
                 add.Id_CLB_DN_MH_HTX_THT = Guid.NewGuid();
                 add.Ten = obj.Ten;
+                add.Loai = obj.Loai;
                 add.Actived = true;
                 add.Description = obj.Description;
                 add.OrderIndex = obj.OrderIndex;
@@ -98,6 +104,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
             {
                 ID = edit.Id_CLB_DN_MH_HTX_THT,
                 Ten = edit.Ten,
+                Loai = edit.Loai == null?"":edit.Loai,
                 Actived = edit.Actived,
                 OrderIndex = edit.OrderIndex,
                 Description = edit.Description,
@@ -125,6 +132,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 {
                     edit.Ten = obj.Ten;
                     edit.Actived = obj.Actived;
+                    edit.Loai = obj.Loai;
                     edit.OrderIndex = obj.OrderIndex;
                     edit.Description = obj.Description;
                     edit.LastModifiedAccountId = AccountId();
