@@ -1,0 +1,99 @@
+﻿@model VayVonSearchVM
+@{
+    ViewBag.Title = LanguageResource.List + LanguageResource.VayVon.ToLower();
+    string CurrentController = ConstController.VayVon;
+    string CurrentArea = ConstArea.HoiVien;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User != null ? User.FindFirst("Roles").Value : "";
+}
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header my-2">
+        <div>
+            <span class="header-title">@LanguageResource.List @LanguageResource.VayVon.ToLower()</span>
+            <div class="rectangle">
+                <span> </span>
+                <span> </span>
+                <span> </span>
+            </div>
+        </div>
+        <div class="d-flex px-2">
+            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create",listRoles:listRoles)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="splitter rounded-3">
+                <div class="splitter-head">Tìm kiếm nâng cao</div>
+                <div class="splitter-body">
+                    <form method="get" id="frmSearch" asp-action="_Search">
+                        <div class="row my-2">
+                            <div class="col-md-3">
+                                <label asp-for="MaQuanHuyen"></label>
+                                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="MaDiaBanHoiVien"></label><span class="text-red">*</span>
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="MaNguonVon"></label><span class="text-red">*</span>
+                                @Html.DropDownList("MaNguonVon", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="NamVayVon"></label>
+                                <input type="number" asp-for="NamVayVon" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="MaHV"></label>
+                                <input type="text" asp-for="MaHV" class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="TenHV"></label>
+                                <input type="text" asp-for="TenHV" class="form-control">
+                            </div>
+                            <div class="col-3">
+                                <label>@LanguageResource.Actived</label>
+                                @Html.DropDownList("Actived", new List<SelectListItem>(){
+                                new SelectListItem(){Text = LanguageResource.Dropdownlist_All, Value = ""},
+                                new SelectListItem(){Text = LanguageResource.Actived_True, Value = "true", Selected = true},
+                                new SelectListItem(){Text = LanguageResource.Actived_False, Value = "false"}
+                                }, new { @class = "form-control" })
+                            </div>
+                            <div class="col-2 d-flex align-items-end">
+                                @HtmlExtensions.SearchButton()
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @Html.AntiForgeryToken()
+                    <div class="table-responsive" id="divSearchResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+<!-- CONTAINER CLOSED -->
+@section ScriptCustomized {
+    <script src="~/js/diaban_hv_quanhuyen.js"></script>
+    <script>
+        //load default and set event
+        $(document).ready(function () {
+            HoiNongDan.SearchInitial("@CurrentUrl");
+            HoiNongDan.ShowMessage(window.location.href);
+        });
+    </script>
+}

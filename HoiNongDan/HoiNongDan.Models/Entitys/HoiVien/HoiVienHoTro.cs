@@ -14,16 +14,7 @@ namespace HoiNongDan.Models
         public Guid ID { get; set; }
         public Guid IDHoiVien { get; set; }
         public CanBo HoiVien { get; set; }
-        public long? SoTienVay { get; set; }
-        public int? ThoiHangChoVay { get; set; }
-        [Column(TypeName = "decimal(18,2)")]
-        public double? LaiSuatVay { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime? TuNgay { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime? DenNgay { get; set; }
-        [DataType(DataType.Date)]
-        public DateTime? NgayTraNoCuoiCung { get; set; }
+      
         public string NoiDung { get; set; }
         public string? GhiChu { get; set; }
         public bool Actived { get; set; }
@@ -31,20 +22,17 @@ namespace HoiNongDan.Models
         public DateTime? CreatedTime { get; set; } = DateTime.Now;
         public Guid? LastModifiedAccountId { get; set; }
         public DateTime? LastModifiedTime { get; set; }
-        public bool TraXong { get; set; } = false;
-        public Guid MaHinhThucHoTro { get; set; }
-        public HinhThucHoTro HinhThucHoTro { get; set; }
 
-        public Guid? MaNguonVon { get; set; }
-        public NguonVon NguonVon { get; set; }
+        public Guid? IDLopHoc { get; set; }
+        public LopHoc LopHoc { get; set; }
     }
     public class HinhThucHoTro {
         public Guid MaHinhThucHoTro { get; set; }
         public String TenHinhThuc { get; set; }
 
-        public ICollection<HoiVienHoTro> HoiVienHoTros { get; set; }
+        public ICollection<LopHoc> LopHocs { get; set; }
         public HinhThucHoTro() {
-            HoiVienHoTros = new HashSet<HoiVienHoTro>();
+            LopHocs = new HashSet<LopHoc>();
         }
     }
     public class NguonVon { 
@@ -52,10 +40,10 @@ namespace HoiNongDan.Models
         public String TenNguonVon { get; set; }
         public string? GhiChu { get; set; }
         public bool Actived { get; set; }
-        public ICollection<HoiVienHoTro> HoiVienHoTros { get; set; }
+        public ICollection<VayVon> VayVons { get; set; }
         public NguonVon()
         {
-            HoiVienHoTros = new HashSet<HoiVienHoTro>();
+            VayVons = new HashSet<VayVon>();
         }
     }
 }

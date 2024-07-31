@@ -1,0 +1,106 @@
+﻿@using HoiNongDan.Constant
+@using HoiNongDan.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<HVDangKyExcelVM>
+@{
+    string CurrentController = ConstController.HVDangKy;
+    string CurrentArea = ConstArea.HoiVien;
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th rowspan="2"></th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">@LanguageResource.NumberIndex</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Trạng thái</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">  Họ và tên</th>
+            <th colspan="2" class="text-center" style="vertical-align: middle;">Ngày tháng năm sinh</th>
+            <th colspan="2" class="text-center" style="vertical-align: middle;">CMND/CCCD</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Hộ khẩu thường trú</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Nơi ở hiện nay</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Số điện thoại</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Đảng viên</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Dân tộc</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Tôn giáo</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Trình độ học vấn</th>
+            <th colspan="2" class="text-center" style="vertical-align: middle;">Trình độ</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Nghề nghiệp hiện nay</th>
+            <th colspan="2" class="text-center" style="vertical-align: middle;">Hội viên</th>
+        </tr>
+        <tr>
+            <th class="text-center">Nam</th>
+            <th class="text-center">Nữ</th>
+            <th class="text-center">Số</th>
+            <th class="text-center">Ngày cấp</th>
+            <th class="text-center">
+                Chuyên môn
+            </th>
+            <th class="text-center">
+                Chính trị
+            </th>
+            <th class="text-center">
+                Địa bàn dân cư
+            </th>
+            <th class="text-center">
+                Ngành nghề
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoVaTen!, item.ID!.Value, listRoles: listRoles)
+                    @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.ID!.Value, listRoles: listRoles)
+                </td>
+                <td class="text-center">@item.STT</td>
+                @if (item.TrangThai == "1")
+                {
+                    <td>
+                        <div class="mt-sm-1 d-block">
+                            <span class="badge bg-warning-transparent rounded-pill text-warning p-2 px-3">Chờ duyệt</span>
+                        </div>
+                    </td>
+                }
+                else if (item.TrangThai == "2")
+                {
+                    <td>
+                        <div class="mt-sm-1 d-block">
+                            <span class="badge bg-success-transparent rounded-pill text-success p-2 px-3">Đã duyệt</span>
+                        </div>
+                    </td>
+                }
+                else if (item.TrangThai == "3")
+                {
+                    <td>
+                        <div class="mt-sm-1 d-block">
+                            <span class="badge bg-danger-transparent rounded-pill text-danger p-2 px-3">Từ chối</span>
+                        </div>
+                        <small>@item.LyDoTuChoi</small>
+                    </td>
+                }
+               
+                <td class="text-center">@item.HoVaTen</td>
+                <td class="text-center">@item.Nam</td>
+                <td class="text-center">@item.Nu</td>
+                <td class="text-center">@item.SoCCCD</td>
+                <td class="text-center">@item.NgayCapSoCCCD</td>
+                <td>@item.HoKhauThuongTru</td>
+                <td>@item.NoiOHiennay</td>
+                <td>@item.SoDienThoai</td>
+                <td class="text-center">@item.DangVien</td>
+                <td class="text-center">@item.DanToc</td>
+                <td class="text-center">@item.TonGiao</td>
+                <td class="text-center">@item.TrinhDoHocVan</td>
+                <td class="text-center">@item.TrinhDoChuyenMon</td>
+                <td class="text-center">@item.ChinhTri</td>
+                <td class="text-center">@item.NgheNghiep</td>
+                <td>@item.DiaBanDanCu</td>
+                <td class="text-center">@item.NganhNghe</td>
+            </tr>
+        }
+    </tbody>
+</table>

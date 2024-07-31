@@ -59,8 +59,11 @@ namespace HoiNongDan.Extensions
                     return "Export";
                 case "doimatkhau":
                     return "Edit";
+                case "tuchoi":
+                    return "Edit";
                 default: 
                     return name;
+
             }
         }
     }

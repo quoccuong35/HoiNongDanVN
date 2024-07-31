@@ -8,6 +8,7 @@ namespace HoiNongDan.Models
 {
     public class BCHVPhatTrienMoiVM
     {
+        public Guid? ID { get; set; }
         public int STT { get; set; }
         public String? HoVaTen { get; set; }
         public String? Nam { get; set; }

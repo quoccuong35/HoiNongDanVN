@@ -205,6 +205,15 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thống Kê Phát Triển Hội Viên.
+        /// </summary>
+        public static string BCBDHoiVien {
+            get {
+                return ResourceManager.GetString("BCBDHoiVien", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to BCH HNDTP.
         /// </summary>
         public static string BCHHNDTP {
@@ -988,7 +997,7 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hình thức hỗ trợ.
+        ///   Looks up a localized string similar to Loại tập huấn-Đào tạo.
         /// </summary>
         public static string HinhThucHoTro {
             get {
@@ -1087,11 +1096,29 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Địa bàn dân cư.
+        /// </summary>
+        public static string HoiVienDanCu {
+            get {
+                return ResourceManager.GetString("HoiVienDanCu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hội viên danh dự.
         /// </summary>
         public static string HoiVienDanhDu {
             get {
                 return ResourceManager.GetString("HoiVienDanhDu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ngành nghề.
+        /// </summary>
+        public static string HoiVienNganhNghe {
+            get {
+                return ResourceManager.GetString("HoiVienNganhNghe", resourceCulture);
             }
         }
         
@@ -1182,6 +1209,15 @@ namespace HoiNongDan.Resources {
         public static string HuuTri {
             get {
                 return ResourceManager.GetString("HuuTri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Đăng ký Hội viên mới.
+        /// </summary>
+        public static string HVDangKy {
+            get {
+                return ResourceManager.GetString("HVDangKy", resourceCulture);
             }
         }
         
@@ -1371,6 +1407,15 @@ namespace HoiNongDan.Resources {
         public static string LoaiQuanhe {
             get {
                 return ResourceManager.GetString("LoaiQuanhe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lớp Học.
+        /// </summary>
+        public static string LopHoc {
+            get {
+                return ResourceManager.GetString("LopHoc", resourceCulture);
             }
         }
         
@@ -2437,15 +2482,6 @@ namespace HoiNongDan.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        public static string String1 {
-            get {
-                return ResourceManager.GetString("String1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Tài liệu.
         /// </summary>
         public static string TaiLieu {
@@ -2514,6 +2550,15 @@ namespace HoiNongDan.Resources {
         public static string TenLichSinhHoat {
             get {
                 return ResourceManager.GetString("TenLichSinhHoat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tên lớp học.
+        /// </summary>
+        public static string TenLopHoc {
+            get {
+                return ResourceManager.GetString("TenLopHoc", resourceCulture);
             }
         }
         
@@ -2811,6 +2856,15 @@ namespace HoiNongDan.Resources {
         public static string Validation_OrderIndex {
             get {
                 return ResourceManager.GetString("Validation_OrderIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vay vốn.
+        /// </summary>
+        public static string VayVon {
+            get {
+                return ResourceManager.GetString("VayVon", resourceCulture);
             }
         }
         

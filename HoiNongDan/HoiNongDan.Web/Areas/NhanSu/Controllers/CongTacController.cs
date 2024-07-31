@@ -106,14 +106,14 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             var canBo = _context.CanBos.Include(it => it.CoSo).Include(it => it.Department)
                         .Include(it => it.PhanHe).Include(it => it.TinhTrang).Where(it => it.IDCanBo == item.IDCanBo && it.IsCanBo == true).SingleOrDefault();
             NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
-            nhanSu = nhanSu.GeThongTin(canBo);
+            nhanSu = nhanSu.GeThongTin(canBo!);
             nhanSu.CanBo = true;
             nhanSu.IdCanbo = canBo!.IDCanBo;
             nhanSu.HoVaTen = canBo.HoVaTen;
             nhanSu.MaCanBo = canBo.MaCanBo;
-            nhanSu.TenTinhTrang = canBo.TinhTrang.TenTinhTrang;
+            nhanSu.TenTinhTrang = canBo.TinhTrang!.TenTinhTrang;
 
-            nhanSu.TenDonVi = canBo.Department.Name;
+            nhanSu.TenDonVi = canBo.Department!.Name;
             nhanSu.Edit = false;
 
             obj.IDQuaTrinhCongTac = item.IDQuaTrinhCongTac;

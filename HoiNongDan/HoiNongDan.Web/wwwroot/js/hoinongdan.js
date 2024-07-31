@@ -24,16 +24,6 @@ HoiNongDan.SearchInitial = function (controller, action = "_Search") {
 HoiNongDan.SearchDefault = function (controller, action) {
     var $btn = $("#btn-search");
     $btn.toggleClass("btn-loading");
-    //try {
-    //    let link = "/" + controller + "/" + action,
-    //        data = $("#frmSearch").serializeArray();
-    //    AjaxGet(link, data, HoiNongDan.SetDataSearch)
-    //    $btn.toggleClass("btn-loading");
-         
-    //} catch (e) {
-    //    console.error(e);
-    //    $btn.toggleClass("btn-loading");
-    //}
     $.ajax({
         type: "get",
         url: "/" + controller + "/" + action,
@@ -380,7 +370,6 @@ HoiNongDan.DeleteEdit = function () {
                     url: "/" + controller + "/Delete",
                     data: { id: id, '__RequestVerificationToken': token },
                     type: 'DELETE',
-
                     success: function (data) {
                         toastr.clear();
                         if (data.success) {
@@ -421,6 +410,15 @@ HoiNongDan.DuyetHoiVienInitial = function (controller) {
         formData.lid = lid;
         HoiNongDan.DuyetHoiVien(formData, controller);
     });
+    $(document).on("click", ".btn-reject", function (e) {
+        let $btn = $(this);
+        let id = $btn.data("id");
+        var lid = [];
+        lid.push(id);
+        var formData = {};
+        formData.lid = lid;
+        HoiNongDan.TuChoiDuyetHoiVien(formData, controller);
+    });
 }
 HoiNongDan.DuyetHoiVien = function (data, controller)
 {
@@ -436,6 +434,8 @@ HoiNongDan.DuyetHoiVien = function (data, controller)
         cancelButtonText: "Không"
     }).then((result) => {
         if (result.isConfirmed) {
+            var token = $("input[name='__RequestVerificationToken']").val();
+            data.__RequestVerificationToken = token;
             $.ajax({
                 url: "/" + controller + "/Edit",
                 type: 'POST',
@@ -459,6 +459,51 @@ HoiNongDan.DuyetHoiVien = function (data, controller)
     })
 }
 
+HoiNongDan.TuChoiDuyetHoiVien = function (data, controller) {
+    var lydo = "";
+    Swal.fire({
+        title: "Lý do từ chối",
+        input: "text",
+        showCancelButton: true,
+        confirmButtonText: "Từ chối",
+        cancelButtonText: "Hủy",
+        showLoaderOnConfirm: true,
+        preConfirm: async (value) => {
+            try {
+                lydo = value;
+            } catch (error) {
+            }
+        },
+    }).then((result) => {
+        if (result.isConfirmed) {
+            if (lydo == null || lydo == "" || lydo === undefined) {
+                toastr.error('Chưa nhập lý do');
+                return;
+            }
+            data.lyDo = lydo;
+            data.__RequestVerificationToken = $("input[name='__RequestVerificationToken']").val();
+            $.ajax({
+                url: "/" + controller + "/TuChoi",
+                type: 'POST',
+                data: data,
+                success: function (data) {
+                    toastr.clear();
+                    if (data.success) {
+                        $("#btn-search").trigger("click");
+                        toastr.success(data.data);
+                    }
+                    else {
+                        toastr.error(data.data);
+                    }
+                },
+                error: function (xhr, status, data) {
+
+                    toastr.error(data);
+                }
+            })
+        }
+    });
+}
 HoiNongDan.Import = function (controller) {
     $(document).on("click", ".btn-import", function () {
         $.ajax({

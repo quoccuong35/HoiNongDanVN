@@ -1,0 +1,72 @@
+﻿@model LopHocVM
+<div class="row">
+    @Html.AntiForgeryToken()
+    <input asp-for="IDLopHoc" hidden />
+    <div class="col-md-3">
+        <label asp-for="TenLopHoc"></label><span class="text-red">*</span>
+        <input asp-for="TenLopHoc" class="form-control" />
+        <span asp-validation-for="TenLopHoc" class="text-danger"></span>
+    </div>
+    
+    <div class="col-md-2">
+        <label asp-for="MaHinhThucHoTro"></label><span class="text-red">*</span>
+        <select asp-for="MaHinhThucHoTro" asp-items="@ViewBag.MaHinhThucHoTro" class="form-control select2-show-search form-select">
+            <option disabled selected>@LanguageResource.Dropdownlist_Menu</option>
+        </select>
+        <span asp-validation-for="MaHinhThucHoTro" class="text-danger"></span>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label asp-for="TuNgay"></label>
+            <input asp-for="TuNgay" class="form-control">
+            <span asp-validation-for="TuNgay" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label asp-for="DenNgay"></label>
+            <input asp-for="DenNgay" class="form-control">
+            <span asp-validation-for="DenNgay" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <label asp-for="OrderIndex"></label>
+        <input asp-for="OrderIndex" class="form-control" />
+        <span asp-validation-for="OrderIndex" class="text-danger"></span>
+    </div>
+    @if (@Model.IDLopHoc! != null)
+    {
+        <div class="col-md-4 d-flex align-items-end">
+            <fieldset>
+                @Html.RadioButtonFor(p => p.Actived, true) @LanguageResource.Actived_True
+                @Html.RadioButtonFor(p => p.Actived, false) @LanguageResource.Actived_False
+            </fieldset>
+        </div>
+    }
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>@LanguageResource.TaiLieu</label>
+            <input class="form-control" type="file" name="fileDinhKems" multiple>
+        </div>
+    </div>
+    @foreach (var item in Model.FileDinhKems!)
+    {
+        <div class="col-md-2" id="@item.Key" style="padding-top:20px">
+            <div class="btn-group file-attach m-2" role="group" aria-label="Basic example">
+                <a type="button" class="btn btn-success-light" href="\@item.Url"><i class="mdi mdi-file-video me-2"></i>@item.FileName</a>
+                <button type="button" class="btn btn-close btn-success-light btn-deletefile" aria-label="Close" data-id="@item.Key">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+        </div>
+    }
+
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <label asp-for="Description"></label>
+            <textarea rows="3" asp-for="Description" class="form-control"> </textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+    </div>
+</div>

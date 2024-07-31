@@ -60,15 +60,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         [HttpGet]
         [HoiNongDanAuthorization]
-        public IActionResult _Search(HoiVienSearchVM search)
+        public IActionResult _Search(HoiVienSearchVM search,int? Skip =0)
         {
-#if DEBUG
-            Stopwatch timer = new Stopwatch();
-            timer.Start();
-#endif
-            //search.MaCanBo = "14064";
-            //var model = _context.CanBos.Where(it => it.IsHoiVien == true && GetPhamVi().Contains(it.MaDiaBanHoatDong!.Value)).AsQueryable();
-
             var model = (from cb in _context.CanBos
                           join pv in _context.PhamVis on cb.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
                           where pv.AccountId == AccountId()
@@ -111,26 +104,19 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             {
                 model = model.Where(it => it.isRoiHoi == search.IsRoiHoi);
                 if (search.RoiTuNam != null) {
-                    model = model.Where(it => it.NgayNgungHoatDong != null && it.NgayNgungHoatDong.Value.Year >=search.RoiTuNam);
+                    model = model.Where(it => it.NgayRoiHoi != null && it.NgayRoiHoi.Value.Year >=search.RoiTuNam);
                 }
                 if (search.RoiDenNam != null)
                 {
-                    model = model.Where(it => it.NgayNgungHoatDong != null && it.NgayNgungHoatDong.Value.Year <= search.RoiDenNam);
+                    model = model.Where(it => it.NgayRoiHoi != null && it.NgayRoiHoi.Value.Year <= search.RoiDenNam);
                 }
             }
             else if(search.IsRoiHoi != null && search.IsRoiHoi == false)
             {
                 model = model.Where(it => it.isRoiHoi == null || it.isRoiHoi == search.IsRoiHoi);
             }
-
-            //if (search.DangChoDuyet == null || search.DangChoDuyet == true)
-            //{
-            //    model = model.Where(it => it.HoiVienDuyet == true);
-            //}
-            //else
-            //{
-            //    model = model.Where(it => it.HoiVienDuyet != true && it.CreatedAccountId == AccountId());
-            //}
+            var total = model.Count();
+            //model = model.Take(1000);
             var data = model
                 .Select(it => new 
                 {
@@ -194,13 +180,16 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     ChiHoi = it.ChiHoi!.TenChiHoi,
                     ToHoi = it.ToHoi!.TenToHoi,
                     GhiChu = it.GhiChu,
-                }).ToList();
-            var json = Json(data);
-#if DEBUG
-            timer.Stop();
-            string ss = ((timer.ElapsedMilliseconds / 1000) / 60).ToString();
-#endif
-            return json;
+                }).Skip(Skip!.Value).Take(1000).ToList();
+            //var json = Json(data);
+
+            return Json(new
+            {
+                Code = System.Net.HttpStatusCode.OK,
+                Success = true,
+                Data = data,
+                total = total
+            });
         }
         #endregion Index
         #region Create
@@ -228,7 +217,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 add.isRoiHoi = false;
                 add.CreatedTime = DateTime.Now;
                 add.CreatedAccountId = AccountId();
-                add.HoiVienDuyet = false;
+                add.HoiVienDuyet = true;
                 if (avtFileInbox != null)
                 {
                     string wwwRootPath = _hostEnvironment.WebRootPath;
@@ -329,8 +318,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 obj.GetHoiVien(edit);
                 edit.Actived = obj.Actived!.Value;
                 edit.isRoiHoi = obj.IsRoiHoi;
-                edit.NgayNgungHoatDong = obj.NgayNgungHoatDong;
-                edit.LyDoNgungHoatDong = obj.LyDoNgungHoatDong;
+                edit.NgayRoiHoi = obj.NgayRoiHoi;
+                edit.LyDoRoiHoi = obj.LyDoRoiHoi;
                 edit.LastModifiedTime = DateTime.Now;
                 edit.LastModifiedAccountId = AccountId();
                 if (edit.DoanTheChinhTri_HoiDoan_HoiViens.Count() > 0)
@@ -625,7 +614,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                             {
                                                 // Tiến hành cập nhật
                                                 data.CanBo.MaDiaBanHoatDong = MaDiaBanHoatDong;
-
+                                                data.CanBo.HoiVienDuyet = true;
+                                                data.CanBo.isRoiHoi = false;
+                                                data.CanBo.IsHoiVien = true;
                                                 string result = ExecuteImportExcelMenu(data);
                                                 if (result != LanguageResource.ImportSuccess)
                                                 {
@@ -718,7 +709,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }
             catch
             {
-                return null;
+                return null!;
             }
         }
         #endregion Import Excel
@@ -754,15 +745,15 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             {
                 model = model.Where(it => it.Actived == search.Actived);
             }
-            if (search.DangChoDuyet == null || search.DangChoDuyet == true)
-            {
-                model = model.Where(it => it.HoiVienDuyet == true);
-            }
-            else
-            {
-                model = model.Where(it => it.HoiVienDuyet != true && it.CreatedAccountId == AccountId());
+            //if (search.DangChoDuyet == null || search.DangChoDuyet == true)
+            //{
+            //    model = model.Where(it => it.HoiVienDuyet == true);
+            //}
+            //else
+            //{
+            //    model = model.Where(it => it.HoiVienDuyet != true && GetPhamVi().Contains(it.MaDiaBanHoatDong!.Value));
 
-            }
+            //}
 
             var data = model.Include(it => it.TrinhDoHocVan)
                 .Include(it => it.TrinhDoChuyenMon)
@@ -1092,13 +1083,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }
             if (insert.IsRoiHoi == true)
             {
-                if ((String.IsNullOrEmpty(insert.LyDoNgungHoatDong) || String.IsNullOrWhiteSpace(insert.LyDoNgungHoatDong)))
+                if ((String.IsNullOrEmpty(insert.LyDoRoiHoi) || String.IsNullOrWhiteSpace(insert.LyDoRoiHoi)))
                 {
-                    ModelState.AddModelError("LyDoNgungHoatDong", "Lý do ngưng hoạt động chưa nhập");
+                    ModelState.AddModelError("LyDoRoiHoi", "Lý do rời hội chưa nhập");
                 }
-                if (insert.NgayNgungHoatDong == null)
+                if (insert.NgayRoiHoi == null)
                 {
-                    ModelState.AddModelError("NgayNgungHoatDong", "Ngày ngưng hoạt động chưa nhập");
+                    ModelState.AddModelError("NgayRoiHoi", "Ngày rời hội chưa nhập");
                 }
             }
             if (!String.IsNullOrWhiteSpace(insert.NgayVaoHoi))
@@ -1245,9 +1236,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     }
                     _context.Entry(canbo).State = EntityState.Added;
                 }
-                catch (Exception ex)
+                catch
                 {
-
                     
                 }
             }
@@ -1541,7 +1531,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                 }
                                 else
                                 {
-                                    import.Error += string.Format("Không tìm thấy trình độ chuyên môn có tên {0} ở dòng số {1} !", value, index);
+                                    data.ChuyenNganh = value;
+                                    //import.Error += string.Format("Không tìm thấy trình độ chuyên môn có tên {0} ở dòng số {1} !", value, index);
                                 }
 
                             }
@@ -1563,13 +1554,14 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             break;
                         case 17:
                             //  Ngày vào hội (*)
-                            if (!String.IsNullOrWhiteSpace(value)) {
-                                DateTime dTest = Function.ConvertStringToDate(value);
-                                if (dTest.Year == 1900 || dTest.Year > DateTime.Now.Year)
-                                {
-                                    import.Error = "Ngày vào hội không hợp lệ dòng " + index.ToString();
-                                }
-                            }
+                            //if (!String.IsNullOrWhiteSpace(value)) {
+                            //    DateTime dTest = Function.ConvertStringToDate(value.Replace(",",""));
+                            //    if (dTest.Year == 1900 || dTest.Year > DateTime.Now.Year)
+                            //    {
+                            //        data.NgayVaoHoi = value;
+                            //        //import.Error = "Ngày vào hội không hợp lệ dòng " + index.ToString();
+                            //    }
+                            //}
                             data.NgayVaoHoi = value;
                             break;
                         case 18:

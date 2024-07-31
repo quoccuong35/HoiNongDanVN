@@ -26,6 +26,7 @@
         public const string DoanTheChinhTriHoiDoan = "DoanTheChinhTriHoiDoan";
         public const string CauLacBo_DN_MH_HTX_THT = "CauLacBo_DN_MH_HTX_THT";
         public const string ToHoiNN_ChiHoiNN = "ToHoiNN_ChiHoiNN";
+        public const string LopHoc = "LopHoc";
         #endregion MasterData
         #region Permission
         public const string Menu = "Menu";
@@ -75,6 +76,9 @@
         public const string BaoCaoGiamHV = "BaoCaoGiamHV";
         public const string BCHVMoi = "BCHVMoi";
         public const string DeXuatKhenThuong = "DeXuatKhenThuong";
+        public const string VayVon = "VayVon";
+        public const string BCBDHoiVien = "BCBDHoiVien";
+        public const string HVDangKy = "HVDangKy";
 
         #endregion Hội viên
     }

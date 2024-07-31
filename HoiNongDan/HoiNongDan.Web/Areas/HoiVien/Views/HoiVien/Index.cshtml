@@ -7,6 +7,15 @@
     string listRoles = User != null ? User.FindFirst("Roles").Value : "";
 
 }
+<style>
+    #dt-hoivien_paginate{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    
+</style>
 <div class="main-container container-fluid">
     <!-- PAGE-HEADER -->
     <div class="page-header page-header-fix my-2">
@@ -52,14 +61,7 @@
                                 <label asp-for="MaDiaBanHoiVien"></label>
                                 @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                          @*   <div class="col-md-2">
-                                <label>Tình trạng hội viên</label>
-                                @Html.DropDownList("DangChoDuyet", new List<SelectListItem>(){
-                                new SelectListItem(){Text = "Đã duyệt", Value = "true", Selected = true},
-                                new SelectListItem(){Text = "Đang chờ duyệt", Value = "false"}
-                                }, new { @class = "form-control" })
-                            </div> *@
-                            <div class="col-md-2">
+                           @*  <div class="col-md-2">
                                 <label asp-for="IsRoiHoi"></label>
                                 @Html.DropDownList("IsRoiHoi", new List<SelectListItem>(){
                                 new SelectListItem(){Text = LanguageResource.Dropdownlist_All, Value = ""},
@@ -74,11 +76,14 @@
                             <div class="col-md-2">
                                 <label asp-for="RoiDenNam"></label>
                                 <input class="form-control" type="number" step="1" asp-for="RoiDenNam" />
-                            </div>
+                            </div> *@
                         </div>
                         <div class="row d-flex align-items-center">
                             <div class="col-2">
-                                @HtmlExtensions.SearchButton()
+                                <a class="btn btn-primary btn-sm btn-searchhv" id="btn-searchhv" onclick="LoadThongTin()">
+                                    <i class="bi bi-search"></i>
+                                    <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span> Tìm kiếm
+                                </a>
                             </div>
                         </div>
                     </form>
@@ -109,7 +114,6 @@
                     @Html.AntiForgeryToken()
                     <div class="table-responsive" id="divSearchResult">
                         <table id="dt-hoivien" class="table border text-nowrap text-md-nowrap mb-0 dataTable no-footer table-striped">
-
                             <thead>
                                 <tr>
                                     <th>STT</th>
@@ -171,14 +175,19 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="d-flex align-items-center justify-content-center mt-1" style="display:none" id="div_showload">
+                        <button class="btn btn-primary" onclick="LoadThem()" data-total="" id="btn-loadthem" style="display:none"></button>
+                        <span id="txt-noteload" style="display:none"><= Click vào đây để tải tiếp dữ liệu </span>
+                    </div>
                 </div>
             </div>
         </div>
+      
     </div>
     <!-- /Row -->
 </div>
 
 @section ScriptCustomized {
     <script src="~/js/diaban_hv_quanhuyen.js"></script>
-    <script src="~/js/hoivien.js?v'@DateTime.Now.ToString("HH_mm")'"></script>
+    <script src="~/js/hoivien.js"></script>
 }

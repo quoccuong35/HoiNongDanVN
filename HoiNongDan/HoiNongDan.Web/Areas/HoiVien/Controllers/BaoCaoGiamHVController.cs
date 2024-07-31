@@ -106,22 +106,22 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         private List<BaoCaoGiamHVVM> LoatData(String? MaQuanHuyen, Guid? MaDiaban, DateTime? TuNgay, DateTime? DenNgay) {
             try
             {
-                var data = _context.CanBos.Include(it => it.ChiHoi).Include(it => it.DiaBanHoatDong).ThenInclude(it => it.QuanHuyen).Where(it => it.IsHoiVien == true && it.isRoiHoi == true);
+                var data = _context.CanBos.Include(it => it.ChiHoi).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).Where(it => it.IsHoiVien == true && it.isRoiHoi == true);
                 if (MaDiaban != null)
                 {
                     data = data.Where(it => it.MaDiaBanHoatDong == MaDiaban);
                 }
                 if (!String.IsNullOrWhiteSpace(MaQuanHuyen))
                 {
-                    data = data.Where(it => it.DiaBanHoatDong.MaQuanHuyen == MaQuanHuyen);
+                    data = data.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == MaQuanHuyen);
                 }
                 if (TuNgay != null)
                 {
-                    data = data.Where(it => it.NgayNgungHoatDong >= TuNgay); ;
+                    data = data.Where(it => it.NgayRoiHoi >= TuNgay); ;
                 }
                 if (DenNgay != null)
                 {
-                    data = data.Where(it => it.NgayNgungHoatDong <= DenNgay);
+                    data = data.Where(it => it.NgayRoiHoi <= DenNgay);
                 }
                 var model = data.Select(it => new BaoCaoGiamHVVM
                 {
@@ -130,7 +130,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     Nu = (int)it.GioiTinh != 1 ? it.NgaySinh : "",
                     DiaChi = it.ChoOHienNay,
                     ChiHoi = it.ChiHoi!.TenChiHoi,
-                    LyDoGiam = it.LyDoNgungHoatDong,
+                    LyDoGiam = it.LyDoRoiHoi,
                     NamVaoHoi = it.NgayVaoHoi
 
                 }).ToList().Select((it, index) => new BaoCaoGiamHVVM
@@ -147,9 +147,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 }).ToList();
                 return model;
             }
-            catch (Exception ex)
+            catch
             {
-                return null;
+                return null!;
             }
         }
         #endregion Helper

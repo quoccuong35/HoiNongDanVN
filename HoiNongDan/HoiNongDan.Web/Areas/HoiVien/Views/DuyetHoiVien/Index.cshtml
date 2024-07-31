@@ -1,4 +1,4 @@
-﻿@model DuyetHoiVienSearchVM
+﻿@model HoiVienSearchVM
 @{
     ViewBag.Title = LanguageResource.List + LanguageResource.DuyetHoiVienMoi.ToLower();
     string CurrentController = ConstController.DuyetHoiVien;
@@ -35,23 +35,23 @@
                 <div class="splitter-body">
                     <form method="get" id="frmSearch" asp-action="_Search">
                         <div class="row my-2">
-                            <div class="col-md-3">
-                                <label asp-for="MaCanBo"></label>
-                                <input class="form-control" asp-for="MaCanBo" />
+                            <div class="col-md-2">
+                                <label>Từ ngày</label>
+                                <input class="form-control" name="TuNgay" id="TuNgay" type="date" />
+                            </div>
+                            <div class="col-md-2">
+                                <label>Đến ngày</label>
+                                <input class="form-control" name="DenNgay" id="DenNgay" type="date" />
                             </div>
                             <div class="col-md-3">
-                                <label asp-for="HoVaTen"></label>
-                                <input class="form-control" asp-for="HoVaTen" />
+                                <label asp-for="MaQuanHuyen"></label>
+                                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-
-
                             <div class="col-md-3">
-                                <label asp-for="MaDiaBanHoatDong"></label>
-                                @Html.DropDownList("MaDiaBanHoatDong", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                                <label asp-for="MaDiaBanHoiVien"></label>
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                        </div>
-                        <div class="row d-flex align-items-center">
-                            <div class="col-2">
+                            <div class="col-md-2 d-flex align-items-end">
                                 @HtmlExtensions.SearchButton()
                             </div>
                         </div>

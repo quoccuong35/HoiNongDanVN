@@ -31,8 +31,9 @@ namespace HoiNongDan.Web.Controllers
             {
                 return Redirect("/Permission/Auth/LogOut");
             }
+            var DiaBanHoi = _context.DiaBanHoatDongs.Include(it=>it.QuanHuyen).Where(it=>it.Actived == true).Select(it => new QuanHuyen { MaQuanHuyen = it.MaQuanHuyen, TenQuanHuyen = "HND "+ it.QuanHuyen.TenQuanHuyen.ToUpper() }).Distinct().ToList();
             //string menu = HttpContext.Session!.GetString(User.Identity!.Name+ "_Menu");
-            return View("SoDo");
+            return View("SoDo", DiaBanHoi);
         }
 
         public IActionResult Dashboard()

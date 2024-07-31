@@ -56,6 +56,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Areas\HoiVien\Controllers\HoiVienController.cs~RF106a2081.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.14" />
@@ -78,6 +82,10 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="Areas\HoiVien\Views\HVDangKy\Create.cshtml" />
+    <None Include="Areas\HoiVien\Views\HVDangKy\Index.cshtml" />
+    <None Include="Areas\HoiVien\Views\HVDangKy\_Import.cshtml" />
+    <None Include="Areas\HoiVien\Views\HVDangKy\_Search.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="wwwroot\assets\colors\color1.css.map" />
     <None Include="wwwroot\assets\colors\color1.scss" />
@@ -1120,10 +1128,43 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Update="Areas\HoiVien\Views\VayVon\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\HoiVien\Views\VayVon\Report.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\HoiVien\Views\VayVon\_VayVon.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\HoiVien\Views\VayVon\_ReportData.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\HoiVien\Views\VayVon\_Search.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Update="Areas\NhanSu\Views\CanBo\_Search.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\HoiVien\Views\VayVon\Create.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Areas\HoiVien\Views\VayVon\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Areas\HoiVien\Views\VayVon\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Areas\HoiVien\Views\VayVon\Edit.cshtml" />
   </ItemGroup>
 
 </Project>

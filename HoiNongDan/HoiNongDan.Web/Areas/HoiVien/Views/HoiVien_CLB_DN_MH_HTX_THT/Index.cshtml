@@ -4,8 +4,13 @@
     string CurrentController = ConstController.HoiVien_CLB_DN_MH_HTX_THT;
     string CurrentArea = ConstArea.HoiVien;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
-    string listRoles = User != null ? User.FindFirst("Roles").Value : "";
+    string listRoles = User != null ? User.FindFirst("Roles")!.Value : "";
 }
+<style>
+    .custom-control {
+        display: inline-flex;
+    }
+</style>
 <!-- CONTAINER -->
 <div class="main-container container-fluid">
 
@@ -36,8 +41,40 @@
                                 @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-3">
-                                <label asp-for="MaDiaBanHoiVien"></label><span class="text-red">*</span>
+                                <label asp-for="MaDiaBanHoiVien"></label>
                                 @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label asp-for="Loai"></label><span class="text-red">*</span>
+                                    <div class="form-group">
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" asp-for="Loai" value="01">
+                                            <span class="custom-control-label">Câu lạc bộ</span>
+                                        </label>
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" asp-for="Loai" value="02">
+                                            <span class="custom-control-label">Đội nhóm</span>
+                                        </label>
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" asp-for="Loai" value="03">
+                                            <span class="custom-control-label">Mô hình</span>
+                                        </label>
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" asp-for="Loai" value="04">
+                                            <span class="custom-control-label">Hợp tác xã</span>
+                                        </label>
+                                        <label class="custom-control custom-radio mb-0 mt-1">
+                                            <input type="radio" class="custom-control-input" asp-for="Loai" value="05">
+                                            <span class="custom-control-label">Tổ hợp tác</span>
+                                        </label>
+                                    </div>
+                                    <span asp-validation-for="Loai" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="Id_CLB_DN_MH_HTX_THT"></label>
+                                @Html.DropDownList("Id_CLB_DN_MH_HTX_THT", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-2">
                                 <label asp-for="MaHoiVien"></label>
@@ -75,6 +112,7 @@
 
 <!-- CONTAINER CLOSED -->
 @section ScriptCustomized {
+    <script src="~/js/diaban_hv_quanhuyen.js"></script>
     <script>
         //load default and set event
         $(document).ready(function () {

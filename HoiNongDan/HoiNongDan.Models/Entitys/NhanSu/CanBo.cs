@@ -214,8 +214,8 @@ namespace HoiNongDan.Models
         public string? HinhAnh { get; set; }
         public bool Actived { get; set; } = true;
 
-        public DateTime?NgayNgungHoatDong { get; set; }
-        public String? LyDoNgungHoatDong { get; set; }
+        public DateTime?NgayRoiHoi { get; set; }
+        public String? LyDoRoiHoi { get; set; }
 
         public String? SoQuyetDinhBoNhiem { get; set; }
         public bool? ThamGiaBTV { get; set; } = false;
@@ -227,7 +227,6 @@ namespace HoiNongDan.Models
         public String? DanhGiaDangVien { get; set; }
         public bool? UBKT { get; set; } = false;
         public String? Level { get; set; }
-
 
         public bool? HoiVienNongCot { get; set; }
 
@@ -262,6 +261,21 @@ namespace HoiNongDan.Models
         [MaxLength(1000)]
         public String? ChiHoiNgheNghiep_CHP { get; set; }
 
+        public bool? HoiVienDanCu { get; set; }
+        public bool? HoiVienNganhNghe { get; set; }
+        public DateTime? NgayCapThe { get; set; }
+
+        public DateTime? NgayDangKy { get; set; }
+        public Guid? AccountIdDangKy { get; set; }
+
+        public bool? TuChoi { get; set; }
+
+        [MaxLength(1000)]
+        public String? LyDoTuChoi { get; set; }
+
+        public DateTime? NgayTuChoi { get; set; }
+        public Guid? AccountIdTuChoi { get; set; }
+
         public Guid? MaChiHoi { get; set; }
         public ChiHoi? ChiHoi { get; set; }
 
@@ -287,7 +301,7 @@ namespace HoiNongDan.Models
         public ICollection<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien> CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens { get; set; }
         public ICollection<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien> ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens { get; set; }
         public ICollection<HoiVienCapThe> HoiVienCapThes { get; set; }
-
+        public ICollection<VayVon> VayVons { get; set; }
         public HuuTri? HuuTri { get; set; }
 
         public bool? DangVien { get; set; }
@@ -310,6 +324,7 @@ namespace HoiNongDan.Models
             ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens = new List<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien>();
             PhatTrienDang_HoiViens = new List<PhatTrienDang_HoiVien>();
             HoiVienCapThes = new  List<HoiVienCapThe>();
+            VayVons = new List<VayVon>();
         }
 
     }

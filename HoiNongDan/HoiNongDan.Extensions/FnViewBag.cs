@@ -78,5 +78,11 @@ namespace HoiNongDan.Extensions
             var toHoi_ChiHoi = _context.ToHoiNganhNghe_ChiHoiNganhNghes.ToList();
            return new SelectList(toHoi_ChiHoi, "Ma_ToHoiNganhNghe_ChiHoiNganhNghe", "Ten");
         }
+
+        public SelectList LopHoc(Guid? value = null)
+        {
+            var lopHocs = _context.LopHocs.ToList();
+            return new SelectList(lopHocs, "IDLopHoc", "TenLopHoc", value);
+        }
     }
 }

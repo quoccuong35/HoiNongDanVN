@@ -40,8 +40,8 @@
                 <td>@Html.DisplayFor(p => item.OrderIndex)</td>
                 <td>@Html.DisplayFor(p => item.Description)</td>
                 <td class="text-center">
-                    @HtmlExtensions.UpsertButton(CurrentArea, CurrentController, item.MaQuanHuyen,listRoles:listRoles)
-                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.TenQuanHuyen, item.MaQuanHuyen,listRoles: listRoles)
+                    @HtmlExtensions.UpsertButton(CurrentArea, CurrentController, item.MaQuanHuyen!,listRoles:listRoles)
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.TenQuanHuyen, item.MaQuanHuyen!,listRoles: listRoles)
                 </td>
             </tr>
         }

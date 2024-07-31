@@ -29,45 +29,55 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         public IActionResult _Search(HoiVien_CLB_DN_MH_HTX_THTSearchVM search)
         {
             return ExecuteSearch(() => {
-                var data = _context.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.Include(it => it.HoiVien).Include(it => it.HoiVien.DiaBanHoatDong).Include(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac).AsQueryable();
+                var data = (from thch_hv in _context.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens
+                            join thc in _context.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTacs on thch_hv.Id_CLB_DN_MH_HTX_THT equals thc.Id_CLB_DN_MH_HTX_THT
+                            join hv in _context.CanBos on thch_hv.IDHoiVien equals hv.IDCanBo
+                            join pv in _context.PhamVis on hv.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
+                            where pv.AccountId == AccountId()
+                            && hv.IsHoiVien == true
+                            select thch_hv).Include(it => it.HoiVien).Include(it => it.HoiVien.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).ThenInclude(it => it.PhuongXas).Include(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac).AsQueryable();
 
-
-                if (search.Id_CLB_DN_MH_HTX_THT != null)
+                if (!String.IsNullOrWhiteSpace(search.MaQuanHuyen))
                 {
-                    data = data.Where(it => it.Id_CLB_DN_MH_HTX_THT == search.Id_CLB_DN_MH_HTX_THT);
+                    data = data.Where(it => it.HoiVien.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
                 }
                 if (search.MaDiaBanHoiVien != null)
                 {
                     data = data.Where(it => it.HoiVien.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
                 }
-                else
+                if (search.Id_CLB_DN_MH_HTX_THT != null)
                 {
-                    data = data.Where(it => GetPhamVi().Contains(it.HoiVien.MaDiaBanHoatDong!.Value));
+                    data = data.Where(it => it.Id_CLB_DN_MH_HTX_THT == search.Id_CLB_DN_MH_HTX_THT);
                 }
-                if (search.HoVaTen != null)
+                if (!String.IsNullOrWhiteSpace(search.HoVaTen))
                 {
                     data = data.Where(it => it.HoiVien.HoVaTen.Contains(search.HoVaTen));
                 }
-                if (search.MaHoiVien != null)
+                if (!String.IsNullOrWhiteSpace(search.MaHoiVien))
                 {
                     data = data.Where(it => it.HoiVien.MaCanBo == search.MaHoiVien);
                 }
+                if (!String.IsNullOrWhiteSpace(search.Loai))
+                {
+                    data = data.Where(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Loai == search.Loai);
+                }
                 var model = data.Select(it => new HoiVien_CLB_DN_MH_HTX_THTDetailVM
                 {
-                    IDCanBo = it.HoiVien.IDCanBo,
-                    MaCanBo = it.HoiVien.MaCanBo,
+                    ID = it.IDHoiVien + "_" + it.Id_CLB_DN_MH_HTX_THT.ToString(),
                     HoVaTen = it.HoiVien.HoVaTen,
-                    NgaySinh = it.HoiVien.NgaySinh,
-                    HoKhauThuongTru = it.HoiVien.HoKhauThuongTru,
-                    SoDienThoai = it.HoiVien.SoDienThoai,
-                    NgayVaoHoi = it.HoiVien.NgayVaoHoi,
-                    Loai_DV_SX_ChN = it.HoiVien.Loai_DV_SX_ChN,
-                    SoLuong = it.HoiVien.SoLuong,
-                    DienTich_QuyMo = it.HoiVien.DienTich_QuyMo,
-                    MaCaulacBo = it.Id_CLB_DN_MH_HTX_THT,
-                    TenCauLacBo = it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Ten,
-                    TenDiaBanHoatDong = it.HoiVien.DiaBanHoatDong!.TenDiaBanHoatDong,
-                }).ToList();
+                    MaCanBo = it.HoiVien.MaCanBo,
+                    SoCCCD = it.HoiVien.SoCCCD,
+                    CauLacBo = it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Loai == "01" ? it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Ten : "",
+                    DoiNhom = it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Loai == "02" ? it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Ten : "",
+                    MoHinh = it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Loai == "03" ? it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Ten : "",
+                    HopTacXa = it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Loai == "04" ? it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Ten : "",
+                    TopHopTac = it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Loai == "05" ? it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Ten : "",
+                    ChoOHienNay = it.HoiVien.ChoOHienNay,
+                    PhuongXa = it.HoiVien.DiaBanHoatDong!.PhuongXa.TenPhuongXa,
+                    QuanHuyen = it.HoiVien.DiaBanHoatDong.QuanHuyen.TenQuanHuyen,
+                    GhiChu = ""
+                });
+                 
                 return PartialView(model);
 
             });
@@ -126,9 +136,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                             {
                                 if (row[0] == null || row[0].ToString() == "")
                                     break;
+                                CheckTemplate(row, listMasterCLB_DN_MH_HTX_THT: listMasterCLB_DN_MH_HTX_THT, addCLB_DN_MH_HTX_THTs: addCLB_DN_MH_HTX_THTs, listCLB_DN_MH_HTX_THT_HoiVien: listCLB_DN_MH_HTX_THT_HoiVien,
+                               addCLB_DN_MH_HTX_THT_HoiViens: addCLB_DN_MH_HTX_THT_HoiViens, hoiViens: dataHoiViens, error: errorList);
                             }
-                            CheckTemplate(row, listMasterCLB_DN_MH_HTX_THT: listMasterCLB_DN_MH_HTX_THT, addCLB_DN_MH_HTX_THTs: addCLB_DN_MH_HTX_THTs, listCLB_DN_MH_HTX_THT_HoiVien: listCLB_DN_MH_HTX_THT_HoiVien,
-                                addCLB_DN_MH_HTX_THT_HoiViens: addCLB_DN_MH_HTX_THT_HoiViens, hoiViens: dataHoiViens, error: errorList);
+                           
                         }
                         if (errorList != null && errorList.Count > 0)
                         {
@@ -212,9 +223,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                 ds = excelHelper.ReadDataSet();
                             }
                         }
-                        catch (Exception ex)
+                        catch
                         {
-                            return null;
+                            return null!;
                         }
                         finally
                         {
@@ -228,9 +239,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 }
                 return ds;
             }
-            catch (Exception ex)
+            catch
             {
-                return null;
+                return null!;
             }
         }
         [NonAction]
@@ -470,7 +481,65 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HoiNongDanAuthorization]
         public IActionResult ExportEdit(HoiVien_CLB_DN_MH_HTX_THTSearchVM search)
         {
-            return View();
+            var data = (from thch_hv in _context.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens
+                        join thc in _context.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTacs on thch_hv.Id_CLB_DN_MH_HTX_THT equals thc.Id_CLB_DN_MH_HTX_THT
+                        join hv in _context.CanBos on thch_hv.IDHoiVien equals hv.IDCanBo
+                        join pv in _context.PhamVis on hv.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
+                        where pv.AccountId == AccountId()
+                        && hv.IsHoiVien == true
+                        select hv).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).ThenInclude(it => it.PhuongXas).Include(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens).ThenInclude(it=>it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac).AsQueryable();
+
+            if (!String.IsNullOrWhiteSpace(search.MaQuanHuyen))
+            {
+                data = data.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
+            }
+            if (search.MaDiaBanHoiVien != null)
+            {
+                data = data.Where(it => it.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
+            }
+            if (search.Id_CLB_DN_MH_HTX_THT != null)
+            {
+                data = data.Where(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.Any(it=>it.Id_CLB_DN_MH_HTX_THT == search.Id_CLB_DN_MH_HTX_THT) );
+            }
+            if (!String.IsNullOrWhiteSpace(search.HoVaTen))
+            {
+                data = data.Where(it => it.HoVaTen.Contains(search.HoVaTen));
+            }
+            if (!String.IsNullOrWhiteSpace(search.MaHoiVien))
+            {
+                data = data.Where(it => it.MaCanBo == search.MaHoiVien);
+            }
+
+            var model = data.Select((it) => new HoiVien_CLB_DN_MH_HTX_THTExcelVM
+            {
+                HoVaTen = it.HoVaTen,
+                MaCanBo = it.MaCanBo,
+                SoCCCD = it.SoCCCD,
+                CauLacBo = String.Join(';', it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.Where(p => p.IDHoiVien == it.IDCanBo && p.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Loai == "01").Select(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Ten).ToList()),
+                DoiNhom = String.Join(';', it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.Where(p => p.IDHoiVien == it.IDCanBo && p.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Loai == "02").Select(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Ten).ToList()),
+                MoHinh = String.Join(';', it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.Where(p => p.IDHoiVien == it.IDCanBo && p.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Loai == "03").Select(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Ten).ToList()),
+                HopTacXa = String.Join(';', it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.Where(p => p.IDHoiVien == it.IDCanBo && p.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Loai == "04").Select(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Ten).ToList()),
+                TopHopTac = String.Join(';', it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens.Where(p => p.IDHoiVien == it.IDCanBo && p.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Loai == "05").Select(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac.Ten).ToList()),
+                ChoOHienNay = it.ChoOHienNay,
+                PhuongXa = it.DiaBanHoatDong!.PhuongXa.TenPhuongXa,
+                QuanHuyen = it.DiaBanHoatDong.QuanHuyen.TenQuanHuyen,
+                GhiChu = ""
+            }).OrderBy(it => it.PhuongXa).ThenBy(it => it.HoVaTen).ToList();
+
+            model = model.DistinctBy(it => new { it.HoVaTen, it.MaCanBo, it.SoCCCD, it.ChoOHienNay,it.QuanHuyen,it.PhuongXa }).ToList();
+            int stt = 1;
+            model.ForEach(value => {
+                value.STT = stt;
+                stt++;
+            });
+
+            string wwwRootPath = _hostEnvironment.WebRootPath;
+            var url = Path.Combine(wwwRootPath, @"upload\filemau\CLB_DN_MH_HTX_THT.xlsx");
+            byte[] filecontent = ClassExportExcel.ExportExcel(model, startIndex, url);
+            //File name
+            string fileNameWithFormat = string.Format("{0}.xlsx", "CLB_DN_MH_HTX_THT_"+DateTime.Now.ToString("hh_mm_ss"));
+
+            return File(filecontent, ClassExportExcel.ExcelContentType, fileNameWithFormat);
         }
         #endregion Export 
         #region Delete

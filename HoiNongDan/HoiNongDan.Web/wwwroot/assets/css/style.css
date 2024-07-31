@@ -36073,7 +36073,7 @@ table.dataTable {
 
         table.dataTable td.dataTables_empty,
         table.dataTable th.dataTables_empty {
-            text-align: center;
+            text-align: start;
         }
 
     table.dataTable.nowrap th,

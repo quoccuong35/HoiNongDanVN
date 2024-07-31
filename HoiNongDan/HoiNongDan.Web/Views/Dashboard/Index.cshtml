@@ -13,7 +13,7 @@
     <div class="page-header d-flex my-1">
         <div class="">
             <a asp-controller="" asp-area="Home" asp-action="Index" style="padding-right: 20px; border-right: 1px solid #000;"><span class="header-title">Sơ Đồ Tổ Chức</span></a>
-            <a asp-controller="" asp-area="@ConstArea.Dashboard" asp-action="Index" style="padding-left:20px; padding-right: 40px;"><span class="header-title">Bảng Thống Kê</span></a>
+            <a asp-controller="Dashboard" asp-area="@ConstArea.HoiVien" asp-action="Index" style="padding-left:20px; padding-right: 40px;"><span class="header-title">Bảng Thống Kê</span></a>
             <div class="rectangle">
                 <span> </span>
                 <span> </span>
@@ -24,88 +24,53 @@
 
     <!-- ROW-1 -->
     <br />
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
-                                        <div class="card overflow-hidden">
-                                            <div class="card-body">
-                                                <div class="d-flex">
-                                                    <div class="mt-2">
-                                                        <h6 class="">Tổng Số Hội Viên</h6>
-                                                        <h2 class="mb-0 number-font">58,117</h2>
-                                                    </div>
-                                                    <div class="ms-auto">
-                                                        <div class="chart-wrapper mt-1">
-                                                            <canvas id="saleschart"
-                                                                class="h-8 w-9 chart-dropshadow"></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                    <div class="card overflow-hidden">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="mt-2">
+                                    <h6 class="">Tổng Số Hội Viên</h6>
+                                    <h2 class="mb-0 number-font">58,117</h2>
+                                </div>
+                                <div class="ms-auto">
+                                    <div class="chart-wrapper mt-1">
+                                        <canvas id="saleschart"
+                                                class="h-8 w-9 chart-dropshadow"></canvas>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
-                                        <div class="card overflow-hidden">
-                                            <div class="card-body">
-                                                <div class="d-flex">
-                                                    <div class="mt-2">
-                                                        <h6 class="">Tổng Số Cán Bộ</h6>
-                                                        <h2 class="mb-0 number-font">255</h2>
-                                                    </div>
-                                                    <div class="ms-auto">
-                                                        <div class="chart-wrapper mt-1">
-                                                            <canvas id="leadschart"
-                                                                class="h-8 w-9 chart-dropshadow"></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @* <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
-                                        <div class="card overflow-hidden">
-                                            <div class="card-body">
-                                                <div class="d-flex">
-                                                    <div class="mt-2">
-                                                        <h6 class="">Tổng Quỹ Hỗ Trợ Nông Dân</h6>
-                                                        <h2 class="mb-0 number-font">76,965,000 VNĐ</h2>
-                                                    </div>
-                                                    <div class="ms-auto">
-                                                        <div class="chart-wrapper mt-1">
-                                                            <canvas id="profitchart"
-                                                                class="h-8 w-9 chart-dropshadow"></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
-                                        <div class="card overflow-hidden">
-                                            <div class="card-body">
-                                                <div class="d-flex">
-                                                    <div class="mt-2">
-                                                        <h6 class="">Tổng Giá Trị Thu Về</h6>
-                                                        <h2 class="mb-0 number-font">59,765,000 VNĐ</h2>
-                                                    </div>
-                                                    <div class="ms-auto">
-                                                        <div class="chart-wrapper mt-1">
-                                                            <canvas id="costchart"
-                                                                class="h-8 w-9 chart-dropshadow"></canvas>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> *@
                                 </div>
                             </div>
                         </div>
-                        <!-- ROW-1 END -->
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+                    <div class="card overflow-hidden">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="mt-2">
+                                    <h6 class="">Tổng Số Cán Bộ</h6>
+                                    <h2 class="mb-0 number-font">255</h2>
+                                </div>
+                                <div class="ms-auto">
+                                    <div class="chart-wrapper mt-1">
+                                        <canvas id="leadschart"
+                                                class="h-8 w-9 chart-dropshadow"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <!-- ROW-1 END -->
 
 
-               
+
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
             <div class="card">
@@ -136,13 +101,11 @@
         <!-- COL END -->
     </div>
     <!-- /Row -->
-   
-
-<!-- CONTAINER CLOSED -->
-<!-- CHARTJS JS -->
-@section Scripts{
-    <script src="~/assets/plugins/chart/Chart.bundle.js"></script>
-    <script src="~/assets/plugins/charts-c3/d3.v5.min.js"></script>
-    <script src="~/assets/plugins/charts-c3/c3-chart.js"></script>
-    <script src="~/js/dashboard.js"></script>
- }
+    <!-- CONTAINER CLOSED -->
+    <!-- CHARTJS JS -->
+    @section Scripts {
+        <script src="~/assets/plugins/chart/Chart.bundle.js"></script>
+        <script src="~/assets/plugins/charts-c3/d3.v5.min.js"></script>
+        <script src="~/assets/plugins/charts-c3/c3-chart.js"></script>
+        <script src="~/js/dashboard.js"></script>
+    }

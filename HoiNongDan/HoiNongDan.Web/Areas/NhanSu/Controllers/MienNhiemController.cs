@@ -140,7 +140,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             nhanSu.IdCanbo = canBo!.IDCanBo;
             nhanSu.HoVaTen = canBo.HoVaTen;
             nhanSu.MaCanBo = canBo.MaCanBo;
-            nhanSu.TenTinhTrang = canBo.TinhTrang.TenTinhTrang;
+            nhanSu.TenTinhTrang = canBo.TinhTrang!.TenTinhTrang;
             //nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
             nhanSu.TenDonVi = canBo.Department.Name;
             //nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;

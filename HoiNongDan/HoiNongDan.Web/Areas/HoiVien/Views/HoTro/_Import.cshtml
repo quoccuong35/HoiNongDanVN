@@ -1,0 +1,32 @@
+﻿<form id="frmImport">
+    <div class="col-md-12">
+        <input type="file" id="importexcelfile" name="importexcelfile" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+        <input type="hidden" name="currentUrl" class="form-control" />
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label class="form-label">Quận/Huyện</label>
+        </div>
+        <div class="col-md-12">
+            @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <label class="form-label">Mã địa bàn</label>
+        </div>
+        <div class="col-md-12">
+            @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label class="form-label">Lớp đào tạo-Tập huấn</label>
+        </div>
+        <div class="col-md-12">
+            @Html.DropDownList("IDLopHoc", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+        </div>
+    </div>
+    @Html.AntiForgeryToken()
+</form>
+<span class="px-1"><b class="fs-18">Link tải file mẫu:</b> <a href="/HoiVien/HoTro/ExportCreate" class="fs-20">Tải tại đây</a> </span>

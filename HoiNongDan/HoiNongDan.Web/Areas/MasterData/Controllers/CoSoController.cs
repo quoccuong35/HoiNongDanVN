@@ -108,7 +108,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                         edit.TenCoSo = item.TenCoSo; ;
                         edit.Description = item.Description;
                         edit.OrderIndex = item.OrderIndex;
-                        edit.LastModifiedAccountId = Guid.Parse(CurrentUser.AccountId);
+                        edit.LastModifiedAccountId = Guid.Parse(CurrentUser.AccountId!);
                         edit.LastModifiedTime = DateTime.Now;
                         _context.Entry(edit).State = EntityState.Modified;
                         _context.SaveChanges();

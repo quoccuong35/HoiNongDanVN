@@ -1,4 +1,17 @@
-﻿$('.btn-print').on('click', function () {
+﻿
+var table;
+var MaCanBo = "", HoVaTen = "", MaQuanHuyen = "", MaDiaBanHoiVien = "";
+//load default and set event
+$(function () {
+    LoadThongTin();
+  
+    $('#dt-hoivien tbody').on('dblclick', 'tr', function () {
+        var row = table.row(this).data();
+        let link = '/HoiVien/HoiVien/Edit/' + row['idCanBo'];
+        window.open(link, '_blank').focus();
+    });
+});
+$('.btn-print').on('click', function () {
     var lid = [];
     $('#data-list tbody tr.selected').each(function () {
         lid.push(this.id);
@@ -12,6 +25,7 @@
     ShowInTheHoiVien(formData);
 });
 
+
 function ShowInTheHoiVien(formData) {
     toastr.clear();
     $.ajax({
@@ -19,7 +33,6 @@ function ShowInTheHoiVien(formData) {
         url: "/HoiVien/HoiVien/Print",
         data: formData,
         success: function (jsonData) {
-
             if (jsonData.success == true) {
                 window.open("/HoiVien/HoiVien/ShowInTheHoiVien", "_blank");
             }
@@ -41,33 +54,25 @@ function ShowInTheHoiVien(formData) {
         }
     });
 }
-var table;
-//load default and set event
-$(document).ready(function () {
-    LoadThongTin()
-    //HideShowColumns();
-    $('#dt-hoivien tbody').on('dblclick', 'tr', function () {
-        var row = table.row(this).data();
-        let link = '/HoiVien/HoiVien/Edit/' + row['idCanBo'];
-        window.open(link, '_blank').focus();
-    });
-});
+
 function LoadThongTin() {
-    var $btn = $("#btn-search");
+    CheckSearchChange();
+    var $btn = $("#btn-searchhv");
     $btn.toggleClass("btn-loading");
     $.ajax({
         type: "get",
         url: "/HoiVien/HoiVien/_Search",
         data: $("#frmSearch").serializeArray(),
-        success: function (xhr, status, error) {
+        success: function (res, status, error) {
             table = $('#dt-hoivien').DataTable({
-                data: xhr,
+                data: res.data,
                 autoFill: true,
                 responsive: false,
                 autoWidth: false,
                 autoHeight: false,
                 scrollCollapse: false,
                 scrollX: true,
+                destroy: true,
                 /*            scrollY: height,*/
                 iDisplayLength: 10,
                 order: [],
@@ -142,8 +147,21 @@ function LoadThongTin() {
                     cell.innerHTML = i + 1;
                 });
             }).draw();
+            var btn_loaddata = $("#btn-loadthem");
+            let total = Number(res.total);
+            if (total > 1000) {
+                btn_loaddata.text("Hiển thị: 1,000/" + total.toLocaleString('hi-IN', { minimumFractionDigits: 0 }));
+                btn_loaddata.css("display", "block");
+                btn_loaddata.attr("data-total", total);
+                $("#txt-noteload").css("display", "block");
+               
+            }
+            else {
+                btn_loaddata.css("display", "none");
+                $("#txt-noteload").css("display", "none");
+            }
             $btn.toggleClass("btn-loading");
-            HideShowColumns('#example');
+            HideShowColumns('#dt-hoivien');
         },
         error: function (xhr, status, error) {
             $btn.toggleClass("btn-loading");
@@ -151,24 +169,110 @@ function LoadThongTin() {
         }
     });
 }
-$("#btn-search").click(function () {
-    var $btn = $("#btn-search");
-    $btn.toggleClass("btn-loading");
-    table.clear();
+function AddButtonLoad() {
+    const pagination = document.getElementById("dt-hoivien_paginate");
+    const btn = document.getElementById("btn-loadthem");
+    if (pagination != null && btn == null) {
+        const new_bttom = document.createElement("button");
+        new_bttom.style = "display:block";
+        new_bttom.textContent = "texthu"
+        new_bttom.setAttribute("class", "btn btn-sm btn-primary ms-1");
+        new_bttom.setAttribute("data-total", "0");
+        new_bttom.setAttribute("onclick", "LoadThem()");
+        new_bttom.setAttribute("id", "btn-loadthem");
+        //new_bttom.css("btn btn-sm btn-primary");
+        pagination.appendChild(new_bttom);
+    }
+}
+function LoadThem() {
+    var btn_loaddata = $("#btn-loadthem");
+    var count = table.data().count();
+    let _total = Number(btn_loaddata.data("total"));
+    if (count == _total)
+        return;
+    btn_loaddata.text("Đang tải dữ liệu");
+    if (CheckSearchChange()) {
+        LoadThongTin();
+    }
+    else
+    {
+        var  search = {};
+        search.Skip = count;
+        search.MaCanBo = $("#MaCanBo").val();
+        search.HoVaTen = $("#HoVaTen").val();
+        search.MaQuanHuyen = $("#MaQuanHuyen").val();
+        search.MaDiaBanHoiVien = $("#MaDiaBanHoiVien").val();
+        let page = document.querySelector(".paginate_button.page-item.active>a").textContent;
+      
+        $.ajax({
+            type: "get",
+            url: "/HoiVien/HoiVien/_Search",
+            data: search,
+            success: function (res, status, error) {
+              
+                table.rows.add(res.data);
+                table.draw();
+                let total = Number(res.total);
+                count = table.data().count();
+                table.page(Number(page-1)).draw(false);
+                if (total > count) {
+                    btn_loaddata.text("Hiển thị: " + count.toLocaleString('hi-IN', { minimumFractionDigits: 0 }) + "/" + total.toLocaleString('hi-IN', { minimumFractionDigits: 0 }));
+                    btn_loaddata.css("display", "block");
+                    $("#txt-noteload").css("display", "block");
+                }
+                else {
+                    btn_loaddata.css("display", "none");
+                    $("#txt-noteload").css("display", "none");
+                }
+            },
+            error: function (xhr, status, error) {
+                Exceptions(xhr, status, error);
+            }
+        });
+    }
+}
+function CheckSearchChange() {
+    var _macanbo = $("#MaCanBo").val();
+    var _hovaten = $("#HoVaTen").val();
+    var _maquanhuyen = $("#MaQuanHuyen").val();
+    var _diabanhoatdong = $("#MaDiaBanHoiVien").val();
+    if (_macanbo != MaCanBo || _hovaten != HoVaTen || _maquanhuyen != MaQuanHuyen || _diabanhoatdong != MaDiaBanHoiVien) {
+        MaCanBo = _macanbo;
+        HoVaTen = _hovaten;
+        MaQuanHuyen = _maquanhuyen;
+        MaDiaBanHoiVien = _diabanhoatdong;
+        return true;
+    }
+      
+    else
+        return false;
+}
+$(document).on("click", ".btn-import", function () {
     $.ajax({
         type: "get",
-        url: "/HoiVien/HoiVien/_Search",
-        data: $("#frmSearch").serializeArray(),
+        url: "/HoiVien/HoiVien/_Import",
         success: function (xhr, status, error) {
+            if (xhr.Code == 500 || xhr.Success == false) {
 
-            table.rows.add(xhr);
-            table.draw();
-            $btn.toggleClass("btn-loading");
+            }
+            else if (xhr.indexOf("from-login-error") > 0) {
+                toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                setTimeout(function () {
+                    var url = window.location.href.toString().split(window.location.host)[1];
+                    window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                }, 1000);
+            }
+            else {
+
+                $("#iframe-import").html(xhr);
+                $('#modalImport').modal("show");
+            }
         },
         error: function (xhr, status, error) {
             Exceptions(xhr, status, error);
         }
     });
+
 });
 $(document).on("click", ".btn-import", function () {
     $.ajax({

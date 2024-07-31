@@ -1,5 +1,6 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@model IEnumerable<QuanHuyen>
+<!DOCTYPE html>
+<html lang="en"
 <head>
     <title></title>
     <meta http-equiv="content-type" content="text-html; charset=utf-8" />
@@ -9,7 +10,7 @@
     <script type="text/javascript" src="~/charting/types.js"></script>
 
     <link rel="stylesheet" type="text/css" href="~/charting/css/default.css" />
-
+    <link rel="stylesheet" type="text/css" href="~/css/sodo.css" />
     <style>
         .department {
 
@@ -109,8 +110,8 @@
         <div class="page-header page-header-fix my-2">
             <div>
                 <a asp-controller="" asp-area="Home" asp-action="Index" style="padding-right: 20px; border-right: 1px solid #000;"><span class="header-title">Sơ Đồ Tổ Chức</span></a>
-                <a asp-controller="" asp-area="@ConstArea.Dashboard" asp-action="Index" style="padding-left:20px; padding-right: 40px;"><span class="header-title">Bảng Thống Kê</span></a>
-                
+                @* <a asp-controller="" asp-area="@ConstArea.Dashboard" asp-action="Index" style="padding-left:20px; padding-right: 40px;"><span class="header-title">Bảng Thống Kê</span></a> *@
+                <a asp-controller="Dashboard" asp-area="@ConstArea.HoiVien" asp-action="Index" style="padding-left:20px; padding-right: 40px;"><span class="header-title">Bảng Thống Kê</span></a>
                 <div class="rectangle">
                     <span> </span>
                     <span> </span>
@@ -120,9 +121,26 @@
             <div class="d-flex px-2">
             </div>
         </div>
-        <div id="chartDiv" class="container-c"></div>
-        <div id="chartQ" class="container-2"></div>
-       
+        <div id="chartDiv" class="container-fluid"> </div>
+       @*  <div id="chartQ" class="container-fluid"></div> *@
+        <div class="container-fluid m-3" >
+            <div class="row bg-white">
+                <div class="sodo" style="display:grid">
+                    <ul>
+                        <li>
+                            <a asp-controller="Dashboard" asp-area="@ConstArea.HoiVien" asp-action="Index"><span style="font-size:25px; font-weight:600 ">HỘI NÔNG DÂN TP.HCM</span></a>
+                            <ul>
+                                @foreach (var item in Model)
+                                {
+                                    <li>
+                                                <a asp-controller="Dashboard" asp-area="@ConstArea.HoiVien" asp-action="Index" asp-route-maQuanHuyen="@item.MaQuanHuyen"><span>@item.TenQuanHuyen</span></a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
     </div>
 
 
@@ -165,10 +183,10 @@
                 {
                     points: [
                         {
-                            name: '<b></b>',
+                            name: '<b>CHỦ TỊCH HỘI NÔNG DÂN THÀNH PHỐ</b>',
                             id: 'dhr',
                             attributes: {
-                                position: 'Chủ Tịch HND TP<br>',
+                                position: 'SƠ ĐỒ TỔ CHỨC HỆ THỐNG HỘI NÔNG DÂN THÀNH PHỐ HỒ CHÍ MINH<br>',
                                 units: '',
                             },
                             label_style_fontSize: 18,
@@ -192,7 +210,7 @@
                             id: 'rm1_',
                             parent: 'lv1_1',
                             attributes: {
-                                position: 'Ban TCKT<br>',
+                                position: 'BAN TỔ CHỨC - <br> KIỂM TRA',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -203,18 +221,18 @@
                             id: 'rm2_',
                             parent: 'lv1_1',
                             attributes: {
-                                position: 'Ban Tuyên Giáo<br>',
+                                position: 'BAN TUYÊN GIÁO',
                                 units: '',
                             },
                             label_style_fontSize: 14,
                             color: '#136d38',
                         },
                         {
-                            name: '<b>HND TP</b>',
+                            name: '<b>PHÓ CHỦ TỊCH THƯỜNG TRỰC <BR> HỘI NÔNG DÂN THÀNH PHỐ</b>',
                             id: 'rm',
                             parent: 'dhr',
                             attributes: {
-                                position: 'PCT Thường Trực',
+                                position: '',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -228,7 +246,7 @@
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>Trưởng Ban</ul>',
+                                    '<ul><li><b>TRƯỞNG BAN</ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#90caf9',
@@ -237,11 +255,11 @@
                         {
                             name: '',
                             id: 'rm100_',
-                            parent: 'rm1_',
+                            parent: 'rm_',
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>Phó Ban</ul>',
+                                    '<ul><li><b>PHÓ BAN</ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#90caf9',
@@ -254,7 +272,7 @@
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>Trưởng Ban</ul>',
+                                    '<ul><li><b>TRƯỞNG BAN</ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#aed581',
@@ -263,11 +281,11 @@
                         {
                             name: '',
                             id: 'rm_100',
-                            parent: 'rm2_',
+                            parent: 'rm_1',
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>Phó Ban</ul>',
+                                    '<ul><li><b>PHÓ BAN</ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#aed581',
@@ -278,7 +296,7 @@
                             id: 'rm3_1',
                             parent: 'rm',
                             attributes: {
-                                position: 'Văn Phòng<br>',
+                                position: 'VĂN PHÒNG',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -291,7 +309,7 @@
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>Chánh VP</ul>',
+                                    '<ul><li><b>CHÁNH VĂN PHÒNG</ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#90caf9',
@@ -300,11 +318,11 @@
                         {
                             name: '',
                             id: 'rm3_1_2',
-                            parent: 'rm3_1',
+                            parent: 'rm3_1_1',
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>VP1</ul>',
+                                    '<ul><li><b>PHÓ VĂN PHÒNG</ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#90caf9',
@@ -315,7 +333,7 @@
                             id: 'rm3_',
                             parent: 'rm',
                             attributes: {
-                                position: 'Ban Kinh Tế-XH<br>',
+                                position: 'BAN KINH TẾ - XÃ HỘI',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -328,7 +346,7 @@
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>Trưởng Ban</ul>',
+                                    '<ul><li><b>TRƯỞNG BAN</ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#90caf9',
@@ -337,11 +355,11 @@
                         {
                             name: '',
                             id: 'rm3_22',
-                            parent: 'rm3_',
+                            parent: 'rm3_11',
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>Phó Ban</ul>',
+                                    '<ul><li><b>PHÓ BAN</ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#90caf9',
@@ -349,11 +367,11 @@
                         },
                         
                         {
-                            name: '<b>HND TP</b>',
+                            name: '<b>HỘI NÔNG DÂN TP</b>',
                             id: 't',
                             parent: 'dhr',
                             attributes: {
-                                position: 'PCT',
+                                position: 'PHÓ CHỦ TỊCH',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -365,7 +383,7 @@
                             id: 'rm4_',
                             parent: 't',
                             attributes: {
-                                position: 'Trung Tâm DN & HTND<br>',
+                                position: 'TRUNG TÂM DẠY NGHỀ <BR> VÀ HỖ TRỢ NÔNG DÂN',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -378,7 +396,7 @@
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>GĐ</b></li></ul>',
+                                    '<ul><li><b>GIÁM ĐỐC</b></li></ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#80cbc4',
@@ -387,11 +405,11 @@
                         {
                             name: '',
                             id: 't_11',
-                            parent: 'rm4_',
+                            parent: 't_',
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>Các PGĐ</b></li></ul>',
+                                    '<ul><li><b>PHÓ GIÁM ĐỐC</b></li></ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#80cbc4',
@@ -402,7 +420,7 @@
                             id: 'rm5_',
                             parent: 't',
                             attributes: {
-                                position: 'Ban Điều Hành Qũy HTND<br>',
+                                position: 'BAN ĐIỀU HÀNH <BR> QUỸ HỖ TRỢ NÔNG DÂN',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -410,12 +428,25 @@
                         },
                         {
                             name: '',
-                            id: 't_1',
+                            id: 't_90',
                             parent: 'rm5_',
                             attributes: {
                                 position: '',
                                 units:
-                                    '<ul><li><b>Phó Ban</b></li></ul>',
+                                    '<ul><li><b>GIÁM ĐÓC</b></li></ul>',
+                            },
+                            label_style_fontSize: 12,
+                            color: '#136d38',
+                            annotation_label_text: '<div class="units"><b>%position</b>%name%units</div>',
+                        },
+                        {
+                            name: '',
+                            id: 't_1',
+                            parent: 't_90',
+                            attributes: {
+                                position: '',
+                                units:
+                                    '<ul><li><b>PHÓ GIÁM ĐỐC</b></li></ul>',
                             },
                             label_style_fontSize: 12,
                             color: '#136d38',
@@ -455,7 +486,6 @@
         var x = window.matchMedia("(max-width: 800px)")
         getWidth(x) // Call listener function at run time
         x.addListener(getWidth) // Attach listener function on state changes
-
         var config = {
             type: type,
             defaultPoint: {
@@ -475,7 +505,7 @@
                             name: '<b></b>',
                             id: 'dhr',
                             attributes: {
-                                position: 'HND TP HCM<br>',
+                                position: 'HỘI NÔNG DÂN TP.HCM<br>',
                                 units: '',
                             },
                             label_style_fontSize: 18,
@@ -487,7 +517,7 @@
                             id: 'rm1_',
                             parent: 'dhr',
                             attributes: {
-                                position: 'TP TĐỨC<br>',
+                                position: 'HND HUYỆN <br> CỦ CHI',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -499,7 +529,7 @@
                             id: 'rm2_',
                             parent: 'dhr',
                             attributes: {
-                                position: 'HCC<br>',
+                                position: 'HND HUYỆN <br> BÌNH CHÁNH',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -510,7 +540,7 @@
                             id: 'rm3_',
                             parent: 'dhr',
                             attributes: {
-                                position: 'HBC<br>',
+                                position: 'HND HUYỆN <br> HÓC MÔN',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -521,7 +551,7 @@
                             id: 'rm4_',
                             parent: 'dhr',
                             attributes: {
-                                position: 'HM<br>',
+                                position: 'HND HUYỆN <br> NHÀ BÈ',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -532,7 +562,7 @@
                             id: 'rm5_',
                             parent: 'dhr',
                             attributes: {
-                                position: 'NBÈ<br>',
+                                position: 'HND HUYỆN <br> CẦN GIỜ',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -543,7 +573,7 @@
                             id: 'rm6_',
                             parent: 'dhr',
                             attributes: {
-                                position: 'CGIỜ<br>',
+                                position: 'HND TP <br> TĐỨC',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -554,7 +584,7 @@
                             id: 'rm7_',
                             parent: 'dhr',
                             attributes: {
-                                position: 'Q12<br>',
+                                position: 'HND <br> QUẬN 12',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -565,7 +595,7 @@
                             id: 'rm12_',
                             parent: 'dhr',
                             attributes: {
-                                position: 'Tân Tạo A<br>',
+                                position: 'HND P.28 <br> Q.BÌNH THẠNH',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -576,7 +606,7 @@
                             id: 'rm8_',
                             parent: 'dhr',
                             attributes: {
-                                position: 'Bình Hưng Hòa B<br>',
+                                position: 'HND P.Tân Tạo A <br> Q.BÌNH TÂN',
                                 units: '',
                             },
                             label_style_fontSize: 14,
@@ -587,34 +617,12 @@
                             id: 'rm9_',
                             parent: 'dhr',
                             attributes: {
-                                position: 'BTân<br>',
+                                position: 'HND P.Bình Hưng Hòa B <br> Q.BÌNH TÂN',
                                 units: '',
                             },
                             label_style_fontSize: 14,
                             color: '#136d38',
-                        },
-                        {
-                            name: '',
-                            id: 'rm10_',
-                            parent: 'dhr',
-                            attributes: {
-                                position: 'P.28<br>',
-                                units: '',
-                            },
-                            label_style_fontSize: 14,
-                            color: '#136d38',
-                        },
-                        {
-                            name: '',
-                            id: 'rm11_',
-                            parent: 'dhr',
-                            attributes: {
-                                position: 'Q.Bình Thạnh<br>',
-                                units: '',
-                            },
-                            label_style_fontSize: 14,
-                            color: '#136d38',
-                        },
+                        }
                     ],
                 },
             ],
@@ -625,7 +633,7 @@
             point.attributes.units = point.attributes.units.replace(/<li>/g, '<li style="background-color: #136d38; color:#FFF;">');
         });
 
-        var chart = JSC.chart('chartQ', config);
+        // var chart = JSC.chart('chartQ', config);
     </script>
 </body>
 </html>

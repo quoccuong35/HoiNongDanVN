@@ -66,6 +66,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                     .Include(it => it.TrinhDoChinhTri)
                     .Include(it => it.CoSo).Select(it => new CanBoDetailVM
                     {
+                        IDCanBo = it.IDCanBo,
                         HoVaTen = it.HoVaTen,
                         TenChucVu = it.ChucVu!.TenChucVu,
                         GioiTinh = (GioiTinh)it.GioiTinh,

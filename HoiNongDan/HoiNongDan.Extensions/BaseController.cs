@@ -356,8 +356,6 @@ namespace HoiNongDan.Extensions
                                 && acc.AccountId == Guid.Parse(CurrentUser.AccountId!)
                                 select menu1).Distinct().ToList();
 
-                    /// lấy menu cha
-                    /// 
                     var menucha = menu.Where(it => it.MenuType == MenuType.Menu).OrderBy(it => it.OrderIndex);
                     foreach (var item in menucha)
                     {
@@ -385,7 +383,8 @@ namespace HoiNongDan.Extensions
             }
         }
         #endregion Loadmenu
-        public List<Guid> GetPhamVi() {
+        public List<Guid> GetPhamVi()
+        {
             List<Guid> list = new List<Guid>();
             if (User.Identity!.Name.ToLower().Equals("admin"))
             {

@@ -74,6 +74,7 @@ namespace HoiNongDan.DataAccess
         public DbSet<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac> CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTacs { get; set; }
         public DbSet<ToHoiNganhNghe_ChiHoiNganhNghe> ToHoiNganhNghe_ChiHoiNganhNghes { get; set; }
         public DbSet<Dot> Dots { get; set; }
+        public DbSet<LopHoc> LopHocs { get; set; }
         #endregion
         #region nhanSu
         public DbSet<CanBo> CanBos { get; set; }
@@ -104,6 +105,7 @@ namespace HoiNongDan.DataAccess
         public DbSet<PhatTrienDang> PhatTrienDangs { get; set; }
         public DbSet<PhatTrienDang_HoiVien> PhatTrienDang_HoiViens { get; set; }
         public DbSet<HoiVienCapThe> HoiVienCapThes { get; set; }
+        public DbSet<VayVon> VayVons { get; set; }
         #endregion Hội viên
 
 
@@ -450,6 +452,19 @@ namespace HoiNongDan.DataAccess
                 tbl.ToTable("ToHoiNganhNghe_ChiHoiNganhNghe", "tMasterData");
                 tbl.HasKey(it => it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe);
                 tbl.Property(it => it.Ten).HasMaxLength(500).IsRequired(true); ;
+            });
+
+            builder.Entity<LopHoc>(tbl =>
+            {
+                tbl.ToTable("LopHoc", "tMasterData");
+                tbl.HasKey(it => it.IDLopHoc);
+                tbl.Property(it => it.TenLopHoc).HasMaxLength(500).IsRequired(true);
+
+                tbl.HasOne<HinhThucHoTro>(it => it.HinhThucHoTro)
+                .WithMany(it => it.LopHocs)
+                .HasForeignKey(it => it.MaHinhThucHoTro)
+                .HasConstraintName("FK_LopHoc_HinhThucHoTro");
+
             });
             #endregion Master data
             #region NhanSu
@@ -951,9 +966,6 @@ namespace HoiNongDan.DataAccess
                 entity.ToTable("HoiVienHoTro", "HV");
                 entity.HasKey(it => it.ID);
                 entity.Property(it => it.NoiDung).IsRequired(true).HasMaxLength(200);
-                entity.Property(it => it.SoTienVay);
-                entity.Property(it => it.ThoiHangChoVay);
-                entity.Property(it => it.LaiSuatVay).HasColumnType("decimal(18,2)");
                 entity.Property(it => it.GhiChu);
 
 
@@ -962,15 +974,33 @@ namespace HoiNongDan.DataAccess
                 .HasForeignKey(it => it.IDHoiVien)
                 .HasConstraintName("FK_HoiVienVayVon_HoiVien");
 
-                entity.HasOne<HinhThucHoTro>(it => it.HinhThucHoTro)
-                  .WithMany(it => it.HoiVienHoTros)
-                  .HasForeignKey(it => it.MaHinhThucHoTro)
-                  .HasConstraintName("FK_HoiVienHoTro_HinhThucHoTro");
+
+                entity.HasOne<LopHoc>(it => it.LopHoc)
+               .WithMany(it => it.HoiVienHoTros)
+               .HasForeignKey(it => it.IDLopHoc)
+               .HasConstraintName("FK_HoiVienVayVon_LopHoc");
+            });
+
+            builder.Entity<VayVon>(entity => {
+                entity.ToTable("VayVon", "HV");
+                entity.HasKey(it => it.IDVayVon);
+                entity.Property(it => it.NoiDung).IsRequired(true).HasMaxLength(200);
+                entity.Property(it => it.SoTienVay);
+                entity.Property(it => it.ThoiHangChoVay);
+                entity.Property(it => it.LaiSuatVay).HasColumnType("decimal(18,2)");
+                entity.Property(it => it.GhiChu);
+
+
+                entity.HasOne<CanBo>(it => it.HoiVien)
+                .WithMany(it => it.VayVons)
+                .HasForeignKey(it => it.IDHoiVien)
+                .HasConstraintName("FK_VayVons_HoiVien");
+
 
                 entity.HasOne<NguonVon>(it => it.NguonVon)
-                  .WithMany(it => it.HoiVienHoTros)
+                  .WithMany(it => it.VayVons)
                   .HasForeignKey(it => it.MaNguonVon)
-                  .HasConstraintName("FK_HoiVienHoTro_NguonVon");
+                  .HasConstraintName("FK_VayVon_NguonVon");
 
 
             });

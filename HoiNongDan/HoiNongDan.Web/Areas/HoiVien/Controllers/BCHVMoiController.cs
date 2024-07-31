@@ -97,7 +97,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         private List<BCHVPhatTrienMoiVM> LoadData(string? MaQuanHuyen, Guid? MaDiaBanHoatDong, DateTime? TuNgay, DateTime? DenNgay) {
             var data = _context.CanBos.Where(it => it.IsHoiVien == true && it.isRoiHoi != true).Include(it => it.DanToc).Include(it => it.NgheNghiep).
                 Include(it => it.TonGiao).Include(it => it.TrinhDoHocVan).Include(it => it.TrinhDoChuyenMon)
-                .Include(it => it.TrinhDoChinhTri).Include(it => it.DiaBanHoatDong).ThenInclude(it => it.QuanHuyen).AsQueryable();
+                .Include(it => it.TrinhDoChinhTri).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).AsQueryable();
             if (TuNgay == null)
             { TuNgay = DateTime.Now; }
             if (DenNgay == null)

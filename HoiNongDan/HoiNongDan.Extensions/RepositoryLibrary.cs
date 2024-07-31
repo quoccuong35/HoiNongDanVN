@@ -594,7 +594,7 @@ namespace HoiNongDan.Extensions
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
             }
             return retDate;

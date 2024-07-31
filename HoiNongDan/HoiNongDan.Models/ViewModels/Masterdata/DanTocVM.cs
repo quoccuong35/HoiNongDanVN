@@ -41,7 +41,7 @@ namespace HoiNongDan.Models
             obj.TenDanToc = this.TenDanToc;
             obj.Actived = this.Actived;
             obj.OrderIndex = this.OrderIndex;
-            obj.Description = this.Description;
+            obj.Description = this.Description!;
             return obj;
         }
     }

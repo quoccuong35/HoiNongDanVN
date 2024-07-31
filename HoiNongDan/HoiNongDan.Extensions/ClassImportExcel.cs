@@ -54,7 +54,7 @@ namespace HoiNongDan.Extensions
             System.Data.DataTable dtSchema = null;
             if (this.Connection.State != ConnectionState.Open) this.Connection.Open();
             dtSchema = this.Connection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, new object[] { null, null, null, "TABLE" });
-            return dtSchema;
+            return dtSchema!;
         }
 
         /// <summary>
@@ -118,12 +118,12 @@ namespace HoiNongDan.Extensions
                 }
                 else
                 {
-                    return null;
+                    return null!;
                 }
             }
             catch
             {
-                return null;
+                return null!;
             }
         }
 
@@ -171,9 +171,9 @@ namespace HoiNongDan.Extensions
                 }
                 return ds;
             }
-            catch (Exception ex)
+            catch
             {
-                return null;
+                return null!;
             }
         }
 

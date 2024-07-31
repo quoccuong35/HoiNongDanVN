@@ -147,7 +147,6 @@ $('.btn-doimatkhau').on('click', function () {
                     formData.append(tag.name, file);
                 });
             });
-
             $.each(formParams, function (i, val) {
                 formData.append(val.name, val.value);
             });

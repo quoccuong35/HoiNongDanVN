@@ -301,7 +301,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }
             catch
             {
-                return null;
+                return null!;
             }
         }
         #endregion Import
@@ -324,7 +324,6 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             data.CreatedTime = DateTime.Now;
             data.CreatedAccountId = AccountId();
             string? value;
-            int index = 0;
             for (int i = 0; i < row.Length; i++) {
                 if (i > 80)
                 {

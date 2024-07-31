@@ -88,6 +88,9 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoChuyenMon")]
         public string? MaTrinhDoChuyenMon { get; set; }
 
+        [MaxLength(500)]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChuyenNganh")]
+        public string? ChuyenNganh { get; set; }
         [MaxLength(50)]
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoHocVan")]
@@ -174,10 +177,10 @@ namespace HoiNongDan.Models
 
         [Display(Name = "Ngày rời hội")]
 
-        public DateTime? NgayNgungHoatDong { get; set; }
+        public DateTime? NgayRoiHoi { get; set; }
 
         [Display(Name = "Lý do")]
-        public String? LyDoNgungHoatDong { get; set; }
+        public String? LyDoRoiHoi { get; set; }
 
         public bool? Actived { get; set; }
 
@@ -231,7 +234,7 @@ namespace HoiNongDan.Models
         }
 
         [Display(Name = "Rời hội")]
-        public bool? IsRoiHoi { get; set; }
+        public bool IsRoiHoi { get; set; }
     }
     public class HoiVienMTVM : HoiVienVM
     {
@@ -266,6 +269,7 @@ namespace HoiNongDan.Models
             obj.NgayThamGiaHDND = NgayThamGiaHDND;
             obj.VaiTro = VaiTro;
             obj.VaiTroKhac = VaiTroKhac;
+            obj.ChuyenNganh = ChuyenNganh;
             //obj.MaGiaDinhThuocDien = MaGiaDinhThuocDien;
             obj.HoNgheo = HoNgheo;
             obj.CanNgheo = CanNgheo;
@@ -332,13 +336,14 @@ namespace HoiNongDan.Models
             obj.CanNgheo = item.CanNgheo == null ? false : item.CanNgheo!.Value;
             obj.GiaDinhChinhSach = item.GiaDinhChinhSach == null ? false : item.GiaDinhChinhSach.Value;
             obj.GiaDinhThuocDienKhac = item.GiaDinhThuocDienKhac;
+            obj.ChuyenNganh = item.ChuyenNganh;
             obj.MaNgheNghiep = item.MaNgheNghiep;
             obj.IDCanBo = item.IDCanBo;
             obj.HinhAnh = item.HinhAnh;
             obj.Actived = item.Actived;
-            obj.IsRoiHoi = item.isRoiHoi == null?false:item.isRoiHoi;
-            obj.LyDoNgungHoatDong = item.LyDoNgungHoatDong;
-            obj.NgayNgungHoatDong = item.NgayNgungHoatDong;
+            obj.IsRoiHoi = item.isRoiHoi == null?false:item.isRoiHoi.Value;
+            obj.LyDoRoiHoi = item.LyDoRoiHoi;
+            obj.NgayRoiHoi = item.NgayRoiHoi;
             obj.LoaiHoiVien = item.LoaiHoiVien!;
             obj.MaDiaBanHoatDong = item.MaDiaBanHoatDong;
             obj.ThamGia_SH_DoanThe_HoiDoanKhac = item.ThamGia_SH_DoanThe_HoiDoanKhac;
@@ -414,7 +419,7 @@ namespace HoiNongDan.Models
             return kq;
         }
     }
-    
+
     public class HoiVienSearchVM
     {
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHoiVien")]
@@ -440,7 +445,7 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]
         public bool? Actived { get; set; }
 
-        [Display(Name ="Rời hội")]
+        [Display(Name = "Rời hội")]
         public bool? IsRoiHoi { get; set; }
 
         public bool? DangChoDuyet { get; set; } = false;
@@ -450,7 +455,7 @@ namespace HoiNongDan.Models
         public int? RoiTuNam { get; set; }
         [Display(Name = "Rời đến năm")]
         public int? RoiDenNam { get; set; }
-
+        public int Skip { get; set; } = 0;
 
     }
 }

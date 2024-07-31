@@ -179,7 +179,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             }
             catch
             {
-                return null;
+                return null!;
             }
         }
         #endregion Import Excel
@@ -332,13 +332,13 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             string value = string.Empty;
             for (int i = 0; i < row.Length; i++)
             {
-                value = row[i].ToString();
+                value = row[i].ToString()!;
 
                 switch (i)
                 {
                     case 0:
                         //Row Index
-                        data.RowIndex = index = int.Parse(value);
+                        data.RowIndex = index = int.Parse(value!);
                         break;
                     case 1:
                         // IDCanBo

@@ -22,6 +22,9 @@ namespace HoiNongDan.Models
         public String? HoVaTen { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHoiVien")]
         public String? MaHoiVien { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Loai")]
+        public String? Loai { get; set; }
     }
     public class HoiVien_CLB_DN_MH_HTX_THTDetailVM
     {

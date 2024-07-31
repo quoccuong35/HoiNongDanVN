@@ -165,6 +165,9 @@
   <data name="BaoCaoGiamHV" xml:space="preserve">
     <value>Báo cáo giảm hội viên</value>
   </data>
+  <data name="BCBDHoiVien" xml:space="preserve">
+    <value>Thống Kê Phát Triển Hội Viên</value>
+  </data>
   <data name="BCHHNDTP" xml:space="preserve">
     <value>BCH HNDTP</value>
   </data>
@@ -427,7 +430,7 @@
     <value>Hiện</value>
   </data>
   <data name="HinhThucHoTro" xml:space="preserve">
-    <value>Hình thức hỗ trợ</value>
+    <value>Loại tập huấn-Đào tạo</value>
   </data>
   <data name="HinhThucKhenThuong" xml:space="preserve">
     <value>Hình thức khen thưởng</value>
@@ -453,8 +456,14 @@
   <data name="HoiVienChinhTriHoiDoan" xml:space="preserve">
     <value>Hội viên sinh hoạt  đoàn thể chính trị - Hội đoàn khác</value>
   </data>
+  <data name="HoiVienDanCu" xml:space="preserve">
+    <value>Địa bàn dân cư</value>
+  </data>
   <data name="HoiVienDanhDu" xml:space="preserve">
     <value>Hội viên danh dự</value>
+  </data>
+  <data name="HoiVienNganhNghe" xml:space="preserve">
+    <value>Ngành nghề</value>
   </data>
   <data name="HoiVienNongCot" xml:space="preserve">
     <value>Hội viên nòng cốt</value>
@@ -491,6 +500,9 @@
   </data>
   <data name="HuuTri" xml:space="preserve">
     <value>Hưu Trí</value>
+  </data>
+  <data name="HVDangKy" xml:space="preserve">
+    <value>Đăng ký Hội viên mới</value>
   </data>
   <data name="HVKhenThuong" xml:space="preserve">
     <value>Các Hình thức Được Khen Tặng</value>
@@ -554,6 +566,9 @@
   </data>
   <data name="Loai_DV_SX_ChN" xml:space="preserve">
     <value>Loại hình, dịch vụ sản xuất, chăn nuôi</value>
+  </data>
+  <data name="LopHoc" xml:space="preserve">
+    <value>Lớp Học</value>
   </data>
   <data name="LuanAnTN" xml:space="preserve">
     <value>Luận án tốt nghiệp</value>
@@ -909,9 +924,6 @@
   <data name="SoTienVay" xml:space="preserve">
     <value>Số tiền vay</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="TaiLieu" xml:space="preserve">
     <value>Tài liệu</value>
   </data>
@@ -935,6 +947,9 @@
   </data>
   <data name="TenLichSinhHoat" xml:space="preserve">
     <value>Tên nội dung tóm tắt</value>
+  </data>
+  <data name="TenLopHoc" xml:space="preserve">
+    <value>Tên lớp học</value>
   </data>
   <data name="TenNgachLuong" xml:space="preserve">
     <value>Tên ngạch lương</value>
@@ -1034,6 +1049,9 @@
   </data>
   <data name="Validation_OrderIndex" xml:space="preserve">
     <value>{0} phải là dạng số lớn hơn 0!</value>
+  </data>
+  <data name="VayVon" xml:space="preserve">
+    <value>Vay vốn</value>
   </data>
   <data name="View" xml:space="preserve">
     <value>Xem quá trình</value>

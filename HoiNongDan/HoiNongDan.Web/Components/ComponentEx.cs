@@ -14,9 +14,13 @@ namespace HoiNongDan.Web.Components
             return View("Default", GetSoNguoiHoiVienChuaDuyet());
         }
         private int GetSoNguoiHoiVienChuaDuyet() {
-            var accountID = db.Accounts.SingleOrDefault(it => it.UserName.Equals(User!.Identity.Name)).AccountId;
+            var accountID = db.Accounts.SingleOrDefault(it => it.UserName!.Equals(User!.Identity.Name)).AccountId;
             var phamVis = db.PhamVis.Where(it => it.AccountId == accountID).Select(it => it.MaDiabanHoatDong).ToList();
-            return  db!.CanBos.Where(it => it.IsHoiVien == true && it.HoiVienDuyet == false && phamVis.Contains(it.MaDiaBanHoatDong!.Value)).Count();
+            return  db!.CanBos.Join(db!.PhamVis.Where(it => it.AccountId == accountID),
+                    hv => hv.MaDiaBanHoatDong,
+                    pv => pv.MaDiabanHoatDong,
+                    (hv, pv) => new { hv }
+                    ).Where(it => it.hv.IsHoiVien == true && it.hv.HoiVienDuyet == false && it.hv.TuChoi != true && phamVis.Contains(it.hv.MaDiaBanHoatDong!.Value)).Count();
         }
     }
 }

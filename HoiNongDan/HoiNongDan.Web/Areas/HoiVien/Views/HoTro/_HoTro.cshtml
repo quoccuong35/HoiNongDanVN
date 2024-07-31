@@ -2,85 +2,15 @@
 <div class="row">
     <input asp-for="ID" hidden />
     @Html.AntiForgeryToken()
-    <div class="col-md-3">
+    <div class="col-md-6">
         <div class="form-group">
-            <label asp-for="MaHinhThucHoTro"></label><span class="text-red">*</span>
-            <select asp-for="MaHinhThucHoTro" asp-items="@ViewBag.MaHinhThucHoTro" class="form-control select2-show-search form-select">
+            <label asp-for="IDLopHoc"></label><span class="text-red">*</span>
+            <select asp-for="IDLopHoc" asp-items="@ViewBag.IDLopHoc" class="form-control select2-show-search form-select">
                 <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
             </select>
-            <span asp-validation-for="MaHinhThucHoTro" class="text-danger"></span>
+            <span asp-validation-for="IDLopHoc" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-md-3" id="div-MaNguonVon" style="display:none">
-        <div class="form-group">
-            <label asp-for="MaNguonVon"></label><span class="text-red">*</span>
-            <select asp-for="MaNguonVon" asp-items="@ViewBag.MaNguonVon" class="form-control select2-show-search form-select">
-                <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
-            </select>
-            <span asp-validation-for="MaNguonVon" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label asp-for="TuNgay"></label>
-            <input asp-for="TuNgay" class="form-control">
-            <span asp-validation-for="TuNgay" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label asp-for="DenNgay"></label>
-            <input asp-for="DenNgay" class="form-control">
-            <span asp-validation-for="DenNgay" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="col-md-2" id="div-SoTienVay" style="display:none">
-        <div class="form-group">
-            <label asp-for="SoTienVay"></label><span class="text-red">*</span>
-            <div class="input-group">
-                <input type="text" asp-for="SoTienVay" class="form-control" data-type="currency">
-                <div class="input-group-text">VNĐ</div>
-            </div>
-            <span asp-validation-for="SoTienVay" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="col-md-2" id="div-ThoiHangChoVay" style="display:none">
-        <div class="form-group">
-            <label asp-for="ThoiHangChoVay"></label><span class="text-red">*</span>
-            <div class="input-group">
-                <input asp-for="ThoiHangChoVay" class="form-control">
-                <div class="input-group-text"> Tháng</div>
-            </div>
-            <span asp-validation-for="ThoiHangChoVay" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="col-md-2" id="div-LaiSuatVay" style="display:none">
-        <div class="form-group">
-            <label asp-for="LaiSuatVay"></label><span class="text-red">*</span>
-            <div class="input-group">
-                <input asp-for="LaiSuatVay" type="number" step="1" class="form-control">
-                <div class="input-group-text">%/Tháng</div>
-            </div>
-            <span asp-validation-for="LaiSuatVay" class="text-danger"></span>
-        </div>
-    </div>
-   
-    <div class="col-md-2" id="div-NgayTraNoCuoiCung" style="display:none">
-        <div class="form-group">
-            <label asp-for="NgayTraNoCuoiCung"></label><span class="text-red">*</span>
-            <input asp-for="NgayTraNoCuoiCung" class="form-control">
-            <span asp-validation-for="NgayTraNoCuoiCung" class="text-danger"></span>
-        </div>
-    </div>
-    @if (Model != null && Model.ID != null)
-    {
-        <div class="col-md-2 d-flex align-items-center" id="div-traxong" style="display:none">
-            <fieldset>
-                @Html.RadioButtonFor(p=>p.TraXong,true) @LanguageResource.TraXong
-                @Html.RadioButtonFor(p=>p.TraXong,false) Chưa
-            </fieldset>
-        </div>
-    }
     <div class="col-md-6">
         <label asp-for="NoiDung"></label> <span class="text-red">*</span>
         <textarea asp-for="NoiDung" rows="3" class="form-control"></textarea>

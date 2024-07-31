@@ -166,81 +166,67 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
                 return ExcuteImportExcel(() =>
                 {
-                    if (ds.Tables.Count > 0)
+                    const TransactionScopeOption opt = new TransactionScopeOption();
+
+                    TimeSpan span = new TimeSpan(0, 0, 30, 30);
+                    using (TransactionScope ts = new TransactionScope(opt, span))
                     {
-                        const TransactionScopeOption opt = new TransactionScopeOption();
-
-                        TimeSpan span = new TimeSpan(0, 0, 30, 30);
-                        using (TransactionScope ts = new TransactionScope(opt, span))
+                        DataTable dt = ds.Tables[0];
+                        List<string> errorList = new List<string>();
+                        if (dt == null || dt.Rows.Count < startIndex)
                         {
-                            DataTable dt = ds.Tables[0];
-                            List<string> errorList = new List<string>();
-                            if (dt == null || dt.Rows.Count < startIndex)
-                            {
-                                return Json(new
-                                {
-                                    Code = System.Net.HttpStatusCode.Created,
-                                    Success = false,
-                                    Data = "Không có dữ liệu import"
-                                });
-
-                            }
-                            int test = 1;
-                            foreach (DataRow row in dt.Rows)
-                            {
-                                if (dt.Rows.IndexOf(row) >= startIndex)
-                                {
-                                    if (row[0] == null || row[0].ToString() == "")
-                                        break;
-                                    CheckTemplate(row, addToHoiNganhNghe_ChiHoiNganhNghe_HoiVien: addToHoiNganhNghe_ChiHoiNganhNghe_HoiVien,
-                                        to_Chi_Hoi_NganhNghes: to_Chi_Hoi_NganhNghes, add_To_Chi_Hoi_NganhNGhe: add_To_Chi_Hoi_NganhNGhe, hoiViens: dataHoiViens, error: errorList,
-                                        listToHoiNganhNghe_ChiHoiNganhNghe_HoiVien: listToHoiNganhNghe_ChiHoiNganhNghe_HoiVien);
-                                    test++;
-                                }
-                            }
-
-                            if (errorList != null && errorList.Count > 0)
-                            {
-                                return Json(new
-                                {
-                                    Code = System.Net.HttpStatusCode.Created,
-                                    Success = false,
-                                    Data = String.Join("<br/>", errorList)
-                                }); ;
-                            }
-                            if (add_To_Chi_Hoi_NganhNGhe.Count > 0)
-                                _context.ToHoiNganhNghe_ChiHoiNganhNghes.AddRange(add_To_Chi_Hoi_NganhNGhe);
-                            if (addToHoiNganhNghe_ChiHoiNganhNghe_HoiVien.Count > 0)
-                            {
-                                var adds = addToHoiNganhNghe_ChiHoiNganhNghe_HoiVien.Select(it => new { it.IDHoiVien, it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe }).Distinct().Select(it => new ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien
-                                {
-                                    IDHoiVien = it.IDHoiVien,
-                                    Ma_ToHoiNganhNghe_ChiHoiNganhNghe = it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe,
-                                    CreatedAccountId = AccountId(),
-                                    CreatedTime = DateTime.Now
-                                }).ToList();
-                                _context.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.AddRange(adds);
-                            }
-
-
-                            _context.SaveChanges();
-                            ts.Complete();
                             return Json(new
                             {
                                 Code = System.Net.HttpStatusCode.Created,
-                                Success = true,
-                                Data = LanguageResource.ImportSuccess
+                                Success = false,
+                                Data = "Không có dữ liệu import"
                             });
+
+                        }
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            if (dt.Rows.IndexOf(row) >= startIndex)
+                            {
+                                if (row[0] == null || row[0].ToString() == "")
+                                    break;
+                                CheckTemplate(row, addToHoiNganhNghe_ChiHoiNganhNghe_HoiVien: addToHoiNganhNghe_ChiHoiNganhNghe_HoiVien,
+                                    to_Chi_Hoi_NganhNghes: to_Chi_Hoi_NganhNghes, add_To_Chi_Hoi_NganhNGhe: add_To_Chi_Hoi_NganhNGhe, hoiViens: dataHoiViens, error: errorList,
+                                    listToHoiNganhNghe_ChiHoiNganhNghe_HoiVien: listToHoiNganhNghe_ChiHoiNganhNghe_HoiVien);
+
+                            }
                         }
 
-                    }
-                    else
-                    {
+                        if (errorList != null && errorList.Count > 0)
+                        {
+                            return Json(new
+                            {
+                                Code = System.Net.HttpStatusCode.Created,
+                                Success = false,
+                                Data = String.Join("<br/>", errorList)
+                            }); ;
+                        }
+                        if (add_To_Chi_Hoi_NganhNGhe.Count > 0)
+                            _context.ToHoiNganhNghe_ChiHoiNganhNghes.AddRange(add_To_Chi_Hoi_NganhNGhe);
+                        if (addToHoiNganhNghe_ChiHoiNganhNghe_HoiVien.Count > 0)
+                        {
+                            var adds = addToHoiNganhNghe_ChiHoiNganhNghe_HoiVien.Select(it => new { it.IDHoiVien, it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe }).Distinct().Select(it => new ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien
+                            {
+                                IDHoiVien = it.IDHoiVien,
+                                Ma_ToHoiNganhNghe_ChiHoiNganhNghe = it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe,
+                                CreatedAccountId = AccountId(),
+                                CreatedTime = DateTime.Now
+                            }).ToList();
+                            _context.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.AddRange(adds);
+                        }
+
+
+                        _context.SaveChanges();
+                        ts.Complete();
                         return Json(new
                         {
-                            Code = System.Net.HttpStatusCode.NotFound,
-                            Success = false,
-                            Data = "Không đọc được file excel"
+                            Code = System.Net.HttpStatusCode.Created,
+                            Success = true,
+                            Data = LanguageResource.ImportSuccess
                         });
                     }
                 });
@@ -257,7 +243,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
            
         }
 
-        protected DataSet GetDataSetFromExcel()
+        private DataSet GetDataSetFromExcel()
         {
             DataSet ds = new DataSet();
             try
@@ -291,7 +277,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                 ds = excelHelper.ReadDataSet();
                             }
                         }
-                        catch (Exception ex)
+                        catch
                         {
                             return null;
                         }
@@ -306,7 +292,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 }
                 return ds;
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }
@@ -511,11 +497,11 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         join pv in _context.PhamVis on hv.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
                         where pv.AccountId == AccountId()
                         && hv.IsHoiVien == true
-                        select hv).Include(it => it.DiaBanHoatDong).ThenInclude(it => it.PhuongXa).Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens).ThenInclude(it=>it.ToHoiNganhNghe_ChiHoiNganhNghe).AsQueryable();
+                        select hv).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.PhuongXa).Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens).ThenInclude(it=>it.ToHoiNganhNghe_ChiHoiNganhNghe).AsQueryable();
 
             if (search.Ma_ToHoiNganhNghe_ChiHoiNganhNghe != null)
             {
-                data = data.Where(it => it.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.All(p=>p.Ma_ToHoiNganhNghe_ChiHoiNganhNghe == search.Ma_ToHoiNganhNghe_ChiHoiNganhNghe));
+                data = data.Where(it => it.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.Any(p=>p.Ma_ToHoiNganhNghe_ChiHoiNganhNghe == search.Ma_ToHoiNganhNghe_ChiHoiNganhNghe));
             }
             if (search.MaDiaBanHoiVien != null)
             {
@@ -545,7 +531,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 QuanHuyen = it.DiaBanHoatDong.QuanHuyen.TenQuanHuyen,
                 GhiChu = ""
             }).OrderBy(it=>it.PhuongXa).ThenBy(it=>it.HoVaTen).ToList();
-            model = model.DistinctBy(it=>new { it.HoVaTen,it.MaCanBo,it.SoCCCD,it.ChoOHienNay}).ToList();
+            model = model.DistinctBy(it=>new { it.HoVaTen,it.MaCanBo,it.SoCCCD,it.ChoOHienNay, it.QuanHuyen, it.PhuongXa }).ToList();
             int stt = 1;
             model.ForEach(value => {
                 value.STT = stt;

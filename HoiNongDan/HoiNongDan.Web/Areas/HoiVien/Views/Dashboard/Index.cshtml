@@ -1,0 +1,97 @@
+﻿@using HoiNongDan.Models
+@using HoiNongDan.Constant
+<!-- CONTAINER -->
+<div class="main-container container-fluid" style="">
+    <!-- PAGE-HEADER -->
+    <div class="page-header page-header-fix my-2">
+        <div>
+            <a asp-controller="" asp-area="Home" asp-action="Index" style="padding-right: 20px; border-right: 1px solid #000;"><span class="header-title">Sơ Đồ Tổ Chức</span></a>
+            <a asp-controller="Dashboard" asp-area="@ConstArea.HoiVien" asp-action="Index" style="padding-left:20px; padding-right: 40px;"><span class="header-title">Bảng Thống Kê</span></a>
+
+            <div class="rectangle">
+                <span> </span>
+                <span> </span>
+                <span> </span>
+            </div>
+        </div>
+        <div class="d-flex px-2">
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+            <div class="card overflow-hidden" style="background:#1b2850">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="mt-2">
+                            <h3 class="text-white">Tổng Cán Bộ</h3>
+                            <h2 class="mb-0 number-font text-white">@ViewBag.CanBo</h2>
+                        </div>
+                        <div class="ms-auto">
+                            <div class="chart-wrapper mt-1">
+                                <i class="side-menu__icon fe fe-user text-white" style="font-size:80px"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+            <div class="card overflow-hidden" style="background:#28c76f">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="mt-2">
+                            <h3 class="text-white">Tổng Hội Viên</h3>
+                            <h2 class="mb-0 number-font text-white">@ViewBag.HoiVien</h2>
+                        </div>
+                        <div class="ms-auto">
+                            <div class="chart-wrapper mt-1">
+                                <i class="side-menu__icon icon icon-people text-white" style="font-size:80px"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Biến Động Hội Viên Tháng Hiện Tại</h3>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <div id="chart-bar" class="h-275"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- COL END -->
+        <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Tổng Số</h3>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container">
+                        <canvas id="chartDonut" class="h-275"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COL END -->
+    </div>
+</div>
+
+
+<!-- /Row -->
+<!-- CONTAINER CLOSED -->
+<!-- CHARTJS JS -->
+@section Scripts {
+    <script src="~/assets/plugins/chart/Chart.bundle.js"></script>
+    <script src="~/assets/plugins/charts-c3/d3.v5.min.js"></script>
+    <script src="~/assets/plugins/charts-c3/c3-chart.js"></script>
+    <script src="~/js/thongkehoivien.js"></script>
+}

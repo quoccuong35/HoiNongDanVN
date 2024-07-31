@@ -60,9 +60,9 @@ namespace HoiNongDan.Extensions
                 
                return new DateTime(1900, 1, 1);
             }
-            catch (Exception ex)
+            catch
             {
-                return new DateTime(1900, 1, 1); ;
+                return new DateTime(1900, 1, 1);
             }
           
         }
@@ -90,5 +90,6 @@ namespace HoiNongDan.Extensions
             HoiVien.Edit = false;
             return HoiVien;
         }
+
     }
 }

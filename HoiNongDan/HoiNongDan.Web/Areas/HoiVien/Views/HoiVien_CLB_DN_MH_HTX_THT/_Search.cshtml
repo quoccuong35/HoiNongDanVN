@@ -13,12 +13,17 @@
     <thead class="table-primary">
         <tr>
             <th class="text-center">@LanguageResource.NumberIndex</th>
-            <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
             <th>@Html.DisplayNameFor(p => p.HoVaTen)</th>
-            <th>@Html.DisplayNameFor(p => p.SoDienThoai)</th>
+            <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
+            <th>@Html.DisplayNameFor(p => p.SoCCCD)</th>
+            <th>@Html.DisplayNameFor(p => p.CauLacBo)</th>
+            <th>@Html.DisplayNameFor(p => p.DoiNhom)</th>
+            <th>@Html.DisplayNameFor(p => p.MoHinh)</th>
+            <th>@Html.DisplayNameFor(p => p.HopTacXa)</th>
+            <th>@Html.DisplayNameFor(p => p.TopHopTac)</th>
             <th>@Html.DisplayNameFor(p => p.ChoOHienNay)</th>
-            <th>@Html.DisplayNameFor(p => p.TenDiaBanHoatDong)</th>
-            <th>@Html.DisplayNameFor(p => p.TenCauLacBo)</th>
+            <th>@Html.DisplayNameFor(p => p.PhuongXa)</th>
+            <th>@Html.DisplayNameFor(p => p.QuanHuyen)</th>
             <th>@Html.DisplayNameFor(p => p.GhiChu)</th>
             <th class="text-center">@LanguageResource.Actions</th>
         </tr>
@@ -32,15 +37,20 @@
             i++;
             <tr>
                 <td class="text-center">@i</td>
-                <td class="text-center">@item.MaCanBo</td>
                 <td>@item.HoVaTen</td>
-                <td class="text-center">@item.SoDienThoai</td>
-                <td>@item.HoKhauThuongTru</td>
-                <td>@item.TenDiaBanHoatDong</td>
-                <td>@item.TenCauLacBo</td>
+                <td class="text-center">@item.MaCanBo</td>
+                <td class="text-center">@item.SoCCCD</td>
+                <td class="text-center">@item.CauLacBo</td>
+                <td class="text-center">@item.DoiNhom</td>
+                <td class="text-center">@item.MoHinh</td>
+                <td class="text-center">@item.HopTacXa</td>
+                <td class="text-center">@item.TopHopTac</td>
+                <td>@item.ChoOHienNay</td>
+                <td>@item.PhuongXa</td>
+                <td>@item.QuanHuyen</td>
                 <td>@item.GhiChu</td>
                 <td class="text-center">
-                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.TenCauLacBo!, item.IDCanBo!.Value.ToString()+"_"+item.MaCaulacBo!.Value.ToString(), listRoles: listRoles)
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoVaTen!,item.ID, listRoles: listRoles)
                 </td>
             </tr>
         }
