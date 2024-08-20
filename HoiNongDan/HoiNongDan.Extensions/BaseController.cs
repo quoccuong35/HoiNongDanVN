@@ -30,7 +30,6 @@ namespace HoiNongDan.Extensions
         }
         public override void OnActionExecuted(ActionExecutedContext context)
         {
-
             //foreach (var cookie in Request.Cookies.Keys)
             //{
             //    if (cookie != ConstExcelController.sessionID)
@@ -38,7 +37,6 @@ namespace HoiNongDan.Extensions
             //        Response.Cookies.Delete(cookie);
             //    }
             //}
-
         }
         public override void OnActionExecuting(ActionExecutingContext context)
         {
@@ -383,19 +381,19 @@ namespace HoiNongDan.Extensions
             }
         }
         #endregion Loadmenu
-        public List<Guid> GetPhamVi()
-        {
-            List<Guid> list = new List<Guid>();
-            if (User.Identity!.Name.ToLower().Equals("admin"))
-            {
-                list = _context.DiaBanHoatDongs.Where(it => it.Actived == true).Select(it => it.Id).ToList();
-            }
-            else
-            {
-                list = _context.PhamVis.Where(it => it.AccountId == AccountId()!.Value).Select(it => it.MaDiabanHoatDong).ToList();
-            }
-            return list;
-        }
+        //public List<Guid> GetPhamVi()
+        //{
+        //    List<Guid> list = new List<Guid>();
+        //    if (User.Identity!.Name.ToLower().Equals("admin"))
+        //    {
+        //        list = _context.DiaBanHoatDongs.Where(it => it.Actived == true).Select(it => it.Id).ToList();
+        //    }
+        //    else
+        //    {
+        //        list = _context.PhamVis.Where(it => it.AccountId == AccountId()!.Value).Select(it => it.MaDiabanHoatDong).ToList();
+        //    }
+        //    return list;
+        //}
         #region PhamVi
 
         #endregion PhamVi

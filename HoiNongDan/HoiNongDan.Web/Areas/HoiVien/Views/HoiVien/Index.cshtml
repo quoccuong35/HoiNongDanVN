@@ -48,6 +48,7 @@
                             <div class="col-md-2">
                                 <label asp-for="MaCanBo"></label>
                                 <input class="form-control" asp-for="MaCanBo" />
+                                <input style="display:none" name="TenPhuongXa" id="TenPhuongXa" value="@Model.TenPhuongXa"/>
                             </div>
                             <div class="col-md-2">
                                 <label asp-for="HoVaTen"></label>
@@ -61,7 +62,11 @@
                                 <label asp-for="MaDiaBanHoiVien"></label>
                                 @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                           @*  <div class="col-md-2">
+                            <div class="col-md-3">
+                                <label asp-for="MaChiHoi"></label>
+                                @Html.DropDownList("MaChiHoi", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-2">
                                 <label asp-for="IsRoiHoi"></label>
                                 @Html.DropDownList("IsRoiHoi", new List<SelectListItem>(){
                                 new SelectListItem(){Text = LanguageResource.Dropdownlist_All, Value = ""},
@@ -69,7 +74,7 @@
                                 new SelectListItem(){Text = LanguageResource.RoiHoi_True, Value = "true"}
                                 }, new { @class = "form-control" })
                             </div>
-                            <div class="col-md-2">
+                            @*  <div class="col-md-2">
                                 <label asp-for="RoiTuNam"></label>
                                 <input class="form-control" type="number" step="1" asp-for="RoiTuNam" />
                             </div>
@@ -117,7 +122,8 @@
                             <thead>
                                 <tr>
                                     <th>STT</th>
-                                    <th class="text-center" name="MaCanBo">@LanguageResource.MaCanBo</th>
+                                    <th class="text-center" name="MaCanBo">Địa bàn hội viên</th>
+                                    <th class="text-center" name="MaCanBo">@LanguageResource.MaHoiVien</th>
                                     <th class="text-center" name="HoVaTen">@LanguageResource.FullName</th>
                                     <th class="text-center" name="NgaySinh">@LanguageResource.NgaySinh</th>
                                     <th class="text-center" name="GioiTinh">@LanguageResource.GioiTinh</th>
@@ -160,11 +166,10 @@
                                     <th class="text-center" name="GuongDiemHinh">@LanguageResource.GuongDiemHinh</th>
                                     <th class="text-center" name="GuongDanVanKheo">@LanguageResource.GuongDanVanKheo</th>
                                     <th class="text-center" name="GuongDiemHinhHocTapLamTheoBac">@LanguageResource.GuongDiemHinhHocTapLamTheoBac</th>
+                                    <th class="text-center" name="GuongDiemHinhHocTapLamTheoBac">@LanguageResource.SanPhamNongNghiepTieuBieu_OCOP</th>
                                     <th class="text-center" name="HoTrovayVon">@LanguageResource.HoTrovayVon</th>
                                     <th class="text-center" name="HoTroKhac">@LanguageResource.HoTroKhac</th>
                                     <th class="text-center" name="HoTroDaoTaoNghe">@LanguageResource.HoTroDaoTaoNghe</th>
-                                    <th class="text-center" name="KKAnToanThucPham">@LanguageResource.KKAnToanThucPham</th>
-                                    <th class="text-center" name="DKMauNguoiNongDanMoi">@LanguageResource.DKMauNguoiNongDanMoi</th>
                                     <th class="text-center" name="GhiChu">@LanguageResource.GhiChu</th>
                                 </tr>
                             </thead>
@@ -189,5 +194,8 @@
 
 @section ScriptCustomized {
     <script src="~/js/diaban_hv_quanhuyen.js"></script>
-    <script src="~/js/hoivien.js"></script>
+    <script src="~/js/hoivien.js?v1"></script>
+    $(document).ready(function () {
+            HoiNongDan.ShowMessage(window.location.href);
+    });
 }

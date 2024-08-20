@@ -176,7 +176,7 @@ namespace HoiNongDan.Models
 
 
         [Display(Name = "Ngày rời hội")]
-
+        [DataType(DataType.Date)]
         public DateTime? NgayRoiHoi { get; set; }
 
         [Display(Name = "Lý do")]
@@ -226,11 +226,20 @@ namespace HoiNongDan.Models
         [Display(Name = "Tham gia tổ hội ngành nghề, chi hội ngành nghề")]
         public List<Guid>? Ma_ToHoiNganhNghe_ChiHoiNganhNghe { get; set; }
         public List<FileDinhKem>? FileDinhKems { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HoiVienDanCu")]
+        public bool HoiVienDanCu { get; set; } = false;
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HoiVienNganhNghe")]
+        public bool HoiVienNganhNghe { get; set; } = false;
+
+        public List<HVKhenThuong> khenThuongs { get; set; }
         public HoiVienVM() {
             MaDoanTheChinhTri_HoiDoan = new List<Guid>();
             Id_CLB_DN_MH_HTX_THT = new List<Guid>();
             Ma_ToHoiNganhNghe_ChiHoiNganhNghe = new List<Guid>();
             FileDinhKems = new List<FileDinhKem>();
+            khenThuongs = new List<HVKhenThuong>();
         }
 
         [Display(Name = "Rời hội")]
@@ -289,13 +298,14 @@ namespace HoiNongDan.Models
             obj.DienTich_QuyMo = DienTich_QuyMo;
             obj.SoLuong = SoLuong;
             obj.IsHoiVien = true;
-           
             obj.GhiChu = GhiChu;
             obj.HoiVienUuTuNam = HoiVienUuTuNam;
             obj.HoiVienNongCot = HoiVienNongCot;
             obj.HoiVienDanhDu = HoiVienDanhDu;
             obj.MaChiHoi = MaChiHoi;
             obj.MaToHoi = MaToHoi;
+            obj.HoiVienDanCu = HoiVienDanCu;
+            obj.HoiVienNganhNghe = HoiVienNganhNghe;
 
             obj.HoTrovayVon = this.HoTrovayVon;
             obj.HoTroKhac = this.HoTroKhac;
@@ -360,6 +370,8 @@ namespace HoiNongDan.Models
 
             obj.HoiVienNongCot = item.HoiVienNongCot == null ? false : item.HoiVienNongCot.Value;
             obj.HoiVienDanhDu = item.HoiVienDanhDu == null ? false : item.HoiVienDanhDu.Value;
+            obj.HoiVienDanCu = item.HoiVienDanCu == null ? false : item.HoiVienDanCu.Value;
+            obj.HoiVienNganhNghe = item.HoiVienNganhNghe == null ? false : item.HoiVienNganhNghe.Value;
             obj.MaToHoi = item.MaToHoi;
             obj.MaChiHoi = item.MaChiHoi;
 
@@ -439,6 +451,9 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
         public string? MaQuanHuyen { get; set; }
 
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "PhuongXa")]
+        public string? TenPhuongXa { get; set; }
+
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
         public Guid? MaChucVu { get; set; }
 
@@ -450,12 +465,16 @@ namespace HoiNongDan.Models
 
         public bool? DangChoDuyet { get; set; } = false;
 
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChiHoi")]
+        public Guid? MaChiHoi { get; set; }
+
 
         [Display(Name = "Rời từ năm")]
         public int? RoiTuNam { get; set; }
         [Display(Name = "Rời đến năm")]
         public int? RoiDenNam { get; set; }
         public int Skip { get; set; } = 0;
+        public string Level { get; set; }
 
     }
 }

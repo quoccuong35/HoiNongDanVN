@@ -210,11 +210,10 @@ namespace HoiNongDan.Models
         public Guid? NguoiDuyet { get; set; }
         public DateTime? NgayDuyet { get; set; }
 
-        [MaxLength(500)]
         public string? HinhAnh { get; set; }
         public bool Actived { get; set; } = true;
 
-        public DateTime?NgayRoiHoi { get; set; }
+        public DateTime? NgayRoiHoi { get; set; }
         public String? LyDoRoiHoi { get; set; }
 
         public String? SoQuyetDinhBoNhiem { get; set; }
@@ -302,6 +301,8 @@ namespace HoiNongDan.Models
         public ICollection<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien> ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens { get; set; }
         public ICollection<HoiVienCapThe> HoiVienCapThes { get; set; }
         public ICollection<VayVon> VayVons { get; set; }
+        public ICollection<HoiVienLichSuDuyet> HoiVienLichSuDuyets { get; set; }
+        public ICollection<DanhGiaHoiVien> DanhGiaHoiViens { get; set; }
         public HuuTri? HuuTri { get; set; }
 
         public bool? DangVien { get; set; }
@@ -325,6 +326,8 @@ namespace HoiNongDan.Models
             PhatTrienDang_HoiViens = new List<PhatTrienDang_HoiVien>();
             HoiVienCapThes = new  List<HoiVienCapThe>();
             VayVons = new List<VayVon>();
+            HoiVienLichSuDuyets = new List<HoiVienLichSuDuyet>();
+            DanhGiaHoiViens = new List<DanhGiaHoiVien>();
         }
 
     }

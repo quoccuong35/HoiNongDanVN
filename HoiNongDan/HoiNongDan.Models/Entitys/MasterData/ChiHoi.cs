@@ -12,6 +12,7 @@ namespace HoiNongDan.Models
         public string TenChiHoi { get; set; }
         public bool Actived { get; set; } = true;
         public String? Description { get; set; }
+        public String? Loai { get; set; }
         public Nullable<System.Guid> CreatedAccountId { get; set; }
         public Nullable<System.DateTime> CreatedTime { get; set; }
         public Nullable<System.Guid> LastModifiedAccountId { get; set; }
@@ -27,6 +28,7 @@ namespace HoiNongDan.Models
     public class ToHoi {
         public Guid MaToHoi { get; set; }
         public string TenToHoi { get; set; }
+        public String? Loai { get; set; }
         public bool Actived { get; set; } = true;
         public String? Description { get; set; }
         public Nullable<System.Guid> CreatedAccountId { get; set; }

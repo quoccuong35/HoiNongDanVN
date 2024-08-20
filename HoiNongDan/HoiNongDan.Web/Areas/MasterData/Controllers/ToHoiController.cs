@@ -59,8 +59,9 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 {
                     ToHoiVM.MaToHoi = item.MaToHoi;
                     ToHoiVM.TenToHoi = item.TenToHoi;
-                    ToHoiVM.Actived = ToHoiVM.Actived;
-                    ToHoiVM.Description = ToHoiVM.Description;
+                    ToHoiVM.Loai = item.Loai;
+                    ToHoiVM.Actived = item.Actived;
+                    ToHoiVM.Description = item.Description;
                     ToHoiVM.OrderIndex = item.OrderIndex;
                 }
             }
@@ -81,6 +82,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                         TenToHoi = obj.TenToHoi,
                         Description = obj.Description,
                         OrderIndex = obj.OrderIndex,
+                        Loai = obj.Loai,
                         Actived = true,
                         CreatedAccountId = Guid.NewGuid(),
                         CreatedTime = DateTime.Now
@@ -103,7 +105,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                         edit.Actived = obj.Actived == null ? true : obj.Actived;
                         edit.TenToHoi = obj.TenToHoi;
                         edit.OrderIndex = obj.OrderIndex;
-                        //departmentEdit.IDCoSo = obj.IdCoSo;
+                        edit.Loai = obj.Loai;
                         edit.Description = obj.Description;
                         edit.LastModifiedAccountId = new Guid(CurrentUser.AccountId!);
                         edit.LastModifiedTime = DateTime.Now;

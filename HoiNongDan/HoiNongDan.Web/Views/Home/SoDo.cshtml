@@ -102,6 +102,9 @@
                 font-size: 16px;
             }
         }
+        #chartDiv>div>svg{
+            min-height:450px;
+        }
     </style>
 </head>
 <body>
@@ -118,13 +121,16 @@
                     <span> </span>
                 </div>
             </div>
-            <div class="d-flex px-2">
+            <div class="d-flex">
             </div>
         </div>
-        <div id="chartDiv" class="container-fluid"> </div>
+        <div  class="container-fluid" >
+            <div id="chartDiv" style="margin:10px;">
+            </div>
+        </div>
        @*  <div id="chartQ" class="container-fluid"></div> *@
-        <div class="container-fluid m-3" >
-            <div class="row bg-white">
+        <div class="container-fluid" >
+            <div class="row bg-white m-2">
                 <div class="sodo" style="display:grid">
                     <ul>
                         <li>
@@ -133,7 +139,7 @@
                                 @foreach (var item in Model)
                                 {
                                     <li>
-                                                <a asp-controller="Dashboard" asp-area="@ConstArea.HoiVien" asp-action="Index" asp-route-maQuanHuyen="@item.MaQuanHuyen"><span>@item.TenQuanHuyen</span></a>
+                                         <a asp-controller="Dashboard" asp-area="@ConstArea.HoiVien" asp-action="Index" asp-route-maQuanHuyen="@item.MaQuanHuyen"><span>@item.TenQuanHuyen</span></a>
                                     </li>
                                 }
                             </ul>
@@ -188,6 +194,7 @@
                             attributes: {
                                 position: 'SƠ ĐỒ TỔ CHỨC HỆ THỐNG HỘI NÔNG DÂN THÀNH PHỐ HỒ CHÍ MINH<br>',
                                 units: '',
+                                margin:'10px'
                             },
                             label_style_fontSize: 18,
                             color: 'white',

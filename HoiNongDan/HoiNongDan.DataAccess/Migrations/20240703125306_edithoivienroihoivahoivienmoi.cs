@@ -9,17 +9,8 @@ namespace HoiNongDan.DataAccess.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "NgayNgungHoatDong",
-                schema: "NS",
-                table: "CanBo",
-                newName: "NgayRoiHoi");
-
-            migrationBuilder.RenameColumn(
-                name: "LyDoNgungHoatDong",
-                schema: "NS",
-                table: "CanBo",
-                newName: "LyDoRoiHoi");
+          
+          
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedTime",
@@ -44,42 +35,6 @@ namespace HoiNongDan.DataAccess.Migrations
                 oldType: "datetime2",
                 oldNullable: true,
                 oldDefaultValue: new DateTime(2024, 4, 8, 20, 0, 3, 882, DateTimeKind.Local).AddTicks(5774));
-
-            migrationBuilder.AddColumn<bool>(
-                name: "HoiVienDanCu",
-                schema: "NS",
-                table: "CanBo",
-                type: "bit",
-                nullable: true);
-
-            migrationBuilder.AddColumn<bool>(
-                name: "HoiVienNganhNghe",
-                schema: "NS",
-                table: "CanBo",
-                type: "bit",
-                nullable: true);
-
-            migrationBuilder.AddColumn<bool>(
-                name: "KhongDuyet",
-                schema: "NS",
-                table: "CanBo",
-                type: "bit",
-                nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "LyDoKhongDuyet",
-                schema: "NS",
-                table: "CanBo",
-                type: "nvarchar(1000)",
-                maxLength: 1000,
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "NgayCapThe",
-                schema: "NS",
-                table: "CanBo",
-                type: "datetime2",
-                nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

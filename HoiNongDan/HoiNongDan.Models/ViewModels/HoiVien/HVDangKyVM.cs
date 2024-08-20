@@ -87,6 +87,7 @@ namespace HoiNongDan.Models
 
         [MaxLength(50)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgheNghiep")]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         public string? MaNgheNghiep { get; set; }
 
 

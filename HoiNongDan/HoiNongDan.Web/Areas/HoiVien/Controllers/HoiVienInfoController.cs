@@ -27,6 +27,29 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         #region View
         [HttpGet]
+        public IActionResult CheckMaDinhDanh(string maDinhDanh)
+        {
+            var checkExist = _context.CanBos.Where(it => it.MaDinhDanh == maDinhDanh);
+            if (checkExist.Count() > 0)
+            {
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.BadRequest,
+                    Success = false,
+                    Data = "Mã định danh đã tồn tại"
+                }); 
+            }
+            else
+            {
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.Created,
+                    Success = true,
+                    Data = ""
+                }); 
+            }
+        }
+        [HttpGet]
         public IActionResult XemThongTin()
         {
             CreateViewBagSearch();

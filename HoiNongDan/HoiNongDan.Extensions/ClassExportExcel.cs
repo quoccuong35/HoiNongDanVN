@@ -732,7 +732,7 @@ namespace HoiNongDan.Extensions
 
                 // add the content into the Excel file
 
-                workSheet.Cells["A" + startRowFrom].LoadFromDataTable(dataTable, false);
+                workSheet.Cells["A" + (startRowFrom+1)].LoadFromDataTable(dataTable, false);
 
                 // autofit width of cells with small content
                 int columnIndex = 1;
@@ -761,7 +761,7 @@ namespace HoiNongDan.Extensions
                 //}
 
                 // format cells - add borders
-                using (ExcelRange r = workSheet.Cells[startRowFrom + 1, startBodyColumnFrom, startRowFrom + dataTable.Rows.Count, dataTable.Columns.Count])
+                using (ExcelRange r = workSheet.Cells[startRowFrom, startBodyColumnFrom, startRowFrom + dataTable.Rows.Count, dataTable.Columns.Count])
                 {
                     r.Style.Border.Top.Style = ExcelBorderStyle.Thin;
                     r.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
@@ -881,7 +881,7 @@ namespace HoiNongDan.Extensions
                                 indexRow++;
                             }
                             //index of dropdown data (display name)
-                            excelFormula = workSheet.Cells[startRowFrom + 4, (dataTable.Columns.Count + indexColumn + 1), indexRow + 2, (dataTable.Columns.Count + indexColumn + 1)];
+                            excelFormula = workSheet.Cells[startRowFrom + 1, (dataTable.Columns.Count + indexColumn + 1), indexRow + 2, (dataTable.Columns.Count + indexColumn + 1)];
                             excelFormulaLst.Add(excelFormula);
                             //index of id
                             matchIdFormula = workSheet.Cells[startRowFrom + 1, (dataTable.Columns.Count + indexColumn), indexRow - 1, (dataTable.Columns.Count + indexColumn)];
@@ -910,7 +910,7 @@ namespace HoiNongDan.Extensions
                                 indexRow++;
                             }
                             //index of dropdown data (display name)
-                            excelFormula = workSheet.Cells[startRowFrom + 4, (dataTable.Columns.Count + indexColumn + 1), indexRow + 2, (dataTable.Columns.Count + indexColumn + 1)];
+                            excelFormula = workSheet.Cells[startRowFrom + 1, (dataTable.Columns.Count + indexColumn + 1), indexRow + 2, (dataTable.Columns.Count + indexColumn + 1)];
                             excelFormulaLst.Add(excelFormula);
                             //index of id
                             matchIdFormula = workSheet.Cells[startRowFrom + 1, (dataTable.Columns.Count + indexColumn), indexRow - 1, (dataTable.Columns.Count + indexColumn)];
@@ -939,7 +939,7 @@ namespace HoiNongDan.Extensions
                                 indexRow++;
                             }
                             //index of dropdown data (display name)
-                            excelFormula = workSheet.Cells[startRowFrom + 4, (dataTable.Columns.Count + indexColumn + 1), indexRow + 2, (dataTable.Columns.Count + indexColumn + 1)];
+                            excelFormula = workSheet.Cells[startRowFrom + 1, (dataTable.Columns.Count + indexColumn + 1), indexRow + 2, (dataTable.Columns.Count + indexColumn + 1)];
                             excelFormulaLst.Add(excelFormula);
                             //index of id
                             matchIdFormula = workSheet.Cells[startRowFrom + 1, (dataTable.Columns.Count + indexColumn), indexRow - 1, (dataTable.Columns.Count + indexColumn)];

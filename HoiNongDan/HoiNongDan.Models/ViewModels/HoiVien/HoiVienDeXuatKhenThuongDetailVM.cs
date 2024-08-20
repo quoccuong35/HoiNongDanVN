@@ -144,4 +144,10 @@ namespace HoiNongDan.Models
         public int? Quy { get; set; }
 
     }
+    public class HVKhenThuong { 
+        public Guid ID { get; set; }
+        public String TenDanhHieu { get; set; }
+        public String Nam { get; set; }
+        public string GhiChu { get; set; }
+    }
 }

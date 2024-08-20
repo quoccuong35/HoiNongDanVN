@@ -52,10 +52,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="compilerconfig.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="Areas\HoiVien\Controllers\HoiVienController.cs~RF106a2081.TMP" />
   </ItemGroup>
 
@@ -73,7 +69,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.17" />
   </ItemGroup>
 
   <ItemGroup>
@@ -1124,6 +1120,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\HoiVien\Views\BCTLHNamNew\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\HoiVien\Views\BCTLHNamNew\_Search.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
     <Content Update="Areas\HoiVien\Views\HoiVienPublic\XemThongTin.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -1165,6 +1169,12 @@
 
   <ItemGroup>
     <UpToDateCheckInput Remove="Areas\HoiVien\Views\VayVon\Edit.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\..\dll\EPPlus.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

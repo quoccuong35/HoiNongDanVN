@@ -1,79 +1,106 @@
-﻿@model IEnumerable<CanBoHNDTPDelTailVM>
+﻿@model IEnumerable<CanBo1ExcelVM>
 @{
     string CurrentController = ConstController.CanBo;
     string CurrentArea = ConstArea.NhanSu;
     string listRoles = User.FindFirst("Roles")!.Value;
     listRoles = listRoles == null ? "" : listRoles;
+    int i = 0;
 }
 <table id="data-list" class="table table-bordered text-nowrap mb-0">
-    <thead class="table-primary">
+    <thead class="table-primary" style="border:1px dashed">
         <tr>
-            <th></th>
-            <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
-            <th>@Html.DisplayNameFor(p => p.HoVaTen)</th>
-            <th>@Html.DisplayNameFor(p => p.TenChucVu)</th>
-            <th>Đơn vị</th>
-            <th>@Html.DisplayNameFor(p => p.NgaySinh)</th>
-            <th>@Html.DisplayNameFor(p => p.GioiTinh)</th>
-            <th>@Html.DisplayNameFor(p => p.SoQuyetDinhBoNhiem)</th>
-            <th>@Html.DisplayNameFor(p => p.TenDanToc)</th>
-            <th>@Html.DisplayNameFor(p => p.TenTonGiao)</th>
-            <th>@Html.DisplayNameFor(p => p.NoiSinh)</th>
-            <th>@Html.DisplayNameFor(p => p.ChoOHienNay)</th>
-            <th>@Html.DisplayNameFor(p => p.NgayvaoDangDuBi)</th>
-            <th>@Html.DisplayNameFor(p => p.NgayVaoDangChinhThuc)</th>
-            <th>@Html.DisplayNameFor(p => p.ChuyenNganh)</th>
-            <th>@Html.DisplayNameFor(p => p.TenTrinhDoHocVan)</th>
-            <th>@Html.DisplayNameFor(p => p.TenTrinhDoChuyenMon)</th>
-            <th>@Html.DisplayNameFor(p => p.TenTrinhDoChinhTri)</th>
-            <th>@Html.DisplayNameFor(p => p.TenTrinhDoNgoaiNgu)</th>
-            <th>@Html.DisplayNameFor(p => p.TenTrinhDoTinHoc)</th>
-            <th>@Html.DisplayNameFor(p => p.NgayThamGiaCongTac)</th>
-            <th>@Html.DisplayNameFor(p => p.NgayThamGiaCapUyDang)</th>
-            <th>@Html.DisplayNameFor(p => p.NgayThamGiaHDND)</th>
-            <th>@Html.DisplayNameFor(p => p.TenNgachLuong)</th>
-            <th>@Html.DisplayNameFor(p => p.BacLuong)</th>
-            <th>@Html.DisplayNameFor(p => p.HeSoLuong)</th>
-            <th>@Html.DisplayNameFor(p => p.PhuCapVuotKhung)</th>
-            <th>@Html.DisplayNameFor(p => p.NgayNangBacLuong)</th>
-            <th>@Html.DisplayNameFor(p => p.ChuyeMon)</th>
-            <th>@Html.DisplayNameFor(p => p.LLCT)</th>
-            <th>@Html.DisplayNameFor(p => p.NVCTTW)</th>
-            <th>@Html.DisplayNameFor(p => p.GiangVienKiemChuc)</th>
-            <th>@Html.DisplayNameFor(p => p.QLCapPhong)</th>
-            <th>@Html.DisplayNameFor(p => p.KTQP)</th>
-            <th>@Html.DisplayNameFor(p => p.QLNNCV)</th>
-            <th>@Html.DisplayNameFor(p => p.QLNNCVC)</th>
-            <th>@Html.DisplayNameFor(p => p.QLNNCVCC)</th>
-            <th>@Html.DisplayNameFor(p => p.DanhGiaCBCC)</th>
-            <th>@Html.DisplayNameFor(p => p.DanhGiaDangVien)</th>
-            <th>@Html.DisplayNameFor(p => p.GhiChu)</th>
-            <th class="text-center">@LanguageResource.Actions</th>
+            <th class="text-center" class="text-center" style="vertical-align: middle;" rowspan="2">@LanguageResource.Actions</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">STT</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Họ và tên</th>
+            <th colspan="2" class="text-center" style="vertical-align: middle;">Chức vụ</th>
+            <th colspan="2" class="text-center" style="vertical-align: middle;">Ngày, tháng, năm sinh</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Thời gian bổ nhiệm</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Dân tộc</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Tôn giáo</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Quê quán</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Nơi ở hiện nay</th>
+            <th colspan="2" class="text-center" style="vertical-align: middle;">Ngày vào Đảng</th>
+            <th colspan="2" class="text-center" style="vertical-align: middle;">Trình độ</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Ngoại ngữ</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Tin học</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Thời gian công tác Hội</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Tham gia cấp ủy</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Tham gia HĐND</th>
+            <th colspan="4" class="text-center" style="vertical-align: middle;">MỨC LƯƠNG ĐANG HƯỞNG</th>
+            <th colspan="7" class="text-center" style="vertical-align: middle;">Đào tạo bồi dưỡng</th>
+            <th colspan="2" class="text-center" style="vertical-align: middle;">Kết quả đánh giá</th>
+            
+        </tr>
+        <tr>
+            <th>Tên</th>
+            <th>Đơn vi</th>
+            <th>Nam</th>
+            <th>Nữ</th>
+            <th>Dự bị</th>
+            <th>Chính thức</th>
+            <th>Chuyên môn</th>
+            <th>LLCT</th>
+            <th>
+                Mã số ngạch/bậc
+            </th>
+            <th>
+                Hệ số
+            </th>
+            <th>
+                Mốc thời gian nâng bậc lương
+            </th>
+            <th>
+                Phụ cấp vượt khung %
+            </th>
+            <th>
+                NVCT Hội do TW
+            </th>
+            <th>
+                Giảng viên kiêm chức
+            </th>
+            <th>
+                QL cấp phòng
+            </th>
+            <th>
+                KT QP&AN
+            </th>
+            <th>
+                QLNN ngạch chuyên viên
+            </th>
+            <th>
+                QLNN ngạch chuyên viên chính
+            </th>
+            <th>
+                QLNN ngạch chuyên viên CC
+            </th>
+            <th>
+                CBCC
+            </th>
+            <th>
+                Đảng viên
+            </th>
+            
         </tr>
     </thead>
     <tbody>
         @{
-            int i = 0;
-            int css = 0;
-            string cssName = "";
+            string dd = "";
         }
         @foreach (var item in Model)
         {
             i++;
-            css++;
-            if (css > 2)
-            {
-                css = 1;
-            }
-            cssName = "tr" + css.ToString();
-            <tr class="@cssName" ondblclick='window.open("/NhanSu/CanBo/Edit/@item.IDCanBo","_blank")'>
+            dd = item.NgayNangBacLuong != null ? item.NgayNangBacLuong.Value.ToString("dd/MM/yyyy") : "";
+            <tr class="" ondblclick='window.open("/NhanSu/CanBo/Edit/@item.IDCanBo","_blank")'>
+                <td class="text-center">
+                    @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.IDCanBo!.ToString()!, listRoles: listRoles)
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoVaTen, item.IDCanBo!.ToString(), listRoles: listRoles)
+                </td>
                 <td>@i.ToString()</td>
-                <td>@item.MaCanBo</td>
-                <td class="align-middle"> <a asp-area="@ConstArea.NhanSu" asp-action="Edit" ,asp-controller="@ConstController.CanBo" target="_blank" asp-route-id="@item.IDCanBo">@item.HoVaTen</a></td>
+                <td>@item.HoVaTen</td>
                 <td>@item.TenChucVu</td>
                 <td>@item.DonVi</td>
-                <td>@item.NgaySinh</td>
-                <td>@item.TenGioiTinh</td>
+                <td>@item.NgaySinh_Nam</td>
+                <td>@item.NgaySinh_Nu</td>
                 <td>@item.SoQuyetDinhBoNhiem</td>
                 <td>@item.TenDanToc</td>
                 <td>@item.TenTonGiao</td>
@@ -82,21 +109,16 @@
                 <td>@item.NgayvaoDangDuBi</td>
                 <td>@item.NgayVaoDangChinhThuc</td>
                 <td>@item.ChuyenNganh</td>
-                <td>@item.TenTrinhDoHocVan</td>
-                <td>@item.TenTrinhDoChuyenMon</td>
                 <td>@item.TenTrinhDoChinhTri</td>
                 <td>@item.TenTrinhDoNgoaiNgu</td>
                 <td>@item.TenTrinhDoTinHoc</td>
                 <td>@item.NgayThamGiaCongTac</td>
-                <td>@item.NgayThamGiaCongTac</td>
+                <td>@item.NgayThamGiaCapUyDang</td>
                 <td>@item.NgayThamGiaHDND</td>
                 <td>@item.TenNgachLuong</td>
-                <td>@item.BacLuong</td>
                 <td>@item.HeSoLuong</td>
+                <td>@dd</td>
                 <td>@item.PhuCapVuotKhung</td>
-                <td>@item.NgayNangBacLuong</td>
-                <td>@item.ChuyeMon</td>
-                <td>@item.LLCT</td>
                 <td>@item.NVCTTW</td>
                 <td>@item.GiangVienKiemChuc</td>
                 <td>@item.QLCapPhong</td>
@@ -106,11 +128,6 @@
                 <td>@item.QLNNCVCC</td>
                 <td>@item.DanhGiaCBCC</td>
                 <td>@item.DanhGiaDangVien</td>
-                <td>@item.GhiChu</td>
-                <td class="text-center">
-                    @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.IDCanBo!.ToString()!,listRoles:listRoles)
-                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoVaTen, item.IDCanBo!.ToString(),listRoles: listRoles)
-                </td>
             </tr>
         }
     </tbody>

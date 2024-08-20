@@ -13,6 +13,7 @@ using EntityState = Microsoft.EntityFrameworkCore.EntityState;
 using System.Text.RegularExpressions;
 using System.Windows.Markup;
 using System.Data;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HoiNongDan.Web.Areas.Permission.Controllers
 {
@@ -89,6 +90,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
             }).ToList();
             accout.userRoless = userRoles;
             accout.DiaBans = diaBans;
+            ViewBagHelper();
             return View(accout);
         }
         [HttpPost]
@@ -160,6 +162,14 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 accout.UserName = data.UserName;
                 accout.Actived = data.Actived;
                 accout.FullName = data.FullName;
+                if (!String.IsNullOrWhiteSpace(data.AccountIDParent))
+                {
+                    string[] idAc = data.AccountIDParent!.Split(";");
+                    foreach (var item in idAc)
+                    {
+                        accout.AccountIDParent!.Add(Guid.Parse(item));
+                    }
+                }
                 var rolesSelected = _context.AccountInRoleModels.Where(it => it.AccountId == data.AccountId).ToList();
                 foreach (var item in rolesSelected)
                 {
@@ -180,6 +190,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 }
                 accout.userRoless = userRoles;
                 accout.DiaBans = diaBans;
+                ViewBagHelper();
                 //return Json(accout);
                 return View(accout);
             }
@@ -215,15 +226,16 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 {
                     editAcc.Actived = obj.Actived;
                     editAcc.FullName = obj.FullName;
-
+                    if (obj.AccountIDParent!.Count()>0)
+                    {
+                        editAcc.AccountIDParent = String.Join(";", obj.AccountIDParent!);
+                    }
                     if (!String.IsNullOrWhiteSpace(obj.PasswordNew))
                     {
                         editAcc.Password = RepositoryLibrary.GetMd5Sum(obj.PasswordNew);
                     }
                     HistoryModelRepository history = new HistoryModelRepository(_context);
                     history.SaveUpdateHistory(editAcc.AccountId.ToString(), AccountId()!.Value, editAcc);
-                    //_context.Entry(editAcc).State = EntityState.Modified;
-                    //Delete Roles accout old
                     var delAccountInRoleModels = _context.AccountInRoleModels.Where(it => it.AccountId == obj.AccountId).ToList();
                     if (delAccountInRoleModels.Count > 0)
                     {
@@ -316,6 +328,10 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 return true;
             }
             return false;
+        }
+        private void ViewBagHelper(List<Guid>? AccountIDParent = null) {
+            var accounts = _context.Accounts.Where(it => it.Actived == true && it.AccountId != AccountId()).Select(it => new { AccountIDParent = it.AccountId, FullName = it.FullName }).ToList();
+            ViewBag.AccountIDParent = new MultiSelectList(accounts, "AccountIDParent", "FullName", AccountIDParent);
         }
         #endregion Helper
     }

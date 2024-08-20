@@ -1,4 +1,4 @@
-﻿@model HoiVienDetailVM
+﻿@model HoiVienDuyetCapNhatVM
 @using HoiNongDan.Constant
 @{
     ViewBag.Title = LanguageResource.List + LanguageResource.DuyetHoiVienMoi.ToLower();
@@ -6,6 +6,10 @@
     string CurrentArea = ConstArea.HoiVien;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
     string listRoles = User != null ? User.FindFirst("Roles").Value : "";
+
+    string dangvien = Model.DangVien == true ? "X" : ""; 
+    string danCu = Model.HoiVienDanCu == true ? "X" : "";
+    string nganhNghe = Model.HoiVienNganhNghe == true ? "X" : "";
 
 }
 <div class="main-container container-fluid mt-2">
@@ -27,23 +31,13 @@
                     <div class="d-flex align-items-center justify-content-between flex-wrap mt-2">
                         <div class="w-100">
                             <div class="d-flex align-items-center justify-content-between flex-wrap mt-2">
-                                <div class="d-flex flex-wrap my-2">
+                                <div class="col-md-3 d-flex flex-wrap my-2">
                                     <div class="d-flex align-items-center flex-lg-fill" style="padding-left:10px">
-                                        <a class="text-hover-primary fs-16 fw-600">   @Model.HoVaTen.ToUpper()</a>
+                                        <a class="text-hover-primary fs-16 fw-600"> @Model.HoVaTen.ToUpper()</a>
                                     </div>
                                 </div>
-                                <div class="my-lg-0 my-1">
-                                    <a  class="btn btn-sm btn btn-warning" asp-action="Index" asp-area="HoiVien" asp-controller="DuyetHoiVien">
-                                        <i class="bi bi-reply-all-fill text-white">Quay lại</i>
-                                    </a>
-                                    @Html.AntiForgeryToken()
-                                    <button type="button" class="btn btn-sm btn-primary duyet-hoivien" data-id="@Model.IDCanBo">
-                                        <span class="fa fa-check"> Duyệt</span>
-                                    </button>
-                                    <button id="btn-delete" data-id="@Model.IDCanBo" class="btn  btn-sm btn-danger xoa-hoivien" data-current-url="HoiVien/HoiVien" data-item-name="@Model.HoVaTen" type="button">
-                                        <span class="fe fe-trash-2">Xóa </span>
-                                    </button>
-                                </div>
+                                
+                                
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
@@ -53,7 +47,7 @@
                                                 <i class="fa fa-home fs-25 text-danger"></i>
                                             </span>
                                             <div class="d-flex flex-column">
-                                                <span class="fs-12 fw-600">Địa bàn hoạt động</span>
+                                                <span class="fs-12 fw-600">Địa bàn hội</span>
                                                 <span class="fs-16 fw-bold">
                                                     @Model.TenDiaBanHoatDong
                                                 </span>
@@ -103,270 +97,98 @@
             <hr style="background:red" />
             <div class="panel panel-primary">
                 <div class="row bg-gray-100">
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span> Mã hội viên:</span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.MaCanBo</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>Ngày sinh:</span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.NgaySinh</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Hộ khẩu
-                                    thường trú:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.HoKhauThuongTru</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Nơi ở
-                                    hiện nay:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.ChoOHienNay</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Dân tộc:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.DanToc</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Tôn giáo:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.TonGiao</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Đảng viên dự bị:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.NgayvaoDangDuBi</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Đảng viên chính thức:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.NgayVaoDangChinhThuc</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Trình độ chuyên môn:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.TrinhDoChuyenMon</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Trình độ chính trị:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.MaTrinhDoChinhTri</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Năm vào hội:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.NgayVaoHoi</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Tham
-                                    gia
-                                    cấp
-                                    ủy
-                                    Đảng:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.NgayThamGiaCapUyDang</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Tham gia HĐND:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.NgayThamGiaHDND</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Vai trò:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">
-                                @{
+                    <ul style="display:grid; list-style-position: inside;list-style-type: disc;grid-template-columns: repeat(4, 1fr)">
+                        <li>Ngày sinh: <b>@Model.NgaySinh</b></li>
+                        <li>Số CCCD: <b>@Model.SoCCCD</b></li>
+                        <li>Ngày cấp CCCD: <b>@Model.NgayCapCCCD</b></li>
+                        <li>Dân tộc: <b>@Model.DanToc</b></li>
+                        <li>Tôn giáo: <b>@Model.TonGiao</b></li>
+                        <li>Nghề nghiệp: <b>@Model.NgheNghiepHienNay</b></li>
+                        <li>Trình độ học vấn: <b>@Model.TrinhDoHocvan</b></li>
+                        <li>Trình độ chuyên môn: <b>@Model.MaTrinhDoChuyenMon</b></li>
+                        <li>Trình độ chính chị: <b>@Model.MaTrinhDoChuyenMon</b></li>
+                        <li>Đảng viên: <b>@dangvien</b></li>
+                        <li>Hội viên Địa bàn dân cư: <b>@danCu</b></li>
+                        <li>Hội viên Ngành nghề: <b>@nganhNghe</b></li>
+                        <li>Hộ khẩu thường trú: <b>@Model.HoKhauThuongTru</b></li>
+                        <li>Nơi ở hiện nay: <b>@Model.ChoOHienNay</b></li>
+                    </ul>
 
-                                    string vaitro = @Model.VaiTro == "1" ? "Chủ hộ" : @Model.VaiTroKhac;
-                                } @vaitro
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Gia đình thuộc diện:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">
-                                @{
-
-                                    string giadinh = "";
-                                    if (Model.HoNgheo == true)
-                                    {
-                                        giadinh = "Hộ nghèo";
-                                    }
-                                    else if (Model.CanNgheo == true)
-                                    {
-                                        giadinh = "Cận nghèo";
-                                    }
-                                    else if (Model.GiaDinhChinhSach == true)
-                                    {
-                                        giadinh = "Gia đình chính sách, con liệt sĩ";
-                                    }
-                                    else 
-                                    {
-                                        giadinh = Model.GiaDinhThuocDienKhac;
-                                    }
-                                } @giadinh
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Nghề nghiệp hiện nay:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">
-                                @{
-
-                                    string nghenghiep = "";
-                                    if (Model.MaNgheNghiep == "01")
-                                    {
-                                        nghenghiep = "Nông dân";
-                                    }
-                                    else if (Model.MaNgheNghiep == "02")
-                                    {
-                                        nghenghiep = "Công nhân";
-                                    }
-                                    else if (Model.MaNgheNghiep == "03")
-                                    {
-                                        nghenghiep = "Công chức, viên chức";
-                                    }
-                                    else if (Model.MaNgheNghiep == "04")
-                                    {
-                                        nghenghiep = "Hưu trí";
-                                    }
-                                    else if (Model.MaNgheNghiep == "05")
-                                    {
-                                        nghenghiep = "Doanh nghiệp";
-                                    }
-                                    else if (Model.MaNgheNghiep == "06")
-                                    {
-                                        nghenghiep = "Lao động tự do";
-                                    }
-                                    else if (Model.MaNgheNghiep == "07")
-                                    {
-                                        nghenghiep = "Học sinh, sinh viên";
-                                    }
-                                } @nghenghiep
-                            </span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Loại hình, dịch
-                                    vụ
-                                    sản xuất, chăn nuôi:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.Loai_DV_SX_ChN</span>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Số lượng:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.DienTich_QuyMo</span>
-                        </div>
-                    </div>
-                   @*  <div class="col-lg-4">
-                        <div class="form-group">
-                            <span class="mr-15 font-weight-bold">
-                                <span class="dot bg-light-dark mr-2"></span>   <span>
-                                    Diện tích:
-                                </span>
-                            </span>
-                            <span class="text-right font-weight-bolder">@Model.DienTich</span>
-                        </div>
-                    </div> *@
                 </div>
             </div>
+            <hr style="background:red" />
+            <div class="row ">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header bg-primary br-te-3 br-ts-3">
+                            <h3 class="card-title text-white">Thông tin chi duyệt</h3>
+                            <div class="card-options ">
+                                <a href="javascript:void(0)" class="card-options-collapse" data-bs-toggle="card-collapse"><i class="fe fe-chevron-up text-white"></i></a>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                           <div class="row">
+                                <div class="col-9">
+                                    <form action="/" method="post" id="frmUpsert">
+
+                                        <div class="row">
+                                            @Html.AntiForgeryToken()
+                                            @Html.HiddenFor(it => it.ID)
+                                            <div class="col-md-5">
+                                                <label class="form-lable">Ngày và số quyết định</label>
+                                                <input class="form-control" type="text" asp-for="SoQuyetDinh" />
+                                                <span asp-validation-for="SoQuyetDinh" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-lable">Ngày vào hội</label>
+                                                <input class="form-control" type="date" asp-for="NgayVaoHoi" />
+                                                <span asp-validation-for="NgayVaoHoi" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <label class="form-lable">Số thẻ</label>
+                                                <input class="form-control" type="text" asp-for="SoTheHoiVien" />
+                                                <span asp-validation-for="SoTheHoiVien" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <label class="form-lable">Ngày cấp thẻ</label>
+                                                <input class="form-control" type="date" asp-for="NgayCapThe" />
+                                                <span asp-validation-for="NgayCapThe" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-2" style="display:flex;justify-content:start;align-items:end">
+                                    <button type="button" class="btn btn-sm btn-primary me-1" id="btn-save" data-id="@Model.IDCanBo">
+                                        <span class="fa fa-check"> Duyệt</span>
+                                    </button>
+                                    <button class="btn btn-sm btn-danger-light btn-reject me-1" data-bs-toggle="tooltip" data-id="@Model.IDCanBo" data-item-name="@Model.HoVaTen" id="btn-reject" title="Từ chối">
+                                        <i class="fa fa-close"></i> Từ chối
+                                    </button>
+                                    <a type="button" class="btn btn-sm btn btn-warning" asp-action="Index" asp-area="HoiVien" asp-controller="DuyetHoiVien">
+                                        <i class="bi bi-reply-all-fill text-white">Quay lại</i>
+                                    </a>
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         
         </div>
     </div>
 </div>
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
 @section ScriptCustomized {
 
     <script>
         //load default and set event
         $(document).ready(function () {
             HoiNongDan.DuyetHoiVienInitial("@CurrentUrl");
+            HoiNongDan.UpsertInitial("@CurrentUrl");
         });
     </script>
 }

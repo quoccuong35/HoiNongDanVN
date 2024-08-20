@@ -16,7 +16,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
     {
         private readonly IWebHostEnvironment _hostEnvironment;
         const string controllerCode = ConstExcelController.HoiVien_CLB_DN_MH_HTX_THT;
-        const int startIndex = 6;
+        const int startIndex = 5;
+        private string filemau = @"upload\filemau\CLB_DN_MH_HTX_THT.xlsx";
         public HoiVien_CLB_DN_MH_HTX_THTController(AppDbContext context, IWebHostEnvironment hostEnvironment) :base(context) { _hostEnvironment = hostEnvironment; }
         #region Index
         [HoiNongDanAuthorization]
@@ -132,7 +133,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         List<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien> addCLB_DN_MH_HTX_THT_HoiViens = new List<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien>();
                         foreach (DataRow row in dt.Rows)
                         {
-                            if (dt.Rows.IndexOf(row) >= startIndex)
+                            if (dt.Rows.IndexOf(row) >= startIndex-1)
                             {
                                 if (row[0] == null || row[0].ToString() == "")
                                     break;
@@ -471,7 +472,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         public IActionResult ExportCreate()
         {
             string wwwRootPath = _hostEnvironment.WebRootPath;
-            var url = Path.Combine(wwwRootPath, @"upload\filemau\CLB_DN_MH_HTX_THT.xlsx");
+            var url = Path.Combine(wwwRootPath, filemau);
             byte[] filecontent = ClassExportExcel.ExportFileMau(url);
             //File name
             string fileNameWithFormat = string.Format("{0}.xlsx", "CLB_DN_MH_HTX_THT");
@@ -534,8 +535,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             });
 
             string wwwRootPath = _hostEnvironment.WebRootPath;
-            var url = Path.Combine(wwwRootPath, @"upload\filemau\CLB_DN_MH_HTX_THT.xlsx");
-            byte[] filecontent = ClassExportExcel.ExportExcel(model, startIndex, url);
+            var url = Path.Combine(wwwRootPath, filemau);
+            byte[] filecontent = ClassExportExcel.ExportExcel(model, startIndex+1, url);
             //File name
             string fileNameWithFormat = string.Format("{0}.xlsx", "CLB_DN_MH_HTX_THT_"+DateTime.Now.ToString("hh_mm_ss"));
 

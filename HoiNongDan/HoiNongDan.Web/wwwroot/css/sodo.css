@@ -16,6 +16,9 @@
 	padding: 10px;
 	transition: .5s;
 }
+.sodo li ul li {
+	max-width:150px;
+}
 .sodo li::before, .sodo li::after {
 	content: '';
 	position: absolute;

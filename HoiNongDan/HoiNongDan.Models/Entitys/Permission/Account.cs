@@ -20,6 +20,7 @@ namespace HoiNongDan.Models.Entitys
         public Guid? LastModifiedAccountId { get; set; }
         public DateTime? LastModifiedTime { get; set; }
         public Guid? EmployeeId { get; set; }
+        public string? AccountIDParent { get; set; }
         public virtual ICollection<AccountInRoleModel> AccountInRoleModels { get; set; }
         public virtual ICollection<HoiVienHoiDap> HoiVienHoiDaps { get; set; }
         public virtual ICollection<PhamVi> PhamVis { get; set; }

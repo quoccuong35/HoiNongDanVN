@@ -1,0 +1,8 @@
+﻿<form id="frmImport">
+    <div class="col-md-12">
+        <input type="file" id="importexcelfile" name="importexcelfile" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+        <input type="hidden" name="currentUrl" class="form-control" />
+    </div>
+    @Html.AntiForgeryToken()
+</form>
+<script src="~/js/diaban_hv_quanhuyen.js"></script>

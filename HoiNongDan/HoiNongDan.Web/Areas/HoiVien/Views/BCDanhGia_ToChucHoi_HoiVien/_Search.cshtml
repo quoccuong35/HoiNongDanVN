@@ -1,0 +1,172 @@
+﻿@using HoiNongDan.Constant
+@using HoiNongDan.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<BCDanhGiaToChucHoiHoiVienVM>
+@{
+    string CurrentController = ConstController.BCDanhGia_ToChucHoi_HoiVien;
+    string CurrentArea = ConstArea.HoiVien;
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th class="text-center" style="vertical-align: middle;" rowspan="3">@LanguageResource.NumberIndex</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="3">
+                Đơn vị
+            </th>
+            <th class="text-center" style="vertical-align: middle;" colspan="7">
+                HỘI VIÊN
+            </th>
+            <th class="text-center" style="vertical-align: middle;" colspan="6">
+                HỘI NÔNG DÂN CƠ SỞ
+            </th>
+            <th class="text-center" style="vertical-align: middle;" colspan="6">
+                CHI HỘI DÂN CƯ
+            </th>
+            <th class="text-center" style="vertical-align: middle;" colspan="6">
+                CHI HỘI NGHỀ NGHIỆP
+            </th>
+        </tr>
+        <tr>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Tổng số hội viên
+            </th>
+            <th class="text-center" style="vertical-align: middle;" colspan="4">
+                Tổng số hội viên được phân loại
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Số hội viên không phân loại
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Số hội viên chưa đủ điều kiện phân loại
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Tổng số cơ sở hội
+            </th>
+            <th class="text-center" style="vertical-align: middle;" colspan="4">
+                Tổng số cơ sở hội được phân loại
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Số cơ sở hội không phân loại
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Tổng số chi hội dân cư
+            </th>
+            <th class="text-center" style="vertical-align: middle;" colspan="4">
+                Tổng số chi cơ sở hội được phân loại
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Tổng số chi cơ sở hội không phân loại
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Tổng số chi hội nghề nghiệp
+            </th>
+            <th class="text-center" style="vertical-align: middle;" colspan="4">
+                Tổng số chi Đoàn được phân loại (X)
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Tổng số chi hội không phân loại
+            </th>
+        </tr>
+        <tr>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành xuất sắc nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành tốt nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành tốt nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Không hoàn thành nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành xuất sắc nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành tốt nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành tốt nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Không hoàn thành nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành xuất sắc nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành tốt nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành tốt nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Không hoàn thành nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành xuất sắc nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành tốt nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành tốt nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Không hoàn thành nhiệm vụ
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int sttSub = 0;
+            int stt = 1;
+        }
+        @foreach (var item in Model)
+        {
+            <tr>
+                @if (item.DonVi != item.TenQuanHuyen)
+                {
+                    <td class="text-center">@stt</td>
+                    <td>@item.DonVi</td>
+                    stt++;
+                }
+                else
+                {
+                    sttSub++;
+                    stt = 1;
+                    <td class="text-center" style="font-size:16px;font-weight:bold">@sttSub</td>
+                    <td style="font-size:16px;font-weight:bold">@item.DonVi</td>
+                }
+                <td style="vertical-align: middle;" class="text-center">@item.HV_Tong</td>
+                <td style="vertical-align: middle;" class="text-center"> @item.HV_HTXSNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.HV_HTTNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.HV_HTNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.HV_KHTNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.HV_KPhanLoai</td>
+                <td style="vertical-align: middle;" class="text-center">@item.HV_ChuaDuDKPL</td>
+                <td style="vertical-align: middle;" class="text-center">@item.CS_Tong</td>
+                <td style="vertical-align: middle;" class="text-center">@item.CS_HTXSNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.CS_HTTNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.CS_HTNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.CS_KHTNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.CS_KPhanLoai</td>
+                <td style="vertical-align: middle;" class="text-center">@item.DC_Tong</td>
+                <td style="vertical-align: middle;" class="text-center">@item.DC_HTXSNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.DC_HTTNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.DC_HTNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.DC_KHTNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.DC_KPhanLoai</td>
+                <td style="vertical-align: middle;" class="text-center">@item.NN_Tong</td>
+                <td style="vertical-align: middle;" class="text-center">@item.NN_HTXSNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.NN_HTTNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.NN_HTNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.NN_KHTNV</td>
+                <td style="vertical-align: middle;" class="text-center">@item.NN_KPhanLoai</td>
+            </tr>
+        }
+    </tbody>
+</table>

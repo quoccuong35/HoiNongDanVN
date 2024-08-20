@@ -14,13 +14,15 @@ namespace HoiNongDan.Web.Components
             return View("Default", GetSoNguoiHoiVienChuaDuyet());
         }
         private int GetSoNguoiHoiVienChuaDuyet() {
+            
             var accountID = db.Accounts.SingleOrDefault(it => it.UserName!.Equals(User!.Identity.Name)).AccountId;
-            var phamVis = db.PhamVis.Where(it => it.AccountId == accountID).Select(it => it.MaDiabanHoatDong).ToList();
-            return  db!.CanBos.Join(db!.PhamVis.Where(it => it.AccountId == accountID),
-                    hv => hv.MaDiaBanHoatDong,
-                    pv => pv.MaDiabanHoatDong,
-                    (hv, pv) => new { hv }
-                    ).Where(it => it.hv.IsHoiVien == true && it.hv.HoiVienDuyet == false && it.hv.TuChoi != true && phamVis.Contains(it.hv.MaDiaBanHoatDong!.Value)).Count();
+            return db.HoiVienLichSuDuyets.Where(it => it.AccountID == accountID && it.TrangThaiDuyet == false).Count();
+            //var phamVis = db.PhamVis.Where(it => it.AccountId == accountID).Select(it => it.MaDiabanHoatDong).ToList();
+            //return  db!.CanBos.Join(db!.PhamVis.Where(it => it.AccountId == accountID),
+            //        hv => hv.MaDiaBanHoatDong,
+            //        pv => pv.MaDiabanHoatDong,
+            //        (hv, pv) => new { hv }
+            //        ).Where(it => it.hv.IsHoiVien == true && it.hv.HoiVienDuyet == false && it.hv.TuChoi != true && phamVis.Contains(it.hv.MaDiaBanHoatDong!.Value)).Count();
         }
     }
 }

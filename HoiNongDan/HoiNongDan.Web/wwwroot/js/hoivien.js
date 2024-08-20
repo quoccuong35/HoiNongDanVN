@@ -25,7 +25,18 @@ $('.btn-print').on('click', function () {
     ShowInTheHoiVien(formData);
 });
 
-
+$("select#MaDiaBanHoiVien").change(function () {
+    let maHoiNongDan = $(this).val();
+    //console.log(maQuanHuyen);
+    $("select#MaChiHoi").empty();
+    $.getJSON('/HoiVien/HoiVien/loadChiHoi?ma=' + maHoiNongDan, function (data) {
+        $("select#MaChiHoi").append('<option>' + "--Vui lòng chọn danh mục--" + '</option>');
+        $.each(data, function (i, item) {
+            /*console.log(item);*/
+            $("select#MaChiHoi").append('<option value=' + item.maChiHoi + '>' + item.name + '</option>');
+        });
+    });
+})
 function ShowInTheHoiVien(formData) {
     toastr.clear();
     $.ajax({
@@ -83,6 +94,7 @@ function LoadThongTin() {
                 },
                 columns: [
                     { data: null },
+                    { data: 'tenDiaBanHoatDong' },
                     {
                         data: "maCanBo"
                         //render: function (data, type, row) {
@@ -133,11 +145,10 @@ function LoadThongTin() {
                     { data: "guongDiemHinh" },
                     { data: "guongDanVanKheo" },
                     { data: "guongDiemHinhHocTapLamTheoBac" },
+                    { data: "sanPhamNongNghiepTieuBieu_OCOP" },
                     { data: "hoTrovayVon" },
                     { data: "hoTroKhac" },
                     { data: "hoTroDaoTaoNghe" },
-                    { data: "kkAnToanThucPham" },
-                    { data: "dkMauNguoiNongDanMoi" },
                     { data: "ghiChu" },
 
                 ]
@@ -154,7 +165,6 @@ function LoadThongTin() {
                 btn_loaddata.css("display", "block");
                 btn_loaddata.attr("data-total", total);
                 $("#txt-noteload").css("display", "block");
-               
             }
             else {
                 btn_loaddata.css("display", "none");
@@ -162,6 +172,10 @@ function LoadThongTin() {
             }
             $btn.toggleClass("btn-loading");
             HideShowColumns('#dt-hoivien');
+            var phuongXa = document.getElementById("TenPhuongXa");
+            if (phuongXa.value != "") {
+                phuongXa.value = "";
+            }
         },
         error: function (xhr, status, error) {
             $btn.toggleClass("btn-loading");

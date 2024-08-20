@@ -1,4 +1,5 @@
 ﻿using HoiNongDan.DataAccess;
+using HoiNongDan.Extensions;
 using HoiNongDan.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,14 +19,23 @@ namespace HoiNongDan.Web.Components
         }
         private List<HoiVienHoiDapDetail> GetSoNguoiHoiVienChuaDuyet()
         {
-            var model = db!.HoiVienHoiDaps.Include(it => it.HoiVien).Where(it => it.TraLoi != true && it.TrangThai == "01").OrderBy(it => it.Ngay).Select(it => new HoiVienHoiDapDetail
+            var accountID = db.Accounts.SingleOrDefault(it => it.UserName!.Equals(User!.Identity.Name)).AccountId;
+            var phamVis = Function.GetPhamVi(accountID, db);
+            var model = db!.HoiVienHoiDaps
+                .Join(
+                    db.CanBos.Where(it=>phamVis.Contains(it.MaDiaBanHoatDong!.Value)) ,
+                    hvhd=>hvhd.IDHoivien,
+                    hv=>hv.IDCanBo,
+                    (hvhd, hv)=>new { hvhd, hv }
+                )
+            .Where(it => it.hvhd.TraLoi != true && it.hvhd.TrangThai == "01").OrderBy(it => it.hvhd.Ngay).Select(it => new HoiVienHoiDapDetail
             {
-                ID = it.ID,
-                HoVaTen = it.HoiVien.HoVaTen,
-                NoiDung = it.NoiDung,
-                TraLoi = it.TraLoi,
-                Ngay = it.Ngay,
-                IdParent = it.IdParent
+                ID = it.hvhd.ID,
+                HoVaTen = it.hv.HoVaTen,
+                NoiDung = it.hvhd.NoiDung,
+                TraLoi = it.hvhd.TraLoi,
+                Ngay = it.hvhd.Ngay,
+                IdParent = it.hvhd.IdParent
             }).ToList();
             return model;
         }

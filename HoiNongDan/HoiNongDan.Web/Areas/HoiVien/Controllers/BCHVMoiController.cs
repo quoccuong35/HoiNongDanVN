@@ -50,11 +50,12 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Helper
         private void CreateViewBagSearch()
         {
+            var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
             var data = (from hv in _context.CanBos
                         join diaban in _context.DiaBanHoatDongs on hv.MaDiaBanHoatDong equals diaban.Id
                         join quanhuyen in _context.QuanHuyens on diaban.MaQuanHuyen equals quanhuyen.MaQuanHuyen
                         where hv.IsHoiVien == true
-                        && GetPhamVi().Contains(diaban.Id)
+                        && phamVis.Contains(diaban.Id)
                         select new
                         {
                             MaDiaBanHoatDong = diaban.Id,
@@ -80,10 +81,11 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }
             else
             {
+                var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
                 var data = (from hv in _context.CanBos
                             join diaban in _context.DiaBanHoatDongs on hv.MaDiaBanHoatDong equals diaban.Id
                             where hv.IsHoiVien == true && diaban.Actived == true
-                              && GetPhamVi().Contains(diaban.Id)
+                              && phamVis.Contains(diaban.Id)
                             select new
                             {
                                 MaDiaBanHoatDong = diaban.Id,

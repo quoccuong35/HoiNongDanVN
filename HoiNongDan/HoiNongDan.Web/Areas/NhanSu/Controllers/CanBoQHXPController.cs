@@ -1,6 +1,5 @@
 ﻿using HoiNongDan.Constant;
 using HoiNongDan.DataAccess;
-using HoiNongDan.DataAccess.Migrations;
 using HoiNongDan.DataAccess.Repository;
 using HoiNongDan.Extensions;
 using HoiNongDan.Models;
@@ -76,7 +75,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                     ChoOHienNay = it.ChoOHienNay,
                     NgayvaoDangDuBi = it.NgayvaoDangDuBi,
                     NgayVaoDangChinhThuc = it.NgayVaoDangChinhThuc,
-                    ChuyenNganh= it.ChuyenNganh,
+                    ChuyenNganh= it.ChuyenNganh!,
                     MaTrinhDoChinhTri = it.TrinhDoChinhTri!.TenTrinhDoChinhTri,
                     TenTrinhDoNgoaiNgu = it.TrinhDoNgoaiNgu!.TenTrinhDoNgoaiNgu,
                     TenTrinhDoTinHoc = it.TrinhDoTinHoc!.TenTrinhDoTinHoc,
@@ -105,6 +104,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         [HttpGet]
         public IActionResult Create() {
             CanBoQHXPVM model = new CanBoQHXPVM();
+            model.HinhAnh = @"\Images\login.png";
             UpdateViewBag();
             return View(model);
         }
@@ -122,7 +122,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 {
                     string wwwRootPath = _hostEnvironment.WebRootPath;
                     string fileName = add.MaCanBo!;
-                    var uploads = Path.Combine(wwwRootPath, @"images\canbo");
+                    var uploads = Path.Combine(wwwRootPath, @"Images\canbo");
 
                     bool folderExists = System.IO.Directory.Exists(uploads);
                     if (!folderExists)
@@ -133,7 +133,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                     {
                         avtFileInbox.CopyTo(fileStream);
                     }
-                    add.HinhAnh = @"\images\canbo\" + fileName + extension;
+                    add.HinhAnh = @"\Images\canbo\" + fileName + extension;
                 }
                 _context.Attach(add).State = EntityState.Modified;
                 _context.CanBos.Add(add);
@@ -157,6 +157,10 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             }
             CanBoQHXPMTVM method = new CanBoQHXPMTVM();
             CanBoQHXPVM canbo = method.SetCanBo(item);
+            if (!String.IsNullOrWhiteSpace(canbo.HinhAnh))
+            {
+                canbo.HinhAnh = @"\Images\login.png";
+            }
             UpdateViewBag(item.IdDepartment, item.MaChucVu,item.MaDanToc,item.MaTonGiao, item.MaTrinhDoChuyenMon, item.MaTrinhDoChinhTri, item.MaTrinhDoNgoaiNgu, item.MaTrinhDoTinHoc,item.Level);
             return View(canbo);
         }
@@ -182,7 +186,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 {
                     string wwwRootPath = _hostEnvironment.WebRootPath;
                     string fileName = edit.MaCanBo;
-                    var uploads = Path.Combine(wwwRootPath, @"images\canbo");
+                    var uploads = Path.Combine(wwwRootPath, @"Images\canbo");
 
                     bool folderExists = System.IO.Directory.Exists(uploads);
                     if (!folderExists)
@@ -201,7 +205,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                     {
                         avtFileInbox.CopyTo(fileStream);
                     }
-                    edit.HinhAnh = @"\images\canbo\" + fileName + extension;
+                    edit.HinhAnh = @"\Images\canbo\" + fileName + extension;
                 }
                 HistoryModelRepository history = new HistoryModelRepository(_context);
                 history.SaveUpdateHistory(edit.IDCanBo.ToString(), AccountId()!.Value, edit);
@@ -272,6 +276,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             return ExcuteImportExcel(() => {
                 if (ds.Tables.Count > 0)
                 {
+                    int iCapNhat = 0;
                     using (TransactionScope ts = new TransactionScope())
                     {
                         foreach (DataTable dt in ds.Tables)
@@ -300,6 +305,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                                                 {
                                                     errorList.Add(result);
                                                 }
+                                                else iCapNhat++;
                                             }
                                         }
                                         else
@@ -329,7 +335,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                         {
                             Code = System.Net.HttpStatusCode.Created,
                             Success = true,
-                            Data = LanguageResource.ImportSuccess
+                            Data = LanguageResource.ImportSuccess + " " + iCapNhat.ToString()
                         });
 
                     }
@@ -413,7 +419,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 .Include(it => it.DanToc)
                 .Include(it => it.TonGiao)
                 .Include(it => it.DaoTaoBoiDuongs)
-                .Where(it => (it.Level == "20" || it.Level == "300") && it.IsCanBo == true).AsQueryable();
+                .Where(it => (it.Level == "20" || it.Level == "30") && it.IsCanBo == true).AsQueryable();
             if (MaDonVi != null)
             {
                 moel = moel.Where(it => it.IdDepartment == MaDonVi);

@@ -56,6 +56,7 @@
         public const string Dashboard = "Dashboard";
         public const string CBBanChapHanh = "CBBanChapHanh";
         public const string CBHNDQuaCacThoiKy = "CBHNDQuaCacThoiKy";
+        public const string CBChiHoiNongDan = "CBChiHoiNongDan";
 
 
         #endregion NhanSu
@@ -79,6 +80,12 @@
         public const string VayVon = "VayVon";
         public const string BCBDHoiVien = "BCBDHoiVien";
         public const string HVDangKy = "HVDangKy";
+        public const string BCSLMau1 = "BCSLMau1";
+        public const string BCTLHNew = "BCTLHNew";
+        public const string DanhGiaHV = "DanhGiaHV";
+        public const string DanhGiaToChucHoi = "DanhGiaToChucHoi";
+        public const string BCDanhGia_ToChucHoi_HoiVien = "BCDanhGia_ToChucHoi_HoiVien";
+        public const string BCTLHNamNew = "BCTLHNamNew";
 
         #endregion Hội viên
     }

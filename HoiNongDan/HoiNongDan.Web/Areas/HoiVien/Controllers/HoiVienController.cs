@@ -33,6 +33,7 @@ using System.Diagnostics;
 using HoiNongDan.Models.ViewModels.Masterdata;
 using HoiNongDan.Web.Areas.NhanSu.Models;
 using System.IO;
+using NuGet.Protocol.Plugins;
 
 namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 {
@@ -44,19 +45,21 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         private string[] DateFomat;
         const string controllerCode = ConstExcelController.HoiVien;
         const int startIndex = 6;
+        private string img_url = "";
         public HoiVienController(AppDbContext context, IWebHostEnvironment hostEnvironment, IConfiguration config, IHttpContextAccessor httpContext) : base(context)
         {
             _hostEnvironment = hostEnvironment;
             DateFomat = config.GetSection("SiteSettings:DateFormat").Value.ToString().Split(',');
+            img_url = config.GetSection("SiteSettings:URLImage").Value.ToString();
             _httpContext = httpContext;
         }
         #region Index
         [HoiNongDanAuthorization]
-        public IActionResult Index()
+        public IActionResult Index(HoiVienSearchVM? searchVM)
         {
-            HoiVienSearchVM searchVM = new HoiVienSearchVM();
+            //HoiVienSearchVM searchVM = new HoiVienSearchVM();
             CreateViewBagSearch();
-            return View();
+            return View(searchVM);
         }
         [HttpGet]
         [HoiNongDanAuthorization]
@@ -68,6 +71,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                           && cb.IsHoiVien == true
                           select cb).Include(it => it.NgheNghiep)
                 .Include(it => it.DiaBanHoatDong)
+                .ThenInclude(it=>it!.PhuongXa)
+                .ThenInclude(it=>it!.QuanHuyen)
                 .Include(it => it.DanToc)
                 .Include(it => it.TonGiao)
                 .Include(it => it.TrinhDoHocVan)
@@ -87,11 +92,12 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             {
                 model = model.Where(it => it.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
             }
-            else
+            if (search.MaChiHoi != null)
             {
-                //search.MaCanBo = "jekjkejrkjerjekr";
-               // model = model.Where(it => it.MaDiaBanHoatDong == Guid.Parse("4633016E-727F-4B69-A5D2-0DF7F42AA345"));
+                model = model.Where(it => it.MaChiHoi == search.MaChiHoi);
             }
+
+
             if (!String.IsNullOrEmpty(search.MaCanBo))
             {
                 model = model.Where(it => it.MaCanBo == search.MaCanBo);
@@ -99,6 +105,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             if (search.MaQuanHuyen != null)
             {
                 model = model.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
+            }
+            if (!String.IsNullOrEmpty(search.TenPhuongXa))
+            {
+                model = model.Where(it => it.DiaBanHoatDong!.PhuongXa!.TenPhuongXa.ToUpper() == search.TenPhuongXa || it.DiaBanHoatDong!.QuanHuyen!.TenQuanHuyen.ToUpper() == search.TenPhuongXa);
             }
             if (search.IsRoiHoi != null && search.IsRoiHoi == true)
             {
@@ -135,7 +145,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     NgayvaoDangDuBi = it.NgayvaoDangDuBi,
                     NgayVaoDangChinhThuc = it.NgayVaoDangChinhThuc,
 
-                    TenDiaBanHoatDong = it.DiaBanHoatDong!.TenDiaBanHoatDong,
+                    TenDiaBanHoatDong = it.DiaBanHoatDong!.QuanHuyen.TenQuanHuyen + " " +  it.DiaBanHoatDong!.TenDiaBanHoatDong,
                     DanToc = it.DanToc!.TenDanToc,
                     TonGiao = it.TonGiao!.TenTonGiao,
                     TrinhDoHocvan = it.TrinhDoHocVan.TenTrinhDoHocVan,
@@ -171,6 +181,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     GuongDiemHinh = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "13").Select(it => it.GhiChu).ToList()),
                     GuongDanVanKheo = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "20").Select(it => it.GhiChu).ToList()),
                     GuongDiemHinhHocTapLamTheoBac = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "21").Select(it => it.GhiChu).ToList()),
+                    SanPhamNongNghiepTieuBieu_OCOP = String.Join(',', it.QuaTrinhKhenThuongs.Where(p => p.IDCanBo == it.IDCanBo && p.MaDanhHieuKhenThuong == "23").Select(it => it.GhiChu).ToList()),
                     HoTrovayVon = it.HoTrovayVon,
                     HoTroKhac = it.HoTroKhac,
                     HoTroDaoTaoNghe = it.HoTroDaoTaoNghe,
@@ -180,7 +191,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     ChiHoi = it.ChiHoi!.TenChiHoi,
                     ToHoi = it.ToHoi!.TenToHoi,
                     GhiChu = it.GhiChu,
-                }).Skip(Skip!.Value).Take(1000).ToList();
+                }).OrderBy(it=>it.TenDiaBanHoatDong).Skip(Skip!.Value).Take(1000).ToList();
             //var json = Json(data);
 
             return Json(new
@@ -191,6 +202,21 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 total = total
             });
         }
+
+        public IActionResult LoadHoiVienOrg(HoiVienSearchVM searchVM) {
+            Guid? id = null;string? maQuanHuyen = null;
+            try
+            {
+                id = Guid.Parse(searchVM.MaQuanHuyen);
+            }
+            catch (Exception)
+            {
+                maQuanHuyen = searchVM.MaQuanHuyen;
+            }
+            searchVM.TenPhuongXa = searchVM.TenPhuongXa.Replace(" Q. Bình Tân", "").Replace(" Q. Bình Thạnh","");
+            CreateViewBagSearch(maQuanHuyen:maQuanHuyen,maDiaBan:id);
+            return View("Index", searchVM);
+        }
         #endregion Index
         #region Create
         [HoiNongDanAuthorization]
@@ -200,7 +226,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             CreateViewBag();
             HoiVienVM obj = new HoiVienVM();
             
-            obj.HinhAnh = @"\images\login.png";
+            obj.HinhAnh = img_url;
             return View(obj);
         }
         [HoiNongDanAuthorization]
@@ -278,14 +304,23 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HoiNongDanAuthorization]
         public IActionResult Edit(Guid id)
         {
-            var item = _context.CanBos.Include(it=>it.DoanTheChinhTri_HoiDoan_HoiViens).Include(it=>it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens).Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens).SingleOrDefault(it => it.IDCanBo == id && GetPhamVi().Contains(it.MaDiaBanHoatDong.Value));
+            var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
+            var item = _context.CanBos.Include(it=>it.DoanTheChinhTri_HoiDoan_HoiViens).Include(it=>it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens)
+                .Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens).SingleOrDefault(it => it.IDCanBo == id && phamVis.Contains(it.MaDiaBanHoatDong!.Value));
             if (item == null)
             {
                 return Redirect("~/Error/ErrorNotFound?data=" + id);
             }
             HoiVienVM edit = HoiVienMTVM.SetHoiVien(item);
             var file = _context.FileDinhKems.Where(it => it.Id == id).ToList();
+            var khenThuongs = _context.QuaTrinhKhenThuongs.Where(it => it.IDCanBo == item.IDCanBo).Include(it => it.DanhHieuKhenThuong).Select(it => new HVKhenThuong {
+                ID = it.IDQuaTrinhKhenThuong,
+                TenDanhHieu = it.DanhHieuKhenThuong.TenDanhHieuKhenThuong,
+                Nam = it.Nam == null ? it.GhiChu : it.Nam.Value.ToString(),
+                GhiChu = it.Loai =="01"?"Đang đề xuất":""
+            }).ToList();
             edit.FileDinhKems!.AddRange(file);
+            edit.khenThuongs = khenThuongs;
             CreateViewBag(IdCoSo: item.IdCoSo, IdDepartment:item.IdDepartment, maChucVu:item.MaChucVu,maTrinhDoHocVan:item.MaTrinhDoHocVan,
                 maTrinhDoChinhTri:item.MaTrinhDoChinhTri,maDanToc:item.MaDanToc,maTonGiao:item.MaTonGiao,maTrinhDoChuyenMon:item.MaTrinhDoChuyenMon,
                 maDiaBanHoatDong:item.MaDiaBanHoatDong,maHocVi:item.MaHocVi,
@@ -299,13 +334,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(HoiVienMTVM obj, IFormFile? avtFileInbox, IFormFile?[] filesDinhKem)
         {
-
             CheckError(obj);
             return ExecuteContainer(() => {
+                var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
                 var edit = _context.CanBos.Include(it=> it.DoanTheChinhTri_HoiDoan_HoiViens)
                 .Include(it => it.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiViens)
                 .Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens)
-                .SingleOrDefault(it => it.IDCanBo == obj.IDCanBo && GetPhamVi().Contains(it.MaDiaBanHoatDong.Value));
+                .SingleOrDefault(it => it.IDCanBo == obj.IDCanBo && phamVis.Contains(it.MaDiaBanHoatDong!.Value));
                 if (edit == null)
                 {
                     return Json(new
@@ -362,7 +397,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     string wwwRootPath = _hostEnvironment.WebRootPath;
                     string fileName = edit.MaCanBo!;
-                    var uploads = Path.Combine(wwwRootPath, @"images\canbo");
+                    var uploads = Path.Combine(wwwRootPath, @"Images\canbo");
 
                     bool folderExists = System.IO.Directory.Exists(uploads);
                     if (!folderExists)
@@ -381,7 +416,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     {
                         avtFileInbox.CopyTo(fileStream);
                     }
-                    edit.HinhAnh = @"\images\canbo\" + fileName + extension;
+                    edit.HinhAnh = @"\Images\canbo\" + fileName + extension;
                 }
                 if (filesDinhKem.Count() > 0)
                 {
@@ -615,7 +650,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                                 // Tiến hành cập nhật
                                                 data.CanBo.MaDiaBanHoatDong = MaDiaBanHoatDong;
                                                 data.CanBo.HoiVienDuyet = true;
-                                                data.CanBo.isRoiHoi = false;
+                                              
                                                 data.CanBo.IsHoiVien = true;
                                                 string result = ExecuteImportExcelMenu(data);
                                                 if (result != LanguageResource.ImportSuccess)
@@ -905,9 +940,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             columns.Add(new ExcelTemplate() { ColumnName = "ChiHoiNgheNghiep_CHP", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "TenChiHoi", isAllowedToEdit = true, isText = true });
             columns.Add(new ExcelTemplate() { ColumnName = "TenToHoi", isAllowedToEdit = true, isText = true });
-
-
-
+            columns.Add(new ExcelTemplate() { ColumnName = "RoiHoi", isAllowedToEdit = true, isText = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "NgayRoiHoi", isAllowedToEdit = true, isDateTime = true });
+            columns.Add(new ExcelTemplate() { ColumnName = "LyDoRoiHoi", isAllowedToEdit = true, isText = true });
             //Header
             List<ExcelHeadingTemplate> heading = new List<ExcelHeadingTemplate>();
             string fileheader = string.Format(LanguageResource.Export_ExcelHeader, LanguageResource.HoiVien) ;
@@ -1101,6 +1136,40 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 }
                 
             }
+            // Kiểm tra mã định danh
+            if (!String.IsNullOrWhiteSpace(insert.MaDinhDanh))
+            {
+                var checkMaDinhDanh = _context.CanBos.Where(it => it.MaDinhDanh == insert.MaDinhDanh);
+                if (insert.IDCanBo != null)
+                {
+                    if (checkMaDinhDanh.Where(it => it.IDCanBo != insert.IDCanBo).Count() > 0)
+                    {
+                        ModelState.AddModelError("MaDinhDanh", "Mã định danh đã tồn tại");
+                    }
+                }
+                else if (insert.IDCanBo == null && checkMaDinhDanh.Count() > 0)
+                {
+                    // trường hợp thêm mới
+                    ModelState.AddModelError("MaDinhDanh", "Mã định danh đã tồn tại");
+                }
+            }
+            if (!String.IsNullOrWhiteSpace(insert.SoCCCD))
+            {
+                var checkSoCCCD = _context.CanBos.Where(it => it.SoCCCD == insert.SoCCCD);
+                if (insert.IDCanBo != null)
+                {
+                    if (checkSoCCCD.Where(it => it.IDCanBo != insert.IDCanBo).Count() > 0)
+                    {
+                        ModelState.AddModelError("SoCCCD", "Số CCCD đã tồn tại");
+                    }
+                }
+                else if (insert.IDCanBo == null && checkSoCCCD.Count() > 0)
+                {
+                    // trường hợp thêm mới
+                    ModelState.AddModelError("SoCCCD", "Số CCCD đã tồn tại");
+                }
+            }
+
         }
       
         public JsonResult LoadDonVi(Guid idCoSo)
@@ -1112,69 +1181,52 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             Guid? maChucVu = null,
             String? maTrinhDoHocVan = null, String? maTrinhDoChinhTri = null,
             String? maDanToc = null, String? maTonGiao = null,string? maTrinhDoChuyenMon = null,Guid? maDiaBanHoatDong = null,string? maHocVi = null,Guid? MaChiHoi = null, Guid? MaToHoi = null,
-            List<Guid>? MaDoanTheChinhTri_HoiDoan = null, List<Guid>? Id_CLB_DN_MH_HTX_THT = null,List<Guid>? Ma_ToHoiNganhNghe_ChiHoiNganhNghe = null)
-        {
-            var chucVu = _context.ChucVus.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { MaChucVu = it.MaChucVu, TenChucVu = it.TenChucVu }).ToList();
-            ViewBag.MaChucVu = new SelectList(chucVu, "MaChucVu", "TenChucVu", maChucVu);
-            var trinhDoHocVan = _context.TrinhDoHocVans.Where(it => it.Actived == true).OrderBy(it => it.OrderIndex).Select(it => new { MaTrinhDoHocVan = it.MaTrinhDoHocVan, TenTrinhDoHocVan = it.TenTrinhDoHocVan }).ToList();
-            ViewBag.MaTrinhDoHocVan = new SelectList(trinhDoHocVan, "MaTrinhDoHocVan", "TenTrinhDoHocVan", maTrinhDoHocVan);
-
-            var trinhDoChuyenMon = _context.TrinhDoChuyenMons.Select(it => new { MaTrinhDoChuyenMon = it.MaTrinhDoChuyenMon, TenTrinhDoChuyenMon = it.TenTrinhDoChuyenMon }).ToList();
-            ViewBag.MaTrinhDoChuyenMon = new SelectList(trinhDoChuyenMon, "MaTrinhDoChuyenMon", "TenTrinhDoChuyenMon", maTrinhDoChuyenMon);
-
-            var trinhDoChinhTri = _context.TrinhDoChinhTris.Where(it => it.Actived == true).OrderBy(it => it.OrderIndex).Select(it => new { MaTrinhDoChinhTri = it.MaTrinhDoChinhTri, TenTrinhDoChinhTri = it.TenTrinhDoChinhTri }).ToList();
-            ViewBag.MaTrinhDoChinhTri = new SelectList(trinhDoChinhTri, "MaTrinhDoChinhTri", "TenTrinhDoChinhTri", maTrinhDoChinhTri);
-
-            var danToc = _context.DanTocs.Where(it => it.Actived == true).OrderBy(it => it.OrderIndex).Select(it => new { MaDanToc = it.MaDanToc, TenDanToc = it.TenDanToc }).ToList();
-            ViewBag.MaDanToc = new SelectList(danToc, "MaDanToc", "TenDanToc", maDanToc);
-
-            var tonGiao = _context.TonGiaos.Where(it => it.Actived == true).OrderBy(it => it.OrderIndex).Select(it => new { MaTonGiao = it.MaTonGiao, TenTonGiao = it.TenTonGiao }).ToList();
-            ViewBag.MaTonGiao = new SelectList(tonGiao, "MaTonGiao", "TenTonGiao", maTonGiao);
-
-            var diaBanHoatDong = _context.DiaBanHoatDongs.Where(it => it.Actived == true && GetPhamVi().Contains(it.Id)).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.TenDiaBanHoatDong  }).ToList();
-            ViewBag.MaDiaBanHoatDong = new SelectList(diaBanHoatDong, "MaDiaBanHoatDong", "Name", maDiaBanHoatDong);
-
-            var hocVis = _context.HocVis.Select(it => new { MaHocVi = it.MaHocVi, TenHocVi = it.TenHocVi }).ToList();
-            ViewBag.MaHocVi = new SelectList(hocVis, "MaHocVi", "TenHocVi", maHocVi);
-
-            var chiHois = _context.ChiHois.Select(it => new { MaChiHoi = it.MaChiHoi, TenChiHoi = it.TenChiHoi }).ToList();
-            ViewBag.MaChiHoi = new SelectList(chiHois, "MaChiHoi", "TenChiHoi", MaChiHoi);
-
-            var toHois = _context.ToHois.Select(it => new { MaToHoi = it.MaToHoi, TenToHoi = it.TenToHoi }).ToList();
-            ViewBag.MaToHoi = new SelectList(toHois, "MaToHoi", "TenToHoi", MaToHoi);
-
-            var hoiDoans = _context.DoanTheChinhTri_HoiDoans.Where(it => it.Actived == true).Select(it => new
-            {
-                it.MaDoanTheChinhTri_HoiDoan,it.TenDoanTheChinhTri_HoiDoan
-            }).ToList();
-            ViewBag.MaDoanTheChinhTri_HoiDoan = new MultiSelectList(hoiDoans, "MaDoanTheChinhTri_HoiDoan", "TenDoanTheChinhTri_HoiDoan", MaDoanTheChinhTri_HoiDoan);
-
-            var cauLacBo = _context.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTacs.Where(it => it.Actived == true).Select(it => new
-            {
-                it.Id_CLB_DN_MH_HTX_THT,
-                it.Ten
-            }).ToList();
-            ViewBag.Id_CLB_DN_MH_HTX_THT = new MultiSelectList(cauLacBo, "Id_CLB_DN_MH_HTX_THT", "Ten", Id_CLB_DN_MH_HTX_THT);
-
-            var toHoiNganhNghe = _context.ToHoiNganhNghe_ChiHoiNganhNghes.Where(it => it.Actived == true).Select(it => new
-            {
-                it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe,
-                it.Ten
-            }).ToList();
-            ViewBag.Ma_ToHoiNganhNghe_ChiHoiNganhNghe = new MultiSelectList(toHoiNganhNghe, "Ma_ToHoiNganhNghe_ChiHoiNganhNghe", "Ten", Ma_ToHoiNganhNghe_ChiHoiNganhNghe);
-        }
-        private void CreateViewBagSearch()
+            List<Guid>? MaDoanTheChinhTri_HoiDoan = null, List<Guid>? Id_CLB_DN_MH_HTX_THT = null,List<Guid>? Ma_ToHoiNganhNghe_ChiHoiNganhNghe = null,string MaNgheNghiep = null)
         {
             FnViewBag fnViewBag = new FnViewBag(_context);
-            ViewBag.MaDiaBanHoiVien = fnViewBag.DiaBanHoiVien(acID:AccountId());
+            
+            ViewBag.MaChucVu = fnViewBag.ChucVu(value:maChucVu);
+            
+            ViewBag.MaTrinhDoHocVan = fnViewBag.TrinhDoHocVan(value: maTrinhDoHocVan);
 
-            ViewBag.MaQuanHuyen = fnViewBag.QuanHuyen( idAc:AccountId());
+            ViewBag.MaTrinhDoChuyenMon = fnViewBag.TrinhDoChuyenMon(value: maTrinhDoChuyenMon);
+
+            ViewBag.MaTrinhDoChinhTri = fnViewBag.TrinhDoChinhTri(value: maTrinhDoChinhTri);
+
+            ViewBag.MaDanToc = fnViewBag.DanToc(value: maDanToc);
+
+            ViewBag.MaTonGiao = fnViewBag.TonGiao(value: maTonGiao);
+
+            ViewBag.MaDiaBanHoatDong = fnViewBag.DiaBanHoatDong(maDiaBanHoatDong,AccountId());
+
+            ViewBag.MaHocVi = fnViewBag.HocVi(value:maHocVi);
+
+            ViewBag.MaChiHoi = fnViewBag.ChiHoi(value: MaChiHoi);
+
+            ViewBag.MaToHoi = fnViewBag.ToHoi(value: MaToHoi);
+
+            ViewBag.MaDoanTheChinhTri_HoiDoan = fnViewBag.DoanTheChinhTri_HoiDoan(value:MaDoanTheChinhTri_HoiDoan);
+
+            ViewBag.Id_CLB_DN_MH_HTX_THT = fnViewBag.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac(value: Id_CLB_DN_MH_HTX_THT);
+
+            ViewBag.Ma_ToHoiNganhNghe_ChiHoiNganhNghe = fnViewBag.ToHoiNganhNghe_ChiHoiNganhNghe(value: Ma_ToHoiNganhNghe_ChiHoiNganhNghe);
+
+            ViewBag.MaNgheNghiep = fnViewBag.NgheNghiep(value: MaNgheNghiep);
+        }
+        private void CreateViewBagSearch(string? maQuanHuyen = null,Guid? maDiaBan = null, Guid? maChiHoi = null)
+        {
+            FnViewBag fnViewBag = new FnViewBag(_context);
+            ViewBag.MaDiaBanHoiVien = fnViewBag.DiaBanHoiVien(acID:AccountId(),value: maDiaBan);
+
+            ViewBag.MaQuanHuyen = fnViewBag.QuanHuyen( idAc:AccountId(),value: maQuanHuyen);
+
+            ViewBag.MaChiHoi = fnViewBag.ChiHoi(value: maChiHoi);
 
         }
         private void CreateViewBagImport() {
           
-            var diaBanHoatDong = _context.DiaBanHoatDongs.Include(it=>it.QuanHuyen).Where(it => it.Actived == true && GetPhamVi().Contains(it.Id)).OrderByDescending(it => it.CreatedTime).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.QuanHuyen.TenQuanHuyen + " "+ it.TenDiaBanHoatDong }).ToList();
-            ViewBag.MaDiaBanHoatDong = new SelectList(diaBanHoatDong, "MaDiaBanHoatDong", "Name");
+            FnViewBag fnViewBag = new FnViewBag(_context);
+            ViewBag.MaDiaBanHoatDong = fnViewBag.DiaBanHoatDong(acID:AccountId());
         }
         public JsonResult loadDiaBanHoatDong(string? maQuanHuyen)
         {
@@ -1185,10 +1237,11 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }
             else
             {
+                var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
                 var data = (from hv in _context.CanBos
                             join diaban in _context.DiaBanHoatDongs on hv.MaDiaBanHoatDong equals diaban.Id
                             where hv.IsHoiVien == true && diaban.Actived == true
-                              && GetPhamVi().Contains(diaban.Id)
+                              && phamVis.Contains(diaban.Id)
                             select new
                             {
                                 MaDiaBanHoatDong = diaban.Id,
@@ -1198,6 +1251,22 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 return Json(data);
             }
            
+        }
+
+        public JsonResult loadChiHoi(Guid? ma)
+        {
+            if (ma != null)
+            {
+                var data = _context.CanBos.Include(it => it.ChiHoi).Where(it => it.MaDiaBanHoatDong == ma && it.MaChiHoi != null).
+                    Select(it => new { MaChiHoi = it.MaChiHoi, name = it.ChiHoi.TenChiHoi }).Distinct().ToList(); ;
+                return Json(data);
+            }
+            else
+            {
+                var data = _context.ChiHois.Where(it => it.Actived == true).Select(it => new { MaChiHoi = it.MaChiHoi, name = it.TenChiHoi }).ToList();
+                return Json(data);
+            }
+
         }
         #endregion Helper
         #region Insert/Update data from excel file
@@ -1214,10 +1283,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     canbo = HoiVienExcel.CanBo;
                     canbo.HoiVienDuyet = true;
                     canbo.Actived = true;
-                    canbo.HoiVienDuyet = true;
                     canbo.Level = "90";
                     canbo.isRoiHoi = false;
                     canbo.IsHoiVien = true;
+                    canbo.TuChoi = false;
                     canbo.CreatedTime = DateTime.Now;
                     if (HoiVienExcel.ListKhenThuong.Count() > 0)
                     {
@@ -1243,20 +1312,24 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }
             else
             {
-                //canbo = _context.CanBos.Where(p => p.IDCanBo == HoiVienExcel.IDCanBo).FirstOrDefault();
-                //if (canbo != null)
-                //{
-                //    canbo = HoiVienExcel.GetHoiVien(canbo);
-                //    HistoryModelRepository history = new HistoryModelRepository(_context);
-                //    history.SaveUpdateHistory(canbo.IDCanBo.ToString(), AccountId()!.Value, canbo);
-                //}
-                //else
-                //{
-                //    return string.Format(LanguageResource.Validation_ImportExcelIdNotExist,
-                //                            LanguageResource.HoiVien, canbo.IDCanBo,
-                //                            string.Format(LanguageResource.Export_ExcelHeader,
-                //                            LanguageResource.HoiVien));
-                //}
+                var editHoiVien = _context.CanBos.Where(p => p.IDCanBo == HoiVienExcel.CanBo.IDCanBo).FirstOrDefault();
+                if (editHoiVien != null)
+                {
+                    //canbo = HoiVienExcel.GetHoiVien(canbo);
+                    editHoiVien.isRoiHoi = HoiVienExcel.CanBo.isRoiHoi;
+                    editHoiVien.NgayRoiHoi = HoiVienExcel.CanBo.NgayRoiHoi;
+                    editHoiVien.LyDoRoiHoi = HoiVienExcel.CanBo.LyDoRoiHoi;
+                    //editHoiVien.NgayVaoHoi = HoiVienExcel.CanBo.NgayVaoHoi;
+                    HistoryModelRepository history = new HistoryModelRepository(_context);
+                    history.SaveUpdateHistory(canbo.IDCanBo.ToString(), AccountId()!.Value, canbo);
+                }
+                else
+                {
+                    return string.Format(LanguageResource.Validation_ImportExcelIdNotExist,
+                                            LanguageResource.HoiVien, HoiVienExcel.IDCanBo,
+                                            string.Format(LanguageResource.Export_ExcelHeader,
+                                            LanguageResource.HoiVien));
+                }
             }
             try
             {
@@ -1965,6 +2038,28 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                     import.toHois.Add(toHoi);
                                 }
 
+                            }
+                            break;
+                        case 61:
+                            //  Rời hội
+                            if (!String.IsNullOrWhiteSpace(value))
+                            {
+                                
+                                data.isRoiHoi = true;
+                            }
+                            break;
+                        case 62:
+                            //  Ngày Rời hội
+                            if (!String.IsNullOrWhiteSpace(value))
+                            {
+                                data.NgayRoiHoi = Function.ConvertStringToDate(value);
+                            }
+                            break;
+                        case 63:
+                            //  Lý do rời hội
+                            if (!String.IsNullOrWhiteSpace(value))
+                            {
+                                data.LyDoRoiHoi = value;
                             }
                             break;
 

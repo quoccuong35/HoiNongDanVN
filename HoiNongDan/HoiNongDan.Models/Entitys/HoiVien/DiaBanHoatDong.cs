@@ -40,11 +40,13 @@ namespace HoiNongDan.Models
         public ICollection<PhamVi> PhamVis { get; set; }
         public ICollection<LichSinhHoatChiToHoi> LichSinhHoatChiToHois { get; set; }
         public ICollection<PhatTrienDang> PhatTrienDangs { get; set; }
+        public ICollection<DanhGiaToChucHoi> DanhGiaToChucHois { get; set; }
         public DiaBanHoatDong() {
             CanBos = new List<CanBo>();
             PhamVis = new List<PhamVi>();
             LichSinhHoatChiToHois = new List<LichSinhHoatChiToHoi>();
             PhatTrienDangs = new List<PhatTrienDang>();
+            DanhGiaToChucHois = new List<DanhGiaToChucHoi>();
         }
     }
 }

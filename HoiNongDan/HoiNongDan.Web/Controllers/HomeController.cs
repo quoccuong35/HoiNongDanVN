@@ -31,7 +31,16 @@ namespace HoiNongDan.Web.Controllers
             {
                 return Redirect("/Permission/Auth/LogOut");
             }
-            var DiaBanHoi = _context.DiaBanHoatDongs.Include(it=>it.QuanHuyen).Where(it=>it.Actived == true).Select(it => new QuanHuyen { MaQuanHuyen = it.MaQuanHuyen, TenQuanHuyen = "HND "+ it.QuanHuyen.TenQuanHuyen.ToUpper() }).Distinct().ToList();
+            List<Guid> pass = new List<Guid>();
+            pass.Add(Guid.Parse("662ac072-fece-41e2-9a5e-e47c362d10cb"));
+            pass.Add(Guid.Parse("bf7024f4-6bef-442a-9d6b-ce4538b1a084"));
+            pass.Add(Guid.Parse("40a7400d-1981-45e8-b4a6-412af186dc5d"));
+            var DiaBanHoi = _context.DiaBanHoatDongs.Include(it => it.QuanHuyen).Where(it => it.Actived == true && !pass.Contains(it.Id))
+                .Select(it => new QuanHuyen { MaQuanHuyen = it.MaQuanHuyen, TenQuanHuyen = "HND "+ it.QuanHuyen.TenQuanHuyen.ToUpper() }).Distinct().ToList();
+
+            var ngoaiLe = _context.DiaBanHoatDongs.Include(it => it.QuanHuyen).Where(it => it.Actived == true && pass.Contains(it.Id))
+                .Select(it => new QuanHuyen { MaQuanHuyen = it.Id.ToString(), TenQuanHuyen= it.TenDiaBanHoatDong}).Distinct().ToList();
+            DiaBanHoi.AddRange(ngoaiLe);
             //string menu = HttpContext.Session!.GetString(User.Identity!.Name+ "_Menu");
             return View("SoDo", DiaBanHoi);
         }

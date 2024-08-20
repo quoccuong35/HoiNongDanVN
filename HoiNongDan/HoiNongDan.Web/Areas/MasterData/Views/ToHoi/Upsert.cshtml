@@ -45,6 +45,21 @@
                                 <input asp-for="TenToHoi" class="form-control" />
                                 <span asp-validation-for="TenToHoi" class="text-danger"></span>
                             </div>
+                            <div class="col-lg-2">
+                                <div class="form-group">
+                                    <label class="form-label">Loại</label>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="radio" class="custom-checked" value="01" asp-for="Loai">
+                                            <span class="">Dân cư</span>
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="radio" class="custom-checked" value="02" asp-for="Loai">
+                                            <span class="">Ngành nghề</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-3">
                                 <label asp-for="OrderIndex"></label>
                                 <input asp-for="OrderIndex" class="form-control" />

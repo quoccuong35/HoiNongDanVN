@@ -26,7 +26,7 @@
         <div>
             @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
             @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
-            @HtmlExtensions.BackButton(CurrentArea,CurrentController)
+            @HtmlExtensions.BackButton(CurrentArea, CurrentController)
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -45,12 +45,12 @@
                     <form method="post" asp-action="Edit" id="frmEdit" class="row g-3">
                         @Html.AntiForgeryToken()
                         <input asp-for="AccountId" hidden />
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label asp-for="UserName"></label> <span class="text-red">*</span>
-                            <input asp-for="UserName" class="form-control"/>
+                            <input asp-for="UserName" class="form-control" />
                             <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label asp-for="PasswordNew"></label> <span class="text-red">*</span>
                             <input asp-for="PasswordNew" class="form-control">
                             <small style="color:red">Nhập mật khẩ mới nếu muốn đổi mật khẩu</small><br />
@@ -58,15 +58,23 @@
                             <span asp-validation-for="PasswordNew" class="text-danger"></span>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label asp-for="FullName"></label> <span class="text-red">*</span>
                             <input asp-for="FullName" class="form-control" />
                             <span asp-validation-for="FullName" class="text-danger"></span>
                         </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label asp-for="AccountIDParent"></label><span class="text-red">*</span>
+                                <select asp-for="AccountIDParent" asp-items="@ViewBag.AccountIDParent" multiple class="form-control select2-show-search form-select">
+                                </select>
+                                <span asp-validation-for="AccountIDParent" class="text-danger"></span>
+                            </div>
+                        </div>
                         <div class="col-md-3 d-flex align-items-end">
                             <fieldset>
-                                @Html.RadioButtonFor(p=>p.Actived,true) @LanguageResource.Actived_True
-                                @Html.RadioButtonFor(p=>p.Actived,false) @LanguageResource.Actived_False
+                                @Html.RadioButtonFor(p => p.Actived, true) @LanguageResource.Actived_True
+                                @Html.RadioButtonFor(p => p.Actived, false) @LanguageResource.Actived_False
                             </fieldset>
                         </div>
                         <div class="col-md-12">
@@ -98,22 +106,25 @@
                                                 foreach (var qh in dataQuanHuyens)
                                                 {
                                                     var diaBans = Model.DiaBans.Where(it => it.MaQuanHuyen == qh.MaQuanHuyen);
-                                                    <li>
-                                                        <input type="checkbox" name="chk-quanhuyen" id="@qh.MaQuanHuyen" /> @qh.TenQuanHuyen
-                                                        <ul>
-                                                            @{
+                                                    int tongSo = diaBans.Count();
+                                                    int countDaChon = diaBans.Where(it => it.Selected == true).Count();
+                                                    string sL = countDaChon.ToString() + "/" + tongSo.ToString();
+                                                                <li class="fs-0">
+                                                                    <input type="checkbox" name="chk-quanhuyen" id="@qh.MaQuanHuyen" data-sl="@tongSo" />@qh.TenQuanHuyen <span> @sL</span>
+                                                                    <ul>
+                                                                        @{
                                                                 foreach (var db in diaBans)
                                                                 {
                                                                     index = Model.DiaBans.IndexOf(db);
-                                                                    <li>
-                                                                        <input asp-for="@Model.DiaBans[index].MaDiaBanHoiVien" hidden />
-                                                                        <input asp-for="@Model.DiaBans[index].TenDiaBanHoiVien" hidden />
-                                                                        <input type="checkbox" asp-for="@Model.DiaBans[index].Selected" data-qh="@qh.MaQuanHuyen" id="@db.MaDiaBanHoiVien" /> @db.TenDiaBanHoiVien
-                                                                    </li>
+                                                                                            <li>
+                                                                                                <input asp-for="@Model.DiaBans[index].MaDiaBanHoiVien" hidden />
+                                                                                                <input asp-for="@Model.DiaBans[index].TenDiaBanHoiVien" hidden />
+                                                                                                <input type="checkbox" asp-for="@Model.DiaBans[index].Selected" data-qh="@qh.MaQuanHuyen" id="@db.MaDiaBanHoiVien" /> @db.TenDiaBanHoiVien
+                                                                                            </li>
                                                                 }
-                                                            }
-                                                        </ul>
-                                                    </li>
+                                                                        }
+                                                                    </ul>
+                                                                </li>
                                                 }
 
                                             }
@@ -132,34 +143,15 @@
     <!-- /Row -->
 </div>
 
-@section Scripts{
-    @{
-        <partial name="_ValidationScriptsPartial" />
-        <script src="~/assets/plugins/treeview/treeview.js"></script>
-    }
-    }
-@section ScriptCustomized{
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/assets/plugins/treeview/treeview.js"></script>
+}
+@section ScriptCustomized {
     <script type="text/javascript">
         $(document).ready(function () {
             HoiNongDan.EditInitial("@CurrentUrl");
         });
-        const checkall = document.querySelector('input[name="chk-all"]');
-        checkall.addEventListener('click', (event) => {
-            /// get all input
-            var checkboxs = document.querySelectorAll('li>input[type="checkbox"]');
-            for (var i in checkboxs) {
-                checkboxs[i].checked = checkall.checked;
-            }
-        });
-        const checkQuanHuyen = document.querySelectorAll('input[name="chk-quanhuyen"]');
-        for (const sp of checkQuanHuyen) {
-            sp.addEventListener('click', function handleClick(event) {
-                var name = sp.id
-                var checkboxs = document.querySelectorAll('li>input[data-qh="' + name + '"]');
-                for (var i in checkboxs) {
-                    checkboxs[i].checked = this.checked;
-                }
-            });
-        }
     </script>
+    <script src="~/js/account.js"></script>
 }

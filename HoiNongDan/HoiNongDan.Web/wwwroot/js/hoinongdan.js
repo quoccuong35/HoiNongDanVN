@@ -72,6 +72,8 @@ HoiNongDan.CreateInitial = function (controller) {
     HoiNongDan.SearchNhanSu();
     HoiNongDan.SearchHoiVien();
     HoiNongDan.HoiVienShowModal();
+    HoiNongDan.KiemTraMaDinhDanh();
+    HoiNongDan.KiemTraSoCCCD();
 }
 
 HoiNongDan.Create = function (controller, frmCreate, isContinue, e) {
@@ -156,6 +158,8 @@ HoiNongDan.EditInitial = function (controller) {
     HoiNongDan.DeleteFileDinhKem();
     HoiNongDan.DeleteEdit();
     HoiNongDan.HoiVienShowModal();
+    HoiNongDan.KiemTraMaDinhDanh();
+    HoiNongDan.KiemTraSoCCCD();
 }
 HoiNongDan.Edit = function (controller, frmEdit, isContinue, e) {
     var $btn = $(e);
@@ -724,6 +728,46 @@ HoiNongDan.SearchHoiVien = function () {
     });
 }
 
+HoiNongDan.KiemTraMaDinhDanh = function () {
+    $(document).on("click", "#btn-ktmadinhdanh", function () {
+        let maDinhDanh = $("#MaDinhDanh").val();
+        let idHoiVien = $("#IDCanBo").val();
+        $.ajax({
+            type: "GET",
+            url: "/HoiVien/HVInfo/CheckMaDinhDanh",
+            data: { maDinhDanh: maDinhDanh, idHoiVien: idHoiVien },
+            success: function (jsonData) {
+                if (jsonData.success == false) {
+                    toastr.error(jsonData.data);
+                }
+            },
+            error: function (xhr, status, error) {
+                Exceptions(xhr, status, error);
+            }
+        });
+    });
+}
+HoiNongDan.KiemTraSoCCCD = function () {
+    $(document).on("click", "#btn-ktsocccd", function () {
+        let soCCCD = $("#SoCCCD").val();
+        if (soCCCD == null || soCCCD == "")
+            return;
+        let idHoiVien = $("#IDCanBo").val();
+        $.ajax({
+            type: "GET",
+            url: "/HoiVien/HVInfo/CheckSoCCCD",
+            data: { soCCCD: soCCCD, idHoiVien: idHoiVien },
+            success: function (jsonData) {
+                if (jsonData.success == false) {
+                    toastr.error(jsonData.data);
+                }
+            },
+            error: function (xhr, status, error) {
+                Exceptions(xhr, status, error);
+            }
+        });
+    });
+}
 HoiNongDan.HoiVienShowModal = function (controller) {
     HoiNongDan.HoiVienSearch();
     HoiNongDan.ChonHoiViens();

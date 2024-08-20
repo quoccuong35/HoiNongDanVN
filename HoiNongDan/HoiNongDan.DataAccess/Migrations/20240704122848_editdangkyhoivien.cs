@@ -33,19 +33,7 @@ namespace HoiNongDan.DataAccess.Migrations
                 oldNullable: true,
                 oldDefaultValue: new DateTime(2024, 7, 3, 19, 58, 10, 273, DateTimeKind.Local).AddTicks(4313));
 
-            migrationBuilder.AddColumn<Guid>(
-                name: "AccountIdDangKy",
-                schema: "NS",
-                table: "CanBo",
-                type: "uniqueidentifier",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "NgayDangKy",
-                schema: "NS",
-                table: "CanBo",
-                type: "datetime2",
-                nullable: true);
+           
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

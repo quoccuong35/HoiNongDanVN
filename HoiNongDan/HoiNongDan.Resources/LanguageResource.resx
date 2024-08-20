@@ -166,7 +166,10 @@
     <value>Báo cáo giảm hội viên</value>
   </data>
   <data name="BCBDHoiVien" xml:space="preserve">
-    <value>Thống Kê Phát Triển Hội Viên</value>
+    <value>Thống Kê Số Lượng Hội Viên</value>
+  </data>
+  <data name="BCDanhGiaToChucHoiHoiVien" xml:space="preserve">
+    <value>Đánh Giá Tổ Chức Hội,Hội Viên</value>
   </data>
   <data name="BCHHNDTP" xml:space="preserve">
     <value>BCH HNDTP</value>
@@ -174,11 +177,20 @@
   <data name="BCHVMoi" xml:space="preserve">
     <value>Báo cáo hội viên nông dân phát triển mới</value>
   </data>
+  <data name="BCSLMau1" xml:space="preserve">
+    <value>Thống Kê Số Lượng Hội Viên Đang Hoạt Động</value>
+  </data>
   <data name="BCThucLucHoiNam" xml:space="preserve">
     <value>Báo cáo thực lực hội năm</value>
   </data>
   <data name="BCThucLucHoiQuy" xml:space="preserve">
     <value>Báo cáo thực lực hội quý</value>
+  </data>
+  <data name="BCTLHNamNew" xml:space="preserve">
+    <value>Báo Cáo Thực Lực Hội Năm New</value>
+  </data>
+  <data name="BCTLHNew" xml:space="preserve">
+    <value>Thống Kê Biến Tổ Chức Hội, Hội Viên</value>
   </data>
   <data name="BoiDuong" xml:space="preserve">
     <value>Bồi Dưỡng</value>
@@ -246,6 +258,9 @@
   <data name="CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac" xml:space="preserve">
     <value>Tham gia câu lạc bộ, đội nhóm, mô hình, hợp tác xã, tổ hợp tác</value>
   </data>
+  <data name="CBChiHoiNongDan" xml:space="preserve">
+    <value>Quản Lý Cán Bộ Chi Hội Hội Nông Dân Huyện Quận</value>
+  </data>
   <data name="Check_Exist" xml:space="preserve">
     <value>Đã tồn tại {0} này!</value>
   </data>
@@ -290,6 +305,12 @@
   </data>
   <data name="DangVien" xml:space="preserve">
     <value>Đảng viên</value>
+  </data>
+  <data name="DanhGiaHV" xml:space="preserve">
+    <value>Đánh Giá Hội Viên</value>
+  </data>
+  <data name="DanhGiaToChucHoi" xml:space="preserve">
+    <value>Đánh Giá Tổ Chức Hội</value>
   </data>
   <data name="DanhHieuKhenThuong" xml:space="preserve">
     <value>Danh hiệu khen thưởng</value>
@@ -359,6 +380,9 @@
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="ErrorDuyetHoiVien" xml:space="preserve">
+    <value>Tài khoản chưa có gán thông tin người duyệt</value>
   </data>
   <data name="ErrorImportChiToHoiNganhNghe1" xml:space="preserve">
     <value>Dòng {0} Phải có ít nhất tên chi hội hoặc tổ hội nghề nghiệp</value>
@@ -887,6 +911,9 @@
   </data>
   <data name="SangTaoNhaNong" xml:space="preserve">
     <value>Giải thưởng sáng tạo nhà nông</value>
+  </data>
+  <data name="SanPhamNongNghiepTieuBieu_OCOP" xml:space="preserve">
+    <value>Sản Phẩm Nông Nghiệp Tiêu Biểu/OCOP</value>
   </data>
   <data name="SoBHXH" xml:space="preserve">
     <value>Số BHXH</value>

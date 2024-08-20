@@ -557,7 +557,7 @@ namespace Microsoft.AspNetCore.Html
             if (isHasPermission)
             {
                 TagBuilder aTag = new TagBuilder("a");
-                aTag.Attributes.Add("class", "btn btn-sm btn-vk text-white mx-1 btn-exporttoexcel");
+                aTag.Attributes.Add("class", "btn bg-teal btn-sm text-white show mx-1 btn-exporttoexcel");
                 aTag.Attributes.Add("href", "#");
                 aTag.InnerHtml.AppendHtmlLine(string.Format("<i class='fa fa-file-excel-o'></i> {0}", LanguageResource.ExportExcel));
                 if (htmlAttributes != null)

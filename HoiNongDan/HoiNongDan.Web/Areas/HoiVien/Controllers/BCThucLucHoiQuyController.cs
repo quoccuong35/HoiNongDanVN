@@ -2,10 +2,12 @@
 using HoiNongDan.DataAccess;
 using HoiNongDan.Extensions;
 using HoiNongDan.Models;
+using HoiNongDan.Models.Entitys.MasterData;
 using HoiNongDan.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Data;
 using System.Reflection;
 using System.Transactions;
@@ -44,10 +46,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     data = data.Where(it => it.Quy == Quy.Value);
                 }
-                if (IDDonVi != null)
-                {
-                    data = data.Where(it => it.IDDonVi == IDDonVi.Value);
-                }
+                //if (IDDonVi != null)
+                //{
+                //    data = data.Where(it => it.IDDonVi == IDDonVi.Value);
+                //}
                 return PartialView(data);
             });
         }
@@ -90,7 +92,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }
             var model = data.Select(it => new BaoCaoThucLucHoiVM
             {
-                Cot1 = it.DonVi.TenDonVi,
+                Cot1 = it.Cot1,
                 Cot2 = it.Cot2,
                 Cot3 = it.Cot3,
                 Cot4 = it.Cot4,
@@ -118,7 +120,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 Cot26 = it.Cot26,
                 Cot27 = it.Cot27,
                 Cot28 = it.Cot28,
-                Cot29 = it.DonVi.TenDonVi,
+                Cot29 = it.Cot29,
                 Cot30 = it.Cot30,
                 Cot31 = it.Cot31,
                 Cot32 = it.Cot32,
@@ -146,7 +148,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 Cot54 = it.Cot54,
                 Cot55 = it.Cot55,
                 Cot56 = it.Cot56,
-                Cot57 = it.DonVi.TenDonVi,
+                Cot57 = it.Cot57,
                 Cot58 = it.Cot58,
                 Cot59 = it.Cot59,
                 Cot60 = it.Cot60,
@@ -170,16 +172,112 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 Cot78 = it.Cot78,
                 Cot79 = it.Cot79,
                 Cot80 = it.Cot80,
-
             }).ToList();
-            int i = 1;
+            //var model = data.Select(it => new BaoCaoThucLucHoiVM
+            //{
+            //    Cot1 = it.Cot1,
+            //    Cot2 = Function.ConvertStringToDecimal(it.Cot2),
+            //    Cot3 = Function.ConvertStringToDecimal(it.Cot3),
+            //    Cot4 = Function.ConvertStringToDecimal(it.Cot4),
+            //    Cot5 = Function.ConvertStringToDecimal(it.Cot5),
+            //    Cot6 = Function.ConvertStringToDecimal(it.Cot6),
+            //    Cot7 = Function.ConvertStringToDecimal(it.Cot7),
+            //    Cot8 = Function.ConvertStringToDecimal(it.Cot8),
+            //    Cot9 = Function.ConvertStringToDecimal(it.Cot9),
+            //    Cot10 = Function.ConvertStringToDecimal(it.Cot10),
+            //    Cot11 = Function.ConvertStringToDecimal(it.Cot11),
+            //    Cot12 = Function.ConvertStringToDecimal(it.Cot12),
+            //    Cot13 = Function.ConvertStringToDecimal(it.Cot13),
+            //    Cot14 = Function.ConvertStringToDecimal(it.Cot14),
+            //    Cot15 = Function.ConvertStringToDecimal(it.Cot15),
+            //    Cot16 = Function.ConvertStringToDecimal(it.Cot16),
+            //    Cot17 = Function.ConvertStringToDecimal(it.Cot17),
+            //    Cot18 = Function.ConvertStringToDecimal(it.Cot18),
+            //    Cot19 = Function.ConvertStringToDecimal(it.Cot19),
+            //    Cot20 = Function.ConvertStringToDecimal(it.Cot20),
+            //    Cot21 = Function.ConvertStringToDecimal(it.Cot21),
+            //    Cot22 = Function.ConvertStringToDecimal(it.Cot22),
+            //    Cot23 = Function.ConvertStringToDecimal(it.Cot23),
+            //    Cot24 = Function.ConvertStringToDecimal(it.Cot24),
+            //    Cot25 = Function.ConvertStringToDecimal(it.Cot25),
+            //    Cot26 = Function.ConvertStringToDecimal(it.Cot26),
+            //    Cot27 = Function.ConvertStringToDecimal(it.Cot27),
+            //    Cot28 = Function.ConvertStringToDecimal(it.Cot28),
+            //    Cot29 = it.Cot29,
+            //    Cot30 = Function.ConvertStringToDecimal(it.Cot30),
+            //    Cot31 = Function.ConvertStringToDecimal(it.Cot31),
+            //    Cot32 = Function.ConvertStringToDecimal(it.Cot32),
+            //    Cot33 = Function.ConvertStringToDecimal(it.Cot33),
+            //    Cot34 = Function.ConvertStringToDecimal(it.Cot34),
+            //    Cot35 = Function.ConvertStringToDecimal(it.Cot35),
+            //    Cot36 = Function.ConvertStringToDecimal(it.Cot36),
+            //    Cot37 = Function.ConvertStringToDecimal(it.Cot37),
+            //    Cot38 = Function.ConvertStringToDecimal(it.Cot38),
+            //    Cot39 = Function.ConvertStringToDecimal(it.Cot39),
+            //    Cot40 = Function.ConvertStringToDecimal(it.Cot40),
+            //    Cot41 = Function.ConvertStringToDecimal(it.Cot41),
+            //    Cot42 = Function.ConvertStringToDecimal(it.Cot42),
+            //    Cot43 = Function.ConvertStringToDecimal(it.Cot43),
+            //    Cot44 = Function.ConvertStringToDecimal(it.Cot44),
+            //    Cot45 = Function.ConvertStringToDecimal(it.Cot45),
+            //    Cot46 = Function.ConvertStringToDecimal(it.Cot46),
+            //    Cot47 = Function.ConvertStringToDecimal(it.Cot47),
+            //    Cot48 = Function.ConvertStringToDecimal(it.Cot48),
+            //    Cot49 = Function.ConvertStringToDecimal(it.Cot49),
+            //    Cot50 = Function.ConvertStringToDecimal(it.Cot50),
+            //    Cot51 = Function.ConvertStringToDecimal(it.Cot51),
+            //    Cot52 = Function.ConvertStringToDecimal(it.Cot52),
+            //    Cot53 = Function.ConvertStringToDecimal(it.Cot53),
+            //    Cot54 = Function.ConvertStringToDecimal(it.Cot54),
+            //    Cot55 = Function.ConvertStringToDecimal(it.Cot55),
+            //    Cot56 = Function.ConvertStringToDecimal(it.Cot56),
+            //    Cot57 = it.Cot57,
+            //    Cot58 = Function.ConvertStringToDecimal(it.Cot58),
+            //    Cot59 = Function.ConvertStringToDecimal(it.Cot59),
+            //    Cot60 = Function.ConvertStringToDecimal(it.Cot60),
+            //    Cot61 = Function.ConvertStringToDecimal(it.Cot61),
+            //    Cot62 = Function.ConvertStringToDecimal(it.Cot62),
+            //    Cot63 = Function.ConvertStringToDecimal(it.Cot63),
+            //    Cot64 = Function.ConvertStringToDecimal(it.Cot64),
+            //    Cot65 = Function.ConvertStringToDecimal(it.Cot65),
+            //    Cot66 = Function.ConvertStringToDecimal(it.Cot66),
+            //    Cot67 = Function.ConvertStringToDecimal(it.Cot67),
+            //    Cot68 = Function.ConvertStringToDecimal(it.Cot68),
+            //    Cot69 = Function.ConvertStringToDecimal(it.Cot69),
+            //    Cot70 = Function.ConvertStringToDecimal(it.Cot70),
+            //    Cot71 = Function.ConvertStringToDecimal(it.Cot71),
+            //    Cot72 = Function.ConvertStringToDecimal(it.Cot72),
+            //    Cot73 = Function.ConvertStringToDecimal(it.Cot73),
+            //    Cot74 = Function.ConvertStringToDecimal(it.Cot74),
+            //    Cot75 = Function.ConvertStringToDecimal(it.Cot75),
+            //    Cot76 = Function.ConvertStringToDecimal(it.Cot76),
+            //    Cot77 = Function.ConvertStringToDecimal(it.Cot77),
+            //    Cot78 = Function.ConvertStringToDecimal(it.Cot78),
+            //    Cot79 = Function.ConvertStringToDecimal(it.Cot79),
+            //    Cot80 = Function.ConvertStringToDecimal(it.Cot80),
+
+            //}).ToList();
+
+            //BaoCaoThucLucHoiVM tong = new BaoCaoThucLucHoiVM();
+
+            //tong.Cot1 = "Tổng cộng";
+            //tong.Cot27 = tong.Cot57 = tong.Cot1;
+
+            //tong.Cot53 =  model.Select(it=>it.Cot53).Sum();
+
+
+
+
+            //model.Add(tong);
+
+            int stt = 1;
             foreach (var item in model)
             {
-                item.STT = i;
-                item.Cot28 = i.ToString();
-                item.Cot56 = i.ToString();
+                item.STT = stt;
+                item.Cot28 = stt.ToString();
+                item.Cot56 = stt.ToString();
             }
-            byte[] filecontent = ClassExportExcel.ExportExcel(model, startIndex, url);
+            byte[] filecontent = ClassExportExcel.ExportExcel(model.OrderBy(it=>it.STT).ToList(), startIndex +1, url);
             //File name
             string fileNameWithFormat = string.Format("{0}.xlsx", "BaoCoThucLucHoiQuy");
 
@@ -213,13 +311,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     TimeSpan span = new TimeSpan(0, 0, 30, 30);
                     using (TransactionScope ts = new TransactionScope(opt, span))
                     {
-
+                        int iCapNhat = 0;
                         foreach (DataTable dt in ds.Tables)
                         {
                             string contCode = dt.Columns[0].ColumnName.ToString();
                             foreach (DataRow dr in dt.Rows)
                             {
-                                if (dt.Rows.IndexOf(dr) == startIndex)
+                                if (dt.Rows.IndexOf(dr) == startIndex-1)
                                 {
                                     if (!string.IsNullOrEmpty(dr.ItemArray[0].ToString()))
                                     {
@@ -230,6 +328,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                         {
                                             errorList.Add(result);
                                         }
+                                        else
+                                            iCapNhat++;
                                     }
                                     else
                                         break;

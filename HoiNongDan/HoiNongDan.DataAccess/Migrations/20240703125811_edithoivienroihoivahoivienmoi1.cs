@@ -9,17 +9,7 @@ namespace HoiNongDan.DataAccess.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "LyDoKhongDuyet",
-                schema: "NS",
-                table: "CanBo",
-                newName: "LyDoTuChoi");
-
-            migrationBuilder.RenameColumn(
-                name: "KhongDuyet",
-                schema: "NS",
-                table: "CanBo",
-                newName: "TuChoi");
+            
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedTime",
@@ -45,19 +35,7 @@ namespace HoiNongDan.DataAccess.Migrations
                 oldNullable: true,
                 oldDefaultValue: new DateTime(2024, 7, 3, 19, 53, 4, 717, DateTimeKind.Local).AddTicks(7714));
 
-            migrationBuilder.AddColumn<Guid>(
-                name: "AccountIdTuChoi",
-                schema: "NS",
-                table: "CanBo",
-                type: "uniqueidentifier",
-                nullable: true);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "NgayTuChoi",
-                schema: "NS",
-                table: "CanBo",
-                type: "datetime2",
-                nullable: true);
+            
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

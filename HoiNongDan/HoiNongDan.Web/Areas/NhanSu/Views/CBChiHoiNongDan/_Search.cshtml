@@ -1,0 +1,73 @@
+﻿@model IEnumerable<CanBoChiHoiNongDanDetailVM>
+@{
+    string CurrentController = ConstController.CBChiHoiNongDan;
+    string CurrentArea = ConstArea.NhanSu;
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table text-nowrap mb-0">
+    @Html.AntiForgeryToken()
+    <thead class="table-primary">
+        <tr>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">@LanguageResource.Actions</th>
+            <th rowspan="2" style="vertical-align: middle;">STT</th>
+            <th rowspan="2" style="vertical-align: middle;">Họ và tên</th>
+            <th rowspan="2" style="vertical-align: middle;">Chức vụ (ấp/khu phố, xã/phường)</th>
+            <th colspan="2" style="vertical-align: middle;">Ngày, tháng, năm sinh</th>
+            <th rowspan="2" style="vertical-align: middle;">Dân tộc</th>
+            <th rowspan="2" style="vertical-align: middle;">Tôn giáo</th>
+            <th rowspan="2" style="vertical-align: middle;">Nơi ở hiện nay</th>
+            <th colspan="2" style="vertical-align: middle;">Ngày vào Đảng</th>
+            <th rowspan="2" style="vertical-align: middle;">Trình độ học vấn</th>
+            <th colspan="2" style="vertical-align: middle;">Trình độ</th>
+            <th rowspan="2" style="vertical-align: middle;">Thời gian công tác Hội</th>
+            <th rowspan="2" style="vertical-align: middle;">Tham gia BCH xã</th>
+        </tr>
+        <tr>
+            <th>Nam</th>
+            <th>Nữ</th>
+            <th>Dự bị</th>
+            <th>Chính thức</th>
+            <th>Chuyên môn</th>
+            <th>LLCT</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+            int css = 0;
+            string cssName = "";
+        }
+        @foreach (var item in Model)
+        {
+            i++;
+            css++;
+            if (css > 2)
+            {
+                css = 1;
+            }
+            cssName = "tr" + css.ToString();
+            <tr class="@cssName" ondblclick='window.open("/NhanSu/CanBo/Edit/@item.IDCanBo","_blank")'>
+                <td class="text-center">
+                    @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.IDCanBo!.Value, listRoles: listRoles)
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoVaTen!, item.IDCanBo!.Value, listRoles: listRoles)
+                </td>
+                <td>@i</td>
+                <td class="align-middle"> <a asp-area="@ConstArea.NhanSu" asp-action="Edit" asp-controller="@ConstController.CBChiHoiNongDan" target="_blank" asp-route-id="@item.IDCanBo">@item.HoVaTen</a></td>
+                <td class="align-middle">@Html.DisplayFor(p => item.DonVi)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgaySinh_Nam)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgaySinh_Nu)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.MaDanToc)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.MaTonGiao)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.ChoOHienNay)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgayVaoDangDuBi)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.NgayVaoDangChinhThuc)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.MaTrinhDoHocVan)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.ChuyenNganh)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.MaTrinhDoChinhChi)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.ChiHoiDanCu_CHT)</td>
+                <td class="align-middle">@Html.DisplayFor(p => item.ChiHoiDanCu_CHP)</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -5,6 +5,7 @@
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
     string listRoles = User.FindFirst("Roles")!.Value;
     listRoles = listRoles == null ? "" : listRoles;
+    bool view = Function.GetPermission(listRoles, CurrentController+":"+ConstFunction.Import);
 }
 <table id="data-list" class="table table-bordered text-nowrap mb-0">
     <thead class="table-primary">
@@ -61,12 +62,22 @@
             cssName = "tr" + css.ToString();
             <tr id="@item.ID" class="@cssName">
                 <td>
-                    <button type="button" class="btn btn-sm btn-primary bradius duyet-hoivien" data-bs-placement="top" data-id="@item.ID" data-bs-toggle="tooltip" title="Duyệt" data-bs-original-title="Duyệt">
-                        <span class="fa fa-check"> </span>
-                    </button>
-                    <a class="btn btn-icon btn-sm btn-danger-light bradius btn-reject" data-bs-toggle="tooltip" data-id="@item.ID" data-item-name="@item.HoVaTen" id="btn-reject" title="Từ chối">
-                        <i class="fa fa-close"></i>
-                    </a>
+                    @if (!view)
+                    {
+                        <button type="button" class="btn btn-sm btn-primary bradius duyet-hoivien" data-bs-placement="top" data-id="@item.ID" data-bs-toggle="tooltip" title="Duyệt" data-bs-original-title="Duyệt">
+                            <span class="fa fa-check"> </span>
+                        </button>
+                        <a class="btn btn-icon btn-sm btn-danger-light bradius btn-reject" data-bs-toggle="tooltip" data-id="@item.ID" data-item-name="@item.HoVaTen" id="btn-reject" title="Từ chối">
+                            <i class="fa fa-close"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-sm btn-info" asp-area="@CurrentArea" asp-controller="@CurrentController" asp-action="View" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-id="@item.ID" data-item-name="@item.HoVaTen" id="btn-reject" title="Xem duyệt">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    }
+                   
                 </td>
                 <td class="text-center">@item.STT</td>
                 <td class="text-center">@item.HoVaTen</td>

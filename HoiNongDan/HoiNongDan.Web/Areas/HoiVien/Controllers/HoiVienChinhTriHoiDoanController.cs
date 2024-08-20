@@ -33,6 +33,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HoiNongDanAuthorization]
         public IActionResult _Search(HoiVienChinhTriHoiDoanSearchVM search) {
             return ExecuteSearch(() => {
+                var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
                 var data = _context.DoanTheChinhTri_HoiDoan_HoiViens.Include(it => it.HoiVien).Include(it => it.HoiVien.DiaBanHoatDong).Include(it=>it.DoanTheChinhTri_HoiDoan).AsQueryable();
                 if (search.MaDoanTheChinhTri_HoiDoan != null)
                 {
@@ -44,7 +45,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 }
                 else
                 {
-                    data = data.Where(it => GetPhamVi().Contains(it.HoiVien.MaDiaBanHoatDong!.Value));
+                    data = data.Where(it => phamVis.Contains(it.HoiVien.MaDiaBanHoatDong!.Value));
                 }
                 if (search.HoVaTen != null)
                 {
@@ -79,7 +80,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             var chinhTriHoiDoanKhacs = _context.DoanTheChinhTri_HoiDoans.Where(it=>it.Actived == true).Select(it => new{ MaDoanTheChinhTri_HoiDoan = it.MaDoanTheChinhTri_HoiDoan,TenDoanTheChinhTri_HoiDoan = it.TenDoanTheChinhTri_HoiDoan}).ToList();
             ViewBag.MaDoanTheChinhTri_HoiDoan = new SelectList(chinhTriHoiDoanKhacs, "MaDoanTheChinhTri_HoiDoan", "TenDoanTheChinhTri_HoiDoan");
 
-            var diaBans = _context.DiaBanHoatDongs.Where(it => it.Actived == true && GetPhamVi().Contains(it.Id)).Select(it => new { MaDiaBan = it.Id, Name = it.TenDiaBanHoatDong }).ToList();
+            var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
+            var diaBans = _context.DiaBanHoatDongs.Where(it => it.Actived == true && phamVis.Contains(it.Id)).Select(it => new { MaDiaBan = it.Id, Name = it.TenDiaBanHoatDong }).ToList();
             ViewBag.MaDiaBan = new SelectList(diaBans, "MaDiaBan","Name");
         }
         #endregion Helper
@@ -87,6 +89,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Export 
         public IActionResult ExportEdit(HoiVienChinhTriHoiDoanSearchVM search)
         {
+            var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
             var data = _context.DoanTheChinhTri_HoiDoan_HoiViens.Include(it => it.HoiVien).Include(it => it.HoiVien.DiaBanHoatDong).Include(it => it.DoanTheChinhTri_HoiDoan).AsQueryable();
             if (search.MaDoanTheChinhTri_HoiDoan != null)
             {
@@ -98,7 +101,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }
             else
             {
-                data = data.Where(it => GetPhamVi().Contains(it.HoiVien.MaDiaBanHoatDong!.Value));
+                data = data.Where(it => phamVis.Contains(it.HoiVien.MaDiaBanHoatDong!.Value));
             }
             if (search.HoVaTen != null)
             {

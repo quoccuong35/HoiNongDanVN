@@ -209,8 +209,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         private HoiVienInfo GetThongTinNhanSu(Guid maHoiVien)
         {
             HoiVienInfo HoiVien = new HoiVienInfo();
-            var data = _context.CanBos.FirstOrDefault(it => it.IDCanBo == maHoiVien && GetPhamVi().Contains(it.MaDiaBanHoatDong!.Value) && it.IsHoiVien == true);
-            var diaBan = _context.DiaBanHoatDongs.SingleOrDefault(it => it.Id == data.MaDiaBanHoatDong);
+            var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
+            var data = _context.CanBos.FirstOrDefault(it => it.IDCanBo == maHoiVien && phamVis.Contains(it.MaDiaBanHoatDong!.Value) && it.IsHoiVien == true);
+            var diaBan = _context.DiaBanHoatDongs.SingleOrDefault(it => it.Id == data!.MaDiaBanHoatDong);
             var quanThanhPho = _context.QuanHuyens.SingleOrDefault(it => it.MaQuanHuyen == diaBan!.MaQuanHuyen);
             HoiVien.IdCanbo = data!.IDCanBo;
             HoiVien.HoVaTen = data.HoVaTen;

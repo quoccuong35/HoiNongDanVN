@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Policy;
 using System.Text.RegularExpressions;
 using System.Data;
-using HoiNongDan.DataAccess.Migrations;
 using System.Transactions;
 using NuGet.Protocol.Plugins;
 using System.Threading.Tasks.Sources;
@@ -69,36 +68,38 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [NonAction]
         private List<HoiVien_ToHoiNN_ChiHoiNNDetailVM>? LoadToHoiChiHoiNganhNghe(HoiVien_ToHoiNN_ChiHoiNNSearchVM search)
         {
-            var data = (from thch_hv in _context.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens
-                        join thc in _context.ToHoiNganhNghe_ChiHoiNganhNghes on thch_hv.Ma_ToHoiNganhNghe_ChiHoiNganhNghe equals thc.Ma_ToHoiNganhNghe_ChiHoiNganhNghe
-                        join hv in _context.CanBos on thch_hv.IDHoiVien equals hv.IDCanBo
-                        join pv in _context.PhamVis on hv.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
-                        where pv.AccountId == AccountId()
-                        && hv.IsHoiVien == true
-                        select thch_hv).Include(it => it.HoiVien).Include(it => it.HoiVien.DiaBanHoatDong).ThenInclude(it => it.QuanHuyen).ThenInclude(it => it.PhuongXas).Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe).AsQueryable();
+            var data1 = _context.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.Include(it => it.HoiVien).ThenInclude(it => it.DiaBanHoatDong).ThenInclude(it=>it.QuanHuyen)
+                .ThenInclude(it=>it.PhuongXas).Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe).AsQueryable();
+            //var data = (from thch_hv in _context.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens
+            //            join thc in _context.ToHoiNganhNghe_ChiHoiNganhNghes on thch_hv.Ma_ToHoiNganhNghe_ChiHoiNganhNghe equals thc.Ma_ToHoiNganhNghe_ChiHoiNganhNghe
+            //            join hv in _context.CanBos on thch_hv.IDHoiVien equals hv.IDCanBo
+            //            join pv in _context.PhamVis on hv.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
+            //            where pv.AccountId == AccountId()
+            //            && hv.IsHoiVien == true
+            //            select thch_hv).Include(it => it.HoiVien).Include(it => it.HoiVien.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).ThenInclude(it => it.PhuongXas).Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe).AsQueryable();
 
-            //var data = _context.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.Include(it => it.HoiVien).Include(it => it.HoiVien.DiaBanHoatDong).Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe).AsQueryable();
+            ////var data = _context.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.Include(it => it.HoiVien).Include(it => it.HoiVien.DiaBanHoatDong).Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe).AsQueryable();
             if (search.Ma_ToHoiNganhNghe_ChiHoiNganhNghe != null)
             {
-                data = data.Where(it => it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe == search.Ma_ToHoiNganhNghe_ChiHoiNganhNghe);
+                data1 = data1.Where(it => it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe == search.Ma_ToHoiNganhNghe_ChiHoiNganhNghe);
             }
             if (search.MaDiaBanHoiVien != null)
             {
-                data = data.Where(it => it.HoiVien.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
+                data1 = data1.Where(it => it.HoiVien.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
             }
             if (!String.IsNullOrWhiteSpace(search.MaQuanHuyen))
             {
-                data = data.Where(it => it.HoiVien.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
+                data1 = data1.Where(it => it.HoiVien.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
             }
             if (search.HoVaTen != null)
             {
-                data = data.Where(it => it.HoiVien.HoVaTen.Contains(search.HoVaTen));
+                data1 = data1.Where(it => it.HoiVien.HoVaTen.Contains(search.HoVaTen));
             }
             if (search.MaHoiVien != null)
             {
-                data = data.Where(it => it.HoiVien.MaCanBo == search.MaHoiVien);
+                data1 = data1.Where(it => it.HoiVien.MaCanBo == search.MaHoiVien);
             }
-            var model = data.Select(it => new HoiVien_ToHoiNN_ChiHoiNNDetailVM
+            var model = data1.Select(it => new HoiVien_ToHoiNN_ChiHoiNNDetailVM
             {
                 ID = it.IDHoiVien.ToString() + "_" + it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe.ToString(),
                 MaCanBo = it.HoiVien.MaCanBo,
@@ -119,7 +120,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HoiNongDanAuthorization]
         
         public IActionResult _Import() {
-            CreateViewBagImport();
+            CreateViewBagSearch();
             return PartialView();
         }
 

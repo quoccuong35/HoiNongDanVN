@@ -25,7 +25,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     }
                     else
                     {
-                        var hoivien = _context.CanBos.Where(it => it.MaCanBo == maHV && GetPhamVi().Contains(it.MaDiaBanHoatDong!.Value) && it.IsHoiVien == true);
+                        var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
+                        var hoivien = _context.CanBos.Where(it => it.MaCanBo == maHV && phamVis.Contains(it.MaDiaBanHoatDong!.Value) && it.IsHoiVien == true);
                         if (hoivien == null || hoivien!.Count() ==0)
                         {
                             ModelState.AddModelError("MaCanBo", "Không tìm thấy thội viên có thông tin " + maHV);
@@ -117,7 +118,70 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
             ViewBag.MaQuanHuyen = fnViewBag.QuanHuyen(idAc: AccountId());
         }
-        
+        [HttpGet]
+        public IActionResult CheckMaDinhDanh(string maDinhDanh,Guid? idHoiVien)
+        {
+            var checkExist = _context.CanBos.Where(it => it.MaDinhDanh == maDinhDanh);
+            if (idHoiVien != null && checkExist.Where(it => it.IDCanBo != idHoiVien.Value).Count() > 0)
+            {
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.BadRequest,
+                    Success = false,
+                    Data = "Mã định danh đã tồn tại"
+                });
+            }
+            else if(idHoiVien == null && checkExist.Count() > 0)
+            {
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.BadRequest,
+                    Success = false,
+                    Data = "Mã định danh đã tồn tại"
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.Created,
+                    Success = true,
+                    Data = ""
+                });
+            }
+        }
+        [HttpGet]
+        public IActionResult CheckSoCCCD(string soCCCD, Guid? idHoiVien)
+        {
+            var checkExist = _context.CanBos.Where(it => it.SoCCCD == soCCCD);
+            if (idHoiVien != null && checkExist.Where(it => it.IDCanBo != idHoiVien.Value).Count() > 0)
+            {
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.BadRequest,
+                    Success = false,
+                    Data = "Số CCCD đã tồn tại"
+                });
+            }
+            else if (idHoiVien == null && checkExist.Count() > 0)
+            {
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.BadRequest,
+                    Success = false,
+                    Data = "Số CCCD đã tồn tại"
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.Created,
+                    Success = true,
+                    Data = ""
+                });
+            }
+        }
         #endregion Helper
 
         #region Địa bàn hội viên theo quận huyện

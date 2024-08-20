@@ -17,7 +17,9 @@ function LoadChart(data) {
     var names = { 'sl': 'Số HV', 'themMoi': 'Thêm mới', 'giam': 'Giảm',  'choDuyet': 'Chưa duyệt' }
     var categories = [], sl = ['sl'], giam = ['giam'], themMoi = ['themMoi'], choDuyet = ['choDuyet'];
     var tSL = 0, tTM = 0, tGiam = 0, tTM = 0, tCD = 0;
+    let width = data.length > 20 ? 15 : data.length > 10 ? 20 : 30;
     for (var i = 0; i < data.length; i++) {
+        let id 
         categories.push(data[i].ten);
         sl.push(data[i].sl);
         giam.push(data[i].giam);
@@ -38,18 +40,30 @@ function LoadChart(data) {
                 giam,
                 choDuyet
             ],
+            onclick: function (d, i) {
+                let label = chart.categories()[d.index];
+                console.log(label);
+                let url = window.location.href;
+                var maQuanHuyen = HoiNongDan.GetQueryString("maQuanHuyen", url);
+                window.open("/HoiVien/HoiVien/LoadHoiVienOrg?MaQuanHuyen=" + maQuanHuyen + '&TenPhuongXa=' + label,"_blank");
+                
+               
+            },
             type: 'bar', // default type of chart
+            groups: [
+                ['sl', 'themMoi','giam','choDuyet']
+            ],
             colors: colors,
             names: names
         },
         axis: {
             x: {
                 type: 'category',
-                categories: categories
+                categories: categories,
             },
         },
         bar: {
-            width: 30
+            width: width
         },
         legend: {
             show: false, //hide legend
@@ -57,9 +71,8 @@ function LoadChart(data) {
         padding: {
             bottom: 0,
             top: 0
-        },
+        }
     });
-
     var datapie = {
         labels: ['Số HV','Thêm mới', 'Giảm','Chưa duyệt'],
         datasets: [{

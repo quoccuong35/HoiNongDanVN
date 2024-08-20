@@ -54,8 +54,9 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 if(item != null) {
                     chiHoiVM.MaChiHoi = item.MaChiHoi;
                     chiHoiVM.TenChiHoi = item.TenChiHoi;
-                    chiHoiVM.Actived = chiHoiVM.Actived;
-                    chiHoiVM.Description = chiHoiVM.Description;
+                    chiHoiVM.Actived = item.Actived;
+                    chiHoiVM.Loai = item.Loai == null?"01":item.Loai;
+                    chiHoiVM.Description = item.Description;
                     chiHoiVM.OrderIndex = item.OrderIndex;
                 }
             }
@@ -76,6 +77,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                         Description = obj.Description,
                         OrderIndex = obj.OrderIndex,
                         Actived = true,
+                        Loai = obj.Loai,
                         CreatedAccountId = Guid.NewGuid(),
                         CreatedTime = DateTime.Now
 
@@ -96,6 +98,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                     {
                         edit.Actived = obj.Actived == null ? true : obj.Actived;
                         edit.TenChiHoi = obj.TenChiHoi;
+                        edit.Loai = obj.Loai;
                         edit.OrderIndex = obj.OrderIndex;
                         //departmentEdit.IDCoSo = obj.IdCoSo;
                         edit.Description = obj.Description;

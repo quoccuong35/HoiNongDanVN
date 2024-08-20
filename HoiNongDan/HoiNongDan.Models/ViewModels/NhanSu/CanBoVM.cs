@@ -58,7 +58,7 @@ namespace HoiNongDan.Models
         public Guid? MaChucVu { get; set; }
 
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DonVi")]
+       [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DonVi")]
         public String? DonVi { get; set; }
         [MaxLength(50)]
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
@@ -71,7 +71,6 @@ namespace HoiNongDan.Models
         public String? NgayCapCCCD { get; set; }
 
        
-
         [MaxLength(100)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoDienThoai")]
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
@@ -240,7 +239,8 @@ namespace HoiNongDan.Models
             add.MaTinhTrang = this.MaTinhTrang;
             add.IdCoSo = this.IdCoSo;
             add.IdDepartment = this.IdDepartment;
-            add.MaChucVu = this.MaChucVu.Value;
+            add.MaChucVu = this.MaChucVu!.Value;
+            add.DonVi = this.DonVi;
             add.SoDienThoai = this.SoDienThoai;
             add.Email = this.Email;
             add.IsBanChapHanh = IsBanChapHanh  ;
@@ -278,7 +278,8 @@ namespace HoiNongDan.Models
             add.ChoOHienNay = this.ChoOHienNay;
             add.MaPhanHe = this.MaPhanHe;
             add.IsCanBo = true;
-            add.DonVi = this.DonVi;
+
+          
             return add;
         }
         public static CanBoVMMT EditCanBo(CanBo item)
@@ -294,8 +295,9 @@ namespace HoiNongDan.Models
             edit.NgayCapCCCD = item.NgayCapCCCD;
             edit.MaTinhTrang = item.MaTinhTrang;
             //edit.IdCoSo = item.IdCoSo.Value;
-            edit.IdDepartment = item.IdDepartment.Value;
+            edit.IdDepartment = item.IdDepartment!.Value;
             edit.MaChucVu = item.MaChucVu;
+            edit.DonVi = item.DonVi;
             edit.SoDienThoai = item.SoDienThoai;
             edit.Email = item.Email;
             edit.IsBanChapHanh = item.IsBanChapHanh == null?false: item.IsBanChapHanh.Value;
@@ -333,11 +335,11 @@ namespace HoiNongDan.Models
             edit.ChoOHienNay = item.ChoOHienNay;
             edit.MaPhanHe = item.MaPhanHe;
             edit.HinhAnh = item.HinhAnh;
-            edit.DonVi = item.DonVi;
+            
             edit.IsBanChapHanh = item.IsBanChapHanh==null?false: item.IsBanChapHanh.Value;
             if (item.HinhAnh == null || item.HinhAnh == "")
             {
-                edit.HinhAnh = @"\images\login.png";
+                edit.HinhAnh = @"\Images\login.png";
             }
             return edit;
         }

@@ -12,4 +12,5 @@
     <div class="col-md-12">
         @Html.DropDownList("IDDonVi",(SelectList)ViewBag.IDDonVi,"Chọn đơn vị",new {@class="form-control"})
     </div>
+    @Html.AntiForgeryToken()
 </form>

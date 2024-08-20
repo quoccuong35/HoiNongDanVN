@@ -15,8 +15,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
     [Area(ConstArea.HoiVien)]
     public class HoTroController : BaseController
     {
-        const int startIndex = 4;
+        const int startIndex = 5;
         private readonly IWebHostEnvironment _hostEnvironment;
+        private string filemau = @"upload\filemau\HoiVienHoTro.xlsx";
         public HoTroController(AppDbContext context, IWebHostEnvironment hostEnvironment) : base(context) { _hostEnvironment = hostEnvironment; }
         #region Index
         [HoiNongDanAuthorization]
@@ -174,7 +175,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         public IActionResult ExportCreate()
         {
             string wwwRootPath = _hostEnvironment.WebRootPath;
-            var url = Path.Combine(wwwRootPath, @"upload\filemau\HoiVienHoTro.xlsx");
+            var url = Path.Combine(wwwRootPath, filemau);
             byte[] filecontent = ClassExportExcel.ExportFileMau(url);
             //File name
             string fileNameWithFormat = string.Format("{0}.xlsx", "HoiVienHoTro");
@@ -186,10 +187,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         {
             var model = new List< HoiVien_ToHoiNN_ChiHoiNNSearchVM>();
             string wwwRootPath = _hostEnvironment.WebRootPath;
-            var url = Path.Combine(wwwRootPath, @"upload\filemau\MauImPortToHoi_ChiHoi_NganhNhe.xlsx");
-            byte[] filecontent = ClassExportExcel.ExportExcel(model, startIndex + 2, url);
+            var url = Path.Combine(wwwRootPath, filemau);
+            byte[] filecontent = ClassExportExcel.ExportExcel(model, startIndex, url);
             //File name
-            string fileNameWithFormat = string.Format("{0}.xlsx", "ToHoi_ChiHoi_NganhNghe");
+            string fileNameWithFormat = string.Format("{0}.xlsx", "HoiVienHoTro");
 
             return File(filecontent, ClassExportExcel.ExcelContentType, fileNameWithFormat);
         }
@@ -260,7 +261,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         List<HoiVienHoTro> adds = new List<HoiVienHoTro>();
                         foreach (DataRow row in dt.Rows)
                         {
-                            if (dt.Rows.IndexOf(row) >= startIndex)
+                            if (dt.Rows.IndexOf(row) >= startIndex-1)
                             {
                                 if (row[0] == null || row[0].ToString() == "")
                                     break;
@@ -559,7 +560,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         private HoiVienInfo GetThongTinNhanSu(Guid maHoiVien)
         {
             HoiVienInfo HoiVien = new HoiVienInfo();
-            var data = _context.CanBos.FirstOrDefault(it => it.IDCanBo == maHoiVien && GetPhamVi().Contains(it.MaDiaBanHoatDong!.Value) && it.IsHoiVien == true);
+            var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
+            var data = _context.CanBos.FirstOrDefault(it => it.IDCanBo == maHoiVien && phamVis.Contains(it.MaDiaBanHoatDong!.Value) && it.IsHoiVien == true);
             var diaBan = _context.DiaBanHoatDongs.SingleOrDefault(it => it.Id == data!.MaDiaBanHoatDong);
             var quanThanhPho = _context.QuanHuyens.SingleOrDefault(it => it.MaQuanHuyen == diaBan!.MaQuanHuyen);
             HoiVien.IdCanbo = data!.IDCanBo;

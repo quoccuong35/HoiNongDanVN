@@ -1,5 +1,6 @@
 ﻿using HoiNongDan.DataAccess;
 using HoiNongDan.Models;
+using HoiNongDan.Models.Entitys;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,41 @@ namespace HoiNongDan.Extensions
         { 
             _context = dbContext;
         }
+
+        public SelectList ChucVu(Guid? value = null)
+        {
+            var chucVus = _context.ChucVus.Select(it => new { MaChucVu = it.MaChucVu, TenChucVu = it.TenChucVu }).ToList();
+            return new SelectList(chucVus, "MaChucVu", "TenChucVu", value);
+        }
+
+        public SelectList TrinhDoHocVan(string? value = null)
+        {
+            var trinhDos = _context.TrinhDoHocVans.Select(it => new { MaTrinhDoHocVan = it.MaTrinhDoHocVan, TenTrinhDoHocVan = it.TenTrinhDoHocVan }).ToList();
+            return new SelectList(trinhDos, "MaTrinhDoHocVan", "TenTrinhDoHocVan", value);
+        }
+
+        public SelectList TrinhDoChuyenMon(string? value = null)
+        {
+            var trinhDos = _context.TrinhDoChuyenMons.Select(it => new { MaTrinhDoChuyenMon = it.MaTrinhDoChuyenMon, TenTrinhDoChuyenMon = it.TenTrinhDoChuyenMon }).ToList();
+            return new SelectList(trinhDos, "MaTrinhDoChuyenMon", "TenTrinhDoChuyenMon", value);
+        }
+
+        public SelectList TrinhDoChinhTri(string? value = null)
+        {
+            var trinhDoChinhTri = _context.TrinhDoChinhTris.Where(it => it.Actived == true).OrderBy(it => it.OrderIndex).Select(it => new { MaTrinhDoChinhTri = it.MaTrinhDoChinhTri, TenTrinhDoChinhTri = it.TenTrinhDoChinhTri }).ToList();
+            return new SelectList(trinhDoChinhTri, "MaTrinhDoChinhTri", "TenTrinhDoChinhTri", value);
+        }
+
+        public SelectList DanToc(string? value = null)
+        {
+            var danToc = _context.DanTocs.Where(it => it.Actived == true).OrderBy(it => it.OrderIndex).Select(it => new { MaDanToc = it.MaDanToc, TenDanToc = it.TenDanToc }).ToList();
+            return new SelectList(danToc, "MaDanToc", "TenDanToc", value);
+        }
+        public SelectList TonGiao(string? value = null)
+        {
+            var tonGiao = _context.TonGiaos.Where(it => it.Actived == true).OrderBy(it => it.OrderIndex).Select(it => new { MaTonGiao = it.MaTonGiao, TenTonGiao = it.TenTonGiao }).ToList();
+            return new SelectList(tonGiao, "MaTonGiao", "TenTonGiao", value);
+        }
         public SelectList HinhThucKhenThuong(string? value = null) {
             var hinhThucKhenThuongs = _context.HinhThucKhenThuongs.Select(it => new { MaHinhThucKhenThuong = it.MaHinhThucKhenThuong, TenHinhThucKhenThuong = it.TenHinhThucKhenThuong }).ToList();
             return new SelectList(hinhThucKhenThuongs, "MaHinhThucKhenThuong", "TenHinhThucKhenThuong", value);
@@ -29,11 +65,83 @@ namespace HoiNongDan.Extensions
 
             return new SelectList(danhHieuKhenThuongs, "MaDanhHieuKhenThuong", "TenHinhThucKhenThuong", value);
         }
+        public SelectList DiaBanHoatDong(Guid? value = null, Guid? acID = null)
+        {
+            var diaBans = (from db in _context.DiaBanHoatDongs
+                           join pv in _context.PhamVis on db.Id equals pv.MaDiabanHoatDong
+                           where pv.AccountId == acID!.Value && db.Actived == true
+                           select new
+                           {
+                               MaDiaBanHoatDong = db.Id,
+                               Name = db.TenDiaBanHoatDong
+                           }).Distinct().ToList();
+            return new SelectList(diaBans, "MaDiaBanHoatDong", "Name", value);
+        }
+        public SelectList HocVi(string? value = null)
+        {
+            var hocVis = _context.HocVis.Select(it => new { MaHocVi = it.MaHocVi, TenHocVi = it.TenHocVi }).ToList();
+
+            return new SelectList(hocVis, "MaHocVi", "TenHocVi", value);
+        }
+
+        public SelectList ChiHoi(Guid? value = null)
+        {
+            var chiHois = _context.ChiHois.Select(it => new { MaChiHoi = it.MaChiHoi, TenChiHoi = it.TenChiHoi }).ToList();
+
+            return new SelectList(chiHois, "MaChiHoi", "TenChiHoi", value);
+        }
+        public SelectList ToHoi(Guid? value = null)
+        {
+            var toHois = _context.ToHois.Select(it => new { MaToHoi = it.MaToHoi, TenToHoi = it.TenToHoi }).ToList();
+
+            return new SelectList(toHois, "MaToHoi", "TenToHoi", value);
+        }
+
+        public SelectList NgheNghiep(string? value = null)
+        {
+            var ngheNghieps = _context.NgheNghieps.Select(it => new { MaNgheNghiep = it.MaNgheNghiep, TenNgheNghiep = it.TenNgheNghiep }).ToList();
+
+            return new SelectList(ngheNghieps, "MaNgheNghiep", "TenNgheNghiep", value);
+        }
+
+        public MultiSelectList DoanTheChinhTri_HoiDoan(List<Guid>? value = null)
+        {
+            var hoiDoans = _context.DoanTheChinhTri_HoiDoans.Where(it => it.Actived == true).Select(it => new
+            {
+                it.MaDoanTheChinhTri_HoiDoan,
+                it.TenDoanTheChinhTri_HoiDoan
+            }).ToList();
+
+            return new MultiSelectList(hoiDoans, "MaDoanTheChinhTri_HoiDoan", "TenDoanTheChinhTri_HoiDoan", value);
+        }
+
+        public MultiSelectList CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac(List<Guid>? value = null)
+        {
+            var cauLacBo = _context.CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTacs.Where(it => it.Actived == true).Select(it => new
+            {
+                it.Id_CLB_DN_MH_HTX_THT,
+                it.Ten
+            }).ToList();
+
+            return new MultiSelectList(cauLacBo, "Id_CLB_DN_MH_HTX_THT", "Ten", value);
+        }
+
+        public MultiSelectList ToHoiNganhNghe_ChiHoiNganhNghe(List<Guid>? value = null)
+        {
+            var toHoiNganhNghe = _context.ToHoiNganhNghe_ChiHoiNganhNghes.Where(it => it.Actived == true).Select(it => new
+            {
+                it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe,
+                it.Ten
+            }).ToList();
+
+            return new MultiSelectList(toHoiNganhNghe, "Ma_ToHoiNganhNghe_ChiHoiNganhNghe", "Ten", value);
+        }
+
         public SelectList DiaBanHoiVien(Guid? value = null,Guid? acID = null)
         {
             var diaBans = (from db in _context.DiaBanHoatDongs
                                        join pv in _context.PhamVis on db.Id equals pv.MaDiabanHoatDong
-                                       where pv.AccountId == acID!.Value
+                                       where pv.AccountId == acID!.Value && db.Actived == true
                                        select new {
                                            MaDiaBanHoiVien = db.Id ,
                                            TenDiaBanHoatDong = db.TenDiaBanHoatDong
@@ -84,5 +192,6 @@ namespace HoiNongDan.Extensions
             var lopHocs = _context.LopHocs.ToList();
             return new SelectList(lopHocs, "IDLopHoc", "TenLopHoc", value);
         }
+
     }
 }

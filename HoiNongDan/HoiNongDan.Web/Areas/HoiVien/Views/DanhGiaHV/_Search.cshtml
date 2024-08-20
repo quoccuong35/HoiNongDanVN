@@ -1,0 +1,96 @@
+﻿@using HoiNongDan.Constant
+@using HoiNongDan.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<DanhGiaHVDetailVM>
+@{
+    string CurrentController = ConstController.DanhGiaHV;
+    string CurrentArea = ConstArea.HoiVien;
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">@LanguageResource.NumberIndex</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">@LanguageResource.Actions</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Số Thẻ
+                Hội Viên
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Họ Và Tên
+            </th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2">
+                Ngày Sinh
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Số CCCD
+            </th>
+            <th class="text-center" style="vertical-align: middle;" colspan="4">
+                Phân Loại
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Không phân loại
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Chưa đủ điều kiện phân loại
+            </th>
+            @* <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Ghi chú
+            </th> *@
+        </tr>
+        <tr>
+            <th class="text-center" style="vertical-align: middle;" >
+                Nam
+            </th>
+            <th class="text-center" style="vertical-align: middle;" >
+                Nữ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành xuất sắc nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;" >
+                Hoàn thành tốt nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Hoàn thành nhiệm vụ
+            </th>
+            <th class="text-center" style="vertical-align: middle;">
+                Không hoàn thành nhiệm vụ
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr>
+                <td class="text-center">@i</td>
+                @if (item.IDDanhGia != null)
+                {
+                    <td> @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoVaTen!, item.IDDanhGia.Value, listRoles: listRoles)</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+
+                <td>@item.SoTheHoiVien</td>
+                <td>@item.HoVaTen</td>
+                <td>@item.NgaySinhNam</td>
+                <td>@item.NgaySinhNu</td>
+                <td>@item.SoCCCD</td>
+                <td class="text-center">@item.PhanLoai_XuatSac</td>
+                <td class="text-center">@item.PhanLoai_HTTot</td>
+                <td class="text-center">@item.PhanLoai_HTNhiemVu</td>
+                <td class="text-center">@item.PhanLoai_KhongHoanThanhNhiemVu</td>
+                <td class="text-center">@item.KhongPhanLoai</td>
+                <td class="text-center">@item.ChuaDuDieuKienPhanLoai</td>
+                @* <td>@item.GhiChu</td> *@
+            </tr>
+        }
+    </tbody>
+</table>

@@ -17,6 +17,7 @@ namespace HoiNongDan.Models
         public UserVM() {
             userRoless = new List<UserRoles>();
             DiaBans = new List<AccountDiaBan>();
+            AccountIDParent = new List<Guid>();
         }
         public Guid? AccountId { get; set; }
 
@@ -38,6 +39,9 @@ namespace HoiNongDan.Models
         public bool? Actived { get; set; }
         public Guid? EmployeeId { get; set; }
 
+        [Display(Name = "Tài khoản quản lý")]
+        public List<Guid>? AccountIDParent { get; set; }
+
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Roles")]
         public List<UserRoles> userRoless { get; set; }
         public List<AccountDiaBan> DiaBans { get; set; }
@@ -49,6 +53,7 @@ namespace HoiNongDan.Models
         {
             userRoless = new List<UserRoles>();
             DiaBans = new List<AccountDiaBan>();
+            AccountIDParent = new List<Guid>();
         }
         public Guid? AccountId { get; set; }
 
@@ -70,6 +75,9 @@ namespace HoiNongDan.Models
         public bool? Actived { get; set; }
         public Guid? EmployeeId { get; set; }
 
+        [Display(Name = "Tài khoản quản lý")]
+        public List<Guid>? AccountIDParent { get; set; }
+
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Roles")]
         public List<UserRoles> userRoless { get; set; }
         public List<AccountDiaBan> DiaBans { get; set; }
@@ -89,6 +97,7 @@ namespace HoiNongDan.Models
             account.CreatedTime = DateTime.Now;
             account.AccountInRoleModels = AccountInRoleModels();
             account.PhamVis = AccountPhamVi(account.AccountId);
+            account.AccountIDParent = String.Join(";", this.AccountIDParent!);
 
             return account;
         }
@@ -115,6 +124,7 @@ namespace HoiNongDan.Models
             edit.AccountInRoleModels = AccountInRoleModels();
             edit.PhamVis = AccountPhamVi(edit.AccountId);
             edit.EmployeeId = this.EmployeeId;
+            edit.AccountIDParent = String.Join(";", this.AccountIDParent!);
             return edit;
         }
 

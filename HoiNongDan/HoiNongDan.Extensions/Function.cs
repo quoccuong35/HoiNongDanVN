@@ -2,6 +2,7 @@
 using HoiNongDan.Models;
 using Microsoft.EntityFrameworkCore;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,8 @@ namespace HoiNongDan.Extensions
             {
                 if(!String.IsNullOrWhiteSpace(value))
                 {
-                    value = TruncatePercents(value.ToUpper()).Replace(@"\", "/");
+                    value = RepleceAllString(value);
+                    value = TruncatePercents(value.ToUpper()).Replace(@"\", "/").Replace("Y","");
                     var arraydate = value.Split('/');
                     int day = 0, month = 0, year = 0;
                     if (arraydate.Length == 3)
@@ -52,6 +54,10 @@ namespace HoiNongDan.Extensions
                         month = day = 1;
                         year = int.Parse(arraydate[0]);
                     }
+                    if (year > 0 && year <= 50)
+                        year = year + 2000;
+                    if (year > DateTime.Now.Year)
+                        year = 0;
                     if (year > 0 && month > 0 && day > 0)
                     {
                         return new DateTime(year, month, day);
@@ -70,7 +76,10 @@ namespace HoiNongDan.Extensions
         {
             return Regex.Replace(input, @"(\W)+", "$1");
         }
-
+        public static string RepleceAllString(string vale) {
+            string regExp = "[^0-9//]";
+            return Regex.Replace(vale, regExp, "");
+        }
         public static HoiVienInfo GetThongTinHoiVien(Guid maHoiVien, AppDbContext _context) {
             HoiVienInfo HoiVien = new HoiVienInfo();
             var data = (from hv in _context.CanBos
@@ -90,6 +99,20 @@ namespace HoiNongDan.Extensions
             HoiVien.Edit = false;
             return HoiVien;
         }
+        public static List<Guid> GetPhamVi(Guid AccountId, AppDbContext _context) {
+            return _context.PhamVis.Where(it => it.AccountId == AccountId).Select(it => it.MaDiabanHoatDong).ToList();
+        }
 
+        public static decimal ConvertStringToDecimal(string value)
+        {
+            try
+            {
+                return decimal.Parse(value.Replace(",", ""));
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+        }
     }
 }

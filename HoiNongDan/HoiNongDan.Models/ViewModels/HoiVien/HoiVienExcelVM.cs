@@ -227,6 +227,18 @@ namespace HoiNongDan.Models
         public String TenToHoi { get; set; }
 
 
+        [Display(Name = "Rời hội")]
+        public String? RoiHoi { get; set; }
+
+        [Display(Name = "Ngày rời hội")]
+        [DataType(DataType.Date)]
+        public DateTime? NgayRoiHoi { get; set; }
+
+
+        [Display(Name = "Lý do Rời hội")]
+        public String? LyDoRoiHoi { get; set; }
+
+
     }
     public class HoiVienImportExcel : HoiVienExcelVM
     {

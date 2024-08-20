@@ -10,6 +10,7 @@
         <tr class="table-primary">
             <th>STT</th>
             <th></th>
+            <th class="text-center" name="MaCanBo">Tên hội nông dân</th>
             <th class="text-center" name="MaCanBo">@Html.DisplayNameFor(p => p.MaCanBo)</th>
             <th class="text-center" name="HoVaTen">@Html.DisplayNameFor(p => p.HoVaTen)</th>
             <th class="text-center" name="NgaySinh">@Html.DisplayNameFor(p => p.NgaySinh)</th>
@@ -56,8 +57,8 @@
             <th class="text-center" name="HoTrovayVon">@Html.DisplayNameFor(p => p.HoTrovayVon)</th>
             <th class="text-center" name="HoTroKhac">@Html.DisplayNameFor(p => p.HoTroKhac)</th>
             <th class="text-center" name="HoTroDaoTaoNghe">@Html.DisplayNameFor(p => p.HoTroDaoTaoNghe)</th>
-            <th class="text-center" name="KKAnToanThucPham">@Html.DisplayNameFor(p => p.KKAnToanThucPham)</th>
-            <th class="text-center" name="DKMauNguoiNongDanMoi">@Html.DisplayNameFor(p => p.DKMauNguoiNongDanMoi)</th>
+@*             <th class="text-center" name="KKAnToanThucPham">@Html.DisplayNameFor(p => p.KKAnToanThucPham)</th>
+            <th class="text-center" name="DKMauNguoiNongDanMoi">@Html.DisplayNameFor(p => p.DKMauNguoiNongDanMoi)</th> *@
             <th class="text-center" name="GhiChu">@Html.DisplayNameFor(p => p.GhiChu)</th>
             
         </tr>
@@ -86,6 +87,7 @@
                 <td class="align-middle">
                     @HtmlExtensions.MenuHoiVien(CurrentArea, CurrentController, item.HoVaTen, item.IDCanBo!.Value.ToString(),listRoles: listRoles)
                 </td>
+                <td class="align-middle">@item.TenDiaBanHoatDong</td>
                 <td class="text-center align-middle">
                     <a asp-area="@ConstArea.HoiVien" asp-action="Edit" asp-controller="@ConstController.HoiVien" target="_blank" asp-route-id="@item.IDCanBo">@item.MaCanBo</a>
                 </td>
@@ -146,7 +148,7 @@
                 <td>@item.HoTrovayVon</td>
                 <td>@item.HoTroKhac</td>
                 <td>@item.HoTroDaoTaoNghe</td>
-                <td class="align-middle">
+               @*  <td class="align-middle">
                     @{
                         value = item.KKAnToanThucPham == true ? "X" : "";
                     }@value
@@ -155,7 +157,7 @@
                     @{
                         value = item.DKMauNguoiNongDanMoi == true ? "X" : "";
                     }@value
-                </td>
+                </td> *@
                 <td>@item.GhiChu</td>
             </tr>
         }

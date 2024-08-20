@@ -33,11 +33,11 @@
                             <div class="col-md-3">
                                 <labe>
                                     Quận/Huyện</label>
-                                    @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                                    @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_All, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-3">
                                 <label>Tên hội nông dân</label>
-                                @Html.DropDownList("MaDiaBanHoatDong", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_All, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-2">
                                 <label>Tháng</label>
@@ -63,7 +63,25 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <div class="table-responsive" id="divSearchResult"></div>
+                    <div class="table-responsive" id="divSearchResult">
+                        <table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th class="text-center" style="vertical-align: middle;" rowspan="2">@LanguageResource.NumberIndex</th>
+                                    <th class="text-center" style="vertical-align: middle;">Đơn vị</th>
+                                    <th class="text-center" style="vertical-align: middle;">Số Hội viên hoạt động</th>
+                                    <th class="text-center" style="vertical-align: middle;">Số Hội viên mới</th>
+                                    <th class="text-center" style="vertical-align: middle;">Số Hội viên giảm</th>
+                                    <th class="text-center" style="vertical-align: middle;">Số Hội viên chờ duyệt</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Đang tải dữ liệu</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,22 +90,12 @@
 </div>
 <!-- CONTAINER CLOSED -->
 @section ScriptCustomized {
+    <script src="~/js/diaban_hv_quanhuyen.js"></script>
     <script>
         //load default and set event
         $(document).ready(function () {
             HoiNongDan.SearchInitial("@CurrentUrl");
         });
-        $("select#MaQuanHuyen").change(function () {
-            let maQuanHuyen = $(this).val();
-            //console.log(maQuanHuyen);
-            $("select#MaDiaBanHoatDong").empty();
-            $.getJSON('/HoiVien/BaoCaoGiamHV/loadDiaBanHoatDong?maQuanHuyen=' + maQuanHuyen, function (data) {
-                $("select#MaDiaBanHoatDong").append('<option>' + "--Vui lòng chọn danh mục--" + '</option>');
-                $.each(data, function (i, item) {
-                    /*console.log(item);*/
-                    $("select#MaDiaBanHoatDong").append('<option value=' + item.maDiaBanHoatDong + '>' + item.name + '</option>');
-                });
-            });
-        })
+       
     </script>
 }
