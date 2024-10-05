@@ -31,9 +31,9 @@ namespace HoiNongDan.Models
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public bool GioiTinh { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
-        public string TenDonVi { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
+        //public string TenDonVi { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]

@@ -22,7 +22,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
     public class AuthController : Controller
     {
         #region Login
-        private readonly AppDbContext _db;
+        AppDbContext _db;
         private readonly IHttpContextAccessor _httpContext;
         private readonly IConfiguration _config;
         public AuthController(AppDbContext db, IHttpContextAccessor httpContext, IConfiguration config) { 
@@ -136,6 +136,16 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                              new ClaimsPrincipal(claimsIdentity), authenticationProperties);
 
                             HttpContext!.Session.SetString(model.UserName.ToLower(), "1");
+                            var addLog = new UsageLog
+                            {
+                                ID = Guid.NewGuid(),
+                                AccountID = user.AccountId,
+                                TimeAccessed = DateTime.Now,
+                                URLAccessed = "Permission/Authe/Login",
+                               
+                            };
+                            _db.UsageLogs.Add(addLog);
+                            _db.SaveChanges();
                             if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                             {
                                 return Redirect(GetRedirectUrl(model.ReturnUrl));

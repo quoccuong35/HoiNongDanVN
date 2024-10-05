@@ -508,7 +508,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                 if (edit)
                                 {
 
-                                    if (checkExits.Where(it => it.IDCanBo == data.IDCanBo).Count() > 0)
+                                    if (checkExits.Where(it => it.IDCanBo != data.IDCanBo).Count() > 0)
                                     {
                                         error.Add($"Dòng {index} số CCCD đã tồn tại");
                                     }

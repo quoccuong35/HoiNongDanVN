@@ -65,10 +65,13 @@
     @{
         <partial name="_ValidationScriptsPartial" />
     }
-    }
-    @section ScriptCustomized{
+}
+@section ScriptCustomized{
     <script type="text/javascript">
+        $(document).ready(function () {
             HoiNongDan.EditInitial("@CurrentUrl");
+
         });
+    </script>
     </script>
 }

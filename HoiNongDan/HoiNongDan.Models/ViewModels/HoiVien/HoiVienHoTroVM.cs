@@ -20,8 +20,9 @@ namespace HoiNongDan.Models
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string NoiDung { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "LopHoc")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+       // [Display(ResourceType = typeof(Resources.LanguageResource), Name = "LopHoc")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [Display(Name = "Loại Hỗ trợ, Đào tạo, Tập huấn")]
         public Guid? IDLopHoc { get; set; }
 
 
@@ -54,8 +55,12 @@ namespace HoiNongDan.Models
 
         [Display(Name = "Nội dung hỗ trợ")]
         public string NoiDung { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
+        public string QuanHuyen { get; set; }
+        [Display(Name = "Tên Hội Nông Dân")]
+        public string TenHoi { get; set; }
 
-        [Display(Name = "Nội dung hỗ trợ")]
+        [Display(Name = "Lớp đào tạo, tập huấn")]
         public String? TenLopHoc { get; set; }
 
         public String? TienVay { get; set; }

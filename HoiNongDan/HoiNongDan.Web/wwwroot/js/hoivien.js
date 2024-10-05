@@ -121,9 +121,7 @@ function LoadThongTin() {
                     { data: "ngayThamGiaHDND" },
                     { data: "vaiTro" },
                     { data: "vaiTroKhac" },
-                    { data: "hoNgheo" },
-                    { data: "canNgheo" },
-                    { data: "giaDinhChinhSach" },
+                    { data: "giaDinhThuocDien" },
                     { data: "giaDinhThuocDienKhac" },
                     { data: "ngheNghiepHienNay" },
                     { data: "loai_DV_SX_ChN" },
@@ -161,7 +159,7 @@ function LoadThongTin() {
             var btn_loaddata = $("#btn-loadthem");
             let total = Number(res.total);
             if (total > 1000) {
-                btn_loaddata.text("Hiển thị: 1,000/" + total.toLocaleString('hi-IN', { minimumFractionDigits: 0 }));
+                btn_loaddata.html("Hiển thị thêm<br> 1,000/" + total.toLocaleString('hi-IN', { minimumFractionDigits: 0 }));
                 btn_loaddata.css("display", "block");
                 btn_loaddata.attr("data-total", total);
                 $("#txt-noteload").css("display", "block");
@@ -230,7 +228,7 @@ function LoadThem() {
                 count = table.data().count();
                 table.page(Number(page-1)).draw(false);
                 if (total > count) {
-                    btn_loaddata.text("Hiển thị: " + count.toLocaleString('hi-IN', { minimumFractionDigits: 0 }) + "/" + total.toLocaleString('hi-IN', { minimumFractionDigits: 0 }));
+                    btn_loaddata.html("Hiển thị thêm<br> " + count.toLocaleString('hi-IN', { minimumFractionDigits: 0 }) + "/" + total.toLocaleString('hi-IN', { minimumFractionDigits: 0 }));
                     btn_loaddata.css("display", "block");
                     $("#txt-noteload").css("display", "block");
                 }

@@ -24,7 +24,7 @@ namespace HoiNongDan.Models
         public String? TrinhDoHocVan { get; set; }
         public String? TrinhDoChuyenMon { get; set; }
         public String? ChinhTri { get; set; }
-        public String? NgayThangVaoHoi { get; set; }
+        public DateTime? NgayThangVaoHoi { get; set; }
         public String? NgheNghiep { get; set; }
         public String? DiaBanDanCu { get; set; }
         public String? NganhNghe { get; set; }

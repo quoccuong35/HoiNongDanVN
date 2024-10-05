@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.Data;
 
 namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 {
@@ -13,7 +16,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
     public class BCHVMoiController : BaseController
     {
         const string controllerCode = ConstExcelController.HoiVien;
-        const int startIndex = 12;
+        const int startIndex = 11;
         private readonly IWebHostEnvironment _hostEnvironment;
         private string[] DateFomat;
         public BCHVMoiController(AppDbContext context, IWebHostEnvironment hostEnvironment, IConfiguration config) : base(context) {
@@ -39,8 +42,31 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             string wwwRootPath = _hostEnvironment.WebRootPath;
             var url = Path.Combine(wwwRootPath, @"upload\filemau\BCHVMoi.xlsx");
             var model = LoadData(MaQuanHuyen: MaQuanHuyen, MaDiaBanHoatDong: MaDiaBanHoatDong, TuNgay: TuNgay, DenNgay: DenNgay);
+            //byte[] filecontent;
+            //using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(url), false)) {
+            //    ExcelWorksheet workSheet = package.Workbook.Worksheets["Data"];
+            //    int startIndex = 11;
+            //    workSheet.Cells["A" + startIndex].LoadFromCollection(model, false);
+            //    using (ExcelRange r = workSheet.Cells["A11:U" + startIndex.ToString()])
+            //    {
+            //        r.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+            //        r.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+            //        r.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+            //        r.Style.Border.Right.Style = ExcelBorderStyle.Thin;
 
-            byte[] filecontent = ClassExportExcel.ExportExcel(model, startIndex, url);
+            //        r.Style.Border.Top.Color.SetColor(System.Drawing.Color.Black);
+            //        r.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black);
+            //        r.Style.Border.Left.Color.SetColor(System.Drawing.Color.Black);
+            //        r.Style.Border.Right.Color.SetColor(System.Drawing.Color.Black);
+            //    }
+            //    filecontent = package.GetAsByteArray();
+            //}
+            if (model.Count == 0)
+            {
+                BCHVPhatTrienMoiExcelVM add = new BCHVPhatTrienMoiExcelVM();
+                model.Add(add);
+            }
+               byte[] filecontent = ClassExportExcel.ExportExcel(model, startIndex, url);
             //File name
             string fileNameWithFormat = string.Format("{0}.xlsx", "BCHVMoi");
 
@@ -96,8 +122,16 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }
 
         }
-        private List<BCHVPhatTrienMoiVM> LoadData(string? MaQuanHuyen, Guid? MaDiaBanHoatDong, DateTime? TuNgay, DateTime? DenNgay) {
-            var data = _context.CanBos.Where(it => it.IsHoiVien == true && it.isRoiHoi != true).Include(it => it.DanToc).Include(it => it.NgheNghiep).
+        private List<BCHVPhatTrienMoiExcelVM> LoadData(string? MaQuanHuyen, Guid? MaDiaBanHoatDong, DateTime? TuNgay, DateTime? DenNgay) {
+            //var data = _context.CanBos.Where(it => it.IsHoiVien == true && it.isRoiHoi != true).Include(it => it.DanToc).Include(it => it.NgheNghiep).
+            //    Include(it => it.TonGiao).Include(it => it.TrinhDoHocVan).Include(it => it.TrinhDoChuyenMon)
+            //    .Include(it => it.TrinhDoChinhTri).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).AsQueryable();
+            var data = (from cb in _context.CanBos
+                        join pv in _context.PhamVis on cb.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
+                        where pv.AccountId == AccountId()
+                        && cb.IsHoiVien == true
+                        && cb.HoiVienDuyet == true
+                        select cb).Where(it => it.IsHoiVien == true && it.isRoiHoi != true).Include(it => it.DanToc).Include(it => it.NgheNghiep).
                 Include(it => it.TonGiao).Include(it => it.TrinhDoHocVan).Include(it => it.TrinhDoChuyenMon)
                 .Include(it => it.TrinhDoChinhTri).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).AsQueryable();
             if (TuNgay == null)
@@ -133,8 +167,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 DiaBanDanCu = "",
                 NganhNghe = "",
                 SoThe = it.MaCanBo,
-                NgayCapThe = ""
-            }).ToList().Where(it=> Function.ConvertStringToDate(it.NgayThangVaoHoi!) >= TuNgay && Function.ConvertStringToDate(it.NgayThangVaoHoi!) <= DenNgay).Select((it, index) => new BCHVPhatTrienMoiVM
+                NgayCapThe = it.NgayCapThe != null? it.NgayCapThe.Value.ToString("dd/MM/yyyy") : ""
+            }).ToList().Where(it=> it.NgayThangVaoHoi != null && it.NgayThangVaoHoi.Value >= TuNgay && it.NgayThangVaoHoi <= DenNgay).Select((it, index) => new BCHVPhatTrienMoiExcelVM
             {
                 STT = index +1,
                 HoVaTen = it.HoVaTen,
@@ -151,12 +185,12 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 TrinhDoHocVan = it.TrinhDoHocVan,
                 TrinhDoChuyenMon = it.TrinhDoChuyenMon,
                 ChinhTri = it.ChinhTri,
-                NgayThangVaoHoi = it.NgayThangVaoHoi,
+                NgayThangVaoHoi = it.NgayThangVaoHoi != null?it.NgayThangVaoHoi.Value.ToString("dd/MM/yyyy"):"",
                 NgheNghiep = it.NgheNghiep,
                 DiaBanDanCu = "",
                 NganhNghe = it.NgheNghiep,
                 SoThe = it.SoThe,
-                NgayCapThe = ""
+                NgayCapThe = it.NgayCapThe
 
             }).ToList();
             return model;

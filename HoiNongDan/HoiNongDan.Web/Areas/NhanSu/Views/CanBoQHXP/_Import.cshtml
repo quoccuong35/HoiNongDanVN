@@ -1,12 +1,36 @@
 ﻿<form id="frmImport">
     <div class="col-md-12">
         <input type="file" id="importexcelfile" name="importexcelfile" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
-        <div class="col-md-12">
-            @Html.DropDownList("Loai", new List<SelectListItem>(){
-            new SelectListItem(){Text = "HUYỆN QUẬN", Value = "20", Selected = true},
-            new SelectListItem(){Text = "XÃ PHƯỜNG, THỊ TRẤN", Value = "30"},
-            }, new { @class = "form-control" })
+        <div class="row">
+            <div class="col-md-3">
+                <label class="form-label">Cấp</label>
+            </div>
+            <div class="col-md-12">
+                @Html.DropDownList("Loai", new List<SelectListItem>(){
+                new SelectListItem(){Text = "HUYỆN QUẬN", Value = "20", Selected = true},
+                new SelectListItem(){Text = "XÃ PHƯỜNG, THỊ TRẤN", Value = "30"},
+                }, new { @class = "form-control" })
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label class="form-label">Quận/Huyện</label>
+            </div>
+            <div class="col-md-12">
+                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <label class="form-label">Mã địa bàn</label>
+            </div>
+            <div class="col-md-12">
+                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+            </div>
         </div>
     </div>
     @Html.AntiForgeryToken()
+    <script src="~/js/diaban_hv_quanhuyen.js"></script>
 </form>

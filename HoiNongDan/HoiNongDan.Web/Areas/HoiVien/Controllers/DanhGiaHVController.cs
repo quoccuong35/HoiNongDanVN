@@ -3,11 +3,13 @@ using HoiNongDan.DataAccess;
 using HoiNongDan.DataAccess.Repository;
 using HoiNongDan.Extensions;
 using HoiNongDan.Models;
+using HoiNongDan.Models.Entitys;
 using HoiNongDan.Models.ViewModels.HoiVien;
 using HoiNongDan.Resources;
 using HoiNongDan.Web.Areas.NhanSu.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using System.Data;
 using System.Runtime.CompilerServices;
 using System.Transactions;
@@ -57,7 +59,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     Code = System.Net.HttpStatusCode.Created,
                     Success = false,
-                    Data = "Chưa chọn hội nông dân đăng ký"
+                    Data = "Chưa chọn hội nông dân đánh giá"
                 });
             }
             if (Nam == null)
@@ -457,6 +459,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 canBo = canBo.Where(it => !it.DanhGiaHoiViens.Any(p => p.Nam == search.Nam));
             }
             canBo = canBo.Where(it => it.IsHoiVien == true && it.Actived == true && it.HoiVienDuyet == true && it.isRoiHoi != true);
+            var phamvis = _context.PhamVis.Where(it => it.AccountId == AccountId()).Select(it => it.MaDiabanHoatDong).ToList();
+            canBo = canBo.Where(it => phamvis.Contains(it.MaDiaBanHoatDong!.Value));
             var model = canBo.Select(it => new DanhGiaHVVM { 
                 ID = it.IDCanBo,
                 SoTheHoiVien = it.MaCanBo,
@@ -500,6 +504,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 canBo = canBo.Where(it => !it.DanhGiaHoiViens.Any(p => p.Nam == search.Nam));
             }
             canBo = canBo.Where(it => it.IsHoiVien == true && it.Actived == true && it.HoiVienDuyet == true && it.isRoiHoi != true);
+            var phamvis = _context.PhamVis.Where(it => it.AccountId == AccountId()).Select(it => it.MaDiabanHoatDong).ToList();
+            canBo = canBo.Where(it => phamvis.Contains(it.MaDiaBanHoatDong!.Value));
             var model = canBo.Select(it => new DanhGiaHVDetailVM
             {
                 IDDanhGia = it.DanhGiaHoiViens.SingleOrDefault(p=>p.Nam == search.Nam && p.IDHoiVien == it.IDCanBo).ID,

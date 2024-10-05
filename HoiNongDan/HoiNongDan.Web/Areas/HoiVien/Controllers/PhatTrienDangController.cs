@@ -33,43 +33,50 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         public IActionResult _Search(PhatTrienDangSearchVM sr) {
             return ExecuteSearch(() => {
 
-                var model = (from hvptd in _context.PhatTrienDang_HoiViens
-                             join ptd in _context.PhatTrienDangs on hvptd.IDPhatTrienDang equals ptd.ID
-                             join hv in _context.CanBos on hvptd.IDHoiVien equals hv.IDCanBo
-                             join pv in _context.PhamVis on hv.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
-                             where hv.IsHoiVien == true
-                             && pv.AccountId == AccountId()
-                             select ptd).Include(it => it.PhatTrienDang_HoiViens).ThenInclude(it => it.CanBo).AsQueryable();
+                //var model = (from hvptd in _context.PhatTrienDang_HoiViens
+                //             join ptd in _context.PhatTrienDangs on hvptd.IDPhatTrienDang equals ptd.ID
+                //             join hv in _context.CanBos on hvptd.IDHoiVien equals hv.IDCanBo
+                //             join pv in _context.PhamVis on hv.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
+                //             where hv.IsHoiVien == true
+                //             && pv.AccountId == AccountId()
+                //             select ptd).Include(it => it.PhatTrienDang_HoiViens).ThenInclude(it => it.CanBo).AsQueryable();
+                var model = _context.PhatTrienDang_HoiViens
+                    .Include(it => it.PhatTrienDang).ThenInclude(it => it.DiaBanHoatDong).ThenInclude(it=>it.QuanHuyen)
+
+                    .Include(it => it.CanBo).AsQueryable();
                 if (sr.MaDiaBanHoiVien != null)
                 {
-                    model = model.Where(it => it.MaDiaBanHoiND == sr.MaDiaBanHoiVien);
+                    model = model.Where(it => it.PhatTrienDang.MaDiaBanHoiND == sr.MaDiaBanHoiVien);
                 }
                 if (!String.IsNullOrWhiteSpace(sr.MaQuanHuyen))
                 {
-                    model = model.Where(it => it.DiaBanHoatDong.MaQuanHuyen == sr.MaQuanHuyen);
+                    model = model.Where(it => it.PhatTrienDang.DiaBanHoatDong.MaQuanHuyen == sr.MaQuanHuyen);
                 }
                 if (sr.Nam != null)
                 {
-                    model = model.Where(it => it.Nam == sr.Nam);
+                    model = model.Where(it => it.PhatTrienDang.Nam == sr.Nam);
                 }
                 if (!String.IsNullOrWhiteSpace(sr.TenVietTat)) {
-                    model = model.Where(it => it.TenVietTat.Contains(sr.TenVietTat));
+                    model = model.Where(it => it.PhatTrienDang.TenVietTat.Contains(sr.TenVietTat));
                 }
                 if (sr.Actived != null)
                 {
-                    model = model.Where(it => it.Actived == sr.Actived);
+                    model = model.Where(it => it.PhatTrienDang.Actived == sr.Actived);
                 }
                 var data = model.Select(it => new PhatTrienDangDetailVM
                 {
-                    ID = it.ID,
-                    TenVietTat = it.TenVietTat,
-                    DiaBanHoiND = it.DiaBanHoatDong.TenDiaBanHoatDong,
-                    Nam = it.Nam,
-                    SoLuong = it.SoLuong,
-                    GhiChu = it.GhiChu,
-                    NoiDung = it.NoiDung
-
-                }).ToList();
+                    ID = it.PhatTrienDang.ID,
+                    TenVietTat = it.PhatTrienDang.TenVietTat,
+                    DiaBanHoiND = it.PhatTrienDang.DiaBanHoatDong.TenDiaBanHoatDong,
+                    Nam = it.PhatTrienDang.Nam,
+                    MaHV = it.CanBo.MaCanBo,
+                    TenHV = it.CanBo.HoVaTen,
+                    QuanHuyen = it.PhatTrienDang.DiaBanHoatDong.QuanHuyen.TenQuanHuyen,
+                    IDHoiVien = it.IDHoiVien,
+                    SoLuong = it.PhatTrienDang.SoLuong,
+                    GhiChu = it.PhatTrienDang.GhiChu,
+                    NoiDung = it.PhatTrienDang.NoiDung
+                }).Distinct().ToList();
                 return PartialView(data);
             });
         }
@@ -88,7 +95,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             return ExecuteContainer(() => {
                 PhatTrienDang add = new PhatTrienDang();
                 add.Actived = true;
-                add.MaDiaBanHoiND = obj.MaDiaBanHoiND;
+                add.MaDiaBanHoiND = obj.MaDiaBanHoiVien;
                 add.Nam = obj.Nam;
                 add.TenVietTat = obj.TenVietTat;
                 add.SoLuong = obj.SoLuong;
@@ -140,7 +147,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             obj.NoiDung = item.NoiDung;
             obj.Nam = item.Nam;
             obj.GhiChu = item.GhiChu;
-            obj.MaDiaBanHoiND = item.MaDiaBanHoiND;
+            obj.MaDiaBanHoiVien = item.MaDiaBanHoiND;
             
             obj.FileDinhKems = _context.FileDinhKems.Where(it => it.Id == obj.ID).ToList();
             foreach (var item1 in item.PhatTrienDang_HoiViens)
@@ -156,7 +163,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     Chon = true,
                 });
             }
-            CreateViewBag(obj.MaDiaBanHoiND);
+            CreateViewBag(obj.MaDiaBanHoiVien);
             return View(obj);
         }
         [HoiNongDanAuthorization]
@@ -249,14 +256,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Helper
         [NonAction]
         private void CreateViewBag(Guid? MaDiaBanHoiND = null) {
-            var diabanHoiHoi = (from a in _context.DiaBanHoatDongs
-                                join b in _context.PhamVis on a.Id equals b.MaDiabanHoatDong
-                                select new
-                                {
-                                    MaDiaBanHoiND = a.Id,
-                                    TenDiaBanHoatDong = a.TenDiaBanHoatDong
-                                }).Distinct().ToList();
-            ViewBag.MaDiaBanHoiND = new SelectList(diabanHoiHoi, "MaDiaBanHoiND", "TenDiaBanHoatDong", MaDiaBanHoiND);
+
+            FnViewBag fnViewBag = new FnViewBag(_context);
+              ViewBag.MaDiaBanHoiVien = fnViewBag.DiaBanHoiVien(acID: AccountId());
 
         }
         private void CreateViewBagSearch()

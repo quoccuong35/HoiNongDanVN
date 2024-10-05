@@ -9,6 +9,7 @@ namespace HoiNongDan.Models
     public class ExcelTemplate
     {
         public string ColumnName { get; set; }
+        public String Title { get; set; }
         public bool isAllowedToEdit { get; set; }
         public bool isDateTime { get; set; }
         public bool isCurrency { get; set; }

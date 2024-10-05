@@ -1,0 +1,92 @@
+﻿@model HoiVienSearchVM
+@{
+    ViewBag.Title = LanguageResource.List + LanguageResource.BanChapHanhCH.ToLower();
+    string CurrentController = ConstController.BanChapHanhCH;
+    string CurrentArea = ConstArea.HoiVien;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User != null ? User.FindFirst("Roles").Value : "";
+}
+<style>
+    .custom-control {
+        display: inline-flex;
+    }
+</style>
+<div class="main-container container-fluid">
+    <!-- PAGE-HEADER -->
+    <div class="page-header page-header-fix my-2">
+
+        <div>
+            <span class="header-title">@LanguageResource.List @LanguageResource.BanChapHanhCH.ToLower()</span>
+            <div class="rectangle">
+                <span> </span>
+                <span> </span>
+                <span> </span>
+            </div>
+        </div>
+        <div class="d-flex px-2">
+           @*  @HtmlExtensions.ExportButton(CurrentArea, CurrentController, listRoles: listRoles)
+            @HtmlExtensions.ImportButton(CurrentArea, CurrentController, listRoles: listRoles) *@
+            @HtmlExtensions.ExportButton1(CurrentArea, CurrentController, listRoles: listRoles)
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="splitter rounded-3">
+                <div class="splitter-head">Tìm kiếm nâng cao</div>
+                <div class="splitter-body">
+                    <form method="get" id="frmSearch" asp-action="_Search">
+                        <div class="row my-2">
+                            <div class="col-md-2">
+                                <label asp-for="MaCanBo"></label>
+                                <input class="form-control" asp-for="MaCanBo" />
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="HoVaTen"></label>
+                                <input class="form-control" asp-for="HoVaTen" />
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="MaQuanHuyen"></label>
+                                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="MaDiaBanHoiVien"></label>
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="MaChiHoi"></label>
+                                @Html.DropDownList("MaChiHoi", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            @HtmlExtensions.SearchButton()
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card rounded-3">
+                <div class="card-status bg-blue br-te-7 br-ts-7"></div>
+                <div class="card-body">
+                    @Html.AntiForgeryToken()
+                    <div class="table-responsive" id="divSearchResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section ScriptCustomized {
+    <script src="~/js/diaban_hv_quanhuyen.js"></script>
+    <script>
+        //load default and set event
+        $(document).ready(function () {
+            HoiNongDan.SearchInitial("@CurrentUrl");
+            HoiNongDan.ShowMessage(window.location.href);
+        });
+    </script>
+}

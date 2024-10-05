@@ -144,6 +144,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 pass.Add(Guid.Parse("40a7400d-1981-45e8-b4a6-412af186dc5d"));
 
                 var model = _context.DiaBanHoatDongs.Include(it=>it.QuanHuyen).Include(it => it.CanBos).ThenInclude(it => it.DanhGiaHoiViens).Include(it => it.DanhGiaToChucHois).AsQueryable();
+                var phamvis = _context.PhamVis.Where(it => it.AccountId == AccountId()).Select(it => it.MaDiabanHoatDong).ToList();
+                model = model.Where(it => phamvis.Contains(it.Id));
                 if (!String.IsNullOrWhiteSpace(MaQuanHuyen)) {
                     model = model.Where(it => it.MaQuanHuyen == MaQuanHuyen);
                 }

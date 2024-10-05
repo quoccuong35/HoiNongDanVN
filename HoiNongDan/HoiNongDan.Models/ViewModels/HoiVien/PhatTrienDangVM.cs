@@ -13,7 +13,7 @@ namespace HoiNongDan.Models
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
-        public Guid MaDiaBanHoiND { get; set; }
+        public Guid MaDiaBanHoiVien { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TenVietTat")]
@@ -65,12 +65,17 @@ namespace HoiNongDan.Models
     }
     public class PhatTrienDangDetailVM {
         public Guid? ID { get; set; }
+        public Guid? IDHoiVien { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHV")]
         public String MaHV { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TenHV")]
         public String TenHV { get; set; }
+
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
+        public String QuanHuyen { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
         public String DiaBanHoiND { get; set; }

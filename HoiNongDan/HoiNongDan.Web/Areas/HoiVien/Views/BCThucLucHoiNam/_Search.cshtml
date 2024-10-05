@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BaoCaoThucLucHoi>
+﻿@model IEnumerable<BaoCaoThucLucHoiVM>
 <table class="table table-bordered text-nowrap text-md-nowrap table-striped mb-0" id="data-list">
     <thead>
         <tr>
@@ -342,6 +342,7 @@
         @{int stt = 1;}
         @foreach (var item in Model)
         {
+
             <tr>
                 <td>@stt</td>
                 <td>@item.Cot1</td>

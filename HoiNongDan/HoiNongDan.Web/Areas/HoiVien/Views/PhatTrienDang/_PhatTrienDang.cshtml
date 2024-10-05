@@ -6,11 +6,11 @@
                 <input asp-for="ID" hidden />
                 <div class="col-lg-3">
                     <div class="form-group">
-                        <label asp-for="MaDiaBanHoiND"></label><span class="text-red">*</span>
-                        <select asp-for="MaDiaBanHoiND" asp-items="@ViewBag.MaDiaBanHoiND" class="form-control select2-show-search form-select">
+                        <label asp-for="MaDiaBanHoiVien"></label><span class="text-red">*</span>
+                        <select asp-for="MaDiaBanHoiVien" asp-items="@ViewBag.MaDiaBanHoiVien" class="form-control select2-show-search form-select">
                             <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
                         </select>
-                        <span asp-validation-for="MaDiaBanHoiND" class="text-danger"></span>
+                        <span asp-validation-for="MaDiaBanHoiVien" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="col-lg-3">

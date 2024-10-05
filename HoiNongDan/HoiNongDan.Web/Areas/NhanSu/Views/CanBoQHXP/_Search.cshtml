@@ -13,7 +13,7 @@
             <th class="text-center" data-name="HoVaTen">@Html.DisplayNameFor(p => p.HoVaTen)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.NgaySinh)</th>
             <th class="text-center">@Html.DisplayNameFor(p => p.GioiTinh)</th>
-            <th class="text-center">@Html.DisplayNameFor(p => p.TenDonVi)</th>
+            @* <th class="text-center">@Html.DisplayNameFor(p => p.TenDonVi)</th> *@
             <th class="text-center">@Html.DisplayNameFor(p => p.Cap)</th>
             <th class="text-center" data-name="TenChucVu">@Html.DisplayNameFor(p => p.TenChucVu)</th>
             <th class="text-center" data-name="DonVi">@Html.DisplayNameFor(p => p.DonVi)</th>
@@ -58,17 +58,17 @@
                 css = 1;
             }
             cssName = "tr" + css.ToString();
-            <tr class="@cssName">
+            <tr class="@cssName" ondblclick='window.open("/NhanSu/CanBoQHXP/Edit/@item.IDCanBo","_blank")'>
                 <td class="align-middle">
                     @i.ToString()
                 </td>
                 <td class="text-center align-middle">
                     @item.MaCanBo
                 </td>
-                <td class="align-middle"> <a asp-area="@ConstArea.NhanSu" asp-action="Edit" ,asp-controller="@ConstController.CanBoQHXP" target="_blank" asp-route-id="@item.IDCanBo">@item.HoVaTen</a></td>
+                <td class="align-middle">@item.HoVaTen</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.NgaySinh)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.GioiTinh)</td>
-                <td class="align-middle">@Html.DisplayFor(p => item.TenDonVi)</td>
+                @* <td class="align-middle">@Html.DisplayFor(p => item.TenDonVi)</td> *@
                 <td class="align-middle">@Html.DisplayFor(p => item.Cap)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.TenChucVu)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.DonVi)</td>

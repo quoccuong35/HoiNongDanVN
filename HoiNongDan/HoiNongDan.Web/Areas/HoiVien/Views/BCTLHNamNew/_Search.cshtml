@@ -1,9 +1,9 @@
 ﻿@using HoiNongDan.Constant
 @using HoiNongDan.Resources
 @using Microsoft.AspNetCore.Html
-@model IEnumerable<BCTLHNew>
+@model IEnumerable<BCTLHNamNew>
 @{
-    string CurrentController = ConstController.BCTLHNew;
+    string CurrentController = ConstController.BCTLHNamNew;
     string CurrentArea = ConstArea.HoiVien;
     string listRoles = User.FindFirst("Roles")!.Value;
     listRoles = listRoles == null ? "" : listRoles;
@@ -11,76 +11,124 @@
 <table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
     <thead class="table-primary">
         <tr>
-            <th class="text-center" style="vertical-align: middle;" rowspan="4">@LanguageResource.NumberIndex</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="4">Tên đơn vị</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="18">HỘI VIÊN</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="7">CHI HỘI</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="7">TỔ HỘI</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="3">@LanguageResource.NumberIndex</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="3">Tên đơn vị</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="3">Tổng số ấp, khu phố</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="3">Tổng số ấp, khu phố có tổ chức Hội</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="3">Tổng số</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="11" >HỘI VIÊN</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="4">CHI HỘI</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="4">TỔ HỘI</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2" rowspan="2">TS đảng viên tham gia sinh hoạt Hội</th>
             <th class="text-center" style="vertical-align: middle;" colspan="2" rowspan="2">Hội viên dân tộc, tôn giáo</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="2">Thẻ hội viên</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2">GTHV ưu tú</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2"> Nòng cốt</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2">Quỹ Hội </th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2">Thẻ hội viên </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="3">Đơn vị</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="23">Đánh giá cuối năm</th>
         </tr>
+    
         <tr>
-            <th class="text-center" style="vertical-align: middle;" rowspan="3">Tổng số</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="3">Nữ</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="5">Địa bàn dân cư</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="5">Ngành nghề</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Hộ nông nghiệp</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Hộ nông nghiệp có hội viên</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Lao động nông nghiệp</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Nữ</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Hội viên Địa bàn dân cư</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2">Ngành nghề</th>
             <th class="text-center" style="vertical-align: middle;" colspan="2">HV danh dự</th>
             <th class="text-center" style="vertical-align: middle;" colspan="2">Giảm HV</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="2">Phát triển</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="3">Tổng số</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="3">Dân cư</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="5">Ngành nghề</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="3">Tổng số</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="3">Dân cư</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="5">Ngành nghề</th>
-
-            <th class="text-center" style="vertical-align: middle;" rowspan="3">Cấp mới</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="3">Số thẻ đổi và cấp lại</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2"> Phát triển </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2"> Tổng số </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Dân cư</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2">Ngành nghề</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2"> Tổng số </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Dân cư</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2">Ngành nghề</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giới thiệu</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Kết nạp Đảng</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phong trào (=25% tổng số HV)</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Trong đó hội viên tập hợp nhanh</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Hội cơ sở (đồng)   </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Chi Hội (50.000đ/HV)</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Được cấp trong năm</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Số  thẻ đổi và cấp lại</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số cơ sở Hội</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="4">Cơ sở Hội </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng Số Chi hội </th>
+            <th class="text-center" style="vertical-align: middle;" colspan="5">Chi Hội </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số Tổ hội </th>
+            <th class="text-center" style="vertical-align: middle;" colspan="5">Tổ Hội </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số hội viên</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="5">Hội viên </th>
         </tr>
         <tr>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giảm trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="3">Lũy kế</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giảm trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="3">Lũy kế</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Trong năm</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Lũy kế</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Nữ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Nữ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giảm trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="3">Lũy kế</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giảm trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="3">Lũy kế</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Dân tộc thiểu số</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tôn giáo</th>
+            <th class="text-center" style="vertical-align: middle;">phát triển trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;">Hội viên ngành nghề hiện nay</th>
+            <th class="text-center" style="vertical-align: middle;">HVDD phát triển trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;">HV danh dự hiện tại</th>
+            <th class="text-center" style="vertical-align: middle;">Tổng số</th>
+            <th class="text-center" style="vertical-align: middle;">Nữ</th>
+            <th class="text-center" style="vertical-align: middle;">T. số</th>
+            <th class="text-center" style="vertical-align: middle;">Nữ</th>
+            <th class="text-center" style="vertical-align: middle;">phát triển trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;">Số chi hội nghề nghiệp hiện nay</th>
+            <th class="text-center" style="vertical-align: middle;">phát triển trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;">Số tổ hội nghề nghiệp hiện nay</th>
+            <th class="text-center" style="vertical-align: middle;" >Tổng số</th>
+            <th class="text-center" style="vertical-align: middle;">Nữ</th>
+            <th class="text-center" style="vertical-align: middle;">Dân tộc thiểu số</th>
+            <th class="text-center" style="vertical-align: middle;">Tôn giáo</th>
+            <th class="text-center" style="vertical-align: middle;">HTSXNV</th>
+            <th class="text-center" style="vertical-align: middle;">HTTNV</th>
+            <th class="text-center" style="vertical-align: middle;">HTNV</th>
+            <th class="text-center" style="vertical-align: middle;">KHTNV</th>
+            <th class="text-center" style="vertical-align: middle;">HTSXNV</th>
+            <th class="text-center" style="vertical-align: middle;">HTTNV</th>
+            <th class="text-center" style="vertical-align: middle;">HTNV</th>
+            <th class="text-center" style="vertical-align: middle;">KHTNV</th>
+            <th class="text-center" style="vertical-align: middle;">Không đánh giá xếp loại</th>
+            <th class="text-center" style="vertical-align: middle;">HTSXNV</th>
+            <th class="text-center" style="vertical-align: middle;">HTTNV</th>
+            <th class="text-center" style="vertical-align: middle;">HTNV</th>
+            <th class="text-center" style="vertical-align: middle;">KHTNV</th>
+            <th class="text-center" style="vertical-align: middle;">Không đánh giá xếp loại</th>
+            <th class="text-center" style="vertical-align: middle;">XS</th>
+            <th class="text-center" style="vertical-align: middle;">Tốt</th>
+            <th class="text-center" style="vertical-align: middle;">Trung bình</th>
+            <th class="text-center" style="vertical-align: middle;">kém</th>
+            <th class="text-center" style="vertical-align: middle;">Không đánh giá xếp loại</th>
         </tr>
-        <tr>
-            <th class="text-center" style="vertical-align: middle;">Lũy kế tăng</th>
-            <th class="text-center" style="vertical-align: middle;">Lũy kế giảm</th>
-            <th class="text-center" style="vertical-align: middle;">Lũy kế trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;">Lũy kế tăng</th>
-            <th class="text-center" style="vertical-align: middle;">Lũy kế giảm</th>
-            <th class="text-center" style="vertical-align: middle;">Lũy kế trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;">Lũy kế tăng</th>
-            <th class="text-center" style="vertical-align: middle;">Lũy kế giảm</th>
-            <th class="text-center" style="vertical-align: middle;">Lũy kế trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;">Lũy kế tăng</th>
-            <th class="text-center" style="vertical-align: middle;">Lũy kế giảm</th>
-            <th class="text-center" style="vertical-align: middle;">Lũy kế trong kỳ</th>
-        </tr>
+        
     </thead>
     <tbody>
-
+        @{
+            int sttSub = 0;
+            int stt = 1;
+            bool bold = false;
+        }
+        
         @foreach (var item in Model)
         {
             <tr>
-                <td class="text-center">@item.Cot1</td>
-                <td>@item.Cot2</td>
+                @if (item.Cot2 != item.TenQuanHuyen)
+                {
+                    <td class="text-center">@stt</td>
+                    <td>@item.Cot2</td>
+                    stt++;
+                    bold = false;
+                }
+                else
+                {
+                    sttSub++;
+                    stt = 1;
+                    <td class="text-center" style="font-size:14px;font-weight:bold">@sttSub</td>
+                    <td style="font-size:14px;font-weight:bold"> Tổng  @item.Cot2</td>
+                    bold = true;
+                }
+               @*  <td class="text-center">@item.Cot1</td>
+                <td>@item.Cot2</td> *@
                 <td class="text-center">@item.Cot3</td>
                 <td class="text-center">@item.Cot4</td>
                 <td class="text-center">@item.Cot5</td>
@@ -117,6 +165,37 @@
                 <td class="text-center">@item.Cot36</td>
                 <td class="text-center">@item.Cot37</td>
                 <td class="text-center">@item.Cot38</td>
+                @if (bold)
+                {
+                    <td style="font-size:12px;font-weight:bold">@item.Cot39</td>
+                }
+                else{
+                     <td >@item.Cot39</td>
+                }
+                <td class='text-center'>@item.Cot40</td>
+                <td class='text-center'>@item.Cot41</td>
+                <td class='text-center'>@item.Cot42</td>
+                <td class='text-center'>@item.Cot43</td>
+                <td class='text-center'>@item.Cot44</td>
+                <td class='text-center'>@item.Cot45</td>
+                <td class='text-center'>@item.Cot46</td>
+                <td class='text-center'>@item.Cot47</td>
+                <td class='text-center'>@item.Cot48</td>
+                <td class='text-center'>@item.Cot49</td>
+                <td class='text-center'>@item.Cot50</td>
+                <td class='text-center'>@item.Cot51</td>
+                <td class='text-center'>@item.Cot52</td>
+                <td class='text-center'>@item.Cot53</td>
+                <td class='text-center'>@item.Cot54</td>
+                <td class='text-center'>@item.Cot55</td>
+                <td class='text-center'>@item.Cot56</td>
+                <td class='text-center'>@item.Cot57</td>
+                <td class='text-center'>@item.Cot58</td>
+                <td class='text-center'>@item.Cot59</td>
+                <td class='text-center'>@item.Cot60</td>
+                <td class='text-center'>@item.Cot61</td>
+                <td class='text-center'>@item.Cot62</td>
+
             </tr>
         }
     </tbody>

@@ -26,9 +26,9 @@ namespace HoiNongDan.Models
         [Range(1,4,ErrorMessage ="Trong phạm vi từ 1 - 4")]
         public int Quy { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "LoaiCap")]
-        public String LoaiCap { get; set; }
+        public String LoaiCap { get; set; } = "02";
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayCap")]
         [DataType(DataType.Date)]

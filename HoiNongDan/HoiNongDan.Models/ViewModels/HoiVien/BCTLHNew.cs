@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,110 +9,136 @@ namespace HoiNongDan.Models
 { 
     public  class BCTLHNew
     {
-        public dynamic Cot1 { get; set; } = 0;
-        public dynamic Cot2 { get; set; } = 0;
-        public decimal Cot3 { get; set; } = 0;
-        public decimal Cot4 { get; set; } = 0;
-        public decimal Cot5 { get; set; } = 0;
-        public decimal Cot6 { get; set; } = 0;
-        public decimal Cot7 { get; set; } = 0;
-        public decimal Cot8 { get; set; } = 0;
-        public decimal Cot9 { get; set; } = 0;
-        public decimal Cot10 { get; set; } = 0;
-        public decimal Cot11 { get; set; } = 0;
-        public decimal Cot12 { get; set; } = 0;
-        public decimal Cot13 { get; set; } = 0;
-        public decimal Cot14 { get; set; } = 0;
-        public decimal Cot15 { get; set; } = 0;
-        public decimal Cot16 { get; set; } = 0;
-        public decimal Cot17 { get; set; } = 0;
-        public decimal Cot18 { get; set; } = 0;
-        public decimal Cot19 { get; set; } = 0;
-        public dynamic Cot20 { get; set; } = 0;
-        public decimal Cot21 { get; set; } = 0;
-        public decimal Cot22 { get; set; } = 0;
-        public decimal Cot23 { get; set; } = 0;
-        public decimal Cot24 { get; set; } = 0;
-        public decimal Cot25 { get; set; } = 0;
-        public decimal Cot26 { get; set; } = 0;
-        public decimal Cot27 { get; set; } = 0;
-        public decimal Cot28 { get; set; } = 0;
-        public decimal Cot29 { get; set; } = 0;
-        public decimal Cot30 { get; set; } = 0;
-        public decimal Cot31 { get; set; } = 0;
-        public decimal Cot32 { get; set; } = 0;
-        public decimal Cot33 { get; set; } = 0;
-        public decimal Cot34 { get; set; } = 0;
-        public decimal Cot35 { get; set; } = 0;
-        public decimal Cot36 { get; set; } = 0;
-        public decimal Cot37 { get; set; } = 0;
-        public decimal Cot38 { get; set; } = 0;
+        public int Cot1 { get; set; }
+        public String Cot2 { get; set; }
+        public int? Cot3 { get; set; }
+        public int? Cot4 { get; set; }
+        public int? Cot5 { get; set; }
+        public int? Cot6 { get; set; }
+        public int? Cot7 { get; set; }
+        public int? Cot8 { get; set; }
+        public int? Cot9 { get; set; }
+        public int? Cot10 { get; set; }
+        public int? Cot11 { get; set; }
+        public int? Cot12 { get; set; }
+        public int? Cot13 { get; set; }
+        public int? Cot14 { get; set; }
+        public int? Cot15 { get; set; }
+        public int? Cot16 { get; set; }
+        public int? Cot17 { get; set; }
+        public int? Cot18 { get; set; }
+        public int? Cot19 { get; set; }
+        public int? Cot20 { get; set; }
+        public int? Cot21 { get; set; }
+        public int? Cot22 { get; set; }
+        public int? Cot23 { get; set; }
+        public int? Cot24 { get; set; }
+        public int? Cot25 { get; set; }
+        public int? Cot26 { get; set; }
+       
+        public object this[string propertyName]
+        {
+            get
+            {
+                // probably faster without reflection:
+                // like:  return Properties.Settings.Default.PropertyValues[propertyName] 
+                // instead of the following
+                Type myType = typeof(BCTLHNew);
+                PropertyInfo myPropInfo = myType.GetProperty(propertyName);
+                return myPropInfo.GetValue(this, null);
+            }
+            set
+            {
+                Type myType = typeof(BCTLHNew);
+                PropertyInfo myPropInfo = myType.GetProperty(propertyName);
+                myPropInfo.SetValue(this, value, null);
+            }
+        }
     }
 
     public class BCTLHNamNew
     {
-        public dynamic Cot1 { get; set; } = 0;
-        public dynamic Cot2 { get; set; } = 0;
-        public decimal Cot3 { get; set; } = 0;
-        public decimal Cot4 { get; set; } = 0;
-        public decimal Cot5 { get; set; } = 0;
-        public decimal Cot6 { get; set; } = 0;
-        public decimal Cot7 { get; set; } = 0;
-        public decimal Cot8 { get; set; } = 0;
-        public decimal Cot9 { get; set; } = 0;
-        public decimal Cot10 { get; set; } = 0;
-        public decimal Cot11 { get; set; } = 0;
-        public decimal Cot12 { get; set; } = 0;
-        public decimal Cot13 { get; set; } = 0;
-        public decimal Cot14 { get; set; } = 0;
-        public decimal Cot15 { get; set; } = 0;
-        public decimal Cot16 { get; set; } = 0;
-        public decimal Cot17 { get; set; } = 0;
-        public decimal Cot18 { get; set; } = 0;
-        public decimal Cot19 { get; set; } = 0;
-        public dynamic Cot20 { get; set; } = 0;
-        public decimal Cot21 { get; set; } = 0;
-        public decimal Cot22 { get; set; } = 0;
-        public decimal Cot23 { get; set; } = 0;
-        public decimal Cot24 { get; set; } = 0;
-        public decimal Cot25 { get; set; } = 0;
-        public decimal Cot26 { get; set; } = 0;
-        public decimal Cot27 { get; set; } = 0;
-        public decimal Cot28 { get; set; } = 0;
-        public decimal Cot29 { get; set; } = 0;
-        public decimal Cot30 { get; set; } = 0;
-        public decimal Cot31 { get; set; } = 0;
-        public decimal Cot32 { get; set; } = 0;
-        public decimal Cot33 { get; set; } = 0;
-        public decimal Cot34 { get; set; } = 0;
-        public decimal Cot35 { get; set; } = 0;
-        public decimal Cot36 { get; set; } = 0;
-        public decimal Cot37 { get; set; } = 0;
-        public decimal Cot38 { get; set; } = 0;
-        public decimal Cot39 { get; set; } = 0;
-        public decimal Cot40 { get; set; } = 0;
-        public decimal Cot41 { get; set; } = 0;
-        public decimal Cot42 { get; set; } = 0;
-        public decimal Cot43 { get; set; } = 0;
-        public decimal Cot44 { get; set; } = 0;
-        public decimal Cot45 { get; set; } = 0;
-        public decimal Cot46 { get; set; } = 0;
-        public decimal Cot47 { get; set; } = 0;
-        public decimal Cot48 { get; set; } = 0;
-        public decimal Cot49 { get; set; } = 0;
-        public decimal Cot50 { get; set; } = 0;
-        public decimal Cot51 { get; set; } = 0;
-        public decimal Cot52 { get; set; } = 0;
-        public decimal Cot53 { get; set; } = 0;
-        public decimal Cot54 { get; set; } = 0;
-        public decimal Cot55 { get; set; } = 0;
-        public decimal Cot56 { get; set; } = 0;
-        public decimal Cot57 { get; set; } = 0;
-        public decimal Cot58 { get; set; } = 0;
-        public decimal Cot59 { get; set; } = 0;
-        public decimal Cot60 { get; set; } = 0;
-        public decimal Cot61 { get; set; } = 0;
-        public decimal Cot62 { get; set; } = 0;
+        public int Cot1 { get; set; }
+        public String Cot2 { get; set; }
+        public int? Cot3 { get; set; }
+        public int? Cot4 { get; set; }
+        public int? Cot5 { get; set; }
+        public int? Cot6 { get; set; }
+        public int? Cot7 { get; set; }
+        public int? Cot8 { get; set; }
+        public int? Cot9 { get; set; }
+        public int? Cot10 { get; set; }
+        public int? Cot11 { get; set; }
+        public int? Cot12 { get; set; }
+        public int? Cot13 { get; set; }
+        public int? Cot14 { get; set; }
+        public int? Cot15 { get; set; }
+        public int? Cot16 { get; set; }
+        public int? Cot17 { get; set; }
+        public int? Cot18 { get; set; }
+        public int? Cot19 { get; set; }
+        public int? Cot20 { get; set; }
+        public int? Cot21 { get; set; }
+        public int? Cot22 { get; set; }
+        public int? Cot23 { get; set; }
+        public int? Cot24 { get; set; }
+        public int? Cot25 { get; set; }
+        public int? Cot26 { get; set; }
+        public int? Cot27 { get; set; }
+        public int? Cot28 { get; set; }
+        public int? Cot29 { get; set; }
+        public int? Cot30 { get; set; }
+        public int? Cot31 { get; set; }
+        public int? Cot32 { get; set; }
+        public int? Cot33 { get; set; }
+        public int? Cot34 { get; set; }
+        public int? Cot35 { get; set; }
+        public int? Cot36 { get; set; }
+        public int? Cot37 { get; set; }
+        public int? Cot38 { get; set; }
+        public String Cot39 { get; set; }
+        public int? Cot40 { get; set; }
+        public int? Cot41 { get; set; }
+        public int? Cot42 { get; set; }
+        public int? Cot43 { get; set; }
+        public int? Cot44 { get; set; }
+        public int? Cot45 { get; set; }
+        public int? Cot46 { get; set; }
+        public int? Cot47 { get; set; }
+        public int? Cot48 { get; set; }
+        public int? Cot49 { get; set; }
+        public int? Cot50 { get; set; }
+        public int? Cot51 { get; set; }
+        public int? Cot52 { get; set; }
+        public int? Cot53 { get; set; }
+        public int? Cot54 { get; set; }
+        public int? Cot55 { get; set; }
+        public int? Cot56 { get; set; }
+        public int? Cot57 { get; set; }
+        public int? Cot58 { get; set; }
+        public int? Cot59 { get; set; }
+        public int? Cot60 { get; set; }
+        public int? Cot61 { get; set; }
+        public int? Cot62 { get; set; }
+        public String TenQuanHuyen { get; set; }
+        public object this[string propertyName]
+        {
+            get
+            {
+                // probably faster without reflection:
+                // like:  return Properties.Settings.Default.PropertyValues[propertyName] 
+                // instead of the following
+                Type myType = typeof(BCTLHNamNew);
+                PropertyInfo myPropInfo = myType.GetProperty(propertyName);
+                return myPropInfo.GetValue(this, null);
+            }
+            set
+            {
+                Type myType = typeof(BCTLHNamNew);
+                PropertyInfo myPropInfo = myType.GetProperty(propertyName);
+                myPropInfo.SetValue(this, value, null);
+            }
+        }
 
     }
 }

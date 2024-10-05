@@ -24,9 +24,12 @@ namespace HoiNongDan.Models
         public Nullable<int> OrderIndex { get; set; }
         public ICollection<PhuongXa> PhuongXas { get; set; }
         public ICollection<DiaBanHoatDong> DiaBanHoatDongs { get; set; }
+        public ICollection<CanBo> CanBos { get; set; }
         public QuanHuyen() {
             PhuongXas = new List<PhuongXa>();
             DiaBanHoatDongs = new List<DiaBanHoatDong>();
+            CanBos = new List<CanBo>();
+
         }
     }
 }

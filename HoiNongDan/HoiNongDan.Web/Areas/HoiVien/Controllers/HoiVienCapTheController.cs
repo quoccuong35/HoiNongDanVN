@@ -54,10 +54,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     model = model.Where(it => it.HoiVien.MaDiaBanHoatDong == sr.MaDiaBanHoiVien);
                 }
-                if (!String.IsNullOrWhiteSpace(sr.LoaiCap))
-                {
-                    model = model.Where(it => it.LoaiCap == sr.LoaiCap);
-                }
+                //if (!String.IsNullOrWhiteSpace(sr.LoaiCap))
+                //{
+                //    model = model.Where(it => it.LoaiCap == sr.LoaiCap);
+                //}
                 if (!String.IsNullOrWhiteSpace(sr.TrangThai))
                 {
                     model = model.Where(it => it.TrangThai == sr.TrangThai);
@@ -123,7 +123,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     Quy = model.Quy,
                     MaDot = model.MaDot,
                     TrangThai = model.TrangThai,
-                    LoaiCap = model.LoaiCap,
+                    LoaiCap = "02",
                     IDHoiVien = model.HoiVien.IdCanbo!.Value,
                     Actived = true,
                     SoThe = model.SoThe,
@@ -136,6 +136,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     var hoiVien = _context.CanBos.SingleOrDefault(it => it.IDCanBo == model.HoiVien.IdCanbo);
                     hoiVien.MaCanBo = model.SoThe;
+                    hoiVien.NgayCapThe = model.NgayCap;
                 }
                 //List<HoiVienCapThe> adds = new List<HoiVienCapThe>();
                 //foreach (var item in data)
@@ -209,7 +210,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 edit.Nam = model.Nam;
                 edit.MaDot = model.MaDot;
                 edit.Quy = model.Quy;
-                edit.LoaiCap = model.LoaiCap;
+                edit.LoaiCap ="02";
                 edit.TrangThai = model.TrangThai;
                 edit.GhiChu = model.GhiChu;
                 edit.LastModifiedAccountId = AccountId();
@@ -217,7 +218,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 if (model.CapNhatNhanSu)
                 {
                     var hoiVien = _context.CanBos.SingleOrDefault(it=>it.IDCanBo == model.HoiVien.IdCanbo);
-                    hoiVien.MaCanBo = model.SoThe;
+                    hoiVien!.MaCanBo = model.SoThe;
+                    hoiVien.NgayCapThe = model.NgayCap;
                 }
                 _context.SaveChanges();
                 return Json(new

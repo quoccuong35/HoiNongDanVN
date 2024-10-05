@@ -4,6 +4,7 @@
     string CurrentArea = ConstArea.HoiVien;
     string listRoles = User.FindFirst("Roles")!.Value;
     listRoles = listRoles == null ? "" : listRoles;
+    string ngayVaoHoi = "";
 }
 <table id="data-list" class="table border text-nowrap text-md-nowrap mb-0 dataTable no-footer">
     <thead >
@@ -31,9 +32,9 @@
             <th class="text-center" name="NgayThamGiaHDND">@Html.DisplayNameFor(p => p.NgayThamGiaHDND)</th>
             <th class="text-center" name="VaiTro">@Html.DisplayNameFor(p => p.VaiTro)</th>
             <th class="text-center" name="VaiTroKhac">@Html.DisplayNameFor(p => p.VaiTroKhac)</th>
-            <th class="text-center" name="HoNgheo">@Html.DisplayNameFor(p => p.HoNgheo)</th>
+@*             <th class="text-center" name="HoNgheo">@Html.DisplayNameFor(p => p.HoNgheo)</th>
             <th class="text-center" name="CanNgheo">@Html.DisplayNameFor(p => p.CanNgheo)</th>
-            <th class="text-center" name="GiaDinhChinhSach">@Html.DisplayNameFor(p => p.GiaDinhChinhSach)</th>
+            <th class="text-center" name="GiaDinhChinhSach">@Html.DisplayNameFor(p => p.GiaDinhChinhSach)</th> *@
             <th class="text-center" name="GiaDinhThuocDienKhac">@Html.DisplayNameFor(p => p.GiaDinhThuocDienKhac)</th>
             <th class="text-center" name="NgheNghiepHienNay">@Html.DisplayNameFor(p => p.NgheNghiepHienNay)</th>
             <th class="text-center" name="Loai_DV_SX_ChN">@Html.DisplayNameFor(p => p.Loai_DV_SX_ChN)</th>
@@ -74,7 +75,7 @@
         }
         @foreach (var item in Model)
         {
-           
+            ngayVaoHoi = item.NgayVaoHoi != null ? item.NgayVaoHoi.Value.ToString("dd/MM/yyyy") : "";
             i++;
             css++;
             if (css > 2)
@@ -105,12 +106,12 @@
                 <td class="align-middle">@item.TrinhDoHocvan</td>
                 <td class="align-middle">@item.MaTrinhDoChuyenMon</td>
                 <td class="align-middle">@item.MaTrinhDoChinhTri</td>
-                <td class="align-middle">@item.NgayVaoHoi</td>
+                <td class="align-middle">@ngayVaoHoi</td>
                 <td class="align-middle">@item.NgayThamGiaCapUyDang</td>
                 <td class="align-middle">@item.NgayThamGiaHDND</td>
                 <td class="align-middle">@item.VaiTro</td>
                 <td class="align-middle">@item.VaiTroKhac</td>
-                <td class="align-middle">
+                @* <td class="align-middle">
                     @{
                         value = item.HoNgheo == true ? "X" : "";
                     }@value
@@ -124,7 +125,7 @@
                     @{
                         value = item.GiaDinhChinhSach == true ? "X" : "";
                     }@value
-                </td>
+                </td> *@
                 <td>@item.GiaDinhThuocDienKhac</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.NgheNghiepHienNay)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.Loai_DV_SX_ChN)</td>

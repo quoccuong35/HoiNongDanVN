@@ -128,7 +128,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 editCanBo.NgayDuyet = DateTime.Now;
                 editCanBo.NguoiDuyet = AccountId();
                 editCanBo.MaCanBo = hv.SoTheHoiVien;
-                editCanBo.NgayVaoHoi = hv.NgayVaoHoi!.Value.ToString("dd/MM/yyyyy");
+                editCanBo.NgayVaoHoi = hv.NgayVaoHoi;
                 editCanBo.SoQuyetDinhBoNhiem = hv.SoQuyetDinh;
                 editCanBo.NgayCapThe = hv.NgayCapThe;
                 _context.SaveChanges();
@@ -357,7 +357,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                 try
                                 {
                                     value = Function.RepleceAllString(value);
-                                    data.NgayVaoHoi = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US")).ToString("dd/MM/yyyy");
+                                    data.NgayVaoHoi = DateTime.ParseExact(value, DateFomat, new CultureInfo("en-US"));
                                 }
                                 catch (Exception)
                                 {

@@ -34,7 +34,7 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GioiTinh")]
         public GioiTinh GioiTinh { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
         public Guid? IdDepartment { get; set; }
 
@@ -130,6 +130,13 @@ namespace HoiNongDan.Models
 
         [Display(Name = "Cấp")]
         public string? Level { get; set; }
+
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
+        public string? MaQuanHuyen { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
+        public Guid? MaDiaBanHoiVien { get; set; }
     }
     public class QHXP {
         public string Level { get; set; }
@@ -177,6 +184,8 @@ namespace HoiNongDan.Models
             canBo.IsCanBo = true;
             canBo.Level = this.Level;
             canBo.DonVi = this.DonVi;
+            canBo.MaQuanHuyen = this.MaQuanHuyen;
+            canBo.MaDiaBanHoatDong = this.MaDiaBanHoiVien;
 
             return canBo;
         }
@@ -214,6 +223,8 @@ namespace HoiNongDan.Models
             canBo.Level = obj.Level;
             canBo.GhiChu = obj.GhiChu;
             canBo.DonVi = obj.DonVi;
+            canBo.MaQuanHuyen = obj.MaQuanHuyen;
+            canBo.MaDiaBanHoiVien = obj.MaDiaBanHoatDong;
 
             return canBo;
         }

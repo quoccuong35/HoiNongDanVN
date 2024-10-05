@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -25,12 +25,14 @@ namespace HoiNongDan.Models.Entitys
         public virtual ICollection<HoiVienHoiDap> HoiVienHoiDaps { get; set; }
         public virtual ICollection<PhamVi> PhamVis { get; set; }
         public virtual ICollection<Author_Token> Author_Tokens { get; set; }
+        public virtual ICollection<UsageLog> UsageLogs { get; set; }
         public Account()
         {
             AccountInRoleModels = new List<AccountInRoleModel>();
             HoiVienHoiDaps = new List<HoiVienHoiDap>();
             PhamVis = new List<PhamVi>();
             Author_Tokens = new List<Author_Token>();
+            UsageLogs = new List<UsageLog>();
         }
     }
 }

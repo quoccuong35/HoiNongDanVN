@@ -103,7 +103,12 @@ namespace HoiNongDan.Extensions
 
             return new SelectList(ngheNghieps, "MaNgheNghiep", "TenNgheNghiep", value);
         }
+        public SelectList GiaDinhThuocDien(string? value = null)
+        {
+            var giadinhs = _context.GiaDinhThuocDiens.Select(it => new { MaGiaDinhThuocDien = it.MaGiaDinhThuocDien, TenGiaDinhThuocDien = it.TenGiaDinhThuocDien }).ToList();
 
+            return new SelectList(giadinhs, "MaGiaDinhThuocDien", "TenGiaDinhThuocDien", value);
+        }
         public MultiSelectList DoanTheChinhTri_HoiDoan(List<Guid>? value = null)
         {
             var hoiDoans = _context.DoanTheChinhTri_HoiDoans.Where(it => it.Actived == true).Select(it => new

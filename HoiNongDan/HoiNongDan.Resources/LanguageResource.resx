@@ -162,6 +162,9 @@
   <data name="BanChapHanh" xml:space="preserve">
     <value>Ban chấp hành</value>
   </data>
+  <data name="BanChapHanhCH" xml:space="preserve">
+    <value>Ban Chấp Hành Chi Hội Nông Dân</value>
+  </data>
   <data name="BaoCaoGiamHV" xml:space="preserve">
     <value>Báo cáo giảm hội viên</value>
   </data>
@@ -592,7 +595,7 @@
     <value>Loại hình, dịch vụ sản xuất, chăn nuôi</value>
   </data>
   <data name="LopHoc" xml:space="preserve">
-    <value>Lớp Học</value>
+    <value>Loại Hỗ trợ, Đào tạo, Tập huấn</value>
   </data>
   <data name="LuanAnTN" xml:space="preserve">
     <value>Luận án tốt nghiệp</value>
@@ -698,6 +701,9 @@
   </data>
   <data name="NgayCapCCCD" xml:space="preserve">
     <value>Ngày cấp CCCD</value>
+  </data>
+  <data name="NgayCapThe" xml:space="preserve">
+    <value>Ngày cấp thẻ</value>
   </data>
   <data name="NgayKetThuc" xml:space="preserve">
     <value>Ngày kết thúc</value>
@@ -872,6 +878,9 @@
   </data>
   <data name="QuaTrinhKhenThuong" xml:space="preserve">
     <value>Khen Thưởng</value>
+  </data>
+  <data name="QueQuan" xml:space="preserve">
+    <value>Quê Quán</value>
   </data>
   <data name="QuocGia" xml:space="preserve">
     <value>Quốc gia</value>

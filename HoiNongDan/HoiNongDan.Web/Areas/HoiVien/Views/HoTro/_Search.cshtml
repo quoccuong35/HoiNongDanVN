@@ -14,6 +14,8 @@
             <th class="text-center">@LanguageResource.NumberIndex</th>
             <th>@Html.DisplayNameFor(p => p.MaHV)</th>
             <th>@Html.DisplayNameFor(p => p.TenHV)</th>
+            <th>@Html.DisplayNameFor(p => p.QuanHuyen)</th>
+            <th>@Html.DisplayNameFor(p => p.TenHoi)</th>
             <th>@Html.DisplayNameFor(p => p.NoiDung)</th>
             <th class="text-center">@LanguageResource.Actions</th>
         </tr>
@@ -30,7 +32,12 @@
                 <td class="text-center">@i</td>
                 <td>@item.MaHV</td>
                 <td>@item.TenHV</td>
+                
+                <td>@item.QuanHuyen</td>
+                <td>@item.TenHoi</td>
                 <td>@item.NoiDung</td>
+              
+               
                 <td class="text-center">
                     @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.ID, listRoles: listRoles)
                     @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.TenHV!, item.ID, listRoles: listRoles)

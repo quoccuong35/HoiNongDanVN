@@ -1,7 +1,7 @@
 ﻿@using HoiNongDan.Constant
 @using HoiNongDan.Resources
 @using Microsoft.AspNetCore.Html
-@model IEnumerable<DanhGiaToChucHoiVM>
+@model IEnumerable<DanhGiaToChucHoiDetailVM>
 @{
     string CurrentController = ConstController.DanhGiaToChucHoi;
     string CurrentArea = ConstArea.HoiVien;
@@ -12,7 +12,7 @@
     <thead class="table-primary">
         <tr>
             <th class="text-center" style="vertical-align: middle;" rowspan="3">@LanguageResource.NumberIndex</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="3">ID</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="3">@LanguageResource.Actions</th>
             <th class="text-center" style="vertical-align: middle;" rowspan="3">
                 Đơn vị
             </th>
@@ -103,7 +103,14 @@
             i++;
             <tr>
                 <td class="text-center">@i</td>
-                <td>@item.ID</td>
+                @if (item.ID != null)
+                {
+                    <td> @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.DonVi!, item.ID.Value, listRoles: listRoles)</td>
+                }
+                else
+                {
+                    <td></td>
+                }
                 <td>@item.DonVi</td>
                 <td style="vertical-align: middle;">@item.CoSo_Tong</td>
                 <td style="vertical-align: middle;">@item.CoSo_HTXSNV</td>

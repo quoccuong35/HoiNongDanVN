@@ -15,7 +15,7 @@
             <th class="text-center">@LanguageResource.NumberIndex</th>
             <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
             <th>@Html.DisplayNameFor(p => p.HoVaTen)</th>
-            <th>@Html.DisplayNameFor(p => p.SoLuong)</th>
+            <th>@Html.DisplayNameFor(p => p.NgayVaoHoi)</th>
             <th>@Html.DisplayNameFor(p => p.SoDienThoai)</th>
             <th>@Html.DisplayNameFor(p => p.ChoOHienNay)</th>
             <th>@Html.DisplayNameFor(p => p.TenDiaBanHoatDong)</th>
@@ -30,12 +30,13 @@
         }
         @foreach (var item in Model)
         {
+            string? ngavaoHoi = @item.NgayVaoHoi != null ? @item.NgayVaoHoi.Value.ToString("dd/MM/yyyy") : null;
             i++;
             <tr>
                 <td class="text-center">@i</td>
                 <td class="text-center">@item.MaCanBo</td>
                 <td >@item.HoVaTen</td>
-                <td >@item.SoLuong</td>
+                <td>@ngavaoHoi</td>
                 <td class="text-center">@item.SoDienThoai</td>
                 <td >@item.HoKhauThuongTru</td>
                 <td>@item.TenDiaBanHoatDong</td>

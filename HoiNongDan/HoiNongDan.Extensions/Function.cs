@@ -72,6 +72,66 @@ namespace HoiNongDan.Extensions
             }
           
         }
+        public static DateTime? ConvertStringToDateV1(string value)
+        {
+            try
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    value = RepleceAllString(value);
+                    value = TruncatePercents(value.ToUpper()).Replace(@"\", "/").Replace(".","/").Replace("-", "/").Replace("Y", "").Replace("y", "");
+                    var arraydate = value.Split('/');
+                    int day = 0, month = 0, year = 0, temp = 0;
+                    if (arraydate.Length == 4)
+                    {
+                        day = int.Parse(arraydate[1]);
+                        month = int.Parse(arraydate[2]);
+                        year = int.Parse(arraydate[3]);
+                    }
+                    if (arraydate.Length == 3)
+                    {
+                        day = int.Parse(arraydate[0]);
+                        month = int.Parse(arraydate[1]);
+                        year = int.Parse(arraydate[2]);
+                    }
+                    else if (arraydate.Length == 2)
+                    {
+                        day = 1;
+                        month = int.Parse(arraydate[0]);
+                        year = int.Parse(arraydate[1]);
+                    }
+                    else if (arraydate.Length == 1)
+                    {
+                            if(arraydate[0].Length == 4)
+                            {
+                                month = day = 1;
+                                year = int.Parse(arraydate[0]);
+                            }
+                    }
+                    if (year > 0 && year <= 50)
+                        year = year + 2000;
+                    if (year > DateTime.Now.Year)
+                        year = 0;
+                    if (month > 12 && day > 0 && day < 13)
+                    {
+                        temp = month;
+                        month = day;
+                        day = temp;
+                    }
+                    if (year > 0 && month > 0 && day > 0)
+                    {
+                        return new DateTime(year, month, day);
+                    }
+                }
+
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+
+        }
         private static string TruncatePercents(string input)
         {
             return Regex.Replace(input, @"(\W)+", "$1");

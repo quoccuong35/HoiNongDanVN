@@ -82,7 +82,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     it.DiaBanHoatDong.MaQuanHuyen,
                     it.DiaBanHoatDong.PhuongXa.TenPhuongXa,
                     it.DiaBanHoatDong.MaPhuongXa,
-                    NgayVaoHoi = Function.ConvertStringToDate(it.NgayVaoHoi!),
+                    NgayVaoHoi = it.NgayVaoHoi,
                     it.NgayRoiHoi,
                     it.HoiVienDuyet,
                     it.CreatedTime,
@@ -103,7 +103,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         Ma = p.Key.MaQuanHuyen,
                         Ten = p.Key.TenQuanHuyen.ToUpper(),
                         Giam = p.Where(lg => lg.isRoiHoi == true && lg.NgayRoiHoi != null && lg.NgayRoiHoi!.Value.Month == dateNow.Month && lg.NgayRoiHoi.Value.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.MaQuanHuyen == p.Key.MaQuanHuyen).Count(),
-                        ThemMoi = p.Where(lg => lg.NgayVaoHoi.Month == dateNow.Month && lg.NgayVaoHoi.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.MaQuanHuyen == p.Key.MaQuanHuyen).Count(),
+                        ThemMoi = p.Where(lg => lg.NgayVaoHoi != null && lg.NgayVaoHoi.Value.Month == dateNow.Month && lg.NgayVaoHoi.Value.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.MaQuanHuyen == p.Key.MaQuanHuyen).Count(),
                         SL = p.Where(lg => lg.isRoiHoi != true && lg.HoiVienDuyet == true && lg.Actived == true && lg.MaQuanHuyen == p.Key.MaQuanHuyen).Count(),
                         ChoDuyet = p.Where(lg => lg.HoiVienDuyet == false && lg.TuChoi == false && lg.MaQuanHuyen == p.Key.MaQuanHuyen).Count()
                     }).ToList();
@@ -112,7 +112,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         Ma = p.Key.MaPhuongXa,
                         Ten = p.Key.TenPhuongXa.ToUpper() + " "+ p.Key.TenQuanHuyen,
                         Giam = p.Where(lg => lg.isRoiHoi == true && lg.NgayRoiHoi != null && lg.NgayRoiHoi!.Value.Month == dateNow.Month && lg.NgayRoiHoi.Value.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.MaPhuongXa == p.Key.MaPhuongXa).Count(),
-                        ThemMoi = p.Where(lg => lg.NgayVaoHoi.Month == dateNow.Month && lg.NgayVaoHoi.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.MaPhuongXa == p.Key.MaPhuongXa).Count(),
+                        ThemMoi = p.Where(lg => lg.NgayVaoHoi != null &&  lg.NgayVaoHoi.Value.Month == dateNow.Month && lg.NgayVaoHoi.Value.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.MaPhuongXa == p.Key.MaPhuongXa).Count(),
                         SL = p.Where(lg => lg.isRoiHoi != true && lg.HoiVienDuyet == true && lg.Actived == true && lg.MaPhuongXa == p.Key.MaPhuongXa).Count(),
                         ChoDuyet = p.Where(lg => lg.HoiVienDuyet == false && lg.TuChoi == false && lg.MaPhuongXa == p.Key.MaPhuongXa).Count()
                     }).ToList();
@@ -126,7 +126,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         Ma = p.Key.MaPhuongXa,
                         Ten = p.Key.TenPhuongXa.ToUpper(),
                         Giam = p.Where(lg => lg.isRoiHoi == true && lg.NgayRoiHoi != null && lg.NgayRoiHoi!.Value.Month == dateNow.Month && lg.NgayRoiHoi.Value.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.MaPhuongXa == p.Key.MaPhuongXa).Count(),
-                        ThemMoi = p.Where(lg => lg.NgayVaoHoi.Month == dateNow.Month && lg.NgayVaoHoi.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.MaPhuongXa == p.Key.MaPhuongXa).Count(),
+                        ThemMoi = p.Where(lg => lg.NgayVaoHoi != null && lg.NgayVaoHoi.Value.Month == dateNow.Month && lg.NgayVaoHoi.Value.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.MaPhuongXa == p.Key.MaPhuongXa).Count(),
                         SL = p.Where(lg => lg.isRoiHoi != true && lg.HoiVienDuyet == true && lg.Actived == true && lg.MaPhuongXa == p.Key.MaPhuongXa).Count(),
                         ChoDuyet = p.Where(lg => lg.HoiVienDuyet == false && lg.TuChoi == false && lg.MaPhuongXa == p.Key.MaPhuongXa).Count()
                     }).ToList();

@@ -32,6 +32,7 @@ HoiNongDan.SearchDefault = function (controller, action) {
            
             if (xhr.code == 500 || xhr.success == false) {
                 toastr.error(xhr.data);
+                $btn.toggleClass("btn-loading");
             }
             else if (xhr.indexOf("from-login-error") > 0) {
                 toastr.error('Hết thời gian thao tác xin đăng nhập lại');

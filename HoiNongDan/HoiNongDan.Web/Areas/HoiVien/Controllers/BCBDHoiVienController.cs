@@ -73,10 +73,15 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             {
                 DateTime dateNow = new DateTime(Nam, Thang, DateTime.DaysInMonth(Nam, Thang));
 
-                var model = _context.CanBos.Where(it => it.IsHoiVien == true).Include(it => it.DiaBanHoatDong).ThenInclude(it => it.QuanHuyen).AsQueryable();
+                //var model = _context.CanBos.Where(it => it.IsHoiVien == true).Include(it => it.DiaBanHoatDong).ThenInclude(it => it.QuanHuyen).AsQueryable();
+                var model = (from cb in _context.CanBos
+                            join pv in _context.PhamVis on cb.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
+                            where pv.AccountId == AccountId()
+                            && cb.IsHoiVien == true
+                            select cb).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).AsQueryable();
                 if (!String.IsNullOrEmpty(MaQuanHuyen))
                 {
-                    model = model.Where(it => it.DiaBanHoatDong.MaQuanHuyen == MaQuanHuyen);
+                    model = model.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == MaQuanHuyen);
                 }
                 if (MaDiaBanHoiVien != null)
                 {
@@ -89,7 +94,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     it.DiaBanHoatDong.Id,
                     it.DiaBanHoatDong.QuanHuyen.TenQuanHuyen,
                     it.DiaBanHoatDong.MaQuanHuyen,
-                    NgayVaoHoi = Function.ConvertStringToDate(it.NgayVaoHoi!),
+                    NgayVaoHoi = it.NgayVaoHoi,
                     it.NgayRoiHoi,
                     it.HoiVienDuyet,
                     it.CreatedTime,
@@ -106,7 +111,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         Ma = p.Key.MaQuanHuyen,
                         Ten = p.Key.TenQuanHuyen,
                         Giam = p.Where(lg => lg.isRoiHoi == true && lg.NgayRoiHoi != null && lg.NgayRoiHoi!.Value.Month == dateNow.Month && lg.NgayRoiHoi.Value.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.MaQuanHuyen == p.Key.MaQuanHuyen).Count(),
-                        ThemMoi = p.Where(lg => lg.NgayVaoHoi.Month == dateNow.Month && lg.NgayVaoHoi.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.MaQuanHuyen == p.Key.MaQuanHuyen).Count(),
+                        ThemMoi = p.Where(lg => lg.NgayVaoHoi != null && lg.NgayVaoHoi.Value.Month == dateNow.Month && lg.NgayVaoHoi.Value.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.MaQuanHuyen == p.Key.MaQuanHuyen).Count(),
                         SL = p.Where(lg => lg.isRoiHoi != true && lg.HoiVienDuyet == true && lg.Actived == true && lg.MaQuanHuyen == p.Key.MaQuanHuyen).Count(),
                         ChoDuyet = p.Where(lg => lg.HoiVienDuyet == false && lg.TuChoi == false && lg.MaQuanHuyen == p.Key.MaQuanHuyen).Count()
                     }).ToList();
@@ -118,7 +123,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         Ma = p.Key.Id.ToString(),
                         Ten = p.Key.TenDiaBanHoatDong,
                         Giam = p.Where(lg => lg.isRoiHoi == true && lg.NgayRoiHoi != null && lg.NgayRoiHoi!.Value.Month == dateNow.Month && lg.NgayRoiHoi.Value.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.Id == p.Key.Id).Count(),
-                        ThemMoi = p.Where(lg => lg.NgayVaoHoi.Month == dateNow.Month && lg.NgayVaoHoi.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.Id == p.Key.Id).Count(),
+                        ThemMoi = p.Where(lg => lg.NgayVaoHoi != null && lg.NgayVaoHoi.Value.Month == dateNow.Month && lg.NgayVaoHoi.Value.Year == dateNow.Year && lg.HoiVienDuyet == true && lg.Id == p.Key.Id).Count(),
                         SL = p.Where(lg => lg.isRoiHoi != true && lg.HoiVienDuyet == true && lg.Actived == true && lg.Id == p.Key.Id).Count(),
                         ChoDuyet = p.Where(lg => lg.HoiVienDuyet == false && lg.TuChoi == false && lg.Id == p.Key.Id).Count()
                     }).ToList();

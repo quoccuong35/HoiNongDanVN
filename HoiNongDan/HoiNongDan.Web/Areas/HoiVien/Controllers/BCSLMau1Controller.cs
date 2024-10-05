@@ -6,6 +6,7 @@ using HoiNongDan.Web.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 {
@@ -100,6 +101,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     model = model.Where(it => it.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.Any(p=>p.Ma_ToHoiNganhNghe_ChiHoiNganhNghe == MaChiHoi));
                 }
+                var phamvis = _context.PhamVis.Where(it => it.AccountId == AccountId()).Select(it => it.MaDiabanHoatDong).ToList();
+                model = model.Where(it => phamvis.Contains(it.MaDiaBanHoatDong!.Value));
                 var modeltemp = model.Select(it => new {
                     it.IDCanBo,
                     it.HoVaTen,

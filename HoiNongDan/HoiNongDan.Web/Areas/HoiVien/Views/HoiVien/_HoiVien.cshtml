@@ -26,11 +26,15 @@
                         <div class="tab-pane active" id="tab17">
                             <div class="row">
                                 <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label asp-for="MaCanBo"></label><span class="text-red">*</span>
-                                        <input type="text" asp-for="MaCanBo" class="form-control">
-                                        <span asp-validation-for="MaCanBo" class="text-danger"></span>
-                                    </div>
+                                    <label asp-for="MaCanBo"></label><span class="text-red">*</span>
+                                    <input type="text" asp-for="MaCanBo" class="form-control">
+                                   
+                                    <span asp-validation-for="MaCanBo" class="text-danger"></span>
+                                </div>
+                                <div class="col-lg-2">
+                                    <label asp-for="NgayCapThe"></label><span class="text-red">*</span>
+                                    <input  asp-for="NgayCapThe" class="form-control">
+                                    <span asp-validation-for="NgayCapThe" class="text-danger"></span>
                                 </div>
                                 <div class="col-lg-2">
                                     <div class="form-group">
@@ -42,7 +46,7 @@
                                     </div>
                                     <span asp-validation-for="MaDinhDanh" class="text-danger"></span>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-2">
                                     <div class="form-group">
                                         <label asp-for="HoVaTen"></label><span class="text-red">*</span>
                                         <input type="text" asp-for="HoVaTen" class="form-control">
@@ -118,18 +122,25 @@
                                         <span asp-validation-for="NgayCapCCCD" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <div class="form-group">
                                         <label asp-for="SoDienThoai"></label> <span class="text-red">*</span>
                                         <input asp-for="SoDienThoai" class="form-control">
                                         <span asp-validation-for="SoDienThoai" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <div class="form-group">
-                                        <label asp-for="NgayVaoHoi"> </label> <small> Nhập định dạng ngày tháng năm VD: 22/01/2023</small>
+                                        <label asp-for="NgayVaoHoi"> </label>
                                         <input asp-for="NgayVaoHoi" class="form-control">
                                         <span asp-validation-for="NgayVaoHoi" class="text-danger"></span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label asp-for="SoQuyetDinhBoNhiem"> </label>
+                                        <input asp-for="SoQuyetDinhBoNhiem" class="form-control">
+                                        <span asp-validation-for="SoQuyetDinhBoNhiem" class="text-danger"></span>
                                     </div>
                                 </div>
                                 <div class="col-lg-3">
@@ -234,7 +245,7 @@
                                         <span asp-validation-for="MaTrinhDoChinhTri" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <div class="form-group">
                                         <label asp-for="MaDanToc"></label><span class="text-red">*</span>
                                         <select asp-for="MaDanToc" asp-items="@ViewBag.MaDanToc" class="form-control select2-show-search form-select">
@@ -243,7 +254,7 @@
                                         <span asp-validation-for="MaDanToc" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <div class="form-group">
                                         <label asp-for="MaTonGiao"></label><span class="text-red">*</span>
                                         <select asp-for="MaTonGiao" asp-items="@ViewBag.MaTonGiao" class="form-control select2-show-search form-select">
@@ -252,20 +263,20 @@
                                         <span asp-validation-for="MaTonGiao" class="text-danger"></span>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label asp-for="VaiTro"></label>
                                         <div class="row">
-                                            <div class="col-2">
+                                            <div class="col-3">
                                                 <input type="radio"  asp-for="VaiTro" value="1">
                                                 <span class="">Chủ hộ</span>
                                             </div>
-                                            <div class="col-10 row p-0 m-0">
-                                                <div class="col-3">
+                                            <div class="col-9 row p-0 m-0">
+                                                <div class="col-6">
                                                     <input type="radio" class="" asp-for="VaiTro" value="2">
                                                     <span class="">Quan hệ chủ hộ</span>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-6">
                                                     <input asp-for="VaiTroKhac" class="form-control" />
                                                 </div>
                                             </div>
@@ -278,11 +289,28 @@
                                     <div class="form-group">
                                         <label asp-for="MaNgheNghiep"></label>
                                         <select asp-for="MaNgheNghiep" asp-items="@ViewBag.MaNgheNghiep" class="form-control select2-show-search form-select">
-                                            <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                            <option >@LanguageResource.Dropdownlist_Menu-</option>
                                         </select>
                                         <span asp-validation-for="MaNgheNghiep" class="text-danger"></span>
                                     </div>
                                    
+                                </div>
+                                <div class="col-lg-3">
+                                    <label asp-for="MaGiaDinhThuocDien"></label>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <select asp-for="MaGiaDinhThuocDien" asp-items="@ViewBag.MaGiaDinhThuocDien" class="form-control select2-show-search form-select">
+                                                    <option value= null>@LanguageResource.Dropdownlist_Menu</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <input asp-for="GiaDinhThuocDienKhac" class="form-control" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="MaGiaDinhThuocDien" class="text-danger"></span>
                                 </div>
                                 <div class="col-lg-10">
                                     <div class="form-group">
@@ -304,11 +332,15 @@
                                                 <input type="checkbox" class="custom-checked" asp-for="HoiVienNganhNghe">
                                                 <span class="">Ngành nghề</span>
                                             </div>
-                                            <div class="col-7 row p-0 m-0">
-                                                <div class ="col-3">
+                                            <div class="col-2">
+                                                <input type="checkbox" class="custom-checked" asp-for="IsBanChapHanh">
+                                                <span class="">Ban chấp hành</span>
+                                            </div>
+                                            <div class="col-5 row p-0 m-0">
+                                                <div class ="col-2">
                                                     <label class="">Ưu tú năm</label>
                                                 </div>
-                                                <div class="col-9">
+                                                <div class="col-10">
                                                     <input type="text" class="form-control" asp-for="HoiVienUuTuNam">
                                                 </div>
                                                 

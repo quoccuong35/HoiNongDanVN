@@ -11,6 +11,7 @@ using HoiNongDan.Models.Entitys;
 using HoiNongDan.Models;
 using Microsoft.AspNetCore.Http;
 using HoiNongDan.Constant;
+using Microsoft.AspNetCore.Routing;
 
 namespace HoiNongDan.Extensions
 {
@@ -37,6 +38,17 @@ namespace HoiNongDan.Extensions
             //        Response.Cookies.Delete(cookie);
             //    }
             //}
+            string role = context.ActionDescriptor.RouteValues.SingleOrDefault(it => it.Key == "area").Value +"/" + context.ActionDescriptor.RouteValues.SingleOrDefault(it => it.Key == "controller").Value + "/" + context.ActionDescriptor.RouteValues.SingleOrDefault(it => it.Key == "action").Value;
+            var addLog = new UsageLog
+            {
+                ID = Guid.NewGuid(),
+                AccountID = AccountId()!.Value,
+                TimeAccessed = DateTime.Now,
+                URLAccessed = role,
+            };
+            _context.UsageLogs.Add(addLog);
+            _context.SaveChanges();
+
         }
         public override void OnActionExecuting(ActionExecutingContext context)
         {

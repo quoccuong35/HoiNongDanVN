@@ -34,14 +34,17 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         public IActionResult _Search(HoiVienChinhTriHoiDoanSearchVM search) {
             return ExecuteSearch(() => {
                 var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
-                var data = _context.DoanTheChinhTri_HoiDoan_HoiViens.Include(it => it.HoiVien).Include(it => it.HoiVien.DiaBanHoatDong).Include(it=>it.DoanTheChinhTri_HoiDoan).AsQueryable();
+                var data = _context.DoanTheChinhTri_HoiDoan_HoiViens
+                    .Include(it => it.HoiVien)
+                    .Include(it => it.HoiVien.DiaBanHoatDong)
+                    .Include(it=>it.DoanTheChinhTri_HoiDoan).AsQueryable();
                 if (search.MaDoanTheChinhTri_HoiDoan != null)
                 {
                     data = data.Where(it => it.MaDoanTheChinhTri_HoiDoan == search.MaDoanTheChinhTri_HoiDoan);
                 }
-                if (search.MaDiaBan != null)
+                if (search.MaDiaBanHoiVien != null)
                 {
-                    data = data.Where(it => it.HoiVien.MaDiaBanHoatDong == search.MaDiaBan);
+                    data = data.Where(it => it.HoiVien.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
                 }
                 else
                 {
@@ -54,6 +57,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 if (search.MaHoiVien != null)
                 {
                     data = data.Where(it => it.HoiVien.MaCanBo ==search.MaHoiVien);
+                }
+                if (!String.IsNullOrWhiteSpace(search.MaQuanHuyen))
+                {
+                    data = data.Where(it => it.HoiVien.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
                 }
                 var model = data.Select(it=>new HoiVienChinhTriHoiDoanDetailVM { 
                     IDCanBo = it.HoiVien.IDCanBo,
@@ -80,9 +87,11 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             var chinhTriHoiDoanKhacs = _context.DoanTheChinhTri_HoiDoans.Where(it=>it.Actived == true).Select(it => new{ MaDoanTheChinhTri_HoiDoan = it.MaDoanTheChinhTri_HoiDoan,TenDoanTheChinhTri_HoiDoan = it.TenDoanTheChinhTri_HoiDoan}).ToList();
             ViewBag.MaDoanTheChinhTri_HoiDoan = new SelectList(chinhTriHoiDoanKhacs, "MaDoanTheChinhTri_HoiDoan", "TenDoanTheChinhTri_HoiDoan");
 
-            var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
-            var diaBans = _context.DiaBanHoatDongs.Where(it => it.Actived == true && phamVis.Contains(it.Id)).Select(it => new { MaDiaBan = it.Id, Name = it.TenDiaBanHoatDong }).ToList();
-            ViewBag.MaDiaBan = new SelectList(diaBans, "MaDiaBan","Name");
+            FnViewBag fnViewBag = new FnViewBag(_context);
+
+            ViewBag.MaDiaBanHoiVien = fnViewBag.DiaBanHoiVien(acID: AccountId());
+
+            ViewBag.MaQuanHuyen = fnViewBag.QuanHuyen(idAc: AccountId());
         }
         #endregion Helper
 
@@ -95,9 +104,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             {
                 data = data.Where(it => it.MaDoanTheChinhTri_HoiDoan == search.MaDoanTheChinhTri_HoiDoan);
             }
-            if (search.MaDiaBan != null)
+            if (search.MaDiaBanHoiVien != null)
             {
-                data = data.Where(it => it.HoiVien.MaDiaBanHoatDong == search.MaDiaBan);
+                data = data.Where(it => it.HoiVien.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
             }
             else
             {
@@ -119,7 +128,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 TenHoiNongDan = it.HoiVien.DiaBanHoatDong!.TenDiaBanHoatDong,
                 ChoOHienNay = it.HoiVien.ChoOHienNay!,
                 SoDienThoai = it.HoiVien.SoDienThoai,
-                NgayVaoHoi = it.HoiVien.NgayVaoHoi,
+                NgayVaoHoi = it.HoiVien.NgayVaoHoi != null? it.HoiVien.NgayVaoHoi.Value.ToString("dd/MM/yyyy"):null,
                 TenDoanTheChinhChi_HoiDon = it.DoanTheChinhTri_HoiDoan.TenDoanTheChinhTri_HoiDoan,
                 GioiTinh = (int)it.HoiVien.GioiTinh ==1?"Nam":"Nữ"
             }).ToList();

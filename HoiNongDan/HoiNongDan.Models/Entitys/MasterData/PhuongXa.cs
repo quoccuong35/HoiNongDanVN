@@ -22,6 +22,7 @@ namespace HoiNongDan.Models.Entitys.MasterData
         public Nullable<System.DateTime> LastModifiedTime { get; set; }
         public Nullable<int> OrderIndex { get; set; }
         public ICollection<DiaBanHoatDong> DiaBanHoatDongs { get; set; }
+
         public PhuongXa() {
             DiaBanHoatDongs = new List<DiaBanHoatDong>();
         }

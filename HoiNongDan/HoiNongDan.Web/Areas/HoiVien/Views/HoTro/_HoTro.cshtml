@@ -2,7 +2,7 @@
 <div class="row">
     <input asp-for="ID" hidden />
     @Html.AntiForgeryToken()
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="form-group">
             <label asp-for="IDLopHoc"></label><span class="text-red">*</span>
             <select asp-for="IDLopHoc" asp-items="@ViewBag.IDLopHoc" class="form-control select2-show-search form-select">

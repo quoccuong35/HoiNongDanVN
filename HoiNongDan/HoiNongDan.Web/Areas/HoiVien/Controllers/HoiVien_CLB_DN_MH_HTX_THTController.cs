@@ -533,7 +533,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 value.STT = stt;
                 stt++;
             });
-
+            if (model.Count > 0) {
+                var add = new HoiVien_CLB_DN_MH_HTX_THTExcelVM();
+                model.Add(add);
+            }
             string wwwRootPath = _hostEnvironment.WebRootPath;
             var url = Path.Combine(wwwRootPath, filemau);
             byte[] filecontent = ClassExportExcel.ExportExcel(model, startIndex+1, url);

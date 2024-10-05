@@ -16,9 +16,9 @@ namespace HoiNongDan.Models {
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         public Guid? MaNguonVon { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "HinhThucHoTro")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
-        public Guid MaHinhThucHoTro { get; set; }
+        //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "HinhThucHoTro")]
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        //public Guid MaHinhThucHoTro { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoTienVay")]
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]

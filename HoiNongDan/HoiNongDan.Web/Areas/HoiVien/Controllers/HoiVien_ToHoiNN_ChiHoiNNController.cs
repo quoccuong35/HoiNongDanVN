@@ -79,6 +79,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             //            select thch_hv).Include(it => it.HoiVien).Include(it => it.HoiVien.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).ThenInclude(it => it.PhuongXas).Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe).AsQueryable();
 
             ////var data = _context.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.Include(it => it.HoiVien).Include(it => it.HoiVien.DiaBanHoatDong).Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe).AsQueryable();
+
+            var phamVi = _context.PhamVis.Where(it => it.AccountId == AccountId()).Select(it => it.MaDiabanHoatDong).ToList();
+            data1 = data1.Where(it => phamVi.Contains(it.HoiVien.MaDiaBanHoatDong!.Value));
             if (search.Ma_ToHoiNganhNghe_ChiHoiNganhNghe != null)
             {
                 data1 = data1.Where(it => it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe == search.Ma_ToHoiNganhNghe_ChiHoiNganhNghe);
@@ -538,9 +541,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 value.STT = stt;
                 stt++;
             });
-            
             string wwwRootPath = _hostEnvironment.WebRootPath;
             var url = Path.Combine(wwwRootPath, @"upload\filemau\MauImPortToHoi_ChiHoi_NganhNhe.xlsx");
+            if (model.Count == 0)
+            {
+                HoiVien_ToHoiNN_ChiHoiNNExcelVM add = new HoiVien_ToHoiNN_ChiHoiNNExcelVM();
+                model.Add(add);
+            }
             byte[] filecontent = ClassExportExcel.ExportExcel(model, startIndex +2, url);
             //File name
             string fileNameWithFormat = string.Format("{0}.xlsx", "ToHoi_ChiHoi_NganhNghe");

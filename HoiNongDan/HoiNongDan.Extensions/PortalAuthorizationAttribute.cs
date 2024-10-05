@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HoiNongDan.Constant;
 using HoiNongDan.DataAccess;
+using HoiNongDan.Models.Entitys;
 
 namespace HoiNongDan.Extensions
 {

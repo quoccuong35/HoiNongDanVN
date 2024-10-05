@@ -9,8 +9,12 @@ namespace HoiNongDan.Models
 {
     public class HoiVienChinhTriHoiDoanSearchVM
     {
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
+        public String? MaQuanHuyen { get; set; }
+
         [Display(Name ="Địa bàn hội viên")]
-        public Guid? MaDiaBan { get; set; }
+        public Guid? MaDiaBanHoiVien { get; set; }
 
         [Display(Name ="Tên đoàn thể chính trị-Hội đoàn khác")]
         public Guid? MaDoanTheChinhTri_HoiDoan { get; set; }
@@ -25,5 +29,6 @@ namespace HoiNongDan.Models
         public Guid? MaDoanTheChinhTri_HoiDoan { get; set; }
         [Display(Name = "Tên đoàn thể chính trị-Hội đoàn khác")]
         public String TenDoanTheChinhChi_HoiDon { get; set; }
+
     }
 }

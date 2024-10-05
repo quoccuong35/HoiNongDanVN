@@ -147,12 +147,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             obj.ThoiHangChoVay = item.ThoiHangChoVay;
             obj.TuNgay = item.TuNgay;
             obj.DenNgay = item.DenNgay;
+            obj.MaNguonVon = item.MaNguonVon;
             obj.NgayTraNoCuoiCung = item.NgayTraNoCuoiCung;
             obj.NoiDung = item.NoiDung;
             obj.GhiChu = item.GhiChu;
             obj.HoiVien = Function.GetThongTinHoiVien(item.IDHoiVien,_context);
             obj.TraXong = item.TraXong! == null ? false : item.TraXong;
-
+            CreateViewBag(MaNguonVon: obj.MaNguonVon);
             return View(obj);
         }
         [HttpPost]
@@ -176,6 +177,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 else
                 {
                     edit.NoiDung = obj.NoiDung;
+                    edit.MaNguonVon = obj.MaNguonVon;
                     edit.GhiChu = obj.GhiChu;
                     edit.TraXong = obj.TraXong;
                     edit.LastModifiedAccountId = AccountId();

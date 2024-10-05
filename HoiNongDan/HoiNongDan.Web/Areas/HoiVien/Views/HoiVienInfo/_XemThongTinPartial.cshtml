@@ -261,16 +261,16 @@
                                     @{
 
                                         string giadinh = "";
-                                        if (Model.HoNgheo)
+                                        if (Model.MaGiaDinhThuocDien =="01")
                                         {
                                             giadinh = "Hộ nghèo";
                                         }
-                                        if (Model.CanNgheo)
+                                        if (Model.MaGiaDinhThuocDien == "02")
                                         {
                                             giadinh = giadinh +" "+ "Cận nghèo";
                                         }
-                                        if (Model.GiaDinhChinhSach)
-                                        {
+                                        if (Model.MaGiaDinhThuocDien == "03")
+                                         {
                                             giadinh = giadinh + " " + "Gia đình chính sách, con liệt sĩ";
                                         }
                                         if (!String.IsNullOrWhiteSpace(Model.GiaDinhThuocDienKhac))

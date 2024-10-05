@@ -36,7 +36,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label>Tên hội nông dân</label>
-                                @Html.DropDownList("MaDiaBanHoatDong", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-2">
                                 <label>Từ ngày</label>
@@ -92,22 +92,12 @@
 </div>
 <!-- CONTAINER CLOSED -->
 @section ScriptCustomized {
+    <script src="~/js/diaban_hv_quanhuyen.js"></script>
     <script>
         //load default and set event
+       
         $(document).ready(function () {
             HoiNongDan.SearchInitial("@CurrentUrl");
         });
-        $("select#MaQuanHuyen").change(function () {
-            let maQuanHuyen = $(this).val();
-            //console.log(maQuanHuyen);
-            $("select#MaDiaBanHoatDong").empty();
-            $.getJSON('/HoiVien/BaoCaoGiamHV/loadDiaBanHoatDong?maQuanHuyen=' + maQuanHuyen, function (data) {
-                $("select#MaDiaBanHoatDong").append('<option>' + "--Vui lòng chọn danh mục--" + '</option>');
-                $.each(data, function (i, item) {
-                    /*console.log(item);*/
-                    $("select#MaDiaBanHoatDong").append('<option value=' + item.maDiaBanHoatDong + '>' + item.name + '</option>');
-                });
-            });
-        })
     </script>
 }

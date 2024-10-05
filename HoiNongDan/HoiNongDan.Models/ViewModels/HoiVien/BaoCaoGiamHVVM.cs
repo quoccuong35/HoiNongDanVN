@@ -13,12 +13,14 @@ namespace HoiNongDan.Models
         public String? HoVaTen { get; set;  }
         public String? Nam { get; set; }
         public String? Nu { get; set;  }
+        public String? QuanHuyen { get; set;  }
+        public String? TenHoi { get; set;  }
         public String? DiaChi { get; set;  }
 
         public String? NamVaoHoi { get; set;  }
 
 
-        public String? LyDoGiam { get; set;  }
+        public string? LyDoGiam { get; set;  }
 
         public String? ChiHoi { get; set;  }
     }

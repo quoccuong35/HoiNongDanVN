@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HoiNongDan.Models.Entitys.HoiVien;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,11 @@ namespace HoiNongDan.Models
         public Nullable<int> OrderIndex { get; set; }
 
         public ICollection<CanBo> CanBos { get; set; }
+        public ICollection<HoiVien_ChiHoi> ChiHoiHoiViens { get; set; }
 
         public ChiHoi() {
             CanBos = new List<CanBo>();
+            ChiHoiHoiViens = new List<HoiVien_ChiHoi>();
         }
     }
     public class ToHoi {

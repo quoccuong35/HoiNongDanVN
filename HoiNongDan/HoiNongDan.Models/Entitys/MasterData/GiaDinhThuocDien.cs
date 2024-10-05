@@ -15,6 +15,12 @@ namespace HoiNongDan.Models
         
         [MaxLength(500)]
         public String TenGiaDinhThuocDien { get; set; }
-       
+
+        public ICollection<CanBo> CanBos { get; set; }
+
+        public GiaDinhThuocDien() {
+            CanBos = new List<CanBo>();
+        }
+
     }
 }

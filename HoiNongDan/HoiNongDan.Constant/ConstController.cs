@@ -62,6 +62,7 @@
         #endregion NhanSu
         #region Hội viên
         public const string DiaBanHoatDong = "DiaBanHoatDong";
+        public const string BanChapHanhCH = "BanChapHanhCH";
         public const string HoTro = "HoTro";
         public const string HVKhenThuong = "HVKhenThuong";
         public const string DuyetHoiVien = "DuyetHoiVien";

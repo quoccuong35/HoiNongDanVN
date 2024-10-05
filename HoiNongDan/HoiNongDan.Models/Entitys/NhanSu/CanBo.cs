@@ -1,4 +1,5 @@
 ﻿using HoiNongDan.Models.Entitys;
+using HoiNongDan.Models.Entitys.HoiVien;
 using HoiNongDan.Models.Entitys.MasterData;
 using HoiNongDan.Models.Entitys.NhanSu;
 using System;
@@ -98,6 +99,7 @@ namespace HoiNongDan.Models
 
         [MaxLength(500)]
         public String? ChuyenNganh { get; set; }
+    
 
         [MaxLength(50)]
         public string? MaTrinhDoTinHoc { get; set; }
@@ -155,7 +157,7 @@ namespace HoiNongDan.Models
         public string? HoKhauThuongTru { get; set; }
 
         [MaxLength(100)]
-        public String? NgayVaoHoi { get; set; }
+        public DateTime? NgayVaoHoi { get; set; }
 
         [MaxLength(100)]
         public String? NgayThamGiaCapUyDang { get; set; }
@@ -192,10 +194,8 @@ namespace HoiNongDan.Models
         public bool? DKMauNguoiNongDanMoi { get; set; } = false;
 
 
-        public bool? HoNgheo { get; set; } = false;
-         
-        public bool? CanNgheo { get; set; } = false;
-        public bool? GiaDinhChinhSach { get; set; } = false;
+        public String? MaGiaDinhThuocDien { get; set; }
+      
 
         [MaxLength(10)]
         public String? MaNgheNghiep { get; set; }
@@ -260,6 +260,12 @@ namespace HoiNongDan.Models
         [MaxLength(1000)]
         public String? ChiHoiNgheNghiep_CHP { get; set; }
 
+        [MaxLength(500)]
+        public String? QueQuan { get; set; }
+        [MaxLength(50)]
+        public String? MaQuanHuyen { get; set; }
+        public QuanHuyen? QuanHuyen { get; set; }
+
         public bool? HoiVienDanCu { get; set; }
         public bool? HoiVienNganhNghe { get; set; }
         public DateTime? NgayCapThe { get; set; }
@@ -303,6 +309,8 @@ namespace HoiNongDan.Models
         public ICollection<VayVon> VayVons { get; set; }
         public ICollection<HoiVienLichSuDuyet> HoiVienLichSuDuyets { get; set; }
         public ICollection<DanhGiaHoiVien> DanhGiaHoiViens { get; set; }
+        public ICollection<HoiVien_ChiHoi> HoiVienChiHois { get; set; }
+        public GiaDinhThuocDien? GiaDinhThuocDien { get; set; }
         public HuuTri? HuuTri { get; set; }
 
         public bool? DangVien { get; set; }
@@ -328,6 +336,8 @@ namespace HoiNongDan.Models
             VayVons = new List<VayVon>();
             HoiVienLichSuDuyets = new List<HoiVienLichSuDuyet>();
             DanhGiaHoiViens = new List<DanhGiaHoiVien>();
+            HoiVienChiHois = new List<HoiVien_ChiHoi>();
+
         }
 
     }

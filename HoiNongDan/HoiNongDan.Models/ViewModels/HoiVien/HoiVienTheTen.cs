@@ -14,7 +14,7 @@ namespace HoiNongDan.Models
         public String NamSinh { get; set; }
         public String NoiCuTru { get; set; }
         public String NoiCuTru1 { get; set; }
-        public String NgayVaoHoi { get; set; }
+        public string? NgayVaoHoi { get; set; }
         public String ThangVaoHoi { get; set; }
         public String NamVaoHoi { get; set; }
         public String NoiCapThe { get; set; }

@@ -10,170 +10,170 @@ namespace HoiNongDan.Models
     public class BaoCaoThucLucHoi
     {
         [Key]
-        public Guid ID { get; set; }
+        public Guid ID { get; set; } 
         public int IDDonVi { get; set; }
         public DonVi? DonVi { get; set; }
-        [MaxLength(20)]
-        public string? Cot1 { get; set; }
-        [MaxLength(20)]
-        public string? Cot2 { get; set; }
-        [MaxLength(20)]
-        public string? Cot3 { get; set; }
-        [MaxLength(20)]
-        public string? Cot4 { get; set; }
-        [MaxLength(20)]
-        public string? Cot5 { get; set; }
-        [MaxLength(20)]
-        public string? Cot6 { get; set; }
-        [MaxLength(20)]
-        public string? Cot7 { get; set; }
-        [MaxLength(20)]
-        public string? Cot8 { get; set; }
-        [MaxLength(20)]
-        public string? Cot9 { get; set; }
-        [MaxLength(20)]
-        public string? Cot10 { get; set; }
-        [MaxLength(20)]
-        public string? Cot11 { get; set; }
-        [MaxLength(20)]
-        public string? Cot12 { get; set; }
-        [MaxLength(20)]
-        public string? Cot13 { get; set; }
-        [MaxLength(20)]
-        public string? Cot14 { get; set; }
-        [MaxLength(20)]
-        public string? Cot15 { get; set; }
-        [MaxLength(20)]
-        public string? Cot16 { get; set; }
-        [MaxLength(20)]
-        public string? Cot17 { get; set; }
-        [MaxLength(20)]
-        public string? Cot18 { get; set; }
-        [MaxLength(20)]
-        public string? Cot19 { get; set; }
-        [MaxLength(20)]
-        public string? Cot20 { get; set; }
-        [MaxLength(20)]
-        public string? Cot21 { get; set; }
-        [MaxLength(20)]
-        public string? Cot22 { get; set; }
-        [MaxLength(20)]
-        public string? Cot23 { get; set; }
-        [MaxLength(20)]
-        public string? Cot24 { get; set; }
-        [MaxLength(20)]
-        public string? Cot25 { get; set; }
-        [MaxLength(20)]
-        public string? Cot26 { get; set; }
-        [MaxLength(20)]
-        public string? Cot27 { get; set; }
-        [MaxLength(20)]
-        public string? Cot28 { get; set; }
-        [MaxLength(20)]
-        public string? Cot29 { get; set; }
-        [MaxLength(20)]
-        public string? Cot30 { get; set; }
-        [MaxLength(20)]
-        public string? Cot31 { get; set; }
-        [MaxLength(20)]
-        public string? Cot32 { get; set; }
-        [MaxLength(20)]
-        public string? Cot33 { get; set; }
-        [MaxLength(20)]
-        public string? Cot34 { get; set; }
-        [MaxLength(20)]
-        public string? Cot35 { get; set; }
-        [MaxLength(20)]
-        public string? Cot36 { get; set; }
-        [MaxLength(20)]
-        public string? Cot37 { get; set; }
-        [MaxLength(20)]
-        public string? Cot38 { get; set; }
-        [MaxLength(20)]
-        public string? Cot39 { get; set; }
-        [MaxLength(20)]
-        public string? Cot40 { get; set; }
-        [MaxLength(20)]
-        public string? Cot41 { get; set; }
-        [MaxLength(20)]
-        public string? Cot42 { get; set; }
-        [MaxLength(20)]
-        public string? Cot43 { get; set; }
-        [MaxLength(20)]
-        public string? Cot44 { get; set; }
-        [MaxLength(20)]
-        public string? Cot45 { get; set; }
-        [MaxLength(20)]
-        public string? Cot46 { get; set; }
-        [MaxLength(20)]
-        public string? Cot47 { get; set; }
-        [MaxLength(20)]
-        public string? Cot48 { get; set; }
-        [MaxLength(20)]
-        public string? Cot49 { get; set; }
-        [MaxLength(20)]
-        public string? Cot50 { get; set; }
-        [MaxLength(20)]
-        public string? Cot51 { get; set; }
-        [MaxLength(20)]
-        public string? Cot52 { get; set; }
-        [MaxLength(20)]
-        public string? Cot53 { get; set; }
-        [MaxLength(20)]
-        public string? Cot54 { get; set; }
-        [MaxLength(20)]
-        public string? Cot55 { get; set; }
-        [MaxLength(20)]
-        public string? Cot56 { get; set; }
-        [MaxLength(20)]
-        public string? Cot57 { get; set; }
-        [MaxLength(20)]
-        public string? Cot58 { get; set; }
-        [MaxLength(20)]
-        public string? Cot59 { get; set; }
-        [MaxLength(20)]
-        public string? Cot60 { get; set; }
-        [MaxLength(20)]
-        public string? Cot61 { get; set; }
-        [MaxLength(20)]
-        public string? Cot62 { get; set; }
-        [MaxLength(20)]
-        public string? Cot63 { get; set; }
-        [MaxLength(20)]
-        public string? Cot64 { get; set; }
-        [MaxLength(20)]
-        public string? Cot65 { get; set; }
-        [MaxLength(20)]
-        public string? Cot66 { get; set; }
-        [MaxLength(20)]
-        public string? Cot67 { get; set; }
-        [MaxLength(20)]
-        public string? Cot68 { get; set; }
-        [MaxLength(20)]
-        public string? Cot69 { get; set; }
-        [MaxLength(20)]
-        public string? Cot70 { get; set; }
-        [MaxLength(20)]
-        public string? Cot71 { get; set; }
-        [MaxLength(20)]
-        public string? Cot72 { get; set; }
-        [MaxLength(20)]
-        public string? Cot73 { get; set; }
-        [MaxLength(20)]
-        public string? Cot74 { get; set; }
-        [MaxLength(20)]
-        public string? Cot75 { get; set; }
-        [MaxLength(20)]
-        public string? Cot76 { get; set; }
-        [MaxLength(20)]
-        public string? Cot77 { get; set; }
-        [MaxLength(20)]
-        public string? Cot78 { get; set; }
-        [MaxLength(20)]
-        public string? Cot79 { get; set; }
-        [MaxLength(20)]
-        public string? Cot80 { get; set; }
-        [MaxLength(20)]
+       
+        public String? Cot1 { get; set; }
+       
+        public decimal? Cot2 { get; set; }
+       
+        public decimal? Cot3 { get; set; }
+       
+        public decimal? Cot4 { get; set; }
+       
+        public decimal? Cot5 { get; set; }
+       
+        public decimal? Cot6 { get; set; }
+       
+        public decimal? Cot7 { get; set; }
+       
+        public decimal? Cot8 { get; set; }
+       
+        public decimal? Cot9 { get; set; }
+       
+        public decimal? Cot10 { get; set; }
+       
+        public decimal? Cot11 { get; set; }
+       
+        public decimal? Cot12 { get; set; }
+       
+        public decimal? Cot13 { get; set; }
+       
+        public decimal? Cot14 { get; set; }
+       
+        public decimal? Cot15 { get; set; }
+       
+        public decimal? Cot16 { get; set; }
+       
+        public decimal? Cot17 { get; set; }
+       
+        public decimal? Cot18 { get; set; }
+       
+        public decimal? Cot19 { get; set; }
+       
+        public decimal? Cot20 { get; set; }
+       
+        public decimal? Cot21 { get; set; }
+       
+        public decimal? Cot22 { get; set; }
+       
+        public decimal? Cot23 { get; set; }
+       
+        public decimal? Cot24 { get; set; }
+       
+        public decimal? Cot25 { get; set; }
+       
+        public decimal? Cot26 { get; set; }
+       
+        public decimal? Cot27 { get; set; }
+       
+        public decimal? Cot28 { get; set; }
+        [MaxLength(100)]
+        public String? Cot29 { get; set; }
+       
+        public decimal? Cot30 { get; set; }
+       
+        public decimal? Cot31 { get; set; }
+       
+        public decimal? Cot32 { get; set; }
+       
+        public decimal? Cot33 { get; set; }
+       
+        public decimal? Cot34 { get; set; }
+       
+        public decimal? Cot35 { get; set; }
+       
+        public decimal? Cot36 { get; set; }
+       
+        public decimal? Cot37 { get; set; }
+       
+        public decimal? Cot38 { get; set; }
+       
+        public decimal? Cot39 { get; set; }
+       
+        public decimal? Cot40 { get; set; }
+       
+        public decimal? Cot41 { get; set; }
+       
+        public decimal? Cot42 { get; set; }
+       
+        public decimal? Cot43 { get; set; }
+       
+        public decimal? Cot44 { get; set; }
+       
+        public decimal? Cot45 { get; set; }
+       
+        public decimal? Cot46 { get; set; }
+       
+        public decimal? Cot47 { get; set; }
+       
+        public decimal? Cot48 { get; set; }
+       
+        public decimal? Cot49 { get; set; }
+       
+        public decimal? Cot50 { get; set; }
+       
+        public decimal? Cot51 { get; set; }
+       
+        public decimal? Cot52 { get; set; }
+       
+        public decimal? Cot53 { get; set; }
+       
+        public decimal? Cot54 { get; set; }
+       
+        public decimal? Cot55 { get; set; }
+       
+        public decimal? Cot56 { get; set; }
+       
+        public String? Cot57 { get; set; }
+       
+        public decimal? Cot58 { get; set; }
+       
+        public decimal? Cot59 { get; set; }
+       
+        public decimal? Cot60 { get; set; }
+       
+        public decimal? Cot61 { get; set; }
+       
+        public decimal? Cot62 { get; set; }
+       
+        public decimal? Cot63 { get; set; }
+       
+        public decimal? Cot64 { get; set; }
+       
+        public decimal? Cot65 { get; set; }
+       
+        public decimal? Cot66 { get; set; }
+       
+        public decimal? Cot67 { get; set; }
+       
+        public decimal? Cot68 { get; set; }
+       
+        public decimal? Cot69 { get; set; }
+       
+        public decimal? Cot70 { get; set; }
+       
+        public decimal? Cot71 { get; set; }
+       
+        public decimal? Cot72 { get; set; }
+       
+        public decimal? Cot73 { get; set; }
+       
+        public decimal? Cot74 { get; set; }
+       
+        public decimal? Cot75 { get; set; }
+       
+        public decimal? Cot76 { get; set; }
+       
+        public decimal? Cot77 { get; set; }
+       
+        public decimal? Cot78 { get; set; }
+       
+        public decimal? Cot79 { get; set; }
+       
+        public decimal? Cot80 { get; set; }
+       
         public string Loai { get; set; }
         public int Nam { get; set; }
         public int? Quy { get; set; }

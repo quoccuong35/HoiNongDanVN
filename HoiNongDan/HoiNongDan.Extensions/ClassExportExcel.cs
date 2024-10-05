@@ -12,6 +12,8 @@ using System.Reflection;
 using HoiNongDan.Constant;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
 using System.Security.Policy;
+using System.Drawing;
+using System;
 
 namespace HoiNongDan.Extensions
 {
@@ -869,6 +871,16 @@ namespace HoiNongDan.Extensions
                             ExcelRange matchFormula;
                             var dataList = obj.DropdownData.ToList();
                             int indexRow = startRowFrom + 1;
+                            if (!String.IsNullOrWhiteSpace(obj.Title))
+                            {
+                                ExcelRange rangeTitle = workSheet.Cells[indexRow - 1, (dataTable.Columns.Count + indexColumn), indexRow - 1, (dataTable.Columns.Count + indexColumn + 1)];
+                                rangeTitle.Merge = true;
+                                rangeTitle.Style.Font.Bold = true;
+                                rangeTitle.Style.Font.Size = 14;
+                                rangeTitle.Style.Font.Color.SetColor(Color.Black);
+                                rangeTitle.Value = obj.Title;
+                            }
+
                             foreach (var item in dataList)
                             {
                                 //Id
@@ -898,6 +910,19 @@ namespace HoiNongDan.Extensions
                             ExcelRange matchFormula;
                             var dataList = obj.DropdownIdTypeStringData.ToList();
                             int indexRow = startRowFrom + 1;
+                            if (!String.IsNullOrWhiteSpace(obj.Title))
+                            {
+                                ExcelRange rangeTitle = workSheet.Cells[indexRow - 1, (dataTable.Columns.Count + indexColumn), indexRow - 1, (dataTable.Columns.Count + indexColumn + 1)];
+
+                                rangeTitle.Merge = true;
+                                rangeTitle.Style.Font.Bold = true;
+                                rangeTitle.Style.Font.Size = 14;
+                                rangeTitle.Style.Font.Color.SetColor(Color.Black);
+                                rangeTitle.Value = obj.Title;
+                            }
+                           
+
+                          
                             foreach (var item in dataList)
                             {
                                 //Id
@@ -927,6 +952,16 @@ namespace HoiNongDan.Extensions
                             ExcelRange matchFormula;
                             var dataList = obj.DropdownIdTypeIntData.ToList();
                             int indexRow = startRowFrom + 1;
+                            if (!String.IsNullOrWhiteSpace(obj.Title))
+                            {
+                                ExcelRange rangeTitle = workSheet.Cells[indexRow - 1, (dataTable.Columns.Count + indexColumn), indexRow - 1, (dataTable.Columns.Count + indexColumn + 1)];
+                                rangeTitle.Merge = true;
+                                rangeTitle.Style.Font.Bold = true;
+                                rangeTitle.Style.Font.Size = 14;
+                                rangeTitle.Style.Font.Color.SetColor(Color.Black);
+                                rangeTitle.Value = obj.Title;
+                            }
+
                             foreach (var item in dataList)
                             {
                                 //Id
@@ -1088,35 +1123,37 @@ namespace HoiNongDan.Extensions
                 int columnIndex = 1;
 
                 //format serial number column
-                ExcelRange serialNumber = workSheet.Cells[startRowFrom + startBodyColumnFrom, columnIndex, startRowFrom + dataTable.Rows.Count, columnIndex];
-                serialNumber.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
 
-                foreach (DataColumn column in dataTable.Columns)
-                {
-                    ExcelRange columnCells = workSheet.Cells[workSheet.Dimension.Start.Row, columnIndex, workSheet.Dimension.End.Row, columnIndex];
-                    //ExcelRange columnheaderCells = workSheet.Cells[workSheet.Dimension.Start.Row, columnIndex, workSheet.Dimension.Start.Row, columnIndex];
-                    if (isEdit == false)
-                    {
-                        columnCells = workSheet.Cells[workSheet.Dimension.Start.Row, columnIndex, workSheet.Dimension.Start.Row, columnIndex];
-                        int maxLength = columnCells.Max(cell => cell.Value.ToString().Count());
-                        if (maxLength < 150)
-                        {
-                            workSheet.Column(columnIndex).AutoFit(18);
-                        }
-                    }
-                    else
-                    {
-                        int maxLength = 0;
-                        maxLength = columnCells.Max(cell => cell.Value == null ? 0 : (cell.Value).ToString().Count());
-                        if (maxLength < 150)
-                        {
-                            workSheet.Column(columnIndex).AutoFit();
-                        }
-                    }
-                    columnIndex++;
-                }
+                //ExcelRange serialNumber = workSheet.Cells[startRowFrom + startBodyColumnFrom, columnIndex, startRowFrom + dataTable.Rows.Count + startBodyColumnFrom, columnIndex];
+                //serialNumber.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                //foreach (DataColumn column in dataTable.Columns)
+                //{
+                //    ExcelRange columnCells = workSheet.Cells[workSheet.Dimension.Start.Row, columnIndex, workSheet.Dimension.End.Row, columnIndex];
+                //    //ExcelRange columnheaderCells = workSheet.Cells[workSheet.Dimension.Start.Row, columnIndex, workSheet.Dimension.Start.Row, columnIndex];
+                //    if (isEdit == false)
+                //    {
+                //        columnCells = workSheet.Cells[workSheet.Dimension.Start.Row, columnIndex, workSheet.Dimension.Start.Row, columnIndex];
+                //        int maxLength = columnCells.Where(it => it.Value != null).Max(cell => cell.Value.ToString()!.Count());
+                //        if (maxLength < 150)
+                //        {
+                //            workSheet.Column(columnIndex).AutoFit(18);
+                //        }
+                //    }
+                //    else
+                //    {
+                //        int maxLength = 0;
+                //        maxLength = columnCells.Max(cell => cell.Value == null ? 0 : (cell.Value).ToString().Count());
+                //        if (maxLength < 150)
+                //        {
+                //            workSheet.Column(columnIndex).AutoFit();
+                //        }
+                //    }
+                //    columnIndex++;
+                //}
+
                 // format cells - add borders
-                using (ExcelRange r = workSheet.Cells[startRowFrom + 1, startBodyColumnFrom, startRowFrom + dataTable.Rows.Count, dataTable.Columns.Count])
+                using (ExcelRange r = workSheet.Cells[startRowFrom, startBodyColumnFrom, startRowFrom + dataTable.Rows.Count, dataTable.Columns.Count])
                 {
                     r.Style.Border.Top.Style = ExcelBorderStyle.Thin;
                     r.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;

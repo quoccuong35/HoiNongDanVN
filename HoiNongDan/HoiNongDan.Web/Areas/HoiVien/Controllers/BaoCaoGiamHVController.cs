@@ -33,20 +33,24 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             return View();
         }
         [HoiNongDanAuthorization]
-        public IActionResult _Search(String? MaQuanHuyen, Guid? MaDiaBanHoatDong, DateTime? TuNgay, DateTime? DenNgay)
+        public IActionResult _Search(String? MaQuanHuyen, Guid? MaDiaBanHoiVien, DateTime? TuNgay, DateTime? DenNgay)
         {
             return ExecuteSearch(() => {
-              var model=   LoatData(MaQuanHuyen: MaQuanHuyen, MaDiaban: MaDiaBanHoatDong, TuNgay: TuNgay, DenNgay: DenNgay);
+              var model=   LoatData(MaQuanHuyen: MaQuanHuyen, MaDiaban: MaDiaBanHoiVien, TuNgay: TuNgay, DenNgay: DenNgay);
                 return PartialView(model);
             });
         }
 
-        public IActionResult ExportEdit(String? MaQuanHuyen, Guid? MaDiaBanHoatDong, DateTime? TuNgay, DateTime? DenNgay)
+        public IActionResult ExportEdit(String? MaQuanHuyen, Guid? MaDiaBanHoiVien, DateTime? TuNgay, DateTime? DenNgay)
         {
             string wwwRootPath = _hostEnvironment.WebRootPath;
             var url = Path.Combine(wwwRootPath, @"upload\filemau\BaoCaoHoiVienGiam.xlsx");
-            var model = LoatData(MaQuanHuyen: MaQuanHuyen, MaDiaban: MaDiaBanHoatDong, TuNgay: TuNgay, DenNgay: DenNgay);
-            
+            var model = LoatData(MaQuanHuyen: MaQuanHuyen, MaDiaban: MaDiaBanHoiVien, TuNgay: TuNgay, DenNgay: DenNgay);
+            if (model.Count == 0)
+            {
+                BaoCaoGiamHVVM add = new BaoCaoGiamHVVM();
+                model.Add(add);
+            }
             byte[] filecontent = ClassExportExcel.ExportExcel(model, startIndex, url);
             //File name
             string fileNameWithFormat = string.Format("{0}.xlsx", "BaoCaoHoiVienGiam");
@@ -58,57 +62,29 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Helper
         private void CreateViewBagSearch()
         {
-            var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
-            var data = (from hv in _context.CanBos
-                        join diaban in _context.DiaBanHoatDongs on hv.MaDiaBanHoatDong equals diaban.Id
-                        join quanhuyen in _context.QuanHuyens on diaban.MaQuanHuyen equals quanhuyen.MaQuanHuyen
-                        where hv.IsHoiVien == true
-                        && phamVis.Contains(diaban.Id)
-                        select new
-                        {
-                            MaDiaBanHoatDong = diaban.Id,
-                            Name = diaban.TenDiaBanHoatDong,
-                            MaQuanHuyen = quanhuyen.MaQuanHuyen,
-                            TenQuanHuyen = quanhuyen.TenQuanHuyen
-                        }
-                                  ).Distinct().ToList();
 
-            var diaBanHoatDong = data.Select(it => new { MaDiaBanHoatDong = it.MaDiaBanHoatDong, Name = it.Name }).Distinct().ToList();
-            ViewBag.MaDiaBanHoatDong = new SelectList(diaBanHoatDong, "MaDiaBanHoatDong", "Name");
+            FnViewBag fnViewBag = new FnViewBag(_context);
 
-            var quanHuyen = data.Select(it => new { MaQuanHuyen = it.MaQuanHuyen, TenQuanHuyen = it.TenQuanHuyen }).Distinct().ToList();
-            ViewBag.MaQuanHuyen = new SelectList(quanHuyen, "MaQuanHuyen", "TenQuanHuyen");
+
+            ViewBag.MaDiaBanHoiVien = fnViewBag.DiaBanHoiVien(acID: AccountId());
+
+            ViewBag.MaQuanHuyen = fnViewBag.QuanHuyen(idAc: AccountId());
 
         }
-        public JsonResult loadDiaBanHoatDong(string? maQuanHuyen)
-        {
-            if (!String.IsNullOrWhiteSpace(maQuanHuyen))
-            {
-                var diaBanHoatDong = _context.DiaBanHoatDongs.Where(it => it.Actived == true && it.MaQuanHuyen == maQuanHuyen).Select(it => new { MaDiaBanHoatDong = it.Id, Name = it.TenDiaBanHoatDong }).Distinct().ToList();
-                return Json(diaBanHoatDong);
-            }
-            else
-            {
-                var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
-                var data = (from hv in _context.CanBos
-                            join diaban in _context.DiaBanHoatDongs on hv.MaDiaBanHoatDong equals diaban.Id
-                            where hv.IsHoiVien == true && diaban.Actived == true
-                              && phamVis.Contains(diaban.Id)
-                            select new
-                            {
-                                MaDiaBanHoatDong = diaban.Id,
-                                Name = diaban.TenDiaBanHoatDong,
-                            }
-                                 ).Distinct().ToList();
-                return Json(data);
-            }
-
-        }
+       
         [NonAction]
         private List<BaoCaoGiamHVVM> LoatData(String? MaQuanHuyen, Guid? MaDiaban, DateTime? TuNgay, DateTime? DenNgay) {
             try
             {
-                var data = _context.CanBos.Include(it => it.ChiHoi).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).Where(it => it.IsHoiVien == true && it.isRoiHoi == true);
+                //var data = _context.CanBos.Include(it => it.ChiHoi).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).Where(it => it.IsHoiVien == true && it.isRoiHoi == true);
+
+
+                var data = (from cb in _context.CanBos
+                             join pv in _context.PhamVis on cb.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
+                             where pv.AccountId == AccountId()
+                             && cb.IsHoiVien == true
+                             && cb.HoiVienDuyet == true
+                            select cb).Include(it => it.ChiHoi).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).Where(it => it.IsHoiVien == true && it.isRoiHoi == true);
                 if (MaDiaban != null)
                 {
                     data = data.Where(it => it.MaDiaBanHoatDong == MaDiaban);
@@ -130,10 +106,12 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     HoVaTen = it.HoVaTen,
                     Nam = (int)it.GioiTinh == 1 ? it.NgaySinh : "",
                     Nu = (int)it.GioiTinh != 1 ? it.NgaySinh : "",
+                    QuanHuyen = it.DiaBanHoatDong!.QuanHuyen!.TenQuanHuyen,
+                    TenHoi= it.DiaBanHoatDong!.TenDiaBanHoatDong,
                     DiaChi = it.ChoOHienNay,
                     ChiHoi = it.ChiHoi!.TenChiHoi,
                     LyDoGiam = it.LyDoRoiHoi,
-                    NamVaoHoi = it.NgayVaoHoi
+                    NamVaoHoi = it.NgayVaoHoi == null?null:it.NgayVaoHoi.Value.ToString("dd/MM/yyyy")
 
                 }).ToList().Select((it, index) => new BaoCaoGiamHVVM
                 {
@@ -141,10 +119,12 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     HoVaTen = it.HoVaTen,
                     Nam = it.Nam,
                     Nu = it.Nu,
+                    QuanHuyen = it.QuanHuyen,
+                    TenHoi = it.TenHoi,
                     DiaChi = it.DiaChi == null ? "" : it.DiaChi,
                     ChiHoi = it.ChiHoi ==null?"": it.ChiHoi,
                     LyDoGiam = it.LyDoGiam == null ? "" : it.LyDoGiam,
-                    NamVaoHoi = it.NamVaoHoi == null ? "" : it.NamVaoHoi,
+                    NamVaoHoi = it.NamVaoHoi == null ? null : it.NamVaoHoi,
 
                 }).ToList();
                 return model;

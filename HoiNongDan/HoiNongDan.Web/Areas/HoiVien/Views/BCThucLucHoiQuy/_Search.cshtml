@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BaoCaoThucLucHoi>
+﻿@model IEnumerable<BaoCaoThucLucHoiVM>
 <table class="table table-bordered text-nowrap text-md-nowrap  table-striped mb-0" id="data-list">
     <thead>
         <tr>
@@ -345,7 +345,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@stt</td>
+                <td>@item.STT</td>
                 <td>@item.Cot1</td>
                 <td>@item.Cot2</td>
                 <td>@item.Cot3</td>
@@ -373,7 +373,7 @@
                 <td>@item.Cot25</td>
                 <td>@item.Cot26</td>
                 <td>@item.Cot27</td>
-                <td>@stt</td>
+                <td>@item.STT</td>
                 <td>@item.Cot29</td>
                 <td>@item.Cot30</td>
                 <td>@item.Cot31</td>
@@ -401,7 +401,7 @@
                 <td>@item.Cot53</td>
                 <td>@item.Cot54</td>
                 <td>@item.Cot55</td>
-                <td>@stt</td>
+                <td>@item.STT</td>
                 <td>@item.Cot57</td>
                 <td>@item.Cot58</td>
                 <td>@item.Cot59</td>

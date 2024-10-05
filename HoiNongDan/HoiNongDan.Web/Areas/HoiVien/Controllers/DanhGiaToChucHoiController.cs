@@ -47,7 +47,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HoiNongDanAuthorization]
         public IActionResult _Search(DanhGiaHVSearchVM search)
         {
-            var model = LoadData(search);
+            var model = LoadDataDetail(search);
             return PartialView(model);
         }
         #region Import
@@ -1085,12 +1085,63 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             {
                 data = data.Where(it => !it.DanhGiaToChucHois.Any(it => it.Nam == search.Nam));
             }
+            var phamvis = _context.PhamVis.Where(it => it.AccountId == AccountId()).Select(it => it.MaDiabanHoatDong).ToList();
+            data = data.Where(it => phamvis.Contains(it.Id));
             var model = data.Select(it => new DanhGiaToChucHoiVM {
                 ID = it.Id,
                 DonVi = it.TenDiaBanHoatDong,
                 CoSo_Tong = it.DanhGiaToChucHois.Where(p=>p.LoaiDanhGia == "01" && p.LoaiToChuc =="01" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it=>it.SoLuong).Sum(),
                 CoSo_HTXSNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "02" && p.LoaiToChuc == "01" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
                 CoSo_HTTNV= it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "03" && p.LoaiToChuc == "01" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                CoSo_HTNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "04" && p.LoaiToChuc == "01" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                CoSo_KHTNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "05" && p.LoaiToChuc == "01" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                CoSo_KPhanLoai = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "06" && p.LoaiToChuc == "01" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+
+                DanCu_Tong = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "01" && p.LoaiToChuc == "02" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                DanCu_HTXSNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "02" && p.LoaiToChuc == "02" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                DanCu_HTTNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "03" && p.LoaiToChuc == "02" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                DanCu_HTNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "04" && p.LoaiToChuc == "02" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                DanCu_KHTNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "05" && p.LoaiToChuc == "02" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                DanCu_KPhanLoai = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "06" && p.LoaiToChuc == "02" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+
+                NgheNghiep_Tong = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "01" && p.LoaiToChuc == "03" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                NgheNghiep_HTXSNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "02" && p.LoaiToChuc == "03" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                NgheNghiep_HTTNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "03" && p.LoaiToChuc == "03" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                NgheNghiep_HTNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "04" && p.LoaiToChuc == "03" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                NgheNghiep_KHTNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "05" && p.LoaiToChuc == "03" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                NgheNghiep_KPhanLoai = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "06" && p.LoaiToChuc == "03" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+            }).ToList();
+            return model;
+        }
+        private List<DanhGiaToChucHoiDetailVM> LoadDataDetail(DanhGiaHVSearchVM search)
+        {
+            var data = _context.DiaBanHoatDongs.Include(it => it.DanhGiaToChucHois).AsQueryable();
+            search.Nam = search.Nam != null ? search.Nam : DateTime.Now.Year;
+            if (!String.IsNullOrWhiteSpace(search.MaQuanHuyen))
+            {
+                data = data.Where(it => it.MaQuanHuyen == search.MaQuanHuyen);
+            }
+            if (search.MaDiaBanHoiVien != null)
+            {
+                data = data.Where(it => it.Id == search.MaDiaBanHoiVien);
+            }
+            if (search.Nam != null && search.Loai == "02")
+            {
+                data = data.Where(it => it.DanhGiaToChucHois.Any(it => it.Nam == search.Nam));
+            }
+            if (search.Nam != null && search.Loai == "03")
+            {
+                data = data.Where(it => !it.DanhGiaToChucHois.Any(it => it.Nam == search.Nam));
+            }
+            var phamvis = _context.PhamVis.Where(it => it.AccountId == AccountId()).Select(it=>it.MaDiabanHoatDong).ToList();
+            data = data.Where(it => phamvis.Contains(it.Id));
+            var model = data.Select(it => new DanhGiaToChucHoiDetailVM
+            {
+                ID = it.DanhGiaToChucHois.Where(p =>  p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).First().ID,
+                DonVi = it.TenDiaBanHoatDong,
+                CoSo_Tong = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "01" && p.LoaiToChuc == "01" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                CoSo_HTXSNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "02" && p.LoaiToChuc == "01" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
+                CoSo_HTTNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "03" && p.LoaiToChuc == "01" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
                 CoSo_HTNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "04" && p.LoaiToChuc == "01" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
                 CoSo_KHTNV = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "05" && p.LoaiToChuc == "01" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),
                 CoSo_KPhanLoai = it.DanhGiaToChucHois.Where(p => p.LoaiDanhGia == "06" && p.LoaiToChuc == "01" && p.Nam == search.Nam && p.IDDiaBanHoi == it.Id).Select(it => it.SoLuong).Sum(),

@@ -36,7 +36,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                                 join hv in _context.CanBos on hvht.IDHoiVien equals hv.IDCanBo
                                 join pv in _context.PhamVis on hv.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
                             where pv.AccountId == AccountId()
-                            select hvht).Distinct().Include(it => it.LopHoc).Include(it => it.HoiVien).ThenInclude(it => it.DiaBanHoatDong).Include(it=>it.LopHoc).ThenInclude(it=>it.HinhThucHoTro).AsQueryable();
+                            select hvht).Distinct().Include(it => it.LopHoc).Include(it => it.HoiVien).ThenInclude(it => it.DiaBanHoatDong).ThenInclude(it=>it.QuanHuyen).Include(it=>it.LopHoc).ThenInclude(it=>it.HinhThucHoTro).AsQueryable();
                 
                 if (!String.IsNullOrWhiteSpace(search.MaHV))
                 {
@@ -74,6 +74,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     TenHV = it.HoiVien.HoVaTen,
                     TenLopHoc = "",
                     NoiDung = it.NoiDung,
+                    QuanHuyen = it.HoiVien.DiaBanHoatDong.QuanHuyen.TenQuanHuyen,
+                    TenHoi = it.HoiVien.DiaBanHoatDong.TenDiaBanHoatDong
                 }).ToList();
                 return PartialView(model);
             });
@@ -132,8 +134,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             obj.ID = item.ID;
             obj.NoiDung = item.NoiDung;
             obj.GhiChu = item.GhiChu;
+            obj.IDLopHoc = item.IDLopHoc;
+          
             obj.HoiVien = GetThongTinNhanSu(item.IDHoiVien);
-
+            CreateViewBag(obj.IDLopHoc);
             return View(obj);
         }
         [HttpPost]
@@ -156,6 +160,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 }
                 else
                 {
+                    edit.NoiDung =obj.NoiDung;
+                    edit.GhiChu = obj.GhiChu;
+                    edit.IDLopHoc = obj.IDLopHoc;
                     edit.LastModifiedAccountId = AccountId();
                     edit.LastModifiedTime = DateTime.Now;
                     _context.Entry(edit).State = EntityState.Modified;

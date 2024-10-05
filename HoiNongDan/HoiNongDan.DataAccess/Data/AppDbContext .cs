@@ -26,6 +26,7 @@ namespace HoiNongDan.DataAccess
         public DbSet<Parameter> Parameters { get; set; }
         public DbSet<PhamVi> PhamVis { get; set; }
         public DbSet<Author_Token> Author_Tokens { get; set; }
+        public DbSet<UsageLog> UsageLogs { get; set; }
 
         #endregion
         public DbSet<HistoryModel> HistoryModels { get; set; }
@@ -75,6 +76,7 @@ namespace HoiNongDan.DataAccess
         public DbSet<ToHoiNganhNghe_ChiHoiNganhNghe> ToHoiNganhNghe_ChiHoiNganhNghes { get; set; }
         public DbSet<Dot> Dots { get; set; }
         public DbSet<LopHoc> LopHocs { get; set; }
+    
         #endregion
         #region nhanSu
         public DbSet<CanBo> CanBos { get; set; }
@@ -109,6 +111,9 @@ namespace HoiNongDan.DataAccess
         public DbSet<HoiVienCapThe> HoiVienCapThes { get; set; }
         public DbSet<VayVon> VayVons { get; set; }
         public DbSet<HoiVienLichSuDuyet> HoiVienLichSuDuyets { get; set; }
+        public DbSet<ThongKeBien_ToChucHoi_HoiVien> ThongKeBien_ToChucHoi_HoiViens { get; set; }
+        public DbSet<BaoCaoThucLucHoiNam> BaoCaoThucLucHoiNams { get; set; }
+        public DbSet<HoiVien_ChiHoi> HoiVien_ChiHois { get; set; }
         #endregion Hội viên
 
 
@@ -482,6 +487,12 @@ namespace HoiNongDan.DataAccess
                     .HasForeignKey(it => it.MaTinhTrang)
                     .HasConstraintName("FKg_CanBo_TinhTrang");
 
+                entity.HasOne<QuanHuyen>(it => it.QuanHuyen)
+                   .WithMany(it => it.CanBos)
+                   .HasForeignKey(it => it.MaQuanHuyen)
+                   .HasConstraintName("FK_CanBo_QuanHuyenModel");
+
+
                 entity.HasOne<CoSo>(it => it.CoSo)
                     .WithMany(it => it.CanBos)
                     .HasForeignKey(it => it.IdCoSo)
@@ -499,9 +510,20 @@ namespace HoiNongDan.DataAccess
                 .HasConstraintName("FK_CanBo_DiaBanHoatDong");
 
                 entity.HasOne<NgheNghiep>(it => it.NgheNghiep)
+                   .WithMany(it => it.CanBos)
+                   .HasForeignKey(it => it.MaNgheNghiep)
+                   .HasConstraintName("FK_CanBo_NgheNghiep");
+
+
+                entity.HasOne<NgheNghiep>(it => it.NgheNghiep)
                   .WithMany(it => it.CanBos)
                   .HasForeignKey(it => it.MaNgheNghiep)
                   .HasConstraintName("FK_CanBo_NgheNghiep");
+
+                entity.HasOne<GiaDinhThuocDien>(it => it.GiaDinhThuocDien)
+                 .WithMany(it => it.CanBos)
+                 .HasForeignKey(it => it.MaGiaDinhThuocDien)
+                 .HasConstraintName("FK_CanBo_GiaDinhThuocDien");
 
                 entity.HasOne<ChucVu>(it => it.ChucVu)
                  .WithMany(it => it.CanBos)
@@ -818,6 +840,8 @@ namespace HoiNongDan.DataAccess
                 entity.Property(it => it.CreatedAccountId).IsRequired(false);
                 entity.HasMany<AccountInRoleModel>(it => it.AccountInRoleModels)
                 .WithOne(it => it.Account).OnDelete(DeleteBehavior.ClientCascade);
+
+            
             });
             builder.Entity<RolesModel>(entity =>
             {
@@ -858,6 +882,16 @@ namespace HoiNongDan.DataAccess
                     .WithMany(it => it.Author_Tokens)
                     .HasForeignKey(it => it.AccountID)
                     .HasConstraintName("FK_Author_Token_Account");
+            });
+            builder.Entity<UsageLog>(entity =>
+            {
+                entity.ToTable("UsageLog", "pms");
+                entity.HasKey(it => it.ID);
+
+                entity.HasOne<Account>(it => it.Account)
+                    .WithMany(it => it.UsageLogs)
+                    .HasForeignKey(it => it.AccountID)
+                    .HasConstraintName("FK_UsageLog_Account");
             });
             builder.Entity<MenuModel>(entity =>
             {
@@ -1055,6 +1089,23 @@ namespace HoiNongDan.DataAccess
                   .WithMany(it => it.DoanTheChinhTri_HoiDoan_HoiViens)
                   .HasForeignKey(it => it.MaDoanTheChinhTri_HoiDoan)
                   .HasConstraintName("FK_DoanTheChinhTri_HoiDoan_HoiVien_MaDoanTheChinhTri_HoiDoan");
+
+            });
+
+            builder.Entity<HoiVien_ChiHoi>(tbl =>
+            {
+                tbl.ToTable("HoiVien_ChiHoi", "HV");
+                tbl.HasKey(it => new { it.MaChiHoi, it.IDHoiVien });
+
+                tbl.HasOne<CanBo>(it => it.HoiVien)
+                  .WithMany(it => it.HoiVienChiHois)
+                  .HasForeignKey(it => it.IDHoiVien)
+                  .HasConstraintName("FK_HoiVien_ChiHoi_CanBo");
+
+                tbl.HasOne<ChiHoi>(it => it.ChiHoi)
+                  .WithMany(it => it.ChiHoiHoiViens)
+                  .HasForeignKey(it => it.MaChiHoi)
+                  .HasConstraintName("FK_HoiVien_ChiHoi_ChiHoi");
 
             });
 

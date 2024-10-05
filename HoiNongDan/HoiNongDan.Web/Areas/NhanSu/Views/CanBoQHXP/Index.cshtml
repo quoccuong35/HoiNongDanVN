@@ -37,21 +37,26 @@
                     <form method="get" id="frmSearch" asp-action="_Search">
                         <div class="row my-2">
                             <div class="col-md-3">
+                                <label>Cấp</label>
+                                @Html.DropDownList("Loai", new List<SelectListItem>(){
+                                new SelectListItem(){Text = LanguageResource.Dropdownlist_All, Value = "",Selected = true},
+                                new SelectListItem(){Text = "HUYỆN QUẬN", Value = "20" },
+                                new SelectListItem(){Text = "XÃ PHƯỜNG, THỊ TRẤN", Value = "30"},
+                                }, new { @class = "form-control" })
+                            </div>
+                            <div class="col-md-3">
                                 <label>Địa Bàn</label>
-                                @Html.DropDownList("MaDonVi", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
+                                <label>Tên hội nông dân</label>
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-3">
                                 <label>Chức vụ</label>
                                 @Html.DropDownList("MaChucVu", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                            <div class="col-md-3">
-                                <label>Cấp</label>
-                                @Html.DropDownList("Loai", new List<SelectListItem>(){
-                                new SelectListItem(){Text = LanguageResource.Dropdownlist_All, Value = ""},
-                                new SelectListItem(){Text = "HUYỆN QUẬN", Value = "20", Selected = true},
-                                new SelectListItem(){Text = "XÃ PHƯỜNG, THỊ TRẤN", Value = "30"},
-                                }, new { @class = "form-control" })
-                            </div>
+
                             <div class="col-md-3">
                                 <label>Họ Và Tên</label>
                                 <input type="text" class="form-control" name="HoVaTen" id="HoVaTen" />
@@ -108,6 +113,7 @@
 
 @section ScriptCustomized {
     <script src="~/js/canbo.js"></script>
+    <script src="~/js/diaban_hv_quanhuyen.js"></script>
     <script>
 
         //load default and set event

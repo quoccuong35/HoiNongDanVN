@@ -101,7 +101,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     HocVan = it.CanBo.TrinhDoHocVan.TenTrinhDoHocVan,
                     ChuyenMon = it.CanBo.TrinhDoChuyenMon!.TenTrinhDoChuyenMon,
                     ChinhTri = it.CanBo.TrinhDoChinhTri!.TenTrinhDoChinhTri!,
-                    NgayVaoHoi = it.CanBo.NgayVaoHoi + " " + it.CanBo.ChucVu!.TenChucVu,
+                    NgayVaoHoi = it.CanBo.NgayVaoHoi != null? it.CanBo.NgayVaoHoi.Value.ToString("dd/MM/yyyy") + " " + it.CanBo.ChucVu!.TenChucVu: it.CanBo.ChucVu!.TenChucVu,
                     DaHocLopDang = "",
                     DangHocLopDang = "",
                     ChuaHocLopDang = "",

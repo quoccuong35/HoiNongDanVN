@@ -1,0 +1,67 @@
+﻿@using HoiNongDan.Constant
+@using HoiNongDan.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<BanChapHanhCHDetail>
+@{
+    string CurrentController = ConstController.BanChapHanhCH;
+    string CurrentArea = ConstArea.HoiVien;
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+    <thead class="table-primary">
+        <tr>
+            <th class="text-center" rowspan="2">@LanguageResource.NumberIndex</th>
+            <th rowspan="2">@Html.DisplayNameFor(p => p.HoVaTen)</th>
+            <th colspan="2">Ngày sinh</th>
+            <th rowspan="2">@Html.DisplayNameFor(p => p.MaCanBo)</th>
+            <th rowspan="2">@Html.DisplayNameFor(p => p.SoCCCD)</th>
+            <th rowspan="2">@Html.DisplayNameFor(p => p.ChucVu)</th>
+            <th rowspan="2">@Html.DisplayNameFor(p => p.ChiHoi)</th>
+            <th rowspan="2">@Html.DisplayNameFor(p => p.Huyen)</th>
+            <th rowspan="2">@Html.DisplayNameFor(p => p.Xa)</th>
+            <th rowspan="2">@Html.DisplayNameFor(p => p.QueQuan)</th>
+            <th rowspan="2">@Html.DisplayNameFor(p => p.DanToc)</th>
+            <th rowspan="2">@Html.DisplayNameFor(p => p.TonGiao)</th>
+            <th rowspan="2">@Html.DisplayNameFor(p => p.TrinhDoHocVan)</th>
+            <th rowspan ="2">@Html.DisplayNameFor(p => p.TrinhDoChinhTri)</th>
+            <th colspan="2">Ngày vào Đảng</th>
+         
+        </tr>
+        <tr>
+            <th class="text-center">Nam</th>
+            <th class="text-center">Nữ</th>
+            <th class="text-center">Dự bị</th>
+            <th class="text-center">Chính thức</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 0;
+        }
+        @foreach (var item in Model)
+        {
+            i++;
+            <tr ondblclick='window.open("/HoiVien/HoiVien/Edit/@item.IDCanBo","_blank")'>
+                <td class="text-center">@i</td>
+                <td>@item.HoVaTen</td>
+                <td>@item.NgaySinh_Nam</td>
+                <td>@item.NgaySinh_Nu</td>
+                <td>@item.MaCanBo</td>
+                <td>@item.SoCCCD</td>
+                <td>@item.ChucVu</td>
+                <td>@item.ChiHoi</td>
+                <td>@item.Huyen</td>
+                <td>@item.Xa</td>
+                <td>@item.QueQuan</td>
+                <td>@item.DanToc</td>
+                <td>@item.TonGiao</td>
+                <td>@item.TrinhDoHocVan</td>
+                <td>@item.TrinhDoChinhTri</td>
+                <td>@item.NgayvaoDangDuBi</td>
+                <td>@item.NgayVaoDangChinhThuc</td>
+              
+            </tr>
+        }
+    </tbody>
+</table>
