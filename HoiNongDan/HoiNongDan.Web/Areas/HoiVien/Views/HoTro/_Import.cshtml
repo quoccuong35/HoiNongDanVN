@@ -4,22 +4,6 @@
         <input type="hidden" name="currentUrl" class="form-control" />
     </div>
     <div class="row">
-        <div class="col-md-3">
-            <label class="form-label">Quận/Huyện</label>
-        </div>
-        <div class="col-md-12">
-            @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <label class="form-label">Mã địa bàn</label>
-        </div>
-        <div class="col-md-12">
-            @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
-        </div>
-    </div>
-    <div class="row">
         <div class="col-md-4">
             <label class="form-label">Lớp đào tạo-Tập huấn</label>
         </div>
@@ -30,3 +14,5 @@
     @Html.AntiForgeryToken()
 </form>
 <span class="px-1"><b class="fs-18">Link tải file mẫu:</b> <a href="/HoiVien/HoTro/ExportCreate" class="fs-20">Tải tại đây</a> </span>
+<br />
+<span><b class="fs-18">Chú ý:</b> Tính năng chỉ sử dụng cho việc <span class="text-blue fs-20 font-weight-bolder">Thêm mới</span> nhanh  không có update dữ liệu</span>

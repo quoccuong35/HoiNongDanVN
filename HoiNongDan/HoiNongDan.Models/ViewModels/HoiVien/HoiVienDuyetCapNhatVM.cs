@@ -12,7 +12,7 @@ namespace HoiNongDan.Models
         public Guid ID { get; set; }
         [Display(Name ="Số quyết định")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        public String SoQuyetDinh { get; set; }
+        public String? SoQuyetDinh { get; set; }
 
         [Display(Name = "Ngày vào hội")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]

@@ -22,7 +22,10 @@ namespace HoiNongDan.Models
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]
         public bool Actived { get; set; }
-        
+
+        [Display(Name ="Hội viên")]
+        public bool? HoiVien { get; set; }
+
         [MaxLength(500)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Description")]
         public String? Description { get; set; }
@@ -37,7 +40,7 @@ namespace HoiNongDan.Models
         public String? TenChucVu { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]
-        public bool? Actived { get; set; }
+        public bool? Actived { get; set; } = false;
 
     }
     public class ChucVuMTVM : ChucVuVM
@@ -48,6 +51,7 @@ namespace HoiNongDan.Models
             obj.HeSoChucVu = this.HeSoChucVu;
             obj.PhuCapDienThoai = this.PhuCapDienThoai;
             obj.Actived = this.Actived;
+            obj.HoiVien = this.HoiVien;
             obj.OrderIndex = this.OrderIndex;
 
             return obj;

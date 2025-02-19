@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+// Rate limiter
 // Add services to the container.
 
 var dbpass = builder.Configuration.GetSection("DBPass").Value;
@@ -57,6 +59,8 @@ builder.Services.AddMvcCore(options =>
 
 builder.Services.AddDistributedMemoryCache();
 
+
+
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(timeOut);
@@ -95,5 +99,8 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=index}/{id?}");
-
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 app.Run();

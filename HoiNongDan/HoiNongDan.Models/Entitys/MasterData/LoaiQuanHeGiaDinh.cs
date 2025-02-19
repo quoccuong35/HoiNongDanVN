@@ -11,6 +11,7 @@ namespace HoiNongDan.Models
         
         public Guid IDLoaiQuanHeGiaDinh { get; set; }
         public string TenLoaiQuanHeGiaDinh { get; set; }
+        public string? Loai { get; set; }
         public bool Actived { get; set; } = true;
         public Guid? CreatedAccountId { get; set; }
         public DateTime? CreatedTime { get; set; }

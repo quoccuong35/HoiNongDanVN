@@ -18,19 +18,18 @@ namespace HoiNongDan.Models
         public Guid? IDCanBo { get; set; }
 
         public string HoVaTen { get; set; }
+        public String? GioiTinh { get; set; }
+        public String? NgaySinh { get; set; }
+
+        public String? SoCCCD { get; set; }
+
+        public String? NgayCapSoCCCD { get; set; }
 
         public string? TenChucVu { get; set; }
 
         public String? DonVi { get; set; }
 
-        public String? NgaySinh_Nam { get; set; }
-
-
-        public String? NgaySinh_Nu { get; set; }
-
-
         public String? SoQuyetDinhBoNhiem { get; set; }
-
 
         public string? TenDanToc { get; set; }
 
@@ -44,10 +43,10 @@ namespace HoiNongDan.Models
 
         public string? NoiSinh { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChoOHienNay")]
+        [Display(Name ="Nơi cư trú")]
         public string? ChoOHienNay { get; set; }
-
-
+        public string? ChoOHienNay_XaPhuong { get; set; }
+        public string? ChoOHienNay_QuanHuyen { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayvaoDangDuBi")]
         public string? NgayvaoDangDuBi { get; set; }
@@ -55,6 +54,14 @@ namespace HoiNongDan.Models
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayVaoDangChinhThuc")]
         public string? NgayVaoDangChinhThuc { get; set; }
+
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoHocVan")]
+        public string? MaTrinhDoHocVan { get; set; }
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoChuyenMon")]
+        public string? MaTrinhDoChuyenMon { get; set; }
+
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChuyenNganh")]
         public string ChuyenNganh { get; set; }
@@ -113,6 +120,7 @@ namespace HoiNongDan.Models
         public string? DanhGiaCBCC { get; set; }
 
         public string? DanhGiaDangVien { get; set; }
+        public string? BanChapHanh { get; set; }
 
         public string? GhiChu { get; set; }
     }

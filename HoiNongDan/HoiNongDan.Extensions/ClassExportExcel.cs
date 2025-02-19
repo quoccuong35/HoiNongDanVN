@@ -995,7 +995,7 @@ namespace HoiNongDan.Extensions
                         ExcelRange dropdownColumn = workSheet.SelectedRange[startRowFrom + 1, (columnIsDropdownlist[index] + 1), startRowFrom + dataTable.Rows.Count, (columnIsDropdownlist[index] + 1)];
                         if (isEdit == false)
                         {
-                            dropdownColumn = workSheet.SelectedRange[startRowFrom + 1, (columnIsDropdownlist[index] + 1), 500, (columnIsDropdownlist[index] + 1)];
+                            dropdownColumn = workSheet.SelectedRange[startRowFrom + 1, (columnIsDropdownlist[index] + 1), 2000, (columnIsDropdownlist[index] + 1)];
                         }
                         var listResult = dropdownColumn.DataValidation.AddListDataValidation();
 

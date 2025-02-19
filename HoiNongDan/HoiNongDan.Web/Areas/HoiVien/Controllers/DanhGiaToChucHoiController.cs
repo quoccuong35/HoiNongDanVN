@@ -1173,21 +1173,22 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         {
             return ExecuteDelete(() =>
             {
-                var del = _context.DanhGiaHoiViens.SingleOrDefault(it => it.ID == id);
+                var del = _context.DanhGiaToChucHois.SingleOrDefault(it => it.ID == id);
 
                 if (del != null)
                 {
                     //_context.Entry(accountInRoleModels).State = EntityState.Deleted;
                     //_context.Entry(account).State = EntityState.Deleted;
+                    var delAll = _context.DanhGiaToChucHois.Where(it => it.Nam == del.Nam && it.IDDiaBanHoi == del.IDDiaBanHoi);
 
-                    _context.DanhGiaHoiViens.Remove(del);
+                    _context.DanhGiaToChucHois.RemoveRange(delAll);
                     _context.SaveChanges();
 
                     return Json(new
                     {
                         Code = System.Net.HttpStatusCode.OK,
                         Success = true,
-                        Data = string.Format(LanguageResource.Alert_Delete_Success, LanguageResource.DanhGiaHV.ToLower())
+                        Data = string.Format(LanguageResource.Alert_Delete_Success, LanguageResource.DanhGiaToChucHoi.ToLower())
                     });
                 }
                 else
@@ -1196,7 +1197,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     {
                         Code = System.Net.HttpStatusCode.NotModified,
                         Success = false,
-                        Data = string.Format(LanguageResource.Alert_NotExist_Delete, LanguageResource.DanhGiaHV.ToLower())
+                        Data = string.Format(LanguageResource.Alert_NotExist_Delete, LanguageResource.DanhGiaToChucHoi.ToLower())
                     });
                 }
             });

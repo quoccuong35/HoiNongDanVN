@@ -37,6 +37,33 @@
                                 <label asp-for="TenChiHoi"></label>
                                 <input class="form-control" asp-for="TenChiHoi" />
                             </div>
+                            <div class="col-md-3">
+                                <label asp-for="MaQuanHuyen"></label>
+                                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
+                                <label asp-for="MaDiaBanHoiVien"></label>
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="form-label">Loại</label>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <input type="radio" class="custom-checked" value="" asp-for="Loai">
+                                            <span class="">Tất cả</span>
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="radio" class="custom-checked" value="01" asp-for="Loai">
+                                            <span class="">Dân cư</span>
+                                        </div>
+                                        <div class="col-4">
+                                            <input type="radio" class="custom-checked" value="02" asp-for="Loai">
+                                            <span class="">Ngành nghề</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-2">
                                 <label>Trạng thái</label>
                                 @Html.DropDownList("Actived", new List<SelectListItem>(){

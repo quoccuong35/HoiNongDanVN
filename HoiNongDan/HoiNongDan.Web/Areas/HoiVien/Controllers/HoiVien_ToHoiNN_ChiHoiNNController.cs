@@ -117,6 +117,51 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }).OrderBy(it=>it.HoVaTen).ToList();
             return model;
         }
+
+
+
+        public JsonResult loadToHoiChiHoiNganhNghe(HoiVien_ToHoiNN_ChiHoiNNSearchVM search)
+        {
+            var data1 = _context.ToHoiNganhNghe_ChiHoiNganhNghe_HoiViens.Include(it => it.HoiVien).ThenInclude(it => it.DiaBanHoatDong).ThenInclude(it => it.QuanHuyen)
+                .ThenInclude(it => it.PhuongXas).Include(it => it.ToHoiNganhNghe_ChiHoiNganhNghe).AsQueryable();
+
+            var phamVi = _context.PhamVis.Where(it => it.AccountId == AccountId()).Select(it => it.MaDiabanHoatDong).ToList();
+            data1 = data1.Where(it => phamVi.Contains(it.HoiVien.MaDiaBanHoatDong!.Value));
+            if (search.Ma_ToHoiNganhNghe_ChiHoiNganhNghe != null)
+            {
+                data1 = data1.Where(it => it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe == search.Ma_ToHoiNganhNghe_ChiHoiNganhNghe);
+            }
+            if (search.MaDiaBanHoiVien != null)
+            {
+                data1 = data1.Where(it => it.HoiVien.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
+            }
+            if (!String.IsNullOrWhiteSpace(search.MaQuanHuyen))
+            {
+                data1 = data1.Where(it => it.HoiVien.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
+            }
+            if (search.HoVaTen != null)
+            {
+                data1 = data1.Where(it => it.HoiVien.HoVaTen.Contains(search.HoVaTen));
+            }
+            if (search.MaHoiVien != null)
+            {
+                data1 = data1.Where(it => it.HoiVien.MaCanBo == search.MaHoiVien);
+            }
+            var model = data1.Select(it => new HoiVien_ToHoiNN_ChiHoiNNDetailVM
+            {
+                ID = it.IDHoiVien.ToString() + "_" + it.Ma_ToHoiNganhNghe_ChiHoiNganhNghe.ToString(),
+                MaCanBo = it.HoiVien.MaCanBo,
+                HoVaTen = it.HoiVien.HoVaTen,
+                SoCCCD = it.HoiVien.SoCCCD,
+                TenChiHoi = it.ToHoiNganhNghe_ChiHoiNganhNghe.Loai == "01" ? it.ToHoiNganhNghe_ChiHoiNganhNghe.Ten : null,
+                TenToHoi = it.ToHoiNganhNghe_ChiHoiNganhNghe.Loai == "02" ? it.ToHoiNganhNghe_ChiHoiNganhNghe.Ten : null,
+                ChoOHienNay = it.HoiVien.ChoOHienNay,
+                PhuongXa = it.HoiVien.DiaBanHoatDong!.PhuongXa.TenPhuongXa,
+                QuanHuyen = it.HoiVien.DiaBanHoatDong.QuanHuyen.TenQuanHuyen,
+                GhiChu = ""
+            }).OrderBy(it => it.HoVaTen).ToList();
+            return Json(model);
+        }
         #endregion Helper
 
         #region Import

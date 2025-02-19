@@ -26,13 +26,13 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         [HoiNongDanAuthorization]
         public IActionResult _Search(QHGiaDinhSearchVM search) {
             return ExecuteSearch(() => { 
-                var model = _context.QuanHeGiaDinhs.Where(it=>it.IDHoiVien== null).AsQueryable();
+                var model = _context.QuanHeGiaDinhs.Include(it => it.LoaiQuanhe).Include(it => it.LoaiQuanhe).Where(it=>it.CanBo.IsCanBo == true).AsQueryable();
                 if (search.IDLoaiQuanHeGiaDinh != null) {
                     model = model.Where(it => it.IDLoaiQuanHeGiaDinh == search.IDLoaiQuanHeGiaDinh);
                 }
-                model = model.Include(it => it.CanBo).Include(it => it.LoaiQuanhe).Include(it=>it.LoaiQuanhe);
-                if (!String.IsNullOrEmpty(search.MaCanBo) && !String.IsNullOrWhiteSpace(search.MaCanBo)) {
-                    model = model.Where(it => it.CanBo.MaCanBo == search.MaCanBo);
+
+                if (!String.IsNullOrEmpty(search.SoCCCD) && !String.IsNullOrWhiteSpace(search.SoCCCD)) {
+                    model = model.Where(it => it.CanBo.SoCCCD == search.SoCCCD);
                 }
                 if (!String.IsNullOrEmpty(search.HoVaTen) && !String.IsNullOrWhiteSpace(search.HoVaTen))
                 {
@@ -45,7 +45,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                     HoTen = it.HoTen,
                     NgaySinh = it.NgaySinh,
                     NgheNghiep = it.NgheNghiep,
-                    NoiLamVien = it.NoiLamVien,
+                    NoiLamViec = it.NoiLamViec,
                     DiaChi = it.DiaChi,
                     GhiChu = it.GhiChu,
                     TenLoaiQuanHe = it.LoaiQuanhe.TenLoaiQuanHeGiaDinh
@@ -81,7 +81,6 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 add.IDQuanheGiaDinh = Guid.NewGuid();
                 add.CreatedAccountId = AccountId();
                 add.CreatedTime = DateTime.Now;
-                _context.Attach(add).State = EntityState.Modified;
                 _context.QuanHeGiaDinhs.Add(add);
                 _context.SaveChanges();
                 return Json(new
@@ -108,7 +107,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             edit.HoTen = item.HoTen;
             edit.NgaySinh = item.NgaySinh;
             edit.NgheNghiep = item.NgheNghiep;
-            edit.NoiLamVien = item.NoiLamVien;
+            edit.NoiLamViec = item.NoiLamViec;
             edit.DiaChi = item.DiaChi;
             edit.GhiChu = item.GhiChu;
 

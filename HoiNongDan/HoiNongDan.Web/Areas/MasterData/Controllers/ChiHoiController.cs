@@ -5,6 +5,7 @@ using HoiNongDan.Extensions;
 using HoiNongDan.Models;
 using HoiNongDan.Resources;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace HoiNongDan.Web.Areas.MasterData.Controllers
@@ -18,18 +19,35 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            CreateViewBagSr();
             return View();
         }
         [HoiNongDanAuthorization]
         public IActionResult _Search(ChiHoiSearchVM obj) {
-            return ExecuteSearch(() => { 
-                var data = _context.ChiHois.Include(it=>it.CanBos).AsQueryable();
+            return ExecuteSearch(() => {
+                var diaBanHois = _context.PhamVis.Where(it => it.AccountId == AccountId()).ToList().Select(it => it.MaDiabanHoatDong).ToList();
+                var data = _context.ChiHois.Where(it => diaBanHois.Contains(it.MaDiaBanHoatDong!.Value)).Include(it=>it.CanBos).Include(it=>it.DiaBanHoatDong).ThenInclude(it=>it.QuanHuyen).AsQueryable();
                 if (!String.IsNullOrWhiteSpace(obj.TenChiHoi))
                 {
                     data = data.Where(it=>it.TenChiHoi.Contains(obj.TenChiHoi!));
                 }
-                if(obj.Actived != null) {
+                if (!String.IsNullOrWhiteSpace(obj.MaQuanHuyen))
+                {
+                    data = data.Where(it => it.DiaBanHoatDong!.QuanHuyen.MaQuanHuyen == obj.MaQuanHuyen);
+                }
+                if (obj.MaDiaBanHoiVien != null)
+                {
+                    data = data.Where(it => it.MaDiaBanHoatDong == obj.MaDiaBanHoiVien);
+                }
+                if (obj.Actived != null) {
                     data = data.Where(it => it.Actived == obj.Actived);
+                }
+                if (!String.IsNullOrWhiteSpace(obj.Loai) && obj.Loai =="01") {
+                    data = data.Where(it => it.Loai != "02");
+                }
+                if (!String.IsNullOrWhiteSpace(obj.Loai) && obj.Loai == "02")
+                {
+                    data = data.Where(it => it.Loai == "02");
                 }
                 var model = data.Select(it => new ChiHoiVM
                 {
@@ -38,8 +56,9 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                     Actived = it.Actived,
                     Description = it.Description,
                     OrderIndex = it.OrderIndex,
-                    SoHoiVien =it.CanBos.Where(it=>it.Actived ==true).Count()
-                }).ToList();
+                    SoHoiVien =it.CanBos.Where(it=>it.Actived ==true && it.IsHoiVien == true && it.isRoiHoi != true).Count(),
+                    TenHoi = it.DiaBanHoatDong!.QuanHuyen.TenQuanHuyen + "-" + it.DiaBanHoatDong.TenDiaBanHoatDong
+                }).Where(it=>it.SoHoiVien>0).OrderBy(it=>it.TenHoi).ToList();
                 return PartialView(model);
             });
         }
@@ -49,6 +68,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         [HttpGet]
         public IActionResult Upsert(Guid? id) {
             ChiHoiVM chiHoiVM = new ChiHoiVM();
+            Guid? maDiaBanHoi = null;
             if (id != null) {
                 var item = _context.ChiHois.SingleOrDefault(it => it.MaChiHoi == id);
                 if(item != null) {
@@ -58,8 +78,13 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                     chiHoiVM.Loai = item.Loai == null?"01":item.Loai;
                     chiHoiVM.Description = item.Description;
                     chiHoiVM.OrderIndex = item.OrderIndex;
+                    chiHoiVM.SoQuyetDinh = item.SoQuyetDinh;
+                    chiHoiVM.NgayThanhLap = item.NgayThanhLap;
+                    chiHoiVM.MaDiaBanHoatDong = item.MaDiaBanHoatDong;
+                    maDiaBanHoi = item.MaDiaBanHoatDong;
                 }
             }
+            CreateViewBag(maDiaBanHoi);
             return View(chiHoiVM);
         }
         [HoiNongDanAuthorization]
@@ -67,6 +92,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Upsert(ChiHoiVM obj) {
             return ExecuteContainer(() => {
+               
                 if (obj.MaChiHoi == null)
                 {
                     // insert 
@@ -76,10 +102,16 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                         TenChiHoi = obj.TenChiHoi,
                         Description = obj.Description,
                         OrderIndex = obj.OrderIndex,
+                        SoQuyetDinh = obj.SoQuyetDinh,
+                        NgayThanhLap = obj.NgayThanhLap,
+                        NgayGiam = obj.NgayGiam,
+                        LyDoGiam = obj.LyDoGiam,
                         Actived = true,
                         Loai = obj.Loai,
+                        MaDiaBanHoatDong = obj.MaDiaBanHoatDong,
                         CreatedAccountId = Guid.NewGuid(),
                         CreatedTime = DateTime.Now
+
 
                     };
                     _context.ChiHois.Add(insert);
@@ -93,19 +125,25 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 }
                 else
                 {
-                    var edit = _context.ChiHois.SingleOrDefault(it => it.MaChiHoi == obj.MaChiHoi);
+                    var diaBanHois = _context.PhamVis.Where(it => it.AccountId == AccountId()).ToList().Select(it => it.MaDiabanHoatDong).ToList();
+                    var edit = _context.ChiHois.SingleOrDefault(it => it.MaChiHoi == obj.MaChiHoi && diaBanHois.Contains(it.MaDiaBanHoatDong!.Value));
                     if (edit != null)
                     {
                         edit.Actived = obj.Actived == null ? true : obj.Actived;
                         edit.TenChiHoi = obj.TenChiHoi;
                         edit.Loai = obj.Loai;
                         edit.OrderIndex = obj.OrderIndex;
-                        //departmentEdit.IDCoSo = obj.IdCoSo;
                         edit.Description = obj.Description;
+                        edit.SoQuyetDinh = obj.SoQuyetDinh;
+                        edit.NgayThanhLap = obj.NgayThanhLap;
+                        edit.NgayGiam = obj.NgayGiam;
+                        edit.LyDoGiam = obj.LyDoGiam;
+                        edit.MaDiaBanHoatDong = obj.MaDiaBanHoatDong;
                         edit.LastModifiedAccountId = new Guid(CurrentUser.AccountId!);
                         edit.LastModifiedTime = DateTime.Now;
 
                         HistoryModelRepository history = new HistoryModelRepository(_context);
+                        history.SaveUpdateHistory(edit.MaChiHoi.ToString(), AccountId()!.Value, edit);
                         _context.Entry(edit).State = EntityState.Modified;
                         _context.SaveChanges();
                         return Json(new
@@ -145,6 +183,9 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 {
                     //_context.Entry(accountInRoleModels).State = EntityState.Deleted;
                     //_context.Entry(account).State = EntityState.Deleted;
+                    del.Description = "Xóa khỏi hệ thống";
+                    HistoryModelRepository history = new HistoryModelRepository(_context);
+                    history.SaveUpdateHistory(del.MaChiHoi.ToString(), AccountId()!.Value, del);
                     _context.Remove(del);
                     _context.SaveChanges();
 
@@ -167,5 +208,23 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
             });
         }
         #endregion Delete
+
+        #region Helper
+        private void CreateViewBag(Guid? MaDiaBanHoatDong = null)
+        {
+            var diaBanHois = _context.PhamVis.Where(it => it.AccountId == AccountId()).ToList().Select(it => it.MaDiabanHoatDong).ToList();
+
+            var diaBan = _context.DiaBanHoatDongs.Where(it => diaBanHois.Contains(it.Id)).Include(it => it.QuanHuyen).Select(it => new { MaDiaBanHoatDong = it.Id, Ten = it.QuanHuyen.TenQuanHuyen + " " + it.TenDiaBanHoatDong }).ToList();
+            ViewBag.MaDiaBanHoatDong = new SelectList(diaBan, "MaDiaBanHoatDong", "Ten", MaDiaBanHoatDong);
+        }
+        private void CreateViewBagSr()
+        {
+            FnViewBag fnViewBag = new FnViewBag(_context);
+
+            ViewBag.MaDiaBanHoiVien = fnViewBag.DiaBanHoiVien(acID: AccountId());
+
+            ViewBag.MaQuanHuyen = fnViewBag.QuanHuyen(idAc: AccountId());
+        }
+        #endregion Helper
     }
 }

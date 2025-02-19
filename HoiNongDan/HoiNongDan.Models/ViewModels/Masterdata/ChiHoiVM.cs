@@ -32,11 +32,39 @@ namespace HoiNongDan.Models
 
         [Display(Name = "Số hội viên")]
         public int? SoHoiVien { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayThanhLap")]
+        public Nullable<System.DateTime> NgayThanhLap { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoQuyetDinh")]
+        public String? SoQuyetDinh { get; set; }
+
+        [Display(Name = "Ngày giảm")]
+        public Nullable<System.DateTime> NgayGiam { get; set; }
+        [Display(Name = "Lý do giảm")]
+        public String? LyDoGiam { get; set; }
+
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
+        public Guid? MaDiaBanHoatDong { get; set; }
+
+        [Display(Name = "Tên hội")]
+        public String? TenHoi { get; set; }
     }
     public class ChiHoiSearchVM {
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Ten")]
         public string? TenChiHoi { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]
         public bool Actived { get; set; } = true;
+
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
+        public String? MaQuanHuyen { get; set; }
+
+        public String? Loai { get; set; }
+
+        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
+        public Guid? MaDiaBanHoiVien { get; set; }
     }
 }

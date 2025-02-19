@@ -1,0 +1,86 @@
+﻿@using HoiNongDan.Constant
+@using HoiNongDan.Resources
+@using Microsoft.AspNetCore.Html
+@model IEnumerable<BaoCaoKhenThuong>
+@{
+    string listRoles = User.FindFirst("Roles")!.Value;
+    listRoles = listRoles == null ? "" : listRoles;
+}
+<table id="data-list" class="table table-bordered text-nowrap">
+    <thead class="table-primary">
+        <tr>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">@LanguageResource.NumberIndex</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tên đơn vị</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Hội Viên Ưu Tú</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="4">Nông Dân Sản Xuất Kinh Doanh Giỏi</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                ND Việt Nam
+                Xuất Sắc
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Kỷ Niệm Chương
+                Vì GCND
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Cán Bộ Hội
+                Cơ Sở Giỏi
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Giải Thưởng
+                Sáng Tạo Nhà Nông
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Gương Điển Hình
+                Tiên Tiến
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Gương
+                Dân Vận Khéo
+            </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                Gương Điển Hình Học Tập
+                Và Làm Theo Bác
+            </th>
+        </tr>
+
+        <tr>
+            <th class="text-center" style="vertical-align: middle;">Trung ương </th>
+            <th class="text-center" style="vertical-align: middle;">Thành phố </th>
+            <th class="text-center" style="vertical-align: middle;">Huyện</th>
+            <th class="text-center" style="vertical-align: middle;">Cấp xã</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int stt = 0;
+            string css = "";
+
+        }
+
+        @foreach (var item in Model)
+        {
+            css = "";
+            stt++;
+            @if (item.TenDiaBanHoatDong.ToLower().Contains("tổng"))
+            {
+                css = "font-size:14px;font-weight:bold";
+            }
+            <tr style="@css">
+                <td class="text-center">@stt</td>
+                <td> @item.TenDiaBanHoatDong</td>
+                <td class='text-center'>@item.HoiVienUuTu.ToString("N0")</td>
+                <td class='text-center'>@item.NDSXKDG_TW.ToString("N0")</td>
+                <td class='text-center'>@item.NDSXKDG_Tp.ToString("N0")</td>
+                <td class='text-center'>@item.NDSXKDG_H.ToString("N0")</td>
+                <td class='text-center'>@item.NDSXKDG_CS.ToString("N0")</td>
+                <td class='text-center'>@item.NDVietNamXuatSac.ToString("N0")</td>
+                <td class='text-center'>@item.KNCViGCND.ToString("N0")</td>
+                <td class='text-center'>@item.CanBoHoiCSG.ToString("N0")</td>
+                <td class='text-center'>@item.SangTaoNhaNong.ToString("N0")</td>
+                <td class='text-center'>@item.GuongDiemHinhTienTien.ToString("N0")</td>
+                <td class='text-center'>@item.GuongDanVangKheo.ToString("N0")</td>
+                <td class='text-center'>@item.GuongHocTapLamTheoLoiBac.ToString("N0")</td>
+            </tr>
+        }
+    </tbody>
+</table>

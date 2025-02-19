@@ -21,7 +21,7 @@ namespace HoiNongDan.Models {
         //public Guid MaHinhThucHoTro { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoTienVay")]
-        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string? SoTienVay { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ThoiHangChoVay")]
@@ -30,22 +30,22 @@ namespace HoiNongDan.Models {
         public int? ThoiHangChoVay { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "LaiSuatVay")]
-        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        [Range(5, 50, ErrorMessage = "Lãi suất vay không hợp lệ")]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        //[Range(1, 50, ErrorMessage = "Lãi suất vay không hợp lệ")]
         public double? LaiSuatVay { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TuNgay")]
-        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [DataType(DataType.Date)]
         public DateTime? TuNgay { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DenNgay")]
-        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [DataType(DataType.Date)]
         public DateTime? DenNgay { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayTraNoCuoiCung")]
-        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [DataType(DataType.Date)]
         public DateTime? NgayTraNoCuoiCung { get; set; }
 
@@ -73,11 +73,23 @@ namespace HoiNongDan.Models {
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NamVayVon")]
         public int? NamVayVon { get; set; }
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHV")]
-        public String MaHV { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TuNgay")]
+        [DataType(DataType.Date)]
+        public DateTime? TuNgay { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DenNgay")]
+        [DataType(DataType.Date)]
+        public DateTime? DenNgay { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
+        public String SoCCCD { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TenHV")]
         public String TenHV { get; set; }
         public bool? Actived { get; set; }
+        public String TraXong { get; set; }
+
+        [Display(Name = "Số tháng quá hạn")]
+        public int? SoThang { get; set; }
     }
     public class VayVonDetailVM
     {
@@ -111,7 +123,8 @@ namespace HoiNongDan.Models {
         public string NoiDung { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoThangQuaHan")]
-        public int SoThangQuaHan { get; set; }
+        public int? SoThangQuaHan { get; set; }
+
         public bool TraXong { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NguonVon")]
@@ -125,5 +138,57 @@ namespace HoiNongDan.Models {
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
         public string? QuanHuyen { get; set; }
+    }
+
+    public class HoiVienVayVonExcelVM
+    {
+        public int STT { get; set; }
+        //public Guid ID { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
+        public String HoVaTen { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
+        public String SoCCCD { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
+        public string? QuanHuyen { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "PhuongXa")]
+        public string? PhuongXa { get; set; }
+
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NguonVon")]
+        public String? NguonVon { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoTienVay")]
+        public String? SoTienVay { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NoiDung")]
+        public string NoiDung { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TuNgay")]
+
+        [DataType(DataType.Date)]
+        public String? TuNgay { get; set; }
+
+        //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "DenNgay")]
+        //[DataType(DataType.Date)]
+        //public DateTime? DenNgay { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ThoiHangChoVay")]
+        public int? ThoiHangChoVay { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "LaiSuatVay")]
+        public double? LaiSuatVay { get; set; }
+
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayTraNoCuoiCung")]
+
+        public String? NgayTraNoCuoiCung { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChoOHienNay")]
+        public string? ChoOHienNay { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GhiChu")]
+        public string? GhiChu { get; set; }
+
     }
 }

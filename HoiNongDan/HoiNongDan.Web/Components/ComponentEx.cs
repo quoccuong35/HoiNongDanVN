@@ -14,7 +14,6 @@ namespace HoiNongDan.Web.Components
             return View("Default", GetSoNguoiHoiVienChuaDuyet());
         }
         private int GetSoNguoiHoiVienChuaDuyet() {
-            
             var accountID = db.Accounts.SingleOrDefault(it => it.UserName!.Equals(User!.Identity.Name)).AccountId;
             return db.HoiVienLichSuDuyets.Where(it => it.AccountID == accountID && it.TrangThaiDuyet == false).Count();
             //var phamVis = db.PhamVis.Where(it => it.AccountId == accountID).Select(it => it.MaDiabanHoatDong).ToList();

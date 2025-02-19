@@ -18,13 +18,17 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
         public Guid? MaDiaBanHoiVien { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHoiVien")]
-        public string MaCanBo { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
+        public string SoCCCD { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         public string? HoVaTen { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DanhHieuKhenThuong")]
         public String? MaDanhHieuKhenThuong { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "CapKhenThuong")]
+        public String? MaCapKhenThuong { get; set; }
+
 
 
         [Display(Name = "Từ Năm")]

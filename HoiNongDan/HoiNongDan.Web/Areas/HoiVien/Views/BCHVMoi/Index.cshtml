@@ -6,6 +6,7 @@
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
     string listRoles = User != null ? User.FindFirst("Roles").Value : "";
 }
+@model BCHVPhatTrienMoiSearchVM
 <!-- CONTAINER -->
 <div class="main-container container-fluid">
 
@@ -37,15 +38,15 @@
                             </div>
                             <div class="col-md-3">
                                 <label>Tên hội nông dân</label>
-                                @Html.DropDownList("MaDiaBanHoatDong", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-2">
-                                <label>Từ ngày</label>
-                                <input type="date" name="TuNgay" class="form-control">
+                                <label asp-for="TuNgay"></label>
+                                <input class="form-control" asp-for="TuNgay"/>
                             </div>
                             <div class="col-md-2">
-                                <label>Đến ngày</label>
-                                <input type="date" name="DenNgay" class="form-control">
+                                <label asp-for="DenNgay"></label>
+                                <input class="form-control" asp-for="DenNgay"/>
                             </div>
                             <div class="col-2 d-flex align-items-end">
                                 @HtmlExtensions.SearchButton()
@@ -119,22 +120,12 @@
 </div>
 <!-- CONTAINER CLOSED -->
 @section ScriptCustomized {
+    <script src="~/js/diaban_hv_quanhuyen.js"></script>
     <script>
         //load default and set event
         $(document).ready(function () {
             HoiNongDan.SearchInitial("@CurrentUrl");
         });
-        $("select#MaQuanHuyen").change(function () {
-            let maQuanHuyen = $(this).val();
-            //console.log(maQuanHuyen);
-            $("select#MaDiaBanHoatDong").empty();
-            $.getJSON('/HoiVien/BaoCaoGiamHV/loadDiaBanHoatDong?maQuanHuyen=' + maQuanHuyen, function (data) {
-                $("select#MaDiaBanHoatDong").append('<option>' + "--Vui lòng chọn danh mục--" + '</option>');
-                $.each(data, function (i, item) {
-                    /*console.log(item);*/
-                    $("select#MaDiaBanHoatDong").append('<option value=' + item.maDiaBanHoatDong + '>' + item.name + '</option>');
-                });
-            });
-        })
+       
     </script>
 }

@@ -282,6 +282,9 @@ namespace HoiNongDan.Models
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public bool GioiTinh { get; set; }
 
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
+        public String? ChucVu { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
         public String SoCCCD { get; set; }
@@ -302,8 +305,6 @@ namespace HoiNongDan.Models
 
         [Display(Name = "Chi hội")]
         public String TenChiHoi { get; set; }
-
-      
 
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
@@ -426,9 +427,6 @@ namespace HoiNongDan.Models
         [Display(Name = "Tham gia câu lạc bộ, đội nhóm, mô hình, hợp tác xã, tổ hợp tác")]
         public string? ThamGia_CLB_DN_HTX { get; set; }
 
-        [Display(Name = "Tham gia tổ hội ngành nghề, chi hội ngành nghề")]
-        public string? ThamGia_THNN_CHNN { get; set; }
-
         [Display(Name = "HV nòng cốt")]
         public string? HV_NongCot { get; set; }
 
@@ -479,18 +477,11 @@ namespace HoiNongDan.Models
         public string? GhiChu { get; set; }
 
 
-        [Display(Name = "Chi Hội Dân Cư CHT")]
-        public string? ChiHoiDanCu_CHT { get; set; }
+        [Display(Name = "Chi Hội Dân Cư")]
+        public string? ChiHoiDanCu { get; set; }
 
-        [Display(Name = "Chi Hội Dân Cư CHP")]
-        public string? ChiHoiDanCu_CHP { get; set; }
-
-        [Display(Name = "Chi hội nghề nghiệp CHT")]
-        public string? ChiHoiNgheNghiep_CHT { get; set; }
-
-        [Display(Name = "Chi hội nghề nghiệp CHP")]
-        public string? ChiHoiNgheNghiep_CHP { get; set; }
-
+        [Display(Name = "Chi hội nghề nghiệp")]
+        public string? ChiHoiNgheNghiep { get; set; }
 
         [Display(Name = "Ngày rời hội")]
         public String? NgayRoiHoi { get; set; }
@@ -510,11 +501,20 @@ namespace HoiNongDan.Models
         public List<ToHoi> toHois { get; set; }
 
         public List<QuaTrinhKhenThuong> ListKhenThuong { get; set; }
+        public List<DoanTheChinhTri_HoiDoan_HoiVien> DoanTheChinhTri_HoiDoan_HoiVien { get; set; }
+        public List<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien> CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien { get; set; }
+        public List<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac> CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac { get; set; }
+        public List<DoanTheChinhTri_HoiDoan> DoanTheChinhTri_HoiDoan { get; set; }
 
         public HoiVienImportExcelNew()
         {
             chiHois = new List<ChiHoi>();
             toHois = new List<ToHoi>();
+            CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac = new List<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac>();
+            CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien = new List<CauLacBo_DoiNhom_MoHinh_HopTacXa_ToHopTac_HoiVien>();
+            DoanTheChinhTri_HoiDoan = new List<DoanTheChinhTri_HoiDoan>();
+            DoanTheChinhTri_HoiDoan_HoiVien = new List<DoanTheChinhTri_HoiDoan_HoiVien>();
+
             ListKhenThuong = new List<QuaTrinhKhenThuong>();
         }
 

@@ -12,6 +12,15 @@
         <input asp-for="Ten" class="form-control" />
         <span asp-validation-for="Ten" class="text-danger"></span>
     </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label asp-for="MaDiaBanHoatDong"></label><span class="text-red">*</span>
+            <select asp-for="MaDiaBanHoatDong" asp-items="@ViewBag.MaDiaBanHoatDong" class="form-control select2-show-search form-select">
+                <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+            </select>
+            <span asp-validation-for="MaDiaBanHoatDong" class="text-danger"></span>
+        </div>
+    </div>
     <div class="col-md-2">
         <div class="form-group">
             <label asp-for="Loai"></label><span class="text-red">*</span>
@@ -28,12 +37,18 @@
             <span asp-validation-for="Loai" class="text-danger"></span>
         </div>
     </div>
+   
     <div class="col-md-2">
         <label asp-for="NgayThanhLap"></label>
         <input asp-for="NgayThanhLap" class="form-control" />
         <span asp-validation-for="NgayThanhLap" class="text-danger"></span>
     </div>
-
+    <div class="col-md-1 d-flex justify-content-start align-items-end">
+        <div class="form-group">
+            <input type="checkbox" class="custom-checked" asp-for="NgheNghiep">
+            <span class="">Nghề nghiệp</span>
+        </div>
+    </div>
    
     <div class="col-md-2">
         <label asp-for="OrderIndex"></label>
@@ -48,6 +63,16 @@
                 @Html.RadioButtonFor(p=>p.Actived,false) @LanguageResource.Actived_False
             </fieldset>
         </div>
+        <div class="col-md-2">
+            <label asp-for="NgayGiam"></label>
+            <input asp-for="NgayGiam" class="form-control" />
+            <span asp-validation-for="NgayGiam" class="text-danger"></span>
+        </div>
+        <div class="col-md-12">
+            <label asp-for="LyDoGiam"></label>
+            <textarea rows="3" asp-for="LyDoGiam" class="form-control"> </textarea>
+            <span asp-validation-for="LyDoGiam" class="text-danger"></span>
+        </div>
     }
     
     <div class="row mb-2">
@@ -56,7 +81,6 @@
             <textarea rows="3" asp-for="Description" class="form-control"> </textarea>
             <span asp-validation-for="Description" class="text-danger"></span>
         </div>
-
     </div>
     <div class="col-md-3">
         <div class="form-group">

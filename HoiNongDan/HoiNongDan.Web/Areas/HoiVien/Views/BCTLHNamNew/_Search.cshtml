@@ -3,39 +3,31 @@
 @using Microsoft.AspNetCore.Html
 @model IEnumerable<BCTLHNamNew>
 @{
-    string CurrentController = ConstController.BCTLHNamNew;
-    string CurrentArea = ConstArea.HoiVien;
     string listRoles = User.FindFirst("Roles")!.Value;
     listRoles = listRoles == null ? "" : listRoles;
 }
-<table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+<table id="data-list" class="table table-bordered text-nowrap">
     <thead class="table-primary">
         <tr>
             <th class="text-center" style="vertical-align: middle;" rowspan="3">@LanguageResource.NumberIndex</th>
             <th class="text-center" style="vertical-align: middle;" rowspan="3">Tên đơn vị</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="3">Tổng số ấp, khu phố</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="3">Tổng số ấp, khu phố có tổ chức Hội</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="3">Tổng số</th>
             <th class="text-center" style="vertical-align: middle;" colspan="11" >HỘI VIÊN</th>
             <th class="text-center" style="vertical-align: middle;" colspan="4">CHI HỘI</th>
             <th class="text-center" style="vertical-align: middle;" colspan="4">TỔ HỘI</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="2" rowspan="2">TS đảng viên tham gia sinh hoạt Hội</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="2" rowspan="2">Hội viên dân tộc, tôn giáo</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2" rowspan="2">TS đảng viên <br /> tham gia sinh hoạt Hội</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2" rowspan="2">Hội viên dân tộc,<br /> tôn giáo</th>
             <th class="text-center" style="vertical-align: middle;" colspan="2">GTHV ưu tú</th>
             <th class="text-center" style="vertical-align: middle;" colspan="2"> Nòng cốt</th>
             <th class="text-center" style="vertical-align: middle;" colspan="2">Quỹ Hội </th>
             <th class="text-center" style="vertical-align: middle;" colspan="2">Thẻ hội viên </th>
             <th class="text-center" style="vertical-align: middle;" rowspan="3">Đơn vị</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="23">Đánh giá cuối năm</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="23">Đánh giá <br /> cuối năm</th>
         </tr>
     
         <tr>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Hộ nông nghiệp</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Hộ nông nghiệp có hội viên</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Lao động nông nghiệp</th>
             <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số</th>
             <th class="text-center" style="vertical-align: middle;" rowspan="2">Nữ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Hội viên Địa bàn dân cư</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Hội viên <br /> Địa bàn dân cư</th>
             <th class="text-center" style="vertical-align: middle;" colspan="2">Ngành nghề</th>
             <th class="text-center" style="vertical-align: middle;" colspan="2">HV danh dự</th>
             <th class="text-center" style="vertical-align: middle;" colspan="2">Giảm HV</th>
@@ -48,37 +40,37 @@
             <th class="text-center" style="vertical-align: middle;" colspan="2">Ngành nghề</th>
             <th class="text-center" style="vertical-align: middle;" rowspan="2">Giới thiệu</th>
             <th class="text-center" style="vertical-align: middle;" rowspan="2">Kết nạp Đảng</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phong trào (=25% tổng số HV)</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Trong đó hội viên tập hợp nhanh</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phong trào<br /> (=25% tổng số HV)</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Trong đó hội viên<br /> tập hợp nhanh</th>
             <th class="text-center" style="vertical-align: middle;" rowspan="2">Hội cơ sở (đồng)   </th>
             <th class="text-center" style="vertical-align: middle;" rowspan="2">Chi Hội (50.000đ/HV)</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Được cấp trong năm</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Số  thẻ đổi và cấp lại</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số cơ sở Hội</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Được cấp<br /> trong năm</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Số  thẻ đổi<br /> và cấp lại</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số <br /> cơ sở Hội</th>
             <th class="text-center" style="vertical-align: middle;" colspan="4">Cơ sở Hội </th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng Số Chi hội </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng Số <br /> Chi hội </th>
             <th class="text-center" style="vertical-align: middle;" colspan="5">Chi Hội </th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số Tổ hội </th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số <br /> Tổ hội </th>
             <th class="text-center" style="vertical-align: middle;" colspan="5">Tổ Hội </th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số hội viên</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số <br /> hội viên</th>
             <th class="text-center" style="vertical-align: middle;" colspan="5">Hội viên </th>
         </tr>
         <tr>
-            <th class="text-center" style="vertical-align: middle;">phát triển trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;">Hội viên ngành nghề hiện nay</th>
-            <th class="text-center" style="vertical-align: middle;">HVDD phát triển trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;">HV danh dự hiện tại</th>
+            <th class="text-center" style="vertical-align: middle;">phát triển<br /> trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;">Hội viên ngành nghề<br /> hiện nay</th>
+            <th class="text-center" style="vertical-align: middle;">HVDD phát triển<br /> trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;">HV danh dự<br /> hiện tại</th>
             <th class="text-center" style="vertical-align: middle;">Tổng số</th>
             <th class="text-center" style="vertical-align: middle;">Nữ</th>
             <th class="text-center" style="vertical-align: middle;">T. số</th>
             <th class="text-center" style="vertical-align: middle;">Nữ</th>
-            <th class="text-center" style="vertical-align: middle;">phát triển trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;">Số chi hội nghề nghiệp hiện nay</th>
-            <th class="text-center" style="vertical-align: middle;">phát triển trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;">Số tổ hội nghề nghiệp hiện nay</th>
+            <th class="text-center" style="vertical-align: middle;">phát triển<br /> trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;">Số chi hội <br /> nghề nghiệp hiện nay</th>
+            <th class="text-center" style="vertical-align: middle;">phát triển <br /> trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;">Số tổ hội <br /> nghề nghiệp hiện nay</th>
             <th class="text-center" style="vertical-align: middle;" >Tổng số</th>
             <th class="text-center" style="vertical-align: middle;">Nữ</th>
-            <th class="text-center" style="vertical-align: middle;">Dân tộc thiểu số</th>
+            <th class="text-center" style="vertical-align: middle;">Dân tộc<br /> thiểu số</th>
             <th class="text-center" style="vertical-align: middle;">Tôn giáo</th>
             <th class="text-center" style="vertical-align: middle;">HTSXNV</th>
             <th class="text-center" style="vertical-align: middle;">HTTNV</th>
@@ -88,113 +80,103 @@
             <th class="text-center" style="vertical-align: middle;">HTTNV</th>
             <th class="text-center" style="vertical-align: middle;">HTNV</th>
             <th class="text-center" style="vertical-align: middle;">KHTNV</th>
-            <th class="text-center" style="vertical-align: middle;">Không đánh giá xếp loại</th>
+            <th class="text-center" style="vertical-align: middle;">Không đánh giá<br /> xếp loại</th>
             <th class="text-center" style="vertical-align: middle;">HTSXNV</th>
             <th class="text-center" style="vertical-align: middle;">HTTNV</th>
             <th class="text-center" style="vertical-align: middle;">HTNV</th>
             <th class="text-center" style="vertical-align: middle;">KHTNV</th>
-            <th class="text-center" style="vertical-align: middle;">Không đánh giá xếp loại</th>
+            <th class="text-center" style="vertical-align: middle;">Không đánh giá <br />xếp loại</th>
             <th class="text-center" style="vertical-align: middle;">XS</th>
             <th class="text-center" style="vertical-align: middle;">Tốt</th>
             <th class="text-center" style="vertical-align: middle;">Trung bình</th>
             <th class="text-center" style="vertical-align: middle;">kém</th>
-            <th class="text-center" style="vertical-align: middle;">Không đánh giá xếp loại</th>
+            <th class="text-center" style="vertical-align: middle;">Không đánh giá<br /> xếp loại</th>
         </tr>
         
     </thead>
     <tbody>
         @{
-            int sttSub = 0;
-            int stt = 1;
-            bool bold = false;
+            int stt = 0;
+            string css = "";
+
         }
         
         @foreach (var item in Model)
         {
-            <tr>
-                @if (item.Cot2 != item.TenQuanHuyen)
+            css = "";
+            stt ++;
+            @if (item.TenDiaBanHoatDong.ToLower().Contains("tổng"))
+            {
+                css = "font-size:14px;font-weight:bold";
+            }
+            
+            <tr style="@css">
+                <td class="text-center">@stt</td>
+                <td> @item.TenDiaBanHoatDong</td>
+                <td class='text-center'>@item.Cot1.ToString("N0")</td>
+                <td class='text-center'>@item.Cot2.ToString("N0")</td>
+                <td class='text-center'>@item.Cot3.ToString("N0")</td>
+                <td class='text-center'>@item.Cot4.ToString("N0")</td>
+                <td class='text-center'>@item.Cot5.ToString("N0")</td>
+                <td class='text-center'>@item.Cot6.ToString("N0")</td>
+                <td class='text-center'>@item.Cot7.ToString("N0")</td>
+                <td class='text-center'>@item.Cot8.ToString("N0")</td>
+                <td class='text-center'>@item.Cot9.ToString("N0")</td>
+                <td class='text-center'>@item.Cot10.ToString("N0")</td>
+                <td class='text-center'>@item.Cot11.ToString("N0")</td>
+                <td class='text-center'>@item.Cot12.ToString("N0")</td>
+                <td class='text-center'>@item.Cot13.ToString("N0")</td>
+                <td class='text-center'>@item.Cot14.ToString("N0")</td>
+                <td class='text-center'>@item.Cot15.ToString("N0")</td>
+                <td class='text-center'>@item.Cot16.ToString("N0")</td>
+                <td class='text-center'>@item.Cot17.ToString("N0")</td>
+                <td class='text-center'>@item.Cot18.ToString("N0")</td>
+                <td class='text-center'>@item.Cot19.ToString("N0")</td>
+                <td class='text-center'>@item.Cot20.ToString("N0")</td>
+                <td class='text-center'>@item.Cot21.ToString("N0")</td>
+                <td class='text-center'>@item.Cot22.ToString("N0")</td>
+                <td class='text-center'>@item.Cot23.ToString("N0")</td>
+                <td class='text-center'>@item.Cot24.ToString("N0")</td>
+                <td class='text-center'>@item.Cot25.ToString("N0")</td>
+                <td class='text-center'>@item.Cot26.ToString("N0")</td>
+                <td class='text-center'>@item.Cot27.ToString("N0")</td>
+                <td class='text-center'>@item.Cot28.ToString("N0")</td>
+                <td class='text-center'>@item.Cot29.ToString("N0")</td>
+                <td class='text-center'>@item.Cot30.ToString("N0")</td>
+                <td class='text-center'>@item.Cot31.ToString("N0")</td>
+                @if (!item.TenDiaBanHoatDong.ToLower().Contains("tổng"))
                 {
-                    <td class="text-center">@stt</td>
-                    <td>@item.Cot2</td>
-                    stt++;
-                    bold = false;
+                    <td>@item.TenDiaBanHoatDong</td>
                 }
                 else
                 {
-                    sttSub++;
-                    stt = 1;
-                    <td class="text-center" style="font-size:14px;font-weight:bold">@sttSub</td>
-                    <td style="font-size:14px;font-weight:bold"> Tổng  @item.Cot2</td>
-                    bold = true;
+                    <td style="font-size:14px;font-weight:bold">@item.TenDiaBanHoatDong</td>
                 }
-               @*  <td class="text-center">@item.Cot1</td>
-                <td>@item.Cot2</td> *@
-                <td class="text-center">@item.Cot3</td>
-                <td class="text-center">@item.Cot4</td>
-                <td class="text-center">@item.Cot5</td>
-                <td class="text-center">@item.Cot6</td>
-                <td class="text-center">@item.Cot7</td>
-                <td class="text-center">@item.Cot8</td>
-                <td class="text-center">@item.Cot9</td>
-                <td class="text-center">@item.Cot10</td>
-                <td class="text-center">@item.Cot11</td>
-                <td class="text-center">@item.Cot12</td>
-                <td class="text-center">@item.Cot13</td>
-                <td class="text-center">@item.Cot14</td>
-                <td class="text-center">@item.Cot15</td>
-                <td class="text-center">@item.Cot16</td>
-                <td class="text-center">@item.Cot17</td>
-                <td class="text-center">@item.Cot18</td>
-                <td class="text-center">@item.Cot19</td>
-                <td class="text-center">@item.Cot20</td>
-                <td class="text-center">@item.Cot21</td>
-                <td class="text-center">@item.Cot22</td>
-                <td class="text-center">@item.Cot23</td>
-                <td class="text-center">@item.Cot24</td>
-                <td class="text-center">@item.Cot25</td>
-                <td class="text-center">@item.Cot26</td>
-                <td class="text-center">@item.Cot27</td>
-                <td class="text-center">@item.Cot28</td>
-                <td class="text-center">@item.Cot29</td>
-                <td class="text-center">@item.Cot30</td>
-                <td class="text-center">@item.Cot31</td>
-                <td class="text-center">@item.Cot32</td>
-                <td class="text-center">@item.Cot33</td>
-                <td class="text-center">@item.Cot34</td>
-                <td class="text-center">@item.Cot35</td>
-                <td class="text-center">@item.Cot36</td>
-                <td class="text-center">@item.Cot37</td>
-                <td class="text-center">@item.Cot38</td>
-                @if (bold)
-                {
-                    <td style="font-size:12px;font-weight:bold">@item.Cot39</td>
-                }
-                else{
-                     <td >@item.Cot39</td>
-                }
-                <td class='text-center'>@item.Cot40</td>
-                <td class='text-center'>@item.Cot41</td>
-                <td class='text-center'>@item.Cot42</td>
-                <td class='text-center'>@item.Cot43</td>
-                <td class='text-center'>@item.Cot44</td>
-                <td class='text-center'>@item.Cot45</td>
-                <td class='text-center'>@item.Cot46</td>
-                <td class='text-center'>@item.Cot47</td>
-                <td class='text-center'>@item.Cot48</td>
-                <td class='text-center'>@item.Cot49</td>
-                <td class='text-center'>@item.Cot50</td>
-                <td class='text-center'>@item.Cot51</td>
-                <td class='text-center'>@item.Cot52</td>
-                <td class='text-center'>@item.Cot53</td>
-                <td class='text-center'>@item.Cot54</td>
-                <td class='text-center'>@item.Cot55</td>
-                <td class='text-center'>@item.Cot56</td>
-                <td class='text-center'>@item.Cot57</td>
-                <td class='text-center'>@item.Cot58</td>
-                <td class='text-center'>@item.Cot59</td>
-                <td class='text-center'>@item.Cot60</td>
-                <td class='text-center'>@item.Cot61</td>
-                <td class='text-center'>@item.Cot62</td>
+
+                <td class='text-center'>@item.Cot32.ToString("N0")</td>
+                <td class='text-center'>@item.Cot33.ToString("N0")</td>
+                <td class='text-center'>@item.Cot34.ToString("N0")</td>
+                <td class='text-center'>@item.Cot35.ToString("N0")</td>
+                <td class='text-center'>@item.Cot36.ToString("N0")</td>
+                <td class='text-center'>@item.Cot37.ToString("N0")</td>
+                <td class='text-center'>@item.Cot38.ToString("N0")</td>
+                <td class='text-center'>@item.Cot39.ToString("N0")</td>
+                <td class='text-center'>@item.Cot40.ToString("N0")</td>
+                <td class='text-center'>@item.Cot41.ToString("N0")</td>
+                <td class='text-center'>@item.Cot42.ToString("N0")</td>
+                <td class='text-center'>@item.Cot43.ToString("N0")</td>
+                <td class='text-center'>@item.Cot44.ToString("N0")</td>
+                <td class='text-center'>@item.Cot45.ToString("N0")</td>
+                <td class='text-center'>@item.Cot46.ToString("N0")</td>
+                <td class='text-center'>@item.Cot47.ToString("N0")</td>
+                <td class='text-center'>@item.Cot48.ToString("N0")</td>
+                <td class='text-center'>@item.Cot49.ToString("N0")</td>
+                <td class='text-center'>@item.Cot50.ToString("N0")</td>
+                <td class='text-center'>@item.Cot51.ToString("N0")</td>
+                <td class='text-center'>@item.Cot52.ToString("N0")</td>
+                <td class='text-center'>@item.Cot53.ToString("N0")</td>
+                <td class='text-center'>@item.Cot54.ToString("N0")</td>
+
 
             </tr>
         }

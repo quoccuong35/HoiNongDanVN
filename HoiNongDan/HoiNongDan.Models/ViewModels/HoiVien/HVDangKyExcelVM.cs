@@ -14,6 +14,8 @@ namespace HoiNongDan.Models
         public String? Nam { get; set; }
         public String? Nu { get; set; }
         public String? SoCCCD { get; set; }
+        public String? TenQuanHuyen { get; set; }
+        public String? TenHoi { get; set; }
         public String? NgayCapSoCCCD { get; set; }
         public String? HoKhauThuongTru { get; set; }
         public String? NoiOHiennay { get; set; }
@@ -33,5 +35,6 @@ namespace HoiNongDan.Models
 
         public String? TrangThai { get; set; }
         public String? LyDoTuChoi { get; set; }
+        public String? NguoiDuyet { get; set; }
     }
 }

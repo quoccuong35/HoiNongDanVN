@@ -87,6 +87,7 @@
         public const string DanhGiaToChucHoi = "DanhGiaToChucHoi";
         public const string BCDanhGia_ToChucHoi_HoiVien = "BCDanhGia_ToChucHoi_HoiVien";
         public const string BCTLHNamNew = "BCTLHNamNew";
+        public const string BCKhenThuong = "BCKhenThuong";
 
         #endregion Hội viên
     }

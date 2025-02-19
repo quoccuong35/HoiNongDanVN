@@ -1,4 +1,4 @@
-﻿@model HoiVienSearchVM
+﻿@model DuyetHoiVienSearchVM
 @{
     ViewBag.Title = LanguageResource.List + LanguageResource.DuyetHoiVienMoi.ToLower();
     string CurrentController = ConstController.DuyetHoiVien;
@@ -20,9 +20,11 @@
             </div>
         </div>
         <div class="d-flex px-2">
-            
             @if (view)
             {
+                <button class="btn btn-primary off-canvas" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                    <i class="fa fa-check"> Duyệt tự động</i>
+                </button>
                 <button class="btn btn-sm btn-info text-white mx-1 btn-import" href="#">
                     <i class="fa fa-file-excel-o"></i> Đọc file excel duyệt
                 </button>
@@ -32,10 +34,11 @@
             }
             else
             {
-                <button type="button" id="duyet-hoivienall" class="btn btn-sm btn-primary" data-bs-placement="top" data-bs-toggle="tooltip" title="" data-bs-original-title="Duyệt">
-                    <span class="fa fa-check"> Duyệt tất cả</span>
+                <button type="button" id="duyet-hoivienall" class="btn btn-sm btn-primary" data-bs-placement="bottom" data-bs-toggle="tooltip" title="" data-bs-original-title="Duyệt">
+                    <i class="fa fa-check"> Duyệt tất cả</i>
                 </button>
             }
+           
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -47,22 +50,43 @@
                 <div class="splitter-head">Tìm kiếm nâng cao</div>
                 <div class="splitter-body">
                     <form method="get" id="frmSearch" asp-action="_Search">
-                        <div class="row my-2">
-                            <div class="col-md-2">
+                        <div class="row m-2">
+                            <div class="col-md-1">
                                 <label>Từ ngày</label>
-                                <input class="form-control" name="TuNgay" id="TuNgay" type="date" />
+                                <input class="form-control" asp-for="TuNgay" />
+                            </div>
+                            <div class="col-md-1">
+                                <label>Đến ngày</label>
+                                <input class="form-control" asp-for="DenNgay" />
+                            </div>
+                            <div class="col-md-1">
+                                <label asp-for="SoCCCD" ></label>
+                                <input class="form-control" asp-for="SoCCCD" />
+                            </div>
+                            <div class="col-md-1">
+                                <label>Số Quyết Định</label>
+                                <input class="form-control" asp-for="SoQuyetDinh" />
                             </div>
                             <div class="col-md-2">
-                                <label>Đến ngày</label>
-                                <input class="form-control" name="DenNgay" id="DenNgay" type="date" />
+                                <label>Trạng thái duyệt</label>
+                                <div class="input-group">
+                                    <div class="col-6">
+                                        <input type="radio" class="custom-checked" value='false' name="TrangThaiDuyet" checked>
+                                        <span class="">Chưa duyệt</span>
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="radio" class="custom-checked" value="true" name="TrangThaiDuyet">
+                                        <span class="">Đã duyệt</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="MaQuanHuyen"></label>
-                                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_All, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="MaDiaBanHoiVien"></label>
-                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_All, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-2 d-flex align-items-end">
                                 @HtmlExtensions.SearchButton()
@@ -85,15 +109,57 @@
         </div>
     </div>
     <!-- /Row -->
-
+    <!--Right Offcanvas-->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" data-bs-backdrop="false" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+        </div>
+        <br />
+        <div class="offcanvas-body">
+            <button type="button" class="btn btn-sm btn-dribbble me-1" data-bs-dismiss="offcanvas" aria-label="Close"><i class="fe fe-x fs-18"></i> Thoát</button>
+            <button type="button" class="btn btn-sm btn-primary me-1" id="btn-save" >
+                <span class="fa fa-check" id="btn-duyettudong"> Duyệt</span>
+            </button>
+            <form action="/" method="post" id="frmTuDongCapSo">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label asp-for="hoiVienDuyetCapNhatVM.SoQuyetDinh"></label><span class="text-red">*</span>
+                        <input class="form-control" type="text" asp-for="hoiVienDuyetCapNhatVM.SoQuyetDinh" />
+                        <span asp-validation-for="hoiVienDuyetCapNhatVM.SoQuyetDinh" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <label asp-for="hoiVienDuyetCapNhatVM.NgayVaoHoi"></label><span class="text-red">*</span>
+                        <input class="form-control" type="date" asp-for="hoiVienDuyetCapNhatVM.NgayVaoHoi" />
+                        <span asp-validation-for="hoiVienDuyetCapNhatVM.NgayVaoHoi" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <label asp-for="hoiVienDuyetCapNhatVM.NgayCapThe"></label><span class="text-red">*</span>
+                        <input class="form-control" type="date" asp-for="hoiVienDuyetCapNhatVM.NgayCapThe" />
+                        <span asp-validation-for="hoiVienDuyetCapNhatVM.NgayCapThe" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Sô thể bắt đầu</label>
+                        <input class="form-control" type="text" value="@ViewBag.SoThe" id="SoThe" disabled/>
+                    </div>
+                    @* <div class="col-md-12">
+                        <label asp-for="hoiVienDuyetCapNhatVM.SoTheHoiVien"></label><span class="text-red">*</span>
+                        <input class="form-control" type="text" asp-for="hoiVienDuyetCapNhatVM.SoTheHoiVien" />
+                        <span asp-validation-for="hoiVienDuyetCapNhatVM.SoTheHoiVien" class="text-danger"></span>
+                    </div> *@
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--/Right Offcanvas-->
 </div>
 @section ScriptCustomized {
     <script src="~/js/diaban_hv_quanhuyen.js"></script>
+    <script src="~/js/duyethoivien.js?v'@DateTime.Now.ToString("HH_mm")'"></script>
     <script>
         //load default and set event
         $(document).ready(function () {
             HoiNongDan.SearchInitial("@CurrentUrl");
-            HoiNongDan.DuyetHoiVienInitial("@CurrentUrl");
+            DuyetHoiVienInitial("@CurrentUrl");
             HoiNongDan.ShowMessage(window.location.href);
         });
     </script>

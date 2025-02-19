@@ -84,15 +84,17 @@ namespace HoiNongDan.Extensions
             return new SelectList(hocVis, "MaHocVi", "TenHocVi", value);
         }
 
-        public SelectList ChiHoi(Guid? value = null)
+        public SelectList ChiHoi(Guid? value = null, Guid? acID = null)
         {
-            var chiHois = _context.ChiHois.Select(it => new { MaChiHoi = it.MaChiHoi, TenChiHoi = it.TenChiHoi }).ToList();
+            var phamVis = _context.PhamVis.Where(it => it.AccountId == acID).Select(it => it.MaDiabanHoatDong).ToList();
+            var chiHois = _context.ChiHois.Where(it=> phamVis.Contains(it.MaDiaBanHoatDong!.Value)).Select(it => new { MaChiHoi = it.MaChiHoi, TenChiHoi = it.TenChiHoi }).ToList();
 
             return new SelectList(chiHois, "MaChiHoi", "TenChiHoi", value);
         }
-        public SelectList ToHoi(Guid? value = null)
+        public SelectList ToHoi(Guid? value = null, Guid? acID = null)
         {
-            var toHois = _context.ToHois.Select(it => new { MaToHoi = it.MaToHoi, TenToHoi = it.TenToHoi }).ToList();
+            var phamVis = _context.PhamVis.Where(it => it.AccountId == acID).Select(it => it.MaDiabanHoatDong).ToList();
+            var toHois = _context.ToHois.Where(it => phamVis.Contains(it.MaDiaBanHoatDong!.Value)).Select(it => new { MaToHoi = it.MaToHoi, TenToHoi = it.TenToHoi }).ToList();
 
             return new SelectList(toHois, "MaToHoi", "TenToHoi", value);
         }
@@ -197,6 +199,10 @@ namespace HoiNongDan.Extensions
             var lopHocs = _context.LopHocs.ToList();
             return new SelectList(lopHocs, "IDLopHoc", "TenLopHoc", value);
         }
-
+        public SelectList CapKhenThuong(String? value = null)
+        {
+            var capKhenThuongs = _context.CapKhenThuongs.ToList();
+            return new SelectList(capKhenThuongs, "MaCapKhenThuong", "TenCapKhenThuong", value);
+        }
     }
 }

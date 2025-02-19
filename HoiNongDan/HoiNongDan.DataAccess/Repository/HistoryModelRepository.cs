@@ -36,7 +36,9 @@ namespace HoiNongDan.DataAccess.Repository
                     string nameField = property.Name;
                     
                     var original = dbEntityEntry.OriginalValues[nameField];
+                    original = original == null ? "" : original;
                     var current = dbEntityEntry.CurrentValues[nameField];
+                    current = current == null ? "" : current;
                     if (original != null && !original.Equals(current) && nameField.ToLower() != LastModifiedTime)
                     {
                         //dbEntityEntry.Property(property).IsModified = true;

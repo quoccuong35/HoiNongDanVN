@@ -41,6 +41,18 @@ namespace HoiNongDan.Models
         public int? SoHoiVien { get; set; }
 
         public String? Url { get; set; }
+
+        [Display(Name ="Nghề nghiệp")]
+        public bool NgheNghiep { get; set; } = false;
+
+        [Display(Name = "Tên hội nông dân")]
+        public Guid? MaDiaBanHoatDong { get; set; }
+
+        [Display(Name = "Ngày giảm")]
+        public DateTime? NgayGiam { get; set; }
+
+        [Display(Name = "Lý do giảm")]
+        public String? LyDoGiam { get; set; }
     }
     public class ToHoiNganhNghe_ChiHoiNganhNgheSearchVM
     {

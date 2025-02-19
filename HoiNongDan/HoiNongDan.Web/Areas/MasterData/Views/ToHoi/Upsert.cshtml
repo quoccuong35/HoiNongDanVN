@@ -45,6 +45,15 @@
                                 <input asp-for="TenToHoi" class="form-control" />
                                 <span asp-validation-for="TenToHoi" class="text-danger"></span>
                             </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label asp-for="MaDiaBanHoatDong"></label><span class="text-red">*</span>
+                                    <select asp-for="MaDiaBanHoatDong" asp-items="@ViewBag.MaDiaBanHoatDong" class="form-control select2-show-search form-select">
+                                        <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+                                    </select>
+                                    <span asp-validation-for="MaDiaBanHoatDong" class="text-danger"></span>
+                                </div>
+                            </div>
                             <div class="col-lg-2">
                                 <div class="form-group">
                                     <label class="form-label">Loại</label>
@@ -60,7 +69,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
+                                <label asp-for="NgayThanhLap"></label>
+                                <input asp-for="NgayThanhLap" class="form-control" />
+                                <span asp-validation-for="NgayThanhLap" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="SoQuyetDinh"></label>
+                                <input asp-for="SoQuyetDinh" class="form-control" />
+                                <span asp-validation-for="SoQuyetDinh" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-2">
                                 <label asp-for="OrderIndex"></label>
                                 <input asp-for="OrderIndex" class="form-control" />
                                 <span asp-validation-for="OrderIndex" class="text-danger"></span>
@@ -74,6 +93,16 @@
                                     </fieldset>
                                 </div>
                             }
+                            <div class="col-md-2">
+                                <label asp-for="NgayGiam"></label>
+                                <input asp-for="NgayGiam" class="form-control" />
+                                <span asp-validation-for="NgayGiam" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-12">
+                                <label asp-for="LyDoGiam"></label>
+                                <textarea rows="3" asp-for="LyDoGiam" class="form-control"> </textarea>
+                                <span asp-validation-for="LyDoGiam" class="text-danger"></span>
+                            </div>
                             <div class="col-md-12">
                                 <label asp-for="Description"></label>
                                 <textarea rows="3" asp-for="Description" class="form-control"> </textarea>

@@ -1,0 +1,10 @@
+﻿<form id="frmImport">
+    <div class="col-md-12">
+        <input type="file" id="importexcelfile" name="importexcelfile" class="form-control" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+        <input type="hidden" name="currentUrl" class="form-control" />
+    </div>
+    @Html.AntiForgeryToken()
+</form>
+<span class="px-1"><b class="fs-18">Link tải file mẫu:</b> <a href="/HoiVien/HoiVien_CLB_DN_MH_HTX_THT/ExportCreate" class="fs-20">Tải tại đây</a> </span> <br />
+<span><b class="fs-18">Chú ý:</b> Tính năng chỉ sử dụng cho việc <span class="text-blue fs-20 font-weight-bolder">Thêm mới</span> nhanh  không có update dữ liệu</span>
+<script src="~/js/diaban_hv_quanhuyen.js"></script>

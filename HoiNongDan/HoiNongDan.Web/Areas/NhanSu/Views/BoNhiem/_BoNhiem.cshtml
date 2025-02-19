@@ -54,10 +54,12 @@
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            <label>@LanguageResource.Upload</label>
-            <input class="form-control" type="file" name="fileInbox">
+            <label asp-for="NguoiKy"></label>
+            <input asp-for="NguoiKy" class="form-control">
+            <span asp-validation-for="NguoiKy" class="text-danger"></span>
         </div>
     </div>
+   
     <div class="col-md-3">
         <div class="form-group">
             <label asp-for="HeSoChucVu"></label>
@@ -65,11 +67,10 @@
             <span asp-validation-for="HeSoChucVu" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-12">
         <div class="form-group">
-            <label asp-for="NguoiKy"></label>
-            <input asp-for="NguoiKy" class="form-control">
-            <span asp-validation-for="NguoiKy" class="text-danger"></span>
+            <label>@LanguageResource.Upload</label>
+            <input class="form-control" type="file" name="fileInbox">
         </div>
     </div>
     @if (@Model.FileDinhKem != null && !String.IsNullOrEmpty(@Model.FileDinhKem!.Url) && !String.IsNullOrWhiteSpace(@Model.FileDinhKem!.Url))

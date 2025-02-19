@@ -3,10 +3,13 @@ using HoiNongDan.DataAccess;
 using HoiNongDan.DataAccess.Repository;
 using HoiNongDan.Extensions;
 using HoiNongDan.Models;
+using HoiNongDan.Models.ViewModels.Masterdata;
 using HoiNongDan.Resources;
+using HoiNongDan.Web.Areas.NhanSu.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Globalization;
@@ -33,27 +36,176 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         public IActionResult _Search(String MaCanBo)
         {
             return ExecuteSearch(() => {
-                var model = _context.CanBoQuaTrinhLuongs.Include(it=>it.CanBo).AsQueryable();
+                var model = _context.CanBoQuaTrinhLuongs.Include(it=>it.CanBo).Include(it=>it.NgachLuong).Include(it=>it.BacLuong).AsQueryable();
                 if (!String.IsNullOrEmpty(MaCanBo))
                 {
                     model = model.Where(it => it.CanBo.MaCanBo == MaCanBo);
                 }
-                var data = model.Select(it=>new CanBoQuaTrinhLuongVM {
+                var data = model.Select(it=>new CanBoQuaTrinhLuongDetailVM
+                {
                     ID = it.ID,
-                    MaCanBo = it.CanBo.MaCanBo,
+                    MaCanBo = it.CanBo!.MaCanBo,
                     HoVaTen = it.CanBo.HoVaTen,
-                    MaNgachLuong = it.MaNgachLuong,
-                    BacLuong = it.BacLuong,
-                    HeoSoLuong = it.HeoSoLuong,
+                    MaNgachLuong = it.NgachLuong.TenNgachLuong,
+                    BacLuong = it.MaNgachLuong + "/"+it.BacLuong.OrderIndex.ToString(),
+                    HeSoLuong = it.HeSoLuong,
                     HeSoChucVu = it.HeSoChucVu,
                     NgayHuong = it.NgayHuong,
                     KiemNhiem   = it.KiemNhiem,
                     VuotKhung = it.VuotKhung,
+                    NgayNangBac = it.NgayNangBacLuong
                 }).ToList();
                 return PartialView(data);
             });
         }
         #endregion Index
+        #region Create
+        [HttpGet]
+        [HoiNongDanAuthorization]
+        public IActionResult Create() {
+            QuaTrinhLuongVM quaTrinhLuong = new QuaTrinhLuongVM();
+
+            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
+            nhanSu.CanBo = true;
+            quaTrinhLuong.NhanSu = nhanSu;
+            CreateViewBag();
+            return View(quaTrinhLuong);
+        }
+        [HttpPost]
+        [HoiNongDanAuthorization]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(QuaTrinhLuongVM item, IFormFile? fileInbox)
+        {
+            CheckError( item);
+            var add = new CanBoQuaTrinhLuong();
+            add.ID = Guid.NewGuid();
+
+            FileDinhKemModel addFile = new FileDinhKemModel();
+            if (fileInbox != null)
+            {
+                addFile.Id = add.ID;
+                addFile.IdCanBo = item.NhanSu.IdCanbo;
+                addFile.IDLoaiDinhKem = "04";
+                FunctionFile.CopyFile(_hostEnvironment, fileInbox, addFile);
+                if (!String.IsNullOrEmpty(addFile.Error) && !String.IsNullOrWhiteSpace(addFile.Error))
+                {
+                    ModelState.AddModelError("fileInbox", "Lỗi không cập nhật được file đính kèm");
+                }
+            }
+            return ExecuteContainer(() => {
+                add.CreatedTime = DateTime.Now;
+                add.CreatedAccountId = AccountId();
+                add.IDCanBo = item.NhanSu.IdCanbo.Value;
+                add.MaNgachLuong = item.MaNgachLuong;
+                add.MaBacLuong = item.MaBacLuong;
+                add.HeSoLuong = item.HeSoLuong;
+                add.HeSoChucVu = item.HeSoChucVu ;
+                add.VuotKhung = item.VuotKhung;
+                add.KiemNhiem = item.KiemNhiem ;
+                add.NgayHuong = item.NgayHuong;
+                add.NgayNangBacLuong = item.NgayNangBacLuong ;
+                //var canBo = _context.CanBos.SingleOrDefault(it => it.IDCanBo == add.IDCanBo);
+                if (!String.IsNullOrEmpty(addFile.Url) && !String.IsNullOrWhiteSpace(addFile.Url))
+                {
+                    FileDinhKem fileDinhKem = addFile.GetFileDinhKem();
+                    _context.FileDinhKems.Add(fileDinhKem);
+                }
+
+                _context.CanBoQuaTrinhLuongs.Add(add);
+
+                _context.SaveChanges();
+                return Json(new
+                {
+                    Code = System.Net.HttpStatusCode.OK,
+                    Success = true,
+                    Data = string.Format(LanguageResource.Alert_Create_Success, LanguageResource.CanBoQuaTrinhLuong.ToLower())
+                });
+            });
+        }
+        #endregion Create
+        #region Edit
+        [HttpGet]
+        [HoiNongDanAuthorization]
+        public IActionResult Edit(Guid id) {
+            var item = _context.CanBoQuaTrinhLuongs.SingleOrDefault(it => it.ID == id);
+            if (item == null)
+            {
+                return Redirect("~/Error/ErrorNotFound?data=" + id);
+            }
+            QuaTrinhLuongVM obj = new QuaTrinhLuongVM();
+            obj.CapNhatTinhTrangCanBo = false;
+            var file = _context.FileDinhKems.SingleOrDefault(it => it.Id == id);
+
+            var canBo = _context.CanBos.Include(it => it.CoSo).Include(it => it.Department)
+                        .Include(it => it.PhanHe).Include(it => it.TinhTrang).Where(it => it.IDCanBo == item.IDCanBo).SingleOrDefault();
+            NhanSuThongTinVM nhanSu = new NhanSuThongTinVM();
+            nhanSu = nhanSu.GeThongTin(canBo!);
+            nhanSu.CanBo = true;
+            nhanSu.IdCanbo = canBo!.IDCanBo;
+            nhanSu.HoVaTen = canBo.HoVaTen;
+            nhanSu.MaCanBo = canBo.MaCanBo;
+            nhanSu.TenTinhTrang = canBo.TinhTrang.TenTinhTrang;
+            //nhanSu.TenCoSo = canBo.CoSo.TenCoSo;
+            nhanSu.TenDonVi = canBo.Department.Name;
+            //nhanSu.TenPhanHe = canBo.PhanHe.TenPhanHe;
+            nhanSu.Edit = false;
+
+            obj.MaNgachLuong = item.MaNgachLuong;
+            obj.MaBacLuong = item.MaBacLuong;
+            obj.HeSoLuong = item.HeSoLuong;
+            obj.HeSoChucVu = item.HeSoChucVu;
+            obj.VuotKhung = item.VuotKhung;
+            obj.KiemNhiem = item.KiemNhiem;
+            obj.NgayHuong = item.NgayHuong;
+            obj.NgayNangBacLuong = item.NgayNangBacLuong;
+            obj.NhanSu = nhanSu;
+            obj.Id = item.ID;
+            obj.FileDinhKem = file;
+            CreateViewBag(maNgachLuong: item.MaNgachLuong, maBacLuong: item.MaBacLuong);
+            return View(obj);
+        }
+
+        [HttpPost]
+        [HoiNongDanAuthorization]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(QuaTrinhLuongVM item, IFormFile? fileInbox)
+        {
+            CheckError(item);
+           
+            return ExecuteContainer(() => {
+                var edit = _context.CanBoQuaTrinhLuongs.SingleOrDefault(it => it.ID == item.Id!.Value);
+                if (edit == null)
+                {
+                    return Json(new
+                    {
+                        Code = System.Net.HttpStatusCode.NotFound,
+                        Success = false,
+                        Data = string.Format(LanguageResource.Error_NotExist, LanguageResource.CanBoQuaTrinhLuong.ToLower())
+                    });
+                }
+                else
+                {
+                    edit.MaNgachLuong = item.MaNgachLuong;
+                    edit.MaBacLuong = item.MaBacLuong;
+                    edit.HeSoLuong = item.HeSoLuong;
+                    edit.HeSoChucVu = item.HeSoChucVu;
+                    edit.VuotKhung = item.VuotKhung;
+                    edit.KiemNhiem = item.KiemNhiem;
+                    edit.NgayHuong = item.NgayHuong;
+                    edit.NgayNangBacLuong = item.NgayNangBacLuong;
+                    edit.LastModifiedTime = DateTime.Now;
+                    edit.LastModifiedAccountId = AccountId();
+                    _context.SaveChanges();
+                    return Json(new
+                    {
+                        Code = System.Net.HttpStatusCode.OK,
+                        Success = true,
+                        Data = string.Format(LanguageResource.Alert_Edit_Success, LanguageResource.CanBoQuaTrinhLuong.ToLower())
+                    });
+                }
+            });
+        }
+        #endregion Edit
         #region Import Excel 
         public IActionResult Import()
         {
@@ -372,31 +524,49 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                             }
                         }
                         break;
-                    case 4:
-                        data.MaNgachLuong = value;
-                        break;
-                    case 5:
-                        data.BacLuong = value;
-                        break;
-                    case 6:
-                        data.HeoSoLuong = value;
-                        break;
-                    case 7:
-                        data.HeSoChucVu = value;
-                        break;
-                    case 8:
-                        data.VuotKhung = value;
-                        break;
-                    case 9:
-                        data.KiemNhiem = value;
-                        break;
-                    case 10:;
-                        data.NgayHuong = value;
-                        break;
+                    //case 4:
+                    //    data.MaNgachLuong = value;
+                    //    break;
+                    //case 5:
+                    //    data.BacLuong = value;
+                    //    break;
+                    //case 6:
+                    //    data.HeSoLuong = value;
+                    //    break;
+                    //case 7:
+                    //    data.HeSoChucVu = value;
+                    //    break;
+                    //case 8:
+                    //    data.VuotKhung = value;
+                    //    break;
+                    //case 9:
+                    //    data.KiemNhiem = value;
+                    //    break;
+                    //case 10:;
+                    //    data.NgayHuong = value;
+                    //    break;
                 }
             }
             return data;
         }
         #endregion Check data type 
+        #region Helper
+        [NonAction]
+        private void CreateViewBag( String? maNgachLuong = null, Guid? maBacLuong = null )
+        {
+
+            var ngachLuong = _context.NgachLuongs.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { MaNgachLuong = it.MaNgachLuong, TenNgachLuong = it.TenNgachLuong }).ToList();
+            ViewBag.MaNgachLuong = new SelectList(ngachLuong, "MaNgachLuong", "TenNgachLuong", maNgachLuong);
+
+            var bacLuong = _context.BacLuongs.Where(it => it.Actived == true && (it.MaNgachLuong == maNgachLuong || maNgachLuong == null)).OrderBy(p => p.OrderIndex).Select(it => new { MaBacLuong = it.MaBacLuong, TenBacLuong = it.TenBacLuong + " " + it.HeSo.ToString() }).ToList();
+            ViewBag.MaBacLuong = new SelectList(bacLuong, "MaBacLuong", "TenBacLuong", maBacLuong);
+
+        }
+        private void CheckError(QuaTrinhLuongVM item) {
+            if (item.NhanSu.IdCanbo == null) {
+                ModelState.AddModelError("MaCanBo", "Chưa chọn cán bộ");
+            }
+        }
+        #endregion Helper
     }
 }

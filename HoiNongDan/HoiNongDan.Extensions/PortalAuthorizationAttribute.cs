@@ -62,6 +62,8 @@ namespace HoiNongDan.Extensions
                     return "Edit";
                 case "tuchoi":
                     return "Edit";
+                case "duyettudong":
+                    return "Upsert";
                 default: 
                     return name;
 

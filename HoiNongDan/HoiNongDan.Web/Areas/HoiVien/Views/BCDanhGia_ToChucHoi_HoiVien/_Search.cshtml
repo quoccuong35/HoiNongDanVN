@@ -124,10 +124,16 @@
         @{
             int sttSub = 0;
             int stt = 1;
+            string css = "";
         }
         @foreach (var item in Model)
         {
-            <tr>
+            css = "";
+            @if (item.DonVi == item.TenQuanHuyen)
+            {
+                css = "font-size:16px;font-weight:bold";
+            }
+            <tr style="@css">
                 @if (item.DonVi != item.TenQuanHuyen)
                 {
                     <td class="text-center">@stt</td>

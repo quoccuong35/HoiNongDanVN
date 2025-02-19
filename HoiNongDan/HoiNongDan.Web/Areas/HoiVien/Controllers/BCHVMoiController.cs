@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using OfficeOpenXml.Style;
 using System.Data;
 
@@ -27,40 +28,27 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HoiNongDanAuthorization]
         public IActionResult Index()
         {
+            BCHVPhatTrienMoiSearchVM searchVM = new BCHVPhatTrienMoiSearchVM();
+
+            searchVM.TuNgay = StartOfQuarter();
+            searchVM.DenNgay = EndOfQuarter();
+
             CreateViewBagSearch();
-            return View();
+            return View(searchVM);
         }
         [HoiNongDanAuthorization]
-        public IActionResult _Search(string? MaQuanHuyen, Guid? MaDiaBanHoatDong, DateTime? TuNgay, DateTime? DenNgay) {
+        public IActionResult _Search(BCHVPhatTrienMoiSearchVM searchVM) {
             return ExecuteSearch(() => { 
-                var model = LoadData(MaQuanHuyen: MaQuanHuyen, MaDiaBanHoatDong: MaDiaBanHoatDong, TuNgay: TuNgay, DenNgay: DenNgay);
+                var model = LoadData(searchVM);
                 return PartialView(model);
             });
         }
-        public IActionResult ExportEdit(String? MaQuanHuyen, Guid? MaDiaBanHoatDong, DateTime? TuNgay, DateTime? DenNgay)
+        public IActionResult ExportEdit(BCHVPhatTrienMoiSearchVM searchVM)
         {
             string wwwRootPath = _hostEnvironment.WebRootPath;
             var url = Path.Combine(wwwRootPath, @"upload\filemau\BCHVMoi.xlsx");
-            var model = LoadData(MaQuanHuyen: MaQuanHuyen, MaDiaBanHoatDong: MaDiaBanHoatDong, TuNgay: TuNgay, DenNgay: DenNgay);
-            //byte[] filecontent;
-            //using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(url), false)) {
-            //    ExcelWorksheet workSheet = package.Workbook.Worksheets["Data"];
-            //    int startIndex = 11;
-            //    workSheet.Cells["A" + startIndex].LoadFromCollection(model, false);
-            //    using (ExcelRange r = workSheet.Cells["A11:U" + startIndex.ToString()])
-            //    {
-            //        r.Style.Border.Top.Style = ExcelBorderStyle.Thin;
-            //        r.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
-            //        r.Style.Border.Left.Style = ExcelBorderStyle.Thin;
-            //        r.Style.Border.Right.Style = ExcelBorderStyle.Thin;
-
-            //        r.Style.Border.Top.Color.SetColor(System.Drawing.Color.Black);
-            //        r.Style.Border.Bottom.Color.SetColor(System.Drawing.Color.Black);
-            //        r.Style.Border.Left.Color.SetColor(System.Drawing.Color.Black);
-            //        r.Style.Border.Right.Color.SetColor(System.Drawing.Color.Black);
-            //    }
-            //    filecontent = package.GetAsByteArray();
-            //}
+            var model = LoadData(searchVM);
+            
             if (model.Count == 0)
             {
                 BCHVPhatTrienMoiExcelVM add = new BCHVPhatTrienMoiExcelVM();
@@ -76,26 +64,10 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Helper
         private void CreateViewBagSearch()
         {
-            var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
-            var data = (from hv in _context.CanBos
-                        join diaban in _context.DiaBanHoatDongs on hv.MaDiaBanHoatDong equals diaban.Id
-                        join quanhuyen in _context.QuanHuyens on diaban.MaQuanHuyen equals quanhuyen.MaQuanHuyen
-                        where hv.IsHoiVien == true
-                        && phamVis.Contains(diaban.Id)
-                        select new
-                        {
-                            MaDiaBanHoatDong = diaban.Id,
-                            Name = diaban.TenDiaBanHoatDong,
-                            MaQuanHuyen = quanhuyen.MaQuanHuyen,
-                            TenQuanHuyen = quanhuyen.TenQuanHuyen
-                        }
-                                  ).Distinct().ToList();
+            FnViewBag fnViewBag = new FnViewBag(_context);
+            ViewBag.MaDiaBanHoiVien = fnViewBag.DiaBanHoiVien(acID: AccountId());
 
-            var diaBanHoatDong = data.Select(it => new { MaDiaBanHoatDong = it.MaDiaBanHoatDong, Name = it.Name }).Distinct().ToList();
-            ViewBag.MaDiaBanHoatDong = new SelectList(diaBanHoatDong, "MaDiaBanHoatDong", "Name");
-
-            var quanHuyen = data.Select(it => new { MaQuanHuyen = it.MaQuanHuyen, TenQuanHuyen = it.TenQuanHuyen }).Distinct().ToList();
-            ViewBag.MaQuanHuyen = new SelectList(quanHuyen, "MaQuanHuyen", "TenQuanHuyen");
+            ViewBag.MaQuanHuyen = fnViewBag.QuanHuyen(idAc: AccountId());
 
         }
         public JsonResult loadDiaBanHoatDong(string? maQuanHuyen)
@@ -122,29 +94,29 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             }
 
         }
-        private List<BCHVPhatTrienMoiExcelVM> LoadData(string? MaQuanHuyen, Guid? MaDiaBanHoatDong, DateTime? TuNgay, DateTime? DenNgay) {
-            //var data = _context.CanBos.Where(it => it.IsHoiVien == true && it.isRoiHoi != true).Include(it => it.DanToc).Include(it => it.NgheNghiep).
-            //    Include(it => it.TonGiao).Include(it => it.TrinhDoHocVan).Include(it => it.TrinhDoChuyenMon)
-            //    .Include(it => it.TrinhDoChinhTri).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).AsQueryable();
+        private List<BCHVPhatTrienMoiExcelVM> LoadData(BCHVPhatTrienMoiSearchVM searchVM) {
+
             var data = (from cb in _context.CanBos
                         join pv in _context.PhamVis on cb.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
                         where pv.AccountId == AccountId()
                         && cb.IsHoiVien == true
                         && cb.HoiVienDuyet == true
                         select cb).Where(it => it.IsHoiVien == true && it.isRoiHoi != true).Include(it => it.DanToc).Include(it => it.NgheNghiep).
-                Include(it => it.TonGiao).Include(it => it.TrinhDoHocVan).Include(it => it.TrinhDoChuyenMon)
+                Include(it => it.TonGiao).Include(it => it.TrinhDoHocVan).Include(it => it.TrinhDoChuyenMon).Include(it=>it.ChiHoi).Include(it=>it.ToHoi)
                 .Include(it => it.TrinhDoChinhTri).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).AsQueryable();
-            if (TuNgay == null)
-            { TuNgay = DateTime.Now; }
-            if (DenNgay == null)
-            { DenNgay = DateTime.Now; }
-            if (!String.IsNullOrWhiteSpace(MaQuanHuyen))
+            //Lấy ngày hiện tại
+
+            if (searchVM.TuNgay == null)
+            { searchVM.TuNgay = StartOfQuarter(); }
+            if (searchVM.DenNgay == null)
+            { searchVM.DenNgay = EndOfQuarter(); }
+            if (!String.IsNullOrWhiteSpace(searchVM.MaQuanHuyen))
             {
-                data = data.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == MaQuanHuyen);
+                data = data.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == searchVM.MaQuanHuyen);
             }
-            if (MaDiaBanHoatDong != null)
+            if (searchVM.MaDiaBanHoiVien != null)
             {
-                data = data.Where(it => it.MaDiaBanHoatDong == MaDiaBanHoatDong);
+                data = data.Where(it => it.MaDiaBanHoatDong == searchVM.MaDiaBanHoiVien);
             }
             var model = data.Select(it => new BCHVPhatTrienMoiVM
             {
@@ -159,16 +131,18 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 DangVien = "",
                 DanToc = it.DanToc!.TenDanToc,
                 TonGiao = it.TonGiao!.TenTonGiao,
+                TenQuanHuyen = it.DiaBanHoatDong.QuanHuyen.TenQuanHuyen,
+                TenHoi = it.DiaBanHoatDong.TenDiaBanHoatDong,
                 TrinhDoHocVan = it.TrinhDoHocVan.TenTrinhDoHocVan,
                 TrinhDoChuyenMon = it.TrinhDoChuyenMon!.TenTrinhDoChuyenMon,
                 ChinhTri = it.TrinhDoChinhTri!.TenTrinhDoChinhTri,
                 NgayThangVaoHoi = it.NgayVaoHoi,
                 NgheNghiep = it.NgheNghiep!.TenNgheNghiep,
-                DiaBanDanCu = "",
-                NganhNghe = "",
+                DiaBanDanCu = it.HoiVienDanCu == true? "X":"",
+                NganhNghe = it.HoiVienNganhNghe == true  ? "X" : "",
                 SoThe = it.MaCanBo,
                 NgayCapThe = it.NgayCapThe != null? it.NgayCapThe.Value.ToString("dd/MM/yyyy") : ""
-            }).ToList().Where(it=> it.NgayThangVaoHoi != null && it.NgayThangVaoHoi.Value >= TuNgay && it.NgayThangVaoHoi <= DenNgay).Select((it, index) => new BCHVPhatTrienMoiExcelVM
+            }).ToList().Where(it=> it.NgayThangVaoHoi != null && it.NgayThangVaoHoi.Value >= searchVM.TuNgay && it.NgayThangVaoHoi <= searchVM. DenNgay).OrderBy(it => it.TenQuanHuyen).ThenBy(it => it.TenHoi).Select((it, index) => new BCHVPhatTrienMoiExcelVM
             {
                 STT = index +1,
                 HoVaTen = it.HoVaTen,
@@ -184,15 +158,17 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 TonGiao = it.TonGiao,
                 TrinhDoHocVan = it.TrinhDoHocVan,
                 TrinhDoChuyenMon = it.TrinhDoChuyenMon,
+                TenQuanHuyen = it.TenQuanHuyen,
+                TenHoi = it.TenHoi,
                 ChinhTri = it.ChinhTri,
                 NgayThangVaoHoi = it.NgayThangVaoHoi != null?it.NgayThangVaoHoi.Value.ToString("dd/MM/yyyy"):"",
                 NgheNghiep = it.NgheNghiep,
-                DiaBanDanCu = "",
-                NganhNghe = it.NgheNghiep,
+                DiaBanDanCu = it.DiaBanDanCu,
+                NganhNghe = it.NganhNghe,
                 SoThe = it.SoThe,
                 NgayCapThe = it.NgayCapThe
 
-            }).ToList();
+            }).OrderBy(it=>it.TenQuanHuyen).ThenBy(it=>it.TenHoi).ToList();
             return model;
         }
 

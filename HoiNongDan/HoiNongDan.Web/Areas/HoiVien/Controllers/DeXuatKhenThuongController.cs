@@ -71,9 +71,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     data = data.Where(it => it.MaDanhHieuKhenThuong == sr.MaDanhHieuKhenThuong);
                 }
-                if (!String.IsNullOrWhiteSpace(sr.MaCanBo))
+                if (!String.IsNullOrWhiteSpace(sr.SoCCCD))
                 {
-                    data = data.Where(it => it.CanBo.MaCanBo == sr.MaCanBo);
+                    data = data.Where(it => it.CanBo.SoCCCD == sr.SoCCCD);
                 }
                 if (sr.MaDiaBanHoiVien != null)
                 {
@@ -108,7 +108,6 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     DiaBanHND = it.CanBo.DiaBanHoatDong!.TenDiaBanHoatDong,
                     ChiHoiNongDan = it.CanBo.ChiHoi!.TenChiHoi,
                     NamDX = it.Nam
-
                 }).ToList();
                 return PartialView(model);
             });

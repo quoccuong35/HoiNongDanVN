@@ -30,7 +30,6 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]
         public bool Actived { get; set; } = true;
 
-
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Upload")]
         public FileDinhKem? FileDinhKem { get; set; }
         public NhanSuThongTinVM NhanSu { get; set; }

@@ -12,6 +12,8 @@ using HoiNongDan.Models;
 using Microsoft.AspNetCore.Http;
 using HoiNongDan.Constant;
 using Microsoft.AspNetCore.Routing;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 
 namespace HoiNongDan.Extensions
 {
@@ -38,16 +40,16 @@ namespace HoiNongDan.Extensions
             //        Response.Cookies.Delete(cookie);
             //    }
             //}
-            string role = context.ActionDescriptor.RouteValues.SingleOrDefault(it => it.Key == "area").Value +"/" + context.ActionDescriptor.RouteValues.SingleOrDefault(it => it.Key == "controller").Value + "/" + context.ActionDescriptor.RouteValues.SingleOrDefault(it => it.Key == "action").Value;
-            var addLog = new UsageLog
-            {
-                ID = Guid.NewGuid(),
-                AccountID = AccountId()!.Value,
-                TimeAccessed = DateTime.Now,
-                URLAccessed = role,
-            };
-            _context.UsageLogs.Add(addLog);
-            _context.SaveChanges();
+            //string role = context.ActionDescriptor.RouteValues.SingleOrDefault(it => it.Key == "area").Value +"/" + context.ActionDescriptor.RouteValues.SingleOrDefault(it => it.Key == "controller").Value + "/" + context.ActionDescriptor.RouteValues.SingleOrDefault(it => it.Key == "action").Value;
+            //var addLog = new UsageLog
+            //{
+            //    ID = Guid.NewGuid(),
+            //    AccountID = AccountId()!.Value,
+            //    TimeAccessed = DateTime.Now,
+            //    URLAccessed = role,
+            //};
+            //_context.UsageLogs.Add(addLog);
+            //_context.SaveChanges();
 
         }
         public override void OnActionExecuting(ActionExecutingContext context)
@@ -295,6 +297,25 @@ namespace HoiNongDan.Extensions
         {
             DateTime dNow = DateTime.Now;
             return new DateTime(dNow.Year, dNow.Month, DateTime.DaysInMonth(dNow.Year, dNow.Month));
+        }
+
+        public DateTime StartOfQuarter() {
+            DateTime today = DateTime.Now;
+            int quarter = (today.Month - 1) / 3 + 1;
+
+            // Tính toán ngày bắt đầu và kết thúc của quý
+            DateTime startOfQuarter = new DateTime(today.Year, (quarter - 1) * 3 + 1, 1);
+            return startOfQuarter;
+        }
+        public DateTime EndOfQuarter()
+        {
+            DateTime today = DateTime.Now;
+            int quarter = (today.Month - 1) / 3 + 1;
+
+            // Tính toán ngày bắt đầu và kết thúc của quý
+            DateTime startOfQuarter = new DateTime(today.Year, (quarter - 1) * 3 + 1, 1);
+            DateTime endOfQuarter = startOfQuarter.AddMonths(3).AddDays(-1);
+            return endOfQuarter;
         }
         public Guid? AccountId()
         {

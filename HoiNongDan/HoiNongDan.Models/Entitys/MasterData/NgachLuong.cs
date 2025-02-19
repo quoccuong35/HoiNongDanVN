@@ -24,8 +24,10 @@ namespace HoiNongDan.Models
         public DateTime? LastModifiedTime { get; set; }
         public int? OrderIndex { get; set; }
         public ICollection<BacLuong> BacLuongs { get; set; }
+        public ICollection<CanBoQuaTrinhLuong> CanBoQuaTrinhLuongs { get; set; }
         public NgachLuong() {
             BacLuongs = new List<BacLuong>();
+            CanBoQuaTrinhLuongs = new List<CanBoQuaTrinhLuong>();
         }
     }
 }

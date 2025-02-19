@@ -43,7 +43,7 @@
                         <div class="row" id="part-hoivien">
                             @Html.Partial("~/Areas/HoiVien/Views/HVInfo/_HVThongTin.cshtml", Model.HoiVien)
                         </div>
-                        <hr />
+                        <hr/>
                         @Html.Partial("_CapThe", Model)
                     </form>
                 </div>
@@ -55,16 +55,19 @@
 
 @section Scripts {
     @{
-        <partial name="_ValidationScriptsPartial" />
-        <partial name="_HoiVienModalPartial" />
+                <partial name="_ValidationScriptsPartial" />
+                <partial name="_HoiVienModalPartial" />
     }
 }
 @section ScriptCustomized {
     <script type="text/javascript">
         $(document).ready(function () {
             HoiNongDan.CreateInitial("@CurrentUrl");
-
         });
-
+        $("#btn-laysothe").click(function () {
+            $.get("@Url.Action("LaySoThe", "HoiVienCapThe")", function (data) {
+                $("#SoThe").val(data.soThe)
+            });
+        });
     </script>
 }

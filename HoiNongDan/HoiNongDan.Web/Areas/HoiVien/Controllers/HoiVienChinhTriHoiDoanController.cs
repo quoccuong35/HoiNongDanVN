@@ -37,26 +37,27 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 var data = _context.DoanTheChinhTri_HoiDoan_HoiViens
                     .Include(it => it.HoiVien)
                     .Include(it => it.HoiVien.DiaBanHoatDong)
-                    .Include(it=>it.DoanTheChinhTri_HoiDoan).AsQueryable();
+                    .Include(it=>it.DoanTheChinhTri_HoiDoan).Where(it=>it.HoiVien.IsHoiVien == true && it.HoiVien.HoiVienDuyet == true).AsQueryable();
+                data = data.Where(it => phamVis.Contains(it.HoiVien.MaDiaBanHoatDong!.Value));
                 if (search.MaDoanTheChinhTri_HoiDoan != null)
                 {
                     data = data.Where(it => it.MaDoanTheChinhTri_HoiDoan == search.MaDoanTheChinhTri_HoiDoan);
+                }
+                if (!String.IsNullOrWhiteSpace(search.TenDoanThe))
+                {
+                    data = data.Where(it => it.DoanTheChinhTri_HoiDoan.TenDoanTheChinhTri_HoiDoan.Contains(search.TenDoanThe));
                 }
                 if (search.MaDiaBanHoiVien != null)
                 {
                     data = data.Where(it => it.HoiVien.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
                 }
-                else
-                {
-                    data = data.Where(it => phamVis.Contains(it.HoiVien.MaDiaBanHoatDong!.Value));
-                }
                 if (search.HoVaTen != null)
                 {
                     data = data.Where(it => it.HoiVien.HoVaTen.Contains(search.HoVaTen));
                 }
-                if (search.MaHoiVien != null)
+                if (search.SoCCCD != null)
                 {
-                    data = data.Where(it => it.HoiVien.MaCanBo ==search.MaHoiVien);
+                    data = data.Where(it => it.HoiVien.SoCCCD == search.SoCCCD);
                 }
                 if (!String.IsNullOrWhiteSpace(search.MaQuanHuyen))
                 {
@@ -108,17 +109,18 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             {
                 data = data.Where(it => it.HoiVien.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
             }
-            else
-            {
-                data = data.Where(it => phamVis.Contains(it.HoiVien.MaDiaBanHoatDong!.Value));
-            }
+            data = data.Where(it => phamVis.Contains(it.HoiVien.MaDiaBanHoatDong!.Value));
             if (search.HoVaTen != null)
             {
                 data = data.Where(it => it.HoiVien.HoVaTen.Contains(search.HoVaTen));
             }
-            if (search.MaHoiVien != null)
+            if (!String.IsNullOrWhiteSpace(search.TenDoanThe))
             {
-                data = data.Where(it => it.HoiVien.MaCanBo == search.MaHoiVien);
+                data = data.Where(it => it.DoanTheChinhTri_HoiDoan.TenDoanTheChinhTri_HoiDoan.Contains(search.TenDoanThe));
+            }
+            if (search.SoCCCD != null)
+            {
+                data = data.Where(it => it.HoiVien.SoCCCD == search.SoCCCD);
             }
             var model = data.Select(it => new HoiVienChinhTriHoiDoanExcelVM
             {

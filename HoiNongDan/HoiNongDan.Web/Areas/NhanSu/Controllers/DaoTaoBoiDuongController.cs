@@ -116,6 +116,7 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             model.GhiChu = item.GhiChu;
             model.MaHinhThucDaoTao = item.MaHinhThucDaoTao;
             model.MaLoaiBangCap = item.MaLoaiBangCap!;
+            model.TenTruong = item.TenTruong!;
             CreateViewBag(item.MaLoaiBangCap, item.MaHinhThucDaoTao);
             return View(model);
         }

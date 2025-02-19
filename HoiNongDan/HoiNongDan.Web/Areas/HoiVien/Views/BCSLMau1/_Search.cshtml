@@ -7,20 +7,19 @@
     string CurrentArea = ConstArea.HoiVien;
     string listRoles = User.FindFirst("Roles")!.Value;
     listRoles = listRoles == null ? "" : listRoles;
-    int stt = 0;
+    int stt = 0;string css = "";
 }
 <table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
     <thead class="table-primary">
         <tr>
             <th class="text-center" style="vertical-align: middle;" rowspan="2">@LanguageResource.NumberIndex</th>
             <th class="text-center" style="vertical-align: middle;" rowspan="2">Đơn Vị</th>
-            <th class="text-center" style="vertical-align: middle;" colspan='2'>Số Lượng</th>
+            <th class="text-center" style="vertical-align: middle;" colspan='11'>Hội Viên</th>
             <th class="text-center" style="vertical-align: middle;" colspan="3">Độ Tuổi</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Dân Tộc</th>
-            <th class="text-center" style="vertical-align: middle;" colspan='2'>Chi Hội</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Đảng Viên</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Ưu Tú</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">HV Nồng Cốt</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="3">Trình Độ Học Vấn</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="4">Trình Độ Chính trị</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="4">Gia đình thuộc diện</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="7">Ngành Nghề</th>
         </tr>
         <tr>
             <th>
@@ -29,6 +28,21 @@
             <th>
                 Tổng nữ
             </th>
+            <th>Dân Cư</th>
+            <th>Ngành Nghề</th>
+            <th>Dân Tộc</th>
+            <th>Tôn Giáo</th>
+            <th>Đảng Viên</th>
+            <th>
+                Tham gia
+                cấp ủy Đảng
+            </th>
+            <th>
+                Tham gia
+                HĐND
+            </th>
+            <th>Danh Dự</th>
+            <th>Nồng Cốt</th>
             <th>
                 Nhỏ hơn 40
             </th>
@@ -39,31 +53,95 @@
                 Từ 60
             </th>
             <th>
-                Dân Cư
+                Cấp 1
             </th>
             <th>
-                Ngành Nghề
+                Cấp 2
             </th>
+            <th>
+                Cấp 3
+            </th>
+            <th>Sơ cấp</th>
+            <th>Trung cấp</th>
+            <th>Cao cấp</th>
+            <th>Cử nhân</th>
+
+            <th>Hộ nghèo</th>
+            <th>Cận nghèo</th>
+            <th>
+                Gia đình,
+                chính sách,
+                con liệt sĩ
+            </th>
+            <th>
+                Thành phần
+                khác
+            </th>
+            <th>Nông dân</th>
+            <th>Công nhân</th>
+            <th>
+                Công chức
+                viên chức
+            </th>
+            <th>Doanh nghiệp</th>
+            <th>
+                Học sinh
+                sinh viên
+            </th>
+            <th>
+                Lao động
+                tự do
+            </th>
+            <th>Hưu trí</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             stt++;
-            <tr>
+            css = "";
+            @if (item.Ten.ToLower().Contains("tổng"))
+            {
+                css = "font-size:16px;font-weight:bold";
+            }
+            <tr style="@css">
                 <td class="text-center">@stt</td>
                 <td class="">@item.Ten</td>
-                <td class="text-center">@item.TongSL</td>
-                <td class="text-center">@item.TongNu</td>
-                <td class="text-center">@item.DoTuoi40</td>
-                <td class="text-center">@item.DoTuoi60</td>
-                <td class="text-center">@item.DoTuoiTren60</td>
-                <td class="text-center">@item.TongDanToc</td>
-                <td class="text-center">@item.ChiHoiDanCu</td>
-                <td class="text-center">@item.ChiHoiNganhNghe</td>
-                <td class="text-center">@item.DangVien</td>
-                <td class="text-center">@item.UuTu</td>
-                <td class="text-center">@item.HVNongCot</td>
+                <td class="text-center">@item.TongSL.ToString("N0")</td>
+                <td class="text-center">@item.TongNu.ToString("N0")</td>
+                <td class="text-center">@item.ChiHoiDanCu.ToString("N0")</td>
+                <td class="text-center">@item.ChiHoiNganhNghe.ToString("N0")</td>
+                <td class="text-center">@item.TongDanToc.ToString("N0")</td>
+                <td class="text-center">@item.TongTonGiao.ToString("N0")</td>
+                <td class="text-center">@item.DangVien.ToString("N0")</td>
+                <td class="text-center">@item.ThamGiaCapUyDang.ToString("N0")</td>
+                <td class="text-center">@item.ThamGiaHDNN.ToString("N0")</td>
+                <td class="text-center">@item.DanhDu.ToString("N0")</td>
+                <td class="text-center">@item.HVNongCot.ToString("N0")</td>
+                <td class="text-center">@item.DoTuoi40.ToString("N0")</td>
+                <td class="text-center">@item.DoTuoi60.ToString("N0")</td>
+                <td class="text-center">@item.DoTuoiTren60.ToString("N0")</td>
+                <td class="text-center">@item.Cap1.ToString("N0")</td>
+                <td class="text-center">@item.Cap2.ToString("N0")</td>
+                <td class="text-center">@item.Cap3.ToString("N0")</td>
+
+                <td class="text-center">@item.ChinhTri_SC.ToString("N0")</td>
+                <td class="text-center">@item.ChinhTri_TC.ToString("N0")</td>
+                <td class="text-center">@item.ChinhTri_CC.ToString("N0")</td>
+                <td class="text-center">@item.ChinhTri_CN.ToString("N0")</td>
+
+                <td class="text-center">@item.HoNgheo.ToString("N0")</td>
+                <td class="text-center">@item.CanNgheo.ToString("N0")</td>
+                <td class="text-center">@item.GiaDinhChinhSach.ToString("N0")</td>
+                <td class="text-center">@item.ThanhPhanKhac.ToString("N0")</td>
+
+                <td class="text-center">@item.NongDan.ToString("N0")</td>
+                <td class="text-center">@item.CongNhan.ToString("N0")</td>
+                <td class="text-center">@item.CongChuc_VienChuc.ToString("N0")</td>
+                <td class="text-center">@item.DoanhNghiep.ToString("N0")</td>
+                <td class="text-center">@item.HocSinh_SinhVien.ToString("N0")</td>
+                <td class="text-center">@item.LaoDongTuDo.ToString("N0")</td>
+                <td class="text-center">@item.HuuTri.ToString("N0")</td>
             </tr>
         }
        

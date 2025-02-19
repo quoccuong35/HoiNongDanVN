@@ -228,6 +228,8 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                 }
             });
         }
+
+
         #endregion Edit
         #region Delete
         [HttpDelete]

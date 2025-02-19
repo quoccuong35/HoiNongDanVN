@@ -14,6 +14,7 @@ namespace HoiNongDan.Models
         public Nullable<System.Decimal>  HeSoChucVu { get; set; }
         public Nullable<System.Decimal> PhuCapDienThoai { get; set; }
         public bool Actived { get; set; } = true;
+        public bool? HoiVien { get; set; } = false;
         [MaxLength(500)]
         public String? Description { get; set; }
         public Nullable<System.Guid> CreatedAccountId { get; set; }

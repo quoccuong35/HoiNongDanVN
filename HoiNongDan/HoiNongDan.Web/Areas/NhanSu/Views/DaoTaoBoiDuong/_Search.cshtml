@@ -16,6 +16,7 @@
 <table id="data-list" class="table border text-nowrap text-md-nowrap mb-0">
     <thead class="table-primary">
         <tr>
+            <th class="text-center">@LanguageResource.Actions</th>
             <th class="text-center">@LanguageResource.NumberIndex</th>
             <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
             <th>@Html.DisplayNameFor(p => p.HoVaTen)</th>
@@ -25,7 +26,6 @@
             <th>@Html.DisplayNameFor(p => p.TenLoaiBangCap)</th>
             <th>@Html.DisplayNameFor(p => p.NoiDungDaoTao)</th>
             <th>@Html.DisplayNameFor(p => p.GhiChu)</th>
-            <th class="text-center">@LanguageResource.Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -44,6 +44,10 @@
             }
             cssName = "tr" + css.ToString();
             <tr class="@cssName">
+                <td class="text-center">
+                    @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.ID!.Value, listRoles: listRoles)
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoVaTen!, item.ID!.Value, listRoles: listRoles)
+                </td>
                 <td class="text-center">@i</td>
                 <td>@Html.DisplayFor(p => item.MaCanBo)</td>
                 <td>@Html.DisplayFor(p => item.HoVaTen)</td>
@@ -53,10 +57,7 @@
                 <td>@Html.DisplayFor(p => item.TenLoaiBangCap)</td>
                 <td>@Html.DisplayFor(p => item.NoiDungDaoTao)</td>
                 <td>@Html.DisplayFor(p => item.GhiChu)</td>
-                <td class="text-center">
-                    @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.ID!.Value, listRoles: listRoles)
-                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoVaTen!, item.ID!.Value, listRoles: listRoles)
-                </td>
+               
             </tr>
         }
     </tbody>

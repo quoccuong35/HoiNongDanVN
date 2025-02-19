@@ -10,15 +10,13 @@ namespace HoiNongDan.Models
     public class QuanHeGiaDinh
     {
         public Guid IDQuanheGiaDinh { get; set; }
-        public Guid? IDCanBo { get; set; }
+        public Guid IDCanBo { get; set; }
         public CanBo CanBo { get; set; }
-        public Guid? IDHoiVien { get; set; }
-        public CanBo HoiVien { get; set; }
         public string HoTen { get; set; }
         [MaxLength(10)]
         public String NgaySinh { get; set; }
         public string NgheNghiep { get; set; }
-        public string? NoiLamVien { get; set; }
+        public string? NoiLamViec { get; set; }
         public string DiaChi { get; set; }
         public string GhiChu { get; set; }
         public Guid IDLoaiQuanHeGiaDinh { get; set; }

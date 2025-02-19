@@ -4,6 +4,7 @@
     string CurrentController = ConstController.CBHNDQuaCacThoiKy;
     string CurrentArea = ConstArea.NhanSu;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User != null ? User.FindFirst("Roles")!.Value : "";
 
 }
 <div class="main-container container-fluid">
@@ -18,7 +19,10 @@
                 <span> </span>
             </div>
         </div>
-       
+        <div class="d-flex px-2">
+            @HtmlExtensions.ExportButton(CurrentArea, CurrentController, listRoles: listRoles)
+            @HtmlExtensions.ImportButton(CurrentArea, CurrentController, listRoles: listRoles)
+        </div>
     </div>
     <!-- PAGE-HEADER END -->
     <!-- ROW-1 OPEN -->
@@ -31,7 +35,7 @@
                     <form method="get" id="frmSearch" asp-action="_Search">
                         <div class="row my-2">
                             <div class="col-md-3">
-                                <label asp-for="MaCanBo"></label>
+                                <label>Số CCCD</label>
                                 <input class="form-control" asp-for="MaCanBo" />
                             </div>
                             <div class="col-md-3">

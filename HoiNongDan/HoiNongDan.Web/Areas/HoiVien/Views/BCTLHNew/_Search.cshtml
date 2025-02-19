@@ -3,12 +3,16 @@
 @using Microsoft.AspNetCore.Html
 @model IEnumerable<BCTLHNew>
 @{
-    string CurrentController = ConstController.BCTLHNew;
-    string CurrentArea = ConstArea.HoiVien;
     string listRoles = User.FindFirst("Roles")!.Value;
     listRoles = listRoles == null ? "" : listRoles;
+    string css = "";
 }
-<table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+<style>
+    .customborder_butoom {
+        border-bottom-width:1px;
+    }
+</style>
+<table id="data-list" class="table table-bordered text-nowrap">
     <thead class="table-primary">
         <tr>
             <th class="text-center" style="vertical-align: middle;" rowspan="4">@LanguageResource.NumberIndex</th>
@@ -16,13 +20,13 @@
             <th class="text-center" style="vertical-align: middle;" colspan="12">HỘI VIÊN</th>
             <th class="text-center" style="vertical-align: middle;" colspan="4">CHI HỘI</th>
             <th class="text-center" style="vertical-align: middle;" colspan="4">TỔ HỘI</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="2" rowspan="2">Hội viên dân tộc, tôn giáo</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2" rowspan="2">Hội viên dân tộc,<br> tôn giáo</th>
             <th class="text-center" style="vertical-align: middle;" colspan="2">Thẻ hội viên</th>
         </tr>
         <tr>
             <th class="text-center" style="vertical-align: middle;" rowspan="3">Tổng số</th>
             <th class="text-center" style="vertical-align: middle;" rowspan="3">Nữ</th>
-            <th class="text-center" style="vertical-align: middle;" colspan="2">Địa bàn dân cư</th>
+            <th class="text-center" style="vertical-align: middle;" colspan="2">Địa bàn <br> dân cư</th>
             <th class="text-center" style="vertical-align: middle;" colspan="2">Ngành nghề</th>
             <th class="text-center" style="vertical-align: middle;" colspan="2">HV danh dự</th>
             <th class="text-center" style="vertical-align: middle;" colspan="2">Giảm HV</th>
@@ -35,26 +39,26 @@
             <th class="text-center" style="vertical-align: middle;" colspan="2">Ngành nghề</th>
 
             <th class="text-center" style="vertical-align: middle;" rowspan="3">Cấp mới</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="3">Số thẻ đổi và cấp lại</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="3">Số thẻ đổi <br /> và cấp lại</th>
         </tr>
         <tr>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giảm trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giảm trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển <br> trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giảm  <br> trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển <br> trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giảm  <br> trong kỳ</th>
             <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển <br> trong kỳ</th>
             <th class="text-center" style="vertical-align: middle;" rowspan="2">Tổng số</th>
             <th class="text-center" style="vertical-align: middle;" rowspan="2">Nữ</th>
 
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giảm trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển <br> trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Nữ</th>
 
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giảm trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giảm trong kỳ</th>
-            <th class="text-center" style="vertical-align: middle;" rowspan="2">Dân tộc thiểu số</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển <br> trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giảm  <br> trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Phát triển <br> trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Giảm  <br> trong kỳ</th>
+            <th class="text-center" style="vertical-align: middle;" rowspan="2">Dân tộc <br> thiểu số</th>
             <th class="text-center" style="vertical-align: middle;" rowspan="2">Tôn giáo</th>
         </tr>
     </thead>
@@ -62,33 +66,39 @@
 
         @foreach (var item in Model)
         {
-            <tr>
+           
+            @if (item.Cot2.ToLower().Contains("tổng"))
+            {
+                css = "font-size:14px;font-weight:bold";
+            }
+
+            <tr style="@css">
                 <td class="text-center">@item.Cot1</td>
                 <td>@item.Cot2</td>
-                <td class="text-center">@item.Cot3</td>
-                <td class="text-center">@item.Cot4</td>
-                <td class="text-center">@item.Cot5</td>
-                <td class="text-center">@item.Cot6</td>
-                <td class="text-center">@item.Cot7</td>
-                <td class="text-center">@item.Cot8</td>
-                <td class="text-center">@item.Cot9</td>
-                <td class="text-center">@item.Cot10</td>
-                <td class="text-center">@item.Cot11</td>
-                <td class="text-center">@item.Cot12</td>
-                <td class="text-center">@item.Cot13</td>
-                <td class="text-center">@item.Cot14</td>
-                <td class="text-center">@item.Cot15</td>
-                <td class="text-center">@item.Cot16</td>
-                <td class="text-center">@item.Cot17</td>
-                <td class="text-center">@item.Cot18</td>
-                <td class="text-center">@item.Cot19</td>
-                <td class="text-center">@item.Cot20</td>
-                <td class="text-center">@item.Cot21</td>
-                <td class="text-center">@item.Cot22</td>
-                <td class="text-center">@item.Cot23</td>
-                <td class="text-center">@item.Cot24</td>
-                <td class="text-center">@item.Cot25</td>
-                <td class="text-center">@item.Cot26</td>
+                <td class="text-center">@item.Cot3!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot4!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot5!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot6!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot7!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot8!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot9!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot10!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot11!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot12!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot13!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot14!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot15!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot16!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot17!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot18!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot19!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot20!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot21!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot22!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot23!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot24!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot25!.Value.ToString("N0")</td>
+                <td class="text-center">@item.Cot26!.Value.ToString("N0")</td>
             </tr>
         }
     </tbody>

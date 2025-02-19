@@ -9,13 +9,28 @@ namespace HoiNongDan.Models
 { 
     public class DuyetHoiVienSearchVM
     {
-        [Display(Name ="Mã hội viên")]
-        public String? MaCanBo { get; set; }
+        [Display(Name = "Từ ngày")]
+        [DataType(DataType.Date)]
+        public DateTime? TuNgay { get; set; }
 
-        [Display(Name = "Họ tên")]
-        public String? HoVaTen { get; set; }
+        [Display(Name = "Đến ngày")]
+        [DataType(DataType.Date)]
+        public DateTime? DenNgay { get; set; }
 
-        [Display(Name = "Địa bàn")]
-        public Guid? MaDiaBanHoatDong { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
+        public String? MaQuanHuyen { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaBanHoatDong")]
+        public Guid? MaDiaBanHoiVien { get; set; }
+
+        [Display(Name ="Số Quyết Định")]
+        public String? SoQuyetDinh { get; set; }
+
+        [Display(Name = "Trạng thái duyệt")]
+        public bool TrangThaiDuyet { get; set; } = false;
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
+        public string? SoCCCD { get; set; }
+        public HoiVienDuyetCapNhatVM hoiVienDuyetCapNhatVM { get; set; }
     }
 }

@@ -171,8 +171,9 @@ namespace HoiNongDan.Extensions
                 }
                 return ds;
             }
-            catch
+            catch (Exception ex)
             {
+                string s = ex.Message!;
                 return null!;
             }
         }

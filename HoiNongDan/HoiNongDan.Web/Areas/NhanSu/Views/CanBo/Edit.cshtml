@@ -7,6 +7,11 @@
     string CurrentController = ConstController.CanBo;
     string CurrentArea = ConstArea.NhanSu;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User != null ? User.FindFirst("Roles")!.Value : "";
+    string roles = CurrentController + ":" + ConstFunction.Print;
+    bool isHasPermission = Function.GetPermission(listRoles, roles);
+
+   // isHasPermission = false;
 }
 <!-- CONTAINER -->
 <div class="main-container container-fluid">
@@ -24,7 +29,13 @@
         <div class="">
             @HtmlExtensions.SaveButton("btn-save", LanguageResource.Btn_Save)
             @HtmlExtensions.SaveButton("btn-save-continue", LanguageResource.Btn_SaveAndContinue)
-            @HtmlExtensions.Print(CurrentArea,CurrentController,"In lý lịch",listRoles:null)
+           @*  @HtmlExtensions.Print(CurrentArea, CurrentController, "In lý lịch", listRoles: listRoles) *@
+            @if (isHasPermission)
+            {
+                <a class="btn btn-sm btn-info text-white mx-1 btn-print" target="_blank" asp-action="Print" asp-area="@ConstArea.NhanSu" asp-controller="CanBo" asp-route-id="@Model.IDCanBo">
+                    <i class="fa fa-print"></i> In lý lịch
+                </a>
+            }
             @HtmlExtensions.BackButton(CurrentArea,CurrentController)
         </div>
     </div>

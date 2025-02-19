@@ -26,6 +26,8 @@ namespace HoiNongDan.Models.Entitys.NhanSu
         public int? Nam {  get; set; }
         public int? Quy { get; set; }
         public String? GhiChu { get; set; }
+        public String? MaCapKhenThuong { get; set; }
+        public CapKhenThuong? capKhenThuong { get; set; }
         public Guid? CreatedAccountId { get; set; }
         public DateTime? CreatedTime { get; set; }
         public Guid? LastModifiedAccountId { get; set; }

@@ -180,6 +180,9 @@
   <data name="BCHVMoi" xml:space="preserve">
     <value>Báo cáo hội viên nông dân phát triển mới</value>
   </data>
+  <data name="BCKhenThuong" xml:space="preserve">
+    <value>Thống Kê Khen Tặng Hội Viên</value>
+  </data>
   <data name="BCSLMau1" xml:space="preserve">
     <value>Thống Kê Số Lượng Hội Viên Đang Hoạt Động</value>
   </data>
@@ -249,6 +252,9 @@
   <data name="CanNgheo" xml:space="preserve">
     <value>Cận nghèo</value>
   </data>
+  <data name="CapKhenThuong" xml:space="preserve">
+    <value>Cấp khen thưởng</value>
+  </data>
   <data name="CapNhatNhanSu" xml:space="preserve">
     <value>Cập nhật thông tin nhân sự</value>
   </data>
@@ -274,7 +280,7 @@
     <value>Chi tổ hội ngành nghề</value>
   </data>
   <data name="ChoOHienNay" xml:space="preserve">
-    <value>Chổ ở hiện nay</value>
+    <value>Nơi cư trú</value>
   </data>
   <data name="ChucVu" xml:space="preserve">
     <value>Chức vụ</value>
@@ -514,7 +520,7 @@
     <value>Hộ nghèo</value>
   </data>
   <data name="HoTroDaoTaoNghe" xml:space="preserve">
-    <value>Hỗ trợ đào tạo nghề"</value>
+    <value>Hỗ trợ đào tạo nghề</value>
   </data>
   <data name="HoTroKhac" xml:space="preserve">
     <value>Hỗ trợ hình thức khác</value>
@@ -951,6 +957,9 @@
   <data name="SoQuyetDinhBoNhiem" xml:space="preserve">
     <value>Quyết định bổ nhiệm</value>
   </data>
+  <data name="SoQuyetDinnh" xml:space="preserve">
+    <value>Số Quyết Định</value>
+  </data>
   <data name="SoThangQuaHan" xml:space="preserve">
     <value>Số tháng quá hạn</value>
   </data>
@@ -996,6 +1005,9 @@
   <data name="TenQuanHuyen" xml:space="preserve">
     <value>Tên quận huyện</value>
   </data>
+  <data name="TenTruong" xml:space="preserve">
+    <value>Tên trường</value>
+  </data>
   <data name="TenVietTat" xml:space="preserve">
     <value>Tên viết tắt</value>
   </data>
@@ -1024,7 +1036,7 @@
     <value>Tình trạng</value>
   </data>
   <data name="ToHoi" xml:space="preserve">
-    <value>Tổi hội</value>
+    <value>Tổ hội</value>
   </data>
   <data name="ToHoiNN_ChiHoiNN" xml:space="preserve">
     <value>Tổ hội ngành nghề-Chi hội ngành nghề</value>

@@ -33,28 +33,27 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         {
             return ExecuteSearch(() => {
                 var data = _context.QuaTrinhMienNhiems.AsQueryable();
-                if (!String.IsNullOrEmpty(search.SoQuyetDinh) && !String.IsNullOrWhiteSpace(search.SoQuyetDinh))
+                if (!String.IsNullOrWhiteSpace(search.SoQuyetDinh))
                 {
                     data = data.Where(it => it.SoQuyetDinh == search.SoQuyetDinh);
                 }
                 data = data.Include(it => it.CanBo).Include(it => it.ChucVu).Include(it => it.CoSo).Include(it => it.Department);
-                if (!String.IsNullOrEmpty(search.MaCanBo) && !String.IsNullOrWhiteSpace(search.MaCanBo))
+                if (!String.IsNullOrWhiteSpace(search.MaCanBo))
                 {
                     data = data.Where(it => it.CanBo.MaCanBo == search.MaCanBo);
                 }
-                if (!String.IsNullOrEmpty(search.HoVaTen) && !String.IsNullOrWhiteSpace(search.HoVaTen))
+                if ( !String.IsNullOrWhiteSpace(search.HoVaTen))
                 {
                     data = data.Where(it => it.CanBo.HoVaTen.Contains(search.HoVaTen));
                 }
                 var model = data.Select(it => new MienNhiemDetail
                 {
                     IDQuaTrinhMienNhiem = it.IDQuaTrinhMienNhiem,
-                    MaCanBo = it.CanBo.MaCanBo,
+                    MaCanBo = it.CanBo!.MaCanBo,
                     HoVaTen = it.CanBo.HoVaTen,
                     SoQuyetDinh = it.SoQuyetDinh,
-                    NgayQuyetDinh = it.NgayQuyetDinh,
-                    NguoiKy = it.NguoiKy,
-                    HeSoChucVu = it.HeSoChucVu,
+                    NgayQuyetDinh = it.NgayQuyetDinh!= null? it.NgayQuyetDinh.ToString("dd/MM/yyyy"):"",
+                   // NguoiKy = it.NguoiKy,
                     GhiChu = it.GhiChu,
                     TenChucVu = it.ChucVu.TenChucVu,
                     TenDonVi = it.Department.Name,
@@ -120,10 +119,10 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
         }
         #endregion Create
         #region Edit 
-        [HttpGet]
         [HoiNongDanAuthorization]
         public IActionResult Edit(Guid id)
         {
+            var data = _context.QuaTrinhMienNhiems.ToList();
             var item = _context.QuaTrinhMienNhiems.SingleOrDefault(it => it.IDQuaTrinhMienNhiem == id);
             if (item == null)
             {

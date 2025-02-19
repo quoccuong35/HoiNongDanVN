@@ -14,7 +14,17 @@
         align-items:center;
     }
 
-    
+    .dataTables_wrapper{
+        position:relative;
+    }
+    .dataTables_scrollHead{
+        position: sticky;
+        z-index: 10 !important;
+    }
+    thead tr{
+        position: sticky;
+        z-index: 10 !important;
+    }
 </style>
 <div class="main-container container-fluid">
     <!-- PAGE-HEADER -->
@@ -31,8 +41,8 @@
         <div class="d-flex px-2">
             @HtmlExtensions.ExportButton(CurrentArea,CurrentController,listRoles:listRoles)
             @HtmlExtensions.ImportButton(CurrentArea,CurrentController,listRoles:listRoles)
-           @*  @HtmlExtensions.Print(CurrentArea,CurrentController,"In thẻ",listRoles:listRoles)
-            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create",listRoles:listRoles) *@
+            @HtmlExtensions.Print(CurrentArea,CurrentController,"In thẻ",listRoles:listRoles)
+            @*  @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create",listRoles:listRoles) *@
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -46,33 +56,69 @@
                     <form method="get" id="frmSearch" asp-action="_Search">
                         <div class="row my-2">
                             <div class="col-md-2">
-                                <label asp-for="MaCanBo"></label>
-                                <input class="form-control" asp-for="MaCanBo" />
+                                <label asp-for="SoCCCD"></label>
+                                <input class="form-control" asp-for="SoCCCD" />
                                 <input style="display:none" name="TenPhuongXa" id="TenPhuongXa" value="@Model.TenPhuongXa"/>
                             </div>
                             <div class="col-md-2">
                                 <label asp-for="HoVaTen"></label>
                                 <input class="form-control" asp-for="HoVaTen" />
                             </div>
-                            <div class="col-md-3">
+                            @* <div class="col-md-2">
+                                <label asp-for="MaChucVu"></label>
+                                @Html.DropDownList("MaChucVu", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div> *@
+                            <div class="col-md-2">
                                 <label asp-for="MaQuanHuyen"></label>
                                 @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="MaDiaBanHoiVien"></label>
                                 @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-3">
-                                <label asp-for="MaChiHoi"></label>
-                                @Html.DropDownList("MaChiHoi", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                                <label >Tên chi hội/Tổ hội</label>
+                                <input class="form-control" asp-for="TenChiHoi" />
+                                @* @Html.DropDownList("MaChiHoi", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" }) *@
                             </div>
                             <div class="col-md-2">
-                                <label asp-for="IsRoiHoi"></label>
-                                @Html.DropDownList("IsRoiHoi", new List<SelectListItem>(){
-                                new SelectListItem(){Text = LanguageResource.Dropdownlist_All, Value = ""},
-                                new SelectListItem(){Text = LanguageResource.RoiHoi_False, Value = "false", Selected = false},
-                                new SelectListItem(){Text = LanguageResource.RoiHoi_True, Value = "true"}
-                                }, new { @class = "form-control" })
+                                <div class="form-group">
+                                    <label class="form-label">Trạn thái</label>
+                                    <div class="row">
+                                        <div class="col-3 p-0">
+                                            <input type="radio" class="custom-checked" value="" asp-for="RoiHoi" checked>
+                                            <span class="">Tất cả</span>
+                                        </div>
+                                        <div class="col-5 p-0">
+                                            <input type="radio" class="custom-checked" value="02" asp-for="RoiHoi">
+                                            <span class="">Hoạt động</span>
+                                        </div>
+                                        <div class="col-4 p-0">
+                                            <input type="radio" class="custom-checked" value="01" asp-for="RoiHoi">
+                                            <span class="">Rời hội</span>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="form-label">Loại hội viên</label>
+                                    <div class="row">
+                                        <div class="col-3 p-0">
+                                            <input type="radio" class="custom-checked" value="" asp-for="Loai" checked>
+                                            <span class="">Tất cả</span>
+                                        </div>
+                                        <div class="col-3 p-0">
+                                            <input type="radio" class="custom-checked" value="01" asp-for="Loai">
+                                            <span class="">Dân cư</span>
+                                        </div>
+                                        <div class="col-6 p-0">
+                                            <input type="radio" class="custom-checked" value="02" asp-for="Loai">
+                                            <span class="">Ngành nghề</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-2 d-flex align-items-end">
                                 <a class="btn btn-primary btn-sm btn-searchhv" id="btn-searchhv" onclick="LoadThongTin()">
@@ -80,14 +126,6 @@
                                     <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span> Tìm kiếm
                                 </a>
                             </div>
-                            @*  <div class="col-md-2">
-                                <label asp-for="RoiTuNam"></label>
-                                <input class="form-control" type="number" step="1" asp-for="RoiTuNam" />
-                            </div>
-                            <div class="col-md-2">
-                                <label asp-for="RoiDenNam"></label>
-                                <input class="form-control" type="number" step="1" asp-for="RoiDenNam" />
-                            </div> *@
                         </div>
                        
                     </form>
@@ -119,18 +157,22 @@
                     <div class="table-responsive" id="divSearchResult">
                         <table id="dt-hoivien" class="table border text-nowrap text-md-nowrap mb-0 dataTable no-footer table-striped">
                             <thead>
+                                
                                 <tr>
                                     <th>STT</th>
-                                    <th class="text-center" name="MaCanBo">Địa bàn hội viên</th>
                                     <th class="text-center" name="MaCanBo">@LanguageResource.MaHoiVien</th>
                                     <th class="text-center" name="HoVaTen">@LanguageResource.FullName</th>
                                     <th class="text-center" name="NgaySinh">@LanguageResource.NgaySinh</th>
                                     <th class="text-center" name="GioiTinh">@LanguageResource.GioiTinh</th>
                                     <th class="text-center" name="SoCCCD">@LanguageResource.SoCCCD</th>
+                                    <th class="text-center" name="ChucVu">Chức vụ</th>
+                                    <th class="text-center" name="TenDiaBanHoatDong">Địa bàn hội viên</th>
+                                    <th class="text-center" name="ChiHoi">@LanguageResource.ChiHoi</th>
+                                    <th class="text-center" name="ToHoi">@LanguageResource.ToHoi</th>
                                     <th class="text-center" name="HoKhauThuongTru">@LanguageResource.HoKhauThuongTru</th>
                                     <th class="text-center" name="ChoOHienNay">@LanguageResource.ChoOHienNay</th>
                                     <th class="text-center" name="SoDienThoai">@LanguageResource.SoDienThoai</th>
-                                    <th class="text-center" name="NgayVaoDangChinhThuc">@LanguageResource.DangVien</th>
+                                    <th class="text-center" name="DangVien">@LanguageResource.DangVien</th>
                                     <th class="text-center" name="NgayVaoDangChinhThuc">@LanguageResource.NgayVaoDangChinhThuc</th>
                                     <th class="text-center" name="DanToc">@LanguageResource.DanToc</th>
                                     <th class="text-center" name="TonGiao">@LanguageResource.TonGiao</th>
@@ -150,10 +192,9 @@
                                     <th class="text-center" name="DienTich_QuyMo">@LanguageResource.DienTich</th>
                                     <th class="text-center" name="ThamGia_SH_DoanThe_HoiDoanKhac">@LanguageResource.ThamGia_SH_DoanThe_HoiDoanKhac</th>
                                     <th class="text-center" name="ThamGia_CLB_DN_MH_HTX_THT">@LanguageResource.ThamGia_CLB_DN_MH_HTX_THT</th>
-                                    <th class="text-center" name="ThamGia_THNN_CHNN">@LanguageResource.ThamGia_THNN_CHNN</th>
                                     <th class="text-center" name="HoiVienNongCot">@LanguageResource.HoiVienNongCot</th>
                                     <th class="text-center" name="HoiVienUuTuNam">@LanguageResource.HoiVienUuTuNam</th>
-                                    <th class="text-center" name="HoiVienUuTu">@LanguageResource.HoiVienDanhDu</th>
+                                    <th class="text-center" name="HoiVienDanhDu">@LanguageResource.HoiVienDanhDu</th>
                                     <th class="text-center" name="NDSXKDG">@LanguageResource.NDSXKDG</th>
                                     <th class="text-center" name="NDTieuBieu">@LanguageResource.NDTieuBieu</th>
                                     <th class="text-center" name="NDVietnamXS">@LanguageResource.NDVietnamXS</th>
@@ -163,12 +204,13 @@
                                     <th class="text-center" name="GuongDiemHinh">@LanguageResource.GuongDiemHinh</th>
                                     <th class="text-center" name="GuongDanVanKheo">@LanguageResource.GuongDanVanKheo</th>
                                     <th class="text-center" name="GuongDiemHinhHocTapLamTheoBac">@LanguageResource.GuongDiemHinhHocTapLamTheoBac</th>
-                                    <th class="text-center" name="GuongDiemHinhHocTapLamTheoBac">@LanguageResource.SanPhamNongNghiepTieuBieu_OCOP</th>
+                                    <th class="text-center" name="SanPhamNongNghiepTieuBieu_OCOP">@LanguageResource.SanPhamNongNghiepTieuBieu_OCOP</th>
                                     <th class="text-center" name="HoTrovayVon">@LanguageResource.HoTrovayVon</th>
                                     <th class="text-center" name="HoTroKhac">@LanguageResource.HoTroKhac</th>
                                     <th class="text-center" name="HoTroDaoTaoNghe">@LanguageResource.HoTroDaoTaoNghe</th>
                                     <th class="text-center" name="GhiChu">@LanguageResource.GhiChu</th>
                                 </tr>
+                                
                             </thead>
                             <tbody>
                                 <tr>
@@ -191,8 +233,10 @@
 
 @section ScriptCustomized {
     <script src="~/js/diaban_hv_quanhuyen.js"></script>
-    <script src="~/js/hoivien.js?v2"></script>
-    $(document).ready(function () {
+    <script src="~/js/hoivien.js?v'@DateTime.Now.ToString("HH_mm")'"></script>
+    <script>
+        $(document).ready(function () {
             HoiNongDan.ShowMessage(window.location.href);
-    });
+        });
+    </script>
 }

@@ -21,6 +21,9 @@ namespace HoiNongDan.Models
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         public Guid? IdCoSo { get; set; }
 
+        [Display(Name="Đơn vị chủ quản")]
+        public Guid? IdParent { get; set; }
+
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Actived")]
         public bool? Actived { get; set; }
 
@@ -32,30 +35,6 @@ namespace HoiNongDan.Models
         public int? OrderIndex { get; set; }
 
 
-        //public Department CreateDepartment(Guid accountId)
-        //{
-        //    return new Department
-        //    {
-        //        Id = Guid.NewGuid(),
-        //        Code = this.Code,
-        //        Name = this.Name,
-        //        OrderIndex = this.OrderIndex,
-        //        Description = this.Description == null ? "" : this.Description,
-        //        CreatedAccountId = accountId,
-        //        CreatedTime = DateTime.Now,
-        //    };
-        //}
-        //public Department EditDepartment(Department edit, Guid accountId)
-        //{
-        //    edit.Name = this.Name;
-        //    edit.Code = this.Code;
-        //    edit.Actived = this.Actived == null ? false : this.Actived.Value;
-        //    edit.Description = this.Description == null ? "" : this.Description;
-        //    edit.OrderIndex = this.OrderIndex;
-        //    edit.LastModifiedTime = DateTime.Now;
-        //    edit.LastModifiedAccountId = accountId;
-        //    return edit;
-        //}
 
     }
 }

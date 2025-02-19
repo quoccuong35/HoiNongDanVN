@@ -18,6 +18,7 @@
 <table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
     <thead class="table-primary">
         <tr>
+            <th class="text-center">@LanguageResource.Actions</th>
             <th class="text-center">@LanguageResource.NumberIndex</th>
             <th>@Html.DisplayNameFor(p => p.MaCanBo)</th>
             <th>@Html.DisplayNameFor(p => p.HoVaTen)</th>
@@ -25,8 +26,8 @@
             <th>@Html.DisplayNameFor(p => p.HoTen)</th>
             <th>@Html.DisplayNameFor(p => p.NgaySinh)</th>
             <th>@Html.DisplayNameFor(p => p.NgheNghiep)</th>
-            <th>@Html.DisplayNameFor(p => p.NoiLamVien)</th>
-            <th class="text-center">@LanguageResource.Actions</th>
+            <th>@Html.DisplayNameFor(p => p.NoiLamViec)</th>
+           
         </tr>
     </thead>
     <tbody>
@@ -37,6 +38,10 @@
         {
             i++;
             <tr>
+                <td class="text-center">
+                    @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.IDQuanheGiaDinh, listRoles: listRoles)
+                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoTen, item.IDQuanheGiaDinh, listRoles: listRoles)
+                </td>
                 <td class="text-center">@i</td>
                 <td>@Html.DisplayFor(p => item.MaCanBo)</td>
                 <td>@Html.DisplayFor(p => item.HoVaTen)</td>
@@ -44,11 +49,8 @@
                 <td>@Html.DisplayFor(p => item.HoTen)</td>
                 <td>@Html.DisplayFor(p => item.NgaySinh)</td>
                 <td>@Html.DisplayFor(p => item.NgheNghiep)</td>
-                <td>@Html.DisplayFor(p => item.NoiLamVien)</td>
-                <td class="text-center">
-                    @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.IDQuanheGiaDinh,listRoles:listRoles)
-                    @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoTen, item.IDQuanheGiaDinh,listRoles: listRoles)
-                </td>
+                <td>@Html.DisplayFor(p => item.NoiLamViec)</td>
+                
             </tr>
         }
     </tbody>

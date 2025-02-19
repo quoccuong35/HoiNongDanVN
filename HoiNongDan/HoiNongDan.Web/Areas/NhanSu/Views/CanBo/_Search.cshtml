@@ -6,39 +6,46 @@
     listRoles = listRoles == null ? "" : listRoles;
     int i = 0;
 }
-<table id="data-list" class="table table-bordered text-nowrap mb-0">
+<table id="data-list" class="table text-nowrap mb-0">
     <thead class="table-primary" style="border:1px dashed">
         <tr>
             <th class="text-center" class="text-center" style="vertical-align: middle;" rowspan="2">@LanguageResource.Actions</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">STT</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Họ và tên</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Ngày, tháng, năm sinh</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Giới tính</th>
             <th colspan="2" class="text-center" style="vertical-align: middle;">Chức vụ</th>
-            <th colspan="2" class="text-center" style="vertical-align: middle;">Ngày, tháng, năm sinh</th>
+         
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Thời gian bổ nhiệm</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Dân tộc</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Tôn giáo</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Quê quán</th>
-            <th rowspan="2" class="text-center" style="vertical-align: middle;">Nơi ở hiện nay</th>
+            <th colspan="3" class="text-center" style="vertical-align: middle;">Nơi cư trú</th>
             <th colspan="2" class="text-center" style="vertical-align: middle;">Ngày vào Đảng</th>
-            <th colspan="2" class="text-center" style="vertical-align: middle;">Trình độ</th>
+            <th colspan="4" class="text-center" style="vertical-align: middle;">Trình độ</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Ngoại ngữ</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Tin học</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Thời gian công tác Hội</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Tham gia cấp ủy</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Tham gia HĐND</th>
             <th colspan="4" class="text-center" style="vertical-align: middle;">MỨC LƯƠNG ĐANG HƯỞNG</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Mốc thời gian nâng bậc<br /> lương lần sau </th>
             <th colspan="7" class="text-center" style="vertical-align: middle;">Đào tạo bồi dưỡng</th>
             <th colspan="2" class="text-center" style="vertical-align: middle;">Kết quả đánh giá</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Ghi chú</th>
             
         </tr>
         <tr>
             <th>Tên</th>
             <th>Đơn vi</th>
-            <th>Nam</th>
-            <th>Nữ</th>
+            <th>Số nhà</th>
+            <th>Xã/Phường</th>
+            <th>Quận/Huyện</th>
             <th>Dự bị</th>
             <th>Chính thức</th>
-            <th>Chuyên môn</th>
+            <th>Trình Độ Học Vấn</th>
+            <th>Trình Độ Chuyên Môn</th>
+            <th>Chuyên Ngành</th>
             <th>LLCT</th>
             <th>
                 Mã số ngạch/bậc
@@ -79,55 +86,70 @@
             <th>
                 Đảng viên
             </th>
-            
         </tr>
     </thead>
     <tbody>
         @{
-            string dd = "";
+            string dd = "",ngapNangBacLanSau = "";
+            int css = 0;
+            string cssName = "";
         }
         @foreach (var item in Model)
         {
             i++;
+            css++;
+            if (css > 2)
+            {
+                css = 1;
+            }
+            cssName = "tr" + css.ToString();
             dd = item.NgayNangBacLuong != null ? item.NgayNangBacLuong.Value.ToString("dd/MM/yyyy") : "";
-            <tr class="" ondblclick='window.open("/NhanSu/CanBo/Edit/@item.IDCanBo","_blank")'>
+            ngapNangBacLanSau = item.NgayNangBacLuongLanSau != null ? item.NgayNangBacLuongLanSau.Value.ToString("dd/MM/yyyy") : "";
+            <tr class="@cssName" ondblclick='window.open("/NhanSu/CanBo/Edit/@item.IDCanBo","_blank")'>
                 <td class="text-center">
                     @HtmlExtensions.EditButton(CurrentArea, CurrentController, item.IDCanBo!.ToString()!, listRoles: listRoles)
                     @HtmlExtensions.DeleteButton(CurrentArea, CurrentController, item.HoVaTen, item.IDCanBo!.ToString(), listRoles: listRoles)
                 </td>
                 <td>@i.ToString()</td>
                 <td>@item.HoVaTen</td>
+                <td class="align-middle">@item.NgaySinh</td>
+                <td class="align-middle">@item.GioiTinh</td>
                 <td>@item.TenChucVu</td>
                 <td>@item.DonVi</td>
-                <td>@item.NgaySinh_Nam</td>
-                <td>@item.NgaySinh_Nu</td>
-                <td>@item.SoQuyetDinhBoNhiem</td>
-                <td>@item.TenDanToc</td>
-                <td>@item.TenTonGiao</td>
+
+                <td class="align-middle">@item.SoQuyetDinhBoNhiem</td>
+                <td class="align-middle">@item.TenDanToc</td>
+                <td class="align-middle">@item.TenTonGiao</td>
                 <td>@item.NoiSinh</td>
                 <td>@item.ChoOHienNay</td>
-                <td>@item.NgayvaoDangDuBi</td>
-                <td>@item.NgayVaoDangChinhThuc</td>
+                <td>@item.ChoOHienNay_XaPhuong</td>
+                <td>@item.ChoOHienNay_QuanHuyen</td>
+                <td class="align-middle">@item.NgayvaoDangDuBi</td>
+                <td class="align-middle">@item.NgayVaoDangChinhThuc</td>
+                <td class="align-middle">@item.MaTrinhDoHocVan</td>
+                <td class="align-middle">@item.MaTrinhDoChuyenMon</td>
                 <td>@item.ChuyenNganh</td>
-                <td>@item.TenTrinhDoChinhTri</td>
-                <td>@item.TenTrinhDoNgoaiNgu</td>
-                <td>@item.TenTrinhDoTinHoc</td>
-                <td>@item.NgayThamGiaCongTac</td>
-                <td>@item.NgayThamGiaCapUyDang</td>
-                <td>@item.NgayThamGiaHDND</td>
-                <td>@item.TenNgachLuong</td>
-                <td>@item.HeSoLuong</td>
-                <td>@dd</td>
-                <td>@item.PhuCapVuotKhung</td>
-                <td>@item.NVCTTW</td>
-                <td>@item.GiangVienKiemChuc</td>
-                <td>@item.QLCapPhong</td>
-                <td>@item.KTQP</td>
-                <td>@item.QLNNCV</td>
-                <td>@item.QLNNCVC</td>
-                <td>@item.QLNNCVCC</td>
-                <td>@item.DanhGiaCBCC</td>
-                <td>@item.DanhGiaDangVien</td>
+                <td class="align-middle">@item.TenTrinhDoChinhTri</td>
+                <td class="align-middle">@item.TenTrinhDoNgoaiNgu</td>
+                <td class="align-middle">@item.TenTrinhDoTinHoc</td>
+                <td class="align-middle">@item.NgayThamGiaCongTac</td>
+                <td class="align-middle">@item.NgayThamGiaCapUyDang</td>
+                <td class="align-middle">@item.NgayThamGiaHDND</td>
+                <td class="align-middle">@item.TenNgachLuong</td>
+                <td class="align-middle">@item.HeSoLuong</td>
+                <td class="align-middle">@dd</td>
+                <td class="align-middle">@item.PhuCapVuotKhung</td>
+                <td class="align-middle">@ngapNangBacLanSau</td>
+                <td class="align-middle">@item.NVCTTW</td>
+                <td class="align-middle">@item.GiangVienKiemChuc</td>
+                <td class="align-middle">@item.QLCapPhong</td>
+                <td class="align-middle">@item.KTQP</td>
+                <td class="align-middle">@item.QLNNCV</td>
+                <td class="align-middle">@item.QLNNCVC</td>
+                <td class="align-middle">@item.QLNNCVCC</td>
+                <td class="align-middle">@item.DanhGiaCBCC</td>
+                <td class="align-middle">@item.DanhGiaDangVien</td>
+                <td>@item.GhiChu</td>
             </tr>
         }
     </tbody>

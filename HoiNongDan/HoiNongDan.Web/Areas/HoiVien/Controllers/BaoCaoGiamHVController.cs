@@ -29,23 +29,28 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+
+            BCHVPhatTrienMoiSearchVM searchVM = new BCHVPhatTrienMoiSearchVM();
+
+            searchVM.TuNgay = StartOfQuarter();
+            searchVM.DenNgay = EndOfQuarter();
             CreateViewBagSearch();
-            return View();
+            return View(searchVM);
         }
         [HoiNongDanAuthorization]
-        public IActionResult _Search(String? MaQuanHuyen, Guid? MaDiaBanHoiVien, DateTime? TuNgay, DateTime? DenNgay)
+        public IActionResult _Search(BCHVPhatTrienMoiSearchVM searchVM)
         {
             return ExecuteSearch(() => {
-              var model=   LoatData(MaQuanHuyen: MaQuanHuyen, MaDiaban: MaDiaBanHoiVien, TuNgay: TuNgay, DenNgay: DenNgay);
+              var model=   LoatData(searchVM);
                 return PartialView(model);
             });
         }
 
-        public IActionResult ExportEdit(String? MaQuanHuyen, Guid? MaDiaBanHoiVien, DateTime? TuNgay, DateTime? DenNgay)
+        public IActionResult ExportEdit(BCHVPhatTrienMoiSearchVM searchVM)
         {
             string wwwRootPath = _hostEnvironment.WebRootPath;
             var url = Path.Combine(wwwRootPath, @"upload\filemau\BaoCaoHoiVienGiam.xlsx");
-            var model = LoatData(MaQuanHuyen: MaQuanHuyen, MaDiaban: MaDiaBanHoiVien, TuNgay: TuNgay, DenNgay: DenNgay);
+            var model = LoatData(searchVM);
             if (model.Count == 0)
             {
                 BaoCaoGiamHVVM add = new BaoCaoGiamHVVM();
@@ -70,36 +75,40 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
             ViewBag.MaQuanHuyen = fnViewBag.QuanHuyen(idAc: AccountId());
 
+            var chucVus = _context.ChucVus.Where(it => it.HoiVien == true).Select(it => new { it.MaChucVu, it.TenChucVu }).ToList();
+            ViewBag.MaChucVu = new SelectList(chucVus, "MaChucVu", "TenChucVu");
+
         }
        
         [NonAction]
-        private List<BaoCaoGiamHVVM> LoatData(String? MaQuanHuyen, Guid? MaDiaban, DateTime? TuNgay, DateTime? DenNgay) {
+        private List<BaoCaoGiamHVVM> LoatData(BCHVPhatTrienMoiSearchVM searchVM) {
             try
             {
                 //var data = _context.CanBos.Include(it => it.ChiHoi).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).Where(it => it.IsHoiVien == true && it.isRoiHoi == true);
 
-
+                searchVM.TuNgay = searchVM.TuNgay != null?searchVM.TuNgay : StartOfQuarter();
+                searchVM.DenNgay = searchVM.DenNgay != null ? searchVM.DenNgay : EndOfQuarter();
                 var data = (from cb in _context.CanBos
                              join pv in _context.PhamVis on cb.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
                              where pv.AccountId == AccountId()
                              && cb.IsHoiVien == true
                              && cb.HoiVienDuyet == true
                             select cb).Include(it => it.ChiHoi).Include(it => it.DiaBanHoatDong).ThenInclude(it => it!.QuanHuyen).Where(it => it.IsHoiVien == true && it.isRoiHoi == true);
-                if (MaDiaban != null)
+                if (searchVM.MaDiaBanHoiVien != null)
                 {
-                    data = data.Where(it => it.MaDiaBanHoatDong == MaDiaban);
+                    data = data.Where(it => it.MaDiaBanHoatDong == searchVM.MaDiaBanHoiVien);
                 }
-                if (!String.IsNullOrWhiteSpace(MaQuanHuyen))
+                if (!String.IsNullOrWhiteSpace(searchVM.MaQuanHuyen))
                 {
-                    data = data.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == MaQuanHuyen);
+                    data = data.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == searchVM.MaQuanHuyen);
                 }
-                if (TuNgay != null)
+                if (searchVM.TuNgay != null)
                 {
-                    data = data.Where(it => it.NgayRoiHoi >= TuNgay); ;
+                    data = data.Where(it => it.NgayRoiHoi >= searchVM.TuNgay); ;
                 }
-                if (DenNgay != null)
+                if (searchVM.DenNgay != null)
                 {
-                    data = data.Where(it => it.NgayRoiHoi <= DenNgay);
+                    data = data.Where(it => it.NgayRoiHoi <= searchVM.DenNgay);
                 }
                 var model = data.Select(it => new BaoCaoGiamHVVM
                 {
@@ -107,11 +116,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     Nam = (int)it.GioiTinh == 1 ? it.NgaySinh : "",
                     Nu = (int)it.GioiTinh != 1 ? it.NgaySinh : "",
                     QuanHuyen = it.DiaBanHoatDong!.QuanHuyen!.TenQuanHuyen,
-                    TenHoi= it.DiaBanHoatDong!.TenDiaBanHoatDong,
+                    TenHoi = it.DiaBanHoatDong!.TenDiaBanHoatDong,
                     DiaChi = it.ChoOHienNay,
+                    SoCCCD = it.SoCCCD,
+                    NgayGiam = it.NgayRoiHoi.Value.ToString("dd/MM/yyyy"),
                     ChiHoi = it.ChiHoi!.TenChiHoi,
                     LyDoGiam = it.LyDoRoiHoi,
-                    NamVaoHoi = it.NgayVaoHoi == null?null:it.NgayVaoHoi.Value.ToString("dd/MM/yyyy")
+                    NamVaoHoi = it.NgayVaoHoi == null ? null : it.NgayVaoHoi.Value.ToString("dd/MM/yyyy")
 
                 }).ToList().Select((it, index) => new BaoCaoGiamHVVM
                 {
@@ -121,12 +132,14 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     Nu = it.Nu,
                     QuanHuyen = it.QuanHuyen,
                     TenHoi = it.TenHoi,
+                    SoCCCD = it.SoCCCD,
+                    NgayGiam = it.NgayGiam,
                     DiaChi = it.DiaChi == null ? "" : it.DiaChi,
                     ChiHoi = it.ChiHoi ==null?"": it.ChiHoi,
                     LyDoGiam = it.LyDoGiam == null ? "" : it.LyDoGiam,
                     NamVaoHoi = it.NamVaoHoi == null ? null : it.NamVaoHoi,
 
-                }).ToList();
+                }).OrderBy(it=>it.QuanHuyen).ThenBy(it=>it.TenHoi).ToList();
                 return model;
             }
             catch

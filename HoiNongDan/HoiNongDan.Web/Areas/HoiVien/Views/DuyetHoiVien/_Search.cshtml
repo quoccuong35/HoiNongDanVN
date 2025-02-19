@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BCHVPhatTrienMoiVM>
+﻿@model IEnumerable<HVDangKyDuyetDetailVM>
 @{
     string CurrentController = ConstController.DuyetHoiVien;
     string CurrentArea = ConstArea.HoiVien;
@@ -15,6 +15,10 @@
             <th rowspan="2" class="text-center" style="vertical-align: middle;">  Họ và tên</th>
             <th colspan="2" class="text-center" style="vertical-align: middle;">Ngày tháng năm sinh</th>
             <th colspan="2" class="text-center" style="vertical-align: middle;">CMND/CCCD</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Số thẻ</th>
+            <th colspan="2" class="text-center" style="vertical-align: middle;">Đơn Vị</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Số quyết định</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Ngày quyết định</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Hộ khẩu thường trú</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Nơi ở hiện nay</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Số điện thoại</th>
@@ -31,6 +35,8 @@
             <th class="text-center">Nữ</th>
             <th class="text-center">Số</th>
             <th class="text-center">Ngày cấp</th>
+            <th class="text-center">Quận/Huyện</th>
+            <th class="text-center">Tên Hội</th>
             <th class="text-center">
                 Chuyên môn
             </th>
@@ -62,22 +68,31 @@
             cssName = "tr" + css.ToString();
             <tr id="@item.ID" class="@cssName">
                 <td>
-                    @if (!view)
+                    @if (!item.TrangThai)
                     {
-                        <button type="button" class="btn btn-sm btn-primary bradius duyet-hoivien" data-bs-placement="top" data-id="@item.ID" data-bs-toggle="tooltip" title="Duyệt" data-bs-original-title="Duyệt">
-                            <span class="fa fa-check"> </span>
-                        </button>
-                        <a class="btn btn-icon btn-sm btn-danger-light bradius btn-reject" data-bs-toggle="tooltip" data-id="@item.ID" data-item-name="@item.HoVaTen" id="btn-reject" title="Từ chối">
-                            <i class="fa fa-close"></i>
-                        </a>
+                        @if (!view)
+                        {
+                            <button type="button" class="btn btn-sm btn-primary bradius duyet-hoivien" data-bs-placement="top" data-id="@item.ID" data-bs-toggle="tooltip" title="Duyệt" data-bs-original-title="Duyệt">
+                                <span class="fa fa-check"> </span>
+                            </button>
+                            <a class="btn btn-icon btn-sm btn-danger-light bradius btn-reject" data-bs-toggle="tooltip" data-id="@item.ID" data-item-name="@item.HoVaTen" id="btn-reject" title="Từ chối">
+                                <i class="fa fa-close"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-icon btn-sm btn-danger-light bradius btn-reject" data-bs-toggle="tooltip" data-id="@item.ID" data-item-name="@item.HoVaTen" id="btn-reject" title="Từ chối">
+                                <i class="fa fa-close"></i>
+                            </a>
+                            <a class="btn btn-sm btn-info" asp-area="@CurrentArea" asp-controller="@CurrentController" asp-action="View" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-id="@item.ID" data-item-name="@item.HoVaTen" id="btn-reject" title="Xem duyệt">
+                                <i class="fa fa-eye"></i>
+                            </a>
+                        }
                     }
                     else
                     {
-                        <a class="btn btn-sm btn-info" asp-area="@CurrentArea" asp-controller="@CurrentController" asp-action="View" asp-route-id="@item.ID" data-bs-toggle="tooltip" data-id="@item.ID" data-item-name="@item.HoVaTen" id="btn-reject" title="Xem duyệt">
-                            <i class="fa fa-eye"></i>
-                        </a>
+                        <p>Đã duyệt</p>
                     }
-                   
                 </td>
                 <td class="text-center">@item.STT</td>
                 <td class="text-center">@item.HoVaTen</td>
@@ -85,6 +100,11 @@
                 <td class="text-center">@item.Nu</td>
                 <td class="text-center">@item.SoCCCD</td>
                 <td class="text-center">@item.NgayCapSoCCCD</td>
+                <td class="text-center">@item.SoThe</td>
+                <td class="text-center">@item.TenQuanHuyen</td>
+                <td class="text-center">@item.TenHoi</td>
+                <td class="text-center">@item.SoQuyetDinh</td>
+                <td class="text-center">@item.NgayQuyetDinh</td>
                 <td>@item.HoKhauThuongTru</td>
                 <td>@item.NoiOHiennay</td>
                 <td>@item.SoDienThoai</td>

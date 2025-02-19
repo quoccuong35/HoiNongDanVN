@@ -32,38 +32,38 @@
                 <div class="splitter-body">
                     <form method="get" id="frmSearch" asp-action="_Search">
                         <div class="row my-2">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="MaQuanHuyen"></label>
                                 @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="MaDiaBanHoiVien"></label><span class="text-red">*</span>
                                 @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="IDLopHoc"></label>
                                 @Html.DropDownList("IDLopHoc", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="MaHinhThucHoTro"></label>
                                 @Html.DropDownList("MaHinhThucHoTro", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-2">
-                                <label asp-for="MaHV"></label>
-                                <input type="text" asp-for="MaHV" class="form-control">
+                                <label asp-for="SoCCCD"></label>
+                                <input type="text" asp-for="SoCCCD" class="form-control">
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="TenHV"></label>
                                 <input type="text" asp-for="TenHV" class="form-control">
                             </div>
-                            <div class="col-3">
+                            @* <div class="col-md-2">
                                 <label>@LanguageResource.Actived</label>
                                 @Html.DropDownList("Actived", new List<SelectListItem>(){
                                 new SelectListItem(){Text = LanguageResource.Dropdownlist_All, Value = ""},
                                 new SelectListItem(){Text = LanguageResource.Actived_True, Value = "true", Selected = true},
                                 new SelectListItem(){Text = LanguageResource.Actived_False, Value = "false"}
                                 }, new { @class = "form-control" })
-                            </div>
+                            </div> *@
                             <div class="col-2 d-flex align-items-end">
                                 @HtmlExtensions.SearchButton()
                             </div>

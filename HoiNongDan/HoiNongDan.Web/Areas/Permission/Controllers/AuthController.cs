@@ -44,7 +44,7 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
            if (!String.IsNullOrWhiteSpace(sessionID)) {
                 user = _httpContext.HttpContext!.Session.GetString(sessionID + "_user")!;
                 pass = _httpContext.HttpContext!.Session!.GetString(sessionID + "_pass")!;
-            }
+           }
           
             AccountLoginViewModel login = new AccountLoginViewModel();
             if (!String.IsNullOrWhiteSpace(user))
@@ -194,23 +194,31 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         [Authorize]
         public async Task<IActionResult> LogOut()
         {
-            CookieOptions userInfo = new CookieOptions();
-            userInfo.Expires = DateTime.Now.AddDays(-1);
-            foreach (var cookie in Request.Cookies.Keys)
+            try
             {
-                if (cookie != ConstOther.sessionID && !cookie.Contains("AspNetCore.Antiforgery"))
+                CookieOptions userInfo = new CookieOptions();
+                userInfo.Expires = DateTime.Now.AddDays(-1);
+                foreach (var cookie in Request.Cookies.Keys)
                 {
-                    Response.Cookies.Delete(cookie);
-                    Response.Cookies.Append(cookie, "", userInfo);
+                    if (cookie != ConstOther.sessionID && !cookie.Contains("AspNetCore.Antiforgery"))
+                    {
+                        Response.Cookies.Delete(cookie);
+                        Response.Cookies.Append(cookie, "", userInfo);
+                    }
                 }
+                HttpContext.Session.Remove(User.Identity!.Name + ConstOther.SessionMenu);
+                var authenticationProperties = new AuthenticationProperties
+                {
+                    ExpiresUtc = DateTime.UtcNow.AddDays(-1),
+                };
+                HttpContext.Session.Remove(User.Identity.Name!.ToLower());
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             }
-            HttpContext.Session.Remove(User.Identity!.Name + ConstOther.SessionMenu);
-            var authenticationProperties = new AuthenticationProperties
+            catch (Exception)
             {
-                ExpiresUtc = DateTime.UtcNow.AddDays(-1),
-            };
-            HttpContext.Session.Remove(User.Identity.Name!.ToLower());
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                throw;
+            }
             
             return RedirectToAction(nameof(Login));
         }

@@ -29,7 +29,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HttpGet]
         public IActionResult CheckMaDinhDanh(string maDinhDanh)
         {
-            var checkExist = _context.CanBos.Where(it => it.MaDinhDanh == maDinhDanh);
+            var checkExist = _context.CanBos.Where(it => it.MaDinhDanh == maDinhDanh && it.TuChoi != true && it.isRoiHoi != true);
             if (checkExist.Count() > 0)
             {
                 return Json(new

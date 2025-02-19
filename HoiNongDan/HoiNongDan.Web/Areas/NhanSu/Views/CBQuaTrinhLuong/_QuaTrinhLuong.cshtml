@@ -1,0 +1,101 @@
+﻿@model QuaTrinhLuongVM
+<div class="row">
+    <input asp-for="Id" hidden />
+    @Html.AntiForgeryToken()
+    <div class="col-lg-3">
+        <div class="form-group">
+            <label asp-for="MaNgachLuong"></label><span class="text-red">*</span>
+            <select asp-for="MaNgachLuong" asp-items="@ViewBag.MaNgachLuong" class="form-control select2-show-search form-select">
+                <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+            </select>
+            <span asp-validation-for="MaNgachLuong" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="form-group">
+            <label asp-for="MaBacLuong"></label><span class="text-red">*</span>
+            <select asp-for="MaBacLuong" asp-items="@ViewBag.MaBacLuong" class="form-control select2-show-search form-select">
+                <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
+            </select>
+            <span asp-validation-for="MaBacLuong" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="form-group">
+            <label asp-for="NgayHuong"></label><span class="text-red">*</span>
+            <input asp-for="NgayHuong" class="form-control">
+            <span asp-validation-for="NgayHuong" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="form-group">
+            <label asp-for="NgayNangBacLuong"></label><span class="text-red">*</span>
+            <input asp-for="NgayNangBacLuong" class="form-control">
+            <span asp-validation-for="NgayNangBacLuong" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-1">
+        <div class="form-group">
+            <label asp-for="HeSoLuong"></label><span class="text-red">*</span>
+            <div class="input-group">
+                <input asp-for="HeSoLuong" class="form-control" readonly>
+                <span class="input-group-text">.00</span>
+            </div>
+            <span asp-validation-for="HeSoLuong" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-1">
+        <div class="form-group">
+            <label asp-for="HeSoChucVu"></label>
+            <div class="input-group">
+                <input asp-for="HeSoChucVu" class="form-control">
+                <span class="input-group-text">.00</span>
+            </div>
+            <span asp-validation-for="HeSoChucVu" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-1">
+        <div class="form-group">
+            <label asp-for="VuotKhung"></label>
+            <div class="input-group">
+                <input asp-for="VuotKhung" class="form-control">
+                <span class="input-group-text">%</span>
+            </div>
+            <span asp-validation-for="VuotKhung" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-lg-1">
+        <div class="form-group">
+            <label asp-for="KiemNhiem"></label>
+            <div class="input-group">
+                <input asp-for="KiemNhiem" class="form-control">
+                <span class="input-group-text">.00</span>
+            </div>
+            <span asp-validation-for="KiemNhiem" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label>@LanguageResource.Upload</label>
+            <input class="form-control" type="file" name="fileInbox">
+        </div>
+    </div>
+   @*  <div class="col-md-2" style="display:flex;align-items:end;padding-bottom:10px;">
+        <label class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" asp-for="CapNhatTinhTrangCanBo">
+            <span class="custom-control-label">Cập nhật cán bộ</span>
+        </label>
+    </div> *@
+    @if (@Model.FileDinhKem != null && !String.IsNullOrEmpty(@Model.FileDinhKem!.Url) && !String.IsNullOrWhiteSpace(@Model.FileDinhKem!.Url))
+    {
+        <div class="col-md-12">
+            <div class="btn-group file-attach m-2" role="group" aria-label="Basic example" id="@Model.FileDinhKem.Key">
+                <a class="btn btn-sm btn-primary text-white" asp-area="@Model.FileDinhKem!.Url" asp-controller="" asp-action=""><i class="mdi mdi-file-image mx-2"></i>@Model.FileDinhKem!.FileName</a>
+                <a class="btn btn-close btn-sm btn-primary text-white btn-deletefile" data-id="@Model.FileDinhKem.Key" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </a>
+            </div>
+        </div>
+    }
+
+</div>

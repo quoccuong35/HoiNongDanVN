@@ -15,6 +15,9 @@ namespace HoiNongDan.Models
         public ToHoiNganhNghe_ChiHoiNganhNghe ToHoiNganhNghe_ChiHoiNganhNghe { get; set; }
 
         public Nullable<System.Guid> CreatedAccountId { get; set; }
-        public DateTime CreatedTime { get; set; } = DateTime.Now;
+        public DateTime CreatedTime { get; set; }
+        public DateTime? NgayVao { get; set; }
+        public DateTime? NgayRoi { get; set; }
+        public String? LyDoRoi { get; set; }
     }
 }

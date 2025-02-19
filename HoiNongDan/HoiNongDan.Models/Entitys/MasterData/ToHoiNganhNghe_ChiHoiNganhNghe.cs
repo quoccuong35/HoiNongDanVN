@@ -21,6 +21,11 @@ namespace HoiNongDan.Models
         public Nullable<System.Guid> LastModifiedAccountId { get; set; }
         public Nullable<System.DateTime> LastModifiedTime { get; set; }
         public Nullable<int> OrderIndex { get; set; }
+        public Nullable<bool> NgheNghiep { get; set; }
+        public Nullable<Guid> MaDiaBanHoatDong { get; set; }
+        public DiaBanHoatDong DiaBanHoatDong { get; set; }
+        public Nullable<DateTime> NgayGiam { get; set; }
+        public String? LyDoGiam { get; set; }
         public ICollection<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien> ToHoiNganhNghe_ChiHoiNganhNghe_HVs { get; set; }
         public ToHoiNganhNghe_ChiHoiNganhNghe() {
             ToHoiNganhNghe_ChiHoiNganhNghe_HVs = new List<ToHoiNganhNghe_ChiHoiNganhNghe_HoiVien>();

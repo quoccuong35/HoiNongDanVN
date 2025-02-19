@@ -28,30 +28,30 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             return ExecuteSearch(() => { 
 
                 var model = (from qh in _context.QuanHeGiaDinhs
-                             join hv in _context.CanBos on qh.IDHoiVien equals hv.IDCanBo
+                             join hv in _context.CanBos on qh.IDCanBo equals hv.IDCanBo
                              join pv in _context.PhamVis on hv.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
                              where hv.IsHoiVien == true
                              && pv.AccountId == AccountId()
-                             select qh).Include(it => it.HoiVien).Include(it => it.LoaiQuanhe).Include(it => it.LoaiQuanhe).AsQueryable();
+                             select qh).Include(it => it.CanBo).Include(it => it.LoaiQuanhe).Include(it => it.LoaiQuanhe).AsQueryable();
                 if (search.IDLoaiQuanHeGiaDinh != null) {
                     model = model.Where(it => it.IDLoaiQuanHeGiaDinh == search.IDLoaiQuanHeGiaDinh);
                 }
 
-                if (!String.IsNullOrEmpty(search.MaCanBo) && !String.IsNullOrWhiteSpace(search.MaCanBo)) {
-                    model = model.Where(it => it.HoiVien.MaCanBo == search.MaCanBo);
+                if (!String.IsNullOrEmpty(search.SoCCCD) && !String.IsNullOrWhiteSpace(search.SoCCCD)) {
+                    model = model.Where(it => it.CanBo.SoCCCD == search.SoCCCD);
                 }
                 if (!String.IsNullOrEmpty(search.HoVaTen) && !String.IsNullOrWhiteSpace(search.HoVaTen))
                 {
-                    model = model.Where(it => it.HoiVien.HoVaTen.Contains(search.HoVaTen));
+                    model = model.Where(it => it.CanBo.HoVaTen.Contains(search.HoVaTen));
                 }
                 var data = model.Select(it => new QHGiaDinhDetail {
                     IDQuanheGiaDinh = it.IDQuanheGiaDinh,
-                    MaCanBo = it.HoiVien.MaCanBo!,
-                    HoVaTen = it.HoiVien.HoVaTen,
+                    MaCanBo = it.CanBo.MaCanBo!,
+                    HoVaTen = it.CanBo.HoVaTen,
                     HoTen = it.HoTen,
                     NgaySinh = it.NgaySinh,
                     NgheNghiep = it.NgheNghiep,
-                    NoiLamVien = it.NoiLamVien,
+                    NoiLamViec = it.NoiLamViec,
                     DiaChi = it.DiaChi,
                     GhiChu = it.GhiChu,
                     TenLoaiQuanHe = it.LoaiQuanhe.TenLoaiQuanHeGiaDinh
@@ -114,11 +114,11 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             edit.HoTen = item.HoTen;
             edit.NgaySinh = item.NgaySinh;
             edit.NgheNghiep = item.NgheNghiep;
-            edit.NoiLamVien = item.NoiLamVien;
+            edit.NoiLamViec = item.NoiLamViec;
             edit.DiaChi = item.DiaChi;
             edit.GhiChu = item.GhiChu;
 
-            edit.HoiVien = Function.GetThongTinHoiVien(maHoiVien:item.IDHoiVien!.Value,_context);
+            edit.HoiVien = Function.GetThongTinHoiVien(maHoiVien:item.IDCanBo,_context);
             CreateViewBag(item.IDLoaiQuanHeGiaDinh);
             return View(edit);
         }

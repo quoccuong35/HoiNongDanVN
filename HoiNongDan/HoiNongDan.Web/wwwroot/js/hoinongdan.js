@@ -1,6 +1,16 @@
 ﻿
 var HoiNongDan = {};
+HoiNongDan.Debounce = function (func, delay) {
+    let timeoutID;
+    return function (...args) {
+        const context = this;
 
+        clearTimeout(timeoutID);
+        timeoutID = setTimeout(() => {
+            func.apply(context, args);
+        }, delay);
+    };
+}
 HoiNongDan.SearchInitial = function (controller, action = "_Search") {
     //set btn-search event
     $("#btn-search").click(function () {
@@ -19,7 +29,6 @@ HoiNongDan.SearchInitial = function (controller, action = "_Search") {
     HoiNongDan.UploadFile(controller);
     HoiNongDan.ImportModalHideHandler();
     HoiNongDan.ExportData(controller);
-  
 }
 HoiNongDan.SearchDefault = function (controller, action) {
     var $btn = $("#btn-search");
@@ -395,120 +404,7 @@ HoiNongDan.DeleteEdit = function () {
         })
     });
 }
-HoiNongDan.DuyetHoiVienInitial = function (controller) {
-    $(document).on("click", ".duyet-hoivien", function (e) {
-        let $btn = $(this);
-        let id = $btn.data("id");
-        var lid = [];
-        lid.push(id);
-        var formData = {};
-        formData.lid = lid;
-        HoiNongDan.DuyetHoiVien(formData, controller);
-    });
 
-    $(document).on("click", "#duyet-hoivienall", function () {
-        var lid = [];
-        $('#data-list tbody tr').each(function () {
-            lid.push(this.id);
-        });
-        var formData = {};
-        formData.lid = lid;
-        HoiNongDan.DuyetHoiVien(formData, controller);
-    });
-    $(document).on("click", ".btn-reject", function (e) {
-        let $btn = $(this);
-        let id = $btn.data("id");
-        var lid = [];
-        lid.push(id);
-        var formData = {};
-        formData.lid = lid;
-        HoiNongDan.TuChoiDuyetHoiVien(formData, controller);
-    });
-}
-HoiNongDan.DuyetHoiVien = function (data, controller)
-{
-    let textRequestion = "Bạn có muốn duyệt các hội viên đang chọn?";
-    Swal.fire({
-        title: 'Duyệt hội viên mới',
-        html: textRequestion,
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Có',
-        cancelButtonText: "Không"
-    }).then((result) => {
-        if (result.isConfirmed) {
-            var token = $("input[name='__RequestVerificationToken']").val();
-            data.__RequestVerificationToken = token;
-            $.ajax({
-                url: "/" + controller + "/Edit",
-                type: 'POST',
-                data: data,
-                success: function (data) {
-                    toastr.clear();
-                    if (data.success) {
-                        $("#btn-search").trigger("click");
-                        toastr.success(data.data);
-                    }
-                    else {
-                        toastr.error(data.data);
-                    }
-                },
-                error: function (xhr, status, data) {
-
-                    toastr.error(data);
-                }
-            })
-        }
-    })
-}
-
-HoiNongDan.TuChoiDuyetHoiVien = function (data, controller) {
-    var lydo = "";
-    Swal.fire({
-        title: "Lý do từ chối",
-        input: "text",
-        showCancelButton: true,
-        confirmButtonText: "Từ chối",
-        cancelButtonText: "Hủy",
-        showLoaderOnConfirm: true,
-        preConfirm: async (value) => {
-            try {
-                lydo = value;
-            } catch (error) {
-            }
-        },
-    }).then((result) => {
-        if (result.isConfirmed) {
-            if (lydo == null || lydo == "" || lydo === undefined) {
-                toastr.error('Chưa nhập lý do');
-                return;
-            }
-            data.lyDo = lydo;
-            data.__RequestVerificationToken = $("input[name='__RequestVerificationToken']").val();
-            $.ajax({
-                url: "/" + controller + "/TuChoi",
-                type: 'POST',
-                data: data,
-                success: function (data) {
-                    toastr.clear();
-                    if (data.success) {
-                        $("#btn-search").trigger("click");
-                        toastr.success(data.data);
-                    }
-                    else {
-                        toastr.error(data.data);
-                    }
-                },
-                error: function (xhr, status, data) {
-
-                    toastr.error(data);
-                }
-            })
-        }
-    });
-}
 HoiNongDan.Import = function (controller) {
     $(document).on("click", ".btn-import", function () {
         $.ajax({
@@ -537,78 +433,81 @@ HoiNongDan.Import = function (controller) {
         });
        
     });
-  
 }
+HoiNongDan.UploadFileExcel = function (controller) {
+    var frm = $("#frmImport");
+    var formData = new FormData();
+    formParams = frm.serializeArray();
+    var $btn = $("#btn-importExcel");
+    $btn.toggleClass("btn-loading");
+    $.each(frm.find('input[type="file"]'), function (i, tag) {
+        $.each($(tag)[0].files, function (i, file) {
+            formData.append(tag.name, file);
+        });
+    });
+    $.each(formParams, function (i, val) {
+        formData.append(val.name, val.value);
+    });
+    //console.log(formData);
+    $.ajax({
+        type: "POST",
+        url: "/" + controller + "/Import",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (jsonData) {
+            $btn.toggleClass("btn-loading");
+            if (jsonData.success == true) {
+                //formData[0].reset();
+                let html = '<div class="alert alert-success">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>' +
+                    ' <span class=""><svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" viewBox="0 0 24 24"><path fill="#13bfa6" d="M10.3125,16.09375a.99676.99676,0,0,1-.707-.293L6.793,12.98828A.99989.99989,0,0,1,8.207,11.57422l2.10547,2.10547L15.793,8.19922A.99989.99989,0,0,1,17.207,9.61328l-6.1875,6.1875A.99676.99676,0,0,1,10.3125,16.09375Z" opacity=".99"></path><path fill="#71d8c9" d="M12,2A10,10,0,1,0,22,12,10.01146,10.01146,0,0,0,12,2Zm5.207,7.61328-6.1875,6.1875a.99963.99963,0,0,1-1.41406,0L6.793,12.98828A.99989.99989,0,0,1,8.207,11.57422l2.10547,2.10547L15.793,8.19922A.99989.99989,0,0,1,17.207,9.61328Z"></path></svg></span>' +
+                    '<strong>Thành công</strong>' +
+                    '<hr class="message-inner-separator">' +
+                    '<p>' + jsonData.data + '.</p>' +
+                    '</div>'
+                $('#import-result').append(html);
+
+                setTimeout(function () {
+                    $("#importexcelfile").val("");
+                    $('#import-result').html("");
+                }, 3000);
+            }
+            else if (jsonData.success == false) {
+                //formData[0].reset();
+                let html = '<div class="alert alert-danger">' +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>' +
+                    '<span class=""><svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" viewBox="0 0 24 24"><path fill="#f07f8f" d="M20.05713,22H3.94287A3.02288,3.02288,0,0,1,1.3252,17.46631L9.38232,3.51123a3.02272,3.02272,0,0,1,5.23536,0L22.6748,17.46631A3.02288,3.02288,0,0,1,20.05713,22Z"></path><circle cx="12" cy="17" r="1" fill="#e62a45"></circle><path fill="#e62a45" d="M12,14a1,1,0,0,1-1-1V9a1,1,0,0,1,2,0v4A1,1,0,0,1,12,14Z"></path></svg></span>' +
+                    '<strong>Lỗi</strong>' +
+                    '<hr class="message-inner-separator">' +
+                    '<p>' + jsonData.data + '.</p>' +
+                    '</div>'
+                $('#import-result').append(html);
+                setTimeout(function () {
+                    $("#importexcelfile").val("");
+
+                }, 3000);
+            }
+            else if (jsonData.indexOf("from-login-error") > 0) {
+                $btn.toggleClass("btn-loading");
+                toastr.error('Hết thời gian thao tác xin đăng nhập lại');
+                setTimeout(function () {
+                    var url = window.location.href.toString().split(window.location.host)[1];
+                    window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
+                }, 1000);
+            }
+        },
+        error: function (xhr, status, error) {
+            Exceptions(xhr, status, error);
+            $btn.toggleClass("btn-loading");
+        }
+    });
+}
+const debouncedUploadFile = HoiNongDan.Debounce(HoiNongDan.UploadFileExcel, 400);
 HoiNongDan.UploadFile = function (controller) {
     $(document).on("click", "#btn-importExcel", function () {
-        var frm = $("#frmImport");
-        var formData = new FormData();
-        formParams = frm.serializeArray();
-        var $btn = $("#btn-importExcel");
-        $btn.toggleClass("btn-loading");
-        $.each(frm.find('input[type="file"]'), function (i, tag) {
-            $.each($(tag)[0].files, function (i, file) {
-                formData.append(tag.name, file);
-            });
-        });
-        $.each(formParams, function (i, val) {
-            formData.append(val.name, val.value);
-        });
-        console.log(formData);
-        $.ajax({
-            type: "POST",
-            url: "/" + controller + "/Import",
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (jsonData) {
-                $btn.toggleClass("btn-loading");
-                if (jsonData.success == true) {
-                    //formData[0].reset();
-                    let html = '<div class="alert alert-success">' +
-                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>' +
-                        ' <span class=""><svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" viewBox="0 0 24 24"><path fill="#13bfa6" d="M10.3125,16.09375a.99676.99676,0,0,1-.707-.293L6.793,12.98828A.99989.99989,0,0,1,8.207,11.57422l2.10547,2.10547L15.793,8.19922A.99989.99989,0,0,1,17.207,9.61328l-6.1875,6.1875A.99676.99676,0,0,1,10.3125,16.09375Z" opacity=".99"></path><path fill="#71d8c9" d="M12,2A10,10,0,1,0,22,12,10.01146,10.01146,0,0,0,12,2Zm5.207,7.61328-6.1875,6.1875a.99963.99963,0,0,1-1.41406,0L6.793,12.98828A.99989.99989,0,0,1,8.207,11.57422l2.10547,2.10547L15.793,8.19922A.99989.99989,0,0,1,17.207,9.61328Z"></path></svg></span>' +
-                        '<strong>Thành công</strong>' +
-                        '<hr class="message-inner-separator">' +
-                        '<p>' + jsonData.data + '.</p>' +
-                        '</div>'
-                    $('#import-result').append(html);
-                                
-                    setTimeout(function () {
-                        $("#importexcelfile").val("");
-                        $('#import-result').html("");
-                    }, 3000);
-                }
-                else if (jsonData.success == false) {
-                    //formData[0].reset();
-                    let html = '<div class="alert alert-danger">'+
-                       '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>'+
-                        '<span class=""><svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" viewBox="0 0 24 24"><path fill="#f07f8f" d="M20.05713,22H3.94287A3.02288,3.02288,0,0,1,1.3252,17.46631L9.38232,3.51123a3.02272,3.02272,0,0,1,5.23536,0L22.6748,17.46631A3.02288,3.02288,0,0,1,20.05713,22Z"></path><circle cx="12" cy="17" r="1" fill="#e62a45"></circle><path fill="#e62a45" d="M12,14a1,1,0,0,1-1-1V9a1,1,0,0,1,2,0v4A1,1,0,0,1,12,14Z"></path></svg></span>'+
-                         '<strong>Lỗi</strong>'+
-                         '<hr class="message-inner-separator">'+
-                        '<p>' + jsonData.data +'.</p>' +
-                        '</div>'
-                    $('#import-result').append(html);
-                    setTimeout(function () {
-                        $("#importexcelfile").val("");
-
-                    }, 3000);
-                }
-                else if (jsonData.indexOf("from-login-error") > 0) {
-                    $btn.toggleClass("btn-loading");
-                    toastr.error('Hết thời gian thao tác xin đăng nhập lại');
-                    setTimeout(function () {
-                        var url = window.location.href.toString().split(window.location.host)[1];
-                        window.location.href = "/Permission/Auth/Login?returnUrl=" + url;
-                    }, 1000);
-                }
-            },
-            error: function (xhr, status, error) {
-                Exceptions(xhr, status, error);
-                $btn.toggleClass("btn-loading");
-            }
-        });
+        debouncedUploadFile(controller);
     });
 }
 HoiNongDan.ImportModalHideHandler = function () {
@@ -658,20 +557,13 @@ HoiNongDan.Table = function (id_table = "#data-list") {
         table.buttons().container()
             .appendTo(id_table + '_wrapper .col-md-6:eq(0)');
         HideShowColumns(id_table);
+        
       /*  table.column(0).visible(false);*/
     } catch (e) {
         console.log(e);
     }
 };
-HoiNongDan.Selected = function (id) {
-    $('#'+id).on('click', 'tr', function () {
-        $(this).toggleClass('selected');
-        //var pos = oTable.row(this).index();
-        //var row = oTable.row(pos).data();
-        //console.log(row);
-        //console.log(oTable);
-    });
-}
+
 //get message from current url
 HoiNongDan.GetQueryString = function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -733,6 +625,8 @@ HoiNongDan.KiemTraMaDinhDanh = function () {
     $(document).on("click", "#btn-ktmadinhdanh", function () {
         let maDinhDanh = $("#MaDinhDanh").val();
         let idHoiVien = $("#IDCanBo").val();
+        if (maDinhDanh == null || maDinhDanh == "")
+            return;
         $.ajax({
             type: "GET",
             url: "/HoiVien/HVInfo/CheckMaDinhDanh",
@@ -851,13 +745,6 @@ HoiNongDan.CheckedAll = function () {
             }
         }
         HoiVienDaChon();
-        //if (checkAll.checked) {
-        //    $("#selected-info").html("Đã chọn" + items.length)
-        //}
-        //else {
-        //    $("#selected-info").html("Chưa chọn")
-        //}
-        
     });
 }
 function HoiVienDaChon() {

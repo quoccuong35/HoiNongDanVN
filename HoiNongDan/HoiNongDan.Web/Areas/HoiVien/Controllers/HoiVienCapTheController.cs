@@ -107,6 +107,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             HoiVienInfo hoiVien = new HoiVienInfo();
             hoiVien.Edit = true;
             model.HoiVien = hoiVien;
+            model.Nam = DateTime.Now.Year;
+            model.NgayCap = DateTime.Now.Date;
+            model.TrangThai = "01";
             DotViewbag();
             return View(model);
         }
@@ -205,8 +208,8 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                         Data = string.Format(LanguageResource.Error_NotExist, LanguageResource.HoiVienCapThe.ToLower())
                     });
                 }
-                edit.SoThe = model.SoThe;
-                edit.NgayCap = model.NgayCap;
+                //edit.SoThe = model.SoThe;
+                //edit.NgayCap = model.NgayCap;
                 edit.Nam = model.Nam;
                 edit.MaDot = model.MaDot;
                 edit.Quy = model.Quy;
@@ -230,6 +233,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 });
 
             });
+        }
+        public IActionResult LaySoThe() {
+            var ketQua = _context.GetMaxMaHoiViens.FromSqlRaw("EXEC  dbo.GetMaxMaHoiVien").ToList();
+            int nam = DateTime.Now.Year;
+            string soCuoiNam = nam.ToString().Substring(nam.ToString().Length - 2).ToString();
+            string soThe = soCuoiNam + "." + ketQua[0].SoThe.ToString();
+            return Json(new { soThe = soThe });
         }
         #endregion Edit
         #region Del
@@ -283,11 +293,13 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             if (model.CapNhatNhanSu && String.IsNullOrWhiteSpace(model.SoThe)) {
                 ModelState.AddModelError("SoThe", "Chưa nhập số thẻ");
             }
-
-            //if (model.HoiViens == null || model.HoiViens.Count == 0)
-            //{
-            //    ModelState.AddModelError("HoiVien", "Chưa chọn hội viên");
-            //}
+            if (!String.IsNullOrWhiteSpace(model.SoThe)) {
+                var check = _context.CanBos.SingleOrDefault(it => it.MaCanBo == model.SoThe && it.IDCanBo != model.HoiVien.IdCanbo);
+                if(check != null)
+                {
+                    ModelState.AddModelError("SoThe", "Số thẻ đã tồn tại không thể lưu");
+                }
+            }
         }
         #endregion Helper
     }

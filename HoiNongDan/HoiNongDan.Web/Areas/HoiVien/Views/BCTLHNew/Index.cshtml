@@ -1,10 +1,12 @@
-﻿@{
+﻿@model BCTLHNewSearchVM
+@{
     ViewBag.Title = LanguageResource.List + LanguageResource.BCTLHNew.ToLower();
     string CurrentController = ConstController.BCTLHNew;
     string CurrentArea = ConstArea.HoiVien;
     string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
     string listRoles = User != null ? User.FindFirst("Roles")!.Value : "";
 }
+
 <!-- CONTAINER -->
 <div class="main-container container-fluid">
 
@@ -37,9 +39,13 @@
                                 <label>Tên hội nông dân</label>
                                 @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_All, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                            <div class="col-md-3">
-                                <label>Đến ngày</label>
-                                <input class="form-control" type="date" name="DenNgay" id="DenNgay" />
+                            <div class="col-md-2">
+                                <label asp-for="TuNgay"></label>
+                                <input class="form-control" asp-for="TuNgay"/>
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="DenNgay"></label>
+                                <input class="form-control" asp-for="DenNgay"/>
                             </div>
                             <div class="col-2 d-flex align-items-end">
                                 @HtmlExtensions.SearchButton()

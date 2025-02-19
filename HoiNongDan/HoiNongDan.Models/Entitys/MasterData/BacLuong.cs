@@ -26,10 +26,13 @@ namespace HoiNongDan.Models
         public string MaNgachLuong { get; set; }
         public NgachLuong NgachLuong { get; set; }
 
+        public ICollection<CanBoQuaTrinhLuong> CanBoQuaTrinhLuongs { get; set; }
+
         public ICollection<CanBo> CanBos { get; set; }
         public BacLuong()
         {
             CanBos = new List<CanBo>();
+            CanBoQuaTrinhLuongs = new List<CanBoQuaTrinhLuong>();
         }
 
     }

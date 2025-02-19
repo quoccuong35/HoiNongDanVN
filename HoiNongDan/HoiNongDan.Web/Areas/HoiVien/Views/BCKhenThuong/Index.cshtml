@@ -1,0 +1,132 @@
+﻿@{
+    ViewBag.Title = LanguageResource.List + LanguageResource.BCKhenThuong.ToLower();
+    string CurrentController = ConstController.BCKhenThuong;
+    string CurrentArea = ConstArea.HoiVien;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User != null ? User.FindFirst("Roles")!.Value : "";
+}
+<!-- CONTAINER -->
+<div class="main-container container-fluid">
+
+    <!-- PAGE-HEADER -->
+    <div class="page-header my-2">
+        <div>
+            <span class="header-title">@LanguageResource.List @LanguageResource.BCKhenThuong.ToLower()</span>
+            <div class="rectangle">
+                <span> </span>
+                <span> </span>
+                <span> </span>
+            </div>
+        </div>
+        <div class="d-flex px-2">
+            @HtmlExtensions.ExportButton1(CurrentArea, CurrentController, listRoles: listRoles)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="splitter rounded-3">
+                <div class="splitter-head">Tìm kiếm nâng cao</div>
+                <div class="splitter-body">
+                    <form method="get" id="frmSearch" asp-action="_Search">
+                        <div class="row my-2">
+                            <div class="col-md-3">
+                                <label>Quận/Huyện</label>
+                                @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_All, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-3">
+                                <label>Tên hội nông dân</label>
+                                @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_All, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-1">
+                                <label>Từ Năm</label>
+                                <input class="form-control" type="number" name="TuNam" id="TuNam" value="@DateTime.Now.Year" step="1" />
+                            </div>
+                            <div class="col-md-1">
+                                <label>Đến Năm</label>
+                                <input class="form-control" type="number" name="DenNam" id="DenNam" value="@DateTime.Now.Year"  step="1"/>
+                            </div>
+                            <div class="col-2 d-flex align-items-end">
+                                @HtmlExtensions.SearchButton()
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <!-- Row -->
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive" id="divSearchResult">
+                        <table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th class="text-center" style="vertical-align: middle;" rowspan="2">@LanguageResource.NumberIndex</th>
+                                    <th class="text-center" style="vertical-align: middle;" rowspan="2">Tên đơn vị</th>
+                                    <th class="text-center" style="vertical-align: middle;" rowspan="2">Hội Viên Ưu Tú</th>
+                                    <th class="text-center" style="vertical-align: middle;" colspan="4">Nông Dân Sản Xuất Kinh Doanh Giỏi</th>
+                                    <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                                        ND Việt Nam
+                                        Xuất Sắc
+                                    </th>
+                                    <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                                        Kỷ Niệm Chương
+                                        Vì GCND
+                                    </th>
+                                    <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                                        Cán Bộ Hội
+                                        Cơ Sở Giỏi
+                                    </th>
+                                    <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                                        Giải Thưởng
+                                        Sáng Tạo Nhà Nông
+                                    </th>
+                                    <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                                        Gương Điển Hình
+                                        Tiên Tiến
+                                    </th>
+                                    <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                                        Gương
+                                        Dân Vận Khéo
+                                    </th>
+                                    <th class="text-center" style="vertical-align: middle;" rowspan="2">
+                                        Gương Điển Hình Học Tập
+                                        Và Làm Theo Bác
+                                    </th>
+                                </tr>
+
+                                <tr>
+                                    <th class="text-center" style="vertical-align: middle;">Trung ương </th>
+                                    <th class="text-center" style="vertical-align: middle;">Thành phố </th>
+                                    <th class="text-center" style="vertical-align: middle;">Huyện</th>
+                                    <th class="text-center" style="vertical-align: middle;">Cấp xã</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Đang tải dữ liệu</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+<!-- CONTAINER CLOSED -->
+@section ScriptCustomized {
+    <script src="~/js/diaban_hv_quanhuyen.js"></script>
+    <script>
+        //load default and set event
+        $(document).ready(function () {
+            HoiNongDan.SearchInitial("@CurrentUrl");
+        });
+
+    </script>
+}

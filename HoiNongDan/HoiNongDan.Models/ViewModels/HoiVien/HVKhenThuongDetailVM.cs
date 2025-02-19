@@ -16,6 +16,9 @@ namespace HoiNongDan.Models
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         public string? HoVaTen { get; set; }
+        [Display(Name = "Quận huyện")]
+        public String? QuanHuyen { get; set; }
+
         [Display(Name = "Địa bàn HND")]
         public String? DiaBanHND { get; set; }
         //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "HinhThucKhenThuong")]
@@ -46,6 +49,10 @@ namespace HoiNongDan.Models
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NoiDung")]
         public String? NoiDung { get; set; }
+
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "CapKhenThuong")]
+        public String? CapKhenThuong { get; set; }
 
     }
 }

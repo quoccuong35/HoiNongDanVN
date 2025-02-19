@@ -174,16 +174,25 @@
                                 
                             </div>
                             <div class="row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-6">
                                     <label asp-for="HoKhauThuongTru"></label> <span class="text-red">*</span>
-                                    <textarea asp-for="HoKhauThuongTru" rows="3" class="form-control"></textarea>
+                                    <div class="input-group">
+                                        <div class="col-4 p-0">  <input class="form-control" asp-for="HoKhauThuongTru" placeholder="Số nhà tên đường" /></div>
+                                        <div class="col-4  p-0"> <input class="form-control" asp-for="HoKhauThuongTru_XaPhuong" placeholder="Xã/Phường" /></div>
+                                        <div class="col-4  p-0"> <input class="form-control" asp-for="HoKhauThuongTru_QuanHuyen" placeholder="Quận/Huyện" /></div>
+                                    </div>
                                     <span asp-validation-for="HoKhauThuongTru" class="text-danger"></span>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-6">
                                     <label asp-for="ChoOHienNay"></label> <span class="text-red">*</span>
-                                    <textarea asp-for="ChoOHienNay" rows="3" class="form-control"></textarea>
+                                    <div class="input-group">
+                                        <div class="col-4 p-0">  <input class="form-control" asp-for="ChoOHienNay" placeholder="Số nhà tên đường" /></div>
+                                        <div class="col-4 p-0"> <input class="form-control" asp-for="ChoOHienNay_XaPhuong" placeholder="Xã/Phường" /></div>
+                                        <div class="col-4 p-0"> <input class="form-control" asp-for="ChoOHienNay_QuanHuyen" placeholder="Quận/Huyện" /></div>
+                                    </div>
                                     <span asp-validation-for="ChoOHienNay" class="text-danger"></span>
                                 </div>
+
                                 @if (Model.IDCanBo != null)
                                 {
                                     <div class="col-lg-2">
@@ -289,7 +298,7 @@
                                     <div class="form-group">
                                         <label asp-for="MaNgheNghiep"></label>
                                         <select asp-for="MaNgheNghiep" asp-items="@ViewBag.MaNgheNghiep" class="form-control select2-show-search form-select">
-                                            <option >@LanguageResource.Dropdownlist_Menu-</option>
+                                            <option value = null>@LanguageResource.Dropdownlist_Menu-</option>
                                         </select>
                                         <span asp-validation-for="MaNgheNghiep" class="text-danger"></span>
                                     </div>
@@ -451,7 +460,7 @@
                                         <span asp-validation-for="GhiChu" class="text-danger"></span>
                                     </div>
                                 </div>
-                                @if (@Model.HoVaTen != null)
+                               @*  @if (@Model.HoVaTen != null)
                                 {
                                     <div class="col-md-4 d-flex align-items-end">
                                         <fieldset>
@@ -459,7 +468,7 @@
                                             @Html.RadioButtonFor(p => p.Actived, false) @LanguageResource.Actived_False
                                         </fieldset>
                                     </div>
-                                }
+                                } *@
                                
                                 <div class="col-lg-12 col-sm-12">
                                     <label class="form-label">@LanguageResource.FileDinhKem</label>

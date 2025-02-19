@@ -17,6 +17,11 @@
         <input asp-for="OrderIndex" class="form-control" />
         <span asp-validation-for="OrderIndex" class="text-danger"></span>
     </div>
+    <div class="col-md-2">
+        <label asp-for="HoiVien"></label>
+        @Html.CheckBoxFor(it=>it.HoiVien!.Value)
+        <span asp-validation-for="HoiVien" class="text-danger"></span>
+    </div>
     @if (@Model.MaChucVu != null)
     {
         <div class="col-md-4 d-flex align-items-end">

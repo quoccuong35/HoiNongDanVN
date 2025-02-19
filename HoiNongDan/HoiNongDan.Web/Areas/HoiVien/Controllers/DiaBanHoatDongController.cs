@@ -51,7 +51,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     TenDiaBanHoatDong = it.TenDiaBanHoatDong,
                     NgayThanhLap = it.NgayThanhLap,
                     DiaChi = it.DiaChi,
-                    SoLuongHoiVien = it.CanBos.Count(),
+                    SoLuongHoiVien = it.CanBos.Where(it=>it.IsHoiVien == true && it.HoiVienDuyet == true).Count(),
                     TenTinhThanhPho = it.TinhThanhPho.TenTinhThanhPho,
                     MaQuanHuyen = it.QuanHuyen.TenQuanHuyen,
                     GhiChu = it.GhiChu

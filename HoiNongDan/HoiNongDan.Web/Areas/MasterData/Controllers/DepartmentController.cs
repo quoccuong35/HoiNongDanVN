@@ -44,7 +44,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 {
                     data = data.Where(it => it.Actived == userSearch.Actived);
                 }
-                var model = data.ToList().Select(it => new DepartmentVM
+                var model = data.OrderBy(it=>it.OrderIndex).Select(it => new DepartmentVM
                 {
                     Id = it.Id,
                     Code = it.Code,
@@ -69,12 +69,14 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 departmentVM.Id = item.Id;
                 departmentVM.Name = item.Name;
                 departmentVM.Code = item.Code;
+                departmentVM.IdParent = item.IdParent;
                 //departmentVM.IdCoSo = item.IDCoSo;
                 departmentVM.Actived = item.Actived;
                 departmentVM.Description = item.Description;
                 departmentVM.OrderIndex = item.OrderIndex;
 
             }
+            CreateViewBag(departmentVM.IdParent);
             //CreateViewBag(departmentVM.IdCoSo);
             return View(departmentVM);
         }
@@ -95,6 +97,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                         Description = obj.Description,
                         OrderIndex = obj.OrderIndex,
                         Actived = true,
+                        IdParent = obj.IdParent,
                         //IDCoSo = obj.IdCoSo,
                         CreatedAccountId = Guid.NewGuid(),
                         CreatedTime = DateTime.Now
@@ -117,6 +120,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                         departmentEdit.Actived = obj.Actived == null ? true : obj.Actived.Value;
                         departmentEdit.Name = obj.Name;
                         departmentEdit.Code = obj.Code;
+                        departmentEdit.IdParent = obj.IdParent;
                         departmentEdit.OrderIndex = obj.OrderIndex;
                         //departmentEdit.IDCoSo = obj.IdCoSo;
                         departmentEdit.Description = obj.Description;
@@ -184,10 +188,11 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         }
         #endregion Delete
         #region Helper
-        //private void CreateViewBag(Guid? IdCoSo = null) {
-        //    var MenuList = _context.CoSos.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { IdCoSo = it.IdCoSo, TenCoSo = it.TenCoSo }).ToList();
-        //    ViewBag.IdCoSo = new SelectList(MenuList, "IdCoSo", "TenCoSo", IdCoSo);
-        //}
+        private void CreateViewBag(Guid? IdParent = null)
+        {
+            var MenuList = _context.Departments.Where(it => it.Actived == true).OrderBy(p => p.OrderIndex).Select(it => new { IdParent = it.Id, Name = it.Name }).ToList();
+            ViewBag.IdParent = new SelectList(MenuList, "IdParent", "Name", IdParent);
+        }
         #endregion Helper
     }
 }

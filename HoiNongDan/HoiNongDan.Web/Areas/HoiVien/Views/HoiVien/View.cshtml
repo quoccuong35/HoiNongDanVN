@@ -1,0 +1,198 @@
+﻿@model HoiVienDuyetCapNhatVM
+@using HoiNongDan.Constant
+@{
+    ViewBag.Title = LanguageResource.List + LanguageResource.HoiVien.ToLower();
+    string CurrentController = ConstController.HoiVien;
+    string CurrentArea = ConstArea.HoiVien;
+    string CurrentUrl = HtmlExtensions.GetCurrentUrl(CurrentArea, CurrentController);
+    string listRoles = User != null ? User.FindFirst("Roles").Value : "";
+
+    string roles = CurrentController + ":" + ConstFunction.Edit;
+    bool isHasPermission = Function.GetPermission(listRoles, roles);
+    string dangvien = Model.DangVien == true ? "X" : "";
+    string danCu = Model.HoiVienDanCu == true ? "X" : "";
+    string nganhNghe = Model.HoiVienNganhNghe == true ? "X" : "";
+
+}
+<div class="main-container container-fluid mt-2">
+    <!-- PAGE-HEADER -->
+    <div class="page-header d-flex page-header-fix my-1">
+        <div class="fs-20">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a class="fs-18 fw-600" asp-area="@ConstArea.HoiVien" asp-controller="@ConstController.HoiVien" asp-action="Index">@LanguageResource.HoiVien</a>
+                </li>
+                <li class="breadcrumb-item fs-18 active" aria-current="page">Thông Tin Hội Viên</li>
+            </ol>
+        </div>
+        <div class="header-sticky">
+            @HtmlExtensions.BackButton(CurrentArea, CurrentController)
+            @if (isHasPermission)
+            {
+                <a class="btn btn-icon btn-sm  btn-info-light mx-2" asp-area="@CurrentArea" asp-action="Edit" asp-controller="@CurrentController" asp-route-id="@Model.IDCanBo">
+                    <i class="fe fe-edit"></i> Sửa thông tin
+                </a>
+            }
+            @* @HtmlExtensions.DeleteButtonV2(CurrentArea, CurrentController, Model.HoVaTen, Model.IDCanBo!.Value.ToString(), listRoles: listRoles) *@
+        </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex bg-gray-100">
+                <div class="flex-shrink-0 mr-7">
+                    <div class="avatar avatar-xxl brround" style="background:#282f53">
+                        <span style="font-size:30px;text-align:center;text-overflow:clip">
+                            @{
+                                var ten = Model.HoVaTen.Trim().Split(' ');
+                                string kh = ten[ten.Length - 1];
+                                ViewContext.Writer.Write(kh);
+                            }
+                        </span>
+                    </div>
+                </div>
+                <div class="flex-grow-1">
+                    <div class="d-flex align-items-center justify-content-between flex-wrap mt-2">
+                        <div class="w-100">
+                            <div class="d-flex align-items-center justify-content-between flex-wrap mt-2">
+                                <div class="col-md-3 d-flex flex-wrap my-2">
+                                    <div class="d-flex align-items-center flex-lg-fill" style="padding-left:10px">
+                                        <a class="text-hover-primary fs-16 fw-600"> @Model.HoVaTen.ToUpper()</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="d-flex flex-wrap my-2">
+                                        <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                                            <span style="margin-right:10px">
+                                                <i class="fa fa-home fs-25 text-danger"></i>
+                                            </span>
+                                            <div class="d-flex flex-column">
+                                                <span class="fs-12 fw-600">Địa bàn hội</span>
+                                                <span class="fs-16 fw-bold">
+                                                    @Model.TenDiaBanHoatDong
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                                            <span style="margin-right:10px">
+                                                <i class="fa fa-address-card-o fs-25 text-success"></i>
+                                            </span>
+                                            <div class="d-flex flex-column">
+                                                <span class="fs-12 fw-600">Giớn tính</span>
+                                                <span class="fs-16 fw-bold">
+                                                    @Model.GioiTinh
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center flex-lg-fill my-1" tyle="margin-right:10px">
+                                            <span style="margin-right:10px">
+                                                <i class="fa fa-volume-control-phone fs-25 text-warning"></i>
+                                            </span>
+                                            <div class="d-flex flex-column">
+                                                <span class="fs-12 fw-600">Điện thoại</span>
+                                                <span class="fs-16 fw-bold">
+                                                    @Model.SoDienThoai
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                                            <span style="margin-right:10px">
+                                                <i class="fa fa-list-alt fs-25 text-primary"></i>
+                                            </span>
+                                            <div class="d-flex flex-column">
+                                                <span class="fs-12 fw-600">Số CCCD</span>
+                                                <span class="fs-16 fw-bold">
+                                                    @Model.SoCCCD!
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                                            <span style="margin-right:10px">
+                                                <i class="fa fa-calendar fs-25 text-primary"></i>
+                                            </span>
+                                            <div class="d-flex flex-column">
+                                                <span class="fs-12 fw-600">Ngày vào hội</span>
+                                                <span class="fs-16 fw-bold">
+                                                    @{
+                                                        string NgayVaoHoi = @Model.NgayVaoHoi == null ? "" : @Model.NgayVaoHoi.Value.ToString("dd/MM/yyyy");
+                                                    }
+                                                    @NgayVaoHoi
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center flex-lg-fill mr-5 my-1">
+                                            <span style="margin-right:10px">
+                                                <i class="fa fa-graduation-cap fs-25 text-primary"></i>
+                                            </span>
+                                            <div class="d-flex flex-column">
+                                                <span class="fs-12 fw-600">Trình độ hộc vấn</span>
+                                                <span class="fs-16 fw-bold">
+                                                    @Model.TrinhDoHocvan
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <hr style="background:red" />
+            <div class="panel panel-primary">
+                <div class="row bg-gray-100">
+                    <ul class="p-5" style="display:grid; list-style-position: inside;list-style-type: disc;grid-template-columns: repeat(4, 1fr); grid-row-gap:10px;grid-column-gap:10px">
+                        <li>Ngày sinh: <b>@Model.NgaySinh</b></li>
+                        <li>Số CCCD: <b>@Model.SoCCCD</b></li>
+                        <li>Ngày cấp CCCD: <b>@Model.NgayCapCCCD</b></li>
+                        <li>Dân tộc: <b>@Model.DanToc</b></li>
+                        <li>Tôn giáo: <b>@Model.TonGiao</b></li>
+                        <li>Trình độ học vấn: <b>@Model.TrinhDoHocvan</b></li>
+                        <li>Trình độ chuyên môn: <b>@Model.MaTrinhDoChuyenMon</b></li>
+                        <li>Trình độ chính chị: <b>@Model.MaTrinhDoChuyenMon</b></li>
+                        <li>Đảng viên: <b>@dangvien</b></li>
+                        <li>Chi hội: <b>@Model.ChiHoi</b></li>
+                        <li>Tổ hội: <b>@Model.ToHoi</b></li>
+                        <li>Hội viên Địa bàn dân cư: <b>@danCu</b></li>
+                        <li>Hội viên Ngành nghề: <b>@nganhNghe</b></li>
+                        <li>Hộ khẩu thường trú: <b>@Model.HoKhauThuongTru</b></li>
+                        <li>Nơi ở hiện nay: <b>@Model.ChoOHienNay</b></li>
+                        <li>Vai trò: <b>@Model.VaiTro</b></li>
+                        <li>Gia đình thuộc diện: <b>@Model.GiaDinhThuocDien</b></li>
+                        <li>Nghề nghiệp: <b>@Model.NgheNghiepHienNay</b></li>
+                        <li>Nông dân XSKDG: <b>@Model.NDSXKDG</b></li>
+                        <li>Nông dân tiêu biểu: <b>@Model.NDTieuBieu</b></li>
+                        <li>Nông dân Việt Nam xuất sắc: <b>@Model.NDVietnamXS</b></li>
+                        <li>Kỷ niệm chương vì GCND: <b>@Model.KNCGCND</b></li>
+                        <li>Cán bộ hội cơ sở Giỏi: <b>@Model.CanBoHoiCoSoGioi</b></li>
+                        <li>Giải thưởng sáng tạo nhà nông: <b>@Model.SangTaoNhaNong</b></li>
+                        <li>Gương dân vận khéo: <b>@Model.GuongDanVanKheo</b></li>
+                        <li>Gương điểm hình học tập và làm theo Bác: <b>@Model.GuongDiemHinhHocTapLamTheoBac</b></li>
+                        <li>Hiện tham gia sinh hoạt  đoàn thể chính trị, Hội đoàn nào khác: <b>@Model.ThamGia_SH_DoanThe_HoiDoanKhac</b></li>
+                        <li>Tham gia câu lạc bộ, đội nhóm, mô hình, hợp tác xã, tổ hợp tác: <b>@Model.ThamGia_CLB_DN_MH_HTX_THT</b></li>
+                        <li>Hỗ trợ vai vốn: <b>@Model.HoTrovayVon</b></li>
+                        <li>
+                            Được đào
+                            tạo nghề
+                            và GQVL: <b>@Model.HoTroDaoTaoNghe</b>
+                        </li>
+                        <li>Hỗ trợ khác: <b>@Model.HoTroKhac</b></li>
+                    </ul>
+
+                </div>
+            </div>
+            <hr style="background:red" />
+            
+        </div>
+    </div>
+</div>
+@section ScriptCustomized {
+    <script src="~/js/canbo.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            HoiNongDan.EditInitial("@CurrentUrl");
+    </script>
+}

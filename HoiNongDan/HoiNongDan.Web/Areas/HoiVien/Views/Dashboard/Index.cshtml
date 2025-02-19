@@ -32,11 +32,15 @@
                             </div>
                         </div>
                     </div>
+                    <hr />
+                    <div class="d-flex">
+                        <div class="col-md-6" style="visibility:hidden"> <h4 class="mb-0 number-font text-white">hjhfj</h4> </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
-            <div class="card overflow-hidden" style="background:#1170e4">
+        @* <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+            <div class="card overflow-hidden" style="background:#006266">
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="mt-2">
@@ -45,13 +49,18 @@
                         </div>
                         <div class="ms-auto">
                             <div class="chart-wrapper mt-1">
-                                <i class="side-menu__icon icon icon-people text-white" style="font-size:80px"></i>
+                                <i class="side-menu__icon fe fe-home text-white" style="font-size:80px"></i>
                             </div>
                         </div>
                     </div>
+                    <hr />
+                    <div class="d-flex">
+                        <div class="col-md-6"> <h4 class="mb-0 number-font text-white">Dân cư @ViewBag.TongDC</h4> </div>
+                        <div class="col-md-6"> <h4 class="mb-0 number-font text-white">Nghề nghiệp @ViewBag.TongNN</h4> </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </div> *@
         <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
             <div class="card overflow-hidden" style="background:#28c76f">
                 <div class="card-body">
@@ -65,6 +74,33 @@
                                 <i class="side-menu__icon icon icon-people text-white" style="font-size:80px"></i>
                             </div>
                         </div>
+                    </div>
+                    <hr />
+                    <div class="d-flex">
+                        <div class="col-md-6"> <h4 class="mb-0 number-font text-white">Dân cư @ViewBag.HoiVienDC</h4> </div>
+                        <div class="col-md-6"> <h4 class="mb-0 number-font text-white">Nghề nghiệp @ViewBag.HoiVienNN</h4> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+            <div class="card overflow-hidden" style="background:#1b2850">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="mt-2">
+                            <h3 class="text-white">Hội Viên Phát Triển</h3>
+                            <h2 class="mb-0 number-font text-white">@ViewBag.PhatTrien</h2>
+                        </div>
+                        <div class="ms-auto">
+                            <div class="chart-wrapper mt-1">
+                                <i class="side-menu__icon icon icon-people text-white" style="font-size:80px"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="d-flex">
+                        <div class="col-md-6"> <h4 class="mb-0 number-font text-white">Dân cư @ViewBag.PhatTrienDC</h4> </div>
+                        <div class="col-md-6"> <h4 class="mb-0 number-font text-white">Nghề nghiệp @ViewBag.PhatTrienNN</h4> </div>
                     </div>
                 </div>
             </div>
@@ -83,15 +119,67 @@
                             </div>
                         </div>
                     </div>
+                    <hr />
+                    <div class="d-flex">
+                        <div class="col-md-6"> <h4 class="mb-0 number-font text-white">Dân cư @ViewBag.GiamDC</h4> </div>
+                        <div class="col-md-6"> <h4 class="mb-0 number-font text-white">Nghề nghiệp @ViewBag.GiamNN</h4> </div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+            <div class="card overflow-hidden" style="background:#006266">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="mt-2">
+                            <h3 class="text-white">Chi hội</h3>
+                            <h2 class="mb-0 number-font text-white">Tổng @ViewBag.chiHoi</h2>
+                        </div>
+                        <div class="ms-auto">
+                            <div class="chart-wrapper mt-1">
+                                <i class="side-menu__icon fe fe-home text-white" style="font-size:80px"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="d-flex">
+               
+                        <div class="col-md-6"> <h4 class="mb-0 number-font text-white">Dân cư @ViewBag.chiHoiDC</h4> </div>
+                        <div class="col-md-6"> <h4 class="mb-0 number-font text-white">Nghề nghiệp @ViewBag.chiHoiNN</h4> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
+            <div class="card overflow-hidden" style="background:#4b6584">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="mt-2">
+                            <h3 class="text-white">Tổ hội</h3>
+                            <h2 class="mb-0 number-font text-white">Tổng @ViewBag.toHoi</h2> 
+                        </div>
+                        <div class="ms-auto">
+                            <div class="chart-wrapper mt-1">
+                                <i class="side-menu__icon fe fe-home text-white" style="font-size:80px"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="d-flex">
+
+                        <div class="col-md-6"> <h4 class="mb-0 number-font text-white">Dân cư @ViewBag.toHoiDC</h4> </div>
+                        <div class="col-md-6"> <h4 class="mb-0 number-font text-white">Nghề nghiệp @ViewBag.toHoiNN</h4> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Biến Động Hội Viên Tháng Hiện Tại</h3>
+                    <h3 class="card-title">Biến Động Hội Viên Tháng @DateTime.Now.ToString("MM-yyyy")</h3>
                 </div>
                 <div class="card-body">
                     <div class="chart-container">
@@ -127,5 +215,5 @@
     <script src="~/assets/plugins/chart/Chart.bundle.js"></script>
     <script src="~/assets/plugins/charts-c3/d3.v5.min.js"></script>
     <script src="~/assets/plugins/charts-c3/c3-chart.js"></script>
-    <script src="~/js/thongkehoivien.js"></script>
+    <script src="~/js/thongkehoivien.js?v'@DateTime.Now.ToString("HH_mm")'"></script>
 }

@@ -12,6 +12,10 @@ namespace HoiNongDan.Models
     {
         public Guid? ID { get; set; }
 
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TenTruong")]
+        public String TenTruong { get; set; }
+
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaLoaiBangCap")]
         public String MaLoaiBangCap { get; set; }
@@ -43,6 +47,7 @@ namespace HoiNongDan.Models
         public DaoTaoBoiDuong GetQuaTrinhDaoTao(DaoTaoBoiDuong obj)
         {
             obj.IDCanBo = this.NhanSu.IdCanbo!.Value;
+            obj.TenTruong = this.TenTruong;
             obj.MaHinhThucDaoTao = this.MaHinhThucDaoTao;
             obj.MaLoaiBangCap = this.MaLoaiBangCap;
             obj.TuNgay = this.TuNgay;

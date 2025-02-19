@@ -41,12 +41,18 @@ namespace HoiNongDan.Models
         public ICollection<LichSinhHoatChiToHoi> LichSinhHoatChiToHois { get; set; }
         public ICollection<PhatTrienDang> PhatTrienDangs { get; set; }
         public ICollection<DanhGiaToChucHoi> DanhGiaToChucHois { get; set; }
+        public ICollection<ToHoi> ToHois { get; set; }
+        public ICollection<ChiHoi> ChiHois { get; set; }
+        public ICollection<ToHoiNganhNghe_ChiHoiNganhNghe> ToHoiNganhNghe_ChiHoiNganhNghes { get; set; }
         public DiaBanHoatDong() {
             CanBos = new List<CanBo>();
             PhamVis = new List<PhamVi>();
             LichSinhHoatChiToHois = new List<LichSinhHoatChiToHoi>();
             PhatTrienDangs = new List<PhatTrienDang>();
             DanhGiaToChucHois = new List<DanhGiaToChucHoi>();
+            ToHois = new List<ToHoi>();
+            ChiHois = new List<ChiHoi>();
+            ToHoiNganhNghe_ChiHoiNganhNghes = new List<ToHoiNganhNghe_ChiHoiNganhNghe>();
         }
     }
 }

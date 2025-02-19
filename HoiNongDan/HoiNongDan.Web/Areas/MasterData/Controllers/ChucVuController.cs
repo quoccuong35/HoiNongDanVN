@@ -47,7 +47,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         [HoiNongDanAuthorization]
         [HttpGet]
         public IActionResult Create() { 
-            return View(new ChucVuVM());
+            return View(new ChucVuVM{ HoiVien = false });
         }
         [HoiNongDanAuthorization]
         [HttpPost]
@@ -87,6 +87,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 MaChucVu = item.MaChucVu,
                 TenChucVu = item.TenChucVu,
                 Actived = item.Actived,
+                HoiVien  = item.HoiVien,
                 OrderIndex = item.OrderIndex,
                 HeSoChucVu = item.HeSoChucVu,
                 Description = item.Description,

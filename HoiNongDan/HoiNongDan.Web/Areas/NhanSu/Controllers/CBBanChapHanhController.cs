@@ -570,5 +570,52 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
             return data;
         }
         #endregion Export
+
+        #region Delete
+        [HttpDelete]
+        [HoiNongDanAuthorization]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
+        {
+            return ExecuteDelete(() =>
+            {
+                var del = _context.CanBos.FirstOrDefault(p => p.IDCanBo == id);
+
+
+                if (del != null)
+                {
+                    //_context.Entry(accountInRoleModels).State = EntityState.Deleted;
+                    //_context.Entry(account).State = EntityState.Deleted;
+                    if (del.HinhAnh != null && del.HinhAnh != "")
+                    {
+                        string wwwRootPath = _hostEnvironment.WebRootPath;
+                        var oldImagePath = Path.Combine(wwwRootPath, del.HinhAnh!.TrimStart('\\'));
+                        if (System.IO.File.Exists(oldImagePath))
+                        {
+                            System.IO.File.Delete(oldImagePath);
+                        }
+                    }
+                    _context.Remove(del);
+                    _context.SaveChanges();
+
+                    return Json(new
+                    {
+                        Code = System.Net.HttpStatusCode.OK,
+                        Success = true,
+                        Data = string.Format(LanguageResource.Alert_Delete_Success, LanguageResource.CanBo.ToLower())
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        Code = System.Net.HttpStatusCode.NotModified,
+                        Success = false,
+                        Data = string.Format(LanguageResource.Alert_NotExist_Delete, LanguageResource.CanBo.ToLower())
+                    });
+                }
+            });
+        }
+        #endregion Delete
     }
 }

@@ -1,4 +1,4 @@
-﻿@model HoiVienSearchVM
+﻿@model HVDangKySearchVM
 @{
     ViewBag.Title = LanguageResource.List + LanguageResource.HVDangKy.ToLower();
     string CurrentController = ConstController.HVDangKy;
@@ -22,7 +22,11 @@
         <div class="d-flex px-2">
             @HtmlExtensions.ExportButton(CurrentArea, CurrentController, listRoles: listRoles)
             @HtmlExtensions.ImportButton(CurrentArea, CurrentController, listRoles: listRoles)
+           @*  <a class="btn btn-sm btn-danger-light me-2" data-bs-placement="bottom" data-bs-toggle="tooltip" title="" data-bs-original-title="Chọn điều kiện ngày để xóa" data-current-url="HoiVien/HoiVien">
+                <i class="fe fe-trash"></i> Xóa All
+            </a> *@
             @HtmlExtensions.CreateButton(CurrentArea, CurrentController, action: "Create", listRoles: listRoles)
+          
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -36,12 +40,12 @@
                     <form method="get" id="frmSearch" asp-action="_Search">
                         <div class="row my-2">
                             <div class="col-md-2">
-                                <label>Từ ngày</label>
-                                <input class="form-control" name="TuNgay" id="TuNgay" type="date" />
+                                <label asp-for="TuNgay"></label>
+                                <input type="date" asp-for="TuNgay" class="form-control">
                             </div>
                             <div class="col-md-2">
-                                <label>Đến ngày</label>
-                                <input class="form-control" name="DenNgay" id="DenNgay" type="date" />
+                                <label asp-for="DenNgay"></label>
+                                <input type="date" asp-for="DenNgay" class="form-control">
                             </div>
                             <div class="col-md-3">
                                 <label asp-for="MaQuanHuyen"></label>
@@ -51,6 +55,39 @@
                                 <label asp-for="MaDiaBanHoiVien"></label>
                                 @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
+                            <div class="col-md-2">
+                                <label asp-for="SoCCCD"></label>
+                                <input class="form-control" asp-for="SoCCCD" />
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="HoVaTen"></label>
+                                <input class="form-control" asp-for="HoVaTen" />
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="form-label">Trạng thái</label>
+                                    <div class="row">
+                                        <div class="col-3">
+                                            <input type="radio" class="custom-checked" value="" asp-for="TrangThai">
+                                            <span class="">Tất cả</span>
+                                        </div>
+                                        <div class="col-3">
+                                            <input type="radio" class="custom-checked" value="1" asp-for="TrangThai" checked>
+                                            <span class="">Chưa duyệt</span>
+                                        </div>
+                                        <div class="col-3">
+                                            <input type="radio" class="custom-checked" value="2" asp-for="TrangThai">
+                                            <span class="">Đã duyệt</span>
+                                        </div>
+                                        <div class="col-3">
+                                            <input type="radio" class="custom-checked" value="3" asp-for="TrangThai">
+                                            <span class="">Từ chối</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="col-md-2 d-flex align-items-end">
                                 @HtmlExtensions.SearchButton()
                             </div>

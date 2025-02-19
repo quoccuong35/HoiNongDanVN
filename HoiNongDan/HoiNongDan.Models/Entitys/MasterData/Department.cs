@@ -19,7 +19,9 @@ namespace HoiNongDan.Models
         public Nullable<int> OrderIndex { get; set; }
         public ICollection<CanBo> CanBos { get; set; }
         public Guid? IDCoSo { get; set; }
-        public CoSo CoSo { get; set; }
+      
+        public CoSo? CoSo { get; set; }
+        public Guid? IdParent { get; set; }
         public ICollection<QuaTrinhBoNhiem> QuaTrinhBoNhiems { get; set; }
         public ICollection<QuaTrinhMienNhiem> QuaTrinhMienNhiems { get; set; }
         public Department()

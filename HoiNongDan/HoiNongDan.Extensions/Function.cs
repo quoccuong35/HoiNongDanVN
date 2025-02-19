@@ -6,6 +6,8 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.Information;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -24,7 +26,7 @@ namespace HoiNongDan.Extensions
             }
             else
             {
-                return false; ;
+                return false;
             }
         }
 
@@ -174,5 +176,72 @@ namespace HoiNongDan.Extensions
                 return 0;
             }
         }
+
+        public static string XuatWordCongTac(string fileName, string fileNameSave, DataTable dtInt)
+        {
+            try
+            {
+                //    System.IO.File.Copy(fileName, fileNameSave, true);
+                //    using (var doc = DocX.Load(fileNameSave))
+                //    {
+                //        foreach (DataColumn item in dtInt.Columns)
+                //        {
+                //            if (item.DataType == typeof(DateTime))
+                //            {
+                //                try
+                //                {
+                //                    DateTime dtTemp = DateTime.Parse(dtInt.Rows[0]["" + item.ColumnName.ToString() + ""].ToString());
+                //                    doc.ReplaceText("rep" + item.ColumnName.ToString(), dtTemp.ToString("dd/MM/yyyy"));
+
+                //                }
+                //                catch (System.Exception)
+                //                {
+                //                    doc.ReplaceText("rep" + item.ColumnName.ToString(), dtInt.Rows[0]["" + item.ColumnName.ToString() + ""].ToString());
+                //                }
+                //            }
+
+                //            doc.ReplaceText("rep" + item.ColumnName.ToString(), dtInt.Rows[0]["" + item.ColumnName.ToString() + ""].ToString());
+                //        }
+                //        var table = doc.Tables.FirstOrDefault(t => t.TableCaption == "ThongTinNhanSu");
+                //        if (table != null)
+                //        {
+                //            string values = "";
+                //            for (int i = 0; i < table.RowCount; i++)
+                //            {
+                //                values = table.Rows[i].Paragraphs[1].Text;
+                //                table.Rows[i].Paragraphs[1].ReplaceText(values, dtInt.Rows[0][values].ToString());
+                //                values = table.Rows[i].Paragraphs[3].Text;
+                //                if (values != "")
+                //                    table.Rows[i].Paragraphs[3].ReplaceText(values, dtInt.Rows[0][values].ToString());
+                //            }
+                //        }
+                //        doc.Save();
+                //        doc.Dispose();
+                //    }
+                return fileNameSave;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message ;
+            }
+        }
+
+        public static DataTable AsDataTable<T>(this IEnumerable<T> data)
+        {
+            PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(T));
+            var table = new DataTable();
+            foreach (PropertyDescriptor prop in properties)
+                table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+            foreach (T item in data)
+            {
+                DataRow row = table.NewRow();
+                foreach (PropertyDescriptor prop in properties)
+                    row[prop.Name] = prop.GetValue(item) ?? DBNull.Value;
+                table.Rows.Add(row);
+            }
+            return table;
+        }
+
+
     }
 }

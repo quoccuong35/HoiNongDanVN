@@ -34,6 +34,12 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GioiTinh")]
         public GioiTinh GioiTinh { get; set; }
 
+        [MaxLength(12)]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
+        public String? SoCCCD { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayCapCCCD")]
+        public String? NgayCapCCCD { get; set; }
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
         public Guid? IdDepartment { get; set; }
@@ -61,8 +67,10 @@ namespace HoiNongDan.Models
         public string? NoiSinh { get; set; }
 
         [MaxLength(1000)]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChoOHienNay")]
+        [Display(Name = "Nơi cư trú")]
         public string? ChoOHienNay { get; set; }
+        public string? ChoOHienNay_XaPhuong { get; set; }
+        public string? ChoOHienNay_QuanHuyen { get; set; }
 
         //[DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayvaoDangDuBi")]
@@ -72,14 +80,19 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayVaoDangChinhThuc")]
         public string? NgayVaoDangChinhThuc { get; set; }
 
-        [MaxLength(500)]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChuyenNganh")]
-        public string? ChuyenNganh { get; set; }
+       
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoHocVan")]
+        public string? MaTrinhDoHocVan { get; set; }
 
         [MaxLength(20)]
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoChuyenMon")]
         public string? MaTrinhDoChuyenMon { get; set; }
+
+        [MaxLength(500)]
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChuyenNganh")]
+        public string? ChuyenNganh { get; set; }
+
 
         [MaxLength(50)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoChinhTri")]
@@ -157,16 +170,21 @@ namespace HoiNongDan.Models
             canBo.HoVaTen = this.HoVaTen;
             canBo.NgaySinh = this.NgaySinh;
             canBo.GioiTinh = this.GioiTinh;
+            canBo.SoCCCD = this.SoCCCD;
+            canBo.NgayCapCCCD = this.NgayCapCCCD;
             canBo.IdDepartment = this.IdDepartment;
             canBo.MaChucVu = this.MaChucVu;
             canBo.MaDanToc = this.MaDanToc;
             canBo.MaTonGiao = this.MaTonGiao;
             canBo.NoiSinh = this.NoiSinh;
             canBo.ChoOHienNay = this.ChoOHienNay;
+            canBo.ChoOHienNay_XaPhuong = this.ChoOHienNay_XaPhuong;
+            canBo.ChoOHienNay_QuanHuyen = this.ChoOHienNay_QuanHuyen;
             canBo.NgayvaoDangDuBi = this.NgayvaoDangDuBi;
             canBo.NgayVaoDangChinhThuc = this.NgayVaoDangChinhThuc;
-            canBo.ChuyenNganh = this.ChuyenNganh;
+            canBo.MaTrinhDoHocVan = this.MaTrinhDoHocVan;
             canBo.MaTrinhDoChuyenMon = this.MaTrinhDoChuyenMon;
+            canBo.ChuyenNganh = this.ChuyenNganh;
             canBo.MaTrinhDoChinhTri = this.MaTrinhDoChinhTri;
             canBo.MaTrinhDoNgoaiNgu = this.MaTrinhDoNgoaiNgu;
             canBo.MaTrinhDoTinHoc = this.MaTrinhDoTinHoc;
@@ -197,16 +215,22 @@ namespace HoiNongDan.Models
             canBo.HoVaTen = obj.HoVaTen;
             canBo.NgaySinh = obj.NgaySinh;
             canBo.GioiTinh = obj.GioiTinh;
+            canBo.SoCCCD = obj.SoCCCD;
+            canBo.NgayCapCCCD = obj.NgayCapCCCD;
             canBo.IdDepartment = obj.IdDepartment;
             canBo.MaChucVu = obj.MaChucVu;
             canBo.MaDanToc = obj.MaDanToc;
             canBo.MaTonGiao = obj.MaTonGiao;
             canBo.NoiSinh = obj.NoiSinh;
             canBo.ChoOHienNay = obj.ChoOHienNay;
+            canBo.ChoOHienNay_XaPhuong = obj.ChoOHienNay_XaPhuong;
+            canBo.ChoOHienNay_QuanHuyen = obj.ChoOHienNay_QuanHuyen;
             canBo.NgayvaoDangDuBi = obj.NgayvaoDangDuBi;
             canBo.NgayVaoDangChinhThuc = obj.NgayVaoDangChinhThuc;
-            canBo.ChuyenNganh = obj.ChuyenNganh;
+
+            canBo.MaTrinhDoHocVan = obj.MaTrinhDoHocVan;
             canBo.MaTrinhDoChuyenMon = obj.MaTrinhDoChuyenMon;
+            canBo.ChuyenNganh = obj.ChuyenNganh;
             canBo.MaTrinhDoChinhTri = obj.MaTrinhDoChinhTri;
             canBo.MaTrinhDoNgoaiNgu = obj.MaTrinhDoNgoaiNgu;
             canBo.MaTrinhDoTinHoc = obj.MaTrinhDoTinHoc;

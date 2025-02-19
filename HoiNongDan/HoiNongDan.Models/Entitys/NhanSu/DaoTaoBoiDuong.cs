@@ -16,6 +16,9 @@ namespace HoiNongDan.Models.Entitys
         public DateTime? TuNgay { get; set; }
         public DateTime? DenNgay { get; set; }
 
+        [MaxLength(500)]
+        public String? TenTruong { get; set; }
+
         [MaxLength(50)]
         public String MaHinhThucDaoTao { get; set; }
         public HinhThucDaoTao HinhThucDaoTao { get; set; }

@@ -7,7 +7,7 @@
     string CurrentArea = ConstArea.HoiVien;
     string listRoles = User.FindFirst("Roles")!.Value;
     listRoles = listRoles == null ? "" : listRoles;
-    int stt = 0;
+    int stt = 0; string css = "";
 }
 <table id="data-list" class="table border text-nowrap text-md-nowrap table-striped mb-0">
     <thead class="table-primary">
@@ -24,13 +24,19 @@
         @foreach (var item in Model)
         {
             stt++;
-            <tr>
+            css = "";
+            @if (item.Ten.ToLower().Contains("tổng"))
+            {
+                css = "font-size:14px;font-weight:bold";
+
+            }
+            <tr style="@css">
                 <td class="text-center">@stt</td>
                 <td class="">@item.Ten</td>
-                <td class="text-center">@item.SL</td>
-                <td class="text-center">@item.ThemMoi</td>
-                <td class="text-center">@item.Giam</td>
-                <td class="text-center">@item.ChoDuyet</td>
+                <td class="text-center">@item.SL.ToString("N0")</td>
+                <td class="text-center">@item.ThemMoi.ToString("N0") </td>
+                <td class="text-center">@item.Giam.ToString("N0")</td>
+                <td class="text-center">@item.ChoDuyet.ToString("N0")</td>
             </tr>
         }
     </tbody>

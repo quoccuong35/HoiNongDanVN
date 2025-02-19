@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using HoiNongDan.Models.ViewModels.Masterdata;
 using HoiNongDan.Web.Areas.NhanSu.Models;
 using System.IO;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HoiNongDan.Web.Areas.MasterData.Controllers
 {
@@ -84,6 +85,8 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
         public IActionResult Create()
         {
             ToHoiNganhNghe_ChiHoiNganhNgheVM model = new ToHoiNganhNghe_ChiHoiNganhNgheVM();
+            model.NgheNghiep = false;
+            CreateViewBag();
             return View(model);
         }
         
@@ -105,6 +108,10 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 add.OrderIndex = obj.OrderIndex;
                 add.CreatedAccountId = AccountId();
                 add.CreatedTime = DateTime.Now;
+                add.MaDiaBanHoatDong = obj.MaDiaBanHoatDong;     
+                add.NgheNghiep = obj.NgheNghiep;     
+                add.NgayGiam = obj.NgayGiam;     
+                add.LyDoGiam = obj.LyDoGiam;     
                 add.Actived = true;
                 FileDinhKemModel addFile = new FileDinhKemModel();
                 if (fileInbox != null)
@@ -148,6 +155,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
             {
                 Ma_ToHoiNganhNghe_ChiHoiNganhNghe = edit.Ma_ToHoiNganhNghe_ChiHoiNganhNghe,
                 Ten = edit.Ten,
+                NgheNghiep = edit.NgheNghiep == null?false:edit.NgheNghiep.Value,
                 Actived = edit.Actived,
                 NgayThanhLap = edit.NgayThanhLap,
                 OrderIndex = edit.OrderIndex,
@@ -155,6 +163,7 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                 Description = edit.Description,
                 FileDinhKem = file,
             };
+            CreateViewBag(edit.MaDiaBanHoatDong);
             return View(model);
         }
         [HttpPost]
@@ -180,9 +189,14 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
                     edit.Ten = obj.Ten;
                     edit.Actived = obj.Actived;
                     edit.Loai = obj.Loai;
+                    edit.NgheNghiep = obj.NgheNghiep;
                     edit.NgayThanhLap = obj.NgayThanhLap;
                     edit.OrderIndex = obj.OrderIndex;
                     edit.Description = obj.Description;
+                    edit.MaDiaBanHoatDong = obj.MaDiaBanHoatDong;
+                    edit.NgheNghiep = obj.NgheNghiep;
+                    edit.NgayGiam = obj.NgayGiam;
+                    edit.LyDoGiam = obj.LyDoGiam;
                     edit.LastModifiedAccountId = AccountId();
                     edit.LastModifiedTime = DateTime.Now;
                     FileDinhKemModel addFile = new FileDinhKemModel();
@@ -260,5 +274,14 @@ namespace HoiNongDan.Web.Areas.MasterData.Controllers
 
         }
         #endregion Delete
+        #region Helper
+        private void CreateViewBag(Guid? MaDiaBanHoatDong = null)
+        {
+            var diaBanHois = _context.PhamVis.Where(it => it.AccountId == AccountId()).ToList().Select(it => it.MaDiabanHoatDong).ToList();
+
+            var diaBan = _context.DiaBanHoatDongs.Where(it => diaBanHois.Contains(it.Id)).Include(it => it.QuanHuyen).Select(it => new { MaDiaBanHoatDong = it.Id, Ten = it.QuanHuyen.TenQuanHuyen + " " + it.TenDiaBanHoatDong }).ToList();
+            ViewBag.MaDiaBanHoatDong = new SelectList(diaBan, "MaDiaBanHoatDong", "Ten", MaDiaBanHoatDong);
+        }
+        #endregion Helper
     }
 }

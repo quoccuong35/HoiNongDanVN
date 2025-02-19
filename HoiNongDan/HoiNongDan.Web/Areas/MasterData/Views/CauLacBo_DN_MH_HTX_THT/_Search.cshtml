@@ -29,8 +29,11 @@
         @foreach (var item in Model)
         {
             i++;
-            loai = item.Loai.Replace("01", "Câu lạc bộ").Replace("02", "Đội nhóm").Replace("03", "Mô hình")
-            .Replace("04", "Hợp tác xã").Replace("05", "Tổ hợp tác");
+            if (!String.IsNullOrEmpty(item.Loai))
+            {
+                loai = item.Loai.Replace("01", "Câu lạc bộ").Replace("02", "Đội nhóm").Replace("03", "Mô hình")
+                .Replace("04", "Hợp tác xã").Replace("05", "Tổ hợp tác");
+            }
             <tr>
                 <td class="text-center">@i</td>
                 <td>@Html.DisplayFor(p => item.Ten)</td>

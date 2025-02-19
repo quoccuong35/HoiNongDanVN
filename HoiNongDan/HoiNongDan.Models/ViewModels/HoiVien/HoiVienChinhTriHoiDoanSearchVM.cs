@@ -20,8 +20,12 @@ namespace HoiNongDan.Models
         public Guid? MaDoanTheChinhTri_HoiDoan { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         public String? HoVaTen { get; set; }
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHoiVien")]
-        public String? MaHoiVien { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
+        public String? SoCCCD { get; set; }
+
+
+        [Display(Name = "Tên đoàn thể chính trị-Hội đoàn khác")]
+        public String? TenDoanThe { get; set; }
 
     }
     public class HoiVienChinhTriHoiDoanDetailVM: HoiVienDetailVM

@@ -130,8 +130,8 @@ namespace HoiNongDan.Models
         [Display(Name ="Danh hiệu khen thưởng")]
         public string? MaDanhHieuKhenThuong { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHoiVien")]
-        public string? MaCanBo { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
+        public string? SoCCCD { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         public string? HoVaTen { get; set; }

@@ -63,7 +63,8 @@ namespace HoiNongDan.Models
         [Display(Name = "Lớp đào tạo, tập huấn")]
         public String? TenLopHoc { get; set; }
 
-        public String? TienVay { get; set; }
+        [Display(Name = "Ghi chú")]
+        public String? GhiChu { get; set; }
     }
     public class HVHoTroSearchVM {
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "QuanHuyen")]
@@ -73,8 +74,8 @@ namespace HoiNongDan.Models
         public Guid? MaDiaBanHoiVien { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NamVayVon")]
         public int? NamVayVon { get; set; }
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaHV")]
-        public String MaHV { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
+        public String SoCCCD { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TenHV")]
         public String TenHV { get; set; }
         public bool? Actived { get; set; }

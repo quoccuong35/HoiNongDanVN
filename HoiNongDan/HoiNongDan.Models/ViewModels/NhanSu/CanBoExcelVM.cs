@@ -188,11 +188,13 @@ namespace HoiNongDan.Models
         public string NoiSinh { get; set; }
 
    
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChoOHienNay")]
+        [Display(Name = "Nơi cư trú")]
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string ChoOHienNay { get; set; }
+        public string ChoOHienNay_XaPhuong { get; set; }
+        public string ChoOHienNay_QuanHuyen { get; set; }
 
-       // [DataType(DataType.Date)]
+        // [DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayvaoDangDuBi")]
         public string? NgayvaoDangDuBi { get; set; }
 

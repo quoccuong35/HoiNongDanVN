@@ -55,13 +55,15 @@ namespace HoiNongDan.Models
 
     public class CanBoBanChapHanhQuanCacThoiKy 
     {
-        public Guid ID { get; set; }
-
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaCanBo")]
-        public string? MaCanBo { get; set; }
-
+        public int STT { get; set; }
+        public Guid? ID { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         public string HoVaTen { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
+        public string SoCCCD { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoDienThoai")]
+        public string SoDienThoai { get; set; }
 
         [Display(ResourceType = typeof(HoiNongDan.Resources.LanguageResource), Name = "ChucVu")]
         public string TenChucVu { get; set; }
@@ -78,7 +80,6 @@ namespace HoiNongDan.Models
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVuHienNay")]
         public string ChucVuHienNay { get; set; }
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoDienThoai")]
-        public string SoDienThoai { get; set; }
+      
     }
 }

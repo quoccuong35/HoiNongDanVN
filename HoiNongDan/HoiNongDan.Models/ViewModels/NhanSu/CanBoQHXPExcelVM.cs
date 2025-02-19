@@ -20,20 +20,23 @@ namespace HoiNongDan.Models
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string HoVaTen { get; set; }
 
-
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GioiTinh")]
+        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
+        public bool GioiTinh { get; set; }
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgaySinh")]
         //[DataType(DataType.Date)]
         public String? NgaySinh { get; set; }
 
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GioiTinh")]
-        [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
-        public bool GioiTinh { get; set; }
 
-        //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
-        //[Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
-        //public string TenDonVi { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
+        public String? SoCCCD { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayCapCCCD")]
+        public String? NgayCapCCCD { get; set; }
+
 
         [Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
@@ -53,9 +56,11 @@ namespace HoiNongDan.Models
         public string? NoiSinh { get; set; }
 
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChoOHienNay")]
+        [Display(Name ="Nơi cư trú")]
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string? ChoOHienNay { get; set; }
+        public string? ChoOHienNay_XaPhuong { get; set; }
+        public string? ChoOHienNay_QuanHuyen { get; set; }
 
         //[DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayvaoDangDuBi")]
@@ -64,6 +69,14 @@ namespace HoiNongDan.Models
         //[DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayVaoDangChinhThuc")]
         public string? NgayVaoDangChinhThuc { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoHocVan")]
+        public string? MaTrinhDoHocVan { get; set; }
+
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoChuyenMon")]
+        public string? MaTrinhDoChuyenMon { get; set; }
+
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChuyenNganh")]
         public string ChuyenNganh { get; set; }
@@ -96,10 +109,10 @@ namespace HoiNongDan.Models
         [Display(Name = "Đảng ủy viên")]
         public string? DangUyVien { get; set; }
 
-        [Display(Name = "HĐNN Cấp huyện")]
+        [Display(Name = "HĐND Cấp huyện")]
         public string? HDNNCapHuyen { get; set; }
 
-        [Display(Name = "HĐNN Cấp xã")]
+        [Display(Name = "HĐND Cấp xã")]
         public string? HDNNCapXa { get; set; }
 
         [Display(Name = "NVCT Hội do TW")]

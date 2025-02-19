@@ -277,6 +277,10 @@ namespace HoiNongDan.Models
 
         [MaxLength(1000)]
         public String? LyDoTuChoi { get; set; }
+        public String? HoKhauThuongTru_XaPhuong { get; set; }
+        public String? HoKhauThuongTru_QuanHuyen { get; set; }
+        public String? ChoOHienNay_XaPhuong { get; set; }
+        public String? ChoOHienNay_QuanHuyen { get; set; }
 
         public DateTime? NgayTuChoi { get; set; }
         public Guid? AccountIdTuChoi { get; set; }
@@ -291,7 +295,6 @@ namespace HoiNongDan.Models
         public Guid? LastModifiedAccountId { get; set; }
         public DateTime? LastModifiedTime { get; set; }
         public ICollection<QuanHeGiaDinh> QuanHeGiaDinhs { get; set; }
-        public ICollection<QuanHeGiaDinh> HVQuanHeGiaDinhs { get; set; }
         public ICollection<QuaTrinhKhenThuong> QuaTrinhKhenThuongs { get; set; }
         public ICollection<QuaTrinhKyLuat> QuaTrinhKyLuats { get; set; }
         public ICollection<QuaTrinhBoNhiem> QuaTrinhBoNhiems { get; set; }
@@ -317,7 +320,6 @@ namespace HoiNongDan.Models
         public virtual ICollection<PhatTrienDang_HoiVien> PhatTrienDang_HoiViens { get; set; }
         public CanBo() {
             QuanHeGiaDinhs = new List<QuanHeGiaDinh>();
-            HVQuanHeGiaDinhs = new List<QuanHeGiaDinh>();
             QuaTrinhKhenThuongs = new List<QuaTrinhKhenThuong>();
             QuaTrinhKyLuats = new List<QuaTrinhKyLuat>();
             DaoTaoBoiDuongs = new List<DaoTaoBoiDuong>();

@@ -148,6 +148,11 @@ namespace HoiNongDan.Models
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         public string? MaHeDaoTao { get; set; }
 
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoHocVan")]
+        [MaxLength(50)]
+        public string? MaTrinhDoHocVan { get; set; }
+
         [MaxLength(20)]
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required_Dropdownlist")]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoChuyenMon")]
@@ -156,6 +161,10 @@ namespace HoiNongDan.Models
         [MaxLength(500)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChuyenNganh")]
         public string? ChuyenNganh { get; set; }
+
+
+        [Display(Name = "Thời gian bổ nhiệm")]
+        public string? SoQuyetDinhBoNhiem { get; set; }
 
         [MaxLength(50)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "TrinhDoTinHoc")]
@@ -190,9 +199,11 @@ namespace HoiNongDan.Models
         public string? NoiSinh { get; set; }
 
         [MaxLength(1000)]
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChoOHienNay")]
+        [Display(Name = "Nơi cư trú")]
         //[Required(ErrorMessageResourceType = typeof(Resources.LanguageResource), ErrorMessageResourceName = "Required")]
         public string? ChoOHienNay { get; set; }
+        public string? ChoOHienNay_XaPhuong { get; set; }
+        public string? ChoOHienNay_QuanHuyen { get; set; }
 
        // [DataType(DataType.Date)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayvaoDangDuBi")]
@@ -216,6 +227,16 @@ namespace HoiNongDan.Models
         [MaxLength(2000)]
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "GhiChu")]
         public string? GhiChu { get; set; }
+
+        [MaxLength(2000)]
+        [Display(Name = "Kết quả đánh giá CBCC")]
+        public string? DanhGiaCBCC { get; set; }
+
+
+        [MaxLength(2000)]
+        [Display(Name = "Kết quả đánh giá Đảng viên")]
+        public string? DanhGiaDangVien { get; set; }
+
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "BanChapHanh")]
         public bool IsBanChapHanh { get; set; } = false;
@@ -257,6 +278,8 @@ namespace HoiNongDan.Models
             add.NgayThamGiaCongTac = this.NgayThamGiaCongTac;
             add.MaHeDaoTao = this.MaHeDaoTao;
             add.MaTrinhDoChuyenMon = this.MaTrinhDoChuyenMon;
+            add.MaTrinhDoHocVan = this.MaTrinhDoHocVan;
+            add.SoQuyetDinhBoNhiem = this.SoQuyetDinhBoNhiem;
             add.ChuyenNganh = this.ChuyenNganh;
             add.MaTrinhDoTinHoc = this.MaTrinhDoTinHoc;
             add.MaTrinhDoNgoaiNgu = this.MaTrinhDoNgoaiNgu;
@@ -275,7 +298,11 @@ namespace HoiNongDan.Models
             add.SoBHXH = this.SoBHXH;
             add.SoBHYT = this.SoBHYT;
             add.GhiChu = this.GhiChu;
+            add.DanhGiaCBCC = this.DanhGiaCBCC;
+            add.DanhGiaDangVien = this.DanhGiaDangVien;
             add.ChoOHienNay = this.ChoOHienNay;
+            add.ChoOHienNay_XaPhuong = this.ChoOHienNay_XaPhuong;
+            add.ChoOHienNay_QuanHuyen = this.ChoOHienNay_QuanHuyen;
             add.MaPhanHe = this.MaPhanHe;
             add.IsCanBo = true;
 
@@ -295,7 +322,7 @@ namespace HoiNongDan.Models
             edit.NgayCapCCCD = item.NgayCapCCCD;
             edit.MaTinhTrang = item.MaTinhTrang;
             //edit.IdCoSo = item.IdCoSo.Value;
-            edit.IdDepartment = item.IdDepartment!.Value;
+            edit.IdDepartment = item.IdDepartment;
             edit.MaChucVu = item.MaChucVu;
             edit.DonVi = item.DonVi;
             edit.SoDienThoai = item.SoDienThoai;
@@ -314,6 +341,8 @@ namespace HoiNongDan.Models
             edit.NgayThamGiaCongTac = item.NgayThamGiaCongTac;
             edit.MaHeDaoTao = item.MaHeDaoTao;
             edit.MaTrinhDoChuyenMon = item.MaTrinhDoChuyenMon;
+            edit.MaTrinhDoHocVan = item.MaTrinhDoHocVan!;
+            edit.SoQuyetDinhBoNhiem = item.SoQuyetDinhBoNhiem;
             edit.ChuyenNganh = item.ChuyenNganh;
             edit.MaTrinhDoTinHoc = item.MaTrinhDoTinHoc;
             edit.MaTrinhDoNgoaiNgu = item.MaTrinhDoNgoaiNgu;
@@ -332,7 +361,11 @@ namespace HoiNongDan.Models
             edit.SoBHXH = item.SoBHXH;
             edit.SoBHYT = item.SoBHYT;
             edit.GhiChu = item.GhiChu;
+            edit.DanhGiaCBCC = item.DanhGiaCBCC;
+            edit.DanhGiaDangVien = item.DanhGiaDangVien;
             edit.ChoOHienNay = item.ChoOHienNay;
+            edit.ChoOHienNay_XaPhuong = item.ChoOHienNay_XaPhuong;
+            edit.ChoOHienNay_QuanHuyen = item.ChoOHienNay_QuanHuyen;
             edit.MaPhanHe = item.MaPhanHe;
             edit.HinhAnh = item.HinhAnh;
             
@@ -357,6 +390,8 @@ namespace HoiNongDan.Models
             //item.IdCoSo = this.IdCoSo;
             item.IdDepartment = this.IdDepartment;
             item.MaChucVu = this.MaChucVu.Value;
+            item.DonVi = this.DonVi;
+            item.SoQuyetDinhBoNhiem = this.SoQuyetDinhBoNhiem;
             item.SoDienThoai = this.SoDienThoai;
             item.Email = this.Email;
             item.MaNgachLuong = this.MaNgachLuong;
@@ -371,8 +406,9 @@ namespace HoiNongDan.Models
             item.NgayVaoBienChe = this.NgayVaoBienChe;
             item.NgayThamGiaCongTac = this.NgayThamGiaCongTac;
             item.IsBanChapHanh = this.IsBanChapHanh ;
-            item.MaHeDaoTao = this.MaHeDaoTao;
+            //item.MaHeDaoTao = this.MaHeDaoTao;
             item.MaTrinhDoChuyenMon = this.MaTrinhDoChuyenMon;
+            item.MaTrinhDoHocVan = this.MaTrinhDoHocVan;
             item.ChuyenNganh = this.ChuyenNganh;
             item.MaTrinhDoTinHoc = this.MaTrinhDoTinHoc;
             item.MaTrinhDoNgoaiNgu = this.MaTrinhDoNgoaiNgu;
@@ -391,7 +427,12 @@ namespace HoiNongDan.Models
             item.SoBHXH = this.SoBHXH;
             item.SoBHYT = this.SoBHYT;
             item.GhiChu = this.GhiChu;
+
+            item.DanhGiaCBCC = this.DanhGiaCBCC;
+            item.DanhGiaDangVien = this.DanhGiaDangVien;
             item.ChoOHienNay = this.ChoOHienNay;
+            item.ChoOHienNay_XaPhuong = this.ChoOHienNay_XaPhuong;
+            item.ChoOHienNay_QuanHuyen = this.ChoOHienNay_QuanHuyen;
             item.MaPhanHe = this.MaPhanHe;
             item.DonVi = this.DonVi;
             return item;

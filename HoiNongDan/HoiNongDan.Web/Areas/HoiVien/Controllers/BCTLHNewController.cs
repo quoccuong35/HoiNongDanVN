@@ -25,24 +25,26 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         }
         #region Index
         [HoiNongDanAuthorization]
-        public IActionResult Index()
+        public IActionResult Index(BCTLHNewSearchVM searchVM)
         {
             CreateViewBagSearch();
-            return View();
+            searchVM.TuNgay = StartOfQuarter();
+            searchVM.DenNgay = EndOfQuarter();
+            return View(searchVM);
         }
         [HoiNongDanAuthorization]
-        public IActionResult _Search(string? MaQuanHuyen, Guid? MaDiaBanHoiVien,DateTime? DenNgay)
+        public IActionResult _Search(BCTLHNewSearchVM searchVM)
         {
             return ExecuteSearch(() => {
-                var model = LoadData(MaQuanHuyen: MaQuanHuyen, MaDiaBanHoatDong: MaDiaBanHoiVien,DenNgay:DenNgay);
+                var model = LoadData(searchVM);
                 return PartialView(model);
             });
         }
-        public IActionResult ExportEdit(String? MaQuanHuyen, Guid? MaDiaBanHoatDong, DateTime? DenNgay)
+        public IActionResult ExportEdit(BCTLHNewSearchVM searchVM)
         {
             string wwwRootPath = _hostEnvironment.WebRootPath;
             var url = Path.Combine(wwwRootPath, @"upload\filemau\ThongKeBienToChucHoiHoiVien.xlsx");
-            var data = LoadData(MaQuanHuyen: MaQuanHuyen, MaDiaBanHoatDong: MaDiaBanHoatDong, DenNgay: DenNgay);
+            var data = LoadData(searchVM);
             byte[] filecontent;
             bool bold = false;
             using (ExcelPackage package = new ExcelPackage(new System.IO.FileInfo(url), false))
@@ -120,19 +122,81 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             ViewBag.MaQuanHuyen = fnViewBag.QuanHuyen(idAc: AccountId(), value: maQuanHuyen);
 
         }
-        private List<BCTLHNew> LoadData(string? MaQuanHuyen, Guid? MaDiaBanHoatDong, DateTime? DenNgay) {
+        private List<BCTLHNew> LoadData(BCTLHNewSearchVM searchVM) {
             DateTime dateNow = DateTime.Now;
-            DenNgay = DenNgay == null ? dateNow : DenNgay;
-            DateTime firstDay = new DateTime(DenNgay!.Value.Year, 1, 1);
-            if (String.IsNullOrWhiteSpace(MaQuanHuyen))
-                MaQuanHuyen = "";
+            searchVM.DenNgay = searchVM.DenNgay == null ? dateNow : searchVM.DenNgay;
+            DateTime firstDay = searchVM.TuNgay != null? searchVM.TuNgay.Value : new DateTime(searchVM.DenNgay!.Value.Year, 1, 1);
+            if (String.IsNullOrWhiteSpace(searchVM.MaQuanHuyen))
+                searchVM.MaQuanHuyen = "";
             string id = "";
-            if (MaDiaBanHoatDong != null)
-                id = MaDiaBanHoatDong.ToString();
-            var model = _context.ThongKeBien_ToChucHoi_HoiViens.FromSqlRaw("EXEC  dbo.BaoCaoThuLucHoiNew @tungay = '" + firstDay.ToString("yyyy-MM-dd") + "',@denngay = '" + DenNgay.Value.ToString("yyyy-MM-dd") + "',@maquanhuyen ='" + MaQuanHuyen+"',@id ='"+id+ "',@AccountId='"+AccountId().ToString()+"'").ToList();
+            if (searchVM.MaDiaBanHoiVien != null)
+                id = searchVM.MaDiaBanHoiVien.ToString();
+            var model = _context.ThongKeBien_ToChucHoi_HoiViens.FromSqlRaw("EXEC  dbo.BaoCaoThuLucHoiNew @tungay = '" + firstDay.ToString("yyyy-MM-dd") + "',@denngay = '" + searchVM.DenNgay.Value.ToString("yyyy-MM-dd") + "',@maquanhuyen ='" + searchVM.MaQuanHuyen + "',@id ='"+id+ "',@AccountId='"+AccountId().ToString()+"'").ToList();
 
             List<BCTLHNew> data = new List<BCTLHNew>();
-            if (String.IsNullOrWhiteSpace(MaQuanHuyen) && MaDiaBanHoatDong == null)
+            if (searchVM.MaDiaBanHoiVien != null)
+            {
+                data = model.GroupBy(it => new { it.TenDiaBanHoatDong }).Select(p => new BCTLHNew
+                {
+                    Cot2 = p.Key.TenDiaBanHoatDong,
+                    Cot3 = p.Sum(it => it.Cot3),
+                    Cot4 = p.Sum(it => it.Cot4),
+                    Cot5 = p.Sum(it => it.Cot5),
+                    Cot6 = p.Sum(it => it.Cot6),
+                    Cot7 = p.Sum(it => it.Cot7),
+                    Cot8 = p.Sum(it => it.Cot8),
+                    Cot9 = p.Sum(it => it.Cot9),
+                    Cot10 = p.Sum(it => it.Cot10),
+                    Cot11 = p.Sum(it => it.Cot11),
+                    Cot12 = p.Sum(it => it.Cot12),
+                    Cot13 = p.Sum(it => it.Cot13),
+                    Cot14 = p.Sum(it => it.Cot14),
+                    Cot15 = p.Sum(it => it.Cot15),
+                    Cot16 = p.Sum(it => it.Cot16),
+                    Cot17 = p.Sum(it => it.Cot17),
+                    Cot18 = p.Sum(it => it.Cot18),
+                    Cot19 = p.Sum(it => it.Cot19),
+                    Cot20 = p.Sum(it => it.Cot20),
+                    Cot21 = p.Sum(it => it.Cot21),
+                    Cot22 = p.Sum(it => it.Cot22),
+                    Cot23 = p.Sum(it => it.Cot23),
+                    Cot24 = p.Sum(it => it.Cot24),
+                    Cot25 = p.Sum(it => it.Cot25),
+                    Cot26 = p.Sum(it => it.Cot26),
+                }).ToList();
+            }
+            else if (!String.IsNullOrWhiteSpace(searchVM.MaQuanHuyen))
+            {
+                data = model.GroupBy(it => new { it.TenDiaBanHoatDong }).Select(p => new BCTLHNew
+                {
+                    Cot2 = p.Key.TenDiaBanHoatDong,
+                    Cot3 = p.Sum(it => it.Cot3),
+                    Cot4 = p.Sum(it => it.Cot4),
+                    Cot5 = p.Sum(it => it.Cot5),
+                    Cot6 = p.Sum(it => it.Cot6),
+                    Cot7 = p.Sum(it => it.Cot7),
+                    Cot8 = p.Sum(it => it.Cot8),
+                    Cot9 = p.Sum(it => it.Cot9),
+                    Cot10 = p.Sum(it => it.Cot10),
+                    Cot11 = p.Sum(it => it.Cot11),
+                    Cot12 = p.Sum(it => it.Cot12),
+                    Cot13 = p.Sum(it => it.Cot13),
+                    Cot14 = p.Sum(it => it.Cot14),
+                    Cot15 = p.Sum(it => it.Cot15),
+                    Cot16 = p.Sum(it => it.Cot16),
+                    Cot17 = p.Sum(it => it.Cot17),
+                    Cot18 = p.Sum(it => it.Cot18),
+                    Cot19 = p.Sum(it => it.Cot19),
+                    Cot20 = p.Sum(it => it.Cot20),
+                    Cot21 = p.Sum(it => it.Cot21),
+                    Cot22 = p.Sum(it => it.Cot22),
+                    Cot23 = p.Sum(it => it.Cot23),
+                    Cot24 = p.Sum(it => it.Cot24),
+                    Cot25 = p.Sum(it => it.Cot25),
+                    Cot26 = p.Sum(it => it.Cot26),
+                }).ToList();
+            }
+            else if (String.IsNullOrWhiteSpace(searchVM.MaQuanHuyen) )
             {
                 List<Guid> pass = new List<Guid>();
                 pass.Add(Guid.Parse("662ac072-fece-41e2-9a5e-e47c362d10cb"));
@@ -166,8 +230,6 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     Cot24 = p.Sum(it => it.Cot24),
                     Cot25 = p.Sum(it => it.Cot25),
                     Cot26 = p.Sum(it => it.Cot26),
-                    
-
                 }).ToList();
                 var dataTam = model.Where(it => pass.Contains(it.MaDiabanHoatDong)).GroupBy(it => new { it.TenDiaBanHoatDong }).Select(p => new BCTLHNew
                 {
@@ -196,70 +258,40 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                     Cot24 = p.Sum(it => it.Cot24),
                     Cot25 = p.Sum(it => it.Cot25),
                     Cot26 = p.Sum(it => it.Cot26),
-                    
-
                 }).ToList();
                 data.AddRange(dataTam);
             }
-            else if (!String.IsNullOrWhiteSpace(MaQuanHuyen) && MaDiaBanHoatDong == null) {
-                data = model.GroupBy(it => new { it.TenDiaBanHoatDong }).Select(p => new BCTLHNew
-                {
-                    Cot2 = p.Key.TenDiaBanHoatDong,
-                    Cot3 = p.Sum(it => it.Cot3),
-                    Cot4 = p.Sum(it => it.Cot4),
-                    Cot5 = p.Sum(it => it.Cot5),
-                    Cot6 = p.Sum(it => it.Cot6),
-                    Cot7 = p.Sum(it => it.Cot7),
-                    Cot8 = p.Sum(it => it.Cot8),
-                    Cot9 = p.Sum(it => it.Cot9),
-                    Cot10 = p.Sum(it => it.Cot10),
-                    Cot11 = p.Sum(it => it.Cot11),
-                    Cot12 = p.Sum(it => it.Cot12),
-                    Cot13 = p.Sum(it => it.Cot13),
-                    Cot14 = p.Sum(it => it.Cot14),
-                    Cot15 = p.Sum(it => it.Cot15),
-                    Cot16 = p.Sum(it => it.Cot16),
-                    Cot17 = p.Sum(it => it.Cot17),
-                    Cot18 = p.Sum(it => it.Cot18),
-                    Cot19 = p.Sum(it => it.Cot19),
-                    Cot20 = p.Sum(it => it.Cot20),
-                    Cot21 = p.Sum(it => it.Cot21),
-                    Cot22 = p.Sum(it => it.Cot22),
-                    Cot23 = p.Sum(it => it.Cot23),
-                    Cot24 = p.Sum(it => it.Cot24),
-                    Cot25 = p.Sum(it => it.Cot25),
-                    Cot26 = p.Sum(it => it.Cot26),
-                }).ToList();
-            }
+            if (data.Count > 0 && searchVM.MaDiaBanHoiVien == null) {
                 BCTLHNew tong = new BCTLHNew();
+                tong.Cot2 = "Tổng cộng";
+                tong.Cot3 = data.Sum(it => it.Cot3);
+                tong.Cot4 = data.Sum(it => it.Cot4);
+                tong.Cot5 = data.Sum(it => it.Cot5);
+                tong.Cot6 = data.Sum(it => it.Cot6);
+                tong.Cot7 = data.Sum(it => it.Cot7);
+                tong.Cot8 = data.Sum(it => it.Cot8);
+                tong.Cot9 = data.Sum(it => it.Cot9);
+                tong.Cot10 = data.Sum(it => it.Cot10);
+                tong.Cot11 = data.Sum(it => it.Cot11);
+                tong.Cot12 = data.Sum(it => it.Cot12);
+                tong.Cot13 = data.Sum(it => it.Cot13);
+                tong.Cot14 = data.Sum(it => it.Cot14);
+                tong.Cot15 = data.Sum(it => it.Cot15);
+                tong.Cot16 = data.Sum(it => it.Cot16);
+                tong.Cot17 = data.Sum(it => it.Cot17);
+                tong.Cot18 = data.Sum(it => it.Cot18);
+                tong.Cot19 = data.Sum(it => it.Cot19);
+                tong.Cot20 = data.Sum(it => it.Cot20);
+                tong.Cot21 = data.Sum(it => it.Cot21);
+                tong.Cot22 = data.Sum(it => it.Cot22);
+                tong.Cot23 = data.Sum(it => it.Cot23);
+                tong.Cot24 = data.Sum(it => it.Cot24);
+                tong.Cot25 = data.Sum(it => it.Cot25);
+                tong.Cot26 = data.Sum(it => it.Cot26);
 
-            tong.Cot2 = "Tổng cộng";
-            tong.Cot3 = data.Sum(it => it.Cot3);
-            tong.Cot4 = data.Sum(it => it.Cot4);
-            tong.Cot5 = data.Sum(it => it.Cot5);
-            tong.Cot6 = data.Sum(it => it.Cot6);
-            tong.Cot7 = data.Sum(it => it.Cot7);
-            tong.Cot8 = data.Sum(it => it.Cot8);
-            tong.Cot9 = data.Sum(it => it.Cot9);
-            tong.Cot10 = data.Sum(it => it.Cot10);
-            tong.Cot11 = data.Sum(it => it.Cot11);
-            tong.Cot12 = data.Sum(it => it.Cot12);
-            tong.Cot13 = data.Sum(it => it.Cot13);
-            tong.Cot14 = data.Sum(it => it.Cot14);
-            tong.Cot15 = data.Sum(it => it.Cot15);
-            tong.Cot16 = data.Sum(it => it.Cot16);
-            tong.Cot17 = data.Sum(it => it.Cot17);
-            tong.Cot18 = data.Sum(it => it.Cot18);
-            tong.Cot19 = data.Sum(it => it.Cot19);
-            tong.Cot20 = data.Sum(it => it.Cot20);
-            tong.Cot21 = data.Sum(it => it.Cot21);
-            tong.Cot22 = data.Sum(it => it.Cot22);
-            tong.Cot23 = data.Sum(it => it.Cot23);
-            tong.Cot24 = data.Sum(it => it.Cot24);
-            tong.Cot25 = data.Sum(it => it.Cot25);
-            tong.Cot26 = data.Sum(it => it.Cot26);
+                data.Add(tong);
+            }
             
-            data.Add(tong);
             int i = 1;
             data.OrderBy(it => it.Cot3).ToList().ForEach(it => {
                 it.Cot1 = i;

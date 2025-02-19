@@ -31,9 +31,9 @@ namespace HoiNongDan.Web.Areas.NhanSu.Controllers
                     model = model.Where(it => it.MaDanhHieuKhenThuong == search.MaDanhHieuKhenThuong);
                 }
                 model = model.Include(it => it.CanBo).Include(it => it.DanhHieuKhenThuong).Include(it => it.HinhThucKhenThuong);
-                if (!String.IsNullOrEmpty(search.MaCanBo) && !String.IsNullOrWhiteSpace(search.MaCanBo))
+                if (!String.IsNullOrEmpty(search.SoCCCD) && !String.IsNullOrWhiteSpace(search.SoCCCD))
                 {
-                    model = model.Where(it => it.CanBo.MaCanBo == search.MaCanBo);
+                    model = model.Where(it => it.CanBo.SoCCCD == search.SoCCCD);
                 }
                 if (!String.IsNullOrEmpty(search.HoVaTen) && !String.IsNullOrWhiteSpace(search.HoVaTen))
                 {

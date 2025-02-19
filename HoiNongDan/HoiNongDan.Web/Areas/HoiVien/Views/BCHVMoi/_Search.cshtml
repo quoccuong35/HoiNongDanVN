@@ -14,17 +14,18 @@
         <tr>
             <th class="text-center" style="vertical-align: middle;" rowspan="2">@LanguageResource.NumberIndex</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">  Họ và tên</th>
-            <th colspan="2" class="text-center" style="vertical-align: middle;">Ngày tháng năm sinh</th>
+            <th colspan="2" class="text-center" style="vertical-align: middle;">Ngày tháng <br /> năm sinh</th>
             <th colspan="2" class="text-center" style="vertical-align: middle;">CMND/CCCD</th>
+            <th colspan="2" class="text-center" style="vertical-align: middle;">Đơn vị</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Hộ khẩu thường trú</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Nơi ở hiện nay</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Số điện thoại</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Đảng viên</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Dân tộc</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Tôn giáo</th>
-            <th rowspan="2" class="text-center" style="vertical-align: middle;">Trình độ học vấn</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Trình độ  <br /> học vấn</th>
             <th colspan="2" class="text-center" style="vertical-align: middle;">Trình độ</th>
-            <th rowspan="2" class="text-center" style="vertical-align: middle;">Ngày tháng năm vào Hội</th>
+            <th rowspan="2" class="text-center" style="vertical-align: middle;">Ngày tháng năm  <br /> vào Hội</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Nghề nghiệp hiện nay</th>
             <th colspan="2" class="text-center" style="vertical-align: middle;">Hội viên</th>
             <th rowspan="2" class="text-center" style="vertical-align: middle;">Số thẻ</th>
@@ -35,6 +36,12 @@
             <th class="text-center">Nữ</th>
             <th class="text-center">Số</th>
             <th class="text-center">Ngày cấp</th>
+            <th class="text-center">
+                Quận/Huyện
+            </th>
+            <th class="text-center">
+                Tên hội
+            </th>
             <th class="text-center">
                 Chuyên môn
             </th>
@@ -55,11 +62,13 @@
 
             <tr>
                 <td class="text-center">@item.STT</td>
-                <td class="text-center">@item.HoVaTen</td>
+                <td >@item.HoVaTen</td>
                 <td class="text-center">@item.Nam</td>
                 <td class="text-center">@item.Nu</td>
-                <td class="text-center">@item.SoCCCD</td>
+                <td >@item.SoCCCD</td>
                 <td class="text-center">@item.NgayCapSoCCCD</td>
+                <td>@item.TenQuanHuyen</td>
+                <td>@item.TenHoi</td>
                 <td >@item.HoKhauThuongTru</td>
                 <td >@item.NoiOHiennay</td>
                 <td >@item.SoDienThoai</td>

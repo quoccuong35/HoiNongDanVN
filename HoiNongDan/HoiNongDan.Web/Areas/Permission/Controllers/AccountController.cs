@@ -14,13 +14,18 @@ using System.Text.RegularExpressions;
 using System.Windows.Markup;
 using System.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Immutable;
+using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace HoiNongDan.Web.Areas.Permission.Controllers
 {
     [Area(ConstArea.Permission)]
     public class AccountController : BaseController
     {
-        public AccountController(AppDbContext context) : base(context) { }
+        public AccountController(AppDbContext context) : base(context) {
+           
+        }
         #region Index
         [HoiNongDanAuthorization]
         public IActionResult Index()
@@ -30,8 +35,9 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
         [HoiNongDanAuthorization]
         public IActionResult _Search(UserSearchVM userSearch)
         {
-
+            var users =  GetAllUserChildren(AccountId()!.Value);
             return ExecuteSearch(() => {
+                
                 var data = _context.Accounts.Include(it => it.AccountInRoleModels).AsQueryable();
                 if (!String.IsNullOrEmpty(userSearch.UserName))
                 {
@@ -41,12 +47,11 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 {
                     data = data.Where(it => it.Actived == userSearch.Actived);
                 }
-                if (!User.Identity.Name.ToLower().Equals("admin"))
+                if (!User.Identity!.Name!.ToLower().Equals("admin"))
                 {
                     // get nhom quyen
-                    Guid? accCountID = AccountId();
                     // khac quen add min 
-                    data = data.Where(it => it.CreatedAccountId == accCountID);
+                    data = data.Where(it => users.Contains(it.AccountId));
                 }
                 var accounts = data.ToList().Select(it => new UserVM
                 {
@@ -76,7 +81,8 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 TenQuanHuyen = it.QuanHuyen.TenQuanHuyen,
             }).OrderBy(it => it.TenQuanHuyen).ToList();
             if (!User.Identity!.Name!.ToLower().Equals("admin")) {
-                var listRole = _context.AccountInRoleModels.Where(it => it.AccountId == AccountId()).Select(it => it.RolesId).ToList();
+                var users = GetAllUserChildren(AccountId()!.Value);
+                var listRole = _context.AccountInRoleModels.Where(it => users.Contains(it.AccountId)).Select(it => it.RolesId).ToList();
                 roles = roles.Where(it => listRole.Contains(it.RolesId) || it.CreatedAccountId == AccountId()).ToList();
                 // Đia bàn hoạt động
                 var listDiaBan = _context.PhamVis.Where(it => it.AccountId == AccountId()).Select(it => it.MaDiabanHoatDong).ToList();
@@ -141,12 +147,14 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
             if (!User.Identity!.Name!.ToLower().Equals("admin"))
             {
                 Guid? accID = AccountId();
-                var listRole = _context.AccountInRoleModels.Where(it => it.AccountId == AccountId()).Select(it => it.RolesId).ToList();
+                var users = GetAllUserChildren(accID!.Value);
+                var listRole = _context.AccountInRoleModels.Where(it => users.Contains(it.AccountId)).Distinct().Select(it => it.RolesId).ToList();
                 roles = roles.Where(it => listRole.Contains(it.RolesId) || it.CreatedAccountId == AccountId()).ToList();
                 // Đia bàn hoạt động
                 var listDiaBan = _context.PhamVis.Where(it => it.AccountId == AccountId()).Select(it => it.MaDiabanHoatDong).ToList();
                 diaBans = diaBans.Where(it => listDiaBan.Contains(it.MaDiaBanHoiVien)).ToList();
-                data = _context.Accounts.SingleOrDefault(it => it.AccountId == id && it.CreatedAccountId == accID);
+               
+                data = _context.Accounts.SingleOrDefault(it => it.AccountId == id && users.Contains(it.AccountId));
             }
             List<UserRoles>  userRoles = roles.Select(it => new UserRoles
             {
@@ -211,7 +219,9 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 Account? editAcc = _context.Accounts.FirstOrDefault(x => x.AccountId == obj.AccountId);
                 if (!User.Identity!.Name!.ToLower().Equals("admin"))
                 {
-                    editAcc = _context.Accounts.SingleOrDefault(it => it.AccountId == obj.AccountId && it.CreatedAccountId == AccountId());
+                    Guid? accCountID = AccountId();
+                    var users = GetAllUserChildren(accCountID!.Value);
+                    editAcc = _context.Accounts.SingleOrDefault(it => it.AccountId == obj.AccountId && users.Contains(it.AccountId));
                 }
                 if (editAcc == null)
                 {
@@ -224,8 +234,13 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
                 }
                 else
                 {
+                    if (CheckExistAccountNameEdit(obj.UserName, obj.AccountId!.Value))
+                    {
+                        ModelState.AddModelError("UserName", "Tài khoản đã tồn tại. Không thể thêm");
+                    }
                     editAcc.Actived = obj.Actived;
                     editAcc.FullName = obj.FullName;
+                    editAcc.UserName = obj.UserName;
                     if (obj.AccountIDParent!.Count()>0)
                     {
                         editAcc.AccountIDParent = String.Join(";", obj.AccountIDParent!);
@@ -329,9 +344,31 @@ namespace HoiNongDan.Web.Areas.Permission.Controllers
             }
             return false;
         }
+        private bool CheckExistAccountNameEdit(string accountName,Guid id)
+        {
+            var account = _context.Accounts.Where(it => it.UserName.ToLower().Equals(accountName.ToLower()) && it.AccountId !=id);
+            if (account != null && account.Count() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
         private void ViewBagHelper(List<Guid>? AccountIDParent = null) {
             var accounts = _context.Accounts.Where(it => it.Actived == true && it.AccountId != AccountId()).Select(it => new { AccountIDParent = it.AccountId, FullName = it.FullName }).ToList();
             ViewBag.AccountIDParent = new MultiSelectList(accounts, "AccountIDParent", "FullName", AccountIDParent);
+        }
+        private List<Guid> GetAllUserChildren(Guid AccountId) {
+            List<Guid> users = new List<Guid>();
+            users.Add(AccountId);
+            var listUser = _context.Accounts.Where(it => it.AccountIDParent != null && it.AccountIDParent!.Contains(AccountId.ToString())).ToList();
+            if (listUser.Count() > 0)
+            {
+                foreach (var item in listUser)
+                {
+                    users.AddRange(GetAllUserChildren(item.AccountId));
+                }
+            }
+            return users;
         }
         #endregion Helper
     }

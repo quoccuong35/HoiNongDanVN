@@ -4,11 +4,11 @@ using HoiNongDan.DataAccess.Repository;
 using HoiNongDan.Extensions;
 using HoiNongDan.Models;
 using HoiNongDan.Models.Entitys.HoiVien;
-using HoiNongDan.Models.ViewModels.HoiVien;
 using HoiNongDan.Resources;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
@@ -578,115 +578,72 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         #region Helper
         [NonAction]
         private List<BanChapHanhCHDetail> LoadData(HoiVienSearchVM search) {
-            // var model = (from cb in _context.CanBos
-            //              join pv in _context.PhamVis on cb.MaDiaBanHoatDong equals pv.MaDiabanHoatDong
-            //              join hoivien_chihoi in _context.HoiVien_ChiHois on cb.IDCanBo equals hoivien_chihoi.IDHoiVien
-            //              join chihoi in _context.ChiHois on hoivien_chihoi.MaChiHoi equals chihoi.MaChiHoi
-            //              where pv.AccountId == AccountId()
-            //              && cb.IsHoiVien == true).Select(it => new{ hv= it.cb,chihoi= it.chihoi })
-            //.Include(it => it.DiaBanHoatDong)
-            //.ThenInclude(it => it!.PhuongXa)
-            //.ThenInclude(it => it!.QuanHuyen)
-            //.Include(it => it.ChucVu)
-            //.Include(it => it.DanToc)
-            //.Include(it => it.TonGiao)
-            //.Include(it => it.TrinhDoHocVan)
-            //.Include(it => it.TrinhDoChinhTri)
-            //.Include(it => it.ChiHoi)
-            //.Include(it => it.CoSo).AsQueryable();
-
-            var model = _context.HoiVien_ChiHois
-                 .Include(it => it.ChiHoi)
-                 .Include(it => it.HoiVien)
-                     .ThenInclude(it => it.DanToc)
-                 .Include(it => it.HoiVien)
-                     .ThenInclude(it => it.TonGiao)
-                  .Include(it => it.HoiVien)
-                     .ThenInclude(it => it.TrinhDoHocVan)
-                  .Include(it => it.HoiVien)
-                     .ThenInclude(it => it.TrinhDoChinhTri)
-                  .Include(it => it.HoiVien)
-                     .ThenInclude(it => it.ChucVu)
-                  .Include(it => it.HoiVien)
-                     .ThenInclude(it => it.TrinhDoHocVan)
-                 .Include(it => it.HoiVien)
-                     .ThenInclude(it => it.DiaBanHoatDong)
-                         .ThenInclude(it => it.QuanHuyen)
-                          .ThenInclude(it => it.PhuongXas).AsQueryable();
+            
             List<Guid> phamvis = _context.PhamVis.Where(it => it.AccountId == AccountId()).Select(it =>  it.MaDiabanHoatDong ).ToList() ;
 
+            var model = _context.CanBos.Where(it => phamvis.Contains(it.MaDiaBanHoatDong!.Value) && it.IsBanChapHanh == true)
+                .Include(it => it.DiaBanHoatDong)
+                    .ThenInclude(it => it!.QuanHuyen)
+                .Include(it => it.DiaBanHoatDong)
+                    .ThenInclude(it => it!.PhuongXa)
+                .Include(it => it.ChiHoi)
+                .Include(it => it.TrinhDoChinhTri)
+                .Include(it => it.TrinhDoHocVan)
+                .Include(it => it.DanToc)
+                .Include(it => it.ChucVu)
+                .Include(it => it.TonGiao).AsQueryable();
 
             if (!String.IsNullOrEmpty(search.HoVaTen))
             {
-                model = model.Where(it => it.HoiVien.HoVaTen.Contains(search.HoVaTen));
+                model = model.Where(it => it.HoVaTen.Contains(search.HoVaTen));
             }
-
+            if (search.MaChucVu != null)
+            {
+                model = model.Where(it => it.MaChucVu == search.MaChucVu);
+            }
             if (search.MaDiaBanHoiVien != null)
             {
-                model = model.Where(it => it.HoiVien.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
+                model = model.Where(it => it.MaDiaBanHoatDong == search.MaDiaBanHoiVien);
             }
             if (search.MaChiHoi != null)
             {
                 model = model.Where(it => it.MaChiHoi == search.MaChiHoi);
             }
 
-            if (!String.IsNullOrEmpty(search.MaCanBo))
+            if (!String.IsNullOrEmpty(search.SoCCCD))
             {
-                model = model.Where(it => it.HoiVien.MaCanBo == search.MaCanBo);
+                model = model.Where(it => it.SoCCCD == search.SoCCCD);
             }
             if (search.MaQuanHuyen != null)
             {
-                model = model.Where(it => it.HoiVien.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
+                model = model.Where(it => it.DiaBanHoatDong!.MaQuanHuyen == search.MaQuanHuyen);
             }
             if (!String.IsNullOrEmpty(search.TenPhuongXa))
             {
-                model = model.Where(it => it.HoiVien.DiaBanHoatDong!.PhuongXa!.TenPhuongXa.ToUpper() == search.TenPhuongXa || it.HoiVien.DiaBanHoatDong!.QuanHuyen!.TenQuanHuyen.ToUpper() == search.TenPhuongXa);
+                model = model.Where(it => it.DiaBanHoatDong!.PhuongXa!.TenPhuongXa.ToUpper() == search.TenPhuongXa || it.DiaBanHoatDong!.QuanHuyen!.TenQuanHuyen.ToUpper() == search.TenPhuongXa);
             }
-            int dd = model.Count();
-            //model = model.Where(it => it.HoiVien.IsBanChapHanh == true && phamvis.Contains(it.HoiVien.MaDiaBanHoatDong.Value));
-            var data = model.Select(it => new 
-            {
-                MaDiaBanHoatDong = it.HoiVien.MaDiaBanHoatDong.Value,
-                IDCanBo = it.HoiVien.IDCanBo,
-                HoVaTen = it.HoiVien.HoVaTen,
-                NgaySinh_Nam = it.HoiVien.GioiTinh == GioiTinh.Nam ? it.HoiVien.NgaySinh : "",
-                NgaySinh_Nu = it.HoiVien.GioiTinh == GioiTinh.Nữ ? it.HoiVien.NgaySinh : "",
-                MaCanBo = it.HoiVien.MaCanBo,
-                SoCCCD = it.HoiVien.SoCCCD,
-                ChucVu = it.HoiVien.ChucVu!.TenChucVu,
-                ChiHoi = it.ChiHoi.TenChiHoi,
-                Huyen = it.HoiVien.DiaBanHoatDong!.QuanHuyen.TenQuanHuyen,
-                Xa = it.HoiVien.DiaBanHoatDong.PhuongXa.TenPhuongXa,
-                DanToc = it.HoiVien.DanToc!.TenDanToc,
-                TonGiao = it.HoiVien.TonGiao!.TenTonGiao,
-                TrinhDoChinhTri = it.HoiVien.TrinhDoChinhTri!.TenTrinhDoChinhTri,
-                TrinhDoHocVan = it.HoiVien.TrinhDoHocVan.TenTrinhDoHocVan,
-                NgayvaoDangDuBi = it.HoiVien.NgayvaoDangDuBi,
-                NgayVaoDangChinhThuc = it.HoiVien.NgayVaoDangChinhThuc,
-                QueQuan = it.HoiVien.QueQuan
-            }).ToList();
 
-            var data1 = data.Where(it => phamvis.Contains(it.MaDiaBanHoatDong)).Select(it=>new BanChapHanhCHDetail {
+            var data = model.OrderBy(it=>it.CreatedTime).Select(it => new BanChapHanhCHDetail
+            {
                 IDCanBo = it.IDCanBo,
                 HoVaTen = it.HoVaTen,
-                NgaySinh_Nam = it.NgaySinh_Nam,
-                NgaySinh_Nu = it.NgaySinh_Nam,
+                NgaySinh_Nam = it.GioiTinh == GioiTinh.Nam ? it.NgaySinh : "",
+                NgaySinh_Nu = it.GioiTinh == GioiTinh.Nữ ? it.NgaySinh : "",
                 MaCanBo = it.MaCanBo,
                 SoCCCD = it.SoCCCD,
-                ChucVu = it.ChucVu,
-                ChiHoi = it.ChiHoi,
-                Huyen = it.Huyen,
-                Xa = it.Xa,
-                DanToc = it.DanToc,
-                TonGiao = it.TonGiao,
-                TrinhDoChinhTri = it.TrinhDoChinhTri,
-                TrinhDoHocVan = it.TrinhDoHocVan,
+                ChucVu = it.ChucVu!.TenChucVu,
+                ChiHoi = it.ChiHoi!.TenChiHoi,
+                Huyen = it.DiaBanHoatDong!.QuanHuyen.TenQuanHuyen,
+                Xa = it.DiaBanHoatDong.PhuongXa.TenPhuongXa,
+                DanToc = it.DanToc!.TenDanToc,
+                TonGiao = it.TonGiao!.TenTonGiao,
+                TrinhDoChinhTri = it.TrinhDoChinhTri!.TenTrinhDoChinhTri,
+                TrinhDoHocVan = it.TrinhDoHocVan.TenTrinhDoHocVan,
                 NgayvaoDangDuBi = it.NgayvaoDangDuBi,
                 NgayVaoDangChinhThuc = it.NgayVaoDangChinhThuc,
                 QueQuan = it.QueQuan
-            }).ToList() ;
-            
-            return data1;
+            }).OrderBy(it => it.Huyen).OrderBy(it => it.Xa).ToList();
+            return data;
         }
         private void CreateViewBagSearch(string? maQuanHuyen = null, Guid? maDiaBan = null, Guid? maChiHoi = null)
         {
@@ -696,6 +653,9 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
             ViewBag.MaQuanHuyen = fnViewBag.QuanHuyen(idAc: AccountId(), value: maQuanHuyen);
 
             ViewBag.MaChiHoi = fnViewBag.ChiHoi(value: maChiHoi);
+
+            var chucVus = _context.ChucVus.Where(it => it.HoiVien == true).Select(it => new { it.MaChucVu, it.TenChucVu }).ToList();
+            ViewBag.MaChucVu = new SelectList(chucVus, "MaChucVu", "TenChucVu");
         }
         #endregion Helper
     }

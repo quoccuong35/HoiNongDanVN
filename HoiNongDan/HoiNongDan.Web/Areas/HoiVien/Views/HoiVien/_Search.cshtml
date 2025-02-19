@@ -32,9 +32,6 @@
             <th class="text-center" name="NgayThamGiaHDND">@Html.DisplayNameFor(p => p.NgayThamGiaHDND)</th>
             <th class="text-center" name="VaiTro">@Html.DisplayNameFor(p => p.VaiTro)</th>
             <th class="text-center" name="VaiTroKhac">@Html.DisplayNameFor(p => p.VaiTroKhac)</th>
-@*             <th class="text-center" name="HoNgheo">@Html.DisplayNameFor(p => p.HoNgheo)</th>
-            <th class="text-center" name="CanNgheo">@Html.DisplayNameFor(p => p.CanNgheo)</th>
-            <th class="text-center" name="GiaDinhChinhSach">@Html.DisplayNameFor(p => p.GiaDinhChinhSach)</th> *@
             <th class="text-center" name="GiaDinhThuocDienKhac">@Html.DisplayNameFor(p => p.GiaDinhThuocDienKhac)</th>
             <th class="text-center" name="NgheNghiepHienNay">@Html.DisplayNameFor(p => p.NgheNghiepHienNay)</th>
             <th class="text-center" name="Loai_DV_SX_ChN">@Html.DisplayNameFor(p => p.Loai_DV_SX_ChN)</th>
@@ -58,10 +55,57 @@
             <th class="text-center" name="HoTrovayVon">@Html.DisplayNameFor(p => p.HoTrovayVon)</th>
             <th class="text-center" name="HoTroKhac">@Html.DisplayNameFor(p => p.HoTroKhac)</th>
             <th class="text-center" name="HoTroDaoTaoNghe">@Html.DisplayNameFor(p => p.HoTroDaoTaoNghe)</th>
-@*             <th class="text-center" name="KKAnToanThucPham">@Html.DisplayNameFor(p => p.KKAnToanThucPham)</th>
-            <th class="text-center" name="DKMauNguoiNongDanMoi">@Html.DisplayNameFor(p => p.DKMauNguoiNongDanMoi)</th> *@
             <th class="text-center" name="GhiChu">@Html.DisplayNameFor(p => p.GhiChu)</th>
-            
+        </tr>
+        <tr>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+            <th><input type="text" placeholder="Search Name" /></th>
+
         </tr>
        
     </thead>
@@ -111,21 +155,6 @@
                 <td class="align-middle">@item.NgayThamGiaHDND</td>
                 <td class="align-middle">@item.VaiTro</td>
                 <td class="align-middle">@item.VaiTroKhac</td>
-                @* <td class="align-middle">
-                    @{
-                        value = item.HoNgheo == true ? "X" : "";
-                    }@value
-                </td>
-                <td class="align-middle">
-                    @{
-                        value = item.CanNgheo == true ? "X" : "";
-                    }@value
-                </td>
-                <td class="align-middle">
-                    @{
-                        value = item.GiaDinhChinhSach == true ? "X" : "";
-                    }@value
-                </td> *@
                 <td>@item.GiaDinhThuocDienKhac</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.NgheNghiepHienNay)</td>
                 <td class="align-middle">@Html.DisplayFor(p => item.Loai_DV_SX_ChN)</td>
@@ -149,16 +178,6 @@
                 <td>@item.HoTrovayVon</td>
                 <td>@item.HoTroKhac</td>
                 <td>@item.HoTroDaoTaoNghe</td>
-               @*  <td class="align-middle">
-                    @{
-                        value = item.KKAnToanThucPham == true ? "X" : "";
-                    }@value
-                </td>
-                <td class="align-middle">
-                    @{
-                        value = item.DKMauNguoiNongDanMoi == true ? "X" : "";
-                    }@value
-                </td> *@
                 <td>@item.GhiChu</td>
             </tr>
         }

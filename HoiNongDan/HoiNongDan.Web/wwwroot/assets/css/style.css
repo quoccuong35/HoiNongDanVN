@@ -36316,7 +36316,7 @@ table.table-bordered.dataTable {
 
     table.table-bordered.dataTable th,
     table.table-bordered.dataTable td {
-        border-bottom-width: 0px;
+        border-bottom-width: 1px;
     }
 
 div.dataTables_scrollHead table.table-bordered {

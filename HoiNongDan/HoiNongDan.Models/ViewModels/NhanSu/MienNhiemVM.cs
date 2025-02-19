@@ -68,21 +68,34 @@ namespace HoiNongDan.Models
             return obj;
         }
     }
-    public class MienNhiemDetail : MienNhiemVM
+    public class MienNhiemDetail 
     {
+        public Guid IDQuaTrinhMienNhiem { get; set; }
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaCanBo")]
         public string MaCanBo { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         public string? HoVaTen { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoQuyetDinh")]
+
+        public String? SoQuyetDinh { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgayQuyetDinh")]
+        public String? NgayQuyetDinh { get; set; }
+
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NguoiKy")]
+        public String? NguoiKy { get; set; }
+
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "CoSo")]
-        public String TenCoSo { get; set; }
+        public String? TenCoSo { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "Department")]
-        public string TenDonVi { get; set; }
+        public string? TenDonVi { get; set; }
 
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "ChucVu")]
-        public String TenChucVu { get; set; }
+        public String? TenChucVu { get; set; }
+        public String? GhiChu { get; set; }
     }
 }

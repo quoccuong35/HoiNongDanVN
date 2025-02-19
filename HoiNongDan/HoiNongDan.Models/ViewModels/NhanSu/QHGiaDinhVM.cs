@@ -25,7 +25,7 @@ namespace HoiNongDan.Models
         public string? NgheNghiep { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NoiLamVien")]
-        public string? NoiLamVien { get; set; }
+        public string? NoiLamViec { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaChi")]
         public string? DiaChi { get; set; }
@@ -50,16 +50,16 @@ namespace HoiNongDan.Models
             item.HoTen = this.HoTen;
             item.NgaySinh = this.NgaySinh;
             item.NgheNghiep = this.NgheNghiep;
-            item.NoiLamVien = this.NoiLamVien;
+            item.NoiLamViec = this.NoiLamViec;
             item.DiaChi = this.DiaChi;
             item.GhiChu = this.GhiChu;
             if (this.NhanSu != null && this.NhanSu.IdCanbo != null)
             {
-                item.IDCanBo = this.NhanSu.IdCanbo;
+                item.IDCanBo = this.NhanSu.IdCanbo.Value;
             }
             else
             {
-                item.IDHoiVien = this.HoiVien.IdCanbo;
+                item.IDCanBo = this.HoiVien.IdCanbo.Value;
             }
             return item;
         }

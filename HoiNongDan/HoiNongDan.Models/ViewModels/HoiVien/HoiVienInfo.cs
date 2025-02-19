@@ -15,7 +15,7 @@ namespace HoiNongDan.Models
         public string? MaCanBo { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
-        public string HoVaTen { get; set; }
+        public string? HoVaTen { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NgaySinh")]
 

@@ -21,7 +21,7 @@ namespace HoiNongDan.Models
 
         public decimal? HeSoChucVu { get; set; }
         [MaxLength(250)]
-        public string NguoiKy { get; set; }
+        public string? NguoiKy { get; set; }
         public String? GhiChu { get; set; }
 
         public Guid IdCoSo { get; set; }

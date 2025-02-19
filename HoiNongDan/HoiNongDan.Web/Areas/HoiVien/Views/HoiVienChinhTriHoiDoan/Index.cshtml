@@ -39,14 +39,12 @@
                                 @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
                             <div class="col-md-3">
-                                <label asp-for="MaDoanTheChinhTri_HoiDoan"></label>
-                                <select asp-for="MaDoanTheChinhTri_HoiDoan" asp-items="@ViewBag.MaDoanTheChinhTri_HoiDoan" class="form-control select2-show-search form-select">
-                                    <option selected>@LanguageResource.Dropdownlist_All-</option>
-                                </select>
+                                <label asp-for="TenDoanThe"></label>
+                                <input class="form-control" asp-for="TenDoanThe" />
                             </div>
-                            <div class="col-md-1">
-                                <label asp-for="MaHoiVien"></label>
-                                <input class="form-control" asp-for="MaHoiVien" />
+                            <div class="col-md-2">
+                                <label asp-for="SoCCCD"></label>
+                                <input class="form-control" asp-for="SoCCCD" />
                             </div>
                             <div class="col-md-2">
                                 <label asp-for="HoVaTen"></label>

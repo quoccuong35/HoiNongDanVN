@@ -19,7 +19,10 @@
             </div>
         </div>
         <div class="d-flex px-2">
-            @HtmlExtensions.CreateButton(CurrentArea,CurrentController,action:"Create",listRoles:listRoles)
+            
+            @HtmlExtensions.ExportButton(CurrentArea, CurrentController, listRoles: listRoles)
+            @HtmlExtensions.ImportButton(CurrentArea, CurrentController, listRoles: listRoles)
+            @HtmlExtensions.CreateButton(CurrentArea, CurrentController, action: "Create", listRoles: listRoles)
         </div>
     </div>
     <!-- PAGE-HEADER END -->
@@ -32,32 +35,35 @@
                 <div class="splitter-body">
                     <form method="get" id="frmSearch" asp-action="_Search">
                         <div class="row my-2">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="MaQuanHuyen"></label>
                                 @Html.DropDownList("MaQuanHuyen", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="MaDiaBanHoiVien"></label><span class="text-red">*</span>
                                 @Html.DropDownList("MaDiaBanHoiVien", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label asp-for="MaDanhHieuKhenThuong"></label><span class="text-red">*</span>
                                 @Html.DropDownList("MaDanhHieuKhenThuong", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
                             </div>
-                           
                             <div class="col-md-2">
-                                <label >Mã hội viên</label>
-                                <input type="text" asp-for="MaCanBo" class="form-control">
+                                <label asp-for="MaCapKhenThuong"></label><span class="text-red">*</span>
+                                @Html.DropDownList("MaCapKhenThuong", null, LanguageResource.Dropdownlist_Menu, new { @class = "form-control select2-show-search form-select" })
+                            </div>
+                            <div class="col-md-2">
+                                <label asp-for="SoCCCD"></label>
+                                <input type="text" asp-for="SoCCCD" class="form-control">
                             </div>
                             <div class="col-md-2">
                                 <label asp-for="HoVaTen"></label>
                                 <input type="text" asp-for="HoVaTen" class="form-control">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 <label asp-for="TuNam"></label>
                                 <input type="number" asp-for="TuNam" step="1" class="form-control">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-1">
                                 <label asp-for="DenNam"></label>
                                 <input type="number" asp-for="DenNam" step="1" class="form-control">
                             </div>

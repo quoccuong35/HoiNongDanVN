@@ -4,6 +4,13 @@
     <input asp-for="ID" hidden />
     <div class="col-md-3">
         <div class="form-group">
+            <label asp-for="TenTruong"></label>
+            <input asp-for="TenTruong" class="form-control">
+            <span asp-validation-for="TenTruong" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
             <label asp-for="MaHinhThucDaoTao"></label><span class="text-red">*</span>
             <select asp-for="MaHinhThucDaoTao" asp-items="@ViewBag.MaHinhThucDaoTao" class="form-control select2-show-search form-select">
                 <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
@@ -11,7 +18,7 @@
             <span asp-validation-for="MaHinhThucDaoTao" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group">
             <label asp-for="MaLoaiBangCap"></label><span class="text-red">*</span>
             <select asp-for="MaLoaiBangCap" asp-items="@ViewBag.MaLoaiBangCap" class="form-control select2-show-search form-select">
@@ -20,14 +27,14 @@
             <span asp-validation-for="MaLoaiBangCap" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group">
             <label asp-for="TuNgay"></label>
             <input asp-for="TuNgay" class="form-control">
             <span asp-validation-for="TuNgay" class="text-danger"></span>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group">
             <label asp-for="DenNgay"></label>
             <input asp-for="DenNgay" class="form-control">

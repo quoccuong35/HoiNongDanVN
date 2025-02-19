@@ -43,13 +43,13 @@
                         <input asp-for="Id" hidden />
                         @Html.AntiForgeryToken()
                         <div class="row">
-                           @*  <div class="col-md-3">
-                                <label asp-for="IdCoSo"></label>
-                                <select asp-for="IdCoSo" asp-items="@ViewBag.IdCoSo" class="form-control select2-show-search form-select">
+                            <div class="col-md-3">
+                                <label asp-for="IdParent"></label>
+                                <select asp-for="IdParent" asp-items="@ViewBag.IdParent" class="form-control select2-show-search form-select">
                                     <option disabled selected>@LanguageResource.Dropdownlist_Menu-</option>
                                 </select>
-                                <span asp-validation-for="IdCoSo" class="text-danger"></span>
-                            </div> *@
+                                <span asp-validation-for="IdParent" class="text-danger"></span>
+                            </div>
                             <div class="col-md-3">
                                 <label asp-for="Code"></label><span class="text-red">*</span>
                                 <input asp-for="Code" class="form-control" />

@@ -576,7 +576,7 @@ namespace Microsoft.AspNetCore.Html
         {
             string CurrentUrl = GetCurrentUrl(areaName, controllerName);
             string roles = controllerName + ":" + ConstFunction.Print;
-            //bool isHasPermission = Function.GetPermission(listRoles, roles);
+           // bool isHasPermission = Function.GetPermission(listRoles, roles);
             bool isHasPermission = true;
             if (isHasPermission)
             {

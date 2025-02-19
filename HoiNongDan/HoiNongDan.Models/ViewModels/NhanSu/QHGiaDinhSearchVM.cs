@@ -18,8 +18,8 @@ namespace HoiNongDan.Models
         public Guid? MaDiaBanHoiVien { get; set; }
 
 
-        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "MaCanBo")]
-        public string MaCanBo { get; set; }
+        [Display(ResourceType = typeof(Resources.LanguageResource), Name = "SoCCCD")]
+        public string SoCCCD { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "FullName")]
         public string? HoVaTen { get; set; }
@@ -49,7 +49,7 @@ namespace HoiNongDan.Models
         public string? NgheNghiep { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "NoiLamVien")]
-        public string? NoiLamVien { get; set; }
+        public string? NoiLamViec { get; set; }
 
         [Display(ResourceType = typeof(Resources.LanguageResource), Name = "DiaChi")]
         public string? DiaChi { get; set; }

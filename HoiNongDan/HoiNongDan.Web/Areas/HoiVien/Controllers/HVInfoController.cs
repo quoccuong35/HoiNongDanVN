@@ -21,20 +21,20 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
                 {
                     if (String.IsNullOrEmpty(maHV))
                     {
-                        ModelState.AddModelError("MaCanBo", "Chưa nhập mã hội viên");
+                        ModelState.AddModelError("MaCanBo", "Chưa nhập Mã hội viên / Số CCCD ");
                     }
                     else
                     {
                         var phamVis = Function.GetPhamVi(AccountId: AccountId()!.Value, _context: _context);
-                        var hoivien = _context.CanBos.Where(it => it.MaCanBo == maHV && phamVis.Contains(it.MaDiaBanHoatDong!.Value) && it.IsHoiVien == true);
+                        var hoivien = _context.CanBos.Where(it =>phamVis.Contains(it.MaDiaBanHoatDong!.Value) && it.IsHoiVien == true && (it.SoCCCD == maHV || it.MaCanBo == maHV ));
                         if (hoivien == null || hoivien!.Count() ==0)
                         {
-                            ModelState.AddModelError("MaCanBo", "Không tìm thấy thội viên có thông tin " + maHV);
-                            HoiVien.Error = "Không tìm thấy thội viên có thông tin " + maHV;
+                            ModelState.AddModelError("MaCanBo", "Không tìm thấy Mã hội viên / Số CCCD " + maHV);
+                            HoiVien.Error = "Không tìm thấy Mã hội viên / Số CCCD " + maHV;
                         }
                         else if (hoivien.Count() > 2) 
                         {
-                            ModelState.AddModelError("MaCanBo", "Có 2 thông tin hội viên không chọn được");
+                            ModelState.AddModelError("MaCanBo", "Có 2 thông tin hội viên cùng Mã hội viên / Số CCCD ");
                         }
                         else
                         {
@@ -52,6 +52,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
 
                         }
                     }
+                    
                     return PartialView("_HVThongTin", HoiVien);
                 }
                 catch (Exception ex)
@@ -121,7 +122,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HttpGet]
         public IActionResult CheckMaDinhDanh(string maDinhDanh,Guid? idHoiVien)
         {
-            var checkExist = _context.CanBos.Where(it => it.MaDinhDanh == maDinhDanh);
+            var checkExist = _context.CanBos.Where(it => it.MaDinhDanh == maDinhDanh && it.IsHoiVien == true && it.TuChoi != true && it.isRoiHoi != true);
             if (idHoiVien != null && checkExist.Where(it => it.IDCanBo != idHoiVien.Value).Count() > 0)
             {
                 return Json(new
@@ -153,7 +154,7 @@ namespace HoiNongDan.Web.Areas.HoiVien.Controllers
         [HttpGet]
         public IActionResult CheckSoCCCD(string soCCCD, Guid? idHoiVien)
         {
-            var checkExist = _context.CanBos.Where(it => it.SoCCCD == soCCCD);
+            var checkExist = _context.CanBos.Where(it => it.SoCCCD == soCCCD && it.IsHoiVien == true && it.TuChoi != true && it.isRoiHoi != true);
             if (idHoiVien != null && checkExist.Where(it => it.IDCanBo != idHoiVien.Value).Count() > 0)
             {
                 return Json(new

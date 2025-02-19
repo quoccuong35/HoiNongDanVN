@@ -1,29 +1,36 @@
 ﻿
 var table;
-var MaCanBo = "", HoVaTen = "", MaQuanHuyen = "", MaDiaBanHoiVien = "";
+var MaCanBo = "", HoVaTen = "", MaQuanHuyen = "", MaDiaBanHoiVien = "", Loai = "", TenChiHoi = "", RoiHoi = "";
 //load default and set event
 $(function () {
     LoadThongTin();
-  
+    Selected();
     $('#dt-hoivien tbody').on('dblclick', 'tr', function () {
         var row = table.row(this).data();
-        let link = '/HoiVien/HoiVien/Edit/' + row['idCanBo'];
+        let link = '/HoiVien/HoiVien/View/' + row['idCanBo'];
         window.open(link, '_blank').focus();
     });
 });
 $('.btn-print').on('click', function () {
     var lid = [];
-    $('#data-list tbody tr.selected').each(function () {
+    $('#dt-hoivien tbody tr.selected').each(function () {
         lid.push(this.id);
     });
-    var formData = {};
-    formData.lid = lid;
+  
     if (lid.length == 0) {
         toastr.info('Chưa chọn thông tin hội viên cần in thẻ');
         return;
     }
+    var formData = {};
+    formData.lid = lid;
     ShowInTheHoiVien(formData);
 });
+Selected = function () {
+    $('#dt-hoivien').on('click', 'tr', function () {
+        $(this).toggleClass('selected');
+        //console.log(this);
+    });
+}
 
 $("select#MaDiaBanHoiVien").change(function () {
     let maHoiNongDan = $(this).val();
@@ -39,8 +46,9 @@ $("select#MaDiaBanHoiVien").change(function () {
 })
 function ShowInTheHoiVien(formData) {
     toastr.clear();
+    formData.__RequestVerificationToken = $("input[name='__RequestVerificationToken']").val();
     $.ajax({
-        type: "POST",
+        type: "Post",
         url: "/HoiVien/HoiVien/Print",
         data: formData,
         success: function (jsonData) {
@@ -84,6 +92,7 @@ function LoadThongTin() {
                 scrollCollapse: false,
                 scrollX: true,
                 destroy: true,
+                
                 /*            scrollY: height,*/
                 iDisplayLength: 10,
                 order: [],
@@ -92,20 +101,23 @@ function LoadThongTin() {
                     emptyTable: "Không có dữ liệu",
                     search: ""
                 },
+                'createdRow': function (row, data, dataIndex) {
+                    $(row).attr('id', data['idCanBo']);
+                },
                 columns: [
                     { data: null },
-                    { data: 'tenDiaBanHoatDong' },
+                  
                     {
                         data: "maCanBo"
-                        //render: function (data, type, row) {
-                        //    let link = '/HoiVien/HoiVien/Edit/' + row['idCanBo'];
-                        //    return '<a href="' + link + '" target="_blank" >' + data + '</a>';
-                        //}
                     },
                     { data: "hoVaTen" },
                     { data: "ngaySinh" },
                     { data: "gioiTinh" },
                     { data: "soCCCD" },
+                    { data: 'chucVu' },
+                    { data: 'tenDiaBanHoatDong' },
+                    { data: "chiHoi" },
+                    { data: "toHoi" },
                     { data: "hoKhauThuongTru" },
                     { data: "choOHienNay" },
                     { data: "soDienThoai" },
@@ -128,9 +140,7 @@ function LoadThongTin() {
                     { data: "soLuong" },
                     { data: "dienTich_QuyMo" },
                     { data: "thamGia_SH_DoanThe_HoiDoanKhac" },
-                    { data: "thamGia_SH_DoanThe_HoiDoanKhac" },
                     { data: "thamGia_CLB_DN_MH_HTX_THT" },
-                    { data: "thamGia_THNN_CHNN" },
                     { data: "hoiVienNongCot" },
                     { data: "hoiVienUuTuNam" },
                     { data: "hoiVienDanhDu" },
@@ -148,8 +158,8 @@ function LoadThongTin() {
                     { data: "hoTroKhac" },
                     { data: "hoTroDaoTaoNghe" },
                     { data: "ghiChu" },
-
-                ]
+                ],
+               
             });
             table.on('order.dt search.dt', function () {
                 table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
@@ -174,6 +184,15 @@ function LoadThongTin() {
             if (phuongXa.value != "") {
                 phuongXa.value = "";
             }
+
+            $('#dt-hoivien_wrapper thead tr:eq(0) th input').on('keyup change', function () {
+                if (table.column($(this).parent().index()).search(this.value) !== this.value) {
+                    table
+                        .column($(this).parent().index())
+                        .search(this.value)
+                        .draw();
+                }
+            });
         },
         error: function (xhr, status, error) {
             $btn.toggleClass("btn-loading");
@@ -181,6 +200,29 @@ function LoadThongTin() {
         }
     });
 }
+function tableSearch(value, index) {
+    if (table.column($(this).parent().index()).search(value) !== value) {
+        table
+            .column($(this).parent().index())
+            .search(value)
+            .draw();
+    }
+}
+function debounce(func, delay) {
+    let timeoutId;
+
+    return function (...args) {
+        // Clear the previous timeout
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        // Set a new timeout
+        timeoutId = setTimeout(() => {
+            func.apply(this, args); // Call the original function with the this context and the provided arguments
+        }, delay);
+    };
+}
+const debouncedLog = debounce(tableSearch, 600);
 function AddButtonLoad() {
     const pagination = document.getElementById("dt-hoivien_paginate");
     const btn = document.getElementById("btn-loadthem");
@@ -214,6 +256,9 @@ function LoadThem() {
         search.HoVaTen = $("#HoVaTen").val();
         search.MaQuanHuyen = $("#MaQuanHuyen").val();
         search.MaDiaBanHoiVien = $("#MaDiaBanHoiVien").val();
+        search.Loai = Loai;
+        search.RoiHoi = RoiHoi;
+        search.TenChiHoi = TenChiHoi;
         let page = document.querySelector(".paginate_button.page-item.active>a").textContent;
       
         $.ajax({
@@ -248,11 +293,34 @@ function CheckSearchChange() {
     var _hovaten = $("#HoVaTen").val();
     var _maquanhuyen = $("#MaQuanHuyen").val();
     var _diabanhoatdong = $("#MaDiaBanHoiVien").val();
-    if (_macanbo != MaCanBo || _hovaten != HoVaTen || _maquanhuyen != MaQuanHuyen || _diabanhoatdong != MaDiaBanHoiVien) {
+    var _Loai =  "",_RoiHoi ="";
+    const radios = document.getElementsByName('Loai');
+    const roHOi = document.getElementsByName('RoiHoi');
+
+    // Loop through the radio buttons
+    let selectedValue;
+    for (const radio of radios) {
+        if (radio.checked) {
+            _Loai = radio.value; // Get the value of the checked radio
+            break; // Exit the loop once the checked radio is found
+        }
+    }
+    for (const radio of roHOi) {
+        if (radio.checked) {
+            _RoiHoi = radio.value; // Get the value of the checked radio
+            break; // Exit the loop once the checked radio is found
+        }
+    }
+    var _TenChiHoi = $("#TenChiHoi").val();
+    if (_macanbo != MaCanBo || _hovaten != HoVaTen || _maquanhuyen != MaQuanHuyen
+        || _diabanhoatdong != MaDiaBanHoiVien || _Loai != Loai || _TenChiHoi != TenChiHoi || _RoiHoi != RoiHoi) {
         MaCanBo = _macanbo;
         HoVaTen = _hovaten;
         MaQuanHuyen = _maquanhuyen;
         MaDiaBanHoiVien = _diabanhoatdong;
+        Loai = _Loai;
+        TenChiHoi = _TenChiHoi;
+        RoiHoi = _RoiHoi;
         return true;
     }
       
@@ -337,7 +405,7 @@ $(document).on("click", "#btn-importExcel", function () {
         success: function (jsonData) {
             $btn.toggleClass("btn-loading");
             if (jsonData.success == true) {
-                //formData[0].reset();
+
                 let html = '<div class="alert alert-success">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>' +
                     ' <span class=""><svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" viewBox="0 0 24 24"><path fill="#13bfa6" d="M10.3125,16.09375a.99676.99676,0,0,1-.707-.293L6.793,12.98828A.99989.99989,0,0,1,8.207,11.57422l2.10547,2.10547L15.793,8.19922A.99989.99989,0,0,1,17.207,9.61328l-6.1875,6.1875A.99676.99676,0,0,1,10.3125,16.09375Z" opacity=".99"></path><path fill="#71d8c9" d="M12,2A10,10,0,1,0,22,12,10.01146,10.01146,0,0,0,12,2Zm5.207,7.61328-6.1875,6.1875a.99963.99963,0,0,1-1.41406,0L6.793,12.98828A.99989.99989,0,0,1,8.207,11.57422l2.10547,2.10547L15.793,8.19922A.99989.99989,0,0,1,17.207,9.61328Z"></path></svg></span>' +
@@ -353,7 +421,6 @@ $(document).on("click", "#btn-importExcel", function () {
                 }, 3000);
             }
             else if (jsonData.success == false) {
-                //formData[0].reset();
                 let html = '<div class="alert alert-danger">' +
                     '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">×</button>' +
                     '<span class=""><svg xmlns="http://www.w3.org/2000/svg" height="40" width="40" viewBox="0 0 24 24"><path fill="#f07f8f" d="M20.05713,22H3.94287A3.02288,3.02288,0,0,1,1.3252,17.46631L9.38232,3.51123a3.02272,3.02272,0,0,1,5.23536,0L22.6748,17.46631A3.02288,3.02288,0,0,1,20.05713,22Z"></path><circle cx="12" cy="17" r="1" fill="#e62a45"></circle><path fill="#e62a45" d="M12,14a1,1,0,0,1-1-1V9a1,1,0,0,1,2,0v4A1,1,0,0,1,12,14Z"></path></svg></span>' +
@@ -383,7 +450,6 @@ $(document).on("click", "#btn-importExcel", function () {
     });
 });
 $('#modalImport').on('hidden.bs.modal', function (e) {
-    /*document.parentElement.getElementById("importexcelfile").value = "";*/
     $("#iframe-import").html("");
 })
 $(document).on("click", ".btn-exporttoexcel", function () {
